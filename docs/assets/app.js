@@ -340,6 +340,17 @@ function bindUI() {
     $('#scope-banner').hidden = true;
   });
 
+  // Export menu — wire each format button
+  $$('.export-opt').forEach(b => b.addEventListener('click', (e) => {
+    e.stopPropagation();
+    runExport(b.dataset.format, b);
+  }));
+  // Close the dropdown when clicking elsewhere
+  document.addEventListener('click', (e) => {
+    const menu = $('#export-menu');
+    if (menu.open && !menu.contains(e.target)) menu.open = false;
+  });
+
   // Copy permanent link to current search
   $('#copy-link').addEventListener('click', async () => {
     encodeUrlState();   // flush pending updates immediately
@@ -395,6 +406,171 @@ function scopeCommitteeSet(scope) {
   return new Set(state.facets.committees
     .filter(c => scope === 'all' ? true : scope === 'gc' ? !isSp(c.value) : isSp(c.value))
     .map(c => c.value));
+}
+
+// ─────────── Export ───────────
+// Exports always reflect the current filtered/searched results, never the whole corpus.
+
+function buildExportRows() {
+  return state.results.map(({ p }, idx) => {
+    const doc = state.documents.get(p.docId);
+    return {
+      rank: idx + 1,
+      type: p.type,
+      doc_id: p.docId,
+      doc_name: doc?.name ?? '',
+      doc_short_name: doc?.nameShort ?? '',
+      signature: doc?.signature ?? '',
+      committee: p.committee,
+      committees: (p.committees || []).join(' · '),
+      year: p.year ?? '',
+      adoption_date: doc?.adoptionDate ?? '',
+      mandate_holder: doc?.mandate ?? '',
+      paragraph_id: p.id,
+      paragraph_n: p.n ?? '',
+      paragraph_text: p.text,
+      labels: (p.labels || []).join('; '),
+      link: doc?.link ?? '',
+    };
+  });
+}
+
+function timestampSlug() {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}`;
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+}
+
+function csvEscape(v) {
+  const s = String(v ?? '');
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function exportCsv(rows) {
+  if (!rows.length) return;
+  const headers = Object.keys(rows[0]);
+  const lines = [headers.join(',')];
+  for (const r of rows) lines.push(headers.map(h => csvEscape(r[h])).join(','));
+  // Prepend BOM so Excel detects UTF-8 correctly when opening directly.
+  const blob = new Blob(['﻿', lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+  downloadBlob(blob, `geneva-reporter-${timestampSlug()}.csv`);
+}
+
+function exportJson(rows) {
+  const payload = {
+    generatedAt: new Date().toISOString(),
+    source: 'https://lszoszk.github.io/generalcomments/',
+    query: state.query,
+    scope: state.scope,
+    filters: {
+      committees: [...state.filters.committees],
+      labels: [...state.filters.labels],
+      labelsMode: state.filters.labelsMode,
+      yearMin: state.filters.yearMin,
+      yearMax: state.filters.yearMax,
+    },
+    count: rows.length,
+    results: rows,
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  downloadBlob(blob, `geneva-reporter-${timestampSlug()}.json`);
+}
+
+// Document-level BibTeX (one entry per document, citing all matching paragraphs as a note).
+function exportBibtex(rows) {
+  const byDoc = new Map();
+  for (const r of rows) {
+    if (!byDoc.has(r.doc_id)) byDoc.set(r.doc_id, { doc: r, paragraphs: [] });
+    byDoc.get(r.doc_id).paragraphs.push(r.paragraph_n || r.paragraph_id);
+  }
+  const escBib = (s) => String(s ?? '').replace(/[{}\\]/g, '');
+  const entries = [...byDoc.values()].map(({ doc, paragraphs }) => {
+    const key = (doc.signature || doc.doc_id).replace(/[^A-Za-z0-9]+/g, '');
+    const author = doc.mandate_holder
+      ? escBib(doc.mandate_holder)
+      : `UN Committee (${escBib(doc.committee)})`;
+    return [
+      `@misc{${key},`,
+      `  author       = {${author}},`,
+      `  title        = {${escBib(doc.doc_name)}},`,
+      `  number       = {${escBib(doc.signature)}},`,
+      `  year         = {${doc.year}},`,
+      `  url          = {${doc.link}},`,
+      `  note         = {Paragraphs cited: ${paragraphs.join(', ')}}`,
+      `}`,
+    ].join('\n');
+  });
+  const blob = new Blob([entries.join('\n\n') + '\n'], { type: 'application/x-bibtex' });
+  downloadBlob(blob, `geneva-reporter-${timestampSlug()}.bib`);
+}
+
+// SheetJS is large (~600 KB) — load on demand, only when user asks for XLSX.
+let sheetJsPromise = null;
+function loadSheetJS() {
+  if (window.XLSX) return Promise.resolve(window.XLSX);
+  if (sheetJsPromise) return sheetJsPromise;
+  sheetJsPromise = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+    s.onload = () => resolve(window.XLSX);
+    s.onerror = () => reject(new Error('SheetJS failed to load'));
+    document.head.appendChild(s);
+  });
+  return sheetJsPromise;
+}
+
+async function exportXlsx(rows, busyButton) {
+  const XLSX = await loadSheetJS();
+  const meta = [
+    ['The Geneva Reporter — search export'],
+    ['Generated', new Date().toISOString()],
+    ['Source', 'https://lszoszk.github.io/generalcomments/'],
+    ['Query', state.query || '(none)'],
+    ['Scope', state.scope],
+    ['Year range', `${state.filters.yearMin}–${state.filters.yearMax}`],
+    ['Committees', [...state.filters.committees].join(', ') || '(any)'],
+    ['Concerned groups', `${[...state.filters.labels].join(', ') || '(any)'}  [mode: ${state.filters.labelsMode.toUpperCase()}]`],
+    ['Total results', rows.length],
+  ];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(meta), 'Search');
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), 'Results');
+  XLSX.writeFile(wb, `geneva-reporter-${timestampSlug()}.xlsx`);
+  if (busyButton) busyButton.classList.remove('is-busy');
+}
+
+async function runExport(format, button) {
+  const rows = buildExportRows();
+  if (!rows.length) {
+    alert('No results to export. Refine your search and try again.');
+    return;
+  }
+  try {
+    if (format === 'csv') exportCsv(rows);
+    else if (format === 'json') exportJson(rows);
+    else if (format === 'bibtex') exportBibtex(rows);
+    else if (format === 'xlsx') {
+      button?.classList.add('is-busy');
+      await exportXlsx(rows, button);
+    }
+  } catch (e) {
+    console.error('Export failed:', e);
+    alert(`Export failed: ${e.message}`);
+    button?.classList.remove('is-busy');
+  } finally {
+    $('#export-menu').open = false;
+  }
 }
 
 // Replace the banner body with the actual mandate breakdown computed from documents.

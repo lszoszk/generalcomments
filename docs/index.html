@@ -112,6 +112,30 @@
            placeholder='e.g. "best interests of the child"  ·  digital environment  ·  surveillance'
            autocomplete="off" autocapitalize="off" spellcheck="false" />
     <span class="folio" id="result-count">—</span>
+    <details class="export-menu" id="export-menu">
+      <summary class="btn btn-ghost export-btn" title="Export current results">
+        <span class="export-glyph">↓</span>
+        <span class="export-label">Export</span>
+      </summary>
+      <div class="export-pop">
+        <button type="button" data-format="xlsx" class="export-opt">
+          <span class="export-fmt">XLSX</span>
+          <span class="export-hint">Excel · uses SheetJS</span>
+        </button>
+        <button type="button" data-format="csv" class="export-opt">
+          <span class="export-fmt">CSV</span>
+          <span class="export-hint">UTF-8, comma-separated</span>
+        </button>
+        <button type="button" data-format="json" class="export-opt">
+          <span class="export-fmt">JSON</span>
+          <span class="export-hint">Full structured records</span>
+        </button>
+        <button type="button" data-format="bibtex" class="export-opt">
+          <span class="export-fmt">BibTeX</span>
+          <span class="export-hint">Document-level, for citations</span>
+        </button>
+      </div>
+    </details>
     <button id="copy-link" class="btn btn-ghost copy-link-btn" type="button" title="Copy a permanent link to this search">
       <span class="copy-link-glyph">⌥</span>
       <span class="copy-link-label">Copy link</span>
