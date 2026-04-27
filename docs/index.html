@@ -77,6 +77,9 @@
   </div>
 </header>
 
+<!-- ═══════════════════════════ SEARCH VIEW ═══════════════════════════ -->
+<section data-view="search">
+
 <!-- ───────────────────────────  SCOPE BAR  ────────────────────────── -->
 <div class="scope-bar">
   <div class="scope-inner">
@@ -222,6 +225,114 @@
     </div>
   </aside>
 </main>
+
+</section><!-- /search view -->
+
+<!-- ═══════════════════════════ DOCUMENTS VIEW ═══════════════════════════ -->
+<section data-view="documents" hidden>
+  <div class="docs-mast">
+    <div class="docs-mast-inner">
+      <div class="folio garnet">CATALOGUE · ALL DOCUMENTS</div>
+      <h2 class="serif docs-title" id="docs-title">Loading…</h2>
+      <p class="serif docs-sub" id="docs-sub">All documents in the archive, grouped by treaty body and mandate.</p>
+    </div>
+  </div>
+  <div class="docs-tools">
+    <input id="docs-filter" type="search" class="serif docs-filter" placeholder="Filter by name, signature, year…" autocomplete="off" spellcheck="false" />
+    <div class="docs-scope" role="tablist">
+      <button class="docs-scope-opt is-active" data-docs-scope="all">All</button>
+      <button class="docs-scope-opt" data-docs-scope="gc">General Comments</button>
+      <button class="docs-scope-opt" data-docs-scope="sp">Special Procedures</button>
+    </div>
+  </div>
+  <div class="docs-body" id="docs-body"></div>
+</section><!-- /documents view -->
+
+<!-- ═══════════════════════════ ABOUT VIEW ═══════════════════════════ -->
+<section data-view="about" hidden>
+  <article class="about">
+    <div class="about-inner">
+      <div class="folio garnet">COLOPHON · ABOUT</div>
+      <h2 class="serif about-title">A paragraph-level companion to UN Treaty Body output.</h2>
+
+      <div class="about-grid">
+        <div class="about-block">
+          <h3 class="folio">What this is</h3>
+          <p class="serif dropcap">
+            The Geneva Reporter indexes <strong>23,440 paragraphs</strong> drawn from
+            <strong>332 documents</strong> — <strong>181 General Comments</strong> issued by
+            the nine UN human rights treaty bodies, plus a curated preview of
+            <strong>151 Special Procedures reports</strong> from four mandate-holders.
+            Every paragraph is searchable, filterable by treaty body, year and concerned
+            group, and citable down to its number.
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h3 class="folio">Sources &amp; coverage</h3>
+          <p class="serif">
+            All documents are sourced from the UN Office of the High Commissioner
+            for Human Rights, primarily through
+            <a class="about-link" href="https://tbinternet.ohchr.org/" target="_blank" rel="noopener">tbinternet.ohchr.org</a>
+            and <a class="about-link" href="https://www.ohchr.org/" target="_blank" rel="noopener">ohchr.org</a>.
+            The General Comments collection is exhaustive as of build date; the
+            Special Procedures collection currently covers Freedom of Religion or
+            Belief, Freedom of Expression, and Privacy. More mandates will be
+            added incrementally.
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h3 class="folio">Methodology</h3>
+          <p class="serif">
+            Each document is downloaded as PDF, converted to Markdown, then to
+            structured JSON paragraph-by-paragraph. General Comments are
+            additionally annotated with <em>concerned groups</em> labels — children,
+            women, migrants, persons with disabilities and so on — drawn from the
+            text. The corpus is rebuilt deterministically by
+            <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/build_corpus.py" target="_blank" rel="noopener">build_corpus.py</a>;
+            search runs entirely in the browser via FlexSearch with stemming, and
+            the index is cached in IndexedDB after first load.
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h3 class="folio">How to cite</h3>
+          <p class="serif">
+            Suggested citation: <em>Szoszkiewicz, Ł. (2026). The Geneva Reporter
+            — A paragraph-level search interface for UN Treaty Body output.</em>
+            Citations of individual paragraphs should reference the original UN
+            document by its signature (e.g. <code class="mono">CRC/C/GC/25 ¶12</code>),
+            not this database.
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h3 class="folio">Licence &amp; tech</h3>
+          <p class="serif">
+            Code released under MIT; the curated dataset under
+            <a class="about-link" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.
+            Built as a static site on GitHub Pages with vanilla JavaScript,
+            FlexSearch and SheetJS. Editorial design adapted from the
+            <em>Strasbourg Reporter</em> ECHR mockups. Set in
+            <em>Spectral</em>, <em>Source Serif 4</em> and <em>JetBrains Mono</em>.
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h3 class="folio">Contact</h3>
+          <p class="serif">
+            Łukasz Szoszkiewicz · Adam Mickiewicz University in Poznań ·
+            <a class="about-link" href="mailto:l.szoszkiewicz@amu.edu.pl">l.szoszkiewicz@amu.edu.pl</a> ·
+            <a class="about-link" href="https://github.com/lszoszk/generalcomments" target="_blank" rel="noopener">source on GitHub</a>.
+            File issues, suggestions, missing documents and corrections through
+            the GitHub repository.
+          </p>
+        </div>
+      </div>
+    </div>
+  </article>
+</section><!-- /about view -->
 
 <!-- ───────────────────────────  FOOTER  ───────────────────────────── -->
 <footer class="foot">

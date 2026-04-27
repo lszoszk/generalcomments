@@ -15,6 +15,9 @@ const state = {
   documents: new Map(),
   facets: null,
   searchIndex: null,            // FlexSearch.Document instance, populated after boot
+  view: 'search',               // 'search' | 'documents' | 'about' — driven by URL hash
+  docsScope: 'all',             // documents-view scope: 'all' | 'gc' | 'sp'
+  docsFilter: '',               // documents-view free-text filter
   scope: 'gc',         // 'gc' | 'sp' | 'all'
   query: '',
   filters: {
@@ -123,6 +126,8 @@ async function boot() {
     paintLabelFilter();
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
+    bindRouter();
+    setView(viewFromHash());             // honor the initial hash
 
     setProgress(100, 'Ready.');
     setTimeout(hideLoader, 250);
@@ -196,6 +201,119 @@ function applyUrlState(parsed) {
 
   // Active paragraph
   state.activeId = parsed.activeId;
+}
+
+// ─────────── Hash router (Search / Documents / About) ───────────
+const VIEWS = ['search', 'documents', 'about'];
+
+function viewFromHash() {
+  const h = window.location.hash.replace(/^#/, '');
+  return VIEWS.includes(h) ? h : 'search';
+}
+
+function setView(view) {
+  if (!VIEWS.includes(view)) view = 'search';
+  state.view = view;
+  document.body.dataset.activeView = view;
+
+  // Active link in masthead nav
+  $$('.mast-nav a').forEach(a => {
+    const target = a.getAttribute('href')?.replace(/^#/, '') || 'search';
+    a.classList.toggle('active', target === view);
+  });
+
+  // Lazy-paint the view-specific content
+  if (view === 'documents') paintDocumentsView();
+  // 'about' is static HTML, no paint needed
+  // 'search' results are kept in DOM after boot, no need to repaint
+
+  updateDocumentTitle();
+}
+
+function bindRouter() {
+  window.addEventListener('hashchange', () => setView(viewFromHash()));
+}
+
+// ─────────── Documents view ───────────
+function paintDocumentsView() {
+  const host = $('#docs-body');
+  if (!host) return;
+
+  // Group documents by primary committee, scope-filtered
+  const wantScope = state.docsScope;
+  const filterText = state.docsFilter.trim().toLowerCase();
+
+  const docs = [...state.documents.values()].filter(d => {
+    if (wantScope === 'gc' && d.type !== 'gc') return false;
+    if (wantScope === 'sp' && d.type !== 'sp') return false;
+    if (filterText) {
+      const haystack = `${d.name} ${d.signature} ${d.year ?? ''} ${d.committee} ${d.mandate ?? ''}`.toLowerCase();
+      if (!haystack.includes(filterText)) return false;
+    }
+    return true;
+  });
+
+  // Header counts
+  const gcDocs = docs.filter(d => d.type === 'gc').length;
+  const spDocs = docs.filter(d => d.type === 'sp').length;
+  $('#docs-title').textContent = `${docs.length.toLocaleString()} document${docs.length === 1 ? '' : 's'}`;
+  $('#docs-sub').innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${spDocs} Special Procedures report${spDocs === 1 ? '' : 's'} <span class="badge badge-preview">PREVIEW</span>`;
+
+  if (!docs.length) {
+    host.innerHTML = '<div class="docs-empty">No documents match the current filter.</div>';
+    return;
+  }
+
+  // Group: type → committee → docs (newest first)
+  const groups = { gc: new Map(), sp: new Map() };
+  for (const d of docs) {
+    const bucket = groups[d.type];
+    if (!bucket.has(d.committee)) bucket.set(d.committee, []);
+    bucket.get(d.committee).push(d);
+  }
+  for (const t of ['gc', 'sp']) {
+    for (const list of groups[t].values()) {
+      list.sort((a, b) => (b.year ?? 0) - (a.year ?? 0));
+    }
+  }
+
+  const sortedCommittees = (bucket) =>
+    [...bucket.keys()].sort((a, b) => bucket.get(b).length - bucket.get(a).length || a.localeCompare(b));
+
+  const html = [];
+  if (groups.gc.size && (wantScope === 'all' || wantScope === 'gc')) {
+    html.push('<div class="docs-section-head">General Comments · treaty body output</div>');
+    for (const c of sortedCommittees(groups.gc)) html.push(renderDocsCommittee(c, groups.gc.get(c), 'gc'));
+  }
+  if (groups.sp.size && (wantScope === 'all' || wantScope === 'sp')) {
+    html.push('<div class="docs-section-head sp-section-head">Special Procedures · mandate-holder reports · preview</div>');
+    for (const c of sortedCommittees(groups.sp)) html.push(renderDocsCommittee(c, groups.sp.get(c), 'sp'));
+  }
+  host.innerHTML = html.join('');
+}
+
+function renderDocsCommittee(committee, list, type) {
+  const rows = list.map(d => {
+    const firstP = `${d.docId}-0001`;
+    return `
+      <li>
+        <a class="docs-row ${type}" href="?p=${encodeURIComponent(firstP)}#search" data-doc-id="${escape(d.docId)}">
+          <span class="sig">${escape(d.signature || '—')}</span>
+          <span class="name">${escape(d.nameShort || d.name || d.docId)}</span>
+          <span class="year">${d.year ?? '—'}</span>
+          <span class="pcount">${d.paragraphCount ?? 0} ¶</span>
+          <span class="arrow">→</span>
+        </a>
+      </li>`;
+  }).join('');
+  return `
+    <details class="docs-committee ${type}" open>
+      <summary>
+        <span class="docs-committee-name">${escape(committee)}</span>
+        <span class="docs-committee-count">${list.length} document${list.length === 1 ? '' : 's'}</span>
+      </summary>
+      <ol class="docs-list">${rows}</ol>
+    </details>`;
 }
 
 function syncFiltersToDom() {
@@ -407,6 +525,22 @@ function bindUI() {
   $('#theme-toggle').addEventListener('click', () => {
     const cur = document.documentElement.getAttribute('data-theme');
     document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+  });
+
+  // Documents view: scope segmented + filter input
+  $$('.docs-scope-opt').forEach(b => b.addEventListener('click', () => {
+    $$('.docs-scope-opt').forEach(x => x.classList.remove('is-active'));
+    b.classList.add('is-active');
+    state.docsScope = b.dataset.docsScope;
+    paintDocumentsView();
+  }));
+  let docsFilterTimer;
+  $('#docs-filter')?.addEventListener('input', e => {
+    clearTimeout(docsFilterTimer);
+    docsFilterTimer = setTimeout(() => {
+      state.docsFilter = e.target.value;
+      paintDocumentsView();
+    }, 150);
   });
 }
 
