@@ -864,7 +864,7 @@ async function ensureSearchIndex() {
   state.searchIndex = new FlexSearch.Document({
     document: { id: 'id', index: ['text'] },
     tokenize: 'forward',
-    encode: 'simple',
+    charset: 'latin:simple',
     cache: 100,
   });
 
