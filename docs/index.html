@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Geneva Reporter · UN Treaty Body General Comments</title>
+<meta name="description" content="Search 23,000+ paragraphs from UN Treaty Body General Comments, with a preview of Special Procedures reports." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/tokens.css" />
+<link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+
+<!-- ───────────────────────────  MASTHEAD  ─────────────────────────── -->
+<header class="mast">
+  <div class="mast-row">
+    <div class="mast-brand">
+      <div class="folio" id="mast-folio">VOL. I · NO. 1 · ESTABLISHED 2024 · LOADING…</div>
+      <h1 class="serif mast-title">The Geneva Reporter</h1>
+      <div class="serif mast-sub">A paragraph-level companion to UN Treaty Body General Comments &amp; mandate-holder reports</div>
+    </div>
+    <nav class="mast-nav">
+      <a href="#search" class="active">Search</a>
+      <a href="#documents">Documents</a>
+      <a href="#about">About</a>
+      <span class="mast-sep"></span>
+      <button id="theme-toggle" class="btn btn-ghost" title="Toggle dark mode">◐</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ───────────────────────────  SCOPE BAR  ────────────────────────── -->
+<div class="scope-bar">
+  <div class="scope-inner">
+    <span class="folio">SCOPE</span>
+    <div class="scope-segmented" role="tablist" aria-label="Source scope">
+      <button class="scope-opt is-active" data-scope="gc" role="tab" aria-selected="true">
+        General Comments
+        <span class="scope-count" id="count-gc">—</span>
+      </button>
+      <button class="scope-opt" data-scope="sp" role="tab" aria-selected="false">
+        Special Procedures
+        <span class="scope-count" id="count-sp">—</span>
+        <span class="badge badge-preview">PREVIEW</span>
+      </button>
+      <button class="scope-opt" data-scope="all" role="tab" aria-selected="false">
+        All sources
+      </button>
+    </div>
+    <span class="folio scope-meta" id="scope-meta">Treaty body output · near-hard-law</span>
+  </div>
+  <!-- Onboarding banner shown on first SP click -->
+  <div class="scope-banner" id="scope-banner" hidden>
+    <span class="folio">PREVIEW</span>
+    Special Procedures are reports by independent UN mandate-holders — soft law in nature.
+    Currently only <strong>4 mandates</strong> are available (Freedom of Religion or Belief, Freedom of Expression, Privacy).
+    The General Comments collection is exhaustive; the Special Procedures collection is a curated preview.
+    <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
+  </div>
+</div>
+
+<!-- ───────────────────────────  SEARCH BAR  ───────────────────────── -->
+<section class="searchbar">
+  <div class="searchbar-inner">
+    <span class="serif search-prompt">Search<span class="garnet">.</span></span>
+    <input id="q" type="search" class="serif search-input"
+           placeholder='e.g. "best interests of the child"  ·  digital environment  ·  surveillance'
+           autocomplete="off" autocapitalize="off" spellcheck="false" />
+    <span class="folio" id="result-count">—</span>
+  </div>
+  <div class="searchbar-hint">
+    <span class="folio">Operators</span>
+    <span class="op">"exact phrase"</span>
+    <span class="op">word OR word</span>
+    <span class="folio">Try</span>
+    <button class="suggest" data-q='"best interests of the child"'>"best interests of the child"</button>
+    <button class="suggest" data-q='"digital environment"'>"digital environment"</button>
+    <button class="suggest" data-q='surveillance OR interception'>surveillance OR interception</button>
+  </div>
+</section>
+
+<!-- ───────────────────────────  MAIN  ─────────────────────────────── -->
+<main class="layout">
+
+  <!-- LEFT: filters -->
+  <aside class="filters">
+    <div class="filter-block">
+      <div class="folio">Years</div>
+      <div class="year-range" id="year-range">
+        <span class="mono" id="year-lo">—</span>
+        <span class="year-track"><span class="year-fill" id="year-fill"></span></span>
+        <span class="mono" id="year-hi">—</span>
+      </div>
+      <div class="year-inputs">
+        <input type="number" id="year-min" class="mini" />
+        <input type="number" id="year-max" class="mini" />
+      </div>
+    </div>
+
+    <div class="filter-block">
+      <div class="folio">Treaty bodies</div>
+      <div id="filter-committees" class="chip-grid"></div>
+    </div>
+
+    <div class="filter-block">
+      <div class="folio">Concerned groups</div>
+      <div id="filter-labels" class="checkbox-list"></div>
+    </div>
+
+    <button id="reset-filters" class="btn btn-ghost btn-block">Reset filters</button>
+  </aside>
+
+  <!-- CENTER: results -->
+  <section class="results">
+    <div class="results-lede" id="results-lede">
+      <div class="folio garnet">RESULTS · PARAGRAPH-LEVEL</div>
+      <h2 class="serif results-title" id="results-title">Loading corpus…</h2>
+      <p class="serif results-sub" id="results-sub">Reading 23,000+ paragraphs from your archive.</p>
+    </div>
+    <hr class="rule-double" />
+    <ol class="result-list" id="result-list"></ol>
+    <div class="result-more" id="result-more"></div>
+  </section>
+
+  <!-- RIGHT: document detail -->
+  <aside class="dossier" id="dossier">
+    <div class="dossier-empty">
+      <div class="folio garnet">CASE NOTE</div>
+      <p class="serif" style="font-style: italic; color: var(--ink-3);">
+        Click a paragraph to see its document context.
+      </p>
+    </div>
+  </aside>
+</main>
+
+<!-- ───────────────────────────  FOOTER  ───────────────────────────── -->
+<footer class="foot">
+  <div class="foot-inner">
+    <span class="folio" id="foot-version">Build —</span>
+    <span class="dim">·</span>
+    <span class="serif" style="font-style: italic;">Set in Spectral &amp; Source Serif. Database curated by L. Szoszkiewicz.</span>
+    <span class="dim">·</span>
+    <a href="https://github.com/lszoszk" class="serif foot-link">GitHub</a>
+  </div>
+</footer>
+
+<!-- ───────────────────────────  LOADING OVERLAY  ──────────────────── -->
+<div class="loader" id="loader" aria-live="polite">
+  <div class="loader-inner">
+    <div class="folio">LOADING CORPUS</div>
+    <div class="loader-bar"><div class="loader-fill" id="loader-fill"></div></div>
+    <div class="mono" id="loader-msg">Fetching manifest…</div>
+  </div>
+</div>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

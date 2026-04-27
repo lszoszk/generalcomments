@@ -1,0 +1,214 @@
+/* =========================================================
+   The Geneva Reporter · Editorial design tokens
+   Adapted from the ECHR · Strasbourg Reporter system.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Paper */
+  --paper:        oklch(98% 0.008 75);
+  --paper-2:      oklch(96% 0.010 75);
+  --paper-3:      oklch(93% 0.012 75);
+  --rule:         oklch(86% 0.013 75);
+  --rule-soft:    oklch(91% 0.011 75);
+
+  /* Ink */
+  --ink:          oklch(18% 0.012 270);
+  --ink-2:        oklch(32% 0.014 270);
+  --ink-3:        oklch(48% 0.013 270);
+  --ink-4:        oklch(62% 0.012 270);
+
+  /* Accent — garnet/oxblood (used for hierarchy, never for chrome) */
+  --garnet:       oklch(45% 0.13 25);
+  --garnet-2:     oklch(38% 0.12 25);
+  --garnet-soft:  oklch(94% 0.04 25);
+  --garnet-edge:  oklch(80% 0.06 25);
+
+  /* Functional */
+  --hl:           oklch(92% 0.10 95);     /* search highlight (vellum yellow) */
+  --hl-edge:      oklch(80% 0.12 95);
+
+  /* Source-type semantics — GC vs SP visual signal */
+  --gc-tone:      var(--ink);             /* General Comments — full ink, primary weight */
+  --sp-tone:      var(--ink-2);           /* Special Procedures — slightly muted, "preview" */
+  --preview:      oklch(58% 0.14 70);     /* burnt-orange for PREVIEW badges */
+  --preview-soft: oklch(95% 0.05 70);
+
+  /* Type */
+  --display: 'Spectral', 'Iowan Old Style', Georgia, serif;
+  --body:    'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+  --mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* Rhythm */
+  --baseline: 8px;
+
+  /* Layout */
+  --col-filters:  260px;
+  --col-dossier:  360px;
+}
+
+[data-theme="dark"] {
+  --paper:        oklch(16% 0.012 270);
+  --paper-2:      oklch(19% 0.013 270);
+  --paper-3:      oklch(23% 0.013 270);
+  --rule:         oklch(30% 0.013 270);
+  --rule-soft:    oklch(25% 0.013 270);
+
+  --ink:          oklch(94% 0.008 75);
+  --ink-2:        oklch(82% 0.010 75);
+  --ink-3:        oklch(68% 0.011 75);
+  --ink-4:        oklch(54% 0.012 75);
+
+  --garnet:       oklch(72% 0.11 25);
+  --garnet-2:     oklch(78% 0.10 25);
+  --garnet-soft:  oklch(28% 0.05 25);
+  --garnet-edge:  oklch(40% 0.08 25);
+
+  --hl:           oklch(40% 0.08 95);
+  --hl-edge:      oklch(55% 0.10 95);
+
+  --preview:      oklch(75% 0.13 70);
+  --preview-soft: oklch(28% 0.06 70);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { color-scheme: light dark; }
+
+body {
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--paper);
+  font-feature-settings: "kern", "liga", "onum", "pnum";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+/* Editorial primitives */
+.serif        { font-family: var(--display); }
+.body         { font-family: var(--body); }
+.mono         { font-family: var(--mono); font-feature-settings: "tnum"; }
+.smallcaps    { font-variant-caps: all-small-caps; letter-spacing: 0.08em; }
+.tnum         { font-feature-settings: "tnum"; }
+
+.garnet       { color: var(--garnet); }
+.muted        { color: var(--ink-3); }
+.dim          { color: var(--ink-4); }
+
+.rule         { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+.rule-thin    { border: 0; border-top: 1px solid var(--rule-soft); margin: 0; }
+.rule-double  { border: 0; border-top: 3px double var(--rule); margin: 0; }
+.rule-thick   { border: 0; border-top: 2px solid var(--ink); margin: 0; }
+
+/* Folio (small caps mono label) */
+.folio {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Search highlight */
+mark.hl {
+  background: var(--hl);
+  color: var(--ink);
+  padding: 0 .12em;
+  border-radius: 1px;
+  box-shadow: inset 0 -1px 0 var(--hl-edge);
+}
+::selection { background: var(--hl); color: var(--ink); }
+
+/* Buttons */
+.btn {
+  font-family: var(--body);
+  font-size: 13px;
+  padding: 7px 14px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: background .12s ease, color .12s ease, border-color .12s ease;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn-ghost {
+  border-color: var(--rule);
+  color: var(--ink-2);
+  background: transparent;
+}
+.btn-ghost:hover { background: var(--paper-3); color: var(--ink); border-color: var(--ink-3); }
+.btn-garnet {
+  border-color: var(--garnet);
+  background: var(--garnet);
+  color: var(--paper);
+}
+.btn-garnet:hover { background: var(--garnet-2); border-color: var(--garnet-2); }
+.btn-block { width: 100%; display: block; }
+
+/* Chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 3px 8px;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  color: var(--ink-2);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--ink-3); }
+.chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip.garnet { background: var(--garnet-soft); color: var(--garnet); border-color: var(--garnet-edge); }
+
+/* Source-type badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+  border-radius: 1px;
+}
+.badge-gc {
+  color: var(--ink-2);
+  background: var(--paper-2);
+}
+.badge-sp {
+  color: var(--preview);
+  background: var(--preview-soft);
+  border-color: var(--preview);
+}
+.badge-preview {
+  color: var(--paper);
+  background: var(--preview);
+  border-color: var(--preview);
+  font-weight: 600;
+}
+
+/* Scrollbar */
+* { scrollbar-width: thin; scrollbar-color: var(--ink-4) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: var(--ink-4); border-radius: 0; }
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp .35s ease both; }
+
+@keyframes blink { 50% { opacity: 0; } }
+.caret::after {
+  content: "▍"; color: var(--garnet);
+  margin-left: 2px; animation: blink 1s steps(1) infinite;
+}
