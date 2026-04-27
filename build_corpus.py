@@ -333,6 +333,48 @@ def write_json(path: Path, data, *, pretty: bool = False) -> None:
 
 
 # --------------------------------------------------------------------------
+# Sitemap
+# --------------------------------------------------------------------------
+SITE_BASE = "https://lszoszk.github.io/generalcomments"
+
+
+def write_sitemap(path: Path, documents: list[dict], built_iso: str) -> None:
+    """Emit sitemap.xml that points at each document via its first paragraph.
+
+    Each ?p=<docId>-0001 URL is a stable deep link. The SPA loads, sets the
+    active paragraph, and updates document.title — so Googlebot (which has
+    executed JS since 2019) gets per-document content with a per-document
+    title for indexing.
+    """
+    last = built_iso.split("T")[0]
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        f"  <url><loc>{SITE_BASE}/</loc><lastmod>{last}</lastmod>"
+        f"<changefreq>weekly</changefreq><priority>1.0</priority></url>",
+    ]
+    # Scope shortcuts so the SP and All-sources views can be discovered.
+    for q in ("?scope=sp", "?scope=all"):
+        lines.append(
+            f"  <url><loc>{SITE_BASE}/{q}</loc><lastmod>{last}</lastmod>"
+            f"<changefreq>weekly</changefreq><priority>0.9</priority></url>"
+        )
+    # One URL per document — anchored to its first paragraph.
+    for d in documents:
+        if not d.get("paragraphCount"):
+            continue
+        first_pid = f"{d['docId']}-0001"
+        prio = "0.8" if d.get("type") == "gc" else "0.6"
+        lines.append(
+            f"  <url><loc>{SITE_BASE}/?p={first_pid}</loc>"
+            f"<lastmod>{last}</lastmod>"
+            f"<changefreq>monthly</changefreq><priority>{prio}</priority></url>"
+        )
+    lines.append("</urlset>")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+# --------------------------------------------------------------------------
 # Main
 # --------------------------------------------------------------------------
 def main() -> int:
@@ -415,6 +457,9 @@ def main() -> int:
         },
     }
     write_json(out / "manifest.json", manifest, pretty=True)
+
+    # sitemap.xml — one URL per document for deep indexing
+    write_sitemap(out / "sitemap.xml", documents, build_iso)
 
     # Build report
     report_path = out / "build_report.txt"

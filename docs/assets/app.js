@@ -863,6 +863,7 @@ function runSearch() {
 
   state.results = matched;
   paintResults();
+  updateDocumentTitle();
 }
 
 function countOccurrences(haystack, needle) {
@@ -971,7 +972,27 @@ function setActive(id) {
     el.classList.toggle('is-active', el.dataset.paraId === id);
   });
   paintDossier();
+  updateDocumentTitle();
   scheduleUrlUpdate();
+}
+
+// Per-URL <title> so deep-linked pages get distinct titles in search results
+// and browser history. Without this, Googlebot indexes every ?p=… URL with
+// the same homepage title.
+const BASE_TITLE = 'The Geneva Reporter · UN Treaty Body General Comments';
+function updateDocumentTitle() {
+  const para = state.activeId ? state.paragraphById.get(state.activeId) : null;
+  if (para) {
+    const doc = state.documents.get(para.docId);
+    const docTitle = doc?.nameShort || doc?.name || para.docId;
+    document.title = `${docTitle} · The Geneva Reporter`;
+    return;
+  }
+  if (state.query) {
+    document.title = `${state.query} · The Geneva Reporter`;
+    return;
+  }
+  document.title = BASE_TITLE;
 }
 
 function paintDossier() {
