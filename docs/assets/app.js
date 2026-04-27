@@ -19,6 +19,9 @@ const state = {
   docsScope: 'all',             // documents-view scope: 'all' | 'gc' | 'sp'
   docsFilter: '',               // documents-view free-text filter
   scope: 'gc',         // 'gc' | 'sp' | 'all'
+  resultSort: 'relevance',      // 'relevance' | 'date'
+  resultGroup: 'paragraphs',    // 'paragraphs' | 'documents'
+  collapsedDocGroups: new Set(),
   query: '',
   filters: {
     committees: new Set(),
@@ -37,7 +40,7 @@ const RESULT_LIMIT = 200;    // render cap; "more" hint shown when hit
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group' };
 
 function encodeUrlState() {
   if (!state.facets) return;
@@ -53,6 +56,8 @@ function encodeUrlState() {
   if (state.filters.yearMax != null && state.filters.yearMax !== state.facets.years.max) {
     u.set(URL_KEYS.y2, state.filters.yearMax);
   }
+  if (state.resultSort !== 'relevance') u.set(URL_KEYS.sort, state.resultSort);
+  if (state.resultGroup !== 'paragraphs') u.set(URL_KEYS.group, state.resultGroup);
   if (state.activeId) u.set(URL_KEYS.p, state.activeId);
   const qs = u.toString();
   const next = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
@@ -70,6 +75,8 @@ function decodeUrlState() {
     labelsMode: u.get(URL_KEYS.gm) === 'all' ? 'all' : 'any',
     yearMin: u.get(URL_KEYS.y1) ? parseInt(u.get(URL_KEYS.y1)) : null,
     yearMax: u.get(URL_KEYS.y2) ? parseInt(u.get(URL_KEYS.y2)) : null,
+    resultSort: u.get(URL_KEYS.sort) || 'relevance',
+    resultGroup: u.get(URL_KEYS.group) || 'paragraphs',
     activeId: u.get(URL_KEYS.p) || null,
   };
 }
@@ -198,6 +205,11 @@ function applyUrlState(parsed) {
   $('#year-min').value = state.filters.yearMin;
   $('#year-max').value = state.filters.yearMax;
   paintYearFill();
+
+  // Results controls
+  state.resultSort = ['relevance', 'date'].includes(parsed.resultSort) ? parsed.resultSort : 'relevance';
+  state.resultGroup = ['paragraphs', 'documents'].includes(parsed.resultGroup) ? parsed.resultGroup : 'paragraphs';
+  syncResultsControls();
 
   // Active paragraph
   state.activeId = parsed.activeId;
@@ -429,6 +441,33 @@ function bindUI() {
     state.query = b.dataset.q;
     runSearch();
   }));
+
+  // Result sorting / grouping controls
+  $$('#result-sort .result-opt').forEach(b => b.addEventListener('click', () => {
+    state.resultSort = b.dataset.sort;
+    sortResults();
+    paintResults();
+    updateDocumentTitle();
+    scheduleUrlUpdate();
+  }));
+
+  $$('#result-group .result-opt').forEach(b => b.addEventListener('click', () => {
+    state.resultGroup = b.dataset.group;
+    syncResultsControls();
+    paintResults();
+    updateDocumentTitle();
+    scheduleUrlUpdate();
+  }));
+
+  $('#expand-groups').addEventListener('click', () => {
+    state.collapsedDocGroups.clear();
+    paintResults();
+  });
+
+  $('#collapse-groups').addEventListener('click', () => {
+    for (const docId of currentResultGroupDocIds()) state.collapsedDocGroups.add(docId);
+    paintResults();
+  });
 
   // Scope toggle — also drops committee selections that don't belong in the new scope
   $$('.scope-opt').forEach(b => b.addEventListener('click', () => {
@@ -992,10 +1031,8 @@ function runSearch() {
     matched.push({ p, score });
   }
 
-  // Sort: by score desc, then by year desc as tiebreak
-  matched.sort((a, b) => (b.score - a.score) || ((b.p.year || 0) - (a.p.year || 0)));
-
   state.results = matched;
+  sortResults();
   paintResults();
   updateDocumentTitle();
 }
@@ -1007,32 +1044,86 @@ function countOccurrences(haystack, needle) {
   return count;
 }
 
+function sortResults() {
+  const byTextOrder = (a, b) =>
+    String(a.p.docId).localeCompare(String(b.p.docId)) || ((a.p.idx || 0) - (b.p.idx || 0));
+
+  if (state.resultSort === 'date') {
+    state.results.sort((a, b) =>
+      (resultDateValue(b) - resultDateValue(a)) ||
+      (b.score - a.score) ||
+      byTextOrder(a, b)
+    );
+    return;
+  }
+
+  state.results.sort((a, b) =>
+    (b.score - a.score) ||
+    (resultDateValue(b) - resultDateValue(a)) ||
+    byTextOrder(a, b)
+  );
+}
+
+function resultDateValue(result) {
+  const doc = state.documents.get(result.p.docId);
+  const parsed = doc?.adoptionDate ? Date.parse(doc.adoptionDate) : NaN;
+  if (!Number.isNaN(parsed)) return parsed;
+  const year = result.p.year || doc?.year || 0;
+  return year ? Date.UTC(year, 0, 1) : 0;
+}
+
+function syncResultsControls() {
+  $$('#result-sort .result-opt').forEach(b => {
+    const on = b.dataset.sort === state.resultSort;
+    b.classList.toggle('is-active', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+
+  $$('#result-group .result-opt').forEach(b => {
+    const on = b.dataset.group === state.resultGroup;
+    b.classList.toggle('is-active', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+
+  const grouped = state.resultGroup === 'documents' && state.results.length > 0;
+  $('#expand-groups')?.toggleAttribute('disabled', !grouped);
+  $('#collapse-groups')?.toggleAttribute('disabled', !grouped);
+}
+
+function currentResultGroupDocIds() {
+  return [...new Set(state.results.slice(0, RESULT_LIMIT).map(({ p }) => p.docId))];
+}
+
 // ─────────── Render ───────────
 function paintResults() {
   const list = $('#result-list');
   list.innerHTML = '';
   const total = state.results.length;
   const docCount = new Set(state.results.map(r => r.p.docId)).size;
+  syncResultsControls();
 
   $('#result-count').textContent = `${total.toLocaleString()} ¶`;
   $('#results-title').textContent = total
     ? `${total.toLocaleString()} passages from ${docCount} document${docCount === 1 ? '' : 's'}`
     : 'No matches';
-  $('#results-sub').textContent = state.query
-    ? `Sorted by relevance to "${state.query}". `
-    : 'Refine with the filters on the left.';
+  $('#results-sub').textContent = resultSubtitle();
   $('#results-sub').appendChild(scopeNotice());
 
   const view = state.results.slice(0, RESULT_LIMIT);
   const { andTerms, orGroups } = parseQuery(state.query);
   const allTerms = [...andTerms, ...orGroups.flat()].filter(Boolean);
 
-  view.forEach(({ p }, i) => {
-    list.appendChild(renderResult(p, i + 1, allTerms));
-  });
+  list.classList.toggle('is-grouped', state.resultGroup === 'documents');
+  if (state.resultGroup === 'documents') {
+    renderGroupedResults(list, view, allTerms);
+  } else {
+    view.forEach(({ p }, i) => {
+      list.appendChild(renderResult(p, i + 1, allTerms));
+    });
+  }
 
   $('#result-more').textContent = total > RESULT_LIMIT
-    ? `Showing top ${RESULT_LIMIT} of ${total.toLocaleString()}. Refine your filters to narrow down.`
+    ? moreResultsText(total, view)
     : '';
 
   // Auto-show first result in dossier
@@ -1045,6 +1136,80 @@ function paintResults() {
   }
 }
 
+function resultSubtitle() {
+  const sortText = state.resultSort === 'date'
+    ? 'Sorted by date, newest first.'
+    : state.query
+      ? `Sorted by relevance to "${state.query}".`
+      : 'Showing newest matching paragraphs.';
+  const groupText = state.resultGroup === 'documents' ? ' Grouped by document.' : ' Paragraph view.';
+  return `${sortText}${groupText} `;
+}
+
+function moreResultsText(total, view) {
+  if (state.resultGroup === 'documents') {
+    const docs = new Set(view.map(({ p }) => p.docId)).size;
+    return `Showing top ${RESULT_LIMIT} paragraphs grouped into ${docs} document${docs === 1 ? '' : 's'} out of ${total.toLocaleString()} matches. Refine your filters to narrow down.`;
+  }
+  return `Showing top ${RESULT_LIMIT} of ${total.toLocaleString()}. Refine your filters to narrow down.`;
+}
+
+function renderGroupedResults(list, view, terms) {
+  const groups = new Map();
+  view.forEach((result, idx) => {
+    const docId = result.p.docId;
+    if (!groups.has(docId)) groups.set(docId, []);
+    groups.get(docId).push({ ...result, rank: idx + 1 });
+  });
+
+  for (const [docId, rows] of groups) {
+    list.appendChild(renderResultGroup(docId, rows, terms));
+  }
+}
+
+function renderResultGroup(docId, rows, terms) {
+  const doc = state.documents.get(docId);
+  const li = document.createElement('li');
+  li.className = `result-doc-group ${rows[0]?.p.type || ''}`;
+  li.dataset.docId = docId;
+
+  const details = document.createElement('details');
+  details.className = 'result-doc-details';
+  details.open = !state.collapsedDocGroups.has(docId);
+  details.addEventListener('toggle', () => {
+    if (details.open) state.collapsedDocGroups.delete(docId);
+    else state.collapsedDocGroups.add(docId);
+  });
+
+  const badge = rows[0]?.p.type === 'sp'
+    ? '<span class="badge badge-sp">PREVIEW · SP</span>'
+    : '<span class="badge badge-gc">GC</span>';
+  const bestScore = Math.max(...rows.map(r => r.score || 0));
+
+  const summary = document.createElement('summary');
+  summary.innerHTML = `
+    <div class="result-doc-summary-main">
+      ${badge}
+      <span class="result-doc-summary-title">${escape(doc?.nameShort || doc?.name || docId)}</span>
+    </div>
+    <div class="result-doc-summary-meta">
+      <span class="folio">${doc?.year ?? ''}</span>
+      <span class="sig">${escape(doc?.signature || '—')}</span>
+      <span class="match-count">${rows.length} ¶</span>
+      ${state.resultSort === 'relevance' ? `<span class="folio">score ${bestScore.toFixed(1)}</span>` : ''}
+    </div>
+  `;
+
+  const nested = document.createElement('ol');
+  nested.className = 'result-group-list';
+  rows.forEach(({ p, rank }) => nested.appendChild(renderResult(p, rank, terms, { grouped: true })));
+
+  details.appendChild(summary);
+  details.appendChild(nested);
+  li.appendChild(details);
+  return li;
+}
+
 function scopeNotice() {
   const span = document.createElement('span');
   if (state.scope === 'sp') {
@@ -1055,10 +1220,10 @@ function scopeNotice() {
   return span;
 }
 
-function renderResult(p, rank, terms) {
+function renderResult(p, rank, terms, opts = {}) {
   const doc = state.documents.get(p.docId);
   const li = document.createElement('li');
-  li.className = `result fade-up ${p.type}`;
+  li.className = `result fade-up ${p.type}${opts.grouped ? ' is-grouped-result' : ''}`;
   li.dataset.paraId = p.id;
   if (p.id === state.activeId) li.classList.add('is-active');
 
@@ -1069,6 +1234,20 @@ function renderResult(p, rank, terms) {
   const labelChips = (p.labels || []).slice(0, 4).map(l => `<span class="chip">${escape(l)}</span>`).join('');
   const committeeChips = p.committees.map(c => `<span class="chip ${isSp(c) ? 'sp-chip' : ''}">${escape(c)}</span>`).join('');
 
+  const headline = opts.grouped
+    ? `
+        ${badge}
+        <span class="folio">MATCHED PARAGRAPH</span>
+        <span class="result-spacer"></span>
+        <span class="folio">${doc?.year ?? ''}</span>
+      `
+    : `
+        ${badge}
+        <span class="result-doc">${escape(doc?.nameShort || doc?.name || p.docId)}</span>
+        <span class="result-spacer"></span>
+        <span class="folio">${doc?.year ?? ''}</span>
+      `;
+
   li.innerHTML = `
     <div class="result-margin">
       <div class="result-rank">№ ${String(rank).padStart(2, '0')}</div>
@@ -1076,10 +1255,7 @@ function renderResult(p, rank, terms) {
     </div>
     <div class="result-body">
       <div class="result-headline">
-        ${badge}
-        <span class="result-doc">${escape(doc?.nameShort || doc?.name || p.docId)}</span>
-        <span class="result-spacer"></span>
-        <span class="folio">${doc?.year ?? ''}</span>
+        ${headline}
       </div>
       <p class="result-text">${highlight(p.text, terms)}</p>
       <div class="result-meta">
