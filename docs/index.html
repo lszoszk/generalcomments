@@ -86,25 +86,41 @@
   <!-- LEFT: filters -->
   <aside class="filters">
     <div class="filter-block">
-      <div class="folio">Years</div>
-      <div class="year-range" id="year-range">
+      <div class="filter-head">
+        <span class="folio">Years</span>
+        <span class="folio mono" id="year-display">—</span>
+      </div>
+      <div class="dual-range" id="year-range">
+        <div class="dual-range-track"></div>
+        <div class="dual-range-fill" id="year-fill"></div>
+        <input type="range" id="year-min" class="dual-range-input dual-range-input-lo" aria-label="Earliest year" />
+        <input type="range" id="year-max" class="dual-range-input dual-range-input-hi" aria-label="Latest year" />
+      </div>
+      <div class="dual-range-bounds">
         <span class="mono" id="year-lo">—</span>
-        <span class="year-track"><span class="year-fill" id="year-fill"></span></span>
         <span class="mono" id="year-hi">—</span>
       </div>
-      <div class="year-inputs">
-        <input type="number" id="year-min" class="mini" />
-        <input type="number" id="year-max" class="mini" />
+    </div>
+
+    <div class="filter-block" id="filter-block-bodies">
+      <div class="filter-head">
+        <span class="folio" id="bodies-label">Treaty bodies</span>
+      </div>
+      <div id="filter-committees" class="chip-grid"></div>
+      <div id="filter-bodies-sp" class="filter-sub" hidden>
+        <div class="folio sp-section">Special Procedures · 4 mandates · preview</div>
+        <div id="filter-mandates" class="chip-grid"></div>
       </div>
     </div>
 
     <div class="filter-block">
-      <div class="folio">Treaty bodies</div>
-      <div id="filter-committees" class="chip-grid"></div>
-    </div>
-
-    <div class="filter-block">
-      <div class="folio">Concerned groups</div>
+      <div class="filter-head">
+        <span class="folio">Concerned groups</span>
+        <div class="any-all" id="labels-mode" role="group" aria-label="Match mode for groups">
+          <button class="aa-opt is-active" data-mode="any" type="button" title="Paragraph has at least one selected group">ANY</button>
+          <button class="aa-opt" data-mode="all" type="button" title="Paragraph has all selected groups">ALL</button>
+        </div>
+      </div>
       <div id="filter-labels" class="checkbox-list"></div>
     </div>
 

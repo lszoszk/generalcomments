@@ -226,11 +226,51 @@
 .filter-block {
   margin-bottom: 24px;
 }
-.filter-block .folio {
-  margin-bottom: 8px;
+.filter-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
   padding-bottom: 6px;
   border-bottom: 1px solid var(--rule);
+}
+.filter-head .folio { display: inline; }
+.filter-sub {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dotted var(--rule);
+}
+.filter-sub .folio.sp-section {
+  color: var(--preview);
   display: block;
+  margin-bottom: 8px;
+}
+
+/* ANY / ALL segmented control */
+.any-all {
+  display: inline-flex;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  height: 20px;
+}
+.aa-opt {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--rule);
+  padding: 0 8px;
+  cursor: pointer;
+  color: var(--ink-3);
+  line-height: 1;
+}
+.aa-opt:last-child { border-right: 0; }
+.aa-opt:hover { color: var(--ink); }
+.aa-opt.is-active {
+  background: var(--ink);
+  color: var(--paper);
 }
 .chip-grid {
   display: flex;
@@ -272,41 +312,90 @@
   font-feature-settings: "tnum";
 }
 
-.year-range {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-feature-settings: "tnum";
+/* Dual-range slider (years) */
+.dual-range {
+  position: relative;
+  height: 24px;
+  margin: 4px 6px 0;
 }
-.year-track {
-  flex: 1;
+.dual-range-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
   height: 2px;
   background: var(--rule);
-  position: relative;
+  transform: translateY(-50%);
 }
-.year-fill {
+.dual-range-fill {
   position: absolute;
+  top: 50%;
+  height: 2px;
+  background: var(--garnet);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.dual-range-input {
+  position: absolute;
+  width: 100%;
+  height: 24px;
   top: 0;
   left: 0;
-  height: 100%;
-  background: var(--garnet);
-}
-.year-inputs {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-}
-.year-inputs .mini {
-  flex: 1;
-  font-family: var(--mono);
-  font-size: 12px;
-  padding: 4px 6px;
+  margin: 0;
   background: transparent;
-  border: 1px solid var(--rule);
-  color: var(--ink);
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: none;
   outline: none;
 }
-.year-inputs .mini:focus { border-color: var(--garnet); }
+.dual-range-input-lo { z-index: 2; }
+.dual-range-input-hi { z-index: 3; }
+.dual-range-input::-webkit-slider-runnable-track {
+  background: transparent;
+  border: none;
+  height: 24px;
+}
+.dual-range-input::-moz-range-track {
+  background: transparent;
+  border: none;
+  height: 24px;
+}
+.dual-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--garnet);
+  cursor: grab;
+  margin-top: -6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+  transition: transform .12s ease;
+}
+.dual-range-input::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.dual-range-input::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.1); }
+.dual-range-input::-moz-range-thumb {
+  pointer-events: auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--garnet);
+  cursor: grab;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+}
+.dual-range-input:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px var(--garnet-soft); }
+.dual-range-input:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 3px var(--garnet-soft); }
+.dual-range-bounds {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--ink-3);
+  font-feature-settings: "tnum";
+}
 
 /* ─────────────  RESULTS  ───────────── */
 .results {

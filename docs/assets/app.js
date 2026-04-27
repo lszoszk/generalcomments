@@ -18,6 +18,7 @@ const state = {
   filters: {
     committees: new Set(),
     labels: new Set(),
+    labelsMode: 'any',     // 'any' | 'all' — match-mode for concerned groups
     yearMin: null,
     yearMax: null,
   },
@@ -62,7 +63,8 @@ async function boot() {
 
     setProgress(85, 'Wiring interface…');
     paintScopeCounts();
-    paintFilters();
+    paintCommitteeFilter(state.scope);
+    paintLabelFilter();
     initYearRange();
     bindUI();
 
@@ -99,24 +101,54 @@ function paintScopeCounts() {
 }
 
 // ─────────── Facets / Filters UI ───────────
-function paintFilters() {
-  const cont = $('#filter-committees');
-  cont.innerHTML = '';
-  for (const { value, count } of state.facets.committees) {
+function paintCommitteeFilter(scope) {
+  const tbHost = $('#filter-committees');
+  const spHost = $('#filter-mandates');
+  const subSection = $('#filter-bodies-sp');
+  const sectionLabel = $('#bodies-label');
+
+  const tb = state.facets.committees.filter(c => !isSp(c.value));
+  const sp = state.facets.committees.filter(c => isSp(c.value));
+
+  tbHost.innerHTML = '';
+  spHost.innerHTML = '';
+
+  if (scope === 'gc') {
+    sectionLabel.textContent = 'Treaty bodies';
+    subSection.hidden = true;
+    paintCommitteeChips(tbHost, tb);
+  } else if (scope === 'sp') {
+    sectionLabel.textContent = 'Mandates';
+    subSection.hidden = true;
+    paintCommitteeChips(tbHost, sp);
+  } else {
+    sectionLabel.textContent = 'Treaty bodies';
+    subSection.hidden = false;
+    paintCommitteeChips(tbHost, tb);
+    paintCommitteeChips(spHost, sp);
+  }
+}
+
+function paintCommitteeChips(container, items) {
+  for (const { value, count } of items) {
     const b = document.createElement('button');
+    b.type = 'button';
     b.className = 'chip';
-    if (value.startsWith('SR ') || value.startsWith('SSR')) b.classList.add('sp-chip');
+    if (isSp(value)) b.classList.add('sp-chip');
+    if (state.filters.committees.has(value)) b.classList.add('on');
     b.dataset.committee = value;
-    b.innerHTML = `${value} <span class="dim">${count.toLocaleString()}</span>`;
+    b.innerHTML = `${escape(value)} <span class="dim">${count.toLocaleString()}</span>`;
     b.addEventListener('click', () => {
       if (state.filters.committees.has(value)) state.filters.committees.delete(value);
       else state.filters.committees.add(value);
       b.classList.toggle('on');
       runSearch();
     });
-    cont.appendChild(b);
+    container.appendChild(b);
   }
+}
 
+function paintLabelFilter() {
   const lblHost = $('#filter-labels');
   lblHost.innerHTML = '';
   for (const { value, count } of state.facets.labels) {
@@ -124,7 +156,7 @@ function paintFilters() {
     const wrap = document.createElement('label');
     wrap.innerHTML = `
       <input type="checkbox" id="${id}" />
-      <span>${value}</span>
+      <span>${escape(value)}</span>
       <span class="count">${count.toLocaleString()}</span>
     `;
     wrap.querySelector('input').addEventListener('change', e => {
@@ -140,15 +172,13 @@ function initYearRange() {
   const { min, max } = state.facets.years;
   state.filters.yearMin = min;
   state.filters.yearMax = max;
-  $('#year-lo').textContent = min;
-  $('#year-hi').textContent = max;
-  $('#year-fill').style.width = '100%';
-  $('#year-min').value = min;
-  $('#year-max').value = max;
-  $('#year-min').min = min;
-  $('#year-min').max = max;
-  $('#year-max').min = min;
-  $('#year-max').max = max;
+  const lo = $('#year-min'), hi = $('#year-max');
+  lo.min = hi.min = min;
+  lo.max = hi.max = max;
+  lo.step = hi.step = 1;
+  lo.value = min;
+  hi.value = max;
+  paintYearFill();
 }
 
 // ─────────── UI bindings ───────────
@@ -170,7 +200,7 @@ function bindUI() {
     runSearch();
   }));
 
-  // Scope toggle
+  // Scope toggle — also drops committee selections that don't belong in the new scope
   $$('.scope-opt').forEach(b => b.addEventListener('click', () => {
     $$('.scope-opt').forEach(x => {
       x.classList.remove('is-active');
@@ -179,6 +209,13 @@ function bindUI() {
     b.classList.add('is-active');
     b.setAttribute('aria-selected', 'true');
     state.scope = b.dataset.scope;
+
+    // Prune committee filters that no longer belong to this scope
+    const valid = scopeCommitteeSet(state.scope);
+    for (const c of [...state.filters.committees]) {
+      if (!valid.has(c)) state.filters.committees.delete(c);
+    }
+    paintCommitteeFilter(state.scope);
 
     const meta = {
       gc:  'Treaty body output · near-hard-law',
@@ -198,26 +235,27 @@ function bindUI() {
     $('#scope-banner').hidden = true;
   });
 
-  // Year inputs
-  $('#year-min').addEventListener('change', e => {
-    state.filters.yearMin = parseInt(e.target.value) || state.facets.years.min;
-    paintYearFill();
+  // Dual-range year slider — swap-on-cross strategy
+  bindYearSlider();
+
+  // ANY / ALL match-mode toggle for concerned groups
+  $$('#labels-mode .aa-opt').forEach(opt => opt.addEventListener('click', () => {
+    $$('#labels-mode .aa-opt').forEach(x => x.classList.remove('is-active'));
+    opt.classList.add('is-active');
+    state.filters.labelsMode = opt.dataset.mode;
     runSearch();
-  });
-  $('#year-max').addEventListener('change', e => {
-    state.filters.yearMax = parseInt(e.target.value) || state.facets.years.max;
-    paintYearFill();
-    runSearch();
-  });
+  }));
 
   // Reset
   $('#reset-filters').addEventListener('click', () => {
     state.filters.committees.clear();
     state.filters.labels.clear();
+    state.filters.labelsMode = 'any';
     state.filters.yearMin = state.facets.years.min;
     state.filters.yearMax = state.facets.years.max;
-    $$('#filter-committees .chip').forEach(c => c.classList.remove('on'));
+    $$('#filter-committees .chip, #filter-mandates .chip').forEach(c => c.classList.remove('on'));
     $$('#filter-labels input').forEach(i => i.checked = false);
+    $$('#labels-mode .aa-opt').forEach(x => x.classList.toggle('is-active', x.dataset.mode === 'any'));
     $('#year-min').value = state.facets.years.min;
     $('#year-max').value = state.facets.years.max;
     paintYearFill();
@@ -231,15 +269,43 @@ function bindUI() {
   });
 }
 
+function scopeCommitteeSet(scope) {
+  return new Set(state.facets.committees
+    .filter(c => scope === 'all' ? true : scope === 'gc' ? !isSp(c.value) : isSp(c.value))
+    .map(c => c.value));
+}
+
+function bindYearSlider() {
+  const lo = $('#year-min'), hi = $('#year-max');
+  const onInput = (which) => {
+    let loV = +lo.value, hiV = +hi.value;
+    if (loV > hiV) {
+      // Don't let the moving handle cross the other one — clamp instead.
+      if (which === 'lo') { loV = hiV; lo.value = loV; }
+      else                 { hiV = loV; hi.value = hiV; }
+    }
+    state.filters.yearMin = loV;
+    state.filters.yearMax = hiV;
+    paintYearFill();
+  };
+  lo.addEventListener('input', () => onInput('lo'));
+  hi.addEventListener('input', () => onInput('hi'));
+  // Only run search when the user releases — keeps drag smooth.
+  lo.addEventListener('change', runSearch);
+  hi.addEventListener('change', runSearch);
+}
+
 function paintYearFill() {
   const { min, max } = state.facets.years;
   const span = max - min || 1;
-  const left = ((state.filters.yearMin - min) / span) * 100;
+  const left  = ((state.filters.yearMin - min) / span) * 100;
   const right = ((state.filters.yearMax - min) / span) * 100;
-  $('#year-fill').style.marginLeft = `${left}%`;
-  $('#year-fill').style.width = `${right - left}%`;
+  const fill = $('#year-fill');
+  fill.style.left = `${left}%`;
+  fill.style.width = `${right - left}%`;
   $('#year-lo').textContent = state.filters.yearMin;
   $('#year-hi').textContent = state.filters.yearMax;
+  $('#year-display').textContent = `${state.filters.yearMin} – ${state.filters.yearMax}`;
 }
 
 // ─────────── Query parsing ───────────
@@ -288,7 +354,18 @@ function runSearch() {
     }
 
     if (f.committees.size && !p.committees.some(c => f.committees.has(c))) continue;
-    if (f.labels.size && !(p.labels && p.labels.some(l => f.labels.has(l)))) continue;
+    if (f.labels.size) {
+      const pl = p.labels || [];
+      if (f.labelsMode === 'all') {
+        // Every selected label must be present on the paragraph
+        let allOk = true;
+        for (const l of f.labels) { if (!pl.includes(l)) { allOk = false; break; } }
+        if (!allOk) continue;
+      } else {
+        // ANY: at least one selected label is present
+        if (!pl.some(l => f.labels.has(l))) continue;
+      }
+    }
 
     const text = p.text.toLowerCase();
     let ok = true;
