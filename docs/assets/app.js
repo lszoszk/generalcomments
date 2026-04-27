@@ -398,26 +398,24 @@ function scopeCommitteeSet(scope) {
 }
 
 // Replace the banner body with the actual mandate breakdown computed from documents.
+// Strips out the mandate prefix so 'SR Freedom of Expression' reads as 'Freedom of Expression'.
 function paintScopeBanner() {
   const counts = new Map();
   for (const d of state.documents.values()) {
     if (d.type !== 'sp') continue;
     for (const c of d.committees || []) counts.set(c, (counts.get(c) || 0) + 1);
   }
+  const cleanName = (name) => name.replace(/^S?SR\s+/, '').replace(/^Freedom of /, 'Freedom of ');
   const breakdown = [...counts.entries()]
     .sort((a, b) => b[1] - a[1])
-    .map(([name, n]) => `<strong>${escape(name)}</strong> (${n})`)
+    .map(([name, n]) => `<strong>${escape(cleanName(name))}</strong> (${n})`)
     .join(' · ');
 
   const banner = $('#scope-banner');
   banner.innerHTML = `
-    <span class="folio">PREVIEW</span>
-    <span>
-      Special Procedures are reports by independent UN mandate-holders — soft law, not hard law.
-      Currently ${counts.size} mandates are indexed: ${breakdown || '—'}.
-      The General Comments collection is exhaustive; this is a curated preview that will grow.
-    </span>
     <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
+    <span class="folio">SOFT-LAW PREVIEW</span>Special Procedures are reports by independent UN mandate-holders. The General Comments collection is exhaustive; this is a curated preview of <strong>${counts.size} mandates</strong> that will grow over time.
+    <span class="mandate-list">${breakdown || '—'}</span>
   `;
   $('#banner-dismiss').addEventListener('click', () => { banner.hidden = true; });
 }
