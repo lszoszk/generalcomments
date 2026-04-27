@@ -11,8 +11,10 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const state = {
   manifest: null,
   paragraphs: [],
+  paragraphById: new Map(),     // id → paragraph, for O(1) FlexSearch hydration
   documents: new Map(),
   facets: null,
+  searchIndex: null,            // FlexSearch.Document instance, populated after boot
   scope: 'gc',         // 'gc' | 'sp' | 'all'
   query: '',
   filters: {
@@ -107,7 +109,13 @@ async function boot() {
     setProgress(45, `Loading ${manifest.counts.paragraphs.toLocaleString()} paragraphs…`);
     state.paragraphs = await fetchJson(`${DATA_BASE}corpus.json`);
 
-    setProgress(85, 'Wiring interface…');
+    // Hydrate id-lookup map for FlexSearch result resolution
+    for (const p of state.paragraphs) state.paragraphById.set(p.id, p);
+
+    setProgress(70, 'Building search index…');
+    await ensureSearchIndex();           // FlexSearch index — IndexedDB cached if available
+
+    setProgress(90, 'Wiring interface…');
     paintScopeCounts();
     initYearRange();
     applyUrlState(decodeUrlState());     // restore from ?q=…&scope=…&tb=… etc.
@@ -658,6 +666,125 @@ function parseQuery(raw) {
   return { andTerms, orGroups };
 }
 
+// ─────────── FlexSearch index ───────────
+// Strategy:
+//   * Free-text terms are matched through a stemming/full-text FlexSearch index
+//     (CDN-loaded, ~28 KB). Catches inflections: 'child' matches 'children'.
+//   * Quoted phrases stay strict — substring scan over candidate paragraphs.
+//   * The whole index is serialised to IndexedDB keyed by manifest sha so
+//     subsequent visits skip the rebuild (~3 s → ~50 ms).
+
+const IDB_NAME = 'gr-cache';
+const IDB_STORE = 'flex-index';
+
+let flexSearchPromise = null;
+function loadFlexSearch() {
+  if (window.FlexSearch) return Promise.resolve(window.FlexSearch);
+  if (flexSearchPromise) return flexSearchPromise;
+  flexSearchPromise = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/flexsearch@0.7.43/dist/flexsearch.bundle.min.js';
+    s.onload = () => resolve(window.FlexSearch);
+    s.onerror = () => reject(new Error('FlexSearch failed to load'));
+    document.head.appendChild(s);
+  });
+  return flexSearchPromise;
+}
+
+function idbOpen() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(IDB_NAME, 1);
+    req.onupgradeneeded = () => req.result.createObjectStore(IDB_STORE);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+async function idbGet(key) {
+  try {
+    const db = await idbOpen();
+    return await new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const req = tx.objectStore(IDB_STORE).get(key);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  } catch { return null; }
+}
+async function idbPut(key, value) {
+  try {
+    const db = await idbOpen();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).put(value, key);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  } catch { /* swallow — cache is best-effort */ }
+}
+
+async function ensureSearchIndex() {
+  const FlexSearch = await loadFlexSearch();
+  const sha = state.manifest?.files?.['corpus.json']?.sha;
+  const cacheKey = `idx-${sha}`;
+
+  state.searchIndex = new FlexSearch.Document({
+    document: { id: 'id', index: ['text'] },
+    tokenize: 'forward',
+    encode: 'simple',
+    cache: 100,
+  });
+
+  // Try to restore from IndexedDB
+  const cached = sha ? await idbGet(cacheKey) : null;
+  if (cached && Array.isArray(cached) && cached.length) {
+    try {
+      for (const [key, value] of cached) state.searchIndex.import(key, value);
+      return;
+    } catch (e) {
+      console.warn('Index restore failed, rebuilding…', e);
+    }
+  }
+
+  // Build fresh
+  const t0 = performance.now();
+  for (const p of state.paragraphs) state.searchIndex.add({ id: p.id, text: p.text });
+  console.info(`FlexSearch built in ${(performance.now() - t0).toFixed(0)} ms`);
+
+  // Serialise to IDB after a brief idle (don't block first paint).
+  if (sha) {
+    setTimeout(async () => {
+      try {
+        const dump = await dumpIndex();
+        if (dump.length) await idbPut(cacheKey, dump);
+      } catch (e) { console.warn('Index dump failed:', e); }
+    }, 1500);
+  }
+}
+
+// FlexSearch's export fires its callback per index part — sync or async depending
+// on the build. Settle 200 ms after the last call.
+function dumpIndex() {
+  return new Promise((resolve) => {
+    const dump = [];
+    let timer = setTimeout(() => resolve(dump), 200);
+    state.searchIndex.export((key, value) => {
+      dump.push([key, value]);
+      clearTimeout(timer);
+      timer = setTimeout(() => resolve(dump), 200);
+    });
+  });
+}
+
+// Run a FlexSearch query with explicit AND/OR semantics.
+// Returns Set<id> or null when no index / no query (= no constraint).
+function flexSearchIds(query, bool = 'and') {
+  if (!state.searchIndex || !query) return null;
+  const hits = state.searchIndex.search(query, { limit: 5000, bool, suggest: false });
+  const ids = new Set();
+  for (const field of hits) for (const id of field.result) ids.add(id);
+  return ids;
+}
+
 // ─────────── Search ───────────
 function runSearch() {
   scheduleUrlUpdate();
@@ -665,8 +792,31 @@ function runSearch() {
   const f = state.filters;
   const scope = state.scope;
 
+  // Quoted phrases (incl. multi-word) stay strict — substring scan.
+  // Bare single-word terms benefit from FlexSearch stemming.
+  const phrases   = andTerms.filter(t => t.includes(' '));
+  const singleAnd = andTerms.filter(t => !t.includes(' '));
+
+  // Stage 1 — narrow by index where possible
+  let candidateIds = null;     // null = no constraint
+  if (singleAnd.length) {
+    candidateIds = flexSearchIds(singleAnd.join(' '), 'and');
+  }
+  for (const grp of orGroups) {
+    const orIds = flexSearchIds(grp.join(' '), 'or');
+    if (orIds == null) continue;
+    candidateIds = candidateIds
+      ? new Set([...candidateIds].filter(id => orIds.has(id)))
+      : orIds;
+  }
+
+  // Stage 2 — apply structural filters and phrase enforcement
   const matched = [];
-  for (const p of state.paragraphs) {
+  const iter = candidateIds
+    ? [...candidateIds].map(id => state.paragraphById.get(id)).filter(Boolean)
+    : state.paragraphs;
+
+  for (const p of iter) {
     if (scope === 'gc' && p.type !== 'gc') continue;
     if (scope === 'sp' && p.type !== 'sp') continue;
 
@@ -679,34 +829,32 @@ function runSearch() {
     if (f.labels.size) {
       const pl = p.labels || [];
       if (f.labelsMode === 'all') {
-        // Every selected label must be present on the paragraph
         let allOk = true;
         for (const l of f.labels) { if (!pl.includes(l)) { allOk = false; break; } }
         if (!allOk) continue;
       } else {
-        // ANY: at least one selected label is present
         if (!pl.some(l => f.labels.has(l))) continue;
       }
     }
 
     const text = p.text.toLowerCase();
-    let ok = true;
-    for (const t of andTerms) {
-      if (!text.includes(t)) { ok = false; break; }
-    }
-    if (!ok) continue;
-    for (const grp of orGroups) {
-      if (!grp.some(t => text.includes(t))) { ok = false; break; }
-    }
-    if (!ok) continue;
 
-    // Score: count of total occurrences across all terms, weighted by phrase length
+    // Enforce quoted phrases as exact substrings (FlexSearch tokenises, doesn't preserve order)
+    if (phrases.length) {
+      let ok = true;
+      for (const ph of phrases) { if (!text.includes(ph)) { ok = false; break; } }
+      if (!ok) continue;
+    }
+
+    // Score: occurrences in original text, weighted by term length.
+    // Stemming-only matches (no exact occurrence) still get baseline 1 to surface them.
     let score = 0;
-    for (const t of [...andTerms, ...orGroups.flat()]) {
+    for (const t of [...singleAnd, ...phrases, ...orGroups.flat()]) {
       if (!t) continue;
       const occ = countOccurrences(text, t);
       score += occ * (1 + Math.log2(t.length + 1));
     }
+    if (state.query && score === 0) score = 1;
     matched.push({ p, score });
   }
 
