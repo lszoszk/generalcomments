@@ -30,6 +30,52 @@ const state = {
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
 const RESULT_LIMIT = 200;    // render cap; "more" hint shown when hit
 
+// ─────────── URL state ───────────
+// Short keys keep shareable URLs human-readable.
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p' };
+
+function encodeUrlState() {
+  if (!state.facets) return;
+  const u = new URLSearchParams();
+  if (state.query) u.set(URL_KEYS.q, state.query);
+  if (state.scope !== 'gc') u.set(URL_KEYS.scope, state.scope);
+  if (state.filters.committees.size) u.set(URL_KEYS.tb, [...state.filters.committees].join('|'));
+  if (state.filters.labels.size) u.set(URL_KEYS.g, [...state.filters.labels].join('|'));
+  if (state.filters.labelsMode !== 'any') u.set(URL_KEYS.gm, state.filters.labelsMode);
+  if (state.filters.yearMin != null && state.filters.yearMin !== state.facets.years.min) {
+    u.set(URL_KEYS.y1, state.filters.yearMin);
+  }
+  if (state.filters.yearMax != null && state.filters.yearMax !== state.facets.years.max) {
+    u.set(URL_KEYS.y2, state.filters.yearMax);
+  }
+  if (state.activeId) u.set(URL_KEYS.p, state.activeId);
+  const qs = u.toString();
+  const next = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+  history.replaceState(null, '', next);
+}
+
+function decodeUrlState() {
+  const u = new URLSearchParams(window.location.search);
+  const split = (key) => (u.get(URL_KEYS[key]) || '').split('|').filter(Boolean);
+  return {
+    query: u.get(URL_KEYS.q) || '',
+    scope: u.get(URL_KEYS.scope) || 'gc',
+    committees: split('tb'),
+    labels: split('g'),
+    labelsMode: u.get(URL_KEYS.gm) === 'all' ? 'all' : 'any',
+    yearMin: u.get(URL_KEYS.y1) ? parseInt(u.get(URL_KEYS.y1)) : null,
+    yearMax: u.get(URL_KEYS.y2) ? parseInt(u.get(URL_KEYS.y2)) : null,
+    activeId: u.get(URL_KEYS.p) || null,
+  };
+}
+
+// Debounced URL update — fires after a burst of state changes.
+let urlUpdateTimer = null;
+function scheduleUrlUpdate() {
+  clearTimeout(urlUpdateTimer);
+  urlUpdateTimer = setTimeout(encodeUrlState, 250);
+}
+
 // ─────────── Loader ───────────
 const loader = $('#loader');
 const loaderFill = $('#loader-fill');
@@ -63,9 +109,11 @@ async function boot() {
 
     setProgress(85, 'Wiring interface…');
     paintScopeCounts();
+    initYearRange();
+    applyUrlState(decodeUrlState());     // restore from ?q=…&scope=…&tb=… etc.
     paintCommitteeFilter(state.scope);
     paintLabelFilter();
-    initYearRange();
+    syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
 
     setProgress(100, 'Ready.');
@@ -98,6 +146,62 @@ function paintScopeCounts() {
   const m = state.manifest.counts;
   $('#count-gc').textContent = m.gcDocuments;
   $('#count-sp').textContent = `${m.spDocuments} · 4 mandates`;
+}
+
+// ─────────── State restoration from URL ───────────
+function applyUrlState(parsed) {
+  // Scope
+  const validScope = ['gc', 'sp', 'all'].includes(parsed.scope) ? parsed.scope : 'gc';
+  state.scope = validScope;
+  $$('.scope-opt').forEach(b => {
+    const on = b.dataset.scope === validScope;
+    b.classList.toggle('is-active', on);
+    b.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  $('#scope-meta').textContent = {
+    gc:  'Treaty body output · near-hard-law',
+    sp:  'Mandate-holder reports · soft law · preview',
+    all: 'Combined view',
+  }[validScope];
+
+  // Query
+  state.query = parsed.query;
+  $('#q').value = parsed.query;
+
+  // Committees & labels — only keep values that exist in current facets
+  const validCommittees = new Set(state.facets.committees.map(c => c.value));
+  const validLabels = new Set(state.facets.labels.map(l => l.value));
+  state.filters.committees = new Set(parsed.committees.filter(c => validCommittees.has(c)));
+  state.filters.labels = new Set(parsed.labels.filter(l => validLabels.has(l)));
+  state.filters.labelsMode = parsed.labelsMode;
+
+  // Year range
+  const { min, max } = state.facets.years;
+  state.filters.yearMin = parsed.yearMin != null ? Math.max(min, Math.min(max, parsed.yearMin)) : min;
+  state.filters.yearMax = parsed.yearMax != null ? Math.max(min, Math.min(max, parsed.yearMax)) : max;
+  if (state.filters.yearMin > state.filters.yearMax) {
+    [state.filters.yearMin, state.filters.yearMax] = [state.filters.yearMax, state.filters.yearMin];
+  }
+  $('#year-min').value = state.filters.yearMin;
+  $('#year-max').value = state.filters.yearMax;
+  paintYearFill();
+
+  // Active paragraph
+  state.activeId = parsed.activeId;
+}
+
+function syncFiltersToDom() {
+  // Label checkboxes
+  $$('#filter-labels input[type=checkbox]').forEach(cb => {
+    const labelEl = cb.closest('label');
+    const value = labelEl?.querySelector('span')?.textContent;
+    cb.checked = value ? state.filters.labels.has(value) : false;
+  });
+  // ANY / ALL toggle
+  $$('#labels-mode .aa-opt').forEach(b => {
+    b.classList.toggle('is-active', b.dataset.mode === state.filters.labelsMode);
+  });
+  // Committee chips already get .on applied during render via paintCommitteeChips
 }
 
 // ─────────── Facets / Filters UI ───────────
@@ -225,6 +329,7 @@ function bindUI() {
     $('#scope-meta').textContent = meta;
 
     if (state.scope === 'sp' && !state.bannerShownForSp) {
+      paintScopeBanner();
       $('#scope-banner').hidden = false;
       state.bannerShownForSp = true;
     }
@@ -233,6 +338,23 @@ function bindUI() {
 
   $('#banner-dismiss').addEventListener('click', () => {
     $('#scope-banner').hidden = true;
+  });
+
+  // Copy permanent link to current search
+  $('#copy-link').addEventListener('click', async () => {
+    encodeUrlState();   // flush pending updates immediately
+    const btn = $('#copy-link');
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      btn.classList.add('is-copied');
+      btn.querySelector('.copy-link-label').textContent = 'Link copied ✓';
+      setTimeout(() => {
+        btn.classList.remove('is-copied');
+        btn.querySelector('.copy-link-label').textContent = 'Copy link';
+      }, 1500);
+    } catch {
+      btn.querySelector('.copy-link-label').textContent = 'Press ⌘+C';
+    }
   });
 
   // Dual-range year slider — swap-on-cross strategy
@@ -273,6 +395,31 @@ function scopeCommitteeSet(scope) {
   return new Set(state.facets.committees
     .filter(c => scope === 'all' ? true : scope === 'gc' ? !isSp(c.value) : isSp(c.value))
     .map(c => c.value));
+}
+
+// Replace the banner body with the actual mandate breakdown computed from documents.
+function paintScopeBanner() {
+  const counts = new Map();
+  for (const d of state.documents.values()) {
+    if (d.type !== 'sp') continue;
+    for (const c of d.committees || []) counts.set(c, (counts.get(c) || 0) + 1);
+  }
+  const breakdown = [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([name, n]) => `<strong>${escape(name)}</strong> (${n})`)
+    .join(' · ');
+
+  const banner = $('#scope-banner');
+  banner.innerHTML = `
+    <span class="folio">PREVIEW</span>
+    <span>
+      Special Procedures are reports by independent UN mandate-holders — soft law, not hard law.
+      Currently ${counts.size} mandates are indexed: ${breakdown || '—'}.
+      The General Comments collection is exhaustive; this is a curated preview that will grow.
+    </span>
+    <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
+  `;
+  $('#banner-dismiss').addEventListener('click', () => { banner.hidden = true; });
 }
 
 function bindYearSlider() {
@@ -339,6 +486,7 @@ function parseQuery(raw) {
 
 // ─────────── Search ───────────
 function runSearch() {
+  scheduleUrlUpdate();
   const { andTerms, orGroups } = parseQuery(state.query);
   const f = state.filters;
   const scope = state.scope;
@@ -454,6 +602,7 @@ function renderResult(p, rank, terms) {
   const doc = state.documents.get(p.docId);
   const li = document.createElement('li');
   li.className = `result fade-up ${p.type}`;
+  li.dataset.paraId = p.id;
   if (p.id === state.activeId) li.classList.add('is-active');
 
   const badge = p.type === 'sp'
@@ -496,8 +645,11 @@ function isSp(committee) {
 
 function setActive(id) {
   state.activeId = id;
-  $$('.result').forEach(el => el.classList.remove('is-active'));
+  $$('.result').forEach(el => {
+    el.classList.toggle('is-active', el.dataset.paraId === id);
+  });
   paintDossier();
+  scheduleUrlUpdate();
 }
 
 function paintDossier() {
@@ -548,10 +700,10 @@ function paintDossier() {
     setTimeout(() => { $('#copy-cite').textContent = 'Copy citation'; }, 1200);
   });
 
-  // mark active in list
-  $$('.result').forEach(el => el.classList.remove('is-active'));
-  const activeEl = $$('.result').find((el, idx) => state.results[idx]?.p.id === state.activeId);
-  activeEl?.classList.add('is-active');
+  // Mark active in list — using data-para-id is stable across re-renders.
+  $$('.result').forEach(el => {
+    el.classList.toggle('is-active', el.dataset.paraId === state.activeId);
+  });
 }
 
 // ─────────── Helpers ───────────

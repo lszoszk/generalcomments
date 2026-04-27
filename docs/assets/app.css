@@ -178,6 +178,29 @@
   min-width: 80px;
   text-align: right;
 }
+
+/* Copy link to current search */
+.copy-link-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+.copy-link-btn.is-copied {
+  background: var(--garnet-soft);
+  color: var(--garnet);
+  border-color: var(--garnet);
+}
+.copy-link-glyph {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1;
+}
+@media (max-width: 700px) {
+  .copy-link-label { display: none; }
+}
 .searchbar-hint {
   display: flex;
   gap: 10px;

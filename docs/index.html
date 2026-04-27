@@ -4,7 +4,53 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Geneva Reporter · UN Treaty Body General Comments</title>
-<meta name="description" content="Search 23,000+ paragraphs from UN Treaty Body General Comments, with a preview of Special Procedures reports." />
+<meta name="description" content="Paragraph-level search across 23,440 passages from 332 UN Treaty Body General Comments and Special Procedures reports — for human rights researchers, academics and legal practitioners." />
+<link rel="canonical" href="https://lszoszk.github.io/generalcomments/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lszoszk.github.io/generalcomments/" />
+<meta property="og:title" content="The Geneva Reporter · UN Treaty Body General Comments" />
+<meta property="og:description" content="Paragraph-level search across 332 UN Treaty Body General Comments and Special Procedures reports." />
+<meta property="og:site_name" content="The Geneva Reporter" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="The Geneva Reporter · UN Treaty Body General Comments" />
+<meta name="twitter:description" content="Paragraph-level search across 332 UN Treaty Body documents." />
+
+<!-- Structured data: WebSite + SearchAction + Dataset -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://lszoszk.github.io/generalcomments/#website",
+      "url": "https://lszoszk.github.io/generalcomments/",
+      "name": "The Geneva Reporter",
+      "description": "Paragraph-level search across UN Treaty Body General Comments and Special Procedures reports.",
+      "inLanguage": "en",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://lszoszk.github.io/generalcomments/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://lszoszk.github.io/generalcomments/#dataset",
+      "name": "UN Treaty Body General Comments and Special Procedures reports",
+      "description": "23,440 paragraphs across 332 documents (181 General Comments + 151 Special Procedures reports), indexed for paragraph-level search.",
+      "url": "https://lszoszk.github.io/generalcomments/",
+      "creator": { "@type": "Person", "name": "Łukasz Szoszkiewicz" },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "keywords": ["human rights", "UN treaty bodies", "general comments", "special procedures", "international law"]
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/tokens.css" />
@@ -68,6 +114,10 @@
            placeholder='e.g. "best interests of the child"  ·  digital environment  ·  surveillance'
            autocomplete="off" autocapitalize="off" spellcheck="false" />
     <span class="folio" id="result-count">—</span>
+    <button id="copy-link" class="btn btn-ghost copy-link-btn" type="button" title="Copy a permanent link to this search">
+      <span class="copy-link-glyph">⌥</span>
+      <span class="copy-link-label">Copy link</span>
+    </button>
   </div>
   <div class="searchbar-hint">
     <span class="folio">Operators</span>

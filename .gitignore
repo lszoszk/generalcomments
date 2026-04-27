@@ -127,3 +127,9 @@ meiliapp.py
 pdftojson.py
 meiliapp.py
 Neurorights.json
+# Build outputs and OS junk added during static-site work
+__pycache__/
+*.pyc
+.DS_Store
+dist/
+docs/_site/
