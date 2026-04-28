@@ -1290,27 +1290,89 @@
 @media (max-width: 700px) {
   .cite-label, .reading-mode-label { display: none; }
 }
-/* Reading-mode layout: collapse the filter rail, expand the dossier,
-   bump font + line-height on the active paragraph and dossier text. */
-body.is-reading-mode .layout {
-  grid-template-columns: 0 1fr minmax(420px, 36%);
+/* Reading mode (B/v13 redesign) — collapse rail + result list, hand the
+   centre stage to a single reading column. The dossier becomes the page.
+   Goal: no UI clutter, body-text-width column, larger font, comfortable
+   line-height. The user just wants to read the active paragraph + its
+   document context. Search bar + scope tabs stay visible (so they can
+   exit or navigate without leaving reading mode). */
+body.is-reading-mode .scope-banner,
+body.is-reading-mode .filters,
+body.is-reading-mode .results,
+body.is-reading-mode .results-tools,
+body.is-reading-mode .results-lede {
+  display: none !important;
 }
-body.is-reading-mode .filters {
-  display: none;
+body.is-reading-mode .layout {
+  grid-template-columns: 1fr;             /* single-column page */
+}
+body.is-reading-mode .dossier {
+  max-width: 760px;                       /* reading-comfortable column */
+  margin: 0 auto;
+  padding: 32px 40px 80px;
+  border-left: 0;                         /* drop the side gutter */
+  background: var(--paper);
+}
+body.is-reading-mode .dossier-empty {
+  text-align: center;
+  padding: 80px 20px;
+}
+body.is-reading-mode .dossier-folio-row,
+body.is-reading-mode .dossier-title,
+body.is-reading-mode .dossier-sig {
+  text-align: left;
+}
+body.is-reading-mode .dossier-title {
+  font-size: 26px;
+  line-height: 1.25;
+  margin: 6px 0 4px;
+}
+body.is-reading-mode .dossier-sig { font-size: 14px; margin-bottom: 18px; }
+body.is-reading-mode .dossier-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr; /* compact metadata band, 4-up */
+  gap: 16px 24px;
+  padding: 14px 0;
+  margin: 0 0 24px;
+}
+body.is-reading-mode .dossier-dp-wide { grid-column: 1 / -1; }
+body.is-reading-mode .dossier blockquote {
+  margin: 24px 0;
+  padding: 14px 20px 14px 22px;
+  border-left: 3px solid var(--garnet);
+  background: var(--paper-2);
+}
+body.is-reading-mode .dossier blockquote .pn {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 10px;
+  color: var(--garnet);
 }
 body.is-reading-mode .dossier blockquote p {
-  font-size: 17px;
-  line-height: 1.78;
+  font-size: 18px;
+  line-height: 1.85;
+  color: var(--ink);
 }
-body.is-reading-mode .result-text {
-  font-size: 16px;
-  line-height: 1.75;
+body.is-reading-mode .dossier-actions {
+  margin-top: 32px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
 }
-body.is-reading-mode .result-text.is-kwic {
-  /* In reading mode the truncated KWIC view feels frustrating —
-     the user wants the full thing. We don't expand automatically
-     (that would be a layout shock) but make the badge clearly clickable. */
-  cursor: pointer;
+@media (max-width: 700px) {
+  body.is-reading-mode .dossier { padding: 22px 20px 60px; }
+  body.is-reading-mode .dossier-grid { grid-template-columns: 1fr 1fr; }
+}
+/* Sticky "Exit reading" affordance — top-right above the dossier so
+   it's always reachable without scrolling. */
+body.is-reading-mode .reading-mode-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 50;
+  background: var(--paper);
+  border: 1px solid var(--garnet);
+  color: var(--garnet);
+  box-shadow: 0 4px 14px rgba(0,0,0,.08);
 }
 
 /* ─────────────  FOOTER  ───────────── */
@@ -1587,6 +1649,251 @@ body[data-active-view="about"]    section[data-view="about"]    { display: block
   margin: 4px 0 28px;
   max-width: 720px;
 }
+/* ============================================================
+   Workspace layer (Tier B — bookmarks · notes · pins · saves)
+   ============================================================ */
+
+/* Result-card workspace marks (small column on the right of each result) */
+.result-marks {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.ws-mark {
+  font-family: var(--display);
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  padding: 0;
+  color: var(--ink-3);
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.ws-mark:hover { background: var(--paper-2); color: var(--ink); }
+.ws-mark.on { background: var(--garnet); border-color: var(--garnet); color: var(--paper); }
+.ws-mark.ws-mark-note { cursor: default; }
+
+/* Dossier workspace strip (above the citation/reading actions row) */
+.dossier-workspace {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dotted var(--rule);
+}
+.ws-action.on { background: var(--garnet); color: var(--paper); border-color: var(--garnet); }
+.dossier-note-wrap { width: 100%; margin-top: 4px; }
+.dossier-note-wrap summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+.dossier-note-wrap summary::-webkit-details-marker { display: none; }
+.dossier-note {
+  width: 100%;
+  margin-top: 8px;
+  min-height: 90px;
+  padding: 10px 12px;
+  font-family: var(--body);
+  font-size: 13px;
+  line-height: 1.55;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  resize: vertical;
+  color: var(--ink);
+}
+.dossier-note:focus { outline: 1px solid var(--garnet); outline-offset: -1px; }
+
+/* Year histogram (B4) */
+.year-histogram {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dotted var(--rule);
+}
+.yh-svg {
+  width: 100%;
+  height: 36px;
+  display: block;
+}
+.yh-bar { cursor: pointer; transition: opacity 0.12s; }
+.yh-bar.in-range  { fill: var(--garnet); opacity: 0.85; }
+.yh-bar.out-range { fill: var(--rule);   opacity: 0.55; }
+.yh-bar:hover     { opacity: 1; }
+.yh-axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--ink-4);
+  margin-top: 2px;
+}
+
+/* Workspace nav-link badge */
+.workspace-badge {
+  display: inline-block;
+  margin-left: 4px;
+  background: var(--garnet);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 8px;
+  vertical-align: middle;
+}
+
+/* Workspace view */
+.workspace-shell { padding: 28px 40px 80px; max-width: 980px; margin: 0 auto; }
+.workspace-head { margin-bottom: 28px; padding-bottom: 18px; border-bottom: 1px solid var(--rule); }
+.workspace-head .folio { display: block; margin-bottom: 6px; }
+.workspace-title { font-size: 30px; line-height: 1.15; margin: 0 0 8px; color: var(--ink); }
+.workspace-sub   { color: var(--ink-3); font-size: 14px; line-height: 1.55; margin: 0; max-width: 720px; }
+.workspace-grid  { display: grid; grid-template-columns: 1fr; gap: 28px; }
+.ws-block        { padding: 18px 20px; border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); }
+.ws-block h3     { margin: 0 0 12px; font-size: 11px; color: var(--ink); }
+.ws-block .dim   { color: var(--ink-4); font-weight: normal; margin-left: 4px; }
+.ws-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.ws-row {
+  position: relative;
+  padding: 12px 14px 12px 14px;
+  background: var(--paper-2);
+  border-left: 2px solid var(--garnet);
+  border-radius: 3px;
+}
+.ws-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.ws-row-meta .dim { color: var(--ink-3); }
+.ws-row-snippet  { font-size: 13px; color: var(--ink); margin: 0 0 6px; line-height: 1.55; }
+.ws-note         { font-size: 12px; color: var(--ink-2); background: var(--paper); padding: 8px 10px; border-radius: 2px; border: 1px dashed var(--rule); margin: 0; }
+.ws-jump         { color: var(--garnet); text-decoration: none; font-size: 11px; }
+.ws-jump:hover   { text-decoration: underline; }
+.ws-row-del {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: 0;
+  color: var(--ink-3);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+.ws-row-del:hover { color: var(--garnet); }
+.ws-searches .ws-row { padding-right: 36px; display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.ws-search-link { color: var(--ink); font-family: var(--display); font-size: 14px; text-decoration: none; }
+.ws-search-link:hover { color: var(--garnet); text-decoration: underline; }
+
+/* Diff tray (B3) — bottom-right floating widget */
+.diff-tray {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 80;
+  width: 280px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: 0 12px 32px rgba(0,0,0,.16);
+  font-family: var(--display);
+}
+.diff-tray-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--ink);
+  color: var(--paper);
+}
+.diff-tray-head .folio { color: var(--paper); }
+.diff-clear {
+  background: transparent;
+  border: 0;
+  color: var(--paper);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+}
+.diff-tray-list { list-style: none; padding: 8px 12px; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.diff-tray-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.diff-tray-num {
+  background: var(--garnet);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.diff-tray-sig { font-family: var(--mono); font-size: 11px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.diff-tray-pn  { font-family: var(--mono); font-size: 10px; color: var(--ink-3); }
+.diff-tray-pop {
+  background: transparent;
+  border: 0;
+  color: var(--ink-3);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+  line-height: 1;
+}
+.diff-tray-pop:hover { color: var(--garnet); }
+.diff-tray-foot { padding: 10px 12px; border-top: 1px solid var(--rule); display: flex; justify-content: center; }
+.diff-tray-foot .dim { color: var(--ink-4); font-size: 10px; }
+
+/* Diff modal */
+.diff-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 4vh 4vw;
+}
+.diff-modal-backdrop { position: absolute; inset: 0; background: rgba(20, 18, 16, 0.65); }
+.diff-modal-card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0,0,0,.30);
+}
+.diff-modal-head { display: flex; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--rule); }
+.diff-modal-close { background: transparent; border: 0; font-size: 24px; line-height: 1; cursor: pointer; color: var(--ink-3); }
+.diff-modal-close:hover { color: var(--garnet); }
+.diff-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); flex: 1; overflow: auto; }
+.diff-pane { padding: 22px 26px; background: var(--paper); overflow-y: auto; }
+.diff-pane-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.diff-pane-title { font-family: var(--serif); font-size: 18px; line-height: 1.3; margin: 4px 0; color: var(--ink); }
+.diff-pane-meta { display: flex; gap: 10px; flex-wrap: wrap; font-size: 12px; color: var(--ink-3); margin-bottom: 14px; }
+.diff-pane-country { color: var(--garnet); font-style: italic; }
+.diff-pane-pn { color: var(--ink); font-family: var(--mono); }
+.diff-pane-text { font-family: var(--display); font-size: 15px; line-height: 1.7; color: var(--ink); margin: 0; }
+.diff-modal-foot { padding: 8px 20px; border-top: 1px solid var(--rule); background: var(--paper-2); text-align: center; color: var(--ink-4); font-size: 9px; letter-spacing: 0.08em; }
+@media (max-width: 800px) {
+  .diff-modal-grid { grid-template-columns: 1fr; }
+  .diff-tray { width: 240px; bottom: 8px; right: 8px; }
+}
+
 /* ─── Command palette ⌘K (A2) ─── */
 .cmdk-root {
   position: fixed;

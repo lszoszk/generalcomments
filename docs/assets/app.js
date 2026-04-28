@@ -163,6 +163,8 @@ async function boot() {
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
     bindRouter();
+    paintDiffTray();                     // restore pinned-tray on reload
+    paintWorkspaceBadge();
     setView(viewFromHash());             // honor the initial hash
 
     setProgress(100, 'Ready.');
@@ -375,7 +377,7 @@ function applyUrlState(parsed) {
 }
 
 // ─────────── Hash router (Search / Documents / About) ───────────
-const VIEWS = ['search', 'documents', 'about'];
+const VIEWS = ['search', 'documents', 'about', 'workspace'];
 
 function viewFromHash() {
   const h = window.location.hash.replace(/^#/, '');
@@ -395,6 +397,7 @@ function setView(view) {
 
   // Lazy-paint the view-specific content
   if (view === 'documents') paintDocumentsView();
+  if (view === 'workspace') renderWorkspace();
   // 'about' is static HTML, no paint needed
   // 'search' results are kept in DOM after boot, no need to repaint
 
@@ -663,6 +666,7 @@ function initYearRange() {
   lo.value = min;
   hi.value = max;
   paintYearFill();
+  paintYearHistogram();
 }
 
 // ─────────── UI bindings ───────────
@@ -799,6 +803,26 @@ function bindUI() {
       }, 1500);
     } catch {
       btn.querySelector('.copy-link-label').textContent = 'Press ⌘+C';
+    }
+  });
+
+  // B5 Save search — name it, store URL with name, surface in Workspace
+  $('#save-search')?.addEventListener('click', () => {
+    encodeUrlState();
+    const defaultName = state.query
+      ? `"${state.query.slice(0, 40)}${state.query.length > 40 ? '…' : ''}"`
+      : `${state.scope.toUpperCase()} search`;
+    const name = window.prompt('Name this saved search:', defaultName);
+    if (!name) return;
+    ssAdd(name, window.location.pathname + window.location.search);
+    const btn = $('#save-search');
+    if (btn) {
+      const lbl = btn.querySelector('.copy-link-label');
+      if (lbl) {
+        const orig = lbl.textContent;
+        lbl.textContent = 'Saved ✓';
+        setTimeout(() => { lbl.textContent = orig; }, 1500);
+      }
     }
   });
 
@@ -1083,8 +1107,8 @@ function bindYearSlider() {
   lo.addEventListener('input', () => onInput('lo'));
   hi.addEventListener('input', () => onInput('hi'));
   // Only run search when the user releases — keeps drag smooth.
-  lo.addEventListener('change', runSearch);
-  hi.addEventListener('change', runSearch);
+  lo.addEventListener('change', () => { runSearch(); paintYearHistogram(); });
+  hi.addEventListener('change', () => { runSearch(); paintYearHistogram(); });
 }
 
 function paintYearFill() {
@@ -2128,6 +2152,11 @@ function renderResult(p, rank, terms, opts = {}) {
     ? `<span class="kwic-badge" title="Keyword-in-context · click result to read full paragraph">◎ KWIC · ${snippet.fullLen.toLocaleString()} chars</span>`
     : '';
 
+  // Workspace state for this paragraph (B1/B2/B3 indicators)
+  const isBookmarked = bmHas(p.id);
+  const isPinned = pinHas(p.id);
+  const hasNote = noteHas(p.id);
+
   li.innerHTML = `
     <div class="result-margin">
       <div class="result-rank">№ ${String(rank).padStart(2, '0')}</div>
@@ -2147,9 +2176,31 @@ function renderResult(p, rank, terms, opts = {}) {
     <div class="result-aside">
       <div class="folio">Source</div>
       <div class="sig">${escape(doc?.signature || '—')}</div>
+      <div class="result-marks">
+        <button class="ws-mark ws-mark-bm ${isBookmarked ? 'on' : ''}" type="button"
+                data-ws="bm" title="${isBookmarked ? 'Bookmarked' : 'Bookmark'}">${isBookmarked ? '★' : '☆'}</button>
+        <button class="ws-mark ws-mark-pin ${isPinned ? 'on' : ''}" type="button"
+                data-ws="pin" title="${isPinned ? 'Pinned for compare' : 'Pin for compare'}">📌</button>
+        ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">📝</span>' : ''}
+      </div>
     </div>
   `;
-  li.addEventListener('click', () => setActive(p.id));
+  li.addEventListener('click', (e) => {
+    // Workspace marks click: don't open the dossier, just toggle the action
+    const wsBtn = e.target.closest('.ws-mark[data-ws]');
+    if (wsBtn) {
+      e.stopPropagation();
+      if (wsBtn.dataset.ws === 'bm') bmToggle(p.id);
+      else if (wsBtn.dataset.ws === 'pin') pinToggle(p.id);
+      // Re-paint just this row's marks instead of the whole list
+      const updated = renderResult(p, rank, terms, opts);
+      li.replaceWith(updated);
+      // Also refresh dossier if it's currently showing this paragraph
+      if (state.activeId === p.id) paintDossier();
+      return;
+    }
+    setActive(p.id);
+  });
   return li;
 }
 
@@ -2171,6 +2222,23 @@ function setActive(id) {
   paintDossier();
   updateDocumentTitle();
   scheduleUrlUpdate();
+}
+
+// After a workspace toggle, repaint the per-result marks (☆/📌/📝)
+// so they reflect the new state without re-rendering the whole list.
+function refreshResultMarks(paraId) {
+  const li = document.querySelector(`.result[data-para-id="${CSS.escape(paraId)}"]`);
+  if (!li) return;
+  const aside = li.querySelector('.result-marks');
+  if (!aside) return;
+  const isBM = bmHas(paraId);
+  const isPin = pinHas(paraId);
+  const hasNote = noteHas(paraId);
+  aside.innerHTML = `
+    <button class="ws-mark ws-mark-bm ${isBM ? 'on' : ''}" type="button" data-ws="bm" title="${isBM ? 'Bookmarked' : 'Bookmark'}">${isBM ? '★' : '☆'}</button>
+    <button class="ws-mark ws-mark-pin ${isPin ? 'on' : ''}" type="button" data-ws="pin" title="${isPin ? 'Pinned for compare' : 'Pin for compare'}">📌</button>
+    ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">📝</span>' : ''}
+  `;
 }
 
 // Per-URL <title> so deep-linked pages get distinct titles in search results
@@ -2288,6 +2356,23 @@ function paintDossier() {
       <span class="pn">¶ ${para.n ?? para.idx}</span>
       <p>${highlight(para.text, terms)}</p>
     </blockquote>
+    <div class="dossier-workspace">
+      <button class="btn btn-ghost ws-action ${bmHas(para.id) ? 'on' : ''}" id="ws-bookmark" type="button"
+              title="${bmHas(para.id) ? 'Remove bookmark' : 'Bookmark this paragraph'}">
+        ${bmHas(para.id) ? '★ Bookmarked' : '☆ Bookmark'}
+      </button>
+      <button class="btn btn-ghost ws-action ${pinHas(para.id) ? 'on' : ''}" id="ws-pin" type="button"
+              title="${pinHas(para.id) ? 'Unpin' : 'Pin for compare (max 2)'}">
+        ${pinHas(para.id) ? '📌 Pinned' : '📌 Pin'}
+      </button>
+      <details class="dossier-note-wrap" ${noteHas(para.id) ? 'open' : ''}>
+        <summary class="btn btn-ghost ws-action ${noteHas(para.id) ? 'on' : ''}">
+          ${noteHas(para.id) ? '📝 Edit note' : '📝 Add note'}
+        </summary>
+        <textarea class="dossier-note serif" id="ws-note"
+                  placeholder="Private notes — saved only in this browser."></textarea>
+      </details>
+    </div>
     <div class="dossier-actions">
       ${doc?.link ? `<a class="btn btn-garnet" href="${escape(doc.link)}" target="_blank" rel="noopener">Open original</a>` : ''}
       <details class="cite-menu" id="cite-menu">
@@ -2304,11 +2389,24 @@ function paintDossier() {
         </div>
       </details>
       <button class="btn btn-ghost reading-mode-btn" id="reading-toggle"
-              title="Reading mode (R) — collapse the rail, expand the dossier">
+              title="Reading mode (R) — single-column reading view">
         📖 <span class="reading-mode-label">Reading mode</span>
       </button>
     </div>
   `;
+
+  // B1 Bookmark toggle
+  $('#ws-bookmark')?.addEventListener('click', () => { bmToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
+  // B3 Pin toggle
+  $('#ws-pin')?.addEventListener('click', () => { pinToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
+  // B2 Note autosave (debounced on blur + after 600 ms idle)
+  const noteTa = $('#ws-note');
+  if (noteTa) {
+    noteTa.value = noteGet(para.id);
+    let t; const save = () => { noteSet(para.id, noteTa.value); refreshResultMarks(para.id); };
+    noteTa.addEventListener('input', () => { clearTimeout(t); t = setTimeout(save, 600); });
+    noteTa.addEventListener('blur', () => { clearTimeout(t); save(); });
+  }
 
   // Wire each citation format. Falls back to a one-liner if the user's
   // browser blocks clipboard writes (rare; e.g. file:// without a polyfill).
@@ -2693,6 +2791,371 @@ document.addEventListener('keydown', (e) => {
     items[_cmdkFocusIdx]?.scrollIntoView({ block: 'nearest' });
   }
 });
+
+// ─────────── Workspace storage layer (Tier B) ───────────
+//
+// All four Tier-B features (bookmarks · notes · saved searches · diff
+// pins) persist to localStorage. Single shared layer for read/write with
+// graceful fallback when storage is denied (private browsing, quota, etc.).
+//
+// Keys:
+//   unhrdb_bookmarks_v1   → array of {paraId, docId, addedAt}
+//   unhrdb_notes_v1       → object { paraId: noteText, ... }
+//   unhrdb_pins_v1        → array of {paraId, docId, addedAt}, max 2 (FIFO)
+//   unhrdb_searches_v1    → array of {name, url, savedAt}
+const _LS = {
+  bm:    'unhrdb_bookmarks_v1',
+  notes: 'unhrdb_notes_v1',
+  pins:  'unhrdb_pins_v1',
+  ss:    'unhrdb_searches_v1',
+};
+function _lsGet(key, fallback) {
+  try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+  catch { return fallback; }
+}
+function _lsSet(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+  catch { return false; }
+}
+
+// ─────────── B1 Bookmarks ───────────
+function bmList() { return _lsGet(_LS.bm, []); }
+function bmHas(paraId) { return bmList().some(b => b.paraId === paraId); }
+function bmToggle(paraId) {
+  const list = bmList();
+  const idx = list.findIndex(b => b.paraId === paraId);
+  if (idx >= 0) list.splice(idx, 1);
+  else {
+    const para = state.paragraphById.get(paraId);
+    if (!para) return;
+    list.push({ paraId, docId: para.docId, addedAt: Date.now() });
+  }
+  _lsSet(_LS.bm, list);
+  paintWorkspaceBadge();
+  return bmHas(paraId);
+}
+
+// ─────────── B2 Notes ───────────
+function noteGet(paraId) { return _lsGet(_LS.notes, {})[paraId] || ''; }
+function noteSet(paraId, text) {
+  const all = _lsGet(_LS.notes, {});
+  if (!text || !text.trim()) delete all[paraId];
+  else all[paraId] = text;
+  _lsSet(_LS.notes, all);
+  paintWorkspaceBadge();
+}
+function noteHas(paraId) { return !!noteGet(paraId); }
+
+// ─────────── B3 Diff / Compare pins (max 2, FIFO eviction) ───────────
+function pinList() { return _lsGet(_LS.pins, []); }
+function pinHas(paraId) { return pinList().some(p => p.paraId === paraId); }
+function pinToggle(paraId) {
+  const list = pinList();
+  const idx = list.findIndex(p => p.paraId === paraId);
+  if (idx >= 0) list.splice(idx, 1);
+  else {
+    const para = state.paragraphById.get(paraId);
+    if (!para) return;
+    if (list.length >= 2) list.shift();           // FIFO when full
+    list.push({ paraId, docId: para.docId, addedAt: Date.now() });
+  }
+  _lsSet(_LS.pins, list);
+  paintDiffTray();
+  paintWorkspaceBadge();
+  return pinHas(paraId);
+}
+
+// ─────────── B5 Saved searches ───────────
+function ssList() { return _lsGet(_LS.ss, []); }
+function ssAdd(name, url) {
+  if (!name?.trim()) return;
+  const list = ssList();
+  list.push({ name: name.trim(), url, savedAt: Date.now() });
+  _lsSet(_LS.ss, list);
+  paintWorkspaceBadge();
+}
+function ssRemove(idx) {
+  const list = ssList();
+  list.splice(idx, 1);
+  _lsSet(_LS.ss, list);
+  paintWorkspaceBadge();
+}
+
+// ─────────── Diff tray (B3 visual) ───────────
+//
+// Bottom-right tray that shows up whenever 1+ pin exists. Click → opens
+// a side-by-side comparison modal. Empty when 0 pins (hidden).
+function paintDiffTray() {
+  const tray = $('#diff-tray');
+  if (!tray) return;
+  const pins = pinList();
+  if (!pins.length) { tray.hidden = true; tray.innerHTML = ''; return; }
+  tray.hidden = false;
+  tray.innerHTML = `
+    <div class="diff-tray-head">
+      <span class="folio">PINNED · ${pins.length}/2</span>
+      <button class="diff-clear" type="button" title="Clear all pins">×</button>
+    </div>
+    <ol class="diff-tray-list">
+      ${pins.map((p, i) => {
+        const para = state.paragraphById.get(p.paraId);
+        const doc = para && state.documents.get(para.docId);
+        const sig = doc?.signature || doc?.symbol || p.paraId;
+        return `<li class="diff-tray-item">
+          <span class="diff-tray-num">${String.fromCharCode(65 + i)}</span>
+          <span class="diff-tray-sig">${escape(sig)}</span>
+          ${para ? `<span class="diff-tray-pn">¶${escape(String(para.n ?? para.idx))}</span>` : ''}
+          <button class="diff-tray-pop" type="button" data-pin-idx="${i}" title="Remove">−</button>
+        </li>`;
+      }).join('')}
+    </ol>
+    <div class="diff-tray-foot">
+      ${pins.length === 2
+        ? `<button class="btn btn-garnet diff-open" type="button">Compare ⇆</button>`
+        : `<span class="folio dim">Pin one more to compare</span>`}
+    </div>`;
+  tray.querySelector('.diff-clear')?.addEventListener('click', () => {
+    _lsSet(_LS.pins, []);
+    paintDiffTray();
+    paintWorkspaceBadge();
+  });
+  tray.querySelectorAll('.diff-tray-pop').forEach(b => {
+    b.addEventListener('click', () => {
+      const i = parseInt(b.dataset.pinIdx, 10);
+      const list = pinList();
+      list.splice(i, 1);
+      _lsSet(_LS.pins, list);
+      paintDiffTray();
+      paintWorkspaceBadge();
+    });
+  });
+  tray.querySelector('.diff-open')?.addEventListener('click', openDiffModal);
+}
+
+function openDiffModal() {
+  const modal = $('#diff-modal');
+  const pins = pinList();
+  if (!modal || pins.length < 2) return;
+  const ast = parseQuery(state.query);
+  const terms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
+
+  const renderPane = (pin, idx) => {
+    const para = state.paragraphById.get(pin.paraId);
+    const doc  = para && state.documents.get(para.docId);
+    if (!para) {
+      return `<div class="diff-pane">
+        <div class="folio">PIN ${String.fromCharCode(65 + idx)}</div>
+        <p class="serif" style="color:var(--ink-3); font-style:italic">
+          The pinned paragraph is no longer in the loaded corpus
+          (the jurisprudence shard may not have been loaded yet — try
+          opening the Jurisprudence scope first).
+        </p>
+      </div>`;
+    }
+    const outcome = (para.type === 'jur' && doc?.outcome)
+      ? `<span class="outcome-badge outcome-${escape(doc.outcome)}">${escape(formatOutcome(doc.outcome))}</span>`
+      : '';
+    return `<div class="diff-pane">
+      <div class="diff-pane-head">
+        <span class="folio">PIN ${String.fromCharCode(65 + idx)}</span>
+        ${outcome}
+      </div>
+      <h4 class="diff-pane-title">${escape(doc?.nameShort || doc?.name || para.docId)}</h4>
+      <div class="diff-pane-meta">
+        <span class="mono">${escape(doc?.signature || '')}</span>
+        ${doc?.country ? `<span class="diff-pane-country">${escape(doc.country)}</span>` : ''}
+        ${doc?.year ? `<span>${doc.year}</span>` : ''}
+        <span class="diff-pane-pn">¶ ${escape(String(para.n ?? para.idx))}</span>
+      </div>
+      <p class="diff-pane-text">${highlight(para.text, terms)}</p>
+    </div>`;
+  };
+
+  modal.hidden = false;
+  modal.innerHTML = `
+    <div class="diff-modal-backdrop"></div>
+    <div class="diff-modal-card" role="dialog" aria-label="Compare paragraphs">
+      <div class="diff-modal-head">
+        <span class="folio garnet">SIDE-BY-SIDE COMPARISON</span>
+        <button class="diff-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+      <div class="diff-modal-grid">
+        ${renderPane(pins[0], 0)}
+        ${renderPane(pins[1], 1)}
+      </div>
+      <div class="diff-modal-foot folio">
+        Pinned paragraphs · cleared from this view via the tray.
+      </div>
+    </div>`;
+  modal.querySelector('.diff-modal-backdrop')?.addEventListener('click', closeDiffModal);
+  modal.querySelector('.diff-modal-close')?.addEventListener('click', closeDiffModal);
+}
+function closeDiffModal() {
+  const modal = $('#diff-modal');
+  if (modal) { modal.hidden = true; modal.innerHTML = ''; }
+}
+
+// ─────────── B4 Year histogram ───────────
+//
+// Inline SVG chart. Reads facets.years.histogram. Click a bar to set
+// yearMin/yearMax to that single year; shift-click extends a range.
+function paintYearHistogram() {
+  const host = $('#year-histogram');
+  if (!host) return;
+  const hist = state.facets?.years?.histogram || [];
+  if (!hist.length) { host.innerHTML = ''; return; }
+
+  const yMin = state.facets.years.min;
+  const yMax = state.facets.years.max;
+  const maxCount = Math.max(1, ...hist.map(b => b.count));
+  const W = 240, H = 36;
+  const barW = (W - (hist.length - 1) * 1) / hist.length;
+
+  // Detect which bars fall inside the current filter range
+  const inRange = (year) =>
+    (state.filters.yearMin == null || year >= state.filters.yearMin) &&
+    (state.filters.yearMax == null || year <= state.filters.yearMax);
+
+  const bars = hist.map((b, i) => {
+    const h = (b.count / maxCount) * H;
+    const x = i * (barW + 1);
+    const y = H - h;
+    const cls = inRange(b.year) ? 'in-range' : 'out-range';
+    return `<rect class="yh-bar ${cls}"
+      data-year="${b.year}" data-count="${b.count}"
+      x="${x.toFixed(1)}" y="${y.toFixed(1)}"
+      width="${barW.toFixed(1)}" height="${h.toFixed(1)}">
+      <title>${b.year} · ${b.count.toLocaleString()} paragraphs</title>
+    </rect>`;
+  }).join('');
+
+  host.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" class="yh-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Year histogram">
+      ${bars}
+    </svg>
+    <div class="yh-axis"><span>${yMin}</span><span>${yMax}</span></div>`;
+
+  host.querySelectorAll('.yh-bar').forEach(b => {
+    b.addEventListener('click', (e) => {
+      const y = parseInt(b.dataset.year, 10);
+      if (e.shiftKey && state.filters.yearMin != null) {
+        // shift-click extends the range
+        state.filters.yearMin = Math.min(state.filters.yearMin, y);
+        state.filters.yearMax = Math.max(state.filters.yearMax, y);
+      } else {
+        state.filters.yearMin = y;
+        state.filters.yearMax = y;
+      }
+      $('#year-min').value = state.filters.yearMin;
+      $('#year-max').value = state.filters.yearMax;
+      paintYearFill();
+      paintYearHistogram();
+      runSearch();
+    });
+  });
+}
+
+// ─────────── Workspace view + nav badge ───────────
+function paintWorkspaceBadge() {
+  const badge = $('#workspace-badge');
+  if (!badge) return;
+  const total = bmList().length + Object.keys(_lsGet(_LS.notes, {})).length
+              + ssList().length + pinList().length;
+  if (total === 0) { badge.hidden = true; badge.textContent = ''; return; }
+  badge.hidden = false;
+  badge.textContent = String(total);
+}
+
+function renderWorkspace() {
+  const host = $('#workspace-body');
+  if (!host) return;
+  const bms = bmList();
+  const notes = _lsGet(_LS.notes, {});
+  const noteIds = Object.keys(notes);
+  const pins = pinList();
+  const ss = ssList();
+
+  host.innerHTML = `
+    <div class="ws-block">
+      <h3 class="folio">★ Bookmarks <span class="dim">(${bms.length})</span></h3>
+      ${bms.length === 0
+        ? '<p class="serif dim">Click ☆ on any paragraph to bookmark it. Bookmarks live only in this browser.</p>'
+        : `<ol class="ws-list">${bms.slice().reverse().map(b => _wsRowFor(b.paraId, 'bm')).join('')}</ol>`}
+    </div>
+    <div class="ws-block">
+      <h3 class="folio">📝 Notes <span class="dim">(${noteIds.length})</span></h3>
+      ${noteIds.length === 0
+        ? '<p class="serif dim">Open a paragraph in the dossier and write a note — autosaved per paragraph.</p>'
+        : `<ol class="ws-list">${noteIds.map(id => _wsRowFor(id, 'note')).join('')}</ol>`}
+    </div>
+    <div class="ws-block">
+      <h3 class="folio">📌 Pinned for compare <span class="dim">(${pins.length}/2)</span></h3>
+      ${pins.length === 0
+        ? '<p class="serif dim">Pin two paragraphs and use the tray bottom-right to compare them side-by-side.</p>'
+        : `<ol class="ws-list">${pins.map(p => _wsRowFor(p.paraId, 'pin')).join('')}</ol>`}
+      ${pins.length === 2 ? '<button class="btn btn-garnet" id="ws-open-diff">Open comparison ⇆</button>' : ''}
+    </div>
+    <div class="ws-block">
+      <h3 class="folio">💾 Saved searches <span class="dim">(${ss.length})</span></h3>
+      ${ss.length === 0
+        ? '<p class="serif dim">Save the current query + filter combination from the searchbar.</p>'
+        : `<ol class="ws-list ws-searches">${ss.slice().reverse().map((s, i) => `
+            <li class="ws-row">
+              <a class="ws-search-link" href="${escape(s.url)}">${escape(s.name)}</a>
+              <span class="mono dim">${new Date(s.savedAt).toLocaleDateString('en-GB')}</span>
+              <button class="ws-row-del" type="button" data-ss-idx="${ss.length - 1 - i}" title="Remove">×</button>
+            </li>`).join('')}
+          </ol>`}
+    </div>`;
+
+  host.querySelectorAll('.ws-row-del[data-ss-idx]').forEach(b => {
+    b.addEventListener('click', () => { ssRemove(parseInt(b.dataset.ssIdx, 10)); renderWorkspace(); });
+  });
+  host.querySelectorAll('.ws-row-del[data-bm-id]').forEach(b => {
+    b.addEventListener('click', () => { bmToggle(b.dataset.bmId); renderWorkspace(); });
+  });
+  host.querySelectorAll('.ws-row-del[data-note-id]').forEach(b => {
+    b.addEventListener('click', () => { noteSet(b.dataset.noteId, ''); renderWorkspace(); });
+  });
+  host.querySelectorAll('.ws-row-del[data-pin-id]').forEach(b => {
+    b.addEventListener('click', () => { pinToggle(b.dataset.pinId); renderWorkspace(); });
+  });
+  $('#ws-open-diff')?.addEventListener('click', openDiffModal);
+  host.querySelectorAll('.ws-jump').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = a.dataset.paraId;
+      const url = new URL(window.location);
+      url.searchParams.set('p', id);
+      url.hash = 'search';
+      window.history.replaceState(null, '', url);
+      applyUrlState(decodeUrlState());
+      runSearch();
+    });
+  });
+}
+
+function _wsRowFor(paraId, kind) {
+  const para = state.paragraphById.get(paraId);
+  const doc = para && state.documents.get(para.docId);
+  const sig = doc?.signature || doc?.symbol || paraId;
+  const where = doc?.country ? ` · ${escape(doc.country)}` : '';
+  const snippet = para ? para.text.slice(0, 180) + (para.text.length > 180 ? '…' : '') : '<em>(paragraph not loaded — open the relevant scope)</em>';
+  const dataAttr = kind === 'bm' ? `data-bm-id="${escape(paraId)}"`
+                 : kind === 'note' ? `data-note-id="${escape(paraId)}"`
+                 : kind === 'pin' ? `data-pin-id="${escape(paraId)}"` : '';
+  const noteText = kind === 'note' ? `<p class="ws-note serif">${escape(_lsGet(_LS.notes, {})[paraId] || '')}</p>` : '';
+  return `<li class="ws-row">
+    <div class="ws-row-meta">
+      <a class="ws-jump mono" href="#search" data-para-id="${escape(paraId)}">${escape(sig)}</a>
+      ${para?.n != null ? `<span class="dim mono">¶${escape(String(para.n))}</span>` : ''}
+      <span class="dim">${escape(doc?.nameShort || doc?.name || '')}${where}</span>
+    </div>
+    <p class="ws-row-snippet serif">${escape(snippet)}</p>
+    ${noteText}
+    <button class="ws-row-del" type="button" ${dataAttr} title="Remove">×</button>
+  </li>`;
+}
 
 // ─────────── Helpers ───────────
 function escape(s) {

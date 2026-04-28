@@ -73,6 +73,7 @@
     <nav class="mast-nav">
       <a href="#search" class="active">Search</a>
       <a href="#documents">Documents</a>
+      <a href="#workspace" id="workspace-nav-link">Workspace<span class="workspace-badge" id="workspace-badge" hidden></span></a>
       <a href="#about">About</a>
       <span class="mast-sep"></span>
       <button id="theme-toggle" class="btn btn-ghost" title="Toggle dark mode">◐</button>
@@ -159,6 +160,10 @@
       <span class="copy-link-glyph">⌥</span>
       <span class="copy-link-label">Copy link</span>
     </button>
+    <button id="save-search" class="btn btn-ghost copy-link-btn" type="button" title="Save this query + filter combination to your workspace">
+      <span class="copy-link-glyph">💾</span>
+      <span class="copy-link-label">Save search</span>
+    </button>
   </div>
   <div class="searchbar-hint">
     <span class="folio">Operators</span>
@@ -196,6 +201,9 @@
         <span class="mono" id="year-lo">—</span>
         <span class="mono" id="year-hi">—</span>
       </div>
+      <!-- B4 — paragraph distribution by year. Click a bar to drill in. -->
+      <div class="year-histogram" id="year-histogram"
+           title="Click a bar to filter to that year · shift-click to extend the range"></div>
     </div>
 
     <div class="filter-block" id="filter-block-bodies">
@@ -306,6 +314,21 @@
   </div>
   <div class="docs-body" id="docs-body"></div>
 </section><!-- /documents view -->
+
+<!-- ═══════════════════════════ WORKSPACE VIEW ═══════════════════════════ -->
+<section data-view="workspace" hidden>
+  <div class="workspace-shell">
+    <header class="workspace-head">
+      <div class="folio garnet">PERSONAL · IN-BROWSER ONLY</div>
+      <h2 class="serif workspace-title">Your workspace</h2>
+      <p class="serif workspace-sub">
+        Bookmarks, notes, pinned comparisons and saved searches live in your browser's
+        localStorage. Nothing leaves your device. Clear browser data and they're gone.
+      </p>
+    </header>
+    <div class="workspace-grid" id="workspace-body"></div>
+  </div>
+</section><!-- /workspace view -->
 
 <!-- ═══════════════════════════ ABOUT VIEW ═══════════════════════════ -->
 <section data-view="about" hidden>
@@ -517,6 +540,10 @@
     <div class="mono" id="loader-msg">Fetching manifest…</div>
   </div>
 </div>
+
+<!-- Pin tray + comparison modal (B3) — populated by app.js. -->
+<div class="diff-tray" id="diff-tray" hidden></div>
+<div class="diff-modal" id="diff-modal" hidden></div>
 
 <script type="module" src="assets/app.js?v=20260428-jur-preview"></script>
 </body>
