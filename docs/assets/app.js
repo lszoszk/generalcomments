@@ -307,11 +307,17 @@ function paintDocumentsView() {
 function renderDocsCommittee(committee, list, type) {
   const rows = list.map(d => {
     const firstP = `${d.docId}-0001`;
+    const statusBadge = d.status === 'superseded'
+      ? `<span class="docs-status superseded" title="Superseded by ${escape(d.supersededBy || '—')}">superseded</span>`
+      : d.status === 'revised'
+      ? `<span class="docs-status revised" title="Revised version">revised</span>`
+      : '';
+    const abstractAttr = d.abstract ? ` title="${escape(d.abstract)}"` : '';
     return `
       <li>
-        <a class="docs-row ${type}" href="?p=${encodeURIComponent(firstP)}#search" data-doc-id="${escape(d.docId)}">
+        <a class="docs-row ${type}" href="?p=${encodeURIComponent(firstP)}#search" data-doc-id="${escape(d.docId)}"${abstractAttr}>
           <span class="sig">${escape(d.signature || '—')}</span>
-          <span class="name">${escape(d.nameShort || d.name || d.docId)}</span>
+          <span class="name">${escape(d.nameShort || d.name || d.docId)}${statusBadge}</span>
           <span class="year">${d.year ?? '—'}</span>
           <span class="pcount">${d.paragraphCount ?? 0} ¶</span>
           <span class="arrow">→</span>
@@ -1369,15 +1375,28 @@ function paintDossier() {
   const { andTerms, orGroups } = parseQuery(state.query);
   const terms = [...andTerms, ...orGroups.flat()].filter(Boolean);
 
+  const articlesHtml = doc?.articles?.length
+    ? `<div class="dossier-dp"><div class="folio">Articles</div><div class="v">${doc.articles.map(a => `<span class="dossier-chip">${escape(a)}</span>`).join(' ')}</div></div>`
+    : '';
+  const statusHtml = doc?.status && doc.status !== 'final'
+    ? `<div class="dossier-dp"><div class="folio">Status</div><div class="v">${escape(doc.status)}${doc.supersededBy ? ` → ${escape(doc.supersededBy)}` : ''}</div></div>`
+    : '';
+  const abstractHtml = doc?.abstract
+    ? `<div class="dossier-abstract serif"><div class="folio">In a sentence</div><p>${escape(doc.abstract)}</p></div>`
+    : '';
+
   host.innerHTML = `
     <div class="folio garnet">${isSpDoc ? 'MANDATE REPORT · PREVIEW' : 'GENERAL COMMENT'}</div>
     <h3 class="dossier-title">${escape(doc?.name || para.docId)}</h3>
     <div class="dossier-sig">${escape(doc?.signature || '')}</div>
+    ${abstractHtml}
     <div class="dossier-grid">
       <div class="dossier-dp"><div class="folio">Adopted</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
       <div class="dossier-dp"><div class="folio">Year</div><div class="v">${doc?.year ?? '—'}</div></div>
       <div class="dossier-dp"><div class="folio">${isSpDoc ? 'Mandate' : 'Committee'}</div><div class="v">${escape(doc?.committees?.join(' · ') || '—')}</div></div>
       <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
+      ${articlesHtml}
+      ${statusHtml}
       ${isSpDoc && doc?.mandate ? `<div class="dossier-dp"><div class="folio">Mandate holder</div><div class="v accent">${escape(doc.mandate)}</div></div>` : ''}
       ${isSpDoc && doc?.presented ? `<div class="dossier-dp"><div class="folio">Presented</div><div class="v">${escape(doc.presented)}</div></div>` : ''}
     </div>

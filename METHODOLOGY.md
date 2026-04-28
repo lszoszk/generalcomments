@@ -312,7 +312,8 @@ cat /path/to/generalcomments-repo/docs/build_report.txt
 | v5 | `527cf75` | 2026-04-28 | Comprehensive SP pass: +673 SP labels; large gains for Persons deprived of their liberty (+245), Disabilities (+169), Refugees (+93) |
 | v6 | `6063370` | 2026-04-28 | Pattern refinement: `corporal_punishment`→Children, `disadvantaged groups`→Poverty, `insufficient means`→Poverty, `sexual and reproductive freedom`→Women/girls; SP `marginalized`-only Poverty labels removed (40 paragraphs) |
 | v6.1 | `a96094b` | 2026-04-28 | Audit of `corporal punishment` pattern: removed false-positive `Children` label from `CCPR_GC34 ¶26` (general expression-law context, no child reference); pattern documented as requiring child-context co-occurrence going forward |
-| v7 | (this commit) | 2026-04-28 | Synchronised with OHCHR catalogue. Ingested 5 new GCs adopted 2024–2026: `E/C.12/GC/27` (environment), `CMW/C/GC/6` (Global Compact), joint `CMW/C/GC/7 + CERD/C/GC/38` and `CMW/C/GC/8 + CERD/C/GC/39` (xenophobia), `CEDAW/C/GC/30/Add.1` (Women, Peace and Security). +497 paragraphs, +5 documents. Fixed wrong year on `CED/C/GC/1` (2003 → 2023). Added "last synchronised" date on the website About page. |
+| v7 | `acfc52c` | 2026-04-28 | Synchronised with OHCHR catalogue. Ingested 5 new GCs adopted 2024–2026: `E/C.12/GC/27` (environment), `CMW/C/GC/6` (Global Compact), joint `CMW/C/GC/7 + CERD/C/GC/38` and `CMW/C/GC/8 + CERD/C/GC/39` (xenophobia), `CEDAW/C/GC/30/Add.1` (Women, Peace and Security). +497 paragraphs, +5 documents. Fixed wrong year on `CED/C/GC/1` (2003 → 2023). Added "last synchronised" date on the website About page. |
+| v8 | (this commit) | 2026-04-28 | Metadata audit and schema enrichment. Phase 1 fixes: cast all `Adoption Year` to int (39 GC + 65 SP), merged SP `Adoption year` lowercase variant, fixed CCPR GC31 signature typo, removed orphan CRC-GC18-Harmful (non-Rev), standardised 18 outlier links to canonical `tbinternet.ohchr.org/Download.aspx`. Phase 2 adds: `paragraphCount`, `wordCount`, `labelCount`, `ohchrSymbol`, `firstAddedAt`, `lastVerifiedAt`, `articles`, `status`, `supersedes`/`supersededBy`, `jointWith`, `languagesAvailable`, `alternativeSignatures`. Phase 3 adds: hand-written one-sentence Committee-voice `abstract` for all 186 GCs. `topicTags` deferred to backlog (TODO_LATER.md). Net: GC count 187 → 186, schema gains 12 optional fields. |
 
 ## 13. Synchronisation with OHCHR (v7, April 2026)
 
@@ -428,3 +429,74 @@ Issues, missing documents, suspected mislabels and pattern suggestions are very 
 Corrections to individual paragraph labels are best filed as issues with the document
 identifier and paragraph number; the maintainers will investigate whether the cause is a
 broken pattern (fix the pattern, re-run pipeline) or a pattern gap (add a new pattern).
+
+## 14. Document metadata schema (v8, April 2026)
+
+After the v8 metadata audit, every General Comment record exposes the
+following structured fields in `documents.json`. Fields are present whenever
+known; consumers should treat them as optional. SP records expose the same
+core fields but most of the new ones are GC-only.
+
+| Field | Type | Origin | Description |
+|-------|------|--------|-------------|
+| `docId` | string (slug) | derived | Stable identifier for cross-referencing. |
+| `type` | `"gc"` \| `"sp"` | derived | Document stream. |
+| `name` | string | source | Full title. |
+| `nameShort` | string | source | Compact title for cards. |
+| `signature` | string | source | UN document signature (`E/C.12/GC/27`, `CCPR/C/GC/37` …). Not unique on its own — old CEDAW/CERD GCs share session-report signatures. |
+| `committee` / `committees` | string / `string[]` | source | Issuing committee(s). For joint GCs, both committees are listed in `committees`. |
+| `year` / `adoptionDate` | int / string | source | Year is always `int` after v8. |
+| `link` | URL | source (standardised) | Canonical OHCHR download page. After v8, all are `tbinternet.ohchr.org/.../Download.aspx`. |
+| `sourceFile` | filename | derived | The paragraph JSON used to build the corpus. |
+| `paragraphCount` | int | computed | Count of paragraph entries in the source file. |
+| `wordCount` | int | computed | Sum of word counts across all paragraphs. |
+| `labelCount` | int | computed | Sum of concerned-group labels across all paragraphs (a single paragraph with three labels contributes 3). |
+| `abstract` | string | hand-written | One-sentence summary in Committee voice (§14.1). |
+| `articles` | `string[]` | regex from name + first paragraphs | Treaty-article references the GC interprets, e.g. `["Art. 12"]`. Populated for 124 of 186 GCs (titles of older procedural GCs do not name an article). |
+| `status` | `"final"` \| `"revised"` \| `"superseded"` \| `"draft"` | curated | Defaults to `final`. Cross-references via `supersedes` / `supersededBy`. |
+| `supersedes` / `supersededBy` | string \| null | curated | Signatures of the preceding/replacing GC. Currently used for `CRC GC10 → GC24` and `CAT GC1 → GC4`. |
+| `jointWith` | `[{committee, signature}]` | curated | Structured cross-reference for joint GCs. Avoids parsing the awkward dual-signature into the `signature` field. |
+| `alternativeSignatures` | `string[]` | curated | Earlier (non-revised) signatures kept as identifiers, e.g. CRC18 / CEDAW31. |
+| `languagesAvailable` | `string[]` (UN codes) | curated default | Defaults to UN6 (`en, fr, es, ar, ru, zh`) for GCs and `["en"]` for SPs. Per-document scrape of OHCHR pages is on the backlog. |
+| `ohchrSymbol` | string | derived | Canonical UN doc symbol used to construct the OHCHR Download URL. Pulled from the `Link` query string when available, otherwise from `Signature`. |
+| `firstAddedAt` / `lastVerifiedAt` | ISO date | derived / today | Provenance trail: when this record was first ingested and when it was last reconciled with OHCHR. |
+| `mandate` / `presented` | string (SP only) | source | Mandate-holder and presentation context for SP reports. 88 SP records still have these empty (backlog). |
+
+### 14.1 Abstract authoring guidelines
+
+The 186 abstracts were written by the maintainer in **Committee voice** —
+each abstract describes what the Committee (or the joint Committees) "considers",
+"recalls", "clarifies", "recommends", "affirms" or "elaborates", mirroring the
+self-presentation conventions of UN treaty bodies.
+
+Constraints applied during authoring:
+
+- **Length:** 1–2 sentences, typically 30–55 words.
+- **Voice:** Active, third-person Committee. No "this General Comment" framing.
+- **Specificity:** Name the legal anchor (treaty article, principle, predecessor)
+  whenever the document does. Avoid generic openers like "This document is about…".
+- **Supersession honesty:** Where a GC has been replaced by a later one
+  (e.g. CCPR GC6 → GC36), the abstract notes this in a parenthetical at the end.
+- **Scope:** What the GC is about, not what it endorses. The abstract is a
+  *navigational* aid, not editorial commentary on the underlying obligations.
+
+The full set is stored under version control as `abstracts_data.py` for
+reproducibility and for later editing.
+
+### 14.2 Repair script
+
+The deterministic Phase 1+2 repair (everything except abstracts) is performed
+by `repair_metadata.py` and is idempotent — running it twice on the same input
+produces the same output.
+
+Phase 3 (abstracts) is loaded from `abstracts_data.py` and applied to the
+metadata via a one-shot script at the end of v8 ingestion.
+
+### 14.3 What is *not* in the schema
+
+- `topicTags` — subject-matter tags. Deferred (see `TODO_LATER.md`).
+- `country` — country-visit tag for SP reports. Deferred (SP-only).
+- `hrcSession` / `gaSession` — session number for SP reports. Deferred.
+- `reportType` (SP) — `annual` / `country-visit` / `thematic` / `communications`.
+  Deferred.
+- DOIs and academic citation counts — deliberately not added (see audit §3.4).

@@ -49,14 +49,27 @@ DEFAULT_SRC = ROOT / "mysite_pythonanywhere"
 
 def resolve_paths(src: Path) -> dict:
     """Return data file paths under the given source dir.
-    Some data may be missing (e.g. SP files only exist locally, not in the public repo).
+    Prefers quality-pipeline output dirs when they exist:
+      json_data_gc_labeled/ over json_data/    (GC paragraphs with filled labels)
+      json_labeled_v2/      over json_labeled/ over json_data_sp/  (SP paragraphs)
     """
+    root = src.parent  # GC_Database root, one level above mysite_pythonanywhere/
+    # GC paragraph dir — prefer labeled output if present
+    gc_para = root / "json_data_gc_labeled"
+    if not gc_para.exists():
+        gc_para = src / "json_data"
+    # SP paragraph dir — prefer v2 labeled, then json_labeled, then raw
+    sp_para = root / "json_labeled_v2"
+    if not sp_para.exists():
+        sp_para = root / "json_labeled"
+    if not sp_para.exists():
+        sp_para = src / "json_data_sp"
     return {
         "src": src,
         "gc_meta": src / "crc_gc_info.json",
         "sp_meta": src / "specialprocedures_info.json",
-        "gc_para": src / "json_data",
-        "sp_para": src / "json_data_sp",
+        "gc_para": gc_para,
+        "sp_para": sp_para,
     }
 
 # --------------------------------------------------------------------------
@@ -223,6 +236,26 @@ def collect_documents(
             "link": meta.get("Link", "").strip(),
             "sourceFile": filename,
         }
+        # New (post-audit) fields, exposed when present in source metadata.
+        # All are optional in the consumer contract.
+        for k_src, k_out in [
+            ("abstract",             "abstract"),
+            ("articles",             "articles"),
+            ("status",               "status"),
+            ("supersedes",           "supersedes"),
+            ("supersededBy",         "supersededBy"),
+            ("jointWith",            "jointWith"),
+            ("languagesAvailable",   "languagesAvailable"),
+            ("ohchrSymbol",          "ohchrSymbol"),
+            ("firstAddedAt",         "firstAddedAt"),
+            ("lastVerifiedAt",       "lastVerifiedAt"),
+            ("wordCount",            "wordCount"),
+            ("labelCount",           "labelCount"),
+            ("alternativeSignatures", "alternativeSignatures"),
+        ]:
+            v = meta.get(k_src)
+            if v is not None and v != "" and v != []:
+                doc_record[k_out] = v
         if doc_type == "sp":
             doc_record["mandate"] = meta.get("Mandate holder", "").strip()
             doc_record["presented"] = meta.get("Presented", "").strip()
@@ -333,48 +366,6 @@ def write_json(path: Path, data, *, pretty: bool = False) -> None:
 
 
 # --------------------------------------------------------------------------
-# Sitemap
-# --------------------------------------------------------------------------
-SITE_BASE = "https://lszoszk.github.io/generalcomments"
-
-
-def write_sitemap(path: Path, documents: list[dict], built_iso: str) -> None:
-    """Emit sitemap.xml that points at each document via its first paragraph.
-
-    Each ?p=<docId>-0001 URL is a stable deep link. The SPA loads, sets the
-    active paragraph, and updates document.title — so Googlebot (which has
-    executed JS since 2019) gets per-document content with a per-document
-    title for indexing.
-    """
-    last = built_iso.split("T")[0]
-    lines = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-        f"  <url><loc>{SITE_BASE}/</loc><lastmod>{last}</lastmod>"
-        f"<changefreq>weekly</changefreq><priority>1.0</priority></url>",
-    ]
-    # Scope shortcuts so the SP and All-sources views can be discovered.
-    for q in ("?scope=sp", "?scope=all"):
-        lines.append(
-            f"  <url><loc>{SITE_BASE}/{q}</loc><lastmod>{last}</lastmod>"
-            f"<changefreq>weekly</changefreq><priority>0.9</priority></url>"
-        )
-    # One URL per document — anchored to its first paragraph.
-    for d in documents:
-        if not d.get("paragraphCount"):
-            continue
-        first_pid = f"{d['docId']}-0001"
-        prio = "0.8" if d.get("type") == "gc" else "0.6"
-        lines.append(
-            f"  <url><loc>{SITE_BASE}/?p={first_pid}</loc>"
-            f"<lastmod>{last}</lastmod>"
-            f"<changefreq>monthly</changefreq><priority>{prio}</priority></url>"
-        )
-    lines.append("</urlset>")
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-
-
-# --------------------------------------------------------------------------
 # Main
 # --------------------------------------------------------------------------
 def main() -> int:
@@ -453,13 +444,10 @@ def main() -> int:
         },
         "schema": {
             "paragraph": ["id", "docId", "idx", "n", "text", "labels", "type", "committee", "committees", "year"],
-            "document": ["docId", "type", "name", "nameShort", "signature", "committee", "committees", "year", "adoptionDate", "link", "sourceFile", "paragraphCount", "mandate?", "presented?"],
+            "document": ["docId", "type", "name", "nameShort", "signature", "committee", "committees", "year", "adoptionDate", "link", "sourceFile", "paragraphCount", "abstract?", "articles?", "status?", "supersedes?", "supersededBy?", "jointWith?", "languagesAvailable?", "ohchrSymbol?", "firstAddedAt?", "lastVerifiedAt?", "wordCount?", "labelCount?", "alternativeSignatures?", "mandate?", "presented?"],
         },
     }
     write_json(out / "manifest.json", manifest, pretty=True)
-
-    # sitemap.xml — one URL per document for deep indexing
-    write_sitemap(out / "sitemap.xml", documents, build_iso)
 
     # Build report
     report_path = out / "build_report.txt"

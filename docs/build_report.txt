@@ -1,4 +1,4 @@
-Build report - 2026-04-28T09:10:02+00:00
+Build report - 2026-04-28T09:39:27+00:00
 ============================================================
 
 Documents: 337 (186 GC + 151 SP)
@@ -7,9 +7,8 @@ Labels: 19
 Committees: 13
 Year range: [1960, 2026]
 
-Diagnostics (10 entries):
+Diagnostics (9 entries):
 ------------------------------------------------------------
-[gc] METADATA WITHOUT FILE: Annotated_CRC-GC18-Harmful.json
 [sp] FILE WITHOUT METADATA: A_HRC_13_40_1.json
 [sp] FILE WITHOUT METADATA: A_HRC_9_18.json
 [sp] FILE WITHOUT METADATA: Disinformation and freedom of opinion and expression  during armed conflicts.json
@@ -17,5 +16,5 @@ Diagnostics (10 entries):
 [sp] FILE WITHOUT METADATA: Internet governance and human rights, freedom of expression and defamation, and security and protection of media professionals.json
 [sp] FILE WITHOUT METADATA: Media freedom in the digital age.json
 [sp] FILE WITHOUT METADATA: Promotion and protection of the right to freedom of opinion and expression.json
-[sp] METADATA WITHOUT FILE: Disinformation and freedom of opinion and expression during armed conflicts.json
 [sp] METADATA WITHOUT FILE: The protection and use of health-related data.json
+[sp] METADATA WITHOUT FILE: Disinformation and freedom of opinion and expression during armed conflicts.json

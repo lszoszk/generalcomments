@@ -1,6 +1,6 @@
 {
   "version": "20260428",
-  "builtAt": "2026-04-28T09:10:02+00:00",
+  "builtAt": "2026-04-28T09:39:27+00:00",
   "counts": {
     "documents": 337,
     "paragraphs": 23937,
@@ -17,12 +17,12 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "38e30fb3dada2f37",
-      "bytes": 23599491
+      "sha": "434ec4a865be2654",
+      "bytes": 23599051
     },
     "documents.json": {
-      "sha": "5360b34ac50b6ee7",
-      "bytes": 178552
+      "sha": "0ddc35d7112f6b67",
+      "bytes": 307863
     },
     "facets.json": {
       "sha": "77a75e447519c16c",
@@ -55,6 +55,19 @@
       "link",
       "sourceFile",
       "paragraphCount",
+      "abstract?",
+      "articles?",
+      "status?",
+      "supersedes?",
+      "supersededBy?",
+      "jointWith?",
+      "languagesAvailable?",
+      "ohchrSymbol?",
+      "firstAddedAt?",
+      "lastVerifiedAt?",
+      "wordCount?",
+      "labelCount?",
+      "alternativeSignatures?",
       "mandate?",
       "presented?"
     ]

@@ -814,6 +814,53 @@
   word-break: break-word;
 }
 .dossier-dp .v.accent { color: var(--garnet); }
+.dossier-chip {
+  display: inline-block;
+  padding: 1px 7px;
+  margin: 0 4px 4px 0;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-2);
+}
+.dossier-abstract {
+  margin: 14px 0 0;
+  padding: 10px 14px;
+  background: var(--paper-2);
+  border-left: 2px solid var(--garnet);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.dossier-abstract .folio {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--ink-4);
+  margin-bottom: 4px;
+}
+.dossier-abstract p { margin: 0; }
+.docs-status {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.docs-status.superseded {
+  background: var(--paper-3, #f0e9e1);
+  color: var(--ink-4);
+  text-decoration: line-through;
+}
+.docs-status.revised {
+  background: var(--garnet-soft, #f5e9e9);
+  color: var(--garnet);
+}
 
 .dossier blockquote {
   margin: 16px 0 0;
