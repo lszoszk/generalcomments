@@ -191,6 +191,57 @@
   text-align: right;
 }
 
+/* Inline × clear button on the search input */
+.q-clear-btn {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  color: var(--ink-3);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  padding: 0;
+  margin: 0 4px 0 -8px;
+  transition: background 0.12s, color 0.12s;
+}
+.q-clear-btn:hover {
+  background: var(--garnet);
+  color: var(--paper);
+  border-color: var(--garnet);
+}
+
+/* GC / SP result breakdown pills (next to the result count, in scope=All) */
+.result-breakdown {
+  flex-shrink: 0;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin-left: 8px;
+  font-feature-settings: "tnum";
+}
+.rb-pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  color: var(--ink-2);
+}
+.rb-pill.rb-gc { background: var(--paper-2); }
+.rb-pill.rb-sp {
+  background: var(--preview-soft, #f5f1ee);
+  color: var(--preview, var(--ink-2));
+  border-color: var(--preview, var(--rule));
+}
+
 /* Copy link to current search */
 .copy-link-btn {
   flex-shrink: 0;

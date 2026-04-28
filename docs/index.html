@@ -118,7 +118,13 @@
     <input id="q" type="search" class="serif search-input"
            placeholder='e.g. "best interests of the child"  ·  digital environment  ·  surveillance'
            autocomplete="off" autocapitalize="off" spellcheck="false" />
+    <button id="q-clear" type="button" class="q-clear-btn" hidden
+            title="Clear the keyword (Esc)" aria-label="Clear keyword">×</button>
     <span class="folio" id="result-count">—</span>
+    <span class="result-breakdown" id="result-breakdown" hidden>
+      <span class="rb-pill rb-gc" id="rb-gc" hidden></span>
+      <span class="rb-pill rb-sp" id="rb-sp" hidden></span>
+    </span>
     <details class="export-menu" id="export-menu">
       <summary class="btn btn-ghost export-btn" title="Export current results">
         <span class="export-glyph">↓</span>

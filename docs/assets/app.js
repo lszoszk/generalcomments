@@ -199,6 +199,7 @@ function applyUrlState(parsed) {
   // Query
   state.query = parsed.query;
   $('#q').value = parsed.query;
+  syncClearChip();
 
   // Committees & labels — only keep values that exist in current facets
   const validCommittees = new Set(state.facets.committees.map(c => c.value));
@@ -512,18 +513,38 @@ function initYearRange() {
 function bindUI() {
   // Search input (debounced)
   let t;
-  $('#q').addEventListener('input', e => {
+  const qInput = $('#q');
+  const qClear = $('#q-clear');
+  qInput.addEventListener('input', e => {
     clearTimeout(t);
+    syncClearChip();
     t = setTimeout(() => {
       state.query = e.target.value.trim();
       runSearch();
     }, 180);
+  });
+  qInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && qInput.value) {
+      e.preventDefault();
+      qInput.value = '';
+      state.query = '';
+      syncClearChip();
+      runSearch();
+    }
+  });
+  qClear?.addEventListener('click', () => {
+    qInput.value = '';
+    state.query = '';
+    syncClearChip();
+    runSearch();
+    qInput.focus();
   });
 
   // Suggestions
   $$('.suggest').forEach(b => b.addEventListener('click', () => {
     $('#q').value = b.dataset.q;
     state.query = b.dataset.q;
+    syncClearChip();
     runSearch();
   }));
 
@@ -1502,6 +1523,7 @@ function paintResults() {
     : 'No matches';
   $('#results-sub').textContent = resultSubtitle();
   $('#results-sub').appendChild(scopeNotice());
+  paintResultBreakdown();
 
   // Empty state — render in place of the list. Provides one of three
   // tailored hints depending on what's narrowing the result set:
@@ -1551,6 +1573,37 @@ function paintResults() {
 
 // Build a tailored empty-state element. Reads `state.filters` to decide
 // which hints to surface and offers one-click recovery actions.
+// Show/hide the inline × clear button based on input value.
+function syncClearChip() {
+  const btn = $('#q-clear');
+  const v = $('#q')?.value || '';
+  if (btn) btn.hidden = !v;
+}
+
+// Render small "GC 4,521 ¶ · SP 1,237 ¶" breakdown pills next to the
+// result-count badge. Hidden when the corpus is empty or the scope is
+// already filtered to a single type.
+function paintResultBreakdown() {
+  const wrap  = $('#result-breakdown');
+  const gcPill = $('#rb-gc');
+  const spPill = $('#rb-sp');
+  if (!wrap || !gcPill || !spPill) return;
+  if (!state.results.length || state.scope !== 'all') {
+    wrap.hidden = true;
+    return;
+  }
+  let nGc = 0, nSp = 0;
+  for (const { p } of state.results) {
+    if (p.type === 'gc') nGc++;
+    else if (p.type === 'sp') nSp++;
+  }
+  wrap.hidden = false;
+  gcPill.hidden = nGc === 0;
+  spPill.hidden = nSp === 0;
+  gcPill.textContent = `GC ${nGc.toLocaleString()} ¶`;
+  spPill.textContent = `SP ${nSp.toLocaleString()} ¶`;
+}
+
 function _buildEmptyState() {
   const f = state.filters;
   const q = state.query.trim();
