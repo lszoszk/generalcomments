@@ -203,6 +203,36 @@
       <div id="filter-labels" class="checkbox-list"></div>
     </div>
 
+    <details class="filter-block filter-collapsible" id="filter-block-articles">
+      <summary>
+        <span class="folio">Treaty articles</span>
+        <span class="filter-block-hint folio" id="filter-articles-count">—</span>
+      </summary>
+      <div class="filter-search-row">
+        <input type="search" id="filter-articles-q" class="filter-mini-search"
+               placeholder="filter…" autocomplete="off" />
+      </div>
+      <div id="filter-articles" class="chip-grid chip-grid-compact"></div>
+    </details>
+
+    <details class="filter-block filter-collapsible" id="filter-block-reporttype" hidden>
+      <summary>
+        <span class="folio">SP report type</span>
+      </summary>
+      <div id="filter-reporttypes" class="chip-grid chip-grid-compact"></div>
+    </details>
+
+    <div class="filter-block filter-block-status">
+      <div class="filter-head">
+        <span class="folio">Document status</span>
+      </div>
+      <label class="status-toggle">
+        <input type="checkbox" id="filter-show-superseded" />
+        <span class="serif">Show superseded GCs</span>
+        <span class="folio dim" id="filter-superseded-count">—</span>
+      </label>
+    </div>
+
     <button id="reset-filters" class="btn btn-ghost btn-block">Reset filters</button>
   </aside>
 

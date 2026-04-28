@@ -29,6 +29,9 @@ const state = {
     labelsMode: 'any',     // 'any' | 'all' — match-mode for concerned groups
     yearMin: null,
     yearMax: null,
+    articles: new Set(),         // GC only — values like "Art. 6", "Art. 14"
+    reportTypes: new Set(),      // SP only — annual / thematic / communications / addendum / country-visit
+    showSuperseded: false,       // hide superseded GCs by default
   },
   results: [],
   activeId: null,
@@ -40,7 +43,7 @@ const RESULT_LIMIT = 200;    // render cap; "more" hint shown when hit
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', art: 'art', rt: 'rt', sup: 'sup' };
 
 function encodeUrlState() {
   if (!state.facets) return;
@@ -58,6 +61,9 @@ function encodeUrlState() {
   }
   if (state.resultSort !== 'relevance') u.set(URL_KEYS.sort, state.resultSort);
   if (state.resultGroup !== 'paragraphs') u.set(URL_KEYS.group, state.resultGroup);
+  if (state.filters.articles.size) u.set(URL_KEYS.art, [...state.filters.articles].join('|'));
+  if (state.filters.reportTypes.size) u.set(URL_KEYS.rt, [...state.filters.reportTypes].join('|'));
+  if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
   if (state.activeId) u.set(URL_KEYS.p, state.activeId);
   const qs = u.toString();
   const next = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
@@ -78,6 +84,9 @@ function decodeUrlState() {
     resultSort: u.get(URL_KEYS.sort) || 'relevance',
     resultGroup: u.get(URL_KEYS.group) || 'paragraphs',
     activeId: u.get(URL_KEYS.p) || null,
+    articles: split('art'),
+    reportTypes: split('rt'),
+    showSuperseded: u.get(URL_KEYS.sup) === '1',
   };
 }
 
@@ -131,6 +140,10 @@ async function boot() {
     applyUrlState(decodeUrlState());     // restore from ?q=…&scope=…&tb=… etc.
     paintCommitteeFilter(state.scope);
     paintLabelFilter();
+    paintArticlesFilter();
+    paintReportTypeFilter();
+    paintStatusFilter();
+    syncReportTypeFilterVisibility();
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
     bindRouter();
@@ -194,6 +207,13 @@ function applyUrlState(parsed) {
   state.filters.committees = new Set(parsed.committees.filter(c => validCommittees.has(c)));
   state.filters.labels = new Set(parsed.labels.filter(l => validLabels.has(l)));
   state.filters.labelsMode = parsed.labelsMode;
+
+  // Articles, report types and superseded toggle
+  const validArticles = new Set((state.facets.articles || []).map(a => a.value));
+  const validReportTypes = new Set((state.facets.reportTypes || []).map(r => r.value));
+  state.filters.articles = new Set((parsed.articles || []).filter(a => validArticles.has(a)));
+  state.filters.reportTypes = new Set((parsed.reportTypes || []).filter(r => validReportTypes.has(r)));
+  state.filters.showSuperseded = !!parsed.showSuperseded;
 
   // Year range
   const { min, max } = state.facets.years;
@@ -416,6 +436,105 @@ function paintLabelFilter() {
   }
 }
 
+// Treaty articles filter — sortable & searchable since 70+ values
+function paintArticlesFilter() {
+  const host = $('#filter-articles');
+  if (!host) return;
+  const facet = state.facets.articles || [];
+  const countEl = $('#filter-articles-count');
+  if (countEl) countEl.textContent = `${facet.length} unique`;
+
+  const filterText = ($('#filter-articles-q')?.value || '').toLowerCase();
+  // Sort numerically by article number, then by paragraph
+  const sortByNumber = (a, b) => {
+    const numA = parseInt(a.value.match(/\d+/)?.[0] || '0', 10);
+    const numB = parseInt(b.value.match(/\d+/)?.[0] || '0', 10);
+    return numA - numB || a.value.localeCompare(b.value);
+  };
+  host.innerHTML = '';
+  for (const item of [...facet].sort(sortByNumber)) {
+    if (filterText && !item.value.toLowerCase().includes(filterText)) continue;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip chip-compact';
+    b.dataset.value = item.value;
+    b.innerHTML = `${escape(item.value)} <span class="chip-count">${item.count}</span>`;
+    if (state.filters.articles.has(item.value)) b.classList.add('on');
+    b.addEventListener('click', () => {
+      if (state.filters.articles.has(item.value)) {
+        state.filters.articles.delete(item.value);
+      } else {
+        state.filters.articles.add(item.value);
+      }
+      paintArticlesFilter();
+      runSearch();
+    });
+    host.appendChild(b);
+  }
+}
+
+// SP report-type filter — small set of values
+function paintReportTypeFilter() {
+  const host = $('#filter-reporttypes');
+  if (!host) return;
+  const facet = state.facets.reportTypes || [];
+  host.innerHTML = '';
+  // Friendly labels
+  const niceLabel = {
+    'thematic': 'Thematic',
+    'annual': 'Annual to UNGA',
+    'communications': 'Communications',
+    'addendum': 'Addendum',
+    'country-visit': 'Country visit',
+    'other': 'Other',
+  };
+  for (const item of facet) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip chip-compact';
+    b.dataset.value = item.value;
+    b.innerHTML = `${escape(niceLabel[item.value] || item.value)} <span class="chip-count">${item.count}</span>`;
+    if (state.filters.reportTypes.has(item.value)) b.classList.add('on');
+    b.addEventListener('click', () => {
+      if (state.filters.reportTypes.has(item.value)) {
+        state.filters.reportTypes.delete(item.value);
+      } else {
+        state.filters.reportTypes.add(item.value);
+      }
+      paintReportTypeFilter();
+      runSearch();
+    });
+    host.appendChild(b);
+  }
+}
+
+// Status filter — supersede toggle
+function paintStatusFilter() {
+  const cb = $('#filter-show-superseded');
+  const cnt = $('#filter-superseded-count');
+  if (!cb || !state.facets) return;
+  const supEntry = (state.facets.statuses || []).find(s => s.value === 'superseded');
+  const n = supEntry ? supEntry.count : 0;
+  if (cnt) cnt.textContent = n ? `+${n} hidden` : '';
+  cb.checked = state.filters.showSuperseded;
+  // Bind once — guard via dataset flag
+  if (!cb.dataset.bound) {
+    cb.dataset.bound = '1';
+    cb.addEventListener('change', () => {
+      state.filters.showSuperseded = cb.checked;
+      paintStatusFilter();
+      runSearch();
+    });
+  }
+}
+
+// Show or hide the SP report-type filter based on scope
+function syncReportTypeFilterVisibility() {
+  const block = $('#filter-block-reporttype');
+  if (!block) return;
+  block.hidden = (state.scope === 'gc');
+}
+
 function initYearRange() {
   const { min, max } = state.facets.years;
   state.filters.yearMin = min;
@@ -491,6 +610,7 @@ function bindUI() {
       if (!valid.has(c)) state.filters.committees.delete(c);
     }
     paintCommitteeFilter(state.scope);
+    syncReportTypeFilterVisibility();
 
     const meta = {
       gc:  'Treaty body output · near-hard-law',
@@ -554,6 +674,9 @@ function bindUI() {
   $('#reset-filters').addEventListener('click', () => {
     state.filters.committees.clear();
     state.filters.labels.clear();
+    state.filters.articles.clear();
+    state.filters.reportTypes.clear();
+    state.filters.showSuperseded = false;
     state.filters.labelsMode = 'any';
     state.filters.yearMin = state.facets.years.min;
     state.filters.yearMax = state.facets.years.max;
@@ -562,9 +685,19 @@ function bindUI() {
     $$('#labels-mode .aa-opt').forEach(x => x.classList.toggle('is-active', x.dataset.mode === 'any'));
     $('#year-min').value = state.facets.years.min;
     $('#year-max').value = state.facets.years.max;
+    const aq = $('#filter-articles-q'); if (aq) aq.value = '';
     paintYearFill();
+    paintArticlesFilter();
+    paintReportTypeFilter();
+    paintStatusFilter();
     runSearch();
   });
+
+  // Articles filter — search-as-you-type
+  const aq = $('#filter-articles-q');
+  if (aq) {
+    aq.addEventListener('input', () => paintArticlesFilter());
+  }
 
   // Theme toggle
   $('#theme-toggle').addEventListener('click', () => {
@@ -1039,6 +1172,22 @@ function runSearch() {
         if (!allOk) continue;
       } else {
         if (!pl.some(l => f.labels.has(l))) continue;
+      }
+    }
+
+    // Document-level filters (look up the doc record once)
+    const doc = state.documents.get(p.docId);
+    if (doc) {
+      // Hide superseded GCs by default
+      if (!f.showSuperseded && doc.status === 'superseded') continue;
+      // Articles filter (GC only — SPs don't carry articles)
+      if (f.articles.size) {
+        const docArts = doc.articles || [];
+        if (!docArts.some(a => f.articles.has(a))) continue;
+      }
+      // SP report type filter
+      if (f.reportTypes.size && p.type === 'sp') {
+        if (!f.reportTypes.has(doc.reportType)) continue;
       }
     }
 

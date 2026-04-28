@@ -252,6 +252,9 @@ def collect_documents(
             ("wordCount",            "wordCount"),
             ("labelCount",           "labelCount"),
             ("alternativeSignatures", "alternativeSignatures"),
+            ("reportType",           "reportType"),
+            ("hrcSession",           "hrcSession"),
+            ("gaSession",            "gaSession"),
         ]:
             v = meta.get(k_src)
             if v is not None and v != "" and v != []:
@@ -316,6 +319,10 @@ def build_facets(documents: list[dict], paragraphs: list[dict]) -> dict:
     years = Counter()
     types = Counter()
     mandates = Counter()
+    # New (v8.1) facets
+    articles = Counter()      # GC only — populated for 124/186 GCs
+    statuses = Counter()      # final / revised / superseded
+    report_types = Counter()  # SP only — annual / thematic / communications / addendum / country-visit
 
     for p in paragraphs:
         types[p["type"]] += 1
@@ -326,9 +333,16 @@ def build_facets(documents: list[dict], paragraphs: list[dict]) -> dict:
         for l in p["labels"]:
             labels[l] += 1
 
+    # Document-level facets — counted per document, not per paragraph.
     for d in documents:
         if d.get("mandate"):
             mandates[d["mandate"]] += 1
+        for art in (d.get("articles") or []):
+            articles[art] += 1
+        st = d.get("status") or "final"
+        statuses[st] += 1
+        if d.get("type") == "sp" and d.get("reportType"):
+            report_types[d["reportType"]] += 1
 
     year_min = min(years) if years else None
     year_max = max(years) if years else None
@@ -352,6 +366,16 @@ def build_facets(documents: list[dict], paragraphs: list[dict]) -> dict:
         },
         "mandates": [
             {"value": m, "count": n} for m, n in mandates.most_common()
+        ],
+        # New (v8.1)
+        "articles": [
+            {"value": a, "count": n} for a, n in articles.most_common()
+        ],
+        "statuses": [
+            {"value": s, "count": n} for s, n in statuses.most_common()
+        ],
+        "reportTypes": [
+            {"value": r, "count": n} for r, n in report_types.most_common()
         ],
     }
 

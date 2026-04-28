@@ -395,6 +395,81 @@
   background: var(--preview);
   color: var(--paper);
 }
+.chip-grid-compact .chip {
+  padding: 2px 7px;
+  font-size: 10px;
+  font-family: var(--mono);
+  letter-spacing: 0.02em;
+}
+.chip-count {
+  margin-left: 6px;
+  font-size: 9px;
+  color: var(--ink-4);
+  font-variant-numeric: tabular-nums;
+}
+.chip.on .chip-count { color: var(--paper); }
+
+/* Collapsible filter blocks (details/summary) */
+.filter-collapsible summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 4px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+.filter-collapsible summary::-webkit-details-marker { display: none; }
+.filter-collapsible summary::before {
+  content: '▸';
+  margin-right: 6px;
+  color: var(--ink-4);
+  transition: transform 0.15s ease;
+  display: inline-block;
+}
+.filter-collapsible[open] summary::before {
+  transform: rotate(90deg);
+}
+.filter-collapsible[open] summary .folio { color: var(--garnet); }
+.filter-block-hint {
+  font-size: 10px;
+  color: var(--ink-4);
+  font-weight: normal;
+  margin-left: auto;
+}
+.filter-search-row {
+  margin: 6px 0 8px;
+}
+.filter-mini-search {
+  width: 100%;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-family: var(--mono);
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 2px;
+}
+.filter-mini-search:focus {
+  outline: 1px solid var(--garnet);
+  outline-offset: -1px;
+}
+
+/* Status toggle */
+.filter-block-status {
+  background: var(--paper-2);
+  padding: 8px 10px;
+  border-radius: 3px;
+}
+.status-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--display);
+  font-size: 12px;
+  cursor: pointer;
+}
+.status-toggle .dim { font-size: 10px; color: var(--ink-4); margin-left: auto; }
 .checkbox-list {
   display: flex;
   flex-direction: column;
