@@ -948,13 +948,39 @@ function dumpIndex() {
   });
 }
 
-// Run a FlexSearch query with explicit AND/OR semantics.
-// Returns Set<id> or null when no index / no query (= no constraint).
-function flexSearchIds(query, bool = 'and') {
+// Run one FlexSearch term and return matching paragraph ids.
+// Boolean query semantics are composed below so OR always means a true union.
+function flexSearchIds(query) {
   if (!state.searchIndex || !query) return null;
-  const hits = state.searchIndex.search(query, { limit: 5000, bool, suggest: false });
+  const hits = state.searchIndex.search(query, { limit: 5000, suggest: false });
   const ids = new Set();
   for (const field of hits) for (const id of field.result) ids.add(id);
+  return ids;
+}
+
+function flexSearchAllIds(terms) {
+  const clean = terms.filter(Boolean);
+  if (!clean.length) return null;
+  let ids = null;
+  for (const term of clean) {
+    const termIds = flexSearchIds(term);
+    if (!termIds) continue;
+    ids = ids
+      ? new Set([...ids].filter(id => termIds.has(id)))
+      : termIds;
+  }
+  return ids || new Set();
+}
+
+function flexSearchAnyIds(terms) {
+  const clean = terms.filter(Boolean);
+  if (!clean.length) return null;
+  const ids = new Set();
+  for (const term of clean) {
+    const termIds = flexSearchIds(term);
+    if (!termIds) continue;
+    for (const id of termIds) ids.add(id);
+  }
   return ids;
 }
 
@@ -973,10 +999,10 @@ function runSearch() {
   // Stage 1 — narrow by index where possible
   let candidateIds = null;     // null = no constraint
   if (singleAnd.length) {
-    candidateIds = flexSearchIds(singleAnd.join(' '), 'and');
+    candidateIds = flexSearchAllIds(singleAnd);
   }
   for (const grp of orGroups) {
-    const orIds = flexSearchIds(grp.join(' '), 'or');
+    const orIds = flexSearchAnyIds(grp);
     if (orIds == null) continue;
     candidateIds = candidateIds
       ? new Set([...candidateIds].filter(id => orIds.has(id)))
@@ -1048,7 +1074,7 @@ function sortResults() {
   const byTextOrder = (a, b) =>
     String(a.p.docId).localeCompare(String(b.p.docId)) || ((a.p.idx || 0) - (b.p.idx || 0));
 
-  if (state.resultSort === 'date') {
+  if (effectiveResultSort() === 'date') {
     state.results.sort((a, b) =>
       (resultDateValue(b) - resultDateValue(a)) ||
       (b.score - a.score) ||
@@ -1072,11 +1098,25 @@ function resultDateValue(result) {
   return year ? Date.UTC(year, 0, 1) : 0;
 }
 
+function hasSearchQuery() {
+  return state.query.trim().length > 0;
+}
+
+function effectiveResultSort() {
+  return hasSearchQuery() && state.resultSort === 'relevance' ? 'relevance' : 'date';
+}
+
+function shouldShowRelevanceScore() {
+  return state.resultGroup === 'documents' && effectiveResultSort() === 'relevance';
+}
+
 function syncResultsControls() {
+  const activeSort = effectiveResultSort();
   $$('#result-sort .result-opt').forEach(b => {
-    const on = b.dataset.sort === state.resultSort;
+    const on = b.dataset.sort === activeSort;
     b.classList.toggle('is-active', on);
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.toggleAttribute('disabled', b.dataset.sort === 'relevance' && !hasSearchQuery());
   });
 
   $$('#result-group .result-opt').forEach(b => {
@@ -1137,9 +1177,11 @@ function paintResults() {
 }
 
 function resultSubtitle() {
-  const sortText = state.resultSort === 'date'
-    ? 'Sorted by date, newest first.'
-    : state.query
+  const sortText = effectiveResultSort() === 'date'
+    ? hasSearchQuery()
+      ? 'Sorted by date, newest first.'
+      : 'Showing newest matching paragraphs.'
+    : hasSearchQuery()
       ? `Sorted by relevance to "${state.query}".`
       : 'Showing newest matching paragraphs.';
   const groupText = state.resultGroup === 'documents' ? ' Grouped by document.' : ' Paragraph view.';
@@ -1185,6 +1227,9 @@ function renderResultGroup(docId, rows, terms) {
     ? '<span class="badge badge-sp">PREVIEW · SP</span>'
     : '<span class="badge badge-gc">GC</span>';
   const bestScore = Math.max(...rows.map(r => r.score || 0));
+  const scoreMeta = shouldShowRelevanceScore() && bestScore > 0
+    ? `<span class="relevance-score">relevance ${bestScore.toFixed(1)}</span>`
+    : '';
 
   const summary = document.createElement('summary');
   summary.innerHTML = `
@@ -1196,7 +1241,7 @@ function renderResultGroup(docId, rows, terms) {
       <span class="folio">${doc?.year ?? ''}</span>
       <span class="sig">${escape(doc?.signature || '—')}</span>
       <span class="match-count">${rows.length} ¶</span>
-      ${state.resultSort === 'relevance' ? `<span class="folio">score ${bestScore.toFixed(1)}</span>` : ''}
+      ${scoreMeta}
     </div>
   `;
 

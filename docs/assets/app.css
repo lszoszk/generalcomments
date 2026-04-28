@@ -561,6 +561,14 @@
   background: var(--ink);
   color: var(--paper);
 }
+.result-opt:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.result-opt:disabled:hover {
+  background: transparent;
+  color: var(--ink-2);
+}
 .result-actions {
   display: inline-flex;
   gap: 8px;
@@ -648,6 +656,14 @@
 }
 .match-count {
   color: var(--garnet);
+  font-feature-settings: "tnum";
+}
+.relevance-score {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-4);
   font-feature-settings: "tnum";
 }
 .result-group-list {
