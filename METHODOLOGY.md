@@ -1,6 +1,6 @@
 # Methodology — Concerned-Group Annotation Pipeline
 
-**Project:** The Geneva Reporter — paragraph-level corpus of UN human rights interpretation
+**Project:** UN Human Rights Database — paragraph-level corpus of UN human rights interpretation
 **Maintainers:** Łukasz Szoszkiewicz, Zuzanna Kowalska
 **Last revision:** 2026-04-28
 **Pipeline version:** v6
@@ -10,12 +10,12 @@
 
 ## 1. Purpose & scope
 
-The Geneva Reporter exposes 23,440 paragraphs from 332 documents (181 General Comments
-issued by UN Treaty Bodies + 151 Special Procedures reports) as a paragraph-level search
-interface. Beyond plain-text search, every paragraph carries zero or more **concerned-group
-labels** drawn from a controlled 19-category taxonomy of vulnerable populations. These
-labels power faceted filtering ("show me all CESCR paragraphs about persons with
-disabilities", etc.).
+UN Human Rights Database exposes 25,843 paragraphs from 359 core documents (186
+General Comments issued by UN Treaty Bodies + 173 Special Procedures reports), with a
+CRPD jurisprudence preview published separately under `docs/jur/`. Beyond plain-text
+search, every paragraph carries zero or more **concerned-group labels** drawn from a
+controlled 19-category taxonomy of vulnerable populations. These labels power faceted
+filtering ("show me all CESCR paragraphs about persons with disabilities", etc.).
 
 Historically these labels were applied manually paragraph by paragraph, leaving a large
 fraction of the corpus unlabelled. This document describes the labelling pipeline used to
@@ -415,8 +415,8 @@ bodies. We propose re-running the synchronisation step every six months.
 
 ## 11. How to cite this dataset
 
-> Szoszkiewicz, Ł., & Kowalska, Z. (2026). *The Geneva Reporter — A paragraph-level search
-> interface for UN Treaty Body General Comments*. Annotation pipeline v6, commit `6063370`.
+> Szoszkiewicz, Ł., & Kowalska, Z. (2026). *UN Human Rights Database — A paragraph-level
+> search interface for UN human rights documents*. Annotation pipeline v6.
 > Available at https://github.com/lszoszk/generalcomments.
 
 When citing an individual paragraph, please cite the underlying UN document

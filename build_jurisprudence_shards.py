@@ -1,0 +1,263 @@
+#!/usr/bin/env python3
+"""
+Build static jurisprudence artefacts for the website.
+
+This is intentionally parallel to build_corpus.py: GC/SP keep their existing
+eager-loaded corpus, while jurisprudence is published under docs/jur/ as
+metadata + lazy paragraph shards.
+
+Inputs:
+  mysite_pythonanywhere/jurisprudence_info.json
+  json_jurisprudence/<docId>.json
+
+Outputs:
+  docs/jur/documents.json
+  docs/jur/facets.json
+  docs/jur/manifest.json
+  docs/jur/shards/<shardId>.json
+
+Usage:
+  python3 build_jurisprudence_shards.py --treaty CRPD
+  python3 build_jurisprudence_shards.py --all
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+from collections import Counter, defaultdict
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+DEFAULT_INFO = ROOT / 'mysite_pythonanywhere' / 'jurisprudence_info.json'
+DEFAULT_OUT = ROOT / 'docs' / 'jur'
+
+
+def read_json(path: Path):
+    with path.open(encoding='utf-8') as f:
+        return json.load(f)
+
+
+def write_json(path: Path, data, *, pretty: bool = False) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('w', encoding='utf-8') as f:
+        if pretty:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        else:
+            json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
+
+
+def sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open('rb') as f:
+        for chunk in iter(lambda: f.read(65536), b''):
+            h.update(chunk)
+    return h.hexdigest()[:16]
+
+
+def paragraph_number(raw: str):
+    if raw is None:
+        return None
+    s = str(raw).strip()
+    if not s:
+        return None
+    s = s[:-1] if s.endswith('.') else s
+    return s
+
+
+def compact_document(doc: dict) -> dict:
+    """Keep Tier-1 fields useful to the browser; drop body-only bookkeeping."""
+    keys = [
+        'docId', 'type', 'name', 'nameShort', 'signature', 'committee',
+        'committees', 'treaty', 'symbol', 'country', 'year', 'title',
+        'communicationYear', 'adoptionYear', 'outcome', 'submittedDate',
+        'adoptionDate', 'languages', 'link', 'sourceFile', 'sourceFormat',
+        'shardId', 'paragraphCount', 'wordCount', 'labelCount',
+        'caseLabels', 'firstAddedAt', 'lastVerifiedAt',
+    ]
+    return {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+
+
+def build_facets(documents: list[dict], paragraphs: list[dict]) -> dict:
+    treaties = Counter()
+    outcomes = Counter()
+    countries = Counter()
+    years = Counter()
+    labels = Counter()
+    formats = Counter()
+
+    for doc in documents:
+        if doc.get('treaty'):
+            treaties[doc['treaty']] += 1
+        if doc.get('outcome'):
+            outcomes[doc['outcome']] += 1
+        if doc.get('country'):
+            countries[doc['country']] += 1
+        if doc.get('year') is not None:
+            years[int(doc['year'])] += 1
+        if doc.get('sourceFormat'):
+            formats[doc['sourceFormat']] += 1
+
+    for para in paragraphs:
+        for label in para.get('labels') or []:
+            labels[label] += 1
+
+    return {
+        'treaties': [{'value': k, 'count': v} for k, v in treaties.most_common()],
+        'outcomes': [{'value': k, 'count': v} for k, v in outcomes.most_common()],
+        'countries': [{'value': k, 'count': v} for k, v in countries.most_common()],
+        'labels': [{'value': k, 'count': v} for k, v in labels.most_common()],
+        'formats': [{'value': k, 'count': v} for k, v in formats.most_common()],
+        'years': {
+            'min': min(years) if years else None,
+            'max': max(years) if years else None,
+            'histogram': [{'year': y, 'count': years[y]} for y in sorted(years)],
+        },
+    }
+
+
+def load_paragraphs(doc: dict) -> list[dict]:
+    src = ROOT / doc['sourceFile']
+    items = read_json(src)
+    if not isinstance(items, list):
+        raise ValueError(f'{src} is not a paragraph list')
+
+    rows = []
+    for idx, item in enumerate(items, 1):
+        text = (item.get('Text') or '').strip()
+        if not text:
+            continue
+        labels = [x for x in (item.get('Labels') or []) if isinstance(x, str)]
+        section = (item.get('Section') or '').strip()
+        original_id = item.get('ID')
+        rows.append({
+            'id': f'{doc["docId"]}-{idx:04d}',
+            'docId': doc['docId'],
+            'idx': idx,
+            'n': paragraph_number(original_id),
+            'paragraphId': original_id,
+            'section': section or None,
+            'text': re.sub(r'\s+', ' ', text),
+            'labels': labels,
+            'type': 'jur',
+            'treaty': doc.get('treaty'),
+            'country': doc.get('country'),
+            'year': doc.get('year'),
+            'outcome': doc.get('outcome'),
+        })
+    return rows
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--info', type=Path, default=DEFAULT_INFO)
+    ap.add_argument('--out', type=Path, default=DEFAULT_OUT)
+    ap.add_argument('--treaty', help='Restrict to one treaty body, e.g. CRPD')
+    ap.add_argument('--all', action='store_true', help='Build every treaty present in jurisprudence_info.json')
+    ap.add_argument('--pretty', action='store_true', help='Pretty-print shard JSON for inspection')
+    args = ap.parse_args()
+
+    if not args.all and not args.treaty:
+        ap.error('choose --treaty CRPD for the pilot or --all for the full build')
+
+    docs = read_json(args.info)
+    if args.treaty:
+        docs = [d for d in docs if (d.get('treaty') or '').upper() == args.treaty.upper()]
+    docs = [compact_document(d) for d in docs]
+    docs.sort(key=lambda d: (d.get('treaty') or '', d.get('year') or 0, d.get('symbol') or ''))
+
+    shard_paragraphs: dict[str, list[dict]] = defaultdict(list)
+    shard_docs: dict[str, list[str]] = defaultdict(list)
+    all_paragraphs = []
+    diagnostics = []
+
+    for doc in docs:
+        try:
+            paragraphs = load_paragraphs(doc)
+        except Exception as exc:
+            diagnostics.append(f'{doc.get("symbol", doc.get("docId"))}: {exc}')
+            paragraphs = []
+        shard_id = doc.get('shardId') or f'jur_{doc.get("treaty", "unknown")}'
+        doc['shardId'] = shard_id
+        doc['paragraphCount'] = len(paragraphs)
+        doc['wordCount'] = sum(len(p['text'].split()) for p in paragraphs)
+        doc['labelCount'] = sum(len(p['labels']) for p in paragraphs)
+        shard_docs[shard_id].append(doc['docId'])
+        shard_paragraphs[shard_id].extend(paragraphs)
+        all_paragraphs.extend(paragraphs)
+
+    out = args.out
+    write_json(out / 'documents.json', docs, pretty=args.pretty)
+    facets = build_facets(docs, all_paragraphs)
+    write_json(out / 'facets.json', facets, pretty=True)
+
+    built_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    shard_files = {}
+    for shard_id, paragraphs in sorted(shard_paragraphs.items()):
+        shard_doc_ids = sorted(shard_docs[shard_id])
+        shard_payload = {
+            'shardId': shard_id,
+            'builtAt': built_at,
+            'documentCount': len(shard_doc_ids),
+            'paragraphCount': len(paragraphs),
+            'documents': shard_doc_ids,
+            'paragraphs': paragraphs,
+        }
+        shard_path = out / 'shards' / f'{shard_id}.json'
+        write_json(shard_path, shard_payload, pretty=args.pretty)
+        shard_files[f'shards/{shard_id}.json'] = {
+            'sha': sha256_file(shard_path),
+            'bytes': shard_path.stat().st_size,
+            'documents': len(shard_doc_ids),
+            'paragraphs': len(paragraphs),
+        }
+
+    manifest = {
+        'version': built_at.split('T')[0].replace('-', ''),
+        'builtAt': built_at,
+        'scope': args.treaty.upper() if args.treaty else 'all',
+        'counts': {
+            'documents': len(docs),
+            'paragraphs': len(all_paragraphs),
+            'shards': len(shard_files),
+            'treaties': len(facets['treaties']),
+            'countries': len(facets['countries']),
+            'labels': len(facets['labels']),
+            'yearRange': [facets['years']['min'], facets['years']['max']],
+        },
+        'files': {
+            'documents.json': {
+                'sha': sha256_file(out / 'documents.json'),
+                'bytes': (out / 'documents.json').stat().st_size,
+            },
+            'facets.json': {
+                'sha': sha256_file(out / 'facets.json'),
+                'bytes': (out / 'facets.json').stat().st_size,
+            },
+            **shard_files,
+        },
+        'schema': {
+            'document': ['docId', 'type', 'treaty', 'symbol', 'country', 'year', 'communicationYear?', 'adoptionYear?', 'title', 'outcome', 'adoptionDate?', 'languages', 'link', 'sourceFile', 'sourceFormat', 'shardId', 'paragraphCount', 'wordCount', 'labelCount', 'caseLabels'],
+            'paragraph': ['id', 'docId', 'idx', 'n', 'paragraphId', 'section', 'text', 'labels', 'type', 'treaty', 'country', 'year', 'outcome'],
+        },
+        'diagnostics': diagnostics,
+    }
+    write_json(out / 'manifest.json', manifest, pretty=True)
+
+    print(f'Jurisprudence build: {manifest["scope"]}')
+    print(f'  documents:  {len(docs)}')
+    print(f'  paragraphs: {len(all_paragraphs)}')
+    print(f'  shards:     {len(shard_files)}')
+    print(f'  out:        {out}')
+    if diagnostics:
+        print(f'  diagnostics: {len(diagnostics)}')
+        for line in diagnostics[:10]:
+            print(f'    - {line}')
+    return 0 if not diagnostics else 2
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

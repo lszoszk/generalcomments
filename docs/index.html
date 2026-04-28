@@ -4,21 +4,21 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="uRqyBExQlN44ffcViC03Aa1do01KisztE9Sol47X8Jg" />
-<title>The Geneva Reporter · UN Treaty Body General Comments</title>
-<meta name="description" content="Paragraph-level search across 25,843 passages from 359 UN Treaty Body General Comments and Special Procedures reports — for human rights researchers, academics and legal practitioners." />
+<title>UN Human Rights Database</title>
+<meta name="description" content="Paragraph-level search across UN Treaty Body General Comments, CRPD jurisprudence preview, and Special Procedures reports — for human rights researchers, academics and legal practitioners." />
 <link rel="canonical" href="https://lszoszk.github.io/generalcomments/" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://lszoszk.github.io/generalcomments/" />
-<meta property="og:title" content="The Geneva Reporter · UN Treaty Body General Comments" />
-<meta property="og:description" content="Paragraph-level search across 359 UN Treaty Body General Comments and Special Procedures reports." />
-<meta property="og:site_name" content="The Geneva Reporter" />
+<meta property="og:title" content="UN Human Rights Database" />
+<meta property="og:description" content="Paragraph-level search across General Comments, CRPD jurisprudence preview, and Special Procedures reports." />
+<meta property="og:site_name" content="UN Human Rights Database" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="The Geneva Reporter · UN Treaty Body General Comments" />
-<meta name="twitter:description" content="Paragraph-level search across 359 UN Treaty Body documents." />
+<meta name="twitter:title" content="UN Human Rights Database" />
+<meta name="twitter:description" content="Paragraph-level search across UN Treaty Body interpretive materials." />
 
 <!-- Structured data: WebSite + SearchAction + Dataset -->
 <script type="application/ld+json">
@@ -29,7 +29,7 @@
       "@type": "WebSite",
       "@id": "https://lszoszk.github.io/generalcomments/#website",
       "url": "https://lszoszk.github.io/generalcomments/",
-      "name": "The Geneva Reporter",
+      "name": "UN Human Rights Database",
       "description": "Paragraph-level search across UN Treaty Body General Comments and Special Procedures reports.",
       "inLanguage": "en",
       "potentialAction": {
@@ -42,14 +42,14 @@
       "@type": "Dataset",
       "@id": "https://lszoszk.github.io/generalcomments/#dataset",
       "name": "UN Treaty Body General Comments and Special Procedures reports",
-      "description": "25,843 paragraphs across 359 documents (186 General Comments + 173 Special Procedures reports), indexed for paragraph-level search.",
+      "description": "Paragraph-level corpus of UN Treaty Body General Comments, CRPD jurisprudence preview and Special Procedures reports, indexed for search.",
       "url": "https://lszoszk.github.io/generalcomments/",
       "creator": [
         { "@type": "Person", "name": "Łukasz Szoszkiewicz" },
         { "@type": "Person", "name": "Zuzanna Kowalska" }
       ],
       "license": "https://creativecommons.org/licenses/by/4.0/",
-      "keywords": ["human rights", "UN treaty bodies", "general comments", "special procedures", "international law"]
+      "keywords": ["human rights", "UN treaty bodies", "general comments", "jurisprudence", "special procedures", "international law"]
     }
   ]
 }
@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css" />
-<link rel="stylesheet" href="assets/app.css" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260428-jur-preview" />
+<link rel="stylesheet" href="assets/app.css?v=20260428-jur-preview" />
 </head>
 <body>
 
@@ -67,8 +67,8 @@
   <div class="mast-row">
     <div class="mast-brand">
       <div class="folio" id="mast-folio">VOL. I · NO. 1 · ESTABLISHED 2024 · LOADING…</div>
-      <h1 class="serif mast-title">The Geneva Reporter</h1>
-      <div class="serif mast-sub">A paragraph-level companion to UN Treaty Body General Comments &amp; mandate-holder reports</div>
+      <h1 class="serif mast-title">UN Human Rights Database</h1>
+      <div class="serif mast-sub">A paragraph-level companion to UN Treaty Body General Comments, jurisprudence &amp; mandate-holder reports</div>
     </div>
     <nav class="mast-nav">
       <a href="#search" class="active">Search</a>
@@ -91,6 +91,11 @@
       <button class="scope-opt is-active" data-scope="gc" role="tab" aria-selected="true">
         General Comments
         <span class="scope-count" id="count-gc">—</span>
+      </button>
+      <button class="scope-opt" data-scope="jur" role="tab" aria-selected="false">
+        Jurisprudence
+        <span class="scope-count" id="count-jur">—</span>
+        <span class="badge badge-jur">PREVIEW</span>
       </button>
       <button class="scope-opt" data-scope="sp" role="tab" aria-selected="false">
         Special Procedures
@@ -123,6 +128,7 @@
     <span class="folio" id="result-count">—</span>
     <span class="result-breakdown" id="result-breakdown" hidden>
       <span class="rb-pill rb-gc" id="rb-gc" hidden></span>
+      <span class="rb-pill rb-jur" id="rb-jur" hidden></span>
       <span class="rb-pill rb-sp" id="rb-sp" hidden></span>
     </span>
     <details class="export-menu" id="export-menu">
@@ -240,7 +246,7 @@
     <div class="results-lede" id="results-lede">
       <div class="folio garnet">RESULTS · PARAGRAPH-LEVEL</div>
       <h2 class="serif results-title" id="results-title">Loading corpus…</h2>
-      <p class="serif results-sub" id="results-sub">Reading 23,000+ paragraphs from your archive.</p>
+      <p class="serif results-sub" id="results-sub">Reading the paragraph-level corpus from your archive.</p>
     </div>
     <div class="results-tools" id="results-tools" aria-label="Result controls">
       <div class="result-control">
@@ -294,6 +300,7 @@
     <div class="docs-scope" role="tablist">
       <button class="docs-scope-opt is-active" data-docs-scope="all">All</button>
       <button class="docs-scope-opt" data-docs-scope="gc">General Comments</button>
+      <button class="docs-scope-opt" data-docs-scope="jur">Jurisprudence</button>
       <button class="docs-scope-opt" data-docs-scope="sp">Special Procedures</button>
     </div>
   </div>
@@ -311,11 +318,13 @@
         <div class="about-block">
           <h3 class="folio">What this is</h3>
           <p class="serif dropcap">
-            The Geneva Reporter is a paragraph-level search interface for UN human
+            UN Human Rights Database is a paragraph-level search interface for UN human
             rights interpretation. Its primary corpus is Treaty Body General
-            Comments; Special Procedures are a separate expansion stream, clearly
-            marked as a preview while that collection is still under development.
-            Across both streams, <strong>25,843 paragraphs</strong> are searchable,
+            Comments. CRPD jurisprudence and Special Procedures are separate
+            expansion streams, clearly marked as previews while those collections
+            are still under development. The General Comments corpus remains the
+            priority; preview material is loaded lazily on demand.
+            Across the current published build, <strong>29,569 paragraphs</strong> are searchable,
             filterable and citable down to their number.
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule);">
@@ -343,6 +352,17 @@
             <a class="about-link" href="https://tbinternet.ohchr.org/" target="_blank" rel="noopener">tbinternet.ohchr.org</a>,
             and annotated for concerned groups such as children, women, migrants
             and persons with disabilities.
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h3 class="folio">Jurisprudence</h3>
+          <p class="serif">
+            <strong>88 CRPD jurisprudence documents</strong> are included as a pilot
+            preview. They are published as a separate shard under
+            <code class="mono">docs/jur/</code>, so the main General Comments
+            interface stays lightweight while the full Treaty Body jurisprudence
+            corpus is still being prepared.
           </p>
         </div>
 
@@ -438,7 +458,7 @@
           <h3 class="folio">How to cite</h3>
           <p class="serif">
             Suggested citation: <em>Szoszkiewicz, Ł., &amp; Kowalska, Z. (2026). The
-            Geneva Reporter — A paragraph-level search interface for UN Treaty
+            UN Human Rights Database — A paragraph-level search interface for UN Treaty
             Body General Comments.</em>
             Citations of individual paragraphs should reference the original UN
             document by its signature (e.g. <code class="mono">CRC/C/GC/25 ¶12</code>),
@@ -493,6 +513,6 @@
   </div>
 </div>
 
-<script type="module" src="assets/app.js"></script>
+<script type="module" src="assets/app.js?v=20260428-jur-preview"></script>
 </body>
 </html>

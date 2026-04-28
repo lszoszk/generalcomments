@@ -1,5 +1,5 @@
 /* =========================================================
-   The Geneva Reporter · Editorial design tokens
+   UN Human Rights Database · Editorial design tokens
    Adapted from the ECHR · Strasbourg Reporter system.
    ========================================================= */
 
@@ -31,6 +31,8 @@
 
   /* Source-type semantics — GC vs SP visual signal */
   --gc-tone:      var(--ink);             /* General Comments — full ink, primary weight */
+  --jur-tone:     oklch(43% 0.09 190);    /* Jurisprudence — teal, preview-but-legal */
+  --jur-soft:     oklch(94% 0.035 190);
   --sp-tone:      var(--ink-2);           /* Special Procedures — slightly muted, "preview" */
   --preview:      oklch(58% 0.14 70);     /* burnt-orange for PREVIEW badges */
   --preview-soft: oklch(95% 0.05 70);
@@ -70,6 +72,8 @@
 
   --preview:      oklch(75% 0.13 70);
   --preview-soft: oklch(28% 0.06 70);
+  --jur-tone:     oklch(76% 0.10 190);
+  --jur-soft:     oklch(27% 0.045 190);
 }
 
 * { box-sizing: border-box; }
@@ -187,6 +191,12 @@ mark.hl {
   color: var(--preview);
   background: var(--preview-soft);
   border-color: var(--preview);
+}
+.badge-jur {
+  color: var(--jur-tone);
+  background: var(--jur-soft);
+  border-color: var(--jur-tone);
+  font-weight: 600;
 }
 .badge-preview {
   color: var(--paper);

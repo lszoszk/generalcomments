@@ -1,5 +1,5 @@
 /* =========================================================
-   The Geneva Reporter · Skeleton search app
+   UN Human Rights Database · Search app
    Vanilla JS, no dependencies. Substring search for parity
    with the existing Flask app; FlexSearch comes in step 4+.
    ========================================================= */
@@ -14,11 +14,12 @@ const state = {
   paragraphById: new Map(),     // id → paragraph, for O(1) FlexSearch hydration
   documents: new Map(),
   facets: null,
+  baseFacets: null,
   searchIndex: null,            // FlexSearch.Document instance, populated after boot
   view: 'search',               // 'search' | 'documents' | 'about' — driven by URL hash
-  docsScope: 'all',             // documents-view scope: 'all' | 'gc' | 'sp'
+  docsScope: 'all',             // documents-view scope: 'all' | 'gc' | 'jur' | 'sp'
   docsFilter: '',               // documents-view free-text filter
-  scope: 'gc',         // 'gc' | 'sp' | 'all'
+  scope: 'gc',         // 'gc' | 'jur' | 'sp' | 'all'
   resultSort: 'relevance',      // 'relevance' | 'date'
   resultGroup: 'paragraphs',    // 'paragraphs' | 'documents'
   collapsedDocGroups: new Set(),
@@ -35,9 +36,19 @@ const state = {
   results: [],
   activeId: null,
   bannerShownForSp: false,
+  bannerShownForJur: false,
+  searchRun: 0,
+  jur: {
+    manifest: null,
+    facets: null,
+    loaded: false,
+    loading: null,
+    error: null,
+  },
 };
 
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
+const JUR_BASE = './jur/';    // jurisprudence pilot: metadata eager, paragraphs lazy
 const RESULT_PAGE_SIZE = 50;       // first-page render budget; subsequent pages append on scroll
 const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard match doesn't blow up the DOM
 
@@ -122,6 +133,12 @@ async function boot() {
 
     setProgress(30, 'Loading facets…');
     state.facets = await fetchJson(`${DATA_BASE}facets.json`);
+    state.baseFacets = state.facets;
+
+    setProgress(38, 'Checking jurisprudence preview…');
+    await loadJurMetadata();
+    state.facets = mergeJurFacets(state.baseFacets);
+    paintMastFolio(manifest);
 
     setProgress(45, `Loading ${manifest.counts.paragraphs.toLocaleString()} paragraphs…`);
     state.paragraphs = await fetchJson(`${DATA_BASE}corpus.json`);
@@ -160,16 +177,87 @@ async function boot() {
 }
 
 async function fetchJson(url) {
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: 'no-cache' });
   if (!res.ok) throw new Error(`${url} → ${res.status}`);
   return res.json();
+}
+
+async function loadJurMetadata() {
+  try {
+    state.jur.manifest = await fetchJson(`${JUR_BASE}manifest.json`);
+    state.jur.facets = await fetchJson(`${JUR_BASE}facets.json`);
+    const docs = await fetchJson(`${JUR_BASE}documents.json`);
+    docs.forEach(d => state.documents.set(d.docId, normalizeJurDocument(d)));
+  } catch (err) {
+    state.jur.error = err;
+    console.warn('Jurisprudence preview unavailable:', err);
+  }
+}
+
+function normalizeJurDocument(d) {
+  return {
+    ...d,
+    type: 'jur',
+    committee: d.committee || d.treaty,
+    committees: d.committees || (d.treaty ? [d.treaty] : []),
+    name: d.name || d.title || d.symbol || d.docId,
+    nameShort: d.nameShort || d.title || d.symbol || d.docId,
+    signature: d.signature || d.symbol || '',
+    year: d.year ?? d.adoptionYear ?? d.communicationYear ?? null,
+    adoptionDate: d.adoptionDate || '',
+  };
+}
+
+function jurCommitteeFacets() {
+  const treaties = state.jur.facets?.treaties || [];
+  const paraTotal = state.jur.manifest?.counts?.paragraphs;
+  return treaties.map(item => ({
+    value: item.value,
+    count: treaties.length === 1 && paraTotal ? paraTotal : item.count,
+  }));
+}
+
+function mergeFacetItems(...lists) {
+  const byValue = new Map();
+  for (const list of lists) {
+    for (const item of list || []) {
+      byValue.set(item.value, (byValue.get(item.value) || 0) + (item.count || 0));
+    }
+  }
+  return [...byValue.entries()]
+    .map(([value, count]) => ({ value, count }))
+    .sort((a, b) => (b.count - a.count) || a.value.localeCompare(b.value));
+}
+
+function mergeYearFacet(base, jur) {
+  if (!jur?.years) return base.years;
+  const hist = new Map();
+  for (const item of base.years.histogram || []) hist.set(item.year, (hist.get(item.year) || 0) + item.count);
+  for (const item of jur.years.histogram || []) hist.set(item.year, (hist.get(item.year) || 0) + item.count);
+  return {
+    min: Math.min(base.years.min, jur.years.min),
+    max: Math.max(base.years.max, jur.years.max),
+    histogram: [...hist.entries()].sort((a, b) => a[0] - b[0]).map(([year, count]) => ({ year, count })),
+  };
+}
+
+function mergeJurFacets(base) {
+  if (!base || !state.jur.facets) return base;
+  return {
+    ...base,
+    committees: mergeFacetItems(base.committees, jurCommitteeFacets()),
+    labels: mergeFacetItems(base.labels, state.jur.facets.labels),
+    years: mergeYearFacet(base, state.jur.facets),
+  };
 }
 
 // ─────────── Masthead folio ───────────
 function paintMastFolio(m) {
   const today = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
+  const jurDocs = state.jur.manifest?.counts?.documents || 0;
+  const jurParas = state.jur.manifest?.counts?.paragraphs || 0;
   $('#mast-folio').textContent =
-    `VOL. I · NO. 1 · ${today} · ${m.counts.paragraphs.toLocaleString()} ¶ · ${m.counts.documents} DOCUMENTS`;
+    `VOL. I · NO. 1 · ${today} · ${(m.counts.paragraphs + jurParas).toLocaleString()} ¶ · ${m.counts.documents + jurDocs} DOCUMENTS`;
   $('#foot-version').textContent = `Build ${m.version} · ${m.builtAt.split('T')[0]}`;
 }
 
@@ -177,13 +265,16 @@ function paintMastFolio(m) {
 function paintScopeCounts() {
   const m = state.manifest.counts;
   $('#count-gc').textContent = m.gcDocuments;
+  $('#count-jur').textContent = state.jur.manifest
+    ? `${state.jur.manifest.counts.documents} · CRPD`
+    : '—';
   $('#count-sp').textContent = `${m.spDocuments} · 4 mandates`;
 }
 
 // ─────────── State restoration from URL ───────────
 function applyUrlState(parsed) {
   // Scope
-  const validScope = ['gc', 'sp', 'all'].includes(parsed.scope) ? parsed.scope : 'gc';
+  const validScope = ['gc', 'jur', 'sp', 'all'].includes(parsed.scope) ? parsed.scope : 'gc';
   state.scope = validScope;
   $$('.scope-opt').forEach(b => {
     const on = b.dataset.scope === validScope;
@@ -192,6 +283,7 @@ function applyUrlState(parsed) {
   });
   $('#scope-meta').textContent = {
     gc:  'Treaty body output · near-hard-law',
+    jur: 'Treaty body jurisprudence · CRPD preview',
     sp:  'Mandate-holder reports · soft law · preview',
     all: 'Combined view',
   }[validScope];
@@ -275,9 +367,10 @@ function paintDocumentsView() {
 
   const docs = [...state.documents.values()].filter(d => {
     if (wantScope === 'gc' && d.type !== 'gc') return false;
+    if (wantScope === 'jur' && d.type !== 'jur') return false;
     if (wantScope === 'sp' && d.type !== 'sp') return false;
     if (filterText) {
-      const haystack = `${d.name} ${d.signature} ${d.year ?? ''} ${d.committee} ${d.mandate ?? ''}`.toLowerCase();
+      const haystack = `${d.name} ${d.signature} ${d.year ?? ''} ${d.committee} ${d.mandate ?? ''} ${d.country ?? ''} ${d.outcome ?? ''}`.toLowerCase();
       if (!haystack.includes(filterText)) return false;
     }
     return true;
@@ -285,9 +378,10 @@ function paintDocumentsView() {
 
   // Header counts
   const gcDocs = docs.filter(d => d.type === 'gc').length;
+  const jurDocs = docs.filter(d => d.type === 'jur').length;
   const spDocs = docs.filter(d => d.type === 'sp').length;
   $('#docs-title').textContent = `${docs.length.toLocaleString()} document${docs.length === 1 ? '' : 's'}`;
-  $('#docs-sub').innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${spDocs} Special Procedures report${spDocs === 1 ? '' : 's'} <span class="badge badge-preview">PREVIEW</span>`;
+  $('#docs-sub').innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurDocs} Jurisprudence case${jurDocs === 1 ? '' : 's'} <span class="badge badge-jur">PREVIEW</span> · ${spDocs} Special Procedures report${spDocs === 1 ? '' : 's'} <span class="badge badge-preview">PREVIEW</span>`;
 
   if (!docs.length) {
     host.innerHTML = '<div class="docs-empty">No documents match the current filter.</div>';
@@ -295,13 +389,14 @@ function paintDocumentsView() {
   }
 
   // Group: type → committee → docs (newest first)
-  const groups = { gc: new Map(), sp: new Map() };
+  const groups = { gc: new Map(), jur: new Map(), sp: new Map() };
   for (const d of docs) {
     const bucket = groups[d.type];
+    if (!bucket) continue;
     if (!bucket.has(d.committee)) bucket.set(d.committee, []);
     bucket.get(d.committee).push(d);
   }
-  for (const t of ['gc', 'sp']) {
+  for (const t of ['gc', 'jur', 'sp']) {
     for (const list of groups[t].values()) {
       list.sort((a, b) => (b.year ?? 0) - (a.year ?? 0));
     }
@@ -315,6 +410,10 @@ function paintDocumentsView() {
     html.push('<div class="docs-section-head">General Comments · treaty body output</div>');
     for (const c of sortedCommittees(groups.gc)) html.push(renderDocsCommittee(c, groups.gc.get(c), 'gc'));
   }
+  if (groups.jur.size && (wantScope === 'all' || wantScope === 'jur')) {
+    html.push('<div class="docs-section-head jur-section-head">Jurisprudence · CRPD cases · preview</div>');
+    for (const c of sortedCommittees(groups.jur)) html.push(renderDocsCommittee(c, groups.jur.get(c), 'jur'));
+  }
   if (groups.sp.size && (wantScope === 'all' || wantScope === 'sp')) {
     html.push('<div class="docs-section-head sp-section-head">Special Procedures · mandate-holder reports · preview</div>');
     for (const c of sortedCommittees(groups.sp)) html.push(renderDocsCommittee(c, groups.sp.get(c), 'sp'));
@@ -325,6 +424,7 @@ function paintDocumentsView() {
 function renderDocsCommittee(committee, list, type) {
   const rows = list.map(d => {
     const firstP = `${d.docId}-0001`;
+    const scopeParam = type === 'jur' ? '&scope=jur' : '';
     const statusBadge = d.status === 'superseded'
       ? `<span class="docs-status superseded" title="Superseded by ${escape(d.supersededBy || '—')}">superseded</span>`
       : d.status === 'revised'
@@ -333,7 +433,7 @@ function renderDocsCommittee(committee, list, type) {
     // Abstract tooltip hidden pending manual verification — see TODO_LATER.md
     return `
       <li>
-        <a class="docs-row ${type}" href="?p=${encodeURIComponent(firstP)}#search" data-doc-id="${escape(d.docId)}">
+        <a class="docs-row ${type}" href="?p=${encodeURIComponent(firstP)}${scopeParam}#search" data-doc-id="${escape(d.docId)}">
           <span class="sig">${escape(d.signature || '—')}</span>
           <span class="name">${escape(d.nameShort || d.name || d.docId)}${statusBadge}</span>
           <span class="year">${d.year ?? '—'}</span>
@@ -373,8 +473,10 @@ function paintCommitteeFilter(scope) {
   const subSection = $('#filter-bodies-sp');
   const sectionLabel = $('#bodies-label');
 
-  const tb = state.facets.committees.filter(c => !isSp(c.value));
-  const sp = state.facets.committees.filter(c => isSp(c.value));
+  const baseCommittees = state.baseFacets?.committees || state.facets.committees;
+  const tb = baseCommittees.filter(c => !isSp(c.value));
+  const sp = baseCommittees.filter(c => isSp(c.value));
+  const jur = jurCommitteeFacets();
 
   tbHost.innerHTML = '';
   spHost.innerHTML = '';
@@ -383,6 +485,10 @@ function paintCommitteeFilter(scope) {
     sectionLabel.textContent = 'Treaty bodies';
     subSection.hidden = true;
     paintCommitteeChips(tbHost, tb);
+  } else if (scope === 'jur') {
+    sectionLabel.textContent = 'Jurisprudence treaty body';
+    subSection.hidden = true;
+    paintCommitteeChips(tbHost, jur, 'jur-chip');
   } else if (scope === 'sp') {
     sectionLabel.textContent = 'Mandates';
     subSection.hidden = true;
@@ -390,17 +496,18 @@ function paintCommitteeFilter(scope) {
   } else {
     sectionLabel.textContent = 'Treaty bodies';
     subSection.hidden = false;
-    paintCommitteeChips(tbHost, tb);
+    paintCommitteeChips(tbHost, mergeFacetItems(tb, jur));
     paintCommitteeChips(spHost, sp);
   }
 }
 
-function paintCommitteeChips(container, items) {
+function paintCommitteeChips(container, items, toneClass = '') {
   for (const { value, count } of items) {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'chip';
     if (isSp(value)) b.classList.add('sp-chip');
+    if (toneClass) b.classList.add(toneClass);
     if (state.filters.committees.has(value)) b.classList.add('on');
     b.dataset.committee = value;
     b.innerHTML = `${escape(value)} <span class="dim">${count.toLocaleString()}</span>`;
@@ -493,7 +600,7 @@ function paintStatusFilter() {
 function syncReportTypeFilterVisibility() {
   const block = $('#filter-block-reporttype');
   if (!block) return;
-  block.hidden = (state.scope === 'gc');
+  block.hidden = !(state.scope === 'sp' || state.scope === 'all');
 }
 
 function initYearRange() {
@@ -595,13 +702,19 @@ function bindUI() {
 
     const meta = {
       gc:  'Treaty body output · near-hard-law',
+      jur: 'Treaty body jurisprudence · CRPD preview',
       sp:  'Mandate-holder reports · soft law · preview',
       all: 'Combined view',
     }[state.scope];
     $('#scope-meta').textContent = meta;
 
+    if (state.scope === 'jur' && !state.bannerShownForJur) {
+      paintScopeBanner('jur');
+      $('#scope-banner').hidden = false;
+      state.bannerShownForJur = true;
+    }
     if (state.scope === 'sp' && !state.bannerShownForSp) {
-      paintScopeBanner();
+      paintScopeBanner('sp');
       $('#scope-banner').hidden = false;
       state.bannerShownForSp = true;
     }
@@ -695,9 +808,11 @@ function bindUI() {
 }
 
 function scopeCommitteeSet(scope) {
-  return new Set(state.facets.committees
-    .filter(c => scope === 'all' ? true : scope === 'gc' ? !isSp(c.value) : isSp(c.value))
-    .map(c => c.value));
+  const baseCommittees = state.baseFacets?.committees || state.facets.committees;
+  if (scope === 'gc') return new Set(baseCommittees.filter(c => !isSp(c.value)).map(c => c.value));
+  if (scope === 'jur') return new Set(jurCommitteeFacets().map(c => c.value));
+  if (scope === 'sp') return new Set(baseCommittees.filter(c => isSp(c.value)).map(c => c.value));
+  return new Set(mergeFacetItems(baseCommittees, jurCommitteeFacets()).map(c => c.value));
 }
 
 // ─────────── Export ───────────
@@ -713,8 +828,11 @@ function buildExportRows() {
       doc_name: doc?.name ?? '',
       doc_short_name: doc?.nameShort ?? '',
       signature: doc?.signature ?? '',
-      committee: p.committee,
+      committee: p.committee || p.treaty || doc?.committee || '',
       committees: (p.committees || []).join(' · '),
+      country: p.country || doc?.country || '',
+      outcome: p.outcome || doc?.outcome || '',
+      section: p.section || '',
       year: p.year ?? '',
       adoption_date: doc?.adoptionDate ?? '',
       mandate_holder: doc?.mandate ?? '',
@@ -825,7 +943,7 @@ function loadSheetJS() {
 async function exportXlsx(rows, busyButton) {
   const XLSX = await loadSheetJS();
   const meta = [
-    ['The Geneva Reporter — search export'],
+    ['UN Human Rights Database — search export'],
     ['Generated', new Date().toISOString()],
     ['Source', 'https://lszoszk.github.io/generalcomments/'],
     ['Query', state.query || '(none)'],
@@ -867,7 +985,19 @@ async function runExport(format, button) {
 
 // Replace the banner body with the actual mandate breakdown computed from documents.
 // Strips out the mandate prefix so 'SR Freedom of Expression' reads as 'Freedom of Expression'.
-function paintScopeBanner() {
+function paintScopeBanner(scope = 'sp') {
+  if (scope === 'jur') {
+    const docs = state.jur.manifest?.counts?.documents || 0;
+    const paras = state.jur.manifest?.counts?.paragraphs || 0;
+    const banner = $('#scope-banner');
+    banner.innerHTML = `
+      <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
+      <span class="folio">JURISPRUDENCE PREVIEW</span>Treaty Body jurisprudence is currently a CRPD pilot: <strong>${docs} cases</strong> and <strong>${paras.toLocaleString()} paragraphs</strong>. The full corpus stays sharded and can move to the VM/API once the pilot UI is settled.
+    `;
+    $('#banner-dismiss').addEventListener('click', () => { banner.hidden = true; });
+    return;
+  }
+
   const counts = new Map();
   for (const d of state.documents.values()) {
     if (d.type !== 'sp') continue;
@@ -1271,6 +1401,55 @@ function flexSearchPrefixIds(prefix) {
   return ids;
 }
 
+// ─────────── Lazy jurisprudence loader ───────────
+async function ensureScopeLoaded(scope) {
+  if (scope !== 'jur' && scope !== 'all') return;
+  if (!state.jur.manifest || state.jur.loaded) return;
+  if (!state.jur.loading) {
+    state.jur.loading = loadJurCorpus().finally(() => { state.jur.loading = null; });
+  }
+  return state.jur.loading;
+}
+
+async function loadJurCorpus() {
+  $('#results-title').textContent = 'Loading jurisprudence preview…';
+  $('#results-sub').textContent = 'Fetching CRPD case paragraphs.';
+
+  const shardNames = Object.keys(state.jur.manifest.files || {})
+    .filter(name => name.startsWith('shards/'))
+    .sort();
+
+  const loadedParagraphs = [];
+  for (const shardName of shardNames) {
+    const shard = await fetchJson(`${JUR_BASE}${shardName}`);
+    for (const p of shard.paragraphs || []) {
+      const doc = state.documents.get(p.docId);
+      loadedParagraphs.push({
+        ...p,
+        type: 'jur',
+        labels: p.labels || [],
+        committee: doc?.committee || p.treaty || 'CRPD',
+        committees: doc?.committees || (p.treaty ? [p.treaty] : ['CRPD']),
+        year: p.year ?? doc?.year ?? null,
+        n: p.n ?? p.paragraphId ?? p.idx,
+      });
+    }
+  }
+
+  for (const p of loadedParagraphs) {
+    state.paragraphs.push(p);
+    state.paragraphById.set(p.id, p);
+    state.searchIndex?.add({ id: p.id, text: p.text });
+  }
+
+  state.jur.loaded = true;
+  state.jur.error = null;
+  _flushDfCache();
+  _avgDocLen = null;
+  paintScopeCounts();
+  if (state.view === 'documents') paintDocumentsView();
+}
+
 // ─────────── Document-frequency cache (for BM25-lite IDF) ───────────
 //
 // IDF (inverse document frequency) for a term is log(N / (df + 1)) where
@@ -1287,8 +1466,7 @@ function _docFreq(term, scope) {
     ? new RegExp('\\b' + escapeRegex(term.value) + '\\w*', 'i')
     : null;
   for (const p of state.paragraphs) {
-    if (scope === 'gc' && p.type !== 'gc') continue;
-    if (scope === 'sp' && p.type !== 'sp') continue;
+    if (!paragraphInScope(p, scope)) continue;
     const text = p.text.toLowerCase();
     if (term.prefix ? matcher.test(text) : text.includes(term.value)) df++;
   }
@@ -1308,8 +1486,7 @@ function _avgDocLength(scope) {
   if (_avgDocLen && _avgDocLen.scope === scope) return _avgDocLen.value;
   let total = 0, n = 0;
   for (const p of state.paragraphs) {
-    if (scope === 'gc' && p.type !== 'gc') continue;
-    if (scope === 'sp' && p.type !== 'sp') continue;
+    if (!paragraphInScope(p, scope)) continue;
     total += p.text.length;
     n++;
   }
@@ -1318,9 +1495,24 @@ function _avgDocLength(scope) {
   return value;
 }
 
+function paragraphInScope(p, scope) {
+  return scope === 'all' ? true : p.type === scope;
+}
+
 // ─────────── Search ───────────
-function runSearch() {
+async function runSearch() {
+  const runId = ++state.searchRun;
   scheduleUrlUpdate();
+  try {
+    await ensureScopeLoaded(state.scope);
+    if (runId !== state.searchRun) return;
+  } catch (err) {
+    $('#results-title').textContent = 'Jurisprudence preview unavailable';
+    $('#results-sub').textContent = err.message;
+    console.error(err);
+    return;
+  }
+
   const ast = parseQuery(state.query);
   const f = state.filters;
   const scope = state.scope;
@@ -1337,7 +1529,7 @@ function runSearch() {
   // contribute much more to the score than common ones — so a paragraph
   // matching "non-refoulement" outranks one matching "the".
   const totalDocs = state.paragraphs.filter(p =>
-    scope === 'all' ? true : p.type === scope
+    paragraphInScope(p, scope)
   ).length;
   const termIdf = new Map();
   for (const term of highlightTerms) {
@@ -1356,8 +1548,7 @@ function runSearch() {
     : state.paragraphs;
 
   for (const p of iter) {
-    if (scope === 'gc' && p.type !== 'gc') continue;
-    if (scope === 'sp' && p.type !== 'sp') continue;
+    if (!paragraphInScope(p, scope)) continue;
 
     if (p.year !== null) {
       if (f.yearMin && p.year < f.yearMin) continue;
@@ -1586,21 +1777,25 @@ function syncClearChip() {
 function paintResultBreakdown() {
   const wrap  = $('#result-breakdown');
   const gcPill = $('#rb-gc');
+  const jurPill = $('#rb-jur');
   const spPill = $('#rb-sp');
-  if (!wrap || !gcPill || !spPill) return;
+  if (!wrap || !gcPill || !jurPill || !spPill) return;
   if (!state.results.length || state.scope !== 'all') {
     wrap.hidden = true;
     return;
   }
-  let nGc = 0, nSp = 0;
+  let nGc = 0, nJur = 0, nSp = 0;
   for (const { p } of state.results) {
     if (p.type === 'gc') nGc++;
+    else if (p.type === 'jur') nJur++;
     else if (p.type === 'sp') nSp++;
   }
   wrap.hidden = false;
   gcPill.hidden = nGc === 0;
+  jurPill.hidden = nJur === 0;
   spPill.hidden = nSp === 0;
   gcPill.textContent = `GC ${nGc.toLocaleString()} ¶`;
+  jurPill.textContent = `JUR ${nJur.toLocaleString()} ¶`;
   spPill.textContent = `SP ${nSp.toLocaleString()} ¶`;
 }
 
@@ -1778,9 +1973,7 @@ function renderResultGroup(docId, rows, terms) {
     else state.collapsedDocGroups.add(docId);
   });
 
-  const badge = rows[0]?.p.type === 'sp'
-    ? '<span class="badge badge-sp">PREVIEW · SP</span>'
-    : '<span class="badge badge-gc">GC</span>';
+  const badge = sourceBadge(rows[0]?.p.type);
   const bestScore = Math.max(...rows.map(r => r.score || 0));
   const scoreMeta = shouldShowRelevanceScore() && bestScore > 0
     ? `<span class="relevance-score">relevance ${bestScore.toFixed(1)}</span>`
@@ -1812,10 +2005,12 @@ function renderResultGroup(docId, rows, terms) {
 
 function scopeNotice() {
   const span = document.createElement('span');
-  if (state.scope === 'sp') {
+  if (state.scope === 'jur') {
+    span.innerHTML = ` <span class="badge badge-jur">PREVIEW</span> · CRPD jurisprudence pilot.`;
+  } else if (state.scope === 'sp') {
     span.innerHTML = ` <span class="badge badge-preview">PREVIEW</span> · soft-law preview, 4 mandates only.`;
   } else if (state.scope === 'all') {
-    span.innerHTML = ` Mixed scope: General Comments + <span class="badge badge-preview">PREVIEW</span> Special Procedures.`;
+    span.innerHTML = ` Mixed scope: General Comments + <span class="badge badge-jur">PREVIEW</span> Jurisprudence + <span class="badge badge-preview">PREVIEW</span> Special Procedures.`;
   }
   return span;
 }
@@ -1827,12 +2022,10 @@ function renderResult(p, rank, terms, opts = {}) {
   li.dataset.paraId = p.id;
   if (p.id === state.activeId) li.classList.add('is-active');
 
-  const badge = p.type === 'sp'
-    ? '<span class="badge badge-sp">PREVIEW · SP</span>'
-    : '<span class="badge badge-gc">GC</span>';
+  const badge = sourceBadge(p.type);
 
   const labelChips = (p.labels || []).slice(0, 4).map(l => `<span class="chip">${escape(l)}</span>`).join('');
-  const committeeChips = p.committees.map(c => `<span class="chip ${isSp(c) ? 'sp-chip' : ''}">${escape(c)}</span>`).join('');
+  const committeeChips = p.committees.map(c => `<span class="chip ${isSp(c) ? 'sp-chip' : p.type === 'jur' ? 'jur-chip' : ''}">${escape(c)}</span>`).join('');
 
   const headline = opts.grouped
     ? `
@@ -1885,6 +2078,12 @@ function isSp(committee) {
   return committee.startsWith('SR ') || committee.startsWith('SSR');
 }
 
+function sourceBadge(type) {
+  if (type === 'jur') return '<span class="badge badge-jur">PREVIEW · JUR</span>';
+  if (type === 'sp') return '<span class="badge badge-sp">PREVIEW · SP</span>';
+  return '<span class="badge badge-gc">GC</span>';
+}
+
 function setActive(id) {
   state.activeId = id;
   $$('.result').forEach(el => {
@@ -1898,17 +2097,17 @@ function setActive(id) {
 // Per-URL <title> so deep-linked pages get distinct titles in search results
 // and browser history. Without this, Googlebot indexes every ?p=… URL with
 // the same homepage title.
-const BASE_TITLE = 'The Geneva Reporter · UN Treaty Body General Comments';
+const BASE_TITLE = 'UN Human Rights Database';
 function updateDocumentTitle() {
   const para = state.activeId ? state.paragraphById.get(state.activeId) : null;
   if (para) {
     const doc = state.documents.get(para.docId);
     const docTitle = doc?.nameShort || doc?.name || para.docId;
-    document.title = `${docTitle} · The Geneva Reporter`;
+    document.title = `${docTitle} · UN Human Rights Database`;
     return;
   }
   if (state.query) {
-    document.title = `${state.query} · The Geneva Reporter`;
+    document.title = `${state.query} · UN Human Rights Database`;
     return;
   }
   document.title = BASE_TITLE;
@@ -1930,6 +2129,7 @@ function paintDossier() {
   if (!para) return;
   const doc = state.documents.get(para.docId);
   const isSpDoc = para.type === 'sp';
+  const isJurDoc = para.type === 'jur';
   const ast = parseQuery(state.query);
   const terms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
 
@@ -1941,17 +2141,26 @@ function paintDossier() {
     ? `<div class="dossier-dp"><div class="folio">Status</div><div class="v">${escape(doc.status)}${doc.supersededBy ? ` → ${escape(doc.supersededBy)}` : ''}</div></div>`
     : '';
   const abstractHtml = '';
+  const dossierKind = isJurDoc
+    ? 'TREATY BODY JURISPRUDENCE · PREVIEW'
+    : isSpDoc
+      ? 'MANDATE REPORT · PREVIEW'
+      : 'GENERAL COMMENT';
+  const actorLabel = isJurDoc ? 'Treaty body' : isSpDoc ? 'Mandate' : 'Committee';
 
   host.innerHTML = `
-    <div class="folio garnet">${isSpDoc ? 'MANDATE REPORT · PREVIEW' : 'GENERAL COMMENT'}</div>
+    <div class="folio garnet">${dossierKind}</div>
     <h3 class="dossier-title">${escape(doc?.name || para.docId)}</h3>
     <div class="dossier-sig">${escape(doc?.signature || '')}</div>
     ${abstractHtml}
     <div class="dossier-grid">
       <div class="dossier-dp"><div class="folio">Adopted</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
-      <div class="dossier-dp"><div class="folio">Year</div><div class="v">${doc?.year ?? '—'}</div></div>
-      <div class="dossier-dp"><div class="folio">${isSpDoc ? 'Mandate' : 'Committee'}</div><div class="v">${escape(doc?.committees?.join(' · ') || '—')}</div></div>
+      <div class="dossier-dp"><div class="folio">${isJurDoc ? 'Communication year' : 'Year'}</div><div class="v">${doc?.year ?? '—'}</div></div>
+      <div class="dossier-dp"><div class="folio">${actorLabel}</div><div class="v">${escape(doc?.committees?.join(' · ') || '—')}</div></div>
       <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
+      ${isJurDoc && doc?.country ? `<div class="dossier-dp"><div class="folio">Country</div><div class="v">${escape(doc.country)}</div></div>` : ''}
+      ${isJurDoc && doc?.outcome ? `<div class="dossier-dp"><div class="folio">Outcome</div><div class="v accent">${escape(formatOutcome(doc.outcome))}</div></div>` : ''}
+      ${isJurDoc && para.section ? `<div class="dossier-dp"><div class="folio">Section</div><div class="v">${escape(para.section)}</div></div>` : ''}
       ${articlesHtml}
       ${statusHtml}
       ${isSpDoc && doc?.mandate ? `<div class="dossier-dp"><div class="folio">Mandate holder</div><div class="v accent">${escape(doc.mandate)}</div></div>` : ''}
@@ -1997,6 +2206,14 @@ function highlight(text, terms) {
 
 function escapeRe(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function formatOutcome(value) {
+  return String(value || '')
+    .split('_')
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
 }
 
 // ─────────── KWIC (keyword-in-context) snippets ───────────

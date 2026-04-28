@@ -1,0 +1,286 @@
+{
+  "treaties": [
+    {
+      "value": "CRPD",
+      "count": 88
+    }
+  ],
+  "outcomes": [
+    {
+      "value": "violation_found",
+      "count": 37
+    },
+    {
+      "value": "inadmissible",
+      "count": 24
+    },
+    {
+      "value": "discontinued",
+      "count": 18
+    },
+    {
+      "value": "merits_no_violation",
+      "count": 7
+    },
+    {
+      "value": "other",
+      "count": 1
+    },
+    {
+      "value": "decision",
+      "count": 1
+    }
+  ],
+  "countries": [
+    {
+      "value": "Sweden",
+      "count": 18
+    },
+    {
+      "value": "Australia",
+      "count": 13
+    },
+    {
+      "value": "Spain",
+      "count": 10
+    },
+    {
+      "value": "Germany",
+      "count": 4
+    },
+    {
+      "value": "Hungary",
+      "count": 3
+    },
+    {
+      "value": "United Kingdom of Great Britain and Northern Ireland",
+      "count": 3
+    },
+    {
+      "value": "Austria",
+      "count": 3
+    },
+    {
+      "value": "United Republic of Tanzania",
+      "count": 3
+    },
+    {
+      "value": "Lithuania",
+      "count": 3
+    },
+    {
+      "value": "Saudi Arabia",
+      "count": 3
+    },
+    {
+      "value": "Argentina",
+      "count": 2
+    },
+    {
+      "value": "Brazil",
+      "count": 2
+    },
+    {
+      "value": "Mexico",
+      "count": 2
+    },
+    {
+      "value": "Denmark",
+      "count": 2
+    },
+    {
+      "value": "France",
+      "count": 2
+    },
+    {
+      "value": "State of Palestine",
+      "count": 2
+    },
+    {
+      "value": "Canada",
+      "count": 2
+    },
+    {
+      "value": "Ecuador",
+      "count": 1
+    },
+    {
+      "value": "United Kingdom of Great Britain and Northern Ireland (Overseas Territory)",
+      "count": 1
+    },
+    {
+      "value": "Greece",
+      "count": 1
+    },
+    {
+      "value": "Finland",
+      "count": 1
+    },
+    {
+      "value": "Italy",
+      "count": 1
+    },
+    {
+      "value": "Ukraine",
+      "count": 1
+    },
+    {
+      "value": "South Africa",
+      "count": 1
+    },
+    {
+      "value": "Slovakia",
+      "count": 1
+    },
+    {
+      "value": "Serbia",
+      "count": 1
+    },
+    {
+      "value": "Latvia",
+      "count": 1
+    }
+  ],
+  "labels": [
+    {
+      "value": "Persons with disabilities",
+      "count": 1583
+    },
+    {
+      "value": "Children",
+      "count": 150
+    },
+    {
+      "value": "Persons deprived of their liberty",
+      "count": 100
+    },
+    {
+      "value": "Women/girls",
+      "count": 99
+    },
+    {
+      "value": "Refugees & asylum-seekers",
+      "count": 50
+    },
+    {
+      "value": "Persons living with HIV/AIDS",
+      "count": 19
+    },
+    {
+      "value": "Persons living in poverty",
+      "count": 12
+    },
+    {
+      "value": "Non-citizens and stateless",
+      "count": 12
+    },
+    {
+      "value": "Roma, Gypsies, Sinti and Travellers",
+      "count": 11
+    },
+    {
+      "value": "Persons in street situations",
+      "count": 9
+    },
+    {
+      "value": "Persons affected by armed conflict",
+      "count": 7
+    },
+    {
+      "value": "Adolescents",
+      "count": 2
+    },
+    {
+      "value": "Indigenous peoples",
+      "count": 2
+    },
+    {
+      "value": "Migrants",
+      "count": 2
+    },
+    {
+      "value": "LGBTI+",
+      "count": 2
+    },
+    {
+      "value": "Internally displaced persons",
+      "count": 1
+    }
+  ],
+  "formats": [
+    {
+      "value": "docx",
+      "count": 83
+    },
+    {
+      "value": "pdf",
+      "count": 4
+    },
+    {
+      "value": "doc",
+      "count": 1
+    }
+  ],
+  "years": {
+    "min": 2010,
+    "max": 2023,
+    "histogram": [
+      {
+        "year": 2010,
+        "count": 2
+      },
+      {
+        "year": 2011,
+        "count": 4
+      },
+      {
+        "year": 2012,
+        "count": 2
+      },
+      {
+        "year": 2013,
+        "count": 8
+      },
+      {
+        "year": 2014,
+        "count": 8
+      },
+      {
+        "year": 2015,
+        "count": 8
+      },
+      {
+        "year": 2016,
+        "count": 4
+      },
+      {
+        "year": 2017,
+        "count": 6
+      },
+      {
+        "year": 2018,
+        "count": 12
+      },
+      {
+        "year": 2019,
+        "count": 17
+      },
+      {
+        "year": 2020,
+        "count": 6
+      },
+      {
+        "year": 2021,
+        "count": 6
+      },
+      {
+        "year": 2022,
+        "count": 3
+      },
+      {
+        "year": 2023,
+        "count": 1
+      }
+    ]
+  }
+}

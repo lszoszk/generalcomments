@@ -1,5 +1,5 @@
 /* =========================================================
-   The Geneva Reporter · Component layer
+   UN Human Rights Database · Component layer
    ========================================================= */
 
 /* ─────────────  MASTHEAD  ───────────── */
@@ -241,6 +241,11 @@
   color: var(--preview, var(--ink-2));
   border-color: var(--preview, var(--rule));
 }
+.rb-pill.rb-jur {
+  background: var(--jur-soft);
+  color: var(--jur-tone);
+  border-color: var(--jur-tone);
+}
 
 /* Copy link to current search */
 .copy-link-btn {
@@ -444,6 +449,15 @@
 }
 .chip-grid .chip.sp-chip.on {
   background: var(--preview);
+  color: var(--paper);
+}
+.chip-grid .chip.jur-chip {
+  border-color: var(--jur-tone);
+  color: var(--jur-tone);
+  background: var(--jur-soft);
+}
+.chip-grid .chip.jur-chip.on {
+  background: var(--jur-tone);
   color: var(--paper);
 }
 .chip-grid-compact .chip {
@@ -765,6 +779,7 @@
   color: var(--ink);
 }
 .result-doc-group.sp .result-doc-summary-title { color: var(--ink-2); }
+.result-doc-group.jur .result-doc-summary-title { color: var(--jur-tone); }
 .result-doc-summary-meta {
   display: flex;
   align-items: baseline;
@@ -821,6 +836,8 @@
 }
 .result.is-grouped-result:last-child { border-bottom: 0; }
 .result.sp .result-text { color: var(--sp-tone); }
+.result.jur .result-text { color: var(--ink-2); }
+.result.jur .result-pn { color: var(--jur-tone); }
 .result-margin {
   padding-top: 4px;
   text-align: right;
@@ -979,6 +996,11 @@
   margin-top: 10px;
   flex-wrap: wrap;
   align-items: center;
+}
+.result-meta .chip.jur-chip {
+  border-color: var(--jur-tone);
+  color: var(--jur-tone);
+  background: var(--jur-soft);
 }
 .result-aside {
   padding-top: 4px;
@@ -1278,6 +1300,7 @@ body[data-active-view="about"]    section[data-view="about"]    { display: block
   border-bottom: 3px double var(--rule);
 }
 .docs-section-head:first-child { margin-top: 0; }
+.docs-section-head.jur-section-head { color: var(--jur-tone); }
 .docs-section-head.sp-section-head { color: var(--preview); }
 
 .docs-committee {
@@ -1309,6 +1332,7 @@ body[data-active-view="about"]    section[data-view="about"]    { display: block
   font-weight: 500;
   color: var(--ink);
 }
+.docs-committee.jur .docs-committee-name { color: var(--jur-tone); }
 .docs-committee.sp .docs-committee-name { color: var(--ink-2); }
 .docs-committee-count {
   font-family: var(--mono);
@@ -1347,6 +1371,7 @@ body[data-active-view="about"]    section[data-view="about"]    { display: block
   color: var(--ink);
   font-style: italic;
 }
+.docs-row.jur .name { color: var(--jur-tone); }
 .docs-row.sp .name { color: var(--ink-2); }
 .docs-row .year {
   font-family: var(--mono);

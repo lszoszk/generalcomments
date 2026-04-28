@@ -1,5 +1,5 @@
 """
-The Geneva Reporter · PythonAnywhere redirector
+UN Human Rights Database · PythonAnywhere redirector
 =================================================
 
 Replaces the legacy Flask app that served search results from
