@@ -1069,6 +1069,7 @@
   word-break: break-word;
 }
 .dossier-dp .v.accent { color: var(--garnet); }
+.dossier-dp-wide { grid-column: 1 / -1; }    /* span both grid columns */
 .dossier-chip {
   display: inline-block;
   padding: 1px 7px;
@@ -1079,6 +1080,73 @@
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ink-2);
+}
+.dossier-chip-soft {
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--ink);
+  background: var(--paper-3, #f0e9e1);
+}
+.dossier-folio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dossier-country {
+  color: var(--ink-2);
+  font-style: italic;
+}
+
+/* JUR outcome badge — colour-codes the case disposition in the dossier
+   folio so users see "Violation found" / "Inadmissible" before the title. */
+.outcome-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  background: transparent;
+}
+.outcome-violation_found {
+  color: #b22222;       /* firebrick — substantive finding against the State */
+  background: #fdf2f2;
+  border-color: #b22222;
+}
+.outcome-merits_no_violation {
+  color: #2c6e3a;       /* dark green — merits, no violation */
+  background: #f1f8f3;
+  border-color: #2c6e3a;
+}
+.outcome-inadmissible {
+  color: #6b6058;       /* sand — procedural exit */
+  background: #f6f1ec;
+  border-color: #b9ad9d;
+}
+.outcome-discontinued {
+  color: #6b6058;
+  background: #f6f1ec;
+  border-color: #b9ad9d;
+  text-decoration: line-through;
+}
+.outcome-views {
+  color: #4a5d8a;       /* indigo — substantive deliberation, no specific outcome label */
+  background: #f0f3fa;
+  border-color: #4a5d8a;
+}
+.outcome-decision {
+  color: #4a5d8a;
+  background: #f0f3fa;
+  border-color: #4a5d8a;
+}
+.outcome-other {
+  color: var(--ink-3);
+  background: var(--paper-2);
+  border-color: var(--rule);
 }
 .dossier-abstract {
   margin: 14px 0 0;

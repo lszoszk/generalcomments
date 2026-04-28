@@ -1,6 +1,6 @@
 {
   "version": "20260428",
-  "builtAt": "2026-04-28T15:21:04+00:00",
+  "builtAt": "2026-04-28T22:11:43+00:00",
   "scope": "CRPD",
   "counts": {
     "documents": 88,
@@ -16,15 +16,15 @@
   },
   "files": {
     "documents.json": {
-      "sha": "446b958df7527de7",
-      "bytes": 77496
+      "sha": "afdd174c679f349b",
+      "bytes": 85555
     },
     "facets.json": {
       "sha": "dd2edf6d9958f892",
       "bytes": 4378
     },
     "shards/jur_small_treaties.json": {
-      "sha": "7786dac34c0a526d",
+      "sha": "0065a388b51cc16c",
       "bytes": 4015720,
       "documents": 88,
       "paragraphs": 3726

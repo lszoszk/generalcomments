@@ -76,9 +76,58 @@ def compact_document(doc: dict) -> dict:
         'communicationYear', 'adoptionYear', 'outcome', 'submittedDate',
         'adoptionDate', 'languages', 'link', 'sourceFile', 'sourceFormat',
         'shardId', 'paragraphCount', 'wordCount', 'labelCount',
-        'caseLabels', 'firstAddedAt', 'lastVerifiedAt',
+        'caseLabels', 'articlesCited', 'firstAddedAt', 'lastVerifiedAt',
     ]
     return {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+
+
+# ---------------------------------------------------------------------------
+# Article extraction — pulls treaty articles cited in the case body. The case
+# header (which we drop during ingestion) usually lists them as
+# "Articles of the Convention: 1, 5, 15 and 17"; the body then references
+# them as "article X of the Convention" / "articles X, Y of the Convention".
+# We return them in order of first appearance (matters for "principal" articles
+# being first in the dossier card).
+# ---------------------------------------------------------------------------
+import re as _re_articles
+
+_ART_LIST = _re_articles.compile(
+    r'\barticles?\s+([\d\s,()\.&]+?(?:\s+(?:and|or)\s+\d+(?:\s*\(\d+\))?)?)\s+of\s+the\s+(?:Convention|Optional\s+Protocol)',
+    _re_articles.IGNORECASE,
+)
+_ART_NUM = _re_articles.compile(r'\d+(?:\s*\(\s*\d+\s*\))?(?:\s*\(\s*[a-z]\s*\))?', _re_articles.IGNORECASE)
+
+
+def extract_articles_cited(paragraphs: list[dict]) -> list[str]:
+    """Extract distinct treaty articles cited, in order of first appearance.
+
+    Two passes:
+      • First the early paragraphs (the case introduction usually summarises
+        which articles are at issue) — these become the "principal" entries.
+      • Then a second pass over the full body picks up any others mentioned
+        in operative paragraphs.
+
+    Returns a list like ``['Art. 5', 'Art. 15', 'Art. 17', 'Art. 12(3)']``.
+    Capped at 12 entries to keep the dossier card readable; the underlying
+    JSON still has the full mentions in the body text.
+    """
+    if not paragraphs:
+        return []
+    intro_text = '\n'.join(p.get('text', '') for p in paragraphs[:5])
+    body_text = '\n'.join(p.get('text', '') for p in paragraphs)
+    found: list[str] = []
+    seen: set[str] = set()
+    for txt in (intro_text, body_text):
+        for m in _ART_LIST.finditer(txt):
+            chunk = m.group(1)
+            for n in _ART_NUM.findall(chunk):
+                key = _re_articles.sub(r'\s+', '', n)
+                if key not in seen:
+                    seen.add(key)
+                    found.append(f'Art. {key}')
+                    if len(found) >= 12:
+                        return found
+    return found
 
 
 def build_facets(documents: list[dict], paragraphs: list[dict]) -> dict:
@@ -185,6 +234,7 @@ def main() -> int:
         doc['paragraphCount'] = len(paragraphs)
         doc['wordCount'] = sum(len(p['text'].split()) for p in paragraphs)
         doc['labelCount'] = sum(len(p['labels']) for p in paragraphs)
+        doc['articlesCited'] = extract_articles_cited(paragraphs)
         shard_docs[shard_id].append(doc['docId'])
         shard_paragraphs[shard_id].extend(paragraphs)
         all_paragraphs.extend(paragraphs)

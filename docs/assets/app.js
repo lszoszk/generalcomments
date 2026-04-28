@@ -1386,9 +1386,12 @@ function evaluateAstToIds(ast) {
   return null;
 }
 
-// Final per-paragraph match check against the AST. Phrases are validated as
-// exact substrings; words match either the body or are accepted because the
-// FlexSearch index already stemmed them in.
+// Final per-paragraph match check against the AST. Every leaf does a strict
+// substring/regex match — the FlexSearch index does the cheap up-front
+// narrowing, but the body filter is what actually verifies a result. The
+// strict check is required for correctness inside NOT subtrees: an
+// optimistic "accept all word leaves" makes NOT(word) always false, which
+// silently breaks queries like `A AND B NOT (C)` even when matches exist.
 function paragraphMatchesAst(text, ast) {
   if (!ast) return true;
   if (ast.kind === 'word') {
@@ -1396,8 +1399,7 @@ function paragraphMatchesAst(text, ast) {
       const re = new RegExp('\\b' + escapeRegex(ast.value) + '\\w*', 'i');
       return re.test(text);
     }
-    // FlexSearch already accepted this paragraph; we accept stemming wins.
-    return text.includes(ast.value) || _stemMatchOk;
+    return text.includes(ast.value);
   }
   if (ast.kind === 'phrase') {
     return text.includes(ast.value);
@@ -1413,10 +1415,6 @@ function paragraphMatchesAst(text, ast) {
   }
   return true;
 }
-// Marker that lets word-leaves accept stemming-only hits without false positives:
-// runSearch only enters paragraphMatchesAst for ids returned by FlexSearch (so
-// stemming is "in the index"); standalone substring is the secondary signal.
-const _stemMatchOk = true;
 
 function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
@@ -2173,30 +2171,69 @@ function paintDossier() {
     ? `<div class="dossier-dp"><div class="folio">Status</div><div class="v">${escape(doc.status)}${doc.supersededBy ? ` → ${escape(doc.supersededBy)}` : ''}</div></div>`
     : '';
   const abstractHtml = '';
+  // Folio kind — for jurisprudence include the treaty so it reads as
+  // "JURISPRUDENCE · CRPD · PREVIEW" and pin a colourful outcome badge
+  // next to it (e.g. " · VIOLATION FOUND ").
   const dossierKind = isJurDoc
-    ? 'TREATY BODY JURISPRUDENCE · PREVIEW'
+    ? `JURISPRUDENCE · ${escape(doc?.treaty || 'TREATY BODY')} · PREVIEW`
     : isSpDoc
       ? 'MANDATE REPORT · PREVIEW'
       : 'GENERAL COMMENT';
   const actorLabel = isJurDoc ? 'Treaty body' : isSpDoc ? 'Mandate' : 'Committee';
 
+  // JUR-only outcome badge — sits inside the folio line so users see the
+  // case disposition before the title.
+  const outcomeBadge = (isJurDoc && doc?.outcome)
+    ? `<span class="outcome-badge outcome-${escape(doc.outcome)}">${escape(formatOutcome(doc.outcome))}</span>`
+    : '';
+
+  // JUR-only Articles cited — chip strip in the grid.
+  const articlesCitedHtml = (isJurDoc && Array.isArray(doc?.articlesCited) && doc.articlesCited.length)
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Articles cited</div><div class="v">${
+        doc.articlesCited.map(a => `<span class="dossier-chip">${escape(a)}</span>`).join(' ')
+      }</div></div>`
+    : '';
+
+  // JUR-only Concerned groups (case-level labels) — small chip strip.
+  const caseLabelsHtml = (isJurDoc && Array.isArray(doc?.caseLabels) && doc.caseLabels.length)
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Concerned groups</div><div class="v">${
+        doc.caseLabels.map(l => `<span class="dossier-chip dossier-chip-soft">${escape(l)}</span>`).join(' ')
+      }</div></div>`
+    : '';
+
+  // Country first when it's a case (the "where did this happen" anchor),
+  // then outcome (already on a badge), then communication / adoption dates.
   host.innerHTML = `
-    <div class="folio garnet">${dossierKind}</div>
+    <div class="folio garnet dossier-folio-row">
+      <span>${dossierKind}</span>
+      ${outcomeBadge}
+    </div>
     <h3 class="dossier-title">${escape(doc?.name || para.docId)}</h3>
-    <div class="dossier-sig">${escape(doc?.signature || '')}</div>
+    <div class="dossier-sig">${escape(doc?.signature || '')}${
+      isJurDoc && doc?.country ? ` · <span class="dossier-country">${escape(doc.country)}</span>` : ''
+    }</div>
     ${abstractHtml}
     <div class="dossier-grid">
-      <div class="dossier-dp"><div class="folio">Adopted</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
-      <div class="dossier-dp"><div class="folio">${isJurDoc ? 'Communication year' : 'Year'}</div><div class="v">${doc?.year ?? '—'}</div></div>
-      <div class="dossier-dp"><div class="folio">${actorLabel}</div><div class="v">${escape(doc?.committees?.join(' · ') || '—')}</div></div>
-      <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
-      ${isJurDoc && doc?.country ? `<div class="dossier-dp"><div class="folio">Country</div><div class="v">${escape(doc.country)}</div></div>` : ''}
-      ${isJurDoc && doc?.outcome ? `<div class="dossier-dp"><div class="folio">Outcome</div><div class="v accent">${escape(formatOutcome(doc.outcome))}</div></div>` : ''}
-      ${isJurDoc && para.section ? `<div class="dossier-dp"><div class="folio">Section</div><div class="v">${escape(para.section)}</div></div>` : ''}
-      ${articlesHtml}
-      ${statusHtml}
-      ${isSpDoc && doc?.mandate ? `<div class="dossier-dp"><div class="folio">Mandate holder</div><div class="v accent">${escape(doc.mandate)}</div></div>` : ''}
-      ${isSpDoc && doc?.presented ? `<div class="dossier-dp"><div class="folio">Presented</div><div class="v">${escape(doc.presented)}</div></div>` : ''}
+      ${isJurDoc
+        ? `
+          <div class="dossier-dp"><div class="folio">Adopted</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
+          <div class="dossier-dp"><div class="folio">Communication</div><div class="v">${doc?.communicationYear ?? doc?.year ?? '—'}</div></div>
+          <div class="dossier-dp"><div class="folio">Treaty body</div><div class="v">${escape(doc?.committees?.join(' · ') || doc?.treaty || '—')}</div></div>
+          <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
+          ${para.section ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Section of this paragraph</div><div class="v">${escape(para.section)}</div></div>` : ''}
+          ${articlesCitedHtml}
+          ${caseLabelsHtml}
+        `
+        : `
+          <div class="dossier-dp"><div class="folio">Adopted</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
+          <div class="dossier-dp"><div class="folio">Year</div><div class="v">${doc?.year ?? '—'}</div></div>
+          <div class="dossier-dp"><div class="folio">${actorLabel}</div><div class="v">${escape(doc?.committees?.join(' · ') || '—')}</div></div>
+          <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
+          ${articlesHtml}
+          ${statusHtml}
+          ${isSpDoc && doc?.mandate ? `<div class="dossier-dp"><div class="folio">Mandate holder</div><div class="v accent">${escape(doc.mandate)}</div></div>` : ''}
+          ${isSpDoc && doc?.presented ? `<div class="dossier-dp"><div class="folio">Presented</div><div class="v">${escape(doc.presented)}</div></div>` : ''}
+        `}
     </div>
     <blockquote>
       <span class="pn">¶ ${para.n ?? para.idx}</span>
