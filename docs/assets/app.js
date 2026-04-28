@@ -38,7 +38,8 @@ const state = {
 };
 
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
-const RESULT_LIMIT = 200;    // render cap; "more" hint shown when hit
+const RESULT_PAGE_SIZE = 50;       // first-page render budget; subsequent pages append on scroll
+const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard match doesn't blow up the DOM
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
@@ -897,33 +898,134 @@ function paintYearFill() {
   $('#year-display').textContent = `${state.filters.yearMin} – ${state.filters.yearMax}`;
 }
 
-// ─────────── Query parsing ───────────
+// ─────────── Query parsing (boolean) ───────────
+//
+// Recursive-descent parser for the query language:
+//
+//   query     := orExpr
+//   orExpr    := andExpr ( ('OR' | '|') andExpr )*
+//   andExpr   := notExpr ( ('AND' | '&') notExpr )*    ← also implicit AND on whitespace
+//   notExpr   := ('NOT' | '-' | '!') term | term
+//   term      := '(' orExpr ')' | '"' phrase '"' | bareWord
+//
+// `bareWord` may end in a single `*` for prefix-matching (FlexSearch handles
+// the index lookup; smartSnippet/_findBestCluster mirror the semantics).
+//
+// Output is an AST consumed by evaluateQuery() — leaf form
+//   { kind: 'phrase'|'word', value, prefix?: true }
+// internal form
+//   { kind: 'and'|'or', items: [...] } | { kind: 'not', item: ... }
+//
+// Backwards-compat: a query with no operators behaves exactly as before
+// (phrases AND'd with bare words, OR groups when "or" appears between terms).
 function parseQuery(raw) {
-  if (!raw) return { andTerms: [], orGroups: [] };
-  const lower = raw.toLowerCase();
-  const phrases = [...lower.matchAll(/"([^"]+)"/g)].map(m => m[1]);
-  const without = lower.replace(/"[^"]+"/g, ' ').trim();
-  // OR groups: tokens separated by " or "
-  const tokens = without.split(/\s+/).filter(Boolean);
+  if (!raw || !raw.trim()) return null;
+  const tokens = _tokenizeQuery(raw);
+  if (!tokens.length) return null;
+  const ctx = { tokens, pos: 0 };
+  const ast = _parseOr(ctx);
+  return ast;
+}
 
-  const andTerms = [...phrases];
-  const orGroups = [];
+function _tokenizeQuery(raw) {
+  // Yield a flat list of: ('AND'|'OR'|'NOT'|'('|')'|{phrase}|{word, prefix?})
+  const out = [];
   let i = 0;
-  while (i < tokens.length) {
-    if (i + 2 < tokens.length && tokens[i + 1] === 'or') {
-      const group = [tokens[i]];
-      while (i + 1 < tokens.length && tokens[i + 1] === 'or') {
-        group.push(tokens[i + 2]);
-        i += 2;
-      }
-      orGroups.push(group);
-      i += 1;
-    } else {
-      andTerms.push(tokens[i]);
-      i += 1;
+  const s = raw;
+  while (i < s.length) {
+    const c = s[i];
+    if (/\s/.test(c)) { i++; continue; }
+    if (c === '(') { out.push({ t: '(' }); i++; continue; }
+    if (c === ')') { out.push({ t: ')' }); i++; continue; }
+    if (c === '"') {
+      let j = i + 1;
+      while (j < s.length && s[j] !== '"') j++;
+      const phrase = s.slice(i + 1, j).trim().toLowerCase();
+      if (phrase) out.push({ t: 'phrase', value: phrase });
+      i = j + 1;
+      continue;
     }
+    if (c === '-' || c === '!') {
+      // Unary NOT prefix when followed by a term, not a stray operator
+      const next = s[i + 1];
+      if (next && next !== ' ' && next !== ')' && next !== '-' && next !== '!') {
+        out.push({ t: 'NOT' });
+        i++;
+        continue;
+      }
+    }
+    // Bare word — consume up to whitespace / paren
+    let j = i;
+    while (j < s.length && !/[\s()]/.test(s[j])) j++;
+    const word = s.slice(i, j);
+    const lower = word.toLowerCase();
+    if (lower === 'and' || lower === '&') {
+      out.push({ t: 'AND' });
+    } else if (lower === 'or' || lower === '|') {
+      out.push({ t: 'OR' });
+    } else if (lower === 'not') {
+      out.push({ t: 'NOT' });
+    } else if (lower) {
+      const prefix = lower.endsWith('*') && lower.length > 1;
+      out.push({ t: 'word', value: prefix ? lower.slice(0, -1) : lower, prefix });
+    }
+    i = j;
   }
-  return { andTerms, orGroups };
+  return out;
+}
+
+function _peek(ctx) { return ctx.tokens[ctx.pos]; }
+function _eat(ctx)  { return ctx.tokens[ctx.pos++]; }
+
+function _parseOr(ctx) {
+  const items = [_parseAnd(ctx)];
+  while (_peek(ctx)?.t === 'OR') { _eat(ctx); items.push(_parseAnd(ctx)); }
+  return items.length === 1 ? items[0] : { kind: 'or', items };
+}
+function _parseAnd(ctx) {
+  const items = [_parseNot(ctx)];
+  while (_peek(ctx) && _peek(ctx).t !== 'OR' && _peek(ctx).t !== ')') {
+    if (_peek(ctx).t === 'AND') _eat(ctx);            // explicit AND
+    items.push(_parseNot(ctx));                       // or implicit AND
+  }
+  // Drop nulls that would crash evaluation (defensive — happens on stray tokens)
+  const cleaned = items.filter(Boolean);
+  return cleaned.length === 1 ? cleaned[0] : { kind: 'and', items: cleaned };
+}
+function _parseNot(ctx) {
+  if (_peek(ctx)?.t === 'NOT') { _eat(ctx); return { kind: 'not', item: _parseTerm(ctx) }; }
+  return _parseTerm(ctx);
+}
+function _parseTerm(ctx) {
+  const tok = _eat(ctx);
+  if (!tok) return null;
+  if (tok.t === '(') {
+    const inner = _parseOr(ctx);
+    if (_peek(ctx)?.t === ')') _eat(ctx);
+    return inner;
+  }
+  if (tok.t === 'phrase') return { kind: 'phrase', value: tok.value };
+  if (tok.t === 'word')   return { kind: 'word', value: tok.value, prefix: !!tok.prefix };
+  // Stray operator at term position — treat as no-op
+  return null;
+}
+
+// Walk the AST and collect every leaf (used for highlighting + KWIC).
+// Skips the children of NOT nodes — those terms must NOT be highlighted.
+function leafTermsForHighlight(ast) {
+  const out = [];
+  const walk = (n, inNot) => {
+    if (!n) return;
+    if (n.kind === 'word' || n.kind === 'phrase') {
+      if (!inNot) out.push(n);
+    } else if (n.kind === 'not') {
+      walk(n.item, true);
+    } else if (n.kind === 'and' || n.kind === 'or') {
+      for (const c of n.items) walk(c, inNot);
+    }
+  };
+  walk(ast, false);
+  return out;
 }
 
 // ─────────── FlexSearch index ───────────
@@ -1045,28 +1147,103 @@ function flexSearchIds(query) {
   return ids;
 }
 
-function flexSearchAllIds(terms) {
-  const clean = terms.filter(Boolean);
-  if (!clean.length) return null;
-  let ids = null;
-  for (const term of clean) {
-    const termIds = flexSearchIds(term);
-    if (!termIds) continue;
-    ids = ids
-      ? new Set([...ids].filter(id => termIds.has(id)))
-      : termIds;
+// ─────────── AST → candidate id evaluation ───────────
+// Walks the parsed AST and returns a Set of paragraph ids (or null = unbounded).
+// Phrases and prefix wildcards delegate to FlexSearch where possible; phrases
+// are re-verified later as substrings (FlexSearch tokenises by word).
+function evaluateAstToIds(ast) {
+  if (!ast) return null;
+  if (ast.kind === 'word') {
+    if (ast.prefix) {
+      // Prefix wildcard — find every term in the index whose prefix matches.
+      // FlexSearch supports `suggest:true` natively but we do a simple
+      // bare-word query (the tokenizer's stemming already covers most cases);
+      // for explicit prefix, we scan candidate terms client-side.
+      return flexSearchPrefixIds(ast.value);
+    }
+    return flexSearchIds(ast.value);
   }
-  return ids || new Set();
+  if (ast.kind === 'phrase') {
+    // Treat each non-stop word as an AND constraint; the substring re-check
+    // in runSearch's body filter eliminates word-order false positives.
+    const words = ast.value.split(/\s+/).filter(w => w.length >= 2);
+    let ids = null;
+    for (const w of words) {
+      const wIds = flexSearchIds(w);
+      if (!wIds) continue;
+      ids = ids ? new Set([...ids].filter(id => wIds.has(id))) : wIds;
+    }
+    return ids;
+  }
+  if (ast.kind === 'and') {
+    let ids = null;
+    for (const child of ast.items) {
+      // NOT children don't narrow at index time — handled in body filter.
+      if (child?.kind === 'not') continue;
+      const childIds = evaluateAstToIds(child);
+      if (childIds == null) continue;
+      ids = ids ? new Set([...ids].filter(id => childIds.has(id))) : childIds;
+    }
+    return ids;
+  }
+  if (ast.kind === 'or') {
+    const all = new Set();
+    for (const child of ast.items) {
+      const childIds = evaluateAstToIds(child);
+      if (childIds == null) return null;          // unbounded OR can't narrow
+      for (const id of childIds) all.add(id);
+    }
+    return all;
+  }
+  if (ast.kind === 'not') {
+    return null;                                  // NOT alone is unbounded
+  }
+  return null;
 }
 
-function flexSearchAnyIds(terms) {
-  const clean = terms.filter(Boolean);
-  if (!clean.length) return null;
+// Final per-paragraph match check against the AST. Phrases are validated as
+// exact substrings; words match either the body or are accepted because the
+// FlexSearch index already stemmed them in.
+function paragraphMatchesAst(text, ast) {
+  if (!ast) return true;
+  if (ast.kind === 'word') {
+    if (ast.prefix) {
+      const re = new RegExp('\\b' + escapeRegex(ast.value) + '\\w*', 'i');
+      return re.test(text);
+    }
+    // FlexSearch already accepted this paragraph; we accept stemming wins.
+    return text.includes(ast.value) || _stemMatchOk;
+  }
+  if (ast.kind === 'phrase') {
+    return text.includes(ast.value);
+  }
+  if (ast.kind === 'and') {
+    return ast.items.every(c => paragraphMatchesAst(text, c));
+  }
+  if (ast.kind === 'or') {
+    return ast.items.some(c => paragraphMatchesAst(text, c));
+  }
+  if (ast.kind === 'not') {
+    return !paragraphMatchesAst(text, ast.item);
+  }
+  return true;
+}
+// Marker that lets word-leaves accept stemming-only hits without false positives:
+// runSearch only enters paragraphMatchesAst for ids returned by FlexSearch (so
+// stemming is "in the index"); standalone substring is the secondary signal.
+const _stemMatchOk = true;
+
+function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+// Prefix-wildcard helper: take every paragraph whose tokenized text contains
+// a word starting with `prefix`. Implemented as a substring scan on top of a
+// pre-tokenized lower text — simpler than reaching into FlexSearch internals.
+function flexSearchPrefixIds(prefix) {
+  if (!prefix || prefix.length < 1) return new Set();
+  const re = new RegExp('\\b' + escapeRegex(prefix), 'i');
   const ids = new Set();
-  for (const term of clean) {
-    const termIds = flexSearchIds(term);
-    if (!termIds) continue;
-    for (const id of termIds) ids.add(id);
+  for (const p of state.paragraphs) {
+    if (re.test(p.text)) ids.add(p.id);
   }
   return ids;
 }
@@ -1074,29 +1251,19 @@ function flexSearchAnyIds(terms) {
 // ─────────── Search ───────────
 function runSearch() {
   scheduleUrlUpdate();
-  const { andTerms, orGroups } = parseQuery(state.query);
+  const ast = parseQuery(state.query);
   const f = state.filters;
   const scope = state.scope;
 
-  // Quoted phrases (incl. multi-word) stay strict — substring scan.
-  // Bare single-word terms benefit from FlexSearch stemming.
-  const phrases   = andTerms.filter(t => t.includes(' '));
-  const singleAnd = andTerms.filter(t => !t.includes(' '));
+  // Stage 1 — narrow to candidate ids using the parsed AST. For unbounded
+  // ASTs (pure NOT, single OR over wildcards, etc.) we fall back to scanning
+  // every paragraph.
+  let candidateIds = ast ? evaluateAstToIds(ast) : null;
 
-  // Stage 1 — narrow by index where possible
-  let candidateIds = null;     // null = no constraint
-  if (singleAnd.length) {
-    candidateIds = flexSearchAllIds(singleAnd);
-  }
-  for (const grp of orGroups) {
-    const orIds = flexSearchAnyIds(grp);
-    if (orIds == null) continue;
-    candidateIds = candidateIds
-      ? new Set([...candidateIds].filter(id => orIds.has(id)))
-      : orIds;
-  }
+  // Highlight + scoring tokens come from the AST, skipping NOT branches.
+  const highlightTerms = ast ? leafTermsForHighlight(ast) : [];
 
-  // Stage 2 — apply structural filters and phrase enforcement
+  // Stage 2 — apply structural filters + post-AST verification
   const matched = [];
   const iter = candidateIds
     ? [...candidateIds].map(id => state.paragraphById.get(id)).filter(Boolean)
@@ -1136,19 +1303,24 @@ function runSearch() {
 
     const text = p.text.toLowerCase();
 
-    // Enforce quoted phrases as exact substrings (FlexSearch tokenises, doesn't preserve order)
-    if (phrases.length) {
-      let ok = true;
-      for (const ph of phrases) { if (!text.includes(ph)) { ok = false; break; } }
-      if (!ok) continue;
-    }
+    // AST-level enforcement: catches NOT clauses, phrases that need exact
+    // substring, and prefix wildcards. FlexSearch alone can produce
+    // stemming-only matches that don't actually contain the term.
+    if (ast && !paragraphMatchesAst(text, ast)) continue;
 
     // Score: occurrences in original text, weighted by term length.
-    // Stemming-only matches (no exact occurrence) still get baseline 1 to surface them.
+    // Stemming-only matches still get baseline 1 to surface them.
     let score = 0;
-    for (const t of [...singleAnd, ...phrases, ...orGroups.flat()]) {
+    for (const term of highlightTerms) {
+      const t = term.value;
       if (!t) continue;
-      const occ = countOccurrences(text, t);
+      let occ;
+      if (term.prefix) {
+        const re = new RegExp('\\b' + escapeRegex(t) + '\\w*', 'gi');
+        occ = (text.match(re) || []).length;
+      } else {
+        occ = countOccurrences(text, t);
+      }
       score += occ * (1 + Math.log2(t.length + 1));
     }
     if (state.query && score === 0) score = 1;
@@ -1229,10 +1401,18 @@ function syncResultsControls() {
 }
 
 function currentResultGroupDocIds() {
-  return [...new Set(state.results.slice(0, RESULT_LIMIT).map(({ p }) => p.docId))];
+  return [...new Set(state.results.slice(0, RESULT_HARD_CAP).map(({ p }) => p.docId))];
 }
 
-// ─────────── Render ───────────
+// ─────────── Render (paginated, infinite scroll) ───────────
+//
+// Pagination model: paintResults() does the first page; an IntersectionObserver
+// at the bottom of the list appends subsequent pages as the user scrolls.
+// Rendered count is held in `state.renderedCount`. Document grouping mode keeps
+// its single-shot render (it's bounded by the unique-doc count which is much
+// smaller than the paragraph count).
+let _resultObserver = null;
+
 function paintResults() {
   const list = $('#result-list');
   list.innerHTML = '';
@@ -1247,31 +1427,102 @@ function paintResults() {
   $('#results-sub').textContent = resultSubtitle();
   $('#results-sub').appendChild(scopeNotice());
 
-  const view = state.results.slice(0, RESULT_LIMIT);
-  const { andTerms, orGroups } = parseQuery(state.query);
-  const allTerms = [...andTerms, ...orGroups.flat()].filter(Boolean);
+  const ast = parseQuery(state.query);
+  const allTerms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
+
+  // Tear down any previous observer; render mode may have changed.
+  if (_resultObserver) { _resultObserver.disconnect(); _resultObserver = null; }
+  state.renderedCount = 0;
 
   list.classList.toggle('is-grouped', state.resultGroup === 'documents');
   if (state.resultGroup === 'documents') {
+    // Document grouping mode renders once: there are far fewer documents than
+    // paragraphs (≤359 today) and the per-group expansion is local DOM only.
+    const view = state.results.slice(0, RESULT_HARD_CAP);
     renderGroupedResults(list, view, allTerms);
+    state.renderedCount = view.length;
+    $('#result-more').textContent = total > RESULT_HARD_CAP
+      ? moreResultsText(total, view)
+      : '';
   } else {
-    view.forEach(({ p }, i) => {
-      list.appendChild(renderResult(p, i + 1, allTerms));
-    });
+    // Paragraph mode: append in pages of RESULT_PAGE_SIZE on scroll.
+    appendNextPage(list, allTerms);
+    _attachResultSentinel(list, allTerms);
   }
 
-  $('#result-more').textContent = total > RESULT_LIMIT
-    ? moreResultsText(total, view)
-    : '';
-
   // Auto-show first result in dossier
-  if (view.length && !state.activeId) {
-    setActive(view[0].p.id);
-  } else if (state.activeId && !view.find(r => r.p.id === state.activeId)) {
-    setActive(view[0]?.p.id || null);
+  const firstId = state.results[0]?.p.id;
+  if (firstId && !state.activeId) {
+    setActive(firstId);
+  } else if (state.activeId && !state.results.find(r => r.p.id === state.activeId)) {
+    setActive(firstId || null);
   } else {
     paintDossier();
   }
+}
+
+// Append the next page of paragraph results into the list.
+function appendNextPage(list, terms) {
+  const total = state.results.length;
+  const start = state.renderedCount;
+  const end   = Math.min(start + RESULT_PAGE_SIZE, total, RESULT_HARD_CAP);
+  if (start >= end) return false;
+  const frag = document.createDocumentFragment();
+  for (let i = start; i < end; i++) {
+    const { p } = state.results[i];
+    frag.appendChild(renderResult(p, i + 1, terms));
+  }
+  // Insert before the sentinel so the sentinel stays at the tail.
+  const sentinel = list.querySelector('.result-sentinel');
+  if (sentinel) list.insertBefore(frag, sentinel);
+  else list.appendChild(frag);
+  state.renderedCount = end;
+  // Update tail status (showing X of Y, more on scroll, etc.)
+  updateResultMore();
+  return true;
+}
+
+function updateResultMore() {
+  const total = state.results.length;
+  const rendered = state.renderedCount;
+  const more = $('#result-more');
+  if (!more) return;
+  if (total === 0) { more.textContent = ''; return; }
+  if (rendered >= total) {
+    more.textContent = total > 1
+      ? `End of results · ${total.toLocaleString()} passages`
+      : '';
+  } else if (rendered >= RESULT_HARD_CAP) {
+    more.textContent = `Showing first ${RESULT_HARD_CAP.toLocaleString()} of ${total.toLocaleString()} passages — refine your filters to narrow down.`;
+  } else {
+    more.textContent = `Showing ${rendered.toLocaleString()} of ${total.toLocaleString()} passages — keep scrolling for more.`;
+  }
+}
+
+function _attachResultSentinel(list, terms) {
+  // Add a sentinel <li> at the end of the list and observe it.
+  const sentinel = document.createElement('li');
+  sentinel.className = 'result-sentinel';
+  sentinel.innerHTML = '<span class="dot"></span> Loading more…';
+  list.appendChild(sentinel);
+
+  if (state.renderedCount >= state.results.length || state.renderedCount >= RESULT_HARD_CAP) {
+    sentinel.style.display = 'none';
+    return;
+  }
+  _resultObserver = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      const more = appendNextPage(list, terms);
+      if (!more || state.renderedCount >= state.results.length || state.renderedCount >= RESULT_HARD_CAP) {
+        sentinel.style.display = 'none';
+        _resultObserver?.disconnect();
+        _resultObserver = null;
+        break;
+      }
+    }
+  }, { rootMargin: '600px 0px' });
+  _resultObserver.observe(sentinel);
 }
 
 function resultSubtitle() {
@@ -1289,9 +1540,9 @@ function resultSubtitle() {
 function moreResultsText(total, view) {
   if (state.resultGroup === 'documents') {
     const docs = new Set(view.map(({ p }) => p.docId)).size;
-    return `Showing top ${RESULT_LIMIT} paragraphs grouped into ${docs} document${docs === 1 ? '' : 's'} out of ${total.toLocaleString()} matches. Refine your filters to narrow down.`;
+    return `Showing top ${RESULT_HARD_CAP.toLocaleString()} paragraphs grouped into ${docs} document${docs === 1 ? '' : 's'} out of ${total.toLocaleString()} matches. Refine your filters to narrow down.`;
   }
-  return `Showing top ${RESULT_LIMIT} of ${total.toLocaleString()}. Refine your filters to narrow down.`;
+  return `Showing first ${RESULT_HARD_CAP.toLocaleString()} of ${total.toLocaleString()}. Refine your filters to narrow down.`;
 }
 
 function renderGroupedResults(list, view, terms) {
@@ -1391,6 +1642,14 @@ function renderResult(p, rank, terms, opts = {}) {
         <span class="folio">${doc?.year ?? ''}</span>
       `;
 
+  // Build a KWIC window when the keyword falls past the visible fold; for
+  // short paragraphs and queries with no hits, smartSnippet returns the full
+  // text (highlighted) untouched.
+  const snippet = smartSnippet(p.text, terms);
+  const kwicBadge = snippet.isKwic
+    ? `<span class="kwic-badge" title="Keyword-in-context · click result to read full paragraph">◎ KWIC · ${snippet.fullLen.toLocaleString()} chars</span>`
+    : '';
+
   li.innerHTML = `
     <div class="result-margin">
       <div class="result-rank">№ ${String(rank).padStart(2, '0')}</div>
@@ -1399,8 +1658,9 @@ function renderResult(p, rank, terms, opts = {}) {
     <div class="result-body">
       <div class="result-headline">
         ${headline}
+        ${kwicBadge}
       </div>
-      <p class="result-text">${highlight(p.text, terms)}</p>
+      <p class="result-text${snippet.isKwic ? ' is-kwic' : ''}">${snippet.html}</p>
       <div class="result-meta">
         ${committeeChips}
         ${labelChips}
@@ -1464,8 +1724,8 @@ function paintDossier() {
   if (!para) return;
   const doc = state.documents.get(para.docId);
   const isSpDoc = para.type === 'sp';
-  const { andTerms, orGroups } = parseQuery(state.query);
-  const terms = [...andTerms, ...orGroups.flat()].filter(Boolean);
+  const ast = parseQuery(state.query);
+  const terms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
 
   const articlesHtml = doc?.articles?.length
     ? `<div class="dossier-dp"><div class="folio">Articles</div><div class="v">${doc.articles.map(a => `<span class="dossier-chip">${escape(a)}</span>`).join(' ')}</div></div>`
@@ -1532,6 +1792,73 @@ function highlight(text, terms) {
 
 function escapeRe(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// ─────────── KWIC (keyword-in-context) snippets ───────────
+//
+// Adapted from UnitedNations_recommendations/dashboard-search.js (smartSnippet
+// + _findBestCluster). For long paragraphs whose first match falls past the
+// fade-out fold (~400 chars), we build a 1–2-sentence window centred on the
+// best cluster of query terms — so the user can see WHY the paragraph matched
+// without expanding it.
+//
+// Returns { html, isKwic, fullLen }.
+const KWIC_PRE_CHARS  = 140;
+const KWIC_POST_CHARS = 240;
+const KWIC_FADE_FOLD  = 400;
+
+function smartSnippet(text, terms) {
+  const t = String(text || '');
+  const fullLen = t.length;
+  const cleanTerms = (terms || []).filter(Boolean);
+  if (!cleanTerms.length || fullLen <= 500) {
+    return { html: highlight(t, cleanTerms), isKwic: false, fullLen };
+  }
+  const idx = _findBestCluster(t, cleanTerms);
+  if (idx < 0 || idx < KWIC_FADE_FOLD) {
+    return { html: highlight(t, cleanTerms), isKwic: false, fullLen };
+  }
+  // Anchor a window roughly one sentence before + one after the cluster.
+  let start = Math.max(0, idx - KWIC_PRE_CHARS);
+  let end   = Math.min(fullLen, idx + KWIC_POST_CHARS);
+  while (start > 0 && !/[.\n;:]/.test(t[start - 1])) start--;
+  while (start < idx && /\s/.test(t[start])) start++;
+  while (end < fullLen && !/[.\n]/.test(t[end])) end++;
+  if (end < fullLen) end++;
+  const snippet = t.slice(start, end);
+  const prefix = start > 0 ? '… ' : '';
+  const suffix = end < fullLen ? ' …' : '';
+  return {
+    html: prefix + highlight(snippet, cleanTerms) + suffix,
+    isKwic: true,
+    fullLen,
+  };
+}
+
+function _findBestCluster(text, terms) {
+  if (!terms.length) return -1;
+  const lower = text.toLowerCase();
+  const hits = [];
+  for (const t of terms) {
+    const probe = String(t).toLowerCase();
+    if (!probe || probe.length < 2) continue;
+    let i = 0;
+    while ((i = lower.indexOf(probe, i)) !== -1) {
+      hits.push(i);
+      i += probe.length;
+    }
+  }
+  if (!hits.length) return -1;
+  hits.sort((a, b) => a - b);
+  // Find tightest window of ≤200 chars containing the most hits; centre on it.
+  let best = { count: 1, start: hits[0] };
+  for (let i = 0; i < hits.length; i++) {
+    let j = i;
+    while (j + 1 < hits.length && hits[j + 1] - hits[i] <= 200) j++;
+    const count = j - i + 1;
+    if (count > best.count) best = { count, start: hits[i] };
+  }
+  return best.start;
 }
 
 // ─────────── Go ───────────

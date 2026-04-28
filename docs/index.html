@@ -150,12 +150,17 @@
   </div>
   <div class="searchbar-hint">
     <span class="folio">Operators</span>
-    <span class="op">"exact phrase"</span>
-    <span class="op">word OR word</span>
+    <span class="op" title="Exact phrase">"exact phrase"</span>
+    <span class="op" title="Both terms must appear (implicit when separated by space)">A AND B</span>
+    <span class="op" title="Either term">A OR B</span>
+    <span class="op" title="Exclude term — also: -term">NOT term</span>
+    <span class="op" title="Group with parentheses">( … )</span>
+    <span class="op" title="Prefix wildcard — biases, biased, biasing">prefix*</span>
     <span class="folio">Try</span>
     <button class="suggest" data-q='"best interests of the child"'>"best interests of the child"</button>
-    <button class="suggest" data-q='"digital environment"'>"digital environment"</button>
+    <button class="suggest" data-q='trafficking AND children NOT (sexual)'>trafficking AND children NOT (sexual)</button>
     <button class="suggest" data-q='surveillance OR interception'>surveillance OR interception</button>
+    <button class="suggest" data-q='discriminat*'>discriminat*</button>
   </div>
 </section>
 

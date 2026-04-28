@@ -815,6 +815,51 @@
   margin: 0;
   color: var(--ink);
 }
+.result-text.is-kwic {
+  /* KWIC snippets are short by design; no need to fade out the tail. */
+  -webkit-mask-image: none;
+  mask-image: none;
+  font-style: normal;
+  background: linear-gradient(to right, transparent 0, var(--paper-2) 6px, var(--paper-2) calc(100% - 6px), transparent 100%);
+  padding: 6px 10px;
+  border-left: 2px solid var(--garnet);
+  margin-left: -10px;
+}
+.kwic-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--garnet);
+  background: var(--paper-2);
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-left: auto;
+}
+.result-sentinel {
+  list-style: none;
+  text-align: center;
+  padding: 22px 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.result-sentinel .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--garnet);
+  display: inline-block;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50%      { opacity: 1; transform: scale(1.1); }
+}
 .result-meta {
   display: flex;
   gap: 8px;
