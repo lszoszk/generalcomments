@@ -1210,6 +1210,107 @@
   display: flex;
   gap: 8px;
   margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+/* ─── Citation menu (reuses the export-menu visual language) ─── */
+.cite-menu {
+  position: relative;
+  flex-shrink: 0;
+}
+.cite-menu summary {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 5px 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.cite-menu summary::-webkit-details-marker { display: none; }
+.cite-menu[open] summary {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.cite-glyph {
+  font-family: var(--display);
+  font-size: 16px;
+  line-height: 1;
+}
+.cite-pop {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 4px);
+  z-index: 20;
+  min-width: 220px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+  display: flex;
+  flex-direction: column;
+}
+.cite-opt {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 14px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule-soft, var(--rule));
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--body);
+  color: var(--ink);
+}
+.cite-opt:last-child { border-bottom: 0; }
+.cite-opt:hover { background: var(--paper-2); }
+.cite-fmt {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--garnet);
+  font-weight: 600;
+  min-width: 56px;
+}
+.cite-name {
+  font-size: 13px;
+  color: var(--ink);
+}
+
+/* ─── Reading mode (A3) ─── */
+.reading-mode-btn { font-size: 12px; padding: 5px 10px; }
+.reading-mode-btn.is-active {
+  background: var(--garnet-soft, #f5e9e9);
+  color: var(--garnet);
+  border-color: var(--garnet);
+}
+@media (max-width: 700px) {
+  .cite-label, .reading-mode-label { display: none; }
+}
+/* Reading-mode layout: collapse the filter rail, expand the dossier,
+   bump font + line-height on the active paragraph and dossier text. */
+body.is-reading-mode .layout {
+  grid-template-columns: 0 1fr minmax(420px, 36%);
+}
+body.is-reading-mode .filters {
+  display: none;
+}
+body.is-reading-mode .dossier blockquote p {
+  font-size: 17px;
+  line-height: 1.78;
+}
+body.is-reading-mode .result-text {
+  font-size: 16px;
+  line-height: 1.75;
+}
+body.is-reading-mode .result-text.is-kwic {
+  /* In reading mode the truncated KWIC view feels frustrating —
+     the user wants the full thing. We don't expand automatically
+     (that would be a layout shock) but make the badge clearly clickable. */
+  cursor: pointer;
 }
 
 /* ─────────────  FOOTER  ───────────── */
@@ -1486,6 +1587,167 @@ body[data-active-view="about"]    section[data-view="about"]    { display: block
   margin: 4px 0 28px;
   max-width: 720px;
 }
+/* ─── Command palette ⌘K (A2) ─── */
+.cmdk-root {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12vh 16px 0;
+  font-family: var(--display);
+}
+.cmdk-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 18, 16, 0.55);
+  backdrop-filter: blur(2px);
+}
+.cmdk-card {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.30);
+  display: flex;
+  flex-direction: column;
+  max-height: 78vh;
+}
+.cmdk-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.cmdk-prompt {
+  font-family: var(--mono);
+  color: var(--garnet);
+  font-size: 18px;
+  line-height: 1;
+}
+.cmdk-input-row input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  font-family: var(--display);
+  font-size: 16px;
+  outline: none;
+  color: var(--ink);
+}
+.cmdk-input-row input::placeholder { color: var(--ink-4); font-style: italic; }
+.cmdk-esc {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border: 1px solid var(--rule);
+  color: var(--ink-3);
+}
+.cmdk-results {
+  overflow-y: auto;
+  max-height: 60vh;
+}
+.cmdk-item {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 1px dotted var(--rule);
+  align-items: center;
+}
+.cmdk-item:hover, .cmdk-item.focus { background: var(--paper-2); }
+.cmdk-item.focus { box-shadow: inset 3px 0 0 var(--garnet); }
+.cmdk-kind {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.cmdk-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cmdk-icon { font-size: 14px; line-height: 1; }
+.cmdk-label > span:nth-child(2) {
+  color: var(--ink);
+  font-size: 13px;
+}
+.cmdk-sub {
+  color: var(--ink-3);
+  font-size: 11px;
+  font-family: var(--mono);
+}
+.cmdk-enter {
+  color: var(--ink-4);
+  font-family: var(--mono);
+}
+.cmdk-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--ink-3);
+  font-size: 12px;
+  font-style: italic;
+}
+.cmdk-foot {
+  padding: 8px 16px;
+  border-top: 1px solid var(--rule);
+  background: var(--paper-2);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--ink-4);
+  text-align: center;
+}
+
+/* Freshness card on the About page — traffic-light "last refreshed" indicator.
+   Three tones (fresh < 30d, aging 30-60d, stale > 60d) keyed off manifest.builtAt. */
+.freshness-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0 0 28px;
+  padding: 14px 18px;
+  border: 1px solid var(--rule);
+  border-left-width: 4px;
+  border-radius: 3px;
+  background: var(--paper-2);
+}
+.freshness-card .folio { display: block; margin-bottom: 4px; }
+.freshness-dot {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 4px;
+}
+.freshness-fresh { border-left-color: #2c6e3a; }
+.freshness-fresh .freshness-dot { background: #2c6e3a; box-shadow: 0 0 0 3px rgba(44,110,58,.15); }
+.freshness-aging { border-left-color: #b87f1f; }
+.freshness-aging .freshness-dot { background: #b87f1f; box-shadow: 0 0 0 3px rgba(184,127,31,.15); }
+.freshness-stale { border-left-color: #b22222; }
+.freshness-stale .freshness-dot { background: #b22222; box-shadow: 0 0 0 3px rgba(178,34,34,.15); }
+.freshness-headline {
+  font-family: var(--display);
+  font-size: 16px;
+  color: var(--ink);
+}
+.freshness-headline strong { font-weight: 500; }
+.freshness-date { color: var(--ink-3); font-style: italic; margin-left: 4px; }
+.freshness-meta {
+  font-family: var(--body);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin-top: 4px;
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

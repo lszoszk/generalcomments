@@ -259,6 +259,55 @@ function paintMastFolio(m) {
   $('#mast-folio').textContent =
     `VOL. I · NO. 1 · ${today} · ${(m.counts.paragraphs + jurParas).toLocaleString()} ¶ · ${m.counts.documents + jurDocs} DOCUMENTS`;
   $('#foot-version').textContent = `Build ${m.version} · ${m.builtAt.split('T')[0]}`;
+  paintFreshnessCard(m);
+}
+
+// Freshness card — green/amber/red traffic light on the About tab.
+// Reads manifest.builtAt; "amber" after 30 days, "red" after 60. Surfaces
+// total paragraph count and the latest GC + JUR + SP build dates. Adapted
+// from UHRI's dashboard-methodology.js renderFreshnessCard() pattern but
+// driven entirely from our static manifest (no API).
+function paintFreshnessCard(m) {
+  const card = $('#freshness-card');
+  if (!card || !m?.builtAt) return;
+
+  const built = new Date(m.builtAt);
+  const ageDays = Math.max(0, Math.round((Date.now() - built.getTime()) / 86_400_000));
+  const tone = ageDays < 30 ? 'fresh'
+             : ageDays < 60 ? 'aging'
+             : 'stale';
+  const dateLabel = built.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+
+  const jurBuilt = state.jur.manifest?.builtAt
+    ? new Date(state.jur.manifest.builtAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })
+    : null;
+  const jurDocs = state.jur.manifest?.counts?.documents || 0;
+  const jurParas = state.jur.manifest?.counts?.paragraphs || 0;
+  const totalDocs = (m.counts.documents || 0) + jurDocs;
+  const totalParas = (m.counts.paragraphs || 0) + jurParas;
+  const ageWord = ageDays === 0 ? 'today' : (ageDays === 1 ? 'yesterday' : `${ageDays} days ago`);
+  const linksLabel = m.counts.linksVerified
+    ? ` · ${m.counts.linksVerified}/${m.counts.linksTotal || m.counts.linksVerified} URLs OK`
+    : '';
+
+  card.hidden = false;
+  card.className = `freshness-card freshness-${tone}`;
+  card.innerHTML = `
+    <div class="freshness-dot" aria-hidden="true"></div>
+    <div class="freshness-body">
+      <div class="folio">Dataset freshness</div>
+      <div class="freshness-headline">
+        <strong>Built ${ageWord}</strong>
+        <span class="freshness-date">· ${escape(dateLabel)}</span>
+      </div>
+      <div class="freshness-meta">
+        ${totalParas.toLocaleString()} paragraphs across ${totalDocs.toLocaleString()} documents${linksLabel}.
+        ${jurBuilt ? `Jurisprudence preview shard built ${escape(jurBuilt)}.` : ''}
+        Weekly link revalidation runs via
+        <a href="https://github.com/lszoszk/generalcomments/blob/main/.github/workflows/link-check.yml"
+           target="_blank" rel="noopener">GitHub Actions</a>.
+      </div>
+    </div>`;
 }
 
 // ─────────── Scope counts ───────────
@@ -2241,22 +2290,409 @@ function paintDossier() {
     </blockquote>
     <div class="dossier-actions">
       ${doc?.link ? `<a class="btn btn-garnet" href="${escape(doc.link)}" target="_blank" rel="noopener">Open original</a>` : ''}
-      <button class="btn btn-ghost" id="copy-cite">Copy citation</button>
+      <details class="cite-menu" id="cite-menu">
+        <summary class="btn btn-ghost cite-btn" title="Copy citation in your preferred format">
+          <span class="cite-glyph">”</span>
+          <span class="cite-label">Cite as…</span>
+        </summary>
+        <div class="cite-pop">
+          ${CITE_FORMATS.map(c => `
+            <button type="button" class="cite-opt" data-cite-key="${c.key}">
+              <span class="cite-fmt">${escape(c.fmt)}</span>
+              <span class="cite-name">${escape(c.name)}</span>
+            </button>`).join('')}
+        </div>
+      </details>
+      <button class="btn btn-ghost reading-mode-btn" id="reading-toggle"
+              title="Reading mode (R) — collapse the rail, expand the dossier">
+        📖 <span class="reading-mode-label">Reading mode</span>
+      </button>
     </div>
   `;
 
-  $('#copy-cite')?.addEventListener('click', () => {
-    const cite = `${doc?.signature || ''} — ${doc?.name || ''}, ¶${para.n ?? para.idx} (${doc?.year ?? ''})`;
-    navigator.clipboard?.writeText(cite);
-    $('#copy-cite').textContent = 'Copied ✓';
-    setTimeout(() => { $('#copy-cite').textContent = 'Copy citation'; }, 1200);
+  // Wire each citation format. Falls back to a one-liner if the user's
+  // browser blocks clipboard writes (rare; e.g. file:// without a polyfill).
+  $$('#cite-menu .cite-opt').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const key = btn.dataset.citeKey;
+      const fmt = CITE_FORMATS.find(f => f.key === key);
+      if (!fmt) return;
+      const cite = fmt.build(doc, para);
+      try { navigator.clipboard?.writeText(cite); } catch {}
+      const label = btn.querySelector('.cite-fmt');
+      const original = label.textContent;
+      label.textContent = '✓ COPIED';
+      setTimeout(() => { label.textContent = original; }, 1200);
+    });
   });
+
+  // Reading mode toggle — sync button label with body class.
+  $('#reading-toggle')?.addEventListener('click', toggleReadingMode);
+  syncReadingModeButton();
 
   // Mark active in list — using data-para-id is stable across re-renders.
   $$('.result').forEach(el => {
     el.classList.toggle('is-active', el.dataset.paraId === state.activeId);
   });
 }
+
+// ─────────── Citations (A1) ───────────
+//
+// Five formats, one builder each, all pure functions over a `(doc, para)`
+// pair. Adapted from UnitedNations_recommendations/dashboard-reader.js
+// `_citeBaseFields` + cite{APA,Chicago,BibTeX,RIS,PlainURL}, schema-mapped
+// to our docs/paragraphs:
+//   doc.year / doc.adoptionDate            ← date
+//   doc.signature / doc.symbol             ← UN doc symbol
+//   doc.committee / doc.committees / doc.treaty
+//   doc.country (jur only)                  ← country anchor for case-law
+//   doc.name / doc.nameShort                ← title
+//   para.id / para.n                       ← paragraph identifier
+//
+// All formats wrap our share URL `?p=<id>` so copy-paste citations remain
+// click-through to the exact paragraph.
+function _citeBaseFields(doc, para) {
+  const year = doc?.year ?? doc?.communicationYear ?? '';
+  const date = doc?.adoptionDate || (year ? String(year) : 'n.d.');
+  const author = doc?.committees?.length
+    ? doc.committees.join(' / ')
+    : (doc?.committee || doc?.treaty || 'United Nations');
+  const symbol = doc?.signature || doc?.symbol || doc?.docId || '';
+  const title = doc?.nameShort || doc?.name || symbol;
+  const country = doc?.country || '';
+  const paraNum = para?.n ?? para?.idx ?? '';
+  const shareUrl = location.origin + location.pathname + '?p=' + encodeURIComponent(para?.id || '');
+  return { year, date, author, symbol, title, country, paraNum, shareUrl };
+}
+
+function _citeAPA(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  return `${f.author}. (${f.year || 'n.d.'}). ${f.title}${f.country ? ' — ' + f.country : ''} (UN Doc. ${f.symbol})${f.paraNum !== '' ? ', ¶ ' + f.paraNum : ''}. UN Human Rights Database. ${f.shareUrl}`;
+}
+function _citeChicago(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  return `${f.author}, "${f.title}${f.country ? ', ' + f.country : ''}," UN Doc. ${f.symbol}${f.paraNum !== '' ? ', ¶ ' + f.paraNum : ''} (${f.date}), UN Human Rights Database, ${f.shareUrl}.`;
+}
+function _citeBibTeX(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  const slug = (doc?.docId || f.symbol).replace(/[^A-Za-z0-9]/g, '').slice(0, 18);
+  const key = `UNHR_${slug}${f.paraNum !== '' ? '_p' + String(f.paraNum).replace(/\./g, '') : ''}`;
+  const esc = s => String(s || '').replace(/[{}%&#_$]/g, '\\$&');
+  return `@misc{${key},
+  author       = {${esc(f.author)}},
+  title        = {${esc(f.title)}},
+  year         = {${esc(f.year || 'n.d.')}},
+  howpublished = {UN Doc. ${esc(f.symbol)}${f.paraNum !== '' ? ', \\P\\,' + f.paraNum : ''}},
+  ${f.country ? `addendum     = {${esc(f.country)}},\n  ` : ''}url          = {${f.shareUrl}},
+  note         = {UN Human Rights Database — paragraph-level corpus},
+}`;
+}
+function _citeRIS(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  return [
+    'TY  - GEN',
+    'AU  - ' + f.author,
+    'PY  - ' + (f.year || 'n.d.'),
+    'TI  - ' + f.title,
+    'PB  - UN Human Rights Database',
+    'ID  - ' + f.symbol + (f.paraNum !== '' ? ' ¶' + f.paraNum : ''),
+    f.country ? 'CY  - ' + f.country : '',
+    'UR  - ' + f.shareUrl,
+    'N1  - Paragraph-level extract' + (f.paraNum !== '' ? ', ¶ ' + f.paraNum : ''),
+    'ER  - ',
+  ].filter(Boolean).join('\n');
+}
+function _citePlainURL(doc, para) {
+  return _citeBaseFields(doc, para).shareUrl;
+}
+
+const CITE_FORMATS = [
+  { key: 'apa',     name: 'APA (7th ed.)', fmt: 'APA',     build: _citeAPA },
+  { key: 'chicago', name: 'Chicago notes', fmt: 'CHICAGO', build: _citeChicago },
+  { key: 'bibtex',  name: 'BibTeX',         fmt: '.BIB',    build: _citeBibTeX },
+  { key: 'ris',     name: 'RIS / EndNote',  fmt: '.RIS',    build: _citeRIS },
+  { key: 'url',     name: 'Plain URL',      fmt: 'LINK',    build: _citePlainURL },
+];
+
+// ─────────── Reading mode (A3) ───────────
+//
+// Toggles a single class on <body>. CSS does the work — collapses the
+// filter rail, expands the dossier pane, bumps font size on result text
+// + dossier blockquote. Press R or click the dossier button.
+function toggleReadingMode() {
+  document.body.classList.toggle('is-reading-mode');
+  syncReadingModeButton();
+}
+function syncReadingModeButton() {
+  const btn = $('#reading-toggle');
+  if (!btn) return;
+  const on = document.body.classList.contains('is-reading-mode');
+  btn.classList.toggle('is-active', on);
+  const lbl = btn.querySelector('.reading-mode-label');
+  if (lbl) lbl.textContent = on ? 'Exit reading' : 'Reading mode';
+}
+// Bind the R key globally — but only when the user isn't typing into a
+// search input or content-editable surface.
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'r' && e.key !== 'R') return;
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const tag = (e.target?.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'textarea' || e.target?.isContentEditable) return;
+  e.preventDefault();
+  toggleReadingMode();
+});
+
+// ─────────── Command palette ⌘K (A2) ───────────
+//
+// Self-contained palette — opens with ⌘K / Ctrl+K, fuzzy-searches every
+// document + label + committee + mandate + scope + theme. Pure local; no
+// API calls (we already have state.documents, state.facets in memory).
+//
+// Adapted in spirit from UnitedNations_recommendations/cmdk.js but
+// rewritten against our state shape. Item kinds:
+//
+//   doc           open a document (filter scope + activate first paragraph)
+//   label         toggle a concerned-group filter
+//   committee     toggle a committee/treaty body filter
+//   mandate       toggle an SP mandate filter
+//   scope         switch scope tab (gc / jur / sp / all)
+//   reportType    toggle an SP report-type filter
+//   action        misc: theme toggle, reset filters, reading mode, view nav
+//
+// Up/Down to navigate, Enter to fire, Esc to close. Click works the same.
+
+let _cmdkOpen = false;
+let _cmdkFocusIdx = 0;
+let _cmdkItems = [];
+
+function cmdkBuildItems() {
+  const items = [];
+
+  // 1. Quick actions (always at top)
+  items.push({ kind: 'action', label: 'Toggle dark mode', sub: 'Light ↔ dark theme', icon: '◐',
+               run: () => $('#theme-toggle')?.click() });
+  items.push({ kind: 'action', label: 'Reading mode', sub: 'Press R · expands the dossier', icon: '📖',
+               run: () => toggleReadingMode() });
+  items.push({ kind: 'action', label: 'Reset all filters', sub: 'Clear committees, labels, year range…', icon: '⌫',
+               run: () => $('#reset-filters')?.click() });
+  items.push({ kind: 'action', label: 'About', sub: 'Methodology, citation, contact', icon: 'ⓘ',
+               run: () => { window.location.hash = 'about'; } });
+  items.push({ kind: 'action', label: 'Documents', sub: 'Browse the document index', icon: '☰',
+               run: () => { window.location.hash = 'documents'; } });
+
+  // 2. Scope flips
+  for (const [key, label, sub] of [
+    ['gc',  'Scope · General Comments', 'Treaty body interpretive output'],
+    ['jur', 'Scope · Jurisprudence',    'CRPD case-law preview'],
+    ['sp',  'Scope · Special Procedures', 'Mandate-holder reports preview'],
+    ['all', 'Scope · All sources',      'Combined view'],
+  ]) {
+    items.push({
+      kind: 'scope', label, sub, icon: '⇄',
+      run: () => {
+        const tab = document.querySelector(`.scope-opt[data-scope="${key}"]`);
+        tab?.click();
+        window.location.hash = 'search';
+      },
+    });
+  }
+
+  // 3. Documents — every GC / SP / JUR record currently in state
+  for (const doc of state.documents.values()) {
+    const symbol = doc.signature || doc.symbol || doc.docId;
+    const subBits = [doc.committee || doc.treaty || ''];
+    if (doc.year) subBits.push(String(doc.year));
+    if (doc.country) subBits.push(doc.country);
+    if (doc.outcome && doc.outcome !== 'final') subBits.push(formatOutcome(doc.outcome));
+    items.push({
+      kind: 'doc', kindLabel: (doc.type || 'doc').toUpperCase(),
+      label: doc.nameShort || doc.name || symbol,
+      sub: `${symbol} · ${subBits.filter(Boolean).join(' · ')}`,
+      icon: '📄',
+      searchKey: `${symbol} ${doc.name || ''} ${doc.country || ''} ${doc.committee || ''}`.toLowerCase(),
+      run: () => {
+        // Activate the first paragraph of this doc — equivalent to clicking
+        // the corresponding row in the Documents view.
+        const firstP = `${doc.docId}-0001`;
+        const url = new URL(window.location);
+        url.searchParams.set('p', firstP);
+        url.hash = 'search';
+        window.history.replaceState(null, '', url);
+        // Trigger a re-render with the new ?p=
+        applyUrlState(decodeUrlState());
+        runSearch();
+      },
+    });
+  }
+
+  // 4. Concerned-group labels
+  for (const lbl of (state.facets?.labels || [])) {
+    items.push({
+      kind: 'label', kindLabel: 'LABEL',
+      label: lbl.value, sub: `${lbl.count.toLocaleString()} paragraphs`, icon: '🏷',
+      run: () => {
+        if (state.filters.labels.has(lbl.value)) state.filters.labels.delete(lbl.value);
+        else state.filters.labels.add(lbl.value);
+        syncFiltersToDom();
+        runSearch();
+        window.location.hash = 'search';
+      },
+    });
+  }
+
+  // 5. Committees / treaty bodies
+  for (const c of (state.facets?.committees || [])) {
+    items.push({
+      kind: 'committee', kindLabel: 'COMMITTEE',
+      label: c.value, sub: `${c.count.toLocaleString()} paragraphs`, icon: '⚖',
+      run: () => {
+        if (state.filters.committees.has(c.value)) state.filters.committees.delete(c.value);
+        else state.filters.committees.add(c.value);
+        paintCommitteeFilter(state.scope);
+        runSearch();
+        window.location.hash = 'search';
+      },
+    });
+  }
+
+  // 6. SP mandates
+  for (const m of (state.facets?.mandates || [])) {
+    items.push({
+      kind: 'mandate', kindLabel: 'MANDATE',
+      label: m.value, sub: `${m.count.toLocaleString()} reports`, icon: '⚒',
+      run: () => {
+        if (state.filters.committees.has(m.value)) state.filters.committees.delete(m.value);
+        else state.filters.committees.add(m.value);
+        paintCommitteeFilter(state.scope);
+        runSearch();
+        window.location.hash = 'search';
+      },
+    });
+  }
+
+  return items;
+}
+
+function cmdkOpen() {
+  if (_cmdkOpen) return;
+  _cmdkOpen = true;
+  _cmdkFocusIdx = 0;
+  _cmdkItems = cmdkBuildItems();
+
+  const root = document.createElement('div');
+  root.className = 'cmdk-root open';
+  root.id = '__cmdk_root';
+  root.innerHTML = `
+    <div class="cmdk-backdrop"></div>
+    <div class="cmdk-card" role="dialog" aria-label="Command palette">
+      <div class="cmdk-input-row">
+        <span class="cmdk-prompt">›</span>
+        <input id="__cmdk_input" type="search" placeholder="Search documents, labels, committees, actions…"
+               autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <span class="cmdk-esc">esc</span>
+      </div>
+      <div class="cmdk-results" id="__cmdk_results" role="listbox"></div>
+      <div class="cmdk-foot folio">
+        ↑↓ navigate · ↩ select · Esc dismiss
+      </div>
+    </div>`;
+  document.body.appendChild(root);
+
+  const input = $('#__cmdk_input');
+  input?.focus();
+
+  cmdkRender('');
+
+  input?.addEventListener('input', (e) => cmdkRender(e.target.value));
+  root.querySelector('.cmdk-backdrop')?.addEventListener('click', cmdkClose);
+}
+
+function cmdkClose() {
+  _cmdkOpen = false;
+  document.getElementById('__cmdk_root')?.remove();
+}
+
+function cmdkRender(query) {
+  const q = (query || '').trim().toLowerCase();
+  const list = $('#__cmdk_results');
+  if (!list) return;
+
+  // Score-and-rank items by simple substring proximity. Cheap, no
+  // dependencies — for our scale (~600 items max) this is plenty.
+  const scored = [];
+  for (const it of _cmdkItems) {
+    if (!q) { scored.push({ it, score: 1 }); continue; }
+    const hay = (it.searchKey || (it.label + ' ' + (it.sub || ''))).toLowerCase();
+    if (!hay.includes(q)) continue;
+    // Prefer items where the query matches near the start of the label.
+    const labelHit = it.label.toLowerCase().indexOf(q);
+    const score = labelHit >= 0 ? 100 - labelHit : 50;
+    scored.push({ it, score });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  const top = scored.slice(0, 60);
+
+  if (!top.length) {
+    list.innerHTML = `<div class="cmdk-empty">No matches for "${escape(q)}".</div>`;
+    return;
+  }
+  _cmdkFocusIdx = Math.min(_cmdkFocusIdx, top.length - 1);
+  list.innerHTML = top.map((s, i) => `
+    <div class="cmdk-item ${i === _cmdkFocusIdx ? 'focus' : ''}" data-cmdk-i="${i}">
+      <span class="cmdk-kind">${escape(s.it.kindLabel || s.it.kind)}</span>
+      <span class="cmdk-label">
+        <span class="cmdk-icon">${s.it.icon || ''}</span>
+        <span>${escape(s.it.label)}</span>
+        ${s.it.sub ? `<span class="cmdk-sub">${escape(s.it.sub)}</span>` : ''}
+      </span>
+      <span class="cmdk-enter">↩</span>
+    </div>`).join('');
+
+  list.querySelectorAll('.cmdk-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.cmdkI, 10);
+      const sel = top[idx];
+      if (sel?.it?.run) {
+        cmdkClose();
+        sel.it.run();
+      }
+    });
+    el.addEventListener('mouseenter', () => {
+      _cmdkFocusIdx = parseInt(el.dataset.cmdkI, 10);
+      list.querySelectorAll('.cmdk-item').forEach(x => x.classList.toggle('focus',
+        parseInt(x.dataset.cmdkI, 10) === _cmdkFocusIdx));
+    });
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  // Toggle the palette
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    if (_cmdkOpen) cmdkClose();
+    else cmdkOpen();
+    return;
+  }
+  if (!_cmdkOpen) return;
+  if (e.key === 'Escape') { e.preventDefault(); cmdkClose(); return; }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter') {
+    e.preventDefault();
+    const list = $('#__cmdk_results');
+    const items = list?.querySelectorAll('.cmdk-item') || [];
+    if (!items.length) return;
+    if (e.key === 'ArrowDown') {
+      _cmdkFocusIdx = (_cmdkFocusIdx + 1) % items.length;
+    } else if (e.key === 'ArrowUp') {
+      _cmdkFocusIdx = (_cmdkFocusIdx - 1 + items.length) % items.length;
+    } else if (e.key === 'Enter') {
+      items[_cmdkFocusIdx]?.click();
+      return;
+    }
+    items.forEach((el, i) => el.classList.toggle('focus', i === _cmdkFocusIdx));
+    items[_cmdkFocusIdx]?.scrollIntoView({ block: 'nearest' });
+  }
+});
 
 // ─────────── Helpers ───────────
 function escape(s) {

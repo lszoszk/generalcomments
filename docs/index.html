@@ -314,6 +314,11 @@
       <div class="folio garnet">COLOPHON · ABOUT</div>
       <h2 class="serif about-title">A paragraph-level companion to Treaty Body General Comments, with Special Procedures in development.</h2>
 
+      <!-- Freshness card — populated by paintFreshnessCard() at boot.
+           A traffic-light "last refreshed N days ago" reassures users the
+           dataset isn't stale. Reads manifest.builtAt + counts. -->
+      <div class="freshness-card" id="freshness-card" hidden></div>
+
       <div class="about-grid">
         <div class="about-block">
           <h3 class="folio">What this is</h3>
