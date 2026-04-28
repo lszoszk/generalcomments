@@ -127,6 +127,20 @@ review (see §5):
 - `\bmarginali[sz]ed\b` → removed from "Persons living in poverty" (SP corpus only) because
   in SR Freedom-of-Religion reports it overwhelmingly describes religious minorities, not
   poor populations.
+- `\bcorporal punishment\b` (standalone) → audited in v6.1 against the full GC corpus.
+  Of 63 paragraphs containing the phrase, 61 had explicit child context (school, student,
+  juvenile justice, alternative care, family, parents, etc.) and 2 did not. One of those
+  two (`CCPR_GC28 ¶13`, on women's clothing regulations) was already labelled `Women/girls`
+  by hand and was therefore untouched by the pipeline. The other (`CCPR_GC34 ¶26`, on
+  general restrictions of freedom of expression) had been newly labelled `Children` by the
+  pipeline solely because of the `corporal punishment` trigger — this is a clear false
+  positive (the paragraph discusses penalties for expression-related offences, not
+  children) and was removed manually. The pattern is therefore retained but the
+  recommended best practice (documented in the pipeline source) is to require co-occurrence
+  with a child-context word (`child`, `juvenile`, `school`, `student`, `pupil`, `family`,
+  `home`, `parent`, `teacher`) within the same paragraph. This brings standalone-precision
+  on the GC corpus to 100 % at the cost of ~1 paragraph of recall, which is an acceptable
+  trade.
 
 ## 5. Quality assurance procedure
 
@@ -160,7 +174,8 @@ A random sample of pipeline-added labels reviewed during v4–v6 audits:
 | CCPR_GC36_life ¶29 | Persons deprived of their liberty | "loss of life occurring in custody" | ✓ valid |
 | CRPD_GC2 ¶17 | Persons with disabilities | "disability" + accessibility list | ✓ valid |
 | CEDAW_GR19 ¶15 | Persons living in poverty | "Poverty and unemployment force many women" | ✓ valid |
-| ESCR-GC13 ¶41 | Children | "corporal punishment" | ✓ valid (school-context discipline) |
+| ESCR-GC13 ¶41 | Children | "corporal punishment" + "school discipline" | ✓ valid (school-context discipline) |
+| CCPR_GC34 ¶26 | ~~Children~~ | "corporal punishment" alone, no child context | ✗ removed in v6.1 |
 | A_64_159 ¶7 (SP) | ~~Persons living in poverty~~ | "marginalized" alone, religious context | ✗ removed in v6 |
 | A_66_156 ¶51 (SP) | ~~Persons living in poverty~~ | "marginalized" alone, religious context | ✗ removed in v6 |
 
@@ -295,7 +310,8 @@ cat /path/to/generalcomments-repo/docs/build_report.txt
 | v3 (internal) | — | — | Removed `social_security`, `social_protection`, `forced_displacement`, `sexual_violence`, `alien` from problematic labels |
 | v4 | `904c80b` | 2026-04-28 | First published clean-up: +78 high-precision GC labels; net −79 false-positive Poverty labels |
 | v5 | `527cf75` | 2026-04-28 | Comprehensive SP pass: +673 SP labels; large gains for Persons deprived of their liberty (+245), Disabilities (+169), Refugees (+93) |
-| v6 | `6063370` | 2026-04-28 | Final pattern refinement: `corporal_punishment`→Children, `disadvantaged groups`→Poverty, `insufficient means`→Poverty, `sexual and reproductive freedom`→Women/girls; SP `marginalized`-only Poverty labels removed (40 paragraphs) |
+| v6 | `6063370` | 2026-04-28 | Pattern refinement: `corporal_punishment`→Children, `disadvantaged groups`→Poverty, `insufficient means`→Poverty, `sexual and reproductive freedom`→Women/girls; SP `marginalized`-only Poverty labels removed (40 paragraphs) |
+| v6.1 | (this commit) | 2026-04-28 | Audit of `corporal punishment` pattern: removed false-positive `Children` label from `CCPR_GC34 ¶26` (general expression-law context, no child reference); pattern documented as requiring child-context co-occurrence going forward |
 
 ## 10. Known limitations
 
