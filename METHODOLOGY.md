@@ -311,7 +311,90 @@ cat /path/to/generalcomments-repo/docs/build_report.txt
 | v4 | `904c80b` | 2026-04-28 | First published clean-up: +78 high-precision GC labels; net −79 false-positive Poverty labels |
 | v5 | `527cf75` | 2026-04-28 | Comprehensive SP pass: +673 SP labels; large gains for Persons deprived of their liberty (+245), Disabilities (+169), Refugees (+93) |
 | v6 | `6063370` | 2026-04-28 | Pattern refinement: `corporal_punishment`→Children, `disadvantaged groups`→Poverty, `insufficient means`→Poverty, `sexual and reproductive freedom`→Women/girls; SP `marginalized`-only Poverty labels removed (40 paragraphs) |
-| v6.1 | (this commit) | 2026-04-28 | Audit of `corporal punishment` pattern: removed false-positive `Children` label from `CCPR_GC34 ¶26` (general expression-law context, no child reference); pattern documented as requiring child-context co-occurrence going forward |
+| v6.1 | `a96094b` | 2026-04-28 | Audit of `corporal punishment` pattern: removed false-positive `Children` label from `CCPR_GC34 ¶26` (general expression-law context, no child reference); pattern documented as requiring child-context co-occurrence going forward |
+| v7 | (this commit) | 2026-04-28 | Synchronised with OHCHR catalogue. Ingested 5 new GCs adopted 2024–2026: `E/C.12/GC/27` (environment), `CMW/C/GC/6` (Global Compact), joint `CMW/C/GC/7 + CERD/C/GC/38` and `CMW/C/GC/8 + CERD/C/GC/39` (xenophobia), `CEDAW/C/GC/30/Add.1` (Women, Peace and Security). +497 paragraphs, +5 documents. Fixed wrong year on `CED/C/GC/1` (2003 → 2023). Added "last synchronised" date on the website About page. |
+
+## 13. Synchronisation with OHCHR (v7, April 2026)
+
+The corpus is not auto-pulled from OHCHR; new General Comments must be ingested
+manually as they are adopted. The procedure used in v7 is recorded here for
+future synchronisations.
+
+### 13.1 Discovering gaps
+
+1. Browse the OHCHR Treaty Body database
+   ([TBSearch.aspx](https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/TBSearch.aspx?Lang=en))
+   and the per-committee General Comments pages on `ohchr.org/en/treaty-bodies/{committee}/general-comments`.
+2. Compare the latest signature on each committee's page against
+   `mysite_pythonanywhere/crc_gc_info.json` — the file holds the canonical
+   metadata index of every document we ingest.
+3. Joint General Comments are listed under both committees' numbering. We treat
+   them as a single document but add it once per committee in the metadata so
+   that committee-filtered searches return them under either filter.
+
+### 13.2 Document format on OHCHR
+
+Each document has a permanent landing page at
+`tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno={URL-ENCODED-SIGNATURE}&Lang=en`.
+That page is plain HTML and contains, for each language, links to PDF, DOCX and
+HTML versions hosted at `docstore.ohchr.org/SelfServices/FilesHandler.ashx?enc=...`.
+The `enc=` token is per-document and rotates if the document is republished.
+
+We use the **PDF** version because it is the layout-fixed, citable form that
+matches our paragraph numbering. DOCX is occasionally cleaner but uses
+inconsistent paragraph styles across committees.
+
+### 13.3 Ingestion pipeline
+
+Driver: `ingest_new_gcs.py` (in the repository root).
+
+```
+1. For each new GC:
+   a. Fetch Download.aspx HTML.
+   b. Parse with the regex
+        title="English[^"]*pdf"[^>]*href="(https://docstore[^"]+)"
+      to extract the English PDF URL.
+   c. Download the PDF to new_gcs_pdf/.
+
+2. Convert PDF → paragraphs:
+   a. Open with PyMuPDF (fitz). Read text page by page.
+   b. Strip running headers/footers (UN doc symbols, page numbers).
+   c. Repair hyphenated line breaks and soft-wrapped lines.
+   d. Split on `^\s*(\d{1,3})\.\s+` to recover numbered paragraphs.
+   e. Drop empty/short fragments (TOC artefacts).
+
+3. Apply v6 labelling patterns to each paragraph.
+
+4. Write outputs to:
+     - mysite_pythonanywhere/json_data/<output>.json     (raw paragraph file)
+     - json_data_gc_labeled/<output>.json                (with labels)
+
+5. Append metadata records to mysite_pythonanywhere/crc_gc_info.json with:
+     File PATH, Name, Simplified Name, Signature, Adoption Date, Adoption Year,
+     Committee (comma-separated for joint GCs), Link.
+
+6. Rebuild the flat corpus with `python3 build_corpus.py --out <docs/>`.
+```
+
+### 13.4 v7 results
+
+| Document | Paragraphs | Auto-labelled |
+|----------|-----------:|--------------:|
+| `E/C.12/GC/27` (environment) | 90 | 55 |
+| `CMW/C/GC/6` (Global Compact) | 90 | 64 |
+| `CMW/C/GC/7 + CERD/C/GC/38` (xenophobia general) | 108 | 100 |
+| `CMW/C/GC/8 + CERD/C/GC/39` (xenophobia thematic) | 105 | 73 |
+| `CEDAW/C/GC/30/Add.1` (WPS addendum) | 104 | 99 |
+| **Total** | **497** | **391 (78.7 %)** |
+
+The unusually high label rate on the xenophobia GCs is expected: they are
+explicitly about migrants and non-citizens, so almost every paragraph triggers
+those patterns.
+
+### 13.5 Recommended cadence
+
+OHCHR adopts roughly 5–10 General Comments per year across all nine treaty
+bodies. We propose re-running the synchronisation step every six months.
 
 ## 10. Known limitations
 
