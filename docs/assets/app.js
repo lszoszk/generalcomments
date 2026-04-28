@@ -330,10 +330,10 @@ function renderDocsCommittee(committee, list, type) {
       : d.status === 'revised'
       ? `<span class="docs-status revised" title="Revised version">revised</span>`
       : '';
-    const abstractAttr = d.abstract ? ` title="${escape(d.abstract)}"` : '';
+    // Abstract tooltip hidden pending manual verification — see TODO_LATER.md
     return `
       <li>
-        <a class="docs-row ${type}" href="?p=${encodeURIComponent(firstP)}#search" data-doc-id="${escape(d.docId)}"${abstractAttr}>
+        <a class="docs-row ${type}" href="?p=${encodeURIComponent(firstP)}#search" data-doc-id="${escape(d.docId)}">
           <span class="sig">${escape(d.signature || '—')}</span>
           <span class="name">${escape(d.nameShort || d.name || d.docId)}${statusBadge}</span>
           <span class="year">${d.year ?? '—'}</span>
@@ -1933,15 +1933,14 @@ function paintDossier() {
   const ast = parseQuery(state.query);
   const terms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
 
-  const articlesHtml = doc?.articles?.length
-    ? `<div class="dossier-dp"><div class="folio">Articles</div><div class="v">${doc.articles.map(a => `<span class="dossier-chip">${escape(a)}</span>`).join(' ')}</div></div>`
-    : '';
+  // Articles + abstract hidden until manual verification of the v8 metadata
+  // pass — see TODO_LATER.md "Articles & abstracts under review". Both fields
+  // remain in the metadata; we just don't surface them in the dossier.
+  const articlesHtml = '';
   const statusHtml = doc?.status && doc.status !== 'final'
     ? `<div class="dossier-dp"><div class="folio">Status</div><div class="v">${escape(doc.status)}${doc.supersededBy ? ` → ${escape(doc.supersededBy)}` : ''}</div></div>`
     : '';
-  const abstractHtml = doc?.abstract
-    ? `<div class="dossier-abstract serif"><div class="folio">In a sentence</div><p>${escape(doc.abstract)}</p></div>`
-    : '';
+  const abstractHtml = '';
 
   host.innerHTML = `
     <div class="folio garnet">${isSpDoc ? 'MANDATE REPORT · PREVIEW' : 'GENERAL COMMENT'}</div>
