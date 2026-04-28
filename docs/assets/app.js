@@ -125,6 +125,8 @@ async function boot() {
 
     setProgress(45, `Loading ${manifest.counts.paragraphs.toLocaleString()} paragraphs…`);
     state.paragraphs = await fetchJson(`${DATA_BASE}corpus.json`);
+    _flushDfCache();
+    _avgDocLen = null;
 
     // Hydrate id-lookup map for FlexSearch result resolution
     for (const p of state.paragraphs) state.paragraphById.set(p.id, p);
@@ -1248,6 +1250,53 @@ function flexSearchPrefixIds(prefix) {
   return ids;
 }
 
+// ─────────── Document-frequency cache (for BM25-lite IDF) ───────────
+//
+// IDF (inverse document frequency) for a term is log(N / (df + 1)) where
+// N is the total paragraph count and df is the number of paragraphs
+// containing the term. Computing df naïvely on every keystroke is O(N×|q|),
+// so we memoize per term. Cache invalidates when scope changes (the term's
+// df differs across GC-only / SP-only / All).
+const _dfCache = new Map();   // key: `${scope}|${prefix?'p':'w'}|${value}` → df
+function _docFreq(term, scope) {
+  const key = `${scope}|${term.prefix ? 'p' : 'w'}|${term.value}`;
+  if (_dfCache.has(key)) return _dfCache.get(key);
+  let df = 0;
+  const matcher = term.prefix
+    ? new RegExp('\\b' + escapeRegex(term.value) + '\\w*', 'i')
+    : null;
+  for (const p of state.paragraphs) {
+    if (scope === 'gc' && p.type !== 'gc') continue;
+    if (scope === 'sp' && p.type !== 'sp') continue;
+    const text = p.text.toLowerCase();
+    if (term.prefix ? matcher.test(text) : text.includes(term.value)) df++;
+  }
+  _dfCache.set(key, df);
+  return df;
+}
+// Stub flushed when corpus reloads (scope-keyed key auto-handles scope flips).
+function _flushDfCache() { _dfCache.clear(); }
+
+// BM25-lite parameters. Standard BM25 is k1·(occ·(k1+1))/(occ+k1·(1-b+b·|d|/avgdl))
+// — we want the scoring to feel familiar, so we keep classic constants.
+const BM25_K1 = 1.5;
+const BM25_B  = 0.75;
+let _avgDocLen = null;
+function _avgDocLength(scope) {
+  // Recompute lazily, scope-aware. Cheap (one pass over paragraphs).
+  if (_avgDocLen && _avgDocLen.scope === scope) return _avgDocLen.value;
+  let total = 0, n = 0;
+  for (const p of state.paragraphs) {
+    if (scope === 'gc' && p.type !== 'gc') continue;
+    if (scope === 'sp' && p.type !== 'sp') continue;
+    total += p.text.length;
+    n++;
+  }
+  const value = n ? total / n : 1;
+  _avgDocLen = { scope, value };
+  return value;
+}
+
 // ─────────── Search ───────────
 function runSearch() {
   scheduleUrlUpdate();
@@ -1262,6 +1311,22 @@ function runSearch() {
 
   // Highlight + scoring tokens come from the AST, skipping NOT branches.
   const highlightTerms = ast ? leafTermsForHighlight(ast) : [];
+
+  // Pre-compute per-term IDF for the current scope. Rare terms (high IDF)
+  // contribute much more to the score than common ones — so a paragraph
+  // matching "non-refoulement" outranks one matching "the".
+  const totalDocs = state.paragraphs.filter(p =>
+    scope === 'all' ? true : p.type === scope
+  ).length;
+  const termIdf = new Map();
+  for (const term of highlightTerms) {
+    if (!term.value) continue;
+    const df = _docFreq(term, scope);
+    // Smoothed IDF (BM25 default) — keeps the value positive even when df > N/2.
+    const idf = Math.log(1 + (totalDocs - df + 0.5) / (df + 0.5));
+    termIdf.set(term.value + (term.prefix ? '*' : ''), idf);
+  }
+  const avgDocLen = _avgDocLength(scope);
 
   // Stage 2 — apply structural filters + post-AST verification
   const matched = [];
@@ -1308,22 +1373,33 @@ function runSearch() {
     // stemming-only matches that don't actually contain the term.
     if (ast && !paragraphMatchesAst(text, ast)) continue;
 
-    // Score: occurrences in original text, weighted by term length.
-    // Stemming-only matches still get baseline 1 to surface them.
+    // BM25-lite ranking: rare terms (high IDF) outweigh common ones; long
+    // paragraphs are penalised so a 5-occurrence hit in a 200-char doc beats
+    // 5 occurrences in a 2000-char doc.  This mirrors how SQLite FTS5's
+    // bm25() function ranks the reference app's results without us needing
+    // to ship a SQL engine to the browser.
     let score = 0;
-    for (const term of highlightTerms) {
-      const t = term.value;
-      if (!t) continue;
-      let occ;
-      if (term.prefix) {
-        const re = new RegExp('\\b' + escapeRegex(t) + '\\w*', 'gi');
-        occ = (text.match(re) || []).length;
-      } else {
-        occ = countOccurrences(text, t);
+    if (highlightTerms.length) {
+      const docLen = text.length;
+      const lenNorm = (1 - BM25_B) + BM25_B * (docLen / avgDocLen);
+      for (const term of highlightTerms) {
+        const t = term.value;
+        if (!t) continue;
+        const idf = termIdf.get(t + (term.prefix ? '*' : '')) || 0;
+        if (idf <= 0) continue;
+        let occ;
+        if (term.prefix) {
+          const re = new RegExp('\\b' + escapeRegex(t) + '\\w*', 'gi');
+          occ = (text.match(re) || []).length;
+        } else {
+          occ = countOccurrences(text, t);
+        }
+        if (!occ) continue;
+        // Standard BM25 term contribution
+        score += idf * (occ * (BM25_K1 + 1)) / (occ + BM25_K1 * lenNorm);
       }
-      score += occ * (1 + Math.log2(t.length + 1));
     }
-    if (state.query && score === 0) score = 1;
+    if (state.query && score === 0) score = 0.01;  // surface stem-only matches
     matched.push({ p, score });
   }
 
@@ -1427,6 +1503,18 @@ function paintResults() {
   $('#results-sub').textContent = resultSubtitle();
   $('#results-sub').appendChild(scopeNotice());
 
+  // Empty state — render in place of the list. Provides one of three
+  // tailored hints depending on what's narrowing the result set:
+  //   (a) the user typed a query that nothing matched
+  //   (b) filters are active that may be too narrow
+  //   (c) neither — corpus / scope mismatch
+  if (total === 0) {
+    list.appendChild(_buildEmptyState());
+    $('#result-more').textContent = '';
+    paintDossier();
+    return;
+  }
+
   const ast = parseQuery(state.query);
   const allTerms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
 
@@ -1459,6 +1547,71 @@ function paintResults() {
   } else {
     paintDossier();
   }
+}
+
+// Build a tailored empty-state element. Reads `state.filters` to decide
+// which hints to surface and offers one-click recovery actions.
+function _buildEmptyState() {
+  const f = state.filters;
+  const q = state.query.trim();
+  const li = document.createElement('li');
+  li.className = 'result-empty';
+
+  const hasNarrowingFilters =
+    f.committees.size > 0 ||
+    f.labels.size > 0 ||
+    f.reportTypes.size > 0 ||
+    (f.yearMin && state.facets && f.yearMin > state.facets.years.min) ||
+    (f.yearMax && state.facets && f.yearMax < state.facets.years.max);
+
+  let title, body, actions = '';
+
+  if (q && hasNarrowingFilters) {
+    title = `No paragraph matches "${escape(q)}" within the current filters`;
+    body = 'Try removing one or two filters, broadening the year range, or relaxing the query operators.';
+    actions = `
+      <button class="btn btn-ghost" data-empty-action="clear-q">Drop the query</button>
+      <button class="btn btn-ghost" data-empty-action="clear-filters">Clear all filters</button>`;
+  } else if (q) {
+    title = `No paragraph matches "${escape(q)}"`;
+    body = 'Check the spelling, try a wildcard like <code>discriminat*</code>, or replace AND with OR for a broader search.';
+    actions = `
+      <button class="btn btn-ghost" data-empty-action="clear-q">Drop the query</button>`;
+  } else if (hasNarrowingFilters) {
+    title = 'No paragraphs match these filters';
+    body = 'Your filter combination eliminated every paragraph in the corpus. Try removing some constraints.';
+    actions = `
+      <button class="btn btn-ghost" data-empty-action="clear-filters">Clear all filters</button>`;
+  } else {
+    title = 'No paragraphs in the corpus for this scope';
+    body = 'Switch the scope tab above to General Comments or All sources.';
+  }
+
+  li.innerHTML = `
+    <div class="empty-card">
+      <div class="folio garnet">SEARCH · NO RESULTS</div>
+      <h3 class="serif empty-title">${title}</h3>
+      <p class="serif empty-sub">${body}</p>
+      <div class="empty-syntax">
+        <div class="folio">Search syntax</div>
+        <div class="empty-syntax-row">
+          <code>"exact phrase"</code>·<code>A AND B</code>·<code>A OR B</code>·<code>NOT term</code>·<code>(grouping)</code>·<code>prefix*</code>
+        </div>
+      </div>
+      ${actions ? `<div class="empty-actions">${actions}</div>` : ''}
+    </div>
+  `;
+
+  // Wire the recovery buttons (idempotent — buttons may not exist for case (d))
+  li.querySelector('[data-empty-action="clear-q"]')?.addEventListener('click', () => {
+    state.query = '';
+    $('#q').value = '';
+    runSearch();
+  });
+  li.querySelector('[data-empty-action="clear-filters"]')?.addEventListener('click', () => {
+    $('#reset-filters')?.click();
+  });
+  return li;
 }
 
 // Append the next page of paragraph results into the list.
