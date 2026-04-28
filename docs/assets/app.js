@@ -1300,6 +1300,19 @@ function flexSearchIds(query) {
   return ids;
 }
 
+// Words too common to use as a phrase narrowing constraint. They appear in
+// most paragraphs, so searching for them just saturates the FlexSearch limit
+// and then truncation drops legitimate phrase matches from the AND-intersection.
+const PHRASE_NARROW_STOPWORDS = new Set([
+  'a', 'an', 'the', 'and', 'or', 'but', 'nor', 'so', 'yet',
+  'of', 'to', 'in', 'on', 'at', 'by', 'for', 'with', 'from', 'as', 'into',
+  'is', 'are', 'was', 'were', 'be', 'been', 'being',
+  'has', 'have', 'had', 'do', 'does', 'did',
+  'this', 'that', 'these', 'those', 'such',
+  'it', 'its', 'their', 'his', 'her', 'they', 'them', 'we', 'us',
+  'no', 'not', 'any', 'all',
+]);
+
 // ─────────── AST → candidate id evaluation ───────────
 // Walks the parsed AST and returns a Set of paragraph ids (or null = unbounded).
 // Phrases and prefix wildcards delegate to FlexSearch where possible; phrases
@@ -1319,14 +1332,33 @@ function evaluateAstToIds(ast) {
   if (ast.kind === 'phrase') {
     // Treat each non-stop word as an AND constraint; the substring re-check
     // in runSearch's body filter eliminates word-order false positives.
-    const words = ast.value.split(/\s+/).filter(w => w.length >= 2);
+    //
+    // Two narrowing pitfalls we explicitly avoid:
+    //
+    //   1. STOPWORDS — words like "and", "of", "the" appear in nearly every
+    //      paragraph. Searching for them returns the FlexSearch limit (5000)
+    //      truncated arbitrarily, so the AND-intersection drops paragraphs
+    //      that genuinely contain the phrase. Symptom: `"will and preferences"`
+    //      returns 0 matches even though `will and preferences` (no quotes)
+    //      finds them. We skip these from index narrowing entirely; the
+    //      paragraph-body substring check still enforces the exact phrase.
+    //
+    //   2. CAP-SATURATED RESULTS — even non-stopwords (e.g. "rights") can
+    //      saturate the limit in larger corpora (jurisprudence + SP after
+    //      lazy-load). When a word's hits reach the limit we treat it as
+    //      "doesn't help narrow" rather than letting truncation eat
+    //      legitimate matches.
+    const FLEX_LIMIT_WAS = 5000;
+    const words = ast.value.split(/\s+/)
+      .filter(w => w.length >= 2 && !PHRASE_NARROW_STOPWORDS.has(w));
     let ids = null;
     for (const w of words) {
       const wIds = flexSearchIds(w);
-      if (!wIds) continue;
+      if (!wIds || wIds.size === 0) continue;
+      if (wIds.size >= FLEX_LIMIT_WAS) continue;          // truncated → skip
       ids = ids ? new Set([...ids].filter(id => wIds.has(id))) : wIds;
     }
-    return ids;
+    return ids;       // null = unconstrained — paragraphMatchesAst still verifies
   }
   if (ast.kind === 'and') {
     let ids = null;
