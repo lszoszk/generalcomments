@@ -1,6 +1,6 @@
 {
   "version": "20260428",
-  "builtAt": "2026-04-28T13:24:03+00:00",
+  "builtAt": "2026-04-28T13:26:41+00:00",
   "counts": {
     "documents": 359,
     "paragraphs": 25843,
@@ -9,7 +9,7 @@
     "spDocuments": 173,
     "spParagraphs": 18740,
     "labels": 19,
-    "committees": 14,
+    "committees": 13,
     "yearRange": [
       1960,
       2026
@@ -17,16 +17,16 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "df0d8edfbd541f30",
-      "bytes": 25355266
+      "sha": "98ed10783f0177d4",
+      "bytes": 25355088
     },
     "documents.json": {
-      "sha": "6a37b636298bc2cf",
-      "bytes": 330504
+      "sha": "7bce3a9d33f9dfee",
+      "bytes": 330502
     },
     "facets.json": {
-      "sha": "bf6ef6d9d7f02767",
-      "bytes": 6978
+      "sha": "e5f8edf91416157b",
+      "bytes": 6921
     }
   },
   "schema": {
