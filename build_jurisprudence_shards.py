@@ -18,7 +18,6 @@ Outputs:
 
 Usage:
   python3 build_jurisprudence_shards.py --treaty CRPD
-  python3 build_jurisprudence_shards.py --treaty CEDAW
   python3 build_jurisprudence_shards.py --all
 """
 from __future__ import annotations
@@ -241,6 +240,10 @@ def main() -> int:
         all_paragraphs.extend(paragraphs)
 
     out = args.out
+    shard_out = out / 'shards'
+    if shard_out.exists():
+        for old_shard in shard_out.glob('*.json'):
+            old_shard.unlink()
     write_json(out / 'documents.json', docs, pretty=args.pretty)
     facets = build_facets(docs, all_paragraphs)
     write_json(out / 'facets.json', facets, pretty=True)
@@ -257,7 +260,7 @@ def main() -> int:
             'documents': shard_doc_ids,
             'paragraphs': paragraphs,
         }
-        shard_path = out / 'shards' / f'{shard_id}.json'
+        shard_path = shard_out / f'{shard_id}.json'
         write_json(shard_path, shard_payload, pretty=args.pretty)
         shard_files[f'shards/{shard_id}.json'] = {
             'sha': sha256_file(shard_path),

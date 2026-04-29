@@ -387,6 +387,7 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
     paragraphs: list[dict] = []
     pending_text: list[str] = []
     pending_id: str | None = None
+    pre_body_intro: list[str] = []
 
     def _flush():
         if pending_id and pending_text:
@@ -416,10 +417,23 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
 
         # Switch to BODY mode the first time we see a "1." or "1.1" leading
         if state == 'PRE_BODY':
-            if m and m.group(1).startswith('1'):
+            if m:
                 state = 'BODY'
+                if pre_body_intro and not m.group(1).startswith('1'):
+                    text = re.sub(r'\s+', ' ', ' '.join(pre_body_intro)).strip()
+                    if len(text) >= 80:
+                        paragraphs.append({
+                            'ID': '1.',
+                            'Section': '',
+                            'Labels': [],
+                            'Text': text,
+                        })
                 pending_id = m.group(1) + '.'
                 pending_text = [m.group(2)]
+            elif _is_docx_intro_paragraph(t):
+                pre_body_intro.append(t)
+            elif _is_docx_section_heading(t):
+                current_section = t.rstrip('.')
             # otherwise skip (header, metadata)
             continue
 
@@ -467,7 +481,9 @@ def extract_docx_unnumbered_decision(doc: DocxDocument) -> list[dict]:
         if not (
             low.startswith('at its meeting')
             or low.startswith('the committee')
+            or low.startswith('decides to discontinue')
             or 'decided to discontinue' in low
+            or 'decides to discontinue' in low
             or 'declares the communication inadmissible' in low
         ):
             continue
@@ -493,6 +509,29 @@ def _looks_like_continuation(text: str) -> bool:
     if text.lower().startswith(starters):
         return True
     return False
+
+
+def _is_docx_intro_paragraph(text: str) -> bool:
+    low = re.sub(r'\s+', ' ', text.strip().lower())
+    return (
+        len(text) >= 80
+        and low.startswith((
+            'the author of the communication is',
+            'the authors of the communication are',
+            'the author is',
+            'the authors are',
+        ))
+    )
+
+
+def _is_docx_section_heading(text: str) -> bool:
+    t = re.sub(r'\s+', ' ', text.strip())
+    if not t or len(t) > 130 or ':' in t:
+        return False
+    if _looks_like_continuation(t) or _is_signature_line(t):
+        return False
+    low = t.lower().strip(' .')
+    return bool(PDF_HEADING_RE.match(low))
 
 
 def _is_signature_line(text: str) -> bool:
@@ -582,7 +621,10 @@ def extract_pdf_paragraphs(path: Path) -> list[dict]:
 
     doc = fitz.open(path)
     try:
-        pages = [_clean_page_text(page) for page in doc]
+        pages = []
+        for page in doc:
+            cleaned = _clean_page_text(page)
+            pages.append(cleaned if cleaned.strip() else page.get_text())
     finally:
         doc.close()
 
@@ -654,7 +696,81 @@ def extract_pdf_paragraphs(path: Path) -> list[dict]:
                     current_section = line.rstrip('.')
 
     flush()
-    return paragraphs
+    if paragraphs:
+        return paragraphs
+    return extract_pdf_unnumbered_decision(pages)
+
+
+def extract_pdf_unnumbered_decision(pages: list[str]) -> list[dict]:
+    """Fallback for short PDF decisions that have no numbered paragraphs."""
+    text = '\n'.join(pages)
+    lines = [re.sub(r'\s+', ' ', x.strip()) for x in text.splitlines()]
+    lines = [x for x in lines if x]
+
+    body_lines = []
+    collecting = False
+    for line in lines:
+        low = line.lower()
+        if low.startswith(('at its meeting', 'the committee', 'decides to discontinue')):
+            collecting = True
+        if not collecting:
+            continue
+        if _is_signature_line(line):
+            break
+        if line.startswith('*') or low.startswith(('united nations', 'international covenant', 'distr.:', 'original:')):
+            continue
+        body_lines.append(line)
+
+    body = _clean_extracted_text(' '.join(body_lines))
+    if len(body) < 80:
+        chunks = [
+            _clean_extracted_text(c)
+            for c in re.split(r'\n\s*\n+', text)
+            if len(_clean_extracted_text(c)) >= 20
+        ]
+        skip_prefixes = (
+            'submitted by:', 'alleged victim:', 'state party:',
+            'date of decision', 'articles of covenant:',
+        )
+        body_chunks = []
+        collecting_old = False
+        for chunk in chunks:
+            low = chunk.lower()
+            intro_match = re.search(
+                r'\b(?:the author of the communication|before considering a communication|the human rights committee)\b',
+                chunk,
+                re.IGNORECASE,
+            )
+            if low.startswith(skip_prefixes) and not intro_match:
+                continue
+            if intro_match:
+                chunk = chunk[intro_match.start():]
+                low = chunk.lower()
+            if (
+                low.startswith('the author of the communication')
+                or low.startswith('before considering a communication')
+                or low.startswith('the human rights committee')
+            ):
+                collecting_old = True
+            if collecting_old:
+                body_chunks.append(chunk)
+        body = _clean_extracted_text(' '.join(body_chunks))
+    if len(body) < 80:
+        return []
+    if not (
+        body.lower().startswith(('at its meeting', 'the committee', 'decides to discontinue'))
+        or 'decided to discontinue' in body.lower()
+        or 'decides to discontinue' in body.lower()
+        or 'declares the communication inadmissible' in body.lower()
+        or 'communication is inadmissible' in body.lower()
+    ):
+        return []
+    return [{
+        'ID': '1.',
+        'Section': 'Decision',
+        'Labels': [],
+        'Text': body,
+    }]
 
 
 def extract_doc_paragraphs(path: Path) -> list[dict]:
@@ -718,11 +834,6 @@ def healthy_manifest_entries(entries: list[dict]) -> list[dict]:
             continue
         if path.stat().st_size <= 0:
             continue
-        try:
-            if int(entry.get('content_length') or 0) <= 0:
-                continue
-        except (TypeError, ValueError):
-            pass
         healthy.append(entry)
     return healthy
 
@@ -754,7 +865,7 @@ def parse_year_from_date(raw: str) -> int | None:
 def shard_id_for(treaty: str, year: int | None) -> str:
     """Sharding rule from JURISPRUDENCE_PLAN.md §3 Tier-2.
 
-    For CCPR (the big one): 5-year buckets. For everyone else: per-treaty
+    For CCPR (the big one): 2-year buckets. For everyone else: per-treaty
     when small enough, else per-year.  Small treaties (CRPD, CERD, CED)
     fold into a single shard."""
     if treaty in ('CRPD', 'CERD', 'CED'):
@@ -762,8 +873,8 @@ def shard_id_for(treaty: str, year: int | None) -> str:
     if not year:
         return f'jur_{treaty}_unknown'
     if treaty == 'CCPR':
-        bucket_start = (year // 5) * 5
-        return f'jur_CCPR_{bucket_start}-{bucket_start + 4}'
+        bucket_start = (year // 2) * 2
+        return f'jur_CCPR_{bucket_start}-{bucket_start + 1}'
     if treaty == 'CAT':
         bucket_start = (year // 5) * 5
         return f'jur_CAT_{bucket_start}-{bucket_start + 4}'

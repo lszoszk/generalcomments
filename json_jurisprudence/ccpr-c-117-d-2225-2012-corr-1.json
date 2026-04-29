@@ -1,0 +1,22 @@
+[
+  {
+    "ID": "1.",
+    "Section": "",
+    "Labels": [],
+    "Text": "Paragraph 6.1, second sentence"
+  },
+  {
+    "ID": "2.",
+    "Section": "For the term of his imprisonment read the term of his sentence",
+    "Labels": [
+      "Persons deprived of their liberty"
+    ],
+    "Text": "Annex II, paragraph 2, second sentence For serving a two-year prison sentence read serving a sentence (a two-year period of correctional labour without incarceration)"
+  },
+  {
+    "ID": "3.",
+    "Section": "For the term of his imprisonment read the term of his sentence",
+    "Labels": [],
+    "Text": "Annex II, paragraph 2, third sentence"
+  }
+]
