@@ -1439,9 +1439,10 @@ body.is-reading-mode .reading-mode-btn {
 
 /* ─────────────  VIEW ROUTING  ───────────── */
 section[data-view] { display: none; }
-body[data-active-view="search"]   section[data-view="search"]   { display: block; }
+body[data-active-view="search"]    section[data-view="search"]    { display: block; }
 body[data-active-view="documents"] section[data-view="documents"] { display: block; }
-body[data-active-view="about"]    section[data-view="about"]    { display: block; }
+body[data-active-view="workspace"] section[data-view="workspace"] { display: block; }
+body[data-active-view="about"]     section[data-view="about"]     { display: block; }
 
 /* ─────────────  DOCUMENTS VIEW  ───────────── */
 .docs-mast {
