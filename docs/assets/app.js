@@ -132,15 +132,25 @@ async function runSearchViaApi(runId) {
     // filters" cliff, mirroring our local RESULT_HARD_CAP behaviour.
     page_size: 200,
   };
+  // v19.4: route every chip through `body=` — a server-side union that
+  // matches when ANY of d.treaty / d.committee / d.mandate is in the
+  // list. The frontend's chip values map cleanly onto those three
+  // columns:
+  //
+  //   "CAT"   → matches d.committee for GC rows
+  //   "CRPD"  → matches d.committee (GC) AND d.treaty (JUR) — both
+  //             desired, OR'd together
+  //   "SR Freedom of Religion or Belief"
+  //           → matches d.committee for SP rows (the column there
+  //             holds the SR title; d.mandate holds the person name,
+  //             which the frontend doesn't expose as a filter)
+  //
+  // Lumping into committees+treaties+mandates as separate AND'd IN
+  // clauses (v19.1) silently dropped every row because no single doc
+  // satisfies all three columns at once — JUR mandate is NULL, GC
+  // treaty is NULL, etc.
   if (f.committees.size) {
-    // The API has separate slots for committees vs treaties vs mandates,
-    // but our local filter chips lump everything into f.committees. Send
-    // the union; the API filters with IN clauses on whichever column has
-    // a matching value.
-    const list = [...f.committees].join(',');
-    params.committees = list;
-    params.treaties   = list;
-    params.mandates   = list;
+    params.body = [...f.committees].join(',');
   }
   if (f.labels.size) params.labels = [...f.labels].join(',');
   if (f.yearMin && f.yearMin !== state.facets?.years?.min) params.year_from = f.yearMin;
