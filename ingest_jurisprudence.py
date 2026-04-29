@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Jurisprudence ingestion — treaty-by-treaty preview pipeline.
+Jurisprudence ingestion — Phase 1 (CRPD pilot).
 
 Reads OHCHR's bulk jurisprudence dump:
   - catalog.jsonl       (per-case metadata)
@@ -54,8 +54,7 @@ Outcome taxonomy (per the user's decision: split violation):
   other                      Anything else (incl. records with no recognisable title)
 
 Usage:
-    python3 ingest_jurisprudence.py --treaty CRPD            # all CRPD
-    python3 ingest_jurisprudence.py --treaty CEDAW           # all CEDAW
+    python3 ingest_jurisprudence.py --treaty CRPD            # pilot — all CRPD
     python3 ingest_jurisprudence.py --treaty CRPD --limit 5  # quick sanity test
     python3 ingest_jurisprudence.py --all                    # full run (~4500 cases)
 """
@@ -104,6 +103,12 @@ TREATY_SYMBOL_PREFIXES = {
     'CED': ('CED/', 'INT/CED/JUR/'),
 }
 
+EXCLUDED_SYMBOLS = {
+    # Local OHCHR download resolves to the neighbouring CEDAW/C/84/D/129/2018
+    # PDF, so publishing it as 128 would create a false duplicate.
+    'CEDAW/C/84/D/128/2018': 'download resolves to CEDAW/C/84/D/129/2018',
+}
+
 
 # ---------------------------------------------------------------------------
 # docId slug — `CRPD/C/18/D/22/2014` → `crpd-c-18-d-22-2014`
@@ -134,7 +139,18 @@ def symbol_matches_treaty(symbol: str, treaty: str) -> bool:
 def classify_outcome(title: str, body_text: str) -> str:
     t = (title or '').lower()
     b = (body_text or '').lower()
-    tail = b[-16000:]
+    decision_body = b
+    for marker in re.finditer(
+        r'\b(?:individual opinion|separate opinion|dissenting opinion)\b',
+        b,
+    ):
+        # Some files mention separate opinions in the header metadata. Only
+        # strip them when the marker appears where a trailing opinion section
+        # would normally begin.
+        if marker.start() > len(b) * 0.6:
+            decision_body = b[:marker.start()]
+            break
+    tail = decision_body[-22000:]
 
     # Title-based fast path (covers ~70 % of cases)
     if 'inadmissible' in t or 'inadmissibility' in t:
@@ -150,11 +166,20 @@ def classify_outcome(title: str, body_text: str) -> str:
         # Generic "Views" — body must clarify
         if ('no violation' in tail or 'has not violated' in tail
             or 'did not violate' in tail
-            or 'do not disclose a violation' in tail):
+            or 'do not disclose a violation' in tail
+            or 'does not disclose a violation' in tail
+            or 'do not reveal any violation' in tail
+            or 'does not reveal any violation' in tail):
             return 'merits_no_violation'
         if (
             'has failed to fulfil its obligations' in tail
             or 'failed to fulfil its obligations' in tail
+            or 'constituted a violation' in tail
+            or 'constitute a violation' in tail
+            or 'would amount to a breach' in tail
+            or 'amounted to a breach' in tail
+            or 'failed to discharge its obligations' in tail
+            or 'failing to discharge its obligations' in tail
             or re.search(r'(?:considers|finds|concludes)[^.]{0,120}(?:that .{0,60})?violation of (?:article|articles)', tail)
         ):
             return 'violation_found'
@@ -177,6 +202,8 @@ def classify_outcome(title: str, body_text: str) -> str:
     if (
         'decides to discontinue' in tail
         or 'decided to discontinue' in tail
+        or 'decision of discontinuance' in tail
+        or 'discontinuance decision' in tail
         or 'discontinue the consideration of communication' in tail
     ):
         return 'discontinued'
@@ -185,15 +212,34 @@ def classify_outcome(title: str, body_text: str) -> str:
         or 'did not violate' in tail
         or 'do not disclose a violation' in tail
         or 'does not disclose a violation' in tail
+        or 'do not disclose any violation' in tail
+        or 'does not disclose any violation' in tail
+        or 'do not reveal a violation' in tail
+        or 'does not reveal a violation' in tail
+        or 'do not reveal any violation' in tail
+        or 'does not reveal any violation' in tail
     ):
         return 'merits_no_violation'
     if (
         'has failed to fulfil its obligations' in tail
         or 'failed to fulfil its obligations' in tail
+        or 'constituted a violation' in tail
+        or 'constitute a violation' in tail
+        or 'would amount to a breach' in tail
+        or 'amounted to a breach' in tail
+        or 'failed to discharge its obligations' in tail
+        or 'failing to discharge its obligations' in tail
+        or 'has violated the rights' in tail
+        or 'has violated her rights' in tail
+        or 'has violated his rights' in tail
+        or 'has violated their rights' in tail
+        or 'infringed the rights' in tail
         or 'would, if implemented, violate' in tail
         or re.search(r'(?:considers|finds|concludes)[^.]{0,120}(?:that .{0,60})?violation of (?:article|articles)', tail)
         or re.search(r'amount(?:s|ed) to a violation of (?:article|articles)', tail)
+        or re.search(r'in violation of (?:the author|his|her|their)[^.]{0,120}rights under (?:article|articles)', tail)
         or re.search(r'violated (?:the author|his|her|their|its)[^.]{0,120}rights under article', tail)
+        or re.search(r'violated the author[^.]{0,180}rights under (?:article|articles)', tail)
     ):
         return 'violation_found'
     return 'other'
@@ -318,6 +364,15 @@ HEADER_KEYWORDS = (
 )
 
 
+def _is_non_english_annex_marker(text: str) -> bool:
+    """Detect non-English annex blocks that slipped into an English source."""
+    t = re.sub(r'\s+', ' ', text.strip())
+    return bool(
+        re.search(r'\bCOMUNICACI[ÓO]N\s+\(CEDAW\)', t, re.IGNORECASE)
+        or re.fullmatch(r'DISPOSICIONES\s+FINALES', t, re.IGNORECASE)
+    )
+
+
 def extract_docx_paragraphs(path: Path) -> list[dict]:
     """Walk a jurisprudence DOCX and produce {ID, Section, Labels, Text} records.
 
@@ -349,9 +404,15 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
         t = p.text.strip()
         if not t:
             continue
+        if _is_non_english_annex_marker(t):
+            _flush()
+            break
 
         # Identify the leading numbered marker, if any
         m = PARA_NUM.match(t)
+        if m and _is_non_english_annex_marker(m.group(2)):
+            _flush()
+            break
 
         # Switch to BODY mode the first time we see a "1." or "1.1" leading
         if state == 'PRE_BODY':
@@ -451,6 +512,22 @@ def _is_signature_line(text: str) -> bool:
 # ---------------------------------------------------------------------------
 PDF_PARA_MARKER = re.compile(r'^(\d{1,3}(?:\.\d+)+|\d{1,3}\.)\s*(.*)$')
 PDF_SECTION_LETTER = re.compile(r'^[A-Z]\.$')
+PDF_HEADING_RE = re.compile(
+    r'^(?:'
+    r'background|'
+    r'(?:the\s+)?facts(?:\s+as\s+(?:submitted|presented)\s+by\s+the\s+author)?|'
+    r'factual\s+background|'
+    r'complaints?|'
+    r'(?:the\s+)?state\s+party[’\']?s\s+(?:observations|submissions?)|'
+    r'(?:the\s+)?author[’\']?s\s+(?:comments|observations)|'
+    r'issues?\s+and\s+proceedings\s+before\s+the\s+committee|'
+    r'consideration\s+of\s+(?:admissibility|the\s+merits)|'
+    r'(?:the\s+)?committee[’\']?s\s+consideration|'
+    r'admissibility|merits|conclusions?|'
+    r'individual\s+opinion|separate\s+opinion|annex'
+    r')$',
+    re.IGNORECASE,
+)
 
 
 def normalize_para_id(raw: str) -> str:
@@ -479,13 +556,8 @@ def _is_pdf_heading(line: str, previous_text: str = '') -> bool:
         return False
     if previous_text and previous_text.rstrip()[-1:] not in '.!?)”’':
         return False
-    low = t.lower()
-    heading_words = (
-        'background', 'complaint', 'observations', 'comments', 'consideration',
-        'admissibility', 'merits', 'conclusion', 'issues', 'proceedings',
-        'facts', 'submissions', 'information and arguments',
-    )
-    if any(w in low for w in heading_words):
+    low = re.sub(r'\s+', ' ', t.lower()).strip(' .')
+    if PDF_HEADING_RE.match(low):
         return True
     return bool(re.match(r'^(?:A|B|C|D|E|F)\.\s+', t))
 
@@ -542,9 +614,15 @@ def extract_pdf_paragraphs(path: Path) -> list[dict]:
             line = raw_line.strip()
             if not line:
                 continue
+            if _is_non_english_annex_marker(line):
+                flush()
+                return paragraphs
 
             marker = PDF_PARA_MARKER.match(line)
             if marker:
+                if _is_non_english_annex_marker(marker.group(2)):
+                    flush()
+                    return paragraphs
                 flush()
                 current_id = normalize_para_id(marker.group(1))
                 rest = marker.group(2).strip()
@@ -700,6 +778,9 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
     """Process a single case. Returns the Tier-1 metadata record or None on failure."""
     sym = catalog_record.get('symbol_no', '').strip()
     if not sym:
+        return None
+    if sym in EXCLUDED_SYMBOLS:
+        print(f'    [skip] {sym}: {EXCLUDED_SYMBOLS[sym]}')
         return None
 
     # Pick the English manifest entry — prefer DOCX, fall back to PDF, then DOC.

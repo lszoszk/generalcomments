@@ -1,10 +1,10 @@
 {
   "version": "20260429",
-  "builtAt": "2026-04-29T07:22:19+00:00",
+  "builtAt": "2026-04-29T09:18:42+00:00",
   "scope": "all",
   "counts": {
-    "documents": 256,
-    "paragraphs": 12649,
+    "documents": 255,
+    "paragraphs": 12532,
     "shards": 2,
     "treaties": 2,
     "countries": 52,
@@ -16,22 +16,22 @@
   },
   "files": {
     "documents.json": {
-      "sha": "eae717924f13732e",
-      "bytes": 246850
+      "sha": "2075f67128c1b7e8",
+      "bytes": 246047
     },
     "facets.json": {
-      "sha": "d15db0f3efb047af",
-      "bytes": 6779
+      "sha": "233fc14f540ff2d5",
+      "bytes": 6725
     },
     "shards/jur_CEDAW.json": {
-      "sha": "8874dca45ff0d820",
-      "bytes": 8781410,
-      "documents": 168,
-      "paragraphs": 8923
+      "sha": "f4e116f981c940d0",
+      "bytes": 8677699,
+      "documents": 167,
+      "paragraphs": 8806
     },
     "shards/jur_small_treaties.json": {
-      "sha": "5b63f3b7216fd7f0",
-      "bytes": 4015720,
+      "sha": "3a291cf6d71aa7ea",
+      "bytes": 4015592,
       "documents": 88,
       "paragraphs": 3726
     }

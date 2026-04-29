@@ -2,7 +2,7 @@
   "treaties": [
     {
       "value": "CEDAW",
-      "count": 168
+      "count": 167
     },
     {
       "value": "CRPD",
@@ -12,11 +12,11 @@
   "outcomes": [
     {
       "value": "inadmissible",
-      "count": 101
+      "count": 107
     },
     {
       "value": "violation_found",
-      "count": 73
+      "count": 85
     },
     {
       "value": "discontinued",
@@ -24,18 +24,14 @@
     },
     {
       "value": "other",
-      "count": 34
+      "count": 14
     },
     {
       "value": "merits_no_violation",
-      "count": 8
+      "count": 11
     },
     {
       "value": "decision",
-      "count": 2
-    },
-    {
-      "value": "views",
       "count": 1
     }
   ],
@@ -61,15 +57,15 @@
       "count": 14
     },
     {
-      "value": "Russian Federation",
-      "count": 10
-    },
-    {
       "value": "United Kingdom of Great Britain and Northern Ireland",
       "count": 9
     },
     {
       "value": "Netherlands",
+      "count": 9
+    },
+    {
+      "value": "Russian Federation",
       "count": 9
     },
     {
@@ -252,15 +248,15 @@
   "labels": [
     {
       "value": "Women/girls",
-      "count": 3629
+      "count": 3592
     },
     {
       "value": "Persons with disabilities",
-      "count": 1886
+      "count": 1884
     },
     {
       "value": "Children",
-      "count": 1475
+      "count": 1452
     },
     {
       "value": "Refugees & asylum-seekers",
@@ -268,7 +264,7 @@
     },
     {
       "value": "Persons deprived of their liberty",
-      "count": 295
+      "count": 288
     },
     {
       "value": "Roma, Gypsies, Sinti and Travellers",
@@ -292,7 +288,7 @@
     },
     {
       "value": "Persons living with HIV/AIDS",
-      "count": 35
+      "count": 34
     },
     {
       "value": "Persons affected by armed conflict",
@@ -308,7 +304,7 @@
     },
     {
       "value": "Children in alternative care",
-      "count": 14
+      "count": 13
     },
     {
       "value": "Persons living in rural/remote areas",
@@ -334,7 +330,7 @@
     },
     {
       "value": "pdf",
-      "count": 15
+      "count": 14
     },
     {
       "value": "doc",
@@ -403,7 +399,7 @@
       },
       {
         "year": 2018,
-        "count": 29
+        "count": 28
       },
       {
         "year": 2019,
