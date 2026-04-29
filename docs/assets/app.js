@@ -198,6 +198,59 @@ async function loadJurMetadata() {
   }
 }
 
+// v16: a single source of truth for "what to call this document on a result
+// row / dossier folio / workspace row". Folds the body / mandate prefix into
+// the title so search results don't all start with the same words.
+//
+// Format:
+//   GC :   "<COMMITTEE> · <nameShort>"            e.g. "CAT · GC1: Implementation of Art. 3…"
+//   JUR:   "<TREATY> · <signature> · <country>"   e.g. "CRPD · 103/2022 · Spain"
+//   SP :   "<MANDATE> · <nameShort>"              e.g. "Religion · Elimination of all forms… (1995)"
+//   else:  fall back to nameShort / name / docId.
+function formatDocHeadline(doc, { compact = false } = {}) {
+  if (!doc) return '';
+  const baseTitle = doc.nameShort || doc.name || doc.docId || '';
+  if (doc.type === 'gc') {
+    const body = doc.committee || (doc.committees?.[0]) || '';
+    return body ? `${body} · ${baseTitle}` : baseTitle;
+  }
+  if (doc.type === 'jur') {
+    const treaty = doc.treaty || doc.committee || '';
+    const sig = doc.signature || doc.symbol || '';
+    const country = doc.country || '';
+    const parts = [treaty, sig, country].filter(Boolean);
+    if (compact) return parts.join(' · ');
+    // Promote the case title (often "Communication Nº X: outcome") only when
+    // we actually have one — otherwise the parts are sufficient.
+    const caseTitle = doc.title || doc.name || '';
+    return caseTitle && caseTitle !== sig
+      ? `${treaty} · ${sig}${country ? ` · ${country}` : ''} — ${caseTitle}`
+      : parts.join(' · ');
+  }
+  if (doc.type === 'sp') {
+    const mandate = doc.mandate ? mandateShortLabel(doc.mandate) : '';
+    return mandate ? `${mandate} · ${baseTitle}` : baseTitle;
+  }
+  return baseTitle;
+}
+
+// SP mandate names are long ("Special Rapporteur on freedom of religion or
+// belief") — for headlines we want a tight 1-3 word label. Heuristic: take
+// "Rapporteur on X" → X, otherwise the first significant noun phrase.
+function mandateShortLabel(mandate) {
+  if (!mandate) return '';
+  const m = mandate.match(/Rapporteur on (?:the )?(.+)$/i);
+  if (m) {
+    const phrase = m[1].replace(/\s+(of|and)\s+/i, ' & ').trim();
+    // If it's still too long, keep first 4 words.
+    const words = phrase.split(/\s+/);
+    return words.length > 4 ? words.slice(0, 4).join(' ') + '…' : phrase;
+  }
+  // Otherwise take first 3 words.
+  const words = mandate.split(/\s+/);
+  return words.length > 3 ? words.slice(0, 3).join(' ') + '…' : mandate;
+}
+
 function normalizeJurDocument(d) {
   return {
     ...d,
@@ -379,7 +432,7 @@ function applyUrlState(parsed) {
 
   // Results controls
   state.resultSort = ['relevance', 'date'].includes(parsed.resultSort) ? parsed.resultSort : 'relevance';
-  state.resultGroup = ['paragraphs', 'documents'].includes(parsed.resultGroup) ? parsed.resultGroup : 'paragraphs';
+  state.resultGroup = ['paragraphs', 'documents', 'bodies'].includes(parsed.resultGroup) ? parsed.resultGroup : 'paragraphs';
   syncResultsControls();
 
   // Active paragraph
@@ -1800,13 +1853,28 @@ function syncResultsControls() {
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
 
-  const grouped = state.resultGroup === 'documents' && state.results.length > 0;
+  // Expand/collapse buttons apply to both 'documents' AND 'bodies' grouping.
+  const grouped = (state.resultGroup === 'documents' || state.resultGroup === 'bodies')
+                  && state.results.length > 0;
   $('#expand-groups')?.toggleAttribute('disabled', !grouped);
   $('#collapse-groups')?.toggleAttribute('disabled', !grouped);
 }
 
 function currentResultGroupDocIds() {
-  return [...new Set(state.results.slice(0, RESULT_HARD_CAP).map(({ p }) => p.docId))];
+  const view = state.results.slice(0, RESULT_HARD_CAP);
+  if (state.resultGroup === 'bodies') {
+    // The collapse-set holds bodyKeys for body grouping. Mirror the keying
+    // logic in renderBodyGroupedResults so collapse-all hides every header.
+    const keys = new Set();
+    for (const { p } of view) {
+      const doc = state.documents.get(p.docId);
+      if (doc?.type === 'sp')      keys.add('sp::' + (doc.mandate || 'unknown mandate'));
+      else if (doc?.type === 'jur') keys.add('jur::' + (doc.treaty || doc.committee || 'unknown'));
+      else                          keys.add('gc::' + (doc?.committee || doc?.committees?.[0] || 'unknown'));
+    }
+    return [...keys];
+  }
+  return [...new Set(view.map(({ p }) => p.docId))];
 }
 
 // ─────────── Render (paginated, infinite scroll) ───────────
@@ -1852,12 +1920,20 @@ function paintResults() {
   if (_resultObserver) { _resultObserver.disconnect(); _resultObserver = null; }
   state.renderedCount = 0;
 
-  list.classList.toggle('is-grouped', state.resultGroup === 'documents');
+  list.classList.toggle('is-grouped', state.resultGroup === 'documents' || state.resultGroup === 'bodies');
   if (state.resultGroup === 'documents') {
     // Document grouping mode renders once: there are far fewer documents than
     // paragraphs (≤359 today) and the per-group expansion is local DOM only.
     const view = state.results.slice(0, RESULT_HARD_CAP);
     renderGroupedResults(list, view, allTerms);
+    state.renderedCount = view.length;
+    $('#result-more').textContent = total > RESULT_HARD_CAP
+      ? moreResultsText(total, view)
+      : '';
+  } else if (state.resultGroup === 'bodies') {
+    // v16: group by treaty body / mandate. Same render budget as 'documents'.
+    const view = state.results.slice(0, RESULT_HARD_CAP);
+    renderBodyGroupedResults(list, view, allTerms);
     state.renderedCount = view.length;
     $('#result-more').textContent = total > RESULT_HARD_CAP
       ? moreResultsText(total, view)
@@ -2051,7 +2127,9 @@ function resultSubtitle() {
     : hasSearchQuery()
       ? `Sorted by relevance to "${state.query}".`
       : 'Showing newest matching paragraphs.';
-  const groupText = state.resultGroup === 'documents' ? ' Grouped by document.' : ' Paragraph view.';
+  const groupText = state.resultGroup === 'documents' ? ' Grouped by document.'
+                  : state.resultGroup === 'bodies'    ? ' Grouped by treaty body / mandate.'
+                  : ' Paragraph view.';
   return `${sortText}${groupText} `;
 }
 
@@ -2074,6 +2152,79 @@ function renderGroupedResults(list, view, terms) {
   for (const [docId, rows] of groups) {
     list.appendChild(renderResultGroup(docId, rows, terms));
   }
+}
+
+// v16: group by treaty body (GC + JUR) or mandate-holder (SP). Two-level
+// nesting: body → documents → paragraphs. Reuses the existing per-doc
+// group renderer for the inner level.
+function renderBodyGroupedResults(list, view, terms) {
+  const bodyGroups = new Map();   // bodyKey → { label, type, rows[] }
+  view.forEach((result, idx) => {
+    const doc = state.documents.get(result.p.docId);
+    let bodyKey, label;
+    if (doc?.type === 'sp') {
+      bodyKey = 'sp::' + (doc.mandate || 'unknown mandate');
+      label = doc.mandate || 'Unknown mandate';
+    } else if (doc?.type === 'jur') {
+      bodyKey = 'jur::' + (doc.treaty || doc.committee || 'unknown');
+      label = `${doc.treaty || doc.committee || 'Unknown'} jurisprudence`;
+    } else {
+      bodyKey = 'gc::' + (doc?.committee || (doc?.committees?.[0]) || 'unknown');
+      label = doc?.committee || doc?.committees?.[0] || 'Unknown body';
+    }
+    if (!bodyGroups.has(bodyKey)) {
+      bodyGroups.set(bodyKey, { label, type: doc?.type || 'gc', rows: [] });
+    }
+    bodyGroups.get(bodyKey).rows.push({ ...result, rank: idx + 1 });
+  });
+
+  for (const [bodyKey, group] of bodyGroups) {
+    list.appendChild(renderBodyGroup(bodyKey, group, terms));
+  }
+}
+
+function renderBodyGroup(bodyKey, group, terms) {
+  const li = document.createElement('li');
+  li.className = `result-body-group ${group.type}`;
+  li.dataset.bodyKey = bodyKey;
+
+  const details = document.createElement('details');
+  details.className = 'result-body-details';
+  details.open = !state.collapsedDocGroups.has(bodyKey);
+  details.addEventListener('toggle', () => {
+    if (details.open) state.collapsedDocGroups.delete(bodyKey);
+    else state.collapsedDocGroups.add(bodyKey);
+  });
+
+  const docCount = new Set(group.rows.map(r => r.p.docId)).size;
+  const summary = document.createElement('summary');
+  summary.innerHTML = `
+    <div class="result-body-summary-main">
+      ${sourceBadge(group.type)}
+      <span class="result-body-summary-title">${escape(group.label)}</span>
+    </div>
+    <div class="result-body-summary-meta">
+      <span class="match-count">${group.rows.length} ¶</span>
+      <span class="folio">${docCount} doc${docCount === 1 ? '' : 's'}</span>
+    </div>
+  `;
+
+  // Inner level: re-use the per-document group renderer.
+  const innerList = document.createElement('ol');
+  innerList.className = 'result-body-inner';
+  const docMap = new Map();
+  group.rows.forEach(r => {
+    if (!docMap.has(r.p.docId)) docMap.set(r.p.docId, []);
+    docMap.get(r.p.docId).push(r);
+  });
+  for (const [docId, rows] of docMap) {
+    innerList.appendChild(renderResultGroup(docId, rows, terms));
+  }
+
+  details.appendChild(summary);
+  details.appendChild(innerList);
+  li.appendChild(details);
+  return li;
 }
 
 function renderResultGroup(docId, rows, terms) {
@@ -2100,7 +2251,7 @@ function renderResultGroup(docId, rows, terms) {
   summary.innerHTML = `
     <div class="result-doc-summary-main">
       ${badge}
-      <span class="result-doc-summary-title">${escape(doc?.nameShort || doc?.name || docId)}</span>
+      <span class="result-doc-summary-title">${escape(formatDocHeadline(doc) || docId)}</span>
     </div>
     <div class="result-doc-summary-meta">
       <span class="folio">${doc?.year ?? ''}</span>
@@ -2153,7 +2304,7 @@ function renderResult(p, rank, terms, opts = {}) {
       `
     : `
         ${badge}
-        <span class="result-doc">${escape(doc?.nameShort || doc?.name || p.docId)}</span>
+        <span class="result-doc">${escape(formatDocHeadline(doc) || p.docId)}</span>
         <span class="result-spacer"></span>
         <span class="folio">${doc?.year ?? ''}</span>
       `;
@@ -2549,9 +2700,12 @@ const CITE_FORMATS = [
 //
 // Toggles a single class on <body>. CSS does the work — collapses the
 // filter rail, expands the dossier pane, bumps font size on result text
-// + dossier blockquote. Press R or click the dossier button.
-function toggleReadingMode() {
-  document.body.classList.toggle('is-reading-mode');
+// + dossier blockquote. Press R, Esc, or click the prominent EXIT bar.
+function toggleReadingMode(forceState) {
+  const want = typeof forceState === 'boolean' ? forceState
+                                                : !document.body.classList.contains('is-reading-mode');
+  document.body.classList.toggle('is-reading-mode', want);
+  ensureReadingModeBar(want);
   syncReadingModeButton();
 }
 function syncReadingModeButton() {
@@ -2562,13 +2716,51 @@ function syncReadingModeButton() {
   const lbl = btn.querySelector('.reading-mode-label');
   if (lbl) lbl.textContent = on ? 'Exit reading' : 'Reading mode';
 }
-// Bind the R key globally — but only when the user isn't typing into a
+
+// v16: a fixed-top "you are in reading mode" bar with explicit instructions
+// for exit. Appears only when reading mode is on; click anywhere on it (or
+// the X) closes the mode. Eliminates the lost-user "I can't get out" issue.
+function ensureReadingModeBar(on) {
+  let bar = document.getElementById('reading-mode-bar');
+  if (!on) {
+    bar?.remove();
+    return;
+  }
+  if (bar) return;
+  bar = document.createElement('div');
+  bar.id = 'reading-mode-bar';
+  bar.className = 'reading-mode-bar';
+  bar.setAttribute('role', 'button');
+  bar.setAttribute('tabindex', '0');
+  bar.innerHTML = `
+    <span class="reading-mode-bar-icon">📖</span>
+    <span class="reading-mode-bar-label">Reading mode</span>
+    <span class="reading-mode-bar-hint">Press <kbd>Esc</kbd> or <kbd>R</kbd> · or click here to exit</span>
+    <span class="reading-mode-bar-close" aria-hidden="true">×</span>`;
+  bar.addEventListener('click', () => toggleReadingMode(false));
+  bar.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleReadingMode(false); }
+  });
+  document.body.appendChild(bar);
+}
+
+// Bind R + Esc globally — but only when the user isn't typing into a
 // search input or content-editable surface.
 document.addEventListener('keydown', (e) => {
+  const tag = (e.target?.tagName || '').toLowerCase();
+  const inEditable = tag === 'input' || tag === 'textarea' || e.target?.isContentEditable;
+
+  // Esc exits reading mode (only when on, and not while typing).
+  if (e.key === 'Escape' && document.body.classList.contains('is-reading-mode') && !inEditable) {
+    e.preventDefault();
+    toggleReadingMode(false);
+    return;
+  }
+
+  // R toggles.
   if (e.key !== 'r' && e.key !== 'R') return;
   if (e.metaKey || e.ctrlKey || e.altKey) return;
-  const tag = (e.target?.tagName || '').toLowerCase();
-  if (tag === 'input' || tag === 'textarea' || e.target?.isContentEditable) return;
+  if (inEditable) return;
   e.preventDefault();
   toggleReadingMode();
 });

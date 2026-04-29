@@ -842,6 +842,65 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   padding: 0;
   border-left: 1px solid var(--rule-soft);
 }
+
+/* v16: by-body grouping. Outer level groups treaty bodies / mandates, inner
+   level reuses the existing per-document group cards. Visual hierarchy uses
+   a slightly heavier border and a sticky header so long body groups stay
+   navigable while scrolling through docs. */
+.result-body-group { list-style: none; margin-bottom: 24px; }
+.result-body-details > summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: baseline;
+  gap: 14px;
+  padding: 14px 14px 10px;
+  background: var(--paper-3);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.result-body-details > summary::-webkit-details-marker { display: none; }
+.result-body-details > summary::before {
+  content: '▸';
+  color: var(--ink-3);
+  transition: transform 0.15s ease;
+  display: inline-block;
+}
+.result-body-details[open] > summary::before { transform: rotate(90deg); }
+.result-body-summary-main {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+.result-body-summary-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.result-body-group.sp .result-body-summary-title  { color: var(--ink-2); }
+.result-body-group.jur .result-body-summary-title { color: var(--jur-tone); }
+.result-body-summary-meta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.result-body-inner {
+  list-style: none;
+  margin: 8px 0 0 0;
+  padding: 0 0 0 18px;
+  border-left: 2px solid var(--rule-soft);
+}
+.result-body-inner .result-doc-group { margin-left: 0; }
 .result {
   display: grid;
   grid-template-columns: 64px 1fr 130px;
@@ -1427,14 +1486,62 @@ body.is-reading-mode .dossier-actions {
    it's always reachable without scrolling. */
 body.is-reading-mode .reading-mode-btn {
   position: fixed;
-  top: 16px;
+  top: 56px;                      /* below the prominent top bar */
   right: 16px;
-  z-index: 50;
+  z-index: 49;
   background: var(--paper);
   border: 1px solid var(--garnet);
   color: var(--garnet);
   box-shadow: 0 4px 14px rgba(0,0,0,.08);
 }
+
+/* v16: full-width "you are in reading mode" banner. Sits at top of viewport,
+   click anywhere on it to exit. The kbd hints make Esc/R discoverable so
+   power users don't have to mouse-target every time. */
+.reading-mode-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 10px 16px;
+  background: var(--garnet);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  text-align: center;
+}
+.reading-mode-bar:hover { filter: brightness(1.06); }
+.reading-mode-bar-icon  { font-size: 14px; }
+.reading-mode-bar-label { font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+.reading-mode-bar-hint  { color: rgba(255,255,255,.85); }
+.reading-mode-bar-hint kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  margin: 0 2px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 11px;
+  background: rgba(255,255,255,.08);
+  color: var(--paper);
+}
+.reading-mode-bar-close {
+  font-size: 18px;
+  line-height: 1;
+  margin-left: 4px;
+  opacity: 0.85;
+}
+/* Push the dossier down so the bar doesn't cover the title. */
+body.is-reading-mode .dossier { padding-top: 64px; }
 
 /* ─────────────  FOOTER  ───────────── */
 .foot {
