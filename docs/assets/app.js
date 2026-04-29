@@ -19,6 +19,10 @@ const state = {
   view: 'search',               // 'search' | 'documents' | 'about' — driven by URL hash
   docsScope: 'all',             // documents-view scope: 'all' | 'gc' | 'jur' | 'sp'
   docsFilter: '',               // documents-view free-text filter
+  docsActiveDocId: null,        // v17: currently-open document in the reader
+  docsActiveParaId: null,       // v17: currently-active ¶ inside the reader (for highlight)
+  docsDrawerCollapsed: false,   // v17: right drawer collapsed?
+  docsRailCollapsed: new Set(), // v17: collapsed body groups in the rail
   scope: 'gc',         // 'gc' | 'jur' | 'sp' | 'all'
   resultSort: 'relevance',      // 'relevance' | 'date'
   resultGroup: 'paragraphs',    // 'paragraphs' | 'documents'
@@ -76,7 +80,11 @@ function encodeUrlState() {
   if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
   if (state.activeId) u.set(URL_KEYS.p, state.activeId);
   const qs = u.toString();
-  const next = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+  // v17: preserve the hash — the docs reader relies on "#documents/<docId>"
+  // to remember which document is open. Earlier versions silently stripped
+  // it which made deep links unsharable.
+  const hash = window.location.hash || '';
+  const next = (qs ? `${window.location.pathname}?${qs}` : window.location.pathname) + hash;
   history.replaceState(null, '', next);
 }
 
@@ -444,7 +452,10 @@ const VIEWS = ['search', 'documents', 'about', 'workspace'];
 
 function viewFromHash() {
   const h = window.location.hash.replace(/^#/, '');
-  return VIEWS.includes(h) ? h : 'search';
+  // v17: "#documents/<docId>" → still the documents view; the deep-link
+  // segment is stripped here and re-parsed inside paintDocumentsView.
+  const root = h.split('/')[0];
+  return VIEWS.includes(root) ? root : 'search';
 }
 
 function setView(view) {
@@ -471,12 +482,59 @@ function bindRouter() {
   window.addEventListener('hashchange', () => setView(viewFromHash()));
 }
 
-// ─────────── Documents view ───────────
+// ─────────── Documents view (v17 · 3-pane reader: rail · body · drawer) ───────────
+//
+// Architecture
+//  - LEFT RAIL (#docs-rail-list): a filter-aware list of every document,
+//    grouped by treaty body / mandate. Click → opens the doc in the body.
+//  - CENTRE (#docs-reader-body): full document text. Every paragraph
+//    rendered with a sticky ¶ marker that toggles bookmark / activates
+//    drawer. Long docs scroll inside the pane.
+//  - RIGHT DRAWER (#docs-drawer): outline (jump-to-¶), workspace tools
+//    (bookmark / note / pin / cite), document-level export. Collapsible
+//    to a 32 px strip via the » button.
+//
+// URL contract
+//   #documents                      → reader empty, rail visible
+//   #documents/<docId>              → that doc opened
+//   #documents/<docId>?p=<paraId>   → doc opened, scroll to paragraph
 function paintDocumentsView() {
-  const host = $('#docs-body');
+  paintDocsRail();
+  // If the URL has a doc target, honour it; otherwise render empty state.
+  const target = parseDocsHash();
+  if (target.docId) {
+    openDocReader(target.docId, { paraId: target.paraId, fromUrl: true });
+  } else {
+    $('#docs-reader-body').innerHTML = `
+      <div class="docs-reader-empty">
+        <div class="folio garnet">SELECT A DOCUMENT</div>
+        <p class="serif" style="font-style: italic; color: var(--ink-3);">
+          Pick any document from the rail on the left to read its full text.
+          Bookmarks, notes and citations stay attached to specific paragraphs.
+        </p>
+      </div>`;
+    $('#docs-drawer').hidden = true;
+  }
+}
+
+// Parse "#documents/<docId>" optionally combined with "?p=<paraId>".
+function parseDocsHash() {
+  const hash = window.location.hash.replace(/^#/, '');                 // "documents/<docId>"
+  const m = hash.match(/^documents\/(.+)$/);
+  const docId = m ? decodeURIComponent(m[1]) : null;
+  const paraId = new URLSearchParams(window.location.search).get('p');
+  // Only honour ?p when it actually belongs to the docId we're opening,
+  // otherwise ignore (it's probably a search-view share URL).
+  const paraOk = docId && paraId && paraId.startsWith(docId + '-');
+  return { docId, paraId: paraOk ? paraId : null };
+}
+
+function paintDocsRail() {
+  const host = $('#docs-rail-list');
+  const headTitle = $('#docs-title');
+  const headSub = $('#docs-sub');
   if (!host) return;
 
-  // Group documents by primary committee, scope-filtered
   const wantScope = state.docsScope;
   const filterText = state.docsFilter.trim().toLowerCase();
 
@@ -491,19 +549,18 @@ function paintDocumentsView() {
     return true;
   });
 
-  // Header counts
   const gcDocs = docs.filter(d => d.type === 'gc').length;
   const jurDocs = docs.filter(d => d.type === 'jur').length;
   const spDocs = docs.filter(d => d.type === 'sp').length;
-  $('#docs-title').textContent = `${docs.length.toLocaleString()} document${docs.length === 1 ? '' : 's'}`;
-  $('#docs-sub').innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurDocs} Jurisprudence case${jurDocs === 1 ? '' : 's'} <span class="badge badge-jur">PREVIEW</span> · ${spDocs} Special Procedures report${spDocs === 1 ? '' : 's'} <span class="badge badge-preview">PREVIEW</span>`;
+  if (headTitle) headTitle.textContent = `${docs.length.toLocaleString()} document${docs.length === 1 ? '' : 's'}`;
+  if (headSub) headSub.innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurDocs} Jurisprudence case${jurDocs === 1 ? '' : 's'} <span class="badge badge-jur">PREVIEW</span> · ${spDocs} Special Procedures report${spDocs === 1 ? '' : 's'} <span class="badge badge-preview">PREVIEW</span>`;
 
   if (!docs.length) {
-    host.innerHTML = '<div class="docs-empty">No documents match the current filter.</div>';
+    host.innerHTML = '<div class="docs-rail-empty">No documents match the current filter.</div>';
     return;
   }
 
-  // Group: type → committee → docs (newest first)
+  // type → committee → docs (newest first)
   const groups = { gc: new Map(), jur: new Map(), sp: new Map() };
   for (const d of docs) {
     const bucket = groups[d.type];
@@ -516,55 +573,299 @@ function paintDocumentsView() {
       list.sort((a, b) => (b.year ?? 0) - (a.year ?? 0));
     }
   }
-
   const sortedCommittees = (bucket) =>
     [...bucket.keys()].sort((a, b) => bucket.get(b).length - bucket.get(a).length || a.localeCompare(b));
 
   const html = [];
   if (groups.gc.size && (wantScope === 'all' || wantScope === 'gc')) {
-    html.push('<div class="docs-section-head">General Comments · treaty body output</div>');
-    for (const c of sortedCommittees(groups.gc)) html.push(renderDocsCommittee(c, groups.gc.get(c), 'gc'));
+    html.push('<div class="docs-rail-section">General Comments</div>');
+    for (const c of sortedCommittees(groups.gc)) html.push(renderRailCommittee(c, groups.gc.get(c), 'gc'));
   }
   if (groups.jur.size && (wantScope === 'all' || wantScope === 'jur')) {
-    html.push(`<div class="docs-section-head jur-section-head">Jurisprudence · ${escape(jurTreatyLabel())} cases · preview</div>`);
-    for (const c of sortedCommittees(groups.jur)) html.push(renderDocsCommittee(c, groups.jur.get(c), 'jur'));
+    html.push(`<div class="docs-rail-section jur">${escape(jurTreatyLabel())} jurisprudence <span class="badge badge-jur">PREVIEW</span></div>`);
+    for (const c of sortedCommittees(groups.jur)) html.push(renderRailCommittee(c, groups.jur.get(c), 'jur'));
   }
   if (groups.sp.size && (wantScope === 'all' || wantScope === 'sp')) {
-    html.push('<div class="docs-section-head sp-section-head">Special Procedures · mandate-holder reports · preview</div>');
-    for (const c of sortedCommittees(groups.sp)) html.push(renderDocsCommittee(c, groups.sp.get(c), 'sp'));
+    html.push('<div class="docs-rail-section sp">Special Procedures <span class="badge badge-preview">PREVIEW</span></div>');
+    for (const c of sortedCommittees(groups.sp)) html.push(renderRailCommittee(c, groups.sp.get(c), 'sp'));
   }
   host.innerHTML = html.join('');
+
+  // Click handler — single delegation, no per-row listeners.
+  host.querySelectorAll('.docs-rail-row').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const docId = a.dataset.docId;
+      if (docId) openDocReader(docId);
+    });
+  });
 }
 
-function renderDocsCommittee(committee, list, type) {
+function renderRailCommittee(committee, list, type) {
+  const collapseKey = `${type}::${committee}`;
+  const open = !state.docsRailCollapsed.has(collapseKey);
   const rows = list.map(d => {
-    const firstP = `${d.docId}-0001`;
-    const scopeParam = type === 'jur' ? '&scope=jur' : '';
-    const statusBadge = d.status === 'superseded'
-      ? `<span class="docs-status superseded" title="Superseded by ${escape(d.supersededBy || '—')}">superseded</span>`
-      : d.status === 'revised'
-      ? `<span class="docs-status revised" title="Revised version">revised</span>`
-      : '';
-    // Abstract tooltip hidden pending manual verification — see TODO_LATER.md
+    const isActive = state.docsActiveDocId === d.docId;
+    const statusBadge = d.status === 'superseded' ? '<span class="docs-status superseded">superseded</span>'
+                      : d.status === 'revised'   ? '<span class="docs-status revised">revised</span>' : '';
     return `
-      <li>
-        <a class="docs-row ${type}" href="?p=${encodeURIComponent(firstP)}${scopeParam}#search" data-doc-id="${escape(d.docId)}">
-          <span class="sig">${escape(d.signature || '—')}</span>
-          <span class="name">${escape(d.nameShort || d.name || d.docId)}${statusBadge}</span>
-          <span class="year">${d.year ?? '—'}</span>
-          <span class="pcount">${d.paragraphCount ?? 0} ¶</span>
-          <span class="arrow">→</span>
-        </a>
-      </li>`;
+      <a class="docs-rail-row ${type} ${isActive ? 'is-active' : ''}"
+         href="#documents/${encodeURIComponent(d.docId)}"
+         data-doc-id="${escape(d.docId)}">
+        <span class="docs-rail-row-sig mono">${escape(d.signature || d.symbol || '—')}</span>
+        <span class="docs-rail-row-title">${escape(d.nameShort || d.name || d.docId)}${statusBadge}</span>
+        <span class="docs-rail-row-meta mono">${d.year ?? '—'} · ${d.paragraphCount ?? 0}¶</span>
+      </a>`;
   }).join('');
   return `
-    <details class="docs-committee ${type}" open>
+    <details class="docs-rail-committee ${type}" ${open ? 'open' : ''} data-collapse-key="${escape(collapseKey)}">
       <summary>
-        <span class="docs-committee-name">${escape(committee)}</span>
-        <span class="docs-committee-count">${list.length} document${list.length === 1 ? '' : 's'}</span>
+        <span class="docs-rail-committee-name">${escape(committee)}</span>
+        <span class="docs-rail-committee-count">${list.length}</span>
       </summary>
-      <ol class="docs-list">${rows}</ol>
+      <div class="docs-rail-rows">${rows}</div>
     </details>`;
+}
+
+// ─── Reader: open a document ─────────────────────────────────────────────
+//
+// Loads JUR shards on demand, paints the centre body, sets the URL, and
+// seeds the right drawer.  Reusable: search-view code can also call this
+// when the user wants to "read the whole document".
+async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
+  const doc = state.documents.get(docId);
+  if (!doc) {
+    console.warn('[openDocReader] unknown docId', docId);
+    return;
+  }
+
+  // JUR paragraphs live in lazy shards; pull if needed.
+  if (doc.type === 'jur' && !state.jur.loaded) {
+    try {
+      $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading jurisprudence shard…</div>';
+      await loadJurCorpus();
+    } catch (e) { console.warn('[jur load failed]', e); }
+  }
+
+  state.docsActiveDocId = docId;
+  state.docsActiveParaId = paraId;
+
+  // URL: keep the user's deep link alive on reload / share.
+  if (!fromUrl) {
+    const url = new URL(window.location);
+    url.hash = `documents/${encodeURIComponent(docId)}`;
+    if (paraId) url.searchParams.set('p', paraId); else url.searchParams.delete('p');
+    window.history.replaceState(null, '', url.toString());
+  }
+
+  paintDocReaderBody(doc, paraId);
+  paintDocDrawer(doc);
+  // Keep rail row in sync (highlight new active row).
+  paintDocsRail();
+  // Scroll the rail so the active row is visible.
+  document.querySelector('.docs-rail-row.is-active')?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+}
+
+function paintDocReaderBody(doc, paraId) {
+  const host = $('#docs-reader-body');
+  if (!host) return;
+
+  const paragraphs = state.paragraphs.filter(p => p.docId === doc.docId);
+  if (!paragraphs.length) {
+    host.innerHTML = `
+      <div class="docs-reader-empty">
+        <div class="folio garnet">DOCUMENT BODY UNAVAILABLE</div>
+        <p class="serif">The text for ${escape(doc.nameShort || doc.name || doc.docId)} is not loaded.
+        ${doc.type === 'jur' ? 'Try reopening — the jurisprudence shard may not have fetched.' : ''}</p>
+      </div>`;
+    return;
+  }
+
+  const head = `
+    <header class="docs-reader-head">
+      <div class="folio garnet">${escape(formatDocHeadline(doc, { compact: true }))}</div>
+      <h1 class="docs-reader-title">${escape(doc.name || doc.nameShort || doc.docId)}</h1>
+      <div class="docs-reader-meta mono">
+        ${doc.signature ? `<span>${escape(doc.signature)}</span>` : ''}
+        ${doc.adoptionDate ? `<span>${escape(doc.adoptionDate)}</span>` : (doc.year ? `<span>${doc.year}</span>` : '')}
+        ${doc.country ? `<span>${escape(doc.country)}</span>` : ''}
+        ${doc.committee || doc.treaty ? `<span>${escape(doc.committee || doc.treaty)}</span>` : ''}
+        <span>${paragraphs.length} paragraphs</span>
+        ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener" class="docs-reader-source">↗ original</a>` : ''}
+      </div>
+    </header>`;
+
+  const body = paragraphs.map(p => {
+    const marker = p.n != null ? `¶${escape(String(p.n))}` : `¶${p.idx}`;
+    const isActive = p.id === paraId;
+    const isBm = bmHas(p.id);
+    const isPin = pinHas(p.id);
+    const hasNote = noteHas(p.id);
+    const sectionHead = p.section
+      ? `<h3 class="docs-reader-section">${escape(p.section)}</h3>`
+      : '';
+    return `
+      ${sectionHead}
+      <div class="docs-reader-para ${isActive ? 'is-active' : ''}" id="reader-para-${escape(p.id)}" data-para-id="${escape(p.id)}">
+        <div class="docs-reader-para-marker">
+          <span class="mono">${marker}</span>
+          <button class="docs-para-bm ${isBm ? 'on' : ''}" data-act="bm" title="${isBm ? 'Remove bookmark' : 'Bookmark this paragraph'}">${isBm ? '★' : '☆'}</button>
+          <button class="docs-para-pin ${isPin ? 'on' : ''}" data-act="pin" title="${isPin ? 'Unpin' : 'Pin for compare'}">📌</button>
+          ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">📝</span>' : ''}
+        </div>
+        <p class="docs-reader-para-text serif">${escape(p.text)}</p>
+      </div>`;
+  }).join('');
+
+  host.innerHTML = head + `<div class="docs-reader-stream">${body}</div>`;
+
+  // Per-paragraph click handlers (delegated by data-act).
+  host.querySelectorAll('.docs-reader-para').forEach(el => {
+    const id = el.dataset.paraId;
+    el.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-act]');
+      if (btn) {
+        e.stopPropagation();
+        if (btn.dataset.act === 'bm')  { bmToggle(id); paintWorkspaceBadge(); }
+        if (btn.dataset.act === 'pin') { pinToggle(id); paintDiffTray(); }
+        // Re-paint just this paragraph row + drawer.
+        state.docsActiveParaId = id;
+        paintDocReaderBody(doc, id);
+        paintDocDrawer(doc);
+        return;
+      }
+      // Plain click → make this the active paragraph (drawer follows).
+      state.docsActiveParaId = id;
+      paintDocReaderBody(doc, id);
+      paintDocDrawer(doc);
+      const url = new URL(window.location);
+      url.searchParams.set('p', id);
+      window.history.replaceState(null, '', url.toString());
+    });
+  });
+
+  // If we have a target ¶, scroll it into view (centre of the pane).
+  if (paraId) {
+    const el = host.querySelector(`#reader-para-${CSS.escape(paraId)}`);
+    if (el) {
+      // Wait one tick so layout is settled before scrolling.
+      requestAnimationFrame(() => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+    }
+  }
+}
+
+function paintDocDrawer(doc) {
+  const drawer = $('#docs-drawer');
+  const body = $('#docs-drawer-body');
+  if (!drawer || !body) return;
+  drawer.hidden = false;
+  drawer.classList.toggle('is-collapsed', state.docsDrawerCollapsed);
+
+  if (state.docsDrawerCollapsed) {
+    body.innerHTML = '';
+    return;
+  }
+
+  const paraId = state.docsActiveParaId;
+  const para = paraId ? state.paragraphById.get(paraId) : null;
+  const paragraphs = state.paragraphs.filter(p => p.docId === doc.docId);
+
+  // Outline: any paragraph with a section, or a numbered ¶ as fallback.
+  const outline = paragraphs.filter(p => p.section).map(p => ({
+    id: p.id, label: p.section, n: p.n,
+  }));
+
+  const outlineHtml = outline.length
+    ? `<ol class="docs-outline-list">${
+        outline.map(o => `
+          <li><a class="docs-outline-link" href="#" data-jump="${escape(o.id)}">
+            <span class="mono">¶${escape(String(o.n ?? '—'))}</span>
+            <span>${escape(o.label)}</span>
+          </a></li>`).join('')
+      }</ol>`
+    : '<p class="serif dim" style="font-size:12px">No headings detected — every paragraph is reachable from the body.</p>';
+
+  // Workspace + cite block (only meaningful when a paragraph is active).
+  const wsHtml = para ? `
+    <div class="docs-drawer-block">
+      <h3 class="folio">Active paragraph</h3>
+      <div class="docs-drawer-active mono">${escape(para.id)}${para.n != null ? ` · ¶${escape(String(para.n))}` : ''}</div>
+      <div class="docs-drawer-actions">
+        <button class="btn btn-ghost" id="dw-bm" type="button">${bmHas(para.id) ? '★ Bookmarked' : '☆ Bookmark'}</button>
+        <button class="btn btn-ghost" id="dw-pin" type="button">${pinHas(para.id) ? '📌 Pinned' : '📌 Pin'}</button>
+      </div>
+      <textarea class="docs-drawer-note serif" id="dw-note" rows="3"
+                placeholder="Private note — autosaved per paragraph.">${escape(noteGet(para.id) || '')}</textarea>
+      <details class="docs-drawer-cite">
+        <summary class="btn btn-ghost">”  Cite this paragraph</summary>
+        <div class="docs-drawer-cite-pop">
+          ${CITE_FORMATS.map(c => `
+            <button type="button" class="cite-opt" data-cite-key="${c.key}">
+              <span class="cite-fmt">${escape(c.fmt)}</span>
+              <span class="cite-name">${escape(c.name)}</span>
+            </button>`).join('')}
+        </div>
+      </details>
+    </div>` : '<div class="docs-drawer-block"><p class="serif dim" style="font-size:12px">Click any paragraph to bookmark, note, pin or cite it.</p></div>';
+
+  body.innerHTML = `
+    <div class="docs-drawer-block">
+      <h3 class="folio">Outline</h3>
+      ${outlineHtml}
+    </div>
+    ${wsHtml}
+    <div class="docs-drawer-block">
+      <h3 class="folio">Open in search</h3>
+      <a class="btn btn-ghost" href="?p=${encodeURIComponent(paragraphs[0]?.id || '')}#search">↗ Switch to search view</a>
+    </div>`;
+
+  // Collapse button.
+  $('#docs-drawer-collapse')?.addEventListener('click', () => {
+    state.docsDrawerCollapsed = !state.docsDrawerCollapsed;
+    paintDocDrawer(doc);
+  });
+
+  // Outline jump links — scroll the centre pane.
+  body.querySelectorAll('.docs-outline-link').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = a.dataset.jump;
+      state.docsActiveParaId = id;
+      paintDocReaderBody(doc, id);
+      paintDocDrawer(doc);
+      const url = new URL(window.location);
+      url.searchParams.set('p', id);
+      window.history.replaceState(null, '', url.toString());
+    });
+  });
+
+  if (para) {
+    $('#dw-bm')?.addEventListener('click', () => { bmToggle(para.id); paintDocReaderBody(doc, para.id); paintDocDrawer(doc); paintWorkspaceBadge(); });
+    $('#dw-pin')?.addEventListener('click', () => { pinToggle(para.id); paintDocReaderBody(doc, para.id); paintDocDrawer(doc); paintDiffTray(); });
+
+    const noteTa = $('#dw-note');
+    if (noteTa) {
+      let t;
+      const save = () => { noteSet(para.id, noteTa.value); paintWorkspaceBadge(); };
+      noteTa.addEventListener('input', () => { clearTimeout(t); t = setTimeout(save, 600); });
+      noteTa.addEventListener('blur',  () => { clearTimeout(t); save(); });
+    }
+
+    // Cite menu
+    body.querySelectorAll('.docs-drawer-cite .cite-opt').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const fmt = CITE_FORMATS.find(f => f.key === btn.dataset.citeKey);
+        if (!fmt) return;
+        const cite = fmt.build(doc, para);
+        try { navigator.clipboard?.writeText(cite); } catch {}
+        const lbl = btn.querySelector('.cite-fmt');
+        const orig = lbl.textContent;
+        lbl.textContent = '✓';
+        setTimeout(() => { lbl.textContent = orig; }, 1100);
+      });
+    });
+  }
 }
 
 function syncFiltersToDom() {
@@ -929,19 +1230,22 @@ function bindUI() {
     document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
   });
 
-  // Documents view: scope segmented + filter input
+  // Documents view: scope segmented + filter input.
+  // v17 — these only re-render the rail; the centre + drawer keep showing
+  // the currently-open doc so changing scope/filter doesn't kick the user
+  // out of their reading position.
   $$('.docs-scope-opt').forEach(b => b.addEventListener('click', () => {
     $$('.docs-scope-opt').forEach(x => x.classList.remove('is-active'));
     b.classList.add('is-active');
     state.docsScope = b.dataset.docsScope;
-    paintDocumentsView();
+    paintDocsRail();
   }));
   let docsFilterTimer;
   $('#docs-filter')?.addEventListener('input', e => {
     clearTimeout(docsFilterTimer);
     docsFilterTimer = setTimeout(() => {
       state.docsFilter = e.target.value;
-      paintDocumentsView();
+      paintDocsRail();
     }, 150);
   });
 }

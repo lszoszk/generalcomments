@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260429-v16-headlines-bodygroup" />
-<link rel="stylesheet" href="assets/app.css?v=20260429-v16-headlines-bodygroup" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260429-v17-docs-reader" />
+<link rel="stylesheet" href="assets/app.css?v=20260429-v17-docs-reader" />
 </head>
 <body>
 
@@ -299,25 +299,49 @@
 
 </section><!-- /search view -->
 
-<!-- ═══════════════════════════ DOCUMENTS VIEW ═══════════════════════════ -->
+<!-- ═══════════════════════════ DOCUMENTS VIEW (3-pane reader) ═══════════════════════════ -->
 <section data-view="documents" hidden>
   <div class="docs-mast">
     <div class="docs-mast-inner">
-      <div class="folio garnet">CATALOGUE · ALL DOCUMENTS</div>
+      <div class="folio garnet">CATALOGUE · DOCUMENT READER</div>
       <h2 class="serif docs-title" id="docs-title">Loading…</h2>
-      <p class="serif docs-sub" id="docs-sub">All documents in the archive, grouped by treaty body and mandate.</p>
+      <p class="serif docs-sub" id="docs-sub">Pick a document on the left to read it in full. Notes and bookmarks appear on the right.</p>
     </div>
   </div>
-  <div class="docs-tools">
-    <input id="docs-filter" type="search" class="serif docs-filter" placeholder="Filter by name, signature, year…" autocomplete="off" spellcheck="false" />
-    <div class="docs-scope" role="tablist">
-      <button class="docs-scope-opt is-active" data-docs-scope="all">All</button>
-      <button class="docs-scope-opt" data-docs-scope="gc">General Comments</button>
-      <button class="docs-scope-opt" data-docs-scope="jur">Jurisprudence</button>
-      <button class="docs-scope-opt" data-docs-scope="sp">Special Procedures</button>
-    </div>
+
+  <div class="docs-reader">
+    <!-- LEFT: rail with filter + scope tabs + collapsible body groups -->
+    <aside class="docs-rail" id="docs-rail" aria-label="Documents rail">
+      <div class="docs-rail-tools">
+        <input id="docs-filter" type="search" class="serif docs-filter" placeholder="Filter by name, signature, year…" autocomplete="off" spellcheck="false" />
+        <div class="docs-scope" role="tablist">
+          <button class="docs-scope-opt is-active" data-docs-scope="all">All</button>
+          <button class="docs-scope-opt" data-docs-scope="gc" title="General Comments">GC</button>
+          <button class="docs-scope-opt" data-docs-scope="jur" title="Jurisprudence">JUR</button>
+          <button class="docs-scope-opt" data-docs-scope="sp" title="Special Procedures">SP</button>
+        </div>
+      </div>
+      <div class="docs-rail-list" id="docs-rail-list"></div>
+    </aside>
+
+    <!-- CENTRE: document body -->
+    <article class="docs-reader-body" id="docs-reader-body">
+      <div class="docs-reader-empty">
+        <div class="folio garnet">SELECT A DOCUMENT</div>
+        <p class="serif" style="font-style: italic; color: var(--ink-3);">
+          Pick any document from the rail on the left to read its full text.
+          Bookmarks, notes and citations stay attached to specific paragraphs.
+        </p>
+      </div>
+    </article>
+
+    <!-- RIGHT: per-document drawer (outline + workspace + cite/export) -->
+    <aside class="docs-drawer" id="docs-drawer" aria-label="Document drawer" hidden>
+      <button class="docs-drawer-collapse" id="docs-drawer-collapse"
+              type="button" aria-label="Collapse drawer" title="Collapse drawer">»</button>
+      <div class="docs-drawer-body" id="docs-drawer-body"></div>
+    </aside>
   </div>
-  <div class="docs-body" id="docs-body"></div>
 </section><!-- /documents view -->
 
 <!-- ═══════════════════════════ WORKSPACE VIEW ═══════════════════════════ -->
@@ -550,6 +574,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260429-v16-headlines-bodygroup"></script>
+<script type="module" src="assets/app.js?v=20260429-v17-docs-reader"></script>
 </body>
 </html>
