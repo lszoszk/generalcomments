@@ -1,67 +1,155 @@
 {
   "treaties": [
     {
+      "value": "CEDAW",
+      "count": 168
+    },
+    {
       "value": "CRPD",
       "count": 88
     }
   ],
   "outcomes": [
     {
-      "value": "violation_found",
-      "count": 37
+      "value": "inadmissible",
+      "count": 101
     },
     {
-      "value": "inadmissible",
-      "count": 24
+      "value": "violation_found",
+      "count": 73
     },
     {
       "value": "discontinued",
-      "count": 18
-    },
-    {
-      "value": "merits_no_violation",
-      "count": 7
+      "count": 37
     },
     {
       "value": "other",
-      "count": 1
+      "count": 34
+    },
+    {
+      "value": "merits_no_violation",
+      "count": 8
     },
     {
       "value": "decision",
+      "count": 2
+    },
+    {
+      "value": "views",
       "count": 1
     }
   ],
   "countries": [
     {
+      "value": "Denmark",
+      "count": 44
+    },
+    {
+      "value": "Spain",
+      "count": 18
+    },
+    {
       "value": "Sweden",
       "count": 18
     },
     {
-      "value": "Australia",
-      "count": 13
+      "value": "Switzerland",
+      "count": 16
     },
     {
-      "value": "Spain",
+      "value": "Australia",
+      "count": 14
+    },
+    {
+      "value": "Russian Federation",
       "count": 10
+    },
+    {
+      "value": "United Kingdom of Great Britain and Northern Ireland",
+      "count": 9
+    },
+    {
+      "value": "Netherlands",
+      "count": 9
+    },
+    {
+      "value": "Austria",
+      "count": 8
+    },
+    {
+      "value": "Canada",
+      "count": 7
+    },
+    {
+      "value": "Hungary",
+      "count": 5
+    },
+    {
+      "value": "Bulgaria",
+      "count": 5
+    },
+    {
+      "value": "Mexico",
+      "count": 5
+    },
+    {
+      "value": "Argentina",
+      "count": 5
+    },
+    {
+      "value": "Türkiye",
+      "count": 4
+    },
+    {
+      "value": "France",
+      "count": 4
+    },
+    {
+      "value": "Philippines",
+      "count": 4
+    },
+    {
+      "value": "Belarus",
+      "count": 4
+    },
+    {
+      "value": "United Republic of Tanzania",
+      "count": 4
     },
     {
       "value": "Germany",
       "count": 4
     },
     {
-      "value": "Hungary",
+      "value": "Brazil",
       "count": 3
     },
     {
-      "value": "United Kingdom of Great Britain and Northern Ireland",
+      "value": "Georgia",
       "count": 3
     },
     {
-      "value": "Austria",
+      "value": "Italy",
       "count": 3
     },
     {
-      "value": "United Republic of Tanzania",
+      "value": "Republic of Moldova",
+      "count": 3
+    },
+    {
+      "value": "Slovakia",
+      "count": 3
+    },
+    {
+      "value": "Ukraine",
+      "count": 3
+    },
+    {
+      "value": "Finland",
+      "count": 3
+    },
+    {
+      "value": "North Macedonia",
       "count": 3
     },
     {
@@ -73,23 +161,23 @@
       "count": 3
     },
     {
-      "value": "Argentina",
+      "value": "Peru",
       "count": 2
     },
     {
-      "value": "Brazil",
+      "value": "Ecuador",
       "count": 2
     },
     {
-      "value": "Mexico",
+      "value": "Czech Republic",
       "count": 2
     },
     {
-      "value": "Denmark",
+      "value": "Poland",
       "count": 2
     },
     {
-      "value": "France",
+      "value": "Cambodia",
       "count": 2
     },
     {
@@ -97,11 +185,47 @@
       "count": 2
     },
     {
-      "value": "Canada",
-      "count": 2
+      "value": "Kazakhstan",
+      "count": 1
     },
     {
-      "value": "Ecuador",
+      "value": "United Kingdom of Great Britain and Northern Ireland (Hong Kong)",
+      "count": 1
+    },
+    {
+      "value": "United Kingdom of Great Britain and Northern Ireland (Crown Dependencies)",
+      "count": 1
+    },
+    {
+      "value": "Norway",
+      "count": 1
+    },
+    {
+      "value": "Timor-Leste",
+      "count": 1
+    },
+    {
+      "value": "Bosnia and Herzegovina",
+      "count": 1
+    },
+    {
+      "value": "Kyrgyzstan",
+      "count": 1
+    },
+    {
+      "value": "Libya",
+      "count": 1
+    },
+    {
+      "value": "Sri Lanka",
+      "count": 1
+    },
+    {
+      "value": "Republic of Korea",
+      "count": 1
+    },
+    {
+      "value": "Turkmenistan",
       "count": 1
     },
     {
@@ -113,23 +237,7 @@
       "count": 1
     },
     {
-      "value": "Finland",
-      "count": 1
-    },
-    {
-      "value": "Italy",
-      "count": 1
-    },
-    {
-      "value": "Ukraine",
-      "count": 1
-    },
-    {
       "value": "South Africa",
-      "count": 1
-    },
-    {
-      "value": "Slovakia",
       "count": 1
     },
     {
@@ -143,143 +251,183 @@
   ],
   "labels": [
     {
+      "value": "Women/girls",
+      "count": 3629
+    },
+    {
       "value": "Persons with disabilities",
-      "count": 1583
+      "count": 1886
     },
     {
       "value": "Children",
-      "count": 150
-    },
-    {
-      "value": "Persons deprived of their liberty",
-      "count": 100
-    },
-    {
-      "value": "Women/girls",
-      "count": 99
+      "count": 1475
     },
     {
       "value": "Refugees & asylum-seekers",
-      "count": 50
+      "count": 791
     },
     {
-      "value": "Persons living with HIV/AIDS",
-      "count": 19
-    },
-    {
-      "value": "Persons living in poverty",
-      "count": 12
-    },
-    {
-      "value": "Non-citizens and stateless",
-      "count": 12
+      "value": "Persons deprived of their liberty",
+      "count": 295
     },
     {
       "value": "Roma, Gypsies, Sinti and Travellers",
-      "count": 11
+      "count": 93
+    },
+    {
+      "value": "LGBTI+",
+      "count": 81
+    },
+    {
+      "value": "Non-citizens and stateless",
+      "count": 56
     },
     {
       "value": "Persons in street situations",
-      "count": 9
+      "count": 46
+    },
+    {
+      "value": "Persons living in poverty",
+      "count": 43
+    },
+    {
+      "value": "Persons living with HIV/AIDS",
+      "count": 35
     },
     {
       "value": "Persons affected by armed conflict",
+      "count": 32
+    },
+    {
+      "value": "Migrants",
+      "count": 29
+    },
+    {
+      "value": "Indigenous peoples",
+      "count": 16
+    },
+    {
+      "value": "Children in alternative care",
+      "count": 14
+    },
+    {
+      "value": "Persons living in rural/remote areas",
+      "count": 9
+    },
+    {
+      "value": "Internally displaced persons",
       "count": 7
     },
     {
       "value": "Adolescents",
-      "count": 2
+      "count": 6
     },
     {
-      "value": "Indigenous peoples",
-      "count": 2
-    },
-    {
-      "value": "Migrants",
-      "count": 2
-    },
-    {
-      "value": "LGBTI+",
-      "count": 2
-    },
-    {
-      "value": "Internally displaced persons",
-      "count": 1
+      "value": "Persons affected by natural disasters",
+      "count": 5
     }
   ],
   "formats": [
     {
       "value": "docx",
-      "count": 83
+      "count": 236
     },
     {
       "value": "pdf",
-      "count": 4
+      "count": 15
     },
     {
       "value": "doc",
-      "count": 1
+      "count": 5
     }
   ],
   "years": {
-    "min": 2010,
-    "max": 2023,
+    "min": 2004,
+    "max": 2024,
     "histogram": [
       {
-        "year": 2010,
-        "count": 2
+        "year": 2004,
+        "count": 1
       },
       {
-        "year": 2011,
-        "count": 4
+        "year": 2005,
+        "count": 5
       },
       {
-        "year": 2012,
-        "count": 2
+        "year": 2006,
+        "count": 1
       },
       {
-        "year": 2013,
-        "count": 8
-      },
-      {
-        "year": 2014,
-        "count": 8
-      },
-      {
-        "year": 2015,
-        "count": 8
-      },
-      {
-        "year": 2016,
-        "count": 4
-      },
-      {
-        "year": 2017,
-        "count": 6
-      },
-      {
-        "year": 2018,
-        "count": 12
-      },
-      {
-        "year": 2019,
-        "count": 17
-      },
-      {
-        "year": 2020,
-        "count": 6
-      },
-      {
-        "year": 2021,
-        "count": 6
-      },
-      {
-        "year": 2022,
+        "year": 2007,
         "count": 3
       },
       {
+        "year": 2008,
+        "count": 4
+      },
+      {
+        "year": 2009,
+        "count": 3
+      },
+      {
+        "year": 2010,
+        "count": 6
+      },
+      {
+        "year": 2011,
+        "count": 11
+      },
+      {
+        "year": 2012,
+        "count": 12
+      },
+      {
+        "year": 2013,
+        "count": 24
+      },
+      {
+        "year": 2014,
+        "count": 22
+      },
+      {
+        "year": 2015,
+        "count": 24
+      },
+      {
+        "year": 2016,
+        "count": 18
+      },
+      {
+        "year": 2017,
+        "count": 17
+      },
+      {
+        "year": 2018,
+        "count": 29
+      },
+      {
+        "year": 2019,
+        "count": 29
+      },
+      {
+        "year": 2020,
+        "count": 16
+      },
+      {
+        "year": 2021,
+        "count": 18
+      },
+      {
+        "year": 2022,
+        "count": 8
+      },
+      {
         "year": 2023,
-        "count": 1
+        "count": 2
+      },
+      {
+        "year": 2024,
+        "count": 2
       }
     ]
   }

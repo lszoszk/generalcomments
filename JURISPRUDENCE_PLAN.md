@@ -1,10 +1,29 @@
 # Jurisprudence ingestion — plan & scoping
 
 **Source folder:** `/Users/lszoszk/Desktop/AI/HURIDOCS/App/output/ohchr_jurisprudence/`
-**Date:** 28 April 2026
-**Status:** CRPD pilot built locally — extractor + shard architecture in place
+**Date:** 29 April 2026
+**Status:** CRPD + CEDAW preview built — extractor + shard architecture in place
 
-## 0. Pilot status — CRPD
+## 0. Current preview status — CRPD + CEDAW
+
+Built on 29 April 2026:
+
+- Published preview result: **256 documents**, **12,649 paragraphs**, **2 shards**.
+- Treaty distribution:
+  - **CEDAW:** 168 documents · 8,923 paragraphs · `jur_CEDAW.json`
+  - **CRPD:** 88 documents · 3,726 paragraphs · `jur_small_treaties.json`
+- Formats parsed: **238 DOCX**, **15 PDF**, **5 legacy DOC**.
+- Outcome distribution:
+  - `inadmissible`: 101
+  - `violation_found`: 74
+  - `discontinued`: 37
+  - `other`: 34
+  - `merits_no_violation`: 9
+  - `decision`: 2
+  - `views`: 1
+- CEDAW ingestion note: **168/171** catalog records ingested; **1** record has no English file in the local dump; **2** OHCHR catalog rows were skipped because their treaty/symbol prefixes point to CRPD/CRC rather than CEDAW; extraction failures: **0**.
+
+## 0.1 Pilot status — CRPD
 
 Built on 28 April 2026:
 

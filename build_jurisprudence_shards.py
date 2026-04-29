@@ -18,6 +18,7 @@ Outputs:
 
 Usage:
   python3 build_jurisprudence_shards.py --treaty CRPD
+  python3 build_jurisprudence_shards.py --treaty CEDAW
   python3 build_jurisprudence_shards.py --all
 """
 from __future__ import annotations

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Jurisprudence ingestion — Phase 1 (CRPD pilot).
+Jurisprudence ingestion — treaty-by-treaty preview pipeline.
 
 Reads OHCHR's bulk jurisprudence dump:
   - catalog.jsonl       (per-case metadata)
@@ -54,7 +54,8 @@ Outcome taxonomy (per the user's decision: split violation):
   other                      Anything else (incl. records with no recognisable title)
 
 Usage:
-    python3 ingest_jurisprudence.py --treaty CRPD            # pilot — all CRPD
+    python3 ingest_jurisprudence.py --treaty CRPD            # all CRPD
+    python3 ingest_jurisprudence.py --treaty CEDAW           # all CEDAW
     python3 ingest_jurisprudence.py --treaty CRPD --limit 5  # quick sanity test
     python3 ingest_jurisprudence.py --all                    # full run (~4500 cases)
 """
@@ -92,6 +93,17 @@ MANIFEST = JURIS_SRC / 'download_manifest.jsonl'
 OUT_DIR_PARAGRAPHS = ROOT / 'json_jurisprudence'
 OUT_INFO = ROOT / 'mysite_pythonanywhere' / 'jurisprudence_info.json'
 
+TREATY_SYMBOL_PREFIXES = {
+    'CCPR': ('CCPR/',),
+    'CAT': ('CAT/',),
+    'CRC': ('CRC/',),
+    'CESCR': ('E/C.12/',),
+    'CEDAW': ('CEDAW/',),
+    'CRPD': ('CRPD/',),
+    'CERD': ('CERD/',),
+    'CED': ('CED/', 'INT/CED/JUR/'),
+}
+
 
 # ---------------------------------------------------------------------------
 # docId slug — `CRPD/C/18/D/22/2014` → `crpd-c-18-d-22-2014`
@@ -102,6 +114,18 @@ def slug(symbol: str) -> str:
     s = re.sub(r'[^a-z0-9-]', '-', s)
     s = re.sub(r'-+', '-', s).strip('-')
     return s
+
+
+def symbol_matches_treaty(symbol: str, treaty: str) -> bool:
+    """Guard against occasional OHCHR catalog rows filed under the wrong treaty."""
+    sym = (symbol or '').strip().upper()
+    body = (treaty or '').strip().upper()
+    if not sym or not body:
+        return True
+    expected = TREATY_SYMBOL_PREFIXES.get(body)
+    if expected:
+        return sym.startswith(expected)
+    return True
 
 
 # ---------------------------------------------------------------------------
@@ -780,6 +804,12 @@ def main() -> int:
 
     if args.treaty:
         catalog = [r for r in catalog if r.get('treaty', '').upper() == args.treaty.upper()]
+    before_mismatch = len(catalog)
+    catalog = [
+        r for r in catalog
+        if symbol_matches_treaty(r.get('symbol_no', ''), r.get('treaty', ''))
+    ]
+    skipped_mismatch = before_mismatch - len(catalog)
     if args.limit:
         catalog = catalog[: args.limit]
 
@@ -793,6 +823,11 @@ def main() -> int:
             existing_records = json.loads(OUT_INFO.read_text())
         except Exception:
             existing_records = []
+    if args.treaty:
+        existing_records = [
+            r for r in existing_records
+            if (r.get('treaty') or '').upper() != args.treaty.upper()
+        ]
     by_doc_id = {r['docId']: r for r in existing_records}
 
     n_ok = 0
@@ -826,6 +861,7 @@ def main() -> int:
     print(f'\n=== Ingestion summary ===')
     print(f'  Successful:      {n_ok}')
     print(f'  Skipped (no en): {n_skip}')
+    print(f'  Skipped mismatch:{skipped_mismatch}')
     print(f'  Failed:          {n_fail}')
     print(f'  Output paragraphs: {OUT_DIR_PARAGRAPHS}/<docId>.json  ({n_ok} files)')
     print(f'  Output catalog:    {OUT_INFO}  ({len(by_doc_id)} total records)')
