@@ -1034,6 +1034,13 @@ function initYearRange() {
 }
 
 // ─────────── UI bindings ───────────
+// v18.1: minimum query length before we kick the FlexSearch index. Typing
+// 1–3 chars (the JUR scope hits ~40k+ candidates) noticeably stutters on
+// older laptops and pegs the main thread; the user sees keystrokes lag.
+// 4 chars is the sweet spot — the index returns useful candidates and
+// per-key cost stays under one frame.
+const MIN_QUERY = 4;
+
 function bindUI() {
   // Search input (debounced)
   let t;
@@ -1042,10 +1049,18 @@ function bindUI() {
   qInput.addEventListener('input', e => {
     clearTimeout(t);
     syncClearChip();
-    t = setTimeout(() => {
-      state.query = e.target.value.trim();
-      runSearch();
-    }, 180);
+    const v = e.target.value.trim();
+    if (v.length === 0 || v.length >= MIN_QUERY) {
+      t = setTimeout(() => {
+        state.query = v;
+        runSearch();
+      }, 180);
+    } else {
+      // 1–3 chars: don't run the index. Show a tiny inline "keep typing"
+      // hint where the result count usually lives so the user understands.
+      state.query = v;                        // keep state in sync for URL
+      paintShortQueryHint(v);
+    }
   });
   qInput.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && qInput.value) {
@@ -1974,6 +1989,22 @@ function paragraphInScope(p, scope) {
 }
 
 // ─────────── Search ───────────
+// v18.1: hint shown while the user is still typing the first 1–3 chars.
+// We don't yet have a result set; tell them how many more chars to add.
+function paintShortQueryHint(v) {
+  const count = $('#result-count');
+  const title = $('#results-title');
+  const sub   = $('#results-sub');
+  const list  = $('#result-list');
+  const more  = $('#result-more');
+  const need = MIN_QUERY - v.length;
+  if (count) count.textContent = `${need}+ chars`;
+  if (title) title.textContent = `Keep typing — at least ${MIN_QUERY} characters`;
+  if (sub)   sub.textContent = `Searching kicks in once your query is at least ${MIN_QUERY} characters long. This keeps the page snappy on the larger jurisprudence index.`;
+  if (list)  list.innerHTML = '';
+  if (more)  more.textContent = '';
+}
+
 async function runSearch() {
   const runId = ++state.searchRun;
   scheduleUrlUpdate();
