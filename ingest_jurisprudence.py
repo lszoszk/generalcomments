@@ -91,6 +91,7 @@ MANIFEST = JURIS_SRC / 'download_manifest.jsonl'
 
 OUT_DIR_PARAGRAPHS = ROOT / 'json_jurisprudence'
 OUT_INFO = ROOT / 'mysite_pythonanywhere' / 'jurisprudence_info.json'
+OCR_DIR = ROOT / 'ocr_jurisprudence'
 
 TREATY_SYMBOL_PREFIXES = {
     'CCPR': ('CCPR/',),
@@ -608,26 +609,7 @@ def _clean_extracted_text(text: str) -> str:
     return text.strip()
 
 
-def extract_pdf_paragraphs(path: Path) -> list[dict]:
-    """Extract numbered jurisprudence paragraphs from a PDF.
-
-    `clean_extract.extract_paragraphs` is tuned for GC/SP reports and only
-    recognises top-level `1.` paragraph IDs. Jurisprudence decisions heavily
-    use decimal IDs (`1.1`, `2.4`, ...), so we reuse its page cleaning but run
-    a jurisprudence-specific line parser here.
-    """
-    sys.path.insert(0, str(ROOT))
-    from clean_extract import _clean_page_text
-
-    doc = fitz.open(path)
-    try:
-        pages = []
-        for page in doc:
-            cleaned = _clean_page_text(page)
-            pages.append(cleaned if cleaned.strip() else page.get_text())
-    finally:
-        doc.close()
-
+def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
     paragraphs: list[dict] = []
     current_id: str | None = None
     current_section = ''
@@ -696,9 +678,68 @@ def extract_pdf_paragraphs(path: Path) -> list[dict]:
                     current_section = line.rstrip('.')
 
     flush()
+    return paragraphs
+
+
+def _load_ocr_pages(doc_id: str | None) -> list[str]:
+    if not doc_id:
+        return []
+    candidates = sorted(OCR_DIR.glob(f'*/{doc_id}/ocr.json'))
+    for meta_path in candidates:
+        try:
+            meta = json.loads(meta_path.read_text())
+        except Exception:
+            continue
+        if meta.get('ocrStatus') not in ('pass', 'review'):
+            continue
+        doc_text = meta_path.parent / (meta.get('textPath') or 'document.txt')
+        if not doc_text.exists():
+            continue
+        pages = []
+        for page in meta.get('pages') or []:
+            page_path = meta_path.parent / (page.get('textPath') or '')
+            if page_path.exists():
+                pages.append(page_path.read_text())
+        if pages:
+            return pages
+        text = doc_text.read_text()
+        return [text] if text.strip() else []
+    return []
+
+
+def extract_pdf_paragraphs(path: Path, doc_id: str | None = None) -> list[dict]:
+    """Extract numbered jurisprudence paragraphs from a PDF.
+
+    `clean_extract.extract_paragraphs` is tuned for GC/SP reports and only
+    recognises top-level `1.` paragraph IDs. Jurisprudence decisions heavily
+    use decimal IDs (`1.1`, `2.4`, ...), so we reuse its page cleaning but run
+    a jurisprudence-specific line parser here.
+    """
+    sys.path.insert(0, str(ROOT))
+    from clean_extract import _clean_page_text
+
+    doc = fitz.open(path)
+    try:
+        pages = []
+        for page in doc:
+            cleaned = _clean_page_text(page)
+            pages.append(cleaned if cleaned.strip() else page.get_text())
+    finally:
+        doc.close()
+
+    paragraphs = _parse_pdf_text_pages(pages)
     if paragraphs:
         return paragraphs
-    return extract_pdf_unnumbered_decision(pages)
+    unnumbered = extract_pdf_unnumbered_decision(pages)
+    if unnumbered:
+        return unnumbered
+    ocr_pages = _load_ocr_pages(doc_id)
+    if not ocr_pages:
+        return []
+    paragraphs = _parse_pdf_text_pages(ocr_pages)
+    if paragraphs:
+        return paragraphs
+    return extract_pdf_unnumbered_decision(ocr_pages)
 
 
 def extract_pdf_unnumbered_decision(pages: list[str]) -> list[dict]:
@@ -893,6 +934,7 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
     if sym in EXCLUDED_SYMBOLS:
         print(f'    [skip] {sym}: {EXCLUDED_SYMBOLS[sym]}')
         return None
+    doc_id = slug(sym)
 
     # Pick the English manifest entry — prefer DOCX, fall back to PDF, then DOC.
     chosen = choose_english_entry(manifest_entries)
@@ -908,7 +950,7 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
         if fmt == 'docx':
             paragraphs = extract_docx_paragraphs(abs_path)
         elif fmt == 'pdf':
-            paragraphs = extract_pdf_paragraphs(abs_path)
+            paragraphs = extract_pdf_paragraphs(abs_path, doc_id=doc_id)
         elif fmt == 'doc':
             paragraphs = extract_doc_paragraphs(abs_path)
         else:
@@ -935,8 +977,11 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
     body_blob = ' '.join(p['Text'] for p in paragraphs)
     outcome = classify_outcome(catalog_record.get('title', ''), body_blob)
 
+    source_format = fmt
+    if fmt == 'pdf' and list(OCR_DIR.glob(f'*/{doc_id}/ocr.json')):
+        source_format = 'pdf_ocr'
+
     # docId + paths
-    doc_id = slug(sym)
     out_para_path = OUT_DIR_PARAGRAPHS / f'{doc_id}.json'
     out_para_path.parent.mkdir(parents=True, exist_ok=True)
     out_para_path.write_text(json.dumps(paragraphs, ensure_ascii=False, indent=2))
@@ -969,7 +1014,7 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
         'languages': ['en'],
         'link': catalog_record.get('download_page_url', '').strip(),
         'sourceFile': f'json_jurisprudence/{doc_id}.json',
-        'sourceFormat': fmt,
+        'sourceFormat': source_format,
         'shardId': shard_id_for(catalog_record.get('treaty', ''), year),
         'paragraphCount': len(paragraphs),
         'wordCount': sum(len(p['Text'].split()) for p in paragraphs),

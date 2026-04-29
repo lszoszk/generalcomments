@@ -120,6 +120,9 @@ __pycache__/
 cache/
 venv/
 json_meilisearch
+ocr_jurisprudence/
+ocr_jurisprudence*.json
+ocr_jurisprudence*.jsonl
 
 # Files
 templates/corpus_viewer.html
