@@ -1797,7 +1797,13 @@ body[data-active-view="about"]    section[data-view="about"]    { display: block
 .ws-search-link { color: var(--ink); font-family: var(--display); font-size: 14px; text-decoration: none; }
 .ws-search-link:hover { color: var(--garnet); text-decoration: underline; }
 
-/* Diff tray (B3) — bottom-right floating widget */
+/* Diff tray (B3) — bottom-right floating widget.
+   `[hidden]` MUST win over the visible-state rules below — without the
+   explicit override the class selectors had higher specificity than the
+   browser default `[hidden] { display: none }`, leaving the empty tray
+   and modal on the page and stealing clicks across the whole viewport. */
+.diff-tray[hidden],
+.diff-modal[hidden] { display: none !important; }
 .diff-tray {
   position: fixed;
   bottom: 16px;
