@@ -26,6 +26,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -528,12 +529,19 @@ def cmd_run(args: argparse.Namespace) -> int:
     if args.status:
         done = {p.parent.name: json.loads(p.read_text()).get('ocrStatus') for p in (OCR_ROOT / args.treaty.lower()).glob('*/ocr.json')}
         rows = [r for r in rows if done.get(r['docId']) == args.status]
+    elif not args.force:
+        total = len(rows)
+        rows = [r for r in rows if not (OCR_ROOT / r['treaty'].lower() / r['docId'] / 'ocr.json').exists()]
+        skipped = total - len(rows)
+        if skipped:
+            print(f'Skipping {skipped} already OCRed documents; use --force to rebuild them', flush=True)
     if args.limit:
         rows = rows[:args.limit]
-    print(f'OCR run: {len(rows)} documents')
+    print(f'OCR run: {len(rows)} documents with {args.workers} worker(s)', flush=True)
     counts: dict[str, int] = {}
-    for i, row in enumerate(rows, 1):
-        result = ocr_one(
+
+    def run_row(row: dict) -> dict:
+        return ocr_one(
             row,
             dpi=args.dpi,
             mode=args.mode,
@@ -541,14 +549,34 @@ def cmd_run(args: argparse.Namespace) -> int:
             max_low_conf_ratio=args.max_low_conf_ratio,
             force=args.force,
         )
+
+    def print_result(i: int, result: dict) -> None:
         counts[result['ocrStatus']] = counts.get(result['ocrStatus'], 0) + 1
         print(
             f'[{i:4d}/{len(rows)}] {result["ocrStatus"]:6s} '
             f'{result["symbol"]} conf={result["meanConf"]:.1f} '
             f'words={result["wordCount"]} pages={result["pageCount"]} '
-            f'fixes={result.get("correctionCount", 0)}'
+            f'fixes={result.get("correctionCount", 0)}',
+            flush=True,
         )
-    print('Summary:', counts)
+
+    if args.workers <= 1:
+        for i, row in enumerate(rows, 1):
+            print_result(i, run_row(row))
+    else:
+        with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            futures = {pool.submit(run_row, row): row for row in rows}
+            for i, future in enumerate(as_completed(futures), 1):
+                row = futures[future]
+                try:
+                    print_result(i, future.result())
+                except Exception as exc:
+                    counts['error'] = counts.get('error', 0) + 1
+                    print(
+                        f'[{i:4d}/{len(rows)}] error  {row["symbol"]}: {exc}',
+                        flush=True,
+                    )
+    print('Summary:', counts, flush=True)
     return 0
 
 
@@ -664,6 +692,7 @@ def main() -> int:
     run.add_argument('--treaty', default='CCPR')
     run.add_argument('--dpi', type=int, default=DEFAULT_DPI)
     run.add_argument('--mode', choices=sorted(PSM_BY_MODE), default='quality')
+    run.add_argument('--workers', type=int, default=1, help='Number of documents to OCR in parallel')
     run.add_argument('--limit', type=int)
     run.add_argument('--force', action='store_true')
     run.add_argument('--status', choices=['pass', 'review', 'fail'], help='Re-run only documents with a previous status')

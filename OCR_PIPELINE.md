@@ -69,6 +69,16 @@ python3 ocr_jurisprudence.py plan --treaty CCPR
 python3 ocr_jurisprudence.py run --treaty CCPR --limit 5
 ```
 
+Use parallel workers for larger runs:
+
+```bash
+python3 ocr_jurisprudence.py run --treaty CCPR --mode quality --workers 4
+```
+
+The runner is resumable. Unless `--force` is passed, it skips documents that
+already have `ocr_jurisprudence/<treaty>/<docId>/ocr.json`, so interrupted runs
+can be started again without repeating completed OCR.
+
 3. For a difficult page/document, compare the full candidate set:
 
 ```bash
