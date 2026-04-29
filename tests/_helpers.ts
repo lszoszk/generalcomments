@@ -92,11 +92,13 @@ export async function typeQuery(page: Page, q: string): Promise<void> {
 export async function resetWorkspace(page: Page): Promise<void> {
   await page.addInitScript(() => {
     try {
-      // Wipe ONLY on the very first run of an init script burst — once
-      // the page has booted, any subsequent calls (e.g. follow-on
-      // page.goto in the same test) leave the seeded state alone.
-      if ((window as any).__unhrdbResetDone) return;
-      (window as any).__unhrdbResetDone = true;
+      // Wipe ONLY on the very first run within this tab — sessionStorage
+      // survives reloads, so a test that exercises a save+reload round-
+      // trip doesn't lose its seeded state when boot fires the init
+      // script again. window-scoped flags would reset on reload and
+      // re-wipe the localStorage we just wrote.
+      if (sessionStorage.getItem('__unhrdbResetDone') === '1') return;
+      sessionStorage.setItem('__unhrdbResetDone', '1');
       Object.keys(localStorage)
         .filter((k) => k.startsWith('unhrdb_'))
         .forEach((k) => localStorage.removeItem(k));

@@ -1,0 +1,71 @@
+name: tests
+
+# Runs the Playwright smoke + integration suite on every push to main and
+# every PR that touches the static frontend or the test rig itself.
+# Contracts (live VM) and accessibility deeper-dives are NOT in this
+# gate — they go through their own ad-hoc workflows so a flaky network
+# can't block a UI fix.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'playwright.config.ts'
+      - '.github/workflows/test.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'playwright.config.ts'
+
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install npm deps
+        run: npm ci --no-audit --no-fund
+
+      # Cache the Playwright browser binaries — saves ~90 s on cold runs.
+      # The cache key is the @playwright/test version pinned in package-
+      # lock.json; bumping the dep busts the cache automatically.
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright browsers
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install browser system deps
+        if: steps.pw-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Run tests
+        run: npm test
+        env:
+          CI: 'true'
+
+      - name: Upload trace + screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-failures-${{ github.run_id }}
+          path: test-results/
+          retention-days: 7

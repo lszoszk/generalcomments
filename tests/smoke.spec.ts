@@ -171,3 +171,55 @@ test('12. shareUrlRoundTrip · ?q=X opens with that query', async ({ page }) => 
   const n = parseInt((txt || '').replace(/[^\d]/g, ''));
   expect(n).toBeGreaterThan(0);
 });
+
+test('13. themePersists · dark mode survives reload (v19.6 B3)', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  // Initial state: light theme (default in HTML).
+  expect(await page.locator('html').getAttribute('data-theme')).toBe('light');
+  // Toggle ◐.
+  await page.locator('#theme-toggle').click();
+  expect(await page.locator('html').getAttribute('data-theme')).toBe('dark');
+  // Reload — must still be dark.
+  await page.reload({ waitUntil: 'commit' });
+  await page.waitForFunction(() => /¶/.test(document.getElementById('mast-folio')?.textContent || ''));
+  expect(await page.locator('html').getAttribute('data-theme')).toBe('dark');
+  // Toggle back to light + reload + verify the round-trip.
+  await page.locator('#theme-toggle').click();
+  await page.reload({ waitUntil: 'commit' });
+  await page.waitForFunction(() => /¶/.test(document.getElementById('mast-folio')?.textContent || ''));
+  expect(await page.locator('html').getAttribute('data-theme')).toBe('light');
+});
+
+test('14. apiBreakdownPills · server total wins over page-slice (v19.6 U2)', async ({ page }) => {
+  // Mock /api/search with total=1844 + breakdown = {gc:300, jur:1500, sp:44}.
+  // The 200-row page slice we render only contains GC rows; without U2
+  // the JUR + SP pills would read 0.
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify({ version: 'mock', byType: {gc:{},jur:{},sp:{}}, totalParagraphs: 1844 }) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    route.fulfill({
+      status: 200,
+      body: JSON.stringify({
+        query: 'disability', ftsExpr: '"disability"', scope: 'all',
+        total: 1844, page: 1, pageSize: 200, tookMs: 50,
+        breakdown: { gc: 300, jur: 1500, sp: 44 },
+        // Only return GC rows in the page slice — to verify the pills
+        // come from breakdown, not the rendered set.
+        hits: Array.from({ length: 50 }, (_, i) => ({
+          rowid: i + 1, para_id: `m-${i+1}`, doc_id: 'mock', idx: i+1, n: String(i+1),
+          section: null, text: 'mock', type: 'gc', treaty: null, committee: 'CAT',
+          mandate: null, country: null, year: 2020, adoption_date: '2020', signature: 'M',
+          outcome: null, name: 'M', name_short: 'M',
+          snippet: '<mark>disability</mark>', score: -10,
+        })),
+        alsoTry: [],
+      }),
+    })
+  );
+  await bootApp(page, '/index.html?api=1&scope=all&q=disability');
+  await page.waitForTimeout(1500);
+  await expect(page.locator('#rb-gc')).toContainText(/^GC 300\s*¶/);
+  await expect(page.locator('#rb-jur')).toContainText(/^JUR 1.?500\s*¶/);
+  await expect(page.locator('#rb-sp')).toContainText(/^SP 44\s*¶/);
+});

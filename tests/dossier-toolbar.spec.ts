@@ -26,17 +26,7 @@ async function openDossier(page: any) {
   await page.locator('.dossier-toolbar').waitFor();
 }
 
-test.fixme('D1. saveToggles · bookmark on/off survives reload', async ({ page }) => {
-  // KNOWN BUG: the dossier toolbar's Save button (#ws-bookmark) doesn't
-  // get the .on class flipped on after click — its className stays
-  // "dossier-tool " (note the trailing space). Compare to the result-row
-  // ★ marks and the docs-reader per-paragraph ☆ buttons, which DO toggle
-  // properly. Backend state DOES update (localStorage gets the bookmark);
-  // only the visual feedback on the dossier toolbar fails.
-  // Likely fix: paintDossier doesn't recompute the active class for
-  // #ws-bookmark on its own click handler — the bmToggle call should be
-  // followed by a class swap, not a full repaint that recreates the
-  // button without the class hint.
+test('D1. saveToggles · bookmark on/off survives reload', async ({ page }) => {
   await openDossier(page);
   await page.locator('#ws-bookmark').click();
   await expect(page.locator('#ws-bookmark')).toHaveClass(/on/);

@@ -194,6 +194,11 @@ async function runSearchViaApi(runId) {
   // we only paged in 200 rows.
   state.alsoTry = body.alsoTry || [];
   state.apiTotal = body.total;
+  // v19.6 (U2): server-side breakdown over the FULL match-set,
+  // not just the first 200-row page slice. paintResultBreakdown reads
+  // this when running through the API — without it, the GC/JUR/SP
+  // pills under the searchbar showed only what was rendered.
+  state.apiBreakdown = body.breakdown || null;
   // v19.2: stash the params + page cursor so the IntersectionObserver
   // can fetch /api/search?page=N+1 when the user scrolls past 200.
   state.apiPage = 1;
@@ -370,6 +375,18 @@ function hideLoader() {
   loader.classList.add('hidden');
   setTimeout(() => loader.remove(), 300);
 }
+
+// v19.6 (B3): theme preference is restored synchronously, BEFORE
+// boot() awaits anything, so users on dark mode don't see a
+// light-mode flash while corpus.json downloads.
+(function restoreThemePref() {
+  try {
+    const saved = localStorage.getItem('unhrdb_theme_v1');
+    if (saved === 'dark' || saved === 'light') {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+  } catch {}
+})();
 
 // ─────────── Boot ───────────
 async function boot() {
@@ -907,6 +924,8 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
   paintDocDrawer(doc);
   // Keep rail row in sync (highlight new active row).
   paintDocsRail();
+  // v19.6 (B1): tab <title> reflects the open doc.
+  updateDocumentTitle();
   // Scroll the rail so the active row is visible.
   document.querySelector('.docs-rail-row.is-active')?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
 }
@@ -1281,8 +1300,22 @@ function initYearRange() {
   lo.step = hi.step = 1;
   lo.value = min;
   hi.value = max;
+  // v19.6 (A2): explicit slider ARIA. Native <input type="range">
+  // already has implicit role="slider" + valuemin/max/now derived
+  // from min/max/value, but axe-core's aria-required-attr rule wants
+  // them spelled out + aria-valuetext to read like "1960" instead of
+  // raw "min: 1960; max: 1960" some screen readers concoct.
+  syncYearSliderAria(lo, min, max, lo.value);
+  syncYearSliderAria(hi, min, max, hi.value);
   paintYearFill();
   paintYearHistogram();
+}
+
+function syncYearSliderAria(el, min, max, val) {
+  el.setAttribute('aria-valuemin',  String(min));
+  el.setAttribute('aria-valuemax',  String(max));
+  el.setAttribute('aria-valuenow',  String(val));
+  el.setAttribute('aria-valuetext', String(val));
 }
 
 // ─────────── UI bindings ───────────
@@ -1491,10 +1524,14 @@ function bindUI() {
     runSearch();
   });
 
-  // Theme toggle
+  // Theme toggle. v19.6 (B3): persist to localStorage so the
+  // preference survives reload. Boot-time restore is in initThemePref()
+  // — runs before paintMastFolio so we don't see a light→dark flicker.
   $('#theme-toggle').addEventListener('click', () => {
     const cur = document.documentElement.getAttribute('data-theme');
-    document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem(_LS.theme, next); } catch {}
   });
 
   // Documents view: scope segmented + filter input.
@@ -1772,6 +1809,12 @@ function paintYearFill() {
   $('#year-lo').textContent = state.filters.yearMin;
   $('#year-hi').textContent = state.filters.yearMax;
   $('#year-display').textContent = `${state.filters.yearMin} – ${state.filters.yearMax}`;
+  // v19.6 (A2): keep aria-valuenow / aria-valuetext in sync with the
+  // visual values. Some screen readers cache the initial values and
+  // never re-poll, so the explicit attribute write is meaningful.
+  const lo = $('#year-min'), hi = $('#year-max');
+  if (lo) syncYearSliderAria(lo, min, max, state.filters.yearMin);
+  if (hi) syncYearSliderAria(hi, min, max, state.filters.yearMax);
 }
 
 // ─────────── Query parsing (boolean) ───────────
@@ -2395,6 +2438,7 @@ async function runSearch() {
   state.results = matched;
   state.alsoTry = [];                       // v19: local path doesn't have synonyms
   state.apiTotal = null;                    // local path: state.results.length is the truth
+  state.apiBreakdown = null;                // v19.6 (U2): same — count from results
   state.apiHasMore = false;                 // v19.2: no API pagination on the local path
   state.apiPageInflight = null;
   sortResults();
@@ -2595,11 +2639,22 @@ function paintResultBreakdown() {
     wrap.hidden = true;
     return;
   }
-  let nGc = 0, nJur = 0, nSp = 0;
-  for (const { p } of state.results) {
-    if (p.type === 'gc') nGc++;
-    else if (p.type === 'jur') nJur++;
-    else if (p.type === 'sp') nSp++;
+  // v19.6 (U2): in API mode, prefer the server-supplied breakdown so
+  // the pills reflect the FULL match-set (not just the 200-row page
+  // slice that we have rendered). Falls back to a local count for the
+  // FlexSearch path.
+  let nGc, nJur, nSp;
+  if (state.apiBreakdown) {
+    nGc  = state.apiBreakdown.gc  || 0;
+    nJur = state.apiBreakdown.jur || 0;
+    nSp  = state.apiBreakdown.sp  || 0;
+  } else {
+    nGc = nJur = nSp = 0;
+    for (const { p } of state.results) {
+      if (p.type === 'gc') nGc++;
+      else if (p.type === 'jur') nJur++;
+      else if (p.type === 'sp') nSp++;
+    }
   }
   wrap.hidden = false;
   gcPill.hidden = nGc === 0;
@@ -3161,6 +3216,17 @@ function refreshResultMarks(paraId) {
 // the same homepage title.
 const BASE_TITLE = 'UN Human Rights Database';
 function updateDocumentTitle() {
+  // v19.6 (B1): when the docs reader is active, the open document's
+  // title takes precedence over the search-side activeId. The docs
+  // reader has its own active-paragraph state (state.docsActiveDocId
+  // / docsActiveParaId) — without this branch, the tab title still
+  // shows whatever was last open in the search dossier.
+  if (state.view === 'documents' && state.docsActiveDocId) {
+    const doc = state.documents.get(state.docsActiveDocId);
+    const docTitle = doc?.nameShort || doc?.name || state.docsActiveDocId;
+    document.title = `${docTitle} · UN Human Rights Database`;
+    return;
+  }
   const para = state.activeId ? state.paragraphById.get(state.activeId) : null;
   if (para) {
     const doc = state.documents.get(para.docId);
@@ -3941,6 +4007,7 @@ const _LS = {
   ss:    'unhrdb_searches_v1',
   dossierWidth: 'unhrdb_dossier_width_v1',  // v15: user-resized dossier (px, integer)
   dossierFont:  'unhrdb_dossier_font_v1',   // v15: 'S' | 'M' | 'L'
+  theme:        'unhrdb_theme_v1',          // v19.6: 'light' | 'dark'
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }

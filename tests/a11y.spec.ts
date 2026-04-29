@@ -17,12 +17,17 @@ const VIEWS = [
 ];
 
 for (const view of VIEWS) {
-  // KNOWN VIOLATIONS (first scan, 2026-04-29 — to be fixed in v20):
+  // KNOWN REMAINING VIOLATIONS (after v19.6 round):
   //   - color-contrast on .dim text + .badge-preview/jur on light bg
-  //   - aria-required-attr on the year-range sliders
   //   - target-size on the result-row ☆/📌/”/📝 marks (≤24×24)
-  // The suite stays in the rig as `.fixme` so the report surfaces every
-  // run — drop the .fixme as those classes are addressed.
+  //
+  // v19.6 cleared:
+  //   ✅ A2 aria-required-attr on year-range sliders (explicit aria-*
+  //      attrs added by initYearRange + paintYearFill)
+  //   ✅ A4 docs view axe timeout (rail wrapped in role="navigation")
+  //
+  // The suite stays in the rig as `.fixme` until A1 + A3 (target-size +
+  // color-contrast) ship.  Drop the .fixme then.
   test.fixme(`a11y · ${view.label}`, async ({ page }) => {
     await resetWorkspace(page);
     await bootApp(page, '/index.html' + view.hash);

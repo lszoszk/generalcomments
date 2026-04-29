@@ -98,15 +98,17 @@ test('R7. railScopeTabs · clicking GC narrows rail to GC docs only', async ({ p
   expect(gcRows).toBe(total);
 });
 
-test.fixme('R8. titleSyncReader · browser tab <title> follows the open doc', async ({ page }) => {
-  // KNOWN BUG (originally noted as v17 synthetic-round Issue #2): when a
-  // doc is opened in the docs reader, document.title still shows whatever
-  // the LAST opened paragraph in the search dossier was. paintDocReaderBody
-  // needs to call updateDocumentTitle() (or set document.title directly).
-  // Repro: navigate to /index.html, type a query, click a result (sets
-  // title to that paragraph's doc), then navigate to #documents/<other-doc>.
-  // Title still shows the original paragraph's doc.
+test('R8. titleSyncReader · browser tab <title> follows the open doc', async ({ page }) => {
+  // v19.6 (B1) fix: updateDocumentTitle now branches on state.view ===
+  // 'documents' and reads state.docsActiveDocId. paintDocReaderBody
+  // calls it whenever a new doc opens.
   await bootApp(page, '/index.html#documents/crpd-c-gc-6');
-  await page.waitForTimeout(800);
-  expect(await page.title()).toMatch(/equality|non-discrimination|GC6/i);
+  // Wait for setView('documents') → openDocReader → updateDocumentTitle
+  // chain to land. Headless chromium is slower than the manual probe;
+  // poll on document.title rather than a fixed timeout.
+  await page.waitForFunction(
+    () => /equality|non-discrimination|GC6/i.test(document.title),
+    null,
+    { timeout: 8_000 }
+  );
 });
