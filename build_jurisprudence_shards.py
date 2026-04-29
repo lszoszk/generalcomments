@@ -78,6 +78,16 @@ def compact_document(doc: dict) -> dict:
         'shardId', 'paragraphCount', 'wordCount', 'labelCount',
         'caseLabels', 'articlesCited', 'ocrStatus', 'ocrMeanConf',
         'ocrLowConfRatio', 'ocrPageCount', 'ocrWordCount', 'ocrWarnings',
+        'originalName', 'originalTitle', 'nameSource', 'nameConfidence',
+        'caseName', 'caseNameSource', 'caseNameConfidence',
+        'submittedBy', 'submittedByClean', 'representation',
+        'allegedVictims', 'stateParty', 'communicationDate',
+        'documentReferences', 'subjectMatter', 'proceduralIssues',
+        'substantiveIssues', 'covenantArticles', 'conventionArticles',
+        'optionalProtocolArticles', 'covenantArticlesParsed',
+        'conventionArticlesParsed', 'optionalProtocolArticlesParsed',
+        'rulesReferenced', 'interimMeasuresMentioned',
+        'metadataConfidence', 'metadataSources', 'externalNameAuthority',
         'firstAddedAt', 'lastVerifiedAt',
     ]
     return {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
