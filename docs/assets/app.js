@@ -2729,6 +2729,26 @@ function updateDocumentTitle() {
   document.title = BASE_TITLE;
 }
 
+// v18: brief visual feedback on a toolbar button (replaces the icon with
+// a checkmark for ~900 ms). Used after Copy / paragraph-text save.
+function flashToolBtn(selector, mark = '✓') {
+  const btn = document.querySelector(selector);
+  if (!btn) return;
+  const icon = btn.querySelector('.dossier-tool-icon');
+  const label = btn.querySelector('.dossier-tool-label');
+  if (!icon) return;
+  const origIcon = icon.textContent;
+  const origLabel = label?.textContent;
+  icon.textContent = mark;
+  if (label) label.textContent = 'Copied';
+  btn.classList.add('is-flash');
+  setTimeout(() => {
+    icon.textContent = origIcon;
+    if (label && origLabel != null) label.textContent = origLabel;
+    btn.classList.remove('is-flash');
+  }, 900);
+}
+
 function paintDossier() {
   const host = $('#dossier');
   if (!state.activeId) {
@@ -2838,61 +2858,141 @@ function paintDossier() {
       <span class="pn">¶ ${para.n ?? para.idx}</span>
       <p>${highlight(para.text, terms)}</p>
     </blockquote>
-    <div class="dossier-workspace">
-      <button class="btn btn-ghost ws-action ${bmHas(para.id) ? 'on' : ''}" id="ws-bookmark" type="button"
-              title="${bmHas(para.id) ? 'Remove bookmark' : 'Bookmark this paragraph'}">
-        ${bmHas(para.id) ? '★ Bookmarked' : '☆ Bookmark'}
+    <div class="dossier-toolbar" role="toolbar" aria-label="Paragraph actions">
+      <button class="dossier-tool ${bmHas(para.id) ? 'on' : ''}" id="ws-bookmark" type="button"
+              title="${bmHas(para.id) ? 'Remove bookmark' : 'Bookmark this paragraph'}"
+              aria-label="${bmHas(para.id) ? 'Remove bookmark' : 'Bookmark'}">
+        <span class="dossier-tool-icon">${bmHas(para.id) ? '★' : '☆'}</span>
+        <span class="dossier-tool-label">${bmHas(para.id) ? 'Saved' : 'Save'}</span>
       </button>
-      <button class="btn btn-ghost ws-action ${pinHas(para.id) ? 'on' : ''}" id="ws-pin" type="button"
-              title="${pinHas(para.id) ? 'Unpin' : 'Pin for compare (max 2)'}">
-        ${pinHas(para.id) ? '📌 Pinned' : '📌 Pin'}
+      <button class="dossier-tool ${pinHas(para.id) ? 'on' : ''}" id="ws-pin" type="button"
+              title="${pinHas(para.id) ? 'Unpin' : 'Pin for compare (max 2)'}"
+              aria-label="${pinHas(para.id) ? 'Unpin' : 'Pin for compare'}">
+        <span class="dossier-tool-icon">📌</span>
+        <span class="dossier-tool-label">${pinHas(para.id) ? 'Pinned' : 'Pin'}</span>
       </button>
-      <details class="dossier-note-wrap" ${noteHas(para.id) ? 'open' : ''}>
-        <summary class="btn btn-ghost ws-action ${noteHas(para.id) ? 'on' : ''}">
-          ${noteHas(para.id) ? '📝 Edit note' : '📝 Add note'}
-        </summary>
-        <textarea class="dossier-note serif" id="ws-note"
-                  placeholder="Private notes — saved only in this browser."></textarea>
-      </details>
-    </div>
-    <div class="dossier-actions">
-      ${doc?.link ? `<a class="btn btn-garnet" href="${escape(doc.link)}" target="_blank" rel="noopener">Open original</a>` : ''}
-      <details class="cite-menu" id="cite-menu">
-        <summary class="btn btn-ghost cite-btn" title="Copy citation in your preferred format">
-          <span class="cite-glyph">”</span>
-          <span class="cite-label">Cite as…</span>
-        </summary>
-        <div class="cite-pop">
+      <button class="dossier-tool" id="ws-copy" type="button"
+              title="Copy paragraph text to clipboard"
+              aria-label="Copy paragraph text">
+        <span class="dossier-tool-icon">📋</span>
+        <span class="dossier-tool-label">Copy</span>
+      </button>
+      <button class="dossier-tool ${noteHas(para.id) ? 'on' : ''}" id="ws-note-toggle" type="button"
+              title="${noteHas(para.id) ? 'Edit your private note' : 'Add a private note'}"
+              aria-label="${noteHas(para.id) ? 'Edit note' : 'Add note'}"
+              aria-expanded="${noteHas(para.id) ? 'true' : 'false'}">
+        <span class="dossier-tool-icon">📝</span>
+        <span class="dossier-tool-label">Note</span>
+      </button>
+      <div class="dossier-tool dossier-tool-cite" id="cite-menu">
+        <button class="dossier-tool-summary" id="cite-trigger" type="button"
+                title="Copy citation in your preferred format"
+                aria-haspopup="menu" aria-expanded="false">
+          <span class="dossier-tool-icon">”</span>
+          <span class="dossier-tool-label">Cite</span>
+        </button>
+        <div class="cite-pop" id="cite-pop" role="menu" hidden>
           ${CITE_FORMATS.map(c => `
-            <button type="button" class="cite-opt" data-cite-key="${c.key}">
+            <button type="button" class="cite-opt" data-cite-key="${c.key}" role="menuitem">
               <span class="cite-fmt">${escape(c.fmt)}</span>
               <span class="cite-name">${escape(c.name)}</span>
             </button>`).join('')}
         </div>
-      </details>
-      <button class="btn btn-ghost reading-mode-btn" id="reading-toggle"
-              title="Reading mode (R) — single-column reading view">
-        📖 <span class="reading-mode-label">Reading mode</span>
+      </div>
+      <button class="dossier-tool reading-mode-btn" id="reading-toggle" type="button"
+              title="Reading mode (R) — single-column reading view"
+              aria-label="Reading mode (R)">
+        <span class="dossier-tool-icon">📖</span>
+        <span class="dossier-tool-label reading-mode-label">Read</span>
       </button>
     </div>
+    <div class="dossier-note-wrap" id="ws-note-wrap" ${noteHas(para.id) ? '' : 'hidden'}>
+      <textarea class="dossier-note serif" id="ws-note"
+                placeholder="Private note — autosaved to this browser only."></textarea>
+    </div>
+    ${doc?.link ? `
+      <div class="dossier-original">
+        <a class="dossier-original-link" href="${escape(doc.link)}" target="_blank" rel="noopener">
+          ↗ Open original document on un.org
+        </a>
+      </div>` : ''}
   `;
 
   // B1 Bookmark toggle
   $('#ws-bookmark')?.addEventListener('click', () => { bmToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
   // B3 Pin toggle
   $('#ws-pin')?.addEventListener('click', () => { pinToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
+
+  // v18: Copy paragraph text. Strips highlight markup, leaves a clean
+  // verbatim paragraph the user can paste into their draft.
+  $('#ws-copy')?.addEventListener('click', () => {
+    const txt = para.text || '';
+    try { navigator.clipboard?.writeText(txt); } catch {}
+    flashToolBtn('#ws-copy', '✓');
+  });
+
+  // v18: Note toggle — show/hide the textarea below the toolbar.
+  // The textarea autosaves whenever it has a value.
+  const noteWrap = $('#ws-note-wrap');
+  const noteToggle = $('#ws-note-toggle');
+  noteToggle?.addEventListener('click', () => {
+    const wasHidden = noteWrap.hasAttribute('hidden');
+    if (wasHidden) {
+      noteWrap.removeAttribute('hidden');
+      noteToggle.setAttribute('aria-expanded', 'true');
+      $('#ws-note')?.focus();
+    } else {
+      noteWrap.setAttribute('hidden', '');
+      noteToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
   // B2 Note autosave (debounced on blur + after 600 ms idle)
   const noteTa = $('#ws-note');
   if (noteTa) {
     noteTa.value = noteGet(para.id);
-    let t; const save = () => { noteSet(para.id, noteTa.value); refreshResultMarks(para.id); };
+    let t; const save = () => {
+      noteSet(para.id, noteTa.value);
+      refreshResultMarks(para.id);
+      paintWorkspaceBadge();
+    };
     noteTa.addEventListener('input', () => { clearTimeout(t); t = setTimeout(save, 600); });
     noteTa.addEventListener('blur', () => { clearTimeout(t); save(); });
   }
 
+  // v18: Cite menu — popover toggled by the trigger button. We dropped
+  // <details> in favour of explicit aria-expanded so the button can sit
+  // inside a flex toolbar without summary's default styling fighting us.
+  const citeRoot = $('#cite-menu');
+  const citeTrigger = $('#cite-trigger');
+  const citePop = $('#cite-pop');
+  const closeCite = () => {
+    citePop?.setAttribute('hidden', '');
+    citeTrigger?.setAttribute('aria-expanded', 'false');
+    citeRoot?.classList.remove('is-open');
+  };
+  const openCite = () => {
+    citePop?.removeAttribute('hidden');
+    citeTrigger?.setAttribute('aria-expanded', 'true');
+    citeRoot?.classList.add('is-open');
+  };
+  citeTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    citePop?.hasAttribute('hidden') ? openCite() : closeCite();
+  });
+  // Click-outside / Esc to close.
+  document.addEventListener('click', (e) => {
+    if (!citeRoot?.contains(e.target)) closeCite();
+  }, { once: true });
+  document.addEventListener('keydown', function escClose(e) {
+    if (e.key === 'Escape' && !citePop?.hasAttribute('hidden')) {
+      closeCite();
+      document.removeEventListener('keydown', escClose);
+    }
+  });
+
   // Wire each citation format. Falls back to a one-liner if the user's
   // browser blocks clipboard writes (rare; e.g. file:// without a polyfill).
-  $$('#cite-menu .cite-opt').forEach(btn => {
+  $$('#cite-pop .cite-opt').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const key = btn.dataset.citeKey;
@@ -2903,7 +3003,10 @@ function paintDossier() {
       const label = btn.querySelector('.cite-fmt');
       const original = label.textContent;
       label.textContent = '✓ COPIED';
-      setTimeout(() => { label.textContent = original; }, 1200);
+      setTimeout(() => {
+        label.textContent = original;
+        closeCite();
+      }, 900);
     });
   });
 
@@ -3018,7 +3121,7 @@ function syncReadingModeButton() {
   const on = document.body.classList.contains('is-reading-mode');
   btn.classList.toggle('is-active', on);
   const lbl = btn.querySelector('.reading-mode-label');
-  if (lbl) lbl.textContent = on ? 'Exit reading' : 'Reading mode';
+  if (lbl) lbl.textContent = on ? 'Exit' : 'Read';      // v18: fits the 6-button toolbar
 }
 
 // v16: a fixed-top "you are in reading mode" bar with explicit instructions

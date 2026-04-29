@@ -1326,51 +1326,12 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
 }
 .dossier-folio-row { align-items: center; }
 
-.dossier-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 18px;
-  flex-wrap: wrap;
-}
-
-/* ─── Citation menu (reuses the export-menu visual language) ─── */
-.cite-menu {
-  position: relative;
-  flex-shrink: 0;
-}
-.cite-menu summary {
-  list-style: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  padding: 5px 10px;
-  cursor: pointer;
-  user-select: none;
-}
-.cite-menu summary::-webkit-details-marker { display: none; }
-.cite-menu[open] summary {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
-}
-.cite-glyph {
-  font-family: var(--display);
-  font-size: 16px;
-  line-height: 1;
-}
-.cite-pop {
-  position: absolute;
-  left: 0;
-  top: calc(100% + 4px);
-  z-index: 20;
-  min-width: 220px;
-  background: var(--paper);
-  border: 1px solid var(--ink);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
-  display: flex;
-  flex-direction: column;
-}
+/* v18: unified dossier toolbar — replaces the old two-row layout
+   (dossier-workspace + dossier-actions) with one flex strip of equal-
+   width icon buttons. Cite menu is now a popover anchored to its
+   button rather than pushing the layout, so the toolbar height stays
+   stable when the menu opens. */
+.dossier-actions { display: none; }     /* legacy, kept for safety */
 .cite-opt {
   display: flex;
   flex-direction: row;
@@ -1473,9 +1434,9 @@ body.is-reading-mode .dossier blockquote p {
   line-height: 1.85;
   color: var(--ink);
 }
-body.is-reading-mode .dossier-actions {
+body.is-reading-mode .dossier-toolbar {
   margin-top: 32px;
-  padding-top: 18px;
+  padding: 12px;
   border-top: 1px solid var(--rule);
 }
 @media (max-width: 700px) {
@@ -2191,30 +2152,103 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .ws-mark.on { background: var(--garnet); border-color: var(--garnet); color: var(--paper); }
 .ws-mark.ws-mark-note { cursor: default; }
 
-/* Dossier workspace strip (above the citation/reading actions row) */
-.dossier-workspace {
+/* v18 unified toolbar ─────────────────────────────────────────── */
+.dossier-toolbar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  margin-top: 20px;
+  padding: 8px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper);
+}
+.dossier-tool {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px dotted var(--rule);
-}
-.ws-action.on { background: var(--garnet); color: var(--paper); border-color: var(--garnet); }
-.dossier-note-wrap { width: 100%; margin-top: 4px; }
-.dossier-note-wrap summary {
-  list-style: none;
-  cursor: pointer;
-  display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  font-size: 12px;
-  padding: 5px 10px;
+  justify-content: center;
+  gap: 3px;
+  min-height: 50px;
+  padding: 6px 4px;
+  background: transparent;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--mono);
+  color: var(--ink-2);
+  transition: background 0.12s, color 0.12s;
 }
-.dossier-note-wrap summary::-webkit-details-marker { display: none; }
-.dossier-note {
+.dossier-tool:hover {
+  background: var(--paper-3);
+  color: var(--ink);
+}
+.dossier-tool.on {
+  background: var(--garnet);
+  color: var(--paper);
+}
+.dossier-tool.is-flash {
+  background: oklch(70% 0.18 145);   /* green-ish OK indication */
+  color: var(--paper);
+}
+.dossier-tool-icon {
+  font-size: 16px;
+  line-height: 1;
+  font-family: var(--display);
+}
+.dossier-tool-label {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.dossier-tool-summary {
+  background: transparent;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
   width: 100%;
+  height: 100%;
+  cursor: pointer;
+  font-family: var(--mono);
+  color: inherit;
+  padding: 0;
+}
+.dossier-tool-cite { padding: 0; }     /* the wrapping <div> tightens up */
+.dossier-tool-cite.is-open .dossier-tool-summary {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 3px;
+}
+
+/* Citation popover — anchored to the cite button, doesn't push layout. */
+.cite-pop {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 30;
+  min-width: 240px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+  display: flex;
+  flex-direction: column;
+}
+.cite-pop[hidden] { display: none; }
+
+/* Note editor — opens in a row below the toolbar, full width. */
+.dossier-note-wrap {
   margin-top: 8px;
-  min-height: 90px;
+}
+.dossier-note-wrap[hidden] { display: none; }
+.dossier-note {
+  display: block;
+  width: 100%;
+  min-height: 84px;
   padding: 10px 12px;
   font-family: var(--body);
   font-size: 13px;
@@ -2224,8 +2258,36 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   border-radius: 3px;
   resize: vertical;
   color: var(--ink);
+  box-sizing: border-box;
 }
-.dossier-note:focus { outline: 1px solid var(--garnet); outline-offset: -1px; }
+.dossier-note:focus {
+  outline: none;
+  border-color: var(--garnet);
+}
+
+/* "Open original document" — promoted to a separate full-width link
+   so it doesn't compete with the in-app actions for visual weight. */
+.dossier-original {
+  margin-top: 12px;
+  text-align: right;
+}
+.dossier-original-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+.dossier-original-link:hover {
+  color: var(--garnet);
+  text-decoration: underline;
+}
+
+/* Reading-mode "Exit" pill in reading mode — unchanged but now the
+   toolbar has identical sizing so the floating button below the bar
+   doesn't visually mismatch. */
+.reading-mode-btn { font-size: inherit; padding: 6px 4px; }
+.reading-mode-btn.is-active { background: var(--garnet); color: var(--paper); }
 
 /* Year histogram (B4) */
 .year-histogram {
