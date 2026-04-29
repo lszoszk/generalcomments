@@ -53,6 +53,74 @@ const state = {
 
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
 const JUR_BASE = './jur/';    // jurisprudence pilot: metadata eager, paragraphs lazy
+
+// v19: server-side search API. Opt-in via `?api=1` in the URL or
+// `localStorage.unhrdb_useApi = '1'`. When active, JUR-scope and
+// "all" searches route through https://150.254.115.204/unhrdb-api/
+// instead of the local FlexSearch index — bypasses the 30 MB shard
+// download for users on slow connections. GC + SP stay local because
+// they fit in the static corpus.json.
+const API_BASE = 'https://150.254.115.204/unhrdb-api';
+function apiEnabled() {
+  try {
+    if (new URLSearchParams(location.search).get('api') === '1') return true;
+    if (localStorage.getItem('unhrdb_useApi') === '1') return true;
+  } catch {}
+  return false;
+}
+function apiActive(scope) {
+  // Hybrid mode (per VM_DEPLOY_PLAN.md): only JUR + all routes through
+  // the API; GC + SP stay local. Even when api=1, GC users still get
+  // the keystroke-fast in-browser FlexSearch path.
+  if (!apiEnabled()) return false;
+  return scope === 'jur' || scope === 'all';
+}
+async function apiFetch(path, params) {
+  const url = new URL(API_BASE + path);
+  for (const [k, v] of Object.entries(params || {})) {
+    if (v !== null && v !== undefined && v !== '') url.searchParams.set(k, v);
+  }
+  const res = await fetch(url.toString(), { credentials: 'omit' });
+  if (!res.ok) throw new Error(`API ${path} → ${res.status}`);
+  return res.json();
+}
+
+// v19: small boot-time smoke for the API. Logs the round-trip time +
+// version to the console when ?api=1 is active so we can verify the
+// connection from the browser without firing a real search. Also
+// stamps a tiny "API" badge near the result count so users on the
+// opt-in flag see a visible affordance.
+async function pingApi() {
+  if (!apiEnabled()) return;
+  const t0 = performance.now();
+  try {
+    const r = await apiFetch('/api/stats', {});
+    const ms = Math.round(performance.now() - t0);
+    console.info(`[unhrdb-api] online · ${r.version} · ${r.totalParagraphs.toLocaleString()} ¶ · ${ms} ms`);
+    state.apiOnline = true;
+    paintApiBadge(true, ms);
+  } catch (e) {
+    console.warn('[unhrdb-api] unreachable:', e.message);
+    state.apiOnline = false;
+    paintApiBadge(false);
+  }
+}
+function paintApiBadge(online, ms) {
+  const host = $('#result-breakdown');
+  if (!host) return;
+  let badge = $('#api-badge');
+  if (!badge) {
+    badge = document.createElement('span');
+    badge.id = 'api-badge';
+    badge.className = 'rb-pill rb-api';
+    host.appendChild(badge);
+    host.hidden = false;
+  }
+  badge.textContent = online ? `API · ${ms} ms` : 'API · offline';
+  badge.title = online
+    ? `Connected to ${API_BASE}. JUR queries route through the API.`
+    : `${API_BASE} unreachable. Falling back to local FlexSearch.`;
+}
 const RESULT_PAGE_SIZE = 50;       // first-page render budget; subsequent pages append on scroll
 const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard match doesn't blow up the DOM
 
@@ -173,6 +241,7 @@ async function boot() {
     bindRouter();
     initDossierResizer();                // v15: drag handle + persisted width
     initDossierFontPref();               // v15: restore S/M/L preference
+    pingApi();                           // v19: smoke API on boot (only if api=1)
     paintDiffTray();                     // restore pinned-tray on reload
     paintWorkspaceBadge();
     setView(viewFromHash());             // honor the initial hash
