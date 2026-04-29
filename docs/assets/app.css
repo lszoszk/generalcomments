@@ -2210,10 +2210,12 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 /* v18 unified toolbar ─────────────────────────────────────────── */
 .dossier-toolbar {
   display: grid;
-  /* v18.2: 7 columns total — Cite spans 2 so it reads as a primary
-     action ("Cite as APA / BibTeX / …" is the academic top-of-mind
-     verb, not "Bookmark"). The other 5 buttons stay 1-wide. */
-  grid-template-columns: 1fr 1fr 1fr 1fr 2fr 1fr;
+  /* v19.5: equal-width 6-column grid. The v18.2 attempt to highlight
+     Cite by giving it a wider cell + a special border + bold garnet
+     text made it visually loud and inconsistent with the rest of the
+     toolbar. Equal cells let the row breathe; Cite still gets a
+     distinct hover/open treatment in CSS below. */
+  grid-template-columns: repeat(6, 1fr);
   gap: 4px;
   margin-top: 20px;
   padding: 8px;
@@ -2276,27 +2278,16 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   color: inherit;
   padding: 0;
 }
-.dossier-tool-cite {
-  padding: 0;
-  /* v18.2: visual nudge that this is the primary academic action */
-  background: var(--paper-2);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-}
-.dossier-tool-cite:hover { background: var(--paper-3); }
+/* v19.5: Cite cell. Same shape as every other dossier-tool — the
+   only thing that differentiates it is the open-state inversion below
+   (which mirrors how the bookmark "on" state works), so the user
+   sees a clear "this menu is open" affordance without yet another
+   colour scheme on the toolbar. */
+.dossier-tool-cite { padding: 0; }
 .dossier-tool-cite.is-open .dossier-tool-summary {
   background: var(--ink);
   color: var(--paper);
   border-radius: 3px;
-}
-.dossier-tool-cite .dossier-tool-icon {
-  /* The "” glyph reads better at 18 px in the wider button */
-  font-size: 18px;
-  color: var(--garnet);
-}
-.dossier-tool-cite .dossier-tool-label {
-  font-weight: 700;
-  color: var(--garnet);
 }
 .dossier-tool-cite.is-open .dossier-tool-icon,
 .dossier-tool-cite.is-open .dossier-tool-label { color: var(--paper); }
