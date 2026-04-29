@@ -1589,6 +1589,18 @@ function scopeCommitteeSet(scope) {
 function buildExportRows() {
   return state.results.map(({ p }, idx) => {
     const doc = state.documents.get(p.docId);
+    const isJur = p.type === 'jur';
+    const articleStr = (a) => {
+      let s = a.article;
+      if (a.paragraph) s += `(${a.paragraph}${a.subparagraph ? ')(' + a.subparagraph : ''})`;
+      else if (a.subparagraph) s += `(${a.subparagraph})`;
+      return s;
+    };
+    const articlesParsed = isJur ? [
+      ...(doc?.covenantArticlesParsed || []),
+      ...(doc?.conventionArticlesParsed || []),
+      ...(doc?.optionalProtocolArticlesParsed || []),
+    ] : [];
     return {
       rank: idx + 1,
       type: p.type,
@@ -1603,11 +1615,26 @@ function buildExportRows() {
       section: p.section || '',
       year: p.year ?? '',
       adoption_date: doc?.adoptionDate ?? '',
+      communication_date: isJur ? (doc?.communicationDate ?? '') : '',
       mandate_holder: doc?.mandate ?? '',
       paragraph_id: p.id,
       paragraph_n: p.n ?? '',
       paragraph_text: p.text,
       labels: (p.labels || []).join('; '),
+      // JUR-only enriched metadata. Non-JUR rows leave these blank so the
+      // CSV header is stable across mixed-scope exports.
+      case_name: isJur ? (doc?.caseName ?? '') : '',
+      case_name_source: isJur ? (doc?.caseNameSource ?? '') : '',
+      submitted_by: isJur ? (doc?.submittedByClean || doc?.submittedBy || '') : '',
+      representation: isJur ? (doc?.representation ?? '') : '',
+      alleged_victims: isJur ? (doc?.allegedVictims ?? '') : '',
+      state_party: isJur ? (doc?.stateParty ?? '') : '',
+      subject_matter: isJur ? (Array.isArray(doc?.subjectMatter) ? doc.subjectMatter.join('; ') : (doc?.subjectMatter ?? '')) : '',
+      substantive_issues: isJur ? ((doc?.substantiveIssues || []).join('; ')) : '',
+      procedural_issues: isJur ? ((doc?.proceduralIssues || []).join('; ')) : '',
+      articles_invoked: isJur ? articlesParsed.map(articleStr).join('; ') : '',
+      articles_invoked_raw: isJur ? [doc?.covenantArticles, doc?.conventionArticles, doc?.optionalProtocolArticles].filter(Boolean).join(' | ') : '',
+      metadata_confidence: isJur ? (doc?.metadataConfidence ?? '') : '',
       link: doc?.link ?? '',
     };
   });
@@ -3371,6 +3398,53 @@ function paintDossier() {
       }</div></div>`
     : '';
 
+  // JUR-only enriched front-matter metadata. Sourced from OHCHR raw files
+  // and the Minnesota Human Rights Library authority layer. Each row only
+  // appears when the field is non-empty in the document.
+  const submittedByHtml = (isJurDoc && (doc?.submittedByClean || doc?.submittedBy))
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Submitted by</div><div class="v">${
+        escape(doc.submittedByClean || doc.submittedBy)
+      }${doc.representation ? ` <span class="dossier-rep">(${escape(doc.representation)})</span>` : ''}</div></div>`
+    : '';
+
+  const subjectMatterHtml = (isJurDoc && doc?.subjectMatter)
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Subject matter</div><div class="v">${
+        escape(Array.isArray(doc.subjectMatter) ? doc.subjectMatter.join('; ') : doc.subjectMatter)
+      }</div></div>`
+    : '';
+
+  const substantiveIssuesHtml = (isJurDoc && Array.isArray(doc?.substantiveIssues) && doc.substantiveIssues.length)
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Substantive issues</div><div class="v">${
+        doc.substantiveIssues.map(s => `<span class="dossier-chip dossier-chip-soft">${escape(s)}</span>`).join(' ')
+      }</div></div>`
+    : '';
+
+  const proceduralIssuesHtml = (isJurDoc && Array.isArray(doc?.proceduralIssues) && doc.proceduralIssues.length)
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Procedural issues</div><div class="v">${
+        doc.proceduralIssues.map(s => `<span class="dossier-chip dossier-chip-soft">${escape(s)}</span>`).join(' ')
+      }</div></div>`
+    : '';
+
+  // Articles invoked from the case header (front matter). Distinct from
+  // articlesCited (which we extract from the body text). Render as
+  // "Art. X(Y)(z)" chips covering covenant, convention, and OP articles.
+  const formatArt = (a) => {
+    let s = `Art. ${a.article}`;
+    if (a.paragraph) s += `(${a.paragraph}${a.subparagraph ? ')(' + a.subparagraph : ''})`;
+    else if (a.subparagraph) s += `(${a.subparagraph})`;
+    return s;
+  };
+  const allArticles = [
+    ...(doc?.covenantArticlesParsed || []),
+    ...(doc?.conventionArticlesParsed || []),
+    ...(doc?.optionalProtocolArticlesParsed || []),
+  ];
+  const articlesInvokedHtml = (isJurDoc && allArticles.length)
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Articles invoked</div><div class="v">${
+        allArticles.map(a => `<span class="dossier-chip" title="${escape(a.instrument || '')}">${escape(formatArt(a))}</span>`).join(' ')
+      }</div></div>`
+    : '';
+
   // Country first when it's a case (the "where did this happen" anchor),
   // then outcome (already on a badge), then communication / adoption dates.
   // v15: S/M/L font-size controls live in the folio strip alongside the
@@ -3404,6 +3478,11 @@ function paintDossier() {
           <div class="dossier-dp"><div class="folio">Treaty body</div><div class="v">${escape(doc?.committees?.join(' · ') || doc?.treaty || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
           ${para.section ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Section of this paragraph</div><div class="v">${escape(para.section)}</div></div>` : ''}
+          ${submittedByHtml}
+          ${subjectMatterHtml}
+          ${articlesInvokedHtml}
+          ${substantiveIssuesHtml}
+          ${proceduralIssuesHtml}
           ${articlesCitedHtml}
           ${caseLabelsHtml}
         `
