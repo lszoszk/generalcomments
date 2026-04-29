@@ -69,20 +69,29 @@ python3 ocr_jurisprudence.py plan --treaty CCPR
 python3 ocr_jurisprudence.py run --treaty CCPR --limit 5
 ```
 
-3. Audit quality:
+3. For a difficult page/document, compare the full candidate set:
+
+```bash
+python3 ocr_jurisprudence.py experiment --treaty CCPR --symbol CCPR/C/37/D/244/1987
+```
+
+This writes `ocr_jurisprudence/experiments/<docId>/experiment.json` and
+`best_document.txt` for side-by-side review.
+
+4. Audit quality:
 
 ```bash
 python3 ocr_jurisprudence.py audit --treaty CCPR
 ```
 
-4. Run the full queue:
+5. Run the full queue:
 
 ```bash
 python3 ocr_jurisprudence.py run --treaty CCPR
 python3 ocr_jurisprudence.py audit --treaty CCPR
 ```
 
-5. Re-ingest CCPR after reviewing OCR quality:
+6. Re-ingest CCPR after reviewing OCR quality:
 
 ```bash
 python3 ingest_jurisprudence.py --treaty CCPR
@@ -91,18 +100,38 @@ python3 build_jurisprudence_shards.py --all
 
 ## Quality policy
 
-Each page is rendered at 400 DPI and OCRed twice:
+Each page is rendered at 400 DPI and OCRed with multiple profiles. The default
+mode is `quality`:
 
-- Tesseract `--psm 3` for automatic layout
-- Tesseract `--psm 6` for single-block text
+- `fast`: autocontrast image, Tesseract `--psm 3` and `--psm 6`
+- `quality`: autocontrast + sharpened image, Tesseract `--psm 3`, `--psm 4`, and `--psm 6`
+- `max`: quality candidates plus thresholded image and `--psm 11`, intended for experiments rather than full production runs
 
-The pipeline keeps the page result with the better confidence/text score. It stores:
+The pipeline keeps the page result with the better confidence/text score. The
+score uses:
+
+- mean word confidence
+- low-confidence word ratio
+- text volume
+- paragraph-order penalty, so an output that moves `7.` before `6.2.` loses even if raw confidence is slightly higher
+
+Tesseract also receives a small project word list from
+`ocr_resources/tess_user_words_eng.txt`, covering recurring UN, treaty-body,
+country, and legal vocabulary.
+
+After OCR, the script applies a narrow set of safe post-corrections for recurring
+legacy-scan errors, for example `Optionel Prcetocol` to `Optional Protocol`,
+`Racision` to `Decision`, and dashed standalone page footers such as `-135-`.
+The number of applied fixes is stored as `correctionCount`.
+
+For each page and document it stores:
 
 - mean word confidence
 - low-confidence word ratio
 - word count
 - character count
-- chosen OCR profile
+- chosen OCR profile and preprocessing variant
+- safe correction count
 - alternative profile metrics
 
 Document statuses:

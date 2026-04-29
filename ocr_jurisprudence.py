@@ -6,7 +6,7 @@ The pipeline is deliberately conservative:
   1. Build a queue of English PDF cases that are missing from the extracted
      jurisprudence catalog and have no embedded text.
   2. Render each PDF page at high resolution.
-  3. Run two Tesseract profiles per page and keep the higher-confidence result.
+  3. Run several Tesseract profiles per page and keep the best result.
   4. Store page-level OCR text plus confidence diagnostics.
   5. Optionally ingest only documents that pass the quality gate.
 
@@ -30,7 +30,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import fitz
-from PIL import Image, ImageOps
+from PIL import Image, ImageFilter, ImageOps
 
 
 ROOT = Path(__file__).resolve().parent
@@ -39,10 +39,71 @@ CATALOG = JURIS_SRC / 'catalog.jsonl'
 MANIFEST = JURIS_SRC / 'download_manifest.jsonl'
 INFO = ROOT / 'mysite_pythonanywhere' / 'jurisprudence_info.json'
 OCR_ROOT = ROOT / 'ocr_jurisprudence'
+OCR_RESOURCES = ROOT / 'ocr_resources'
+USER_WORDS = OCR_RESOURCES / 'tess_user_words_eng.txt'
 
 DEFAULT_DPI = 400
 DEFAULT_MIN_MEAN_CONF = 70.0
 DEFAULT_MAX_LOW_CONF_RATIO = 0.35
+
+PSM_BY_MODE = {
+    'fast': [3, 6],
+    'quality': [3, 4, 6],
+    'max': [3, 4, 6, 11],
+}
+
+
+SAFE_OCR_CORRECTIONS: list[tuple[re.Pattern, str]] = [
+    # Legal boilerplate and very common Tesseract confusions in old HRC scans.
+    (re.compile(r'\bOptionel\s+Prcetocol\b', re.IGNORECASE), 'Optional Protocol'),
+    (re.compile(r'\bOptionel\s+Protocol\b', re.IGNORECASE), 'Optional Protocol'),
+    (re.compile(r'\bPrcetocol\b', re.IGNORECASE), 'Protocol'),
+    (re.compile(r'\bInternaticnal\b', re.IGNORECASE), 'International'),
+    (re.compile(r'\bCovenent\b', re.IGNORECASE), 'Covenant'),
+    (re.compile(r'\bcommunicaticn\b', re.IGNORECASE), 'communication'),
+    (re.compile(r'\bcommunicatien\b', re.IGNORECASE), 'communication'),
+    (re.compile(r'\bdec[il]ared\s+inadmissible\b', re.IGNORECASE), 'declared inadmissible'),
+    (re.compile(r'\(Racision of\b', re.IGNORECASE), '(Decision of'),
+    (re.compile(r'\bsesaion\b', re.IGNORECASE), 'session'),
+    (re.compile(r'\bZhe Human Rights Committee\b'), 'The Human Rights Committee'),
+    (re.compile(r'\binadm[il]ssible\b', re.IGNORECASE), 'inadmissible'),
+    (re.compile(r'\brequir[ea]ment of exhaustion\b', re.IGNORECASE), 'requirement of exhaustion'),
+    (re.compile(r'\bdomestic remed[il]es\b', re.IGNORECASE), 'domestic remedies'),
+    (re.compile(r'\bmedico-legal invest[il]gation\b', re.IGNORECASE), 'medico-legal investigation'),
+    (re.compile(r'\bforsnsic medicine\b', re.IGNORECASE), 'forensic medicine'),
+    (re.compile(r'\bsubsoquently\b', re.IGNORECASE), 'subsequently'),
+    (re.compile(r'\breleasud\b', re.IGNORECASE), 'released'),
+    (re.compile(r'\brevoal\b', re.IGNORECASE), 'reveal'),
+    (re.compile(r'\brevaal\b', re.IGNORECASE), 'reveal'),
+    (re.compile(r'\bbsen\b', re.IGNORECASE), 'been'),
+    (re.compile(r'\bLeen received\b'), 'been received'),
+    (re.compile(r'\bouther\b', re.IGNORECASE), 'author'),
+    (re.compile(r'\bthreate\b', re.IGNORECASE), 'threats'),
+    (re.compile(r'\bouthor\b', re.IGNORECASE), 'author'),
+    (re.compile(r'\bresponnible\b', re.IGNORECASE), 'responsible'),
+    (re.compile(r'\binetance\b', re.IGNORECASE), 'instance'),
+    (re.compile(r"\bauthor'?s\b", re.IGNORECASE), "author's"),
+    (re.compile(r'\bites rules\b', re.IGNORECASE), 'its rules'),
+    (re.compile(r'\bthy Optional Protocol\b', re.IGNORECASE), 'the Optional Protocol'),
+    (re.compile(r'\bite decision\b', re.IGNORECASE), 'its decision'),
+    (re.compile(r'\bBy ite decision\b', re.IGNORECASE), 'By its decision'),
+    (re.compile(r'\bStute party\b', re.IGNORECASE), 'State party'),
+    (re.compile(r'\bState purty\b', re.IGNORECASE), 'State party'),
+    (re.compile(r'\bvan[uU]ary\b'), 'January'),
+    (re.compile(r'\bNacid[eé]n\b'), 'Nación'),
+    (re.compile(r'\bBogot[eé]\b'), 'Bogotá'),
+    (re.compile(r'\bincluding\s+&\s+severe\b', re.IGNORECASE), 'including a severe'),
+    (re.compile(r'\binvestigation cf the case\b', re.IGNORECASE), 'investigation of the case'),
+    (re.compile(r'\btransmitted to the State party and tu the\b', re.IGNORECASE), 'transmitted to the State party and to the'),
+    (re.compile(r'(?m)^8\. On 6 December 1988 the Secretariat'), '5. On 6 December 1988 the Secretariat'),
+    (re.compile(r'\bCommunication No,\s+'), 'Communication No. '),
+    (re.compile(r'\[name deleted\)'), '(name deleted)'),
+    (re.compile(r'\bo:\''), 'of'),
+    (re.compile(r'\bo:\b'), 'of'),
+    # Page footers from old UN compilations. Keep this narrowly scoped to
+    # dashed standalone numbers so paragraph numbering remains untouched.
+    (re.compile(r'(?m)^\s*-\d{1,4}-\s*$'), ''),
+]
 
 
 def slug(symbol: str) -> str:
@@ -187,39 +248,76 @@ def render_pages(pdf_path: Path, out_dir: Path, *, dpi: int) -> list[Path]:
     return sorted(out_dir.glob('page-*.png'))
 
 
-def preprocess_image(path: Path) -> Path:
-    out = path.with_name(f'{path.stem}.prep.png')
+def preprocess_images(path: Path, *, mode: str) -> list[tuple[str, Path]]:
+    variants: list[tuple[str, Path]] = []
     with Image.open(path) as img:
         gray = ImageOps.grayscale(img)
         gray = ImageOps.autocontrast(gray)
-        # Keep antialiasing: hard thresholding damaged old typewriter scans in
-        # tests. Tesseract handles high-resolution grayscale more reliably.
-        gray.save(out)
-    return out
+        auto = path.with_name(f'{path.stem}.auto.png')
+        gray.save(auto)
+        variants.append(('auto', auto))
+
+        if mode in ('quality', 'max'):
+            sharp = path.with_name(f'{path.stem}.sharp.png')
+            gray.filter(ImageFilter.SHARPEN).save(sharp)
+            variants.append(('sharp', sharp))
+
+        if mode == 'max':
+            # Thresholding can help faint photocopies but can also damage old
+            # typewriter scans, so it is reserved for explicit max/experiment.
+            threshold = path.with_name(f'{path.stem}.threshold.png')
+            gray.point(lambda p: 255 if p > 178 else 0).save(threshold)
+            variants.append(('threshold', threshold))
+    return variants
 
 
 @dataclass
 class OcrCandidate:
     profile: str
+    preprocess: str
     psm: int
     text: str
     mean_conf: float
     low_conf_ratio: float
     word_count: int
     char_count: int
+    correction_count: int
 
 
-def tesseract_tsv(image: Path, *, psm: int, profile: str) -> OcrCandidate:
+def apply_safe_corrections(text: str) -> tuple[str, int]:
+    count = 0
+    fixed = text
+    for pattern, repl in SAFE_OCR_CORRECTIONS:
+        fixed, n = pattern.subn(repl, fixed)
+        count += n
+    return fixed, count
+
+
+def paragraph_order_penalty(text: str) -> int:
+    ids = []
+    for match in re.finditer(r'(?m)^\s*(\d+(?:\.\d+)?)\b', text):
+        ids.append(tuple(int(part) for part in match.group(1).split('.')))
+    penalty = 0
+    for previous, current in zip(ids, ids[1:]):
+        if current < previous:
+            penalty += 1
+    return penalty
+
+
+def tesseract_tsv(image: Path, *, psm: int, profile: str, preprocess: str) -> OcrCandidate:
     tesseract = require_tool('tesseract')
+    cmd = [
+        tesseract, str(image), 'stdout',
+        '-l', 'eng',
+        '--oem', '1',
+        '--psm', str(psm),
+        '-c', 'preserve_interword_spaces=1',
+    ]
+    if USER_WORDS.exists():
+        cmd.extend(['--user-words', str(USER_WORDS)])
+    cmd.append('tsv')
     proc = subprocess.run(
-        [
-            tesseract, str(image), 'stdout',
-            '-l', 'eng',
-            '--oem', '1',
-            '--psm', str(psm),
-            '-c', 'preserve_interword_spaces=1',
-            'tsv',
-        ],
+        cmd,
         check=True,
         capture_output=True,
         text=True,
@@ -248,27 +346,37 @@ def tesseract_tsv(image: Path, *, psm: int, profile: str) -> OcrCandidate:
     text_lines = []
     for key in sorted(lines):
         text_lines.append(' '.join(w for _, w in sorted(lines[key])))
-    text = '\n'.join(text_lines).strip()
+    raw_text = '\n'.join(text_lines).strip()
+    text, correction_count = apply_safe_corrections(raw_text)
     mean_conf = sum(confs) / len(confs) if confs else 0.0
     low_conf = sum(1 for c in confs if c < 55)
     low_conf_ratio = low_conf / len(confs) if confs else 1.0
     return OcrCandidate(
         profile=profile,
+        preprocess=preprocess,
         psm=psm,
         text=text,
         mean_conf=mean_conf,
         low_conf_ratio=low_conf_ratio,
         word_count=words,
         char_count=len(text),
+        correction_count=correction_count,
+    )
+
+
+def candidate_score(c: OcrCandidate) -> float:
+    # Confidence is primary; enough text is the secondary signal. The log avoids
+    # selecting a verbose garbage output over a clean shorter page.
+    return (
+        c.mean_conf
+        - (c.low_conf_ratio * 20)
+        + min(math.log1p(c.char_count), 9)
+        - (paragraph_order_penalty(c.text) * 15)
     )
 
 
 def choose_best(candidates: list[OcrCandidate]) -> OcrCandidate:
-    def score(c: OcrCandidate) -> float:
-        # Confidence is primary; enough text is the secondary signal. The log
-        # avoids selecting a verbose garbage output over a clean shorter page.
-        return c.mean_conf - (c.low_conf_ratio * 20) + min(math.log1p(c.char_count), 9)
-    return max(candidates, key=score)
+    return max(candidates, key=candidate_score)
 
 
 def quality_status(
@@ -308,7 +416,23 @@ def quality_status(
     return 'pass', []
 
 
-def ocr_one(row: dict, *, dpi: int, min_mean_conf: float, max_low_conf_ratio: float, force: bool) -> dict:
+def candidate_set_for_page(image_path: Path, *, mode: str) -> list[OcrCandidate]:
+    candidates: list[OcrCandidate] = []
+    psm_values = PSM_BY_MODE[mode]
+    for preprocess_name, prepped in preprocess_images(image_path, mode=mode):
+        for psm in psm_values:
+            candidates.append(
+                tesseract_tsv(
+                    prepped,
+                    psm=psm,
+                    profile=f'{preprocess_name}_psm{psm}',
+                    preprocess=preprocess_name,
+                )
+            )
+    return candidates
+
+
+def ocr_one(row: dict, *, dpi: int, mode: str, min_mean_conf: float, max_low_conf_ratio: float, force: bool) -> dict:
     pdf_path = Path(row['pdfPath'])
     doc_id = row['docId']
     out_dir = OCR_ROOT / row['treaty'].lower() / doc_id
@@ -322,32 +446,32 @@ def ocr_one(row: dict, *, dpi: int, min_mean_conf: float, max_low_conf_ratio: fl
         tmp_dir = Path(tmp)
         rendered = render_pages(pdf_path, tmp_dir, dpi=dpi)
         for idx, image_path in enumerate(rendered, 1):
-            prepped = preprocess_image(image_path)
-            candidates = [
-                tesseract_tsv(prepped, psm=3, profile='auto_layout'),
-                tesseract_tsv(prepped, psm=6, profile='single_block'),
-            ]
+            candidates = candidate_set_for_page(image_path, mode=mode)
             best = choose_best(candidates)
             page_txt = out_dir / f'page-{idx:03d}.txt'
             page_txt.write_text(best.text + '\n', encoding='utf-8')
             page_records.append({
                 'page': idx,
                 'profile': best.profile,
+                'preprocess': best.preprocess,
                 'psm': best.psm,
                 'meanConf': round(best.mean_conf, 2),
                 'lowConfRatio': round(best.low_conf_ratio, 4),
                 'wordCount': best.word_count,
                 'charCount': best.char_count,
+                'correctionCount': best.correction_count,
                 'textPath': page_txt.name,
                 'text': best.text,
                 'alternatives': [
                     {
                         'profile': c.profile,
+                        'preprocess': c.preprocess,
                         'psm': c.psm,
                         'meanConf': round(c.mean_conf, 2),
                         'lowConfRatio': round(c.low_conf_ratio, 4),
                         'wordCount': c.word_count,
                         'charCount': c.char_count,
+                        'correctionCount': c.correction_count,
                     }
                     for c in candidates
                 ],
@@ -365,9 +489,11 @@ def ocr_one(row: dict, *, dpi: int, min_mean_conf: float, max_low_conf_ratio: fl
         'ocrStatus': status,
         'warnings': warnings,
         'dpi': dpi,
+        'mode': mode,
         'pageCount': len(page_records),
         'wordCount': sum(p['wordCount'] for p in page_records),
         'charCount': sum(p['charCount'] for p in page_records),
+        'correctionCount': sum(p['correctionCount'] for p in page_records),
         'meanConf': round(
             sum(p['meanConf'] * max(p['wordCount'], 1) for p in page_records)
             / sum(max(p['wordCount'], 1) for p in page_records),
@@ -410,6 +536,7 @@ def cmd_run(args: argparse.Namespace) -> int:
         result = ocr_one(
             row,
             dpi=args.dpi,
+            mode=args.mode,
             min_mean_conf=args.min_mean_conf,
             max_low_conf_ratio=args.max_low_conf_ratio,
             force=args.force,
@@ -418,7 +545,8 @@ def cmd_run(args: argparse.Namespace) -> int:
         print(
             f'[{i:4d}/{len(rows)}] {result["ocrStatus"]:6s} '
             f'{result["symbol"]} conf={result["meanConf"]:.1f} '
-            f'words={result["wordCount"]} pages={result["pageCount"]}'
+            f'words={result["wordCount"]} pages={result["pageCount"]} '
+            f'fixes={result.get("correctionCount", 0)}'
         )
     print('Summary:', counts)
     return 0
@@ -459,6 +587,70 @@ def cmd_audit(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_experiment(args: argparse.Namespace) -> int:
+    rows = read_queue(args.treaty)
+    if args.symbol:
+        rows = [r for r in rows if r['symbol'] == args.symbol or r['docId'] == args.symbol]
+    if not rows:
+        print('No matching queued document')
+        return 1
+    row = rows[0]
+    pdf_path = Path(row['pdfPath'])
+    out_dir = OCR_ROOT / 'experiments' / row['docId']
+    out_dir.mkdir(parents=True, exist_ok=True)
+    all_pages = []
+    best_pages = []
+    with tempfile.TemporaryDirectory(prefix='jur_ocr_exp_') as tmp:
+        rendered = render_pages(pdf_path, Path(tmp), dpi=args.dpi)
+        for idx, image_path in enumerate(rendered, 1):
+            candidates = candidate_set_for_page(image_path, mode='max')
+            best = choose_best(candidates)
+            best_pages.append(best.text)
+            rows_out = sorted(candidates, key=lambda c: (-candidate_score(c), -c.char_count))
+            all_pages.append({
+                'page': idx,
+                'bestProfile': best.profile,
+                'bestMeanConf': round(best.mean_conf, 2),
+                'bestLowConfRatio': round(best.low_conf_ratio, 4),
+                'bestWordCount': best.word_count,
+                'bestCorrectionCount': best.correction_count,
+                'candidates': [
+                    {
+                        'profile': c.profile,
+                        'preprocess': c.preprocess,
+                        'psm': c.psm,
+                        'meanConf': round(c.mean_conf, 2),
+                        'lowConfRatio': round(c.low_conf_ratio, 4),
+                        'wordCount': c.word_count,
+                        'charCount': c.char_count,
+                        'correctionCount': c.correction_count,
+                    }
+                    for c in rows_out
+                ],
+            })
+    document_text = '\n\n'.join(best_pages).strip()
+    (out_dir / 'best_document.txt').write_text(document_text + '\n', encoding='utf-8')
+    payload = {
+        'symbol': row['symbol'],
+        'docId': row['docId'],
+        'dpi': args.dpi,
+        'pages': all_pages,
+        'output': str(out_dir / 'best_document.txt'),
+    }
+    report_path = out_dir / 'experiment.json'
+    report_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(f'Experiment: {row["symbol"]}')
+    for page in all_pages:
+        print(
+            f'  page {page["page"]}: {page["bestProfile"]} '
+            f'conf={page["bestMeanConf"]:.1f} words={page["bestWordCount"]} '
+            f'fixes={page["bestCorrectionCount"]}'
+        )
+    print(f'Wrote: {report_path}')
+    print(f'Best text: {out_dir / "best_document.txt"}')
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     sub = ap.add_subparsers(dest='cmd', required=True)
@@ -471,6 +663,7 @@ def main() -> int:
     run = sub.add_parser('run', help='Run OCR for queued documents')
     run.add_argument('--treaty', default='CCPR')
     run.add_argument('--dpi', type=int, default=DEFAULT_DPI)
+    run.add_argument('--mode', choices=sorted(PSM_BY_MODE), default='quality')
     run.add_argument('--limit', type=int)
     run.add_argument('--force', action='store_true')
     run.add_argument('--status', choices=['pass', 'review', 'fail'], help='Re-run only documents with a previous status')
@@ -481,6 +674,12 @@ def main() -> int:
     audit = sub.add_parser('audit', help='Summarise OCR results and write review queue')
     audit.add_argument('--treaty', default='CCPR')
     audit.set_defaults(func=cmd_audit)
+
+    experiment = sub.add_parser('experiment', help='Compare max OCR variants for one queued document')
+    experiment.add_argument('--treaty', default='CCPR')
+    experiment.add_argument('--symbol', help='Exact symbol or docId; defaults to first queued document')
+    experiment.add_argument('--dpi', type=int, default=DEFAULT_DPI)
+    experiment.set_defaults(func=cmd_experiment)
 
     args = ap.parse_args()
     try:
