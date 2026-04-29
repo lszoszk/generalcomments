@@ -1963,7 +1963,8 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 }
 .docs-reader-para-marker .mono { color: var(--ink-4); font-size: 11px; }
 .docs-reader-para-marker .docs-para-bm,
-.docs-reader-para-marker .docs-para-pin {
+.docs-reader-para-marker .docs-para-pin,
+.docs-reader-para-marker .docs-para-cite {
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -1971,11 +1972,20 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   font-size: 13px;
   color: var(--ink-4);
   border-radius: 2px;
+  font-family: inherit;
 }
 .docs-reader-para-marker .docs-para-bm.on { color: var(--garnet); }
 .docs-reader-para-marker .docs-para-pin.on { color: var(--garnet); }
+.docs-reader-para-marker .docs-para-cite {
+  font-family: var(--display);
+  font-size: 16px;
+  color: var(--garnet);
+  line-height: 1;
+}
 .docs-reader-para-marker .docs-para-bm:hover,
-.docs-reader-para-marker .docs-para-pin:hover { background: var(--paper-3); color: var(--ink); }
+.docs-reader-para-marker .docs-para-pin:hover,
+.docs-reader-para-marker .docs-para-cite:hover { background: var(--paper-3); color: var(--ink); }
+.docs-reader-para-marker .docs-para-cite:hover { background: var(--garnet); color: var(--paper); }
 .docs-reader-para-text {
   font-family: var(--display);
   font-size: calc(15px * var(--dossier-font, 1));
@@ -2155,7 +2165,10 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 /* v18 unified toolbar ─────────────────────────────────────────── */
 .dossier-toolbar {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  /* v18.2: 7 columns total — Cite spans 2 so it reads as a primary
+     action ("Cite as APA / BibTeX / …" is the academic top-of-mind
+     verb, not "Bookmark"). The other 5 buttons stay 1-wide. */
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr 1fr;
   gap: 4px;
   margin-top: 20px;
   padding: 8px;
@@ -2218,12 +2231,76 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   color: inherit;
   padding: 0;
 }
-.dossier-tool-cite { padding: 0; }     /* the wrapping <div> tightens up */
+.dossier-tool-cite {
+  padding: 0;
+  /* v18.2: visual nudge that this is the primary academic action */
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+.dossier-tool-cite:hover { background: var(--paper-3); }
 .dossier-tool-cite.is-open .dossier-tool-summary {
   background: var(--ink);
   color: var(--paper);
   border-radius: 3px;
 }
+.dossier-tool-cite .dossier-tool-icon {
+  /* The "” glyph reads better at 18 px in the wider button */
+  font-size: 18px;
+  color: var(--garnet);
+}
+.dossier-tool-cite .dossier-tool-label {
+  font-weight: 700;
+  color: var(--garnet);
+}
+.dossier-tool-cite.is-open .dossier-tool-icon,
+.dossier-tool-cite.is-open .dossier-tool-label { color: var(--paper); }
+
+/* v18.2: shared inline cite popover — anchored to whatever button
+   triggered it (a result-row mark or a docs-reader paragraph). */
+.inline-cite-pop {
+  position: absolute;
+  z-index: 80;
+  min-width: 220px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  display: flex;
+  flex-direction: column;
+}
+.inline-cite-pop .cite-opt {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 14px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule-soft, var(--rule));
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--body);
+  color: var(--ink);
+}
+.inline-cite-pop .cite-opt:last-child { border-bottom: 0; }
+.inline-cite-pop .cite-opt:hover { background: var(--paper-2); }
+.inline-cite-pop .cite-fmt {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--garnet);
+  font-weight: 600;
+  min-width: 56px;
+}
+.inline-cite-pop .cite-name { font-size: 13px; }
+
+/* New per-row Cite button (lives inside .result-marks). Uses the same
+   glyph as the dossier toolbar so it reads consistently. */
+.ws-mark-cite {
+  font-size: 16px;
+  font-family: var(--display);
+  color: var(--garnet);
+}
+.ws-mark-cite:hover { background: var(--garnet); color: var(--paper); }
 
 /* Citation popover — anchored to the cite button, doesn't push layout. */
 .cite-pop {

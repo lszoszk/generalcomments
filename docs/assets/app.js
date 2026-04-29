@@ -711,6 +711,7 @@ function paintDocReaderBody(doc, paraId) {
           <span class="mono">${marker}</span>
           <button class="docs-para-bm ${isBm ? 'on' : ''}" data-act="bm" title="${isBm ? 'Remove bookmark' : 'Bookmark this paragraph'}">${isBm ? '★' : '☆'}</button>
           <button class="docs-para-pin ${isPin ? 'on' : ''}" data-act="pin" title="${isPin ? 'Unpin' : 'Pin for compare'}">📌</button>
+          <button class="docs-para-cite" data-act="cite" title="Cite this paragraph (APA / Chicago / BibTeX / RIS / URL)">”</button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">📝</span>' : ''}
         </div>
         <p class="docs-reader-para-text serif">${escape(p.text)}</p>
@@ -728,6 +729,12 @@ function paintDocReaderBody(doc, paraId) {
         e.stopPropagation();
         if (btn.dataset.act === 'bm')  { bmToggle(id); paintWorkspaceBadge(); }
         if (btn.dataset.act === 'pin') { pinToggle(id); paintDiffTray(); }
+        if (btn.dataset.act === 'cite') {
+          // v18.2: per-paragraph cite popover anchored to this button.
+          const para = state.paragraphById.get(id);
+          if (para) openInlineCitePopover(btn, para);
+          return;                                  // skip the re-paint
+        }
         // Re-paint just this paragraph row + drawer.
         state.docsActiveParaId = id;
         paintDocReaderBody(doc, id);
@@ -2680,7 +2687,9 @@ function renderResult(p, rank, terms, opts = {}) {
         <button class="ws-mark ws-mark-bm ${isBookmarked ? 'on' : ''}" type="button"
                 data-ws="bm" title="${isBookmarked ? 'Bookmarked' : 'Bookmark'}">${isBookmarked ? '★' : '☆'}</button>
         <button class="ws-mark ws-mark-pin ${isPinned ? 'on' : ''}" type="button"
-                data-ws="pin" title="${isPinned ? 'Pinned for compare' : 'Pin for compare'}">📌</button>
+                data-ws="pin" title="${pinHas(p.id) ? 'Pinned for compare' : 'Pin for compare'}">📌</button>
+        <button class="ws-mark ws-mark-cite" type="button"
+                data-ws="cite" title="Cite this paragraph (APA / Chicago / BibTeX / RIS / URL)">”</button>
         ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">📝</span>' : ''}
       </div>
     </div>
@@ -2692,6 +2701,11 @@ function renderResult(p, rank, terms, opts = {}) {
       e.stopPropagation();
       if (wsBtn.dataset.ws === 'bm') bmToggle(p.id);
       else if (wsBtn.dataset.ws === 'pin') pinToggle(p.id);
+      else if (wsBtn.dataset.ws === 'cite') {
+        // Open the cite quick-pick popover anchored to this button.
+        openInlineCitePopover(wsBtn, p);
+        return;                                  // don't repaint marks
+      }
       // Re-paint just this row's marks instead of the whole list
       const updated = renderResult(p, rank, terms, opts);
       li.replaceWith(updated);
@@ -2737,6 +2751,7 @@ function refreshResultMarks(paraId) {
   aside.innerHTML = `
     <button class="ws-mark ws-mark-bm ${isBM ? 'on' : ''}" type="button" data-ws="bm" title="${isBM ? 'Bookmarked' : 'Bookmark'}">${isBM ? '★' : '☆'}</button>
     <button class="ws-mark ws-mark-pin ${isPin ? 'on' : ''}" type="button" data-ws="pin" title="${isPin ? 'Pinned for compare' : 'Pin for compare'}">📌</button>
+    <button class="ws-mark ws-mark-cite" type="button" data-ws="cite" title="Cite this paragraph (APA / Chicago / BibTeX / RIS / URL)">”</button>
     ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">📝</span>' : ''}
   `;
 }
@@ -3133,6 +3148,65 @@ const CITE_FORMATS = [
   { key: 'ris',     name: 'RIS / EndNote',  fmt: '.RIS',    build: _citeRIS },
   { key: 'url',     name: 'Plain URL',      fmt: 'LINK',    build: _citePlainURL },
 ];
+
+// v18.2: shared inline cite popover. Anchors next to whatever button
+// triggered it (a result-row mark, a docs-reader paragraph row, or
+// the dossier toolbar). Only one open at a time — clicking elsewhere
+// or pressing Esc closes it.
+let _inlineCiteCleanup = null;
+function openInlineCitePopover(anchorEl, para) {
+  closeInlineCitePopover();
+  const doc = state.documents.get(para.docId);
+  const pop = document.createElement('div');
+  pop.className = 'inline-cite-pop';
+  pop.setAttribute('role', 'menu');
+  pop.innerHTML = CITE_FORMATS.map(c => `
+    <button type="button" class="cite-opt" data-cite-key="${c.key}" role="menuitem">
+      <span class="cite-fmt">${escape(c.fmt)}</span>
+      <span class="cite-name">${escape(c.name)}</span>
+    </button>
+  `).join('');
+
+  // Position: right-edge-aligned, dropping below the anchor by 6 px.
+  document.body.appendChild(pop);
+  const r = anchorEl.getBoundingClientRect();
+  const popW = pop.offsetWidth;
+  const x = Math.max(8, Math.min(window.innerWidth - popW - 8, r.right - popW));
+  pop.style.top  = `${window.scrollY + r.bottom + 6}px`;
+  pop.style.left = `${x}px`;
+
+  // Wire each format. After click → write to clipboard, flash, close.
+  pop.querySelectorAll('.cite-opt').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const fmt = CITE_FORMATS.find(f => f.key === btn.dataset.citeKey);
+      if (!fmt) return;
+      const cite = fmt.build(doc, para);
+      try { navigator.clipboard?.writeText(cite); } catch {}
+      const lbl = btn.querySelector('.cite-fmt');
+      const orig = lbl.textContent;
+      lbl.textContent = '✓ COPIED';
+      setTimeout(closeInlineCitePopover, 700);
+    });
+  });
+
+  // Click-outside / Esc close.
+  const onDoc = (e) => { if (!pop.contains(e.target) && e.target !== anchorEl) closeInlineCitePopover(); };
+  const onEsc = (e) => { if (e.key === 'Escape') closeInlineCitePopover(); };
+  setTimeout(() => {                              // attach on next tick so the
+    document.addEventListener('click', onDoc);    // current click doesn't fire it
+    document.addEventListener('keydown', onEsc);
+  }, 0);
+  _inlineCiteCleanup = () => {
+    pop.remove();
+    document.removeEventListener('click', onDoc);
+    document.removeEventListener('keydown', onEsc);
+    _inlineCiteCleanup = null;
+  };
+}
+function closeInlineCitePopover() {
+  if (_inlineCiteCleanup) _inlineCiteCleanup();
+}
 
 // ─────────── Reading mode (A3) ───────────
 //
