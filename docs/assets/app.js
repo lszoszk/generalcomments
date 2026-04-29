@@ -814,7 +814,10 @@ function bindUI() {
       : `${state.scope.toUpperCase()} search`;
     const name = window.prompt('Name this saved search:', defaultName);
     if (!name) return;
-    ssAdd(name, window.location.pathname + window.location.search);
+    // Persist the URL with #search so that a direct browser-history visit
+    // also lands on the search view (the workspace renderer intercepts the
+    // click in-app, but the saved entry should also be a valid bookmark URL).
+    ssAdd(name, window.location.pathname + window.location.search + '#search');
     const btn = $('#save-search');
     if (btn) {
       const lbl = btn.querySelector('.copy-link-label');
@@ -2611,15 +2614,10 @@ function cmdkBuildItems() {
       searchKey: `${symbol} ${doc.name || ''} ${doc.country || ''} ${doc.committee || ''}`.toLowerCase(),
       run: () => {
         // Activate the first paragraph of this doc — equivalent to clicking
-        // the corresponding row in the Documents view.
-        const firstP = `${doc.docId}-0001`;
-        const url = new URL(window.location);
-        url.searchParams.set('p', firstP);
-        url.hash = 'search';
-        window.history.replaceState(null, '', url);
-        // Trigger a re-render with the new ?p=
-        applyUrlState(decodeUrlState());
-        runSearch();
+        // the corresponding row in the Documents view.  Routes through the
+        // single jump helper so it handles JUR shard load + scope flip + the
+        // explicit setView call (replaceState alone never triggered it).
+        jumpToParagraph(`${doc.docId}-0001`);
       },
     });
   }
@@ -3124,27 +3122,103 @@ function renderWorkspace() {
   host.querySelectorAll('.ws-jump').forEach(a => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      const id = a.dataset.paraId;
-      const url = new URL(window.location);
-      url.searchParams.set('p', id);
-      url.hash = 'search';
-      window.history.replaceState(null, '', url);
-      applyUrlState(decodeUrlState());
-      runSearch();
+      jumpToParagraph(a.dataset.paraId);
+    });
+  });
+  // Saved-search links — same problem as ws-jump (the saved URL has no hash,
+  // so a normal anchor click leaves the user in the workspace view). Intercept
+  // and route through the single navigation helper.
+  host.querySelectorAll('.ws-search-link').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateToSearchUrl(a.getAttribute('href') || '');
     });
   });
 }
 
+// Extract a docId from a paragraph id of the form "<docId>-NNNN".  Used when
+// the paragraph isn't yet in state.paragraphById (e.g. a workspace bookmark
+// for a JUR case opened on a fresh page load before the JUR shard fetched).
+function _docIdFromParaId(paraId) {
+  if (!paraId) return null;
+  const m = String(paraId).match(/^(.+)-\d{4,}$/);
+  return m ? m[1] : null;
+}
+
+// Unified jump-to-paragraph used by Workspace + cmdk + future entry points.
+// Keys handled in one place:
+//   - paragraph might live in a lazy shard (JUR) → load on demand
+//   - scope might be on a different tab (gc/jur/sp) → switch
+//   - URL needs ?p=<id>#search and the view must actually flip to 'search'
+//     (replaceState alone does NOT fire hashchange, so setView never ran in v14).
+async function jumpToParagraph(paraId) {
+  if (!paraId) return;
+
+  // Identify the target document, even if the paragraph itself isn't loaded
+  let doc = state.documents.get(_docIdFromParaId(paraId) || '');
+  const targetType = doc?.type || 'gc';
+  const targetScope = targetType === 'jur' ? 'jur'
+                    : targetType === 'sp'  ? 'sp'
+                    : 'gc';
+
+  // Pull the JUR shard if needed; the bookmark will only resolve once the
+  // paragraph is in state.paragraphById.
+  if (targetScope === 'jur' && !state.jur.loaded) {
+    try { await loadJurCorpus(); } catch (e) { console.warn('[jur load failed]', e); }
+  }
+
+  // Switch scope tab if we're not already on a compatible one.  "All sources"
+  // is fine for any target — leave it alone if it's already active.
+  if (state.scope !== targetScope && state.scope !== 'all') {
+    document.querySelector(`.scope-opt[data-scope="${targetScope}"]`)?.click();
+  }
+
+  // Set the URL (preserve other query params), flip the view.
+  const url = new URL(window.location);
+  url.searchParams.set('p', paraId);
+  url.hash = 'search';
+  window.history.replaceState(null, '', url.toString());
+  state.activeId = paraId;
+  setView('search');                              // explicit — replaceState doesn't fire hashchange
+  runSearch();
+}
+
+// Saved-search anchor → navigate as if the user typed the saved URL,
+// without leaving the workspace via a full page reload.
+function navigateToSearchUrl(href) {
+  if (!href) return;
+  // If href is an absolute URL on the same origin, keep only the path/search/hash.
+  let path = href;
+  try {
+    const u = new URL(href, window.location.href);
+    path = u.pathname + u.search + (u.hash || '#search');
+  } catch {
+    if (!href.includes('#')) path = href + '#search';
+  }
+  window.history.replaceState(null, '', path);
+  applyUrlState(decodeUrlState());
+  setView('search');
+  runSearch();
+}
+
 function _wsRowFor(paraId, kind) {
   const para = state.paragraphById.get(paraId);
-  const doc = para && state.documents.get(para.docId);
+  // Documents are loaded eagerly (Tier-1 jur docs included), so we can show
+  // the case symbol + title even when the paragraph itself is from a shard
+  // that hasn't been fetched yet.
+  const docId = para?.docId || _docIdFromParaId(paraId);
+  const doc = state.documents.get(docId || '');
   const sig = doc?.signature || doc?.symbol || paraId;
   const where = doc?.country ? ` · ${escape(doc.country)}` : '';
-  const snippet = para ? para.text.slice(0, 180) + (para.text.length > 180 ? '…' : '') : '<em>(paragraph not loaded — open the relevant scope)</em>';
+  const snippet = para
+    ? para.text.slice(0, 180) + (para.text.length > 180 ? '…' : '')
+    : '<em>(paragraph body will load when you open this scope — click to navigate)</em>';
   const dataAttr = kind === 'bm' ? `data-bm-id="${escape(paraId)}"`
                  : kind === 'note' ? `data-note-id="${escape(paraId)}"`
                  : kind === 'pin' ? `data-pin-id="${escape(paraId)}"` : '';
-  const noteText = kind === 'note' ? `<p class="ws-note serif">${escape(_lsGet(_LS.notes, {})[paraId] || '')}</p>` : '';
+  const noteText = kind === 'note'
+    ? `<p class="ws-note serif">${escape(_lsGet(_LS.notes, {})[paraId] || '')}</p>`
+    : '';
   return `<li class="ws-row">
     <div class="ws-row-meta">
       <a class="ws-jump mono" href="#search" data-para-id="${escape(paraId)}">${escape(sig)}</a>
