@@ -71,8 +71,12 @@ function apiEnabled() {
 function apiActive(scope) {
   // Hybrid mode (per VM_DEPLOY_PLAN.md): only JUR + all routes through
   // the API; GC + SP stay local. Even when api=1, GC users still get
-  // the keystroke-fast in-browser FlexSearch path.
+  // the keystroke-fast in-browser FlexSearch path. If the API was
+  // probed at boot and is unreachable, we transparently fall back to
+  // local — `state.apiOnline === false` blocks subsequent attempts so
+  // a single failure doesn't cause an infinite recursion via runSearch.
   if (!apiEnabled()) return false;
+  if (state.apiOnline === false) return false;
   return scope === 'jur' || scope === 'all';
 }
 async function apiFetch(path, params) {
@@ -105,6 +109,122 @@ async function pingApi() {
     paintApiBadge(false);
   }
 }
+// v19: API-backed runSearch. Maps an /api/search response into the
+// same `{p, score}` shape the local renderer expects, hydrates
+// state.paragraphById on the fly so the dossier + workspace marks
+// keep working, and short-circuits the local FlexSearch + BM25 path.
+async function runSearchViaApi(runId) {
+  const f = state.filters;
+  const scope = state.scope;
+
+  // Build the API param set from current state.
+  const params = {
+    q: state.query || '',
+    scope: scope,
+    sort: state.resultSort === 'date'
+            ? 'date_desc'
+            : 'relevance',
+    page: 1,
+    // The API caps page_size at 200. That's enough for the first
+    // screen + a few infinite-scroll ticks — past 200, follow-up
+    // pages are fetched on demand (TODO Sprint-3.1: chain pages on
+    // scroll). 200 is also a sensible "you should refine your
+    // filters" cliff, mirroring our local RESULT_HARD_CAP behaviour.
+    page_size: 200,
+  };
+  if (f.committees.size) {
+    // The API has separate slots for committees vs treaties vs mandates,
+    // but our local filter chips lump everything into f.committees. Send
+    // the union; the API filters with IN clauses on whichever column has
+    // a matching value.
+    const list = [...f.committees].join(',');
+    params.committees = list;
+    params.treaties   = list;
+    params.mandates   = list;
+  }
+  if (f.labels.size) params.labels = [...f.labels].join(',');
+  if (f.yearMin && f.yearMin !== state.facets?.years?.min) params.year_from = f.yearMin;
+  if (f.yearMax && f.yearMax !== state.facets?.years?.max) params.year_to   = f.yearMax;
+
+  // UI-side loading hint (kept short so the badge keeps reflecting reality).
+  paintApiBadge(true, '…');
+  const t0 = performance.now();
+
+  let body;
+  try {
+    body = await apiFetch('/api/search', params);
+  } catch (e) {
+    if (runId !== state.searchRun) return;
+    console.warn('[unhrdb-api] search failed, falling back to local:', e.message);
+    paintApiBadge(false);
+    state.apiOnline = false;
+    // Re-run via the local path so the user gets results either way.
+    return runSearch();
+  }
+  if (runId !== state.searchRun) return;     // user typed again mid-flight
+
+  paintApiBadge(true, Math.round(performance.now() - t0));
+
+  // Hydrate state.paragraphById + state.documents so the dossier and
+  // the per-row workspace marks (which look up by para.id) keep
+  // working.  Only writes on cache miss.
+  const matched = body.hits.map(h => {
+    const p = adaptApiHit(h);
+    if (!state.paragraphById.has(p.id)) state.paragraphById.set(p.id, p);
+    if (!state.documents.has(p.docId)) {
+      state.documents.set(p.docId, adaptApiDoc(h));
+    }
+    return { p, score: h.score ?? 0, snippetHtml: h.snippet };
+  });
+
+  state.results = matched;
+  // Server returned in the order we asked for — don't re-sort.
+  // Keep an "alsoTry" suggestion list for the empty-state painter and
+  // the API's true total so the count badge tells the truth even when
+  // we only paged in 200 rows.
+  state.alsoTry = body.alsoTry || [];
+  state.apiTotal = body.total;
+  paintResults();
+  updateDocumentTitle();
+}
+
+// Map one `hits[i]` entry from the API into a paragraph object that
+// matches what build_corpus.py emits for the static corpus.json. The
+// shape has to satisfy paintDossier + renderResult + workspace marks
+// without further conditional logic in those code paths.
+function adaptApiHit(h) {
+  return {
+    id:      h.para_id,
+    docId:   h.doc_id,
+    idx:     h.idx,
+    n:       h.n,
+    section: h.section,
+    text:    h.text,
+    type:    h.type,
+    year:    h.year,
+    committee:  h.committee || h.mandate || h.treaty,
+    committees: [h.committee || h.mandate || h.treaty].filter(Boolean),
+    labels:  [],     // API doesn't return per-paragraph labels in the page slice yet
+  };
+}
+function adaptApiDoc(h) {
+  return {
+    docId:        h.doc_id,
+    type:         h.type,
+    treaty:       h.treaty,
+    committee:    h.committee,
+    committees:   [h.committee || h.mandate || h.treaty].filter(Boolean),
+    mandate:      h.mandate,
+    name:         h.name,
+    nameShort:    h.name_short,
+    signature:    h.signature,
+    country:      h.country,
+    outcome:      h.outcome,
+    year:         h.year,
+    adoptionDate: h.adoption_date,
+  };
+}
+
 function paintApiBadge(online, ms) {
   const host = $('#result-breakdown');
   if (!host) return;
@@ -2084,6 +2204,14 @@ function paintShortQueryHint(v) {
 async function runSearch() {
   const runId = ++state.searchRun;
   scheduleUrlUpdate();
+
+  // v19: when the API is opt-in for this scope, bypass local FlexSearch
+  // entirely. GC stays local because GC corpus fits in the browser and
+  // beats any round-trip; JUR + scope=all ride the SQLite FTS5 server.
+  if (apiActive(state.scope)) {
+    return runSearchViaApi(runId);
+  }
+
   try {
     await ensureScopeLoaded(state.scope);
     if (runId !== state.searchRun) return;
@@ -2197,6 +2325,8 @@ async function runSearch() {
   }
 
   state.results = matched;
+  state.alsoTry = [];                       // v19: local path doesn't have synonyms
+  state.apiTotal = null;                    // local path: state.results.length is the truth
   sortResults();
   paintResults();
   updateDocumentTitle();
@@ -2300,13 +2430,20 @@ let _resultObserver = null;
 function paintResults() {
   const list = $('#result-list');
   list.innerHTML = '';
-  const total = state.results.length;
+  // v19: prefer the API's `total` (server-side count over the full corpus)
+  // when it's set; the local `state.results.length` is clipped to the
+  // API's 200-row page when running through the API path.
+  const renderedTotal = state.results.length;
+  const total = state.apiTotal != null ? state.apiTotal : renderedTotal;
+  const clippedToApi = state.apiTotal != null && state.apiTotal > renderedTotal;
   const docCount = new Set(state.results.map(r => r.p.docId)).size;
   syncResultsControls();
 
   $('#result-count').textContent = `${total.toLocaleString()} ¶`;
   $('#results-title').textContent = total
-    ? `${total.toLocaleString()} passages from ${docCount} document${docCount === 1 ? '' : 's'}`
+    ? (clippedToApi
+        ? `${total.toLocaleString()} passages — showing first ${renderedTotal.toLocaleString()} from ${docCount} document${docCount === 1 ? '' : 's'}`
+        : `${total.toLocaleString()} passages from ${docCount} document${docCount === 1 ? '' : 's'}`)
     : 'No matches';
   $('#results-sub').textContent = resultSubtitle();
   $('#results-sub').appendChild(scopeNotice());
@@ -2439,11 +2576,26 @@ function _buildEmptyState() {
     body = 'Switch the scope tab above to General Comments or All sources.';
   }
 
+  // v19: when the API returned synonym hints for a 0-result query,
+  // surface them as one-click "did you also try" links. Server already
+  // verified the suggested terms hit something useful in the corpus.
+  const alsoTry = (state.alsoTry && state.alsoTry.length)
+    ? `
+      <div class="empty-also-try">
+        <div class="folio">Did you also try…</div>
+        <div class="empty-also-try-row">
+          ${state.alsoTry.map(t => `
+            <button class="btn btn-ghost" type="button" data-empty-suggest="${escape(t)}">${escape(t)}</button>
+          `).join('')}
+        </div>
+      </div>` : '';
+
   li.innerHTML = `
     <div class="empty-card">
       <div class="folio garnet">SEARCH · NO RESULTS</div>
       <h3 class="serif empty-title">${title}</h3>
       <p class="serif empty-sub">${body}</p>
+      ${alsoTry}
       <div class="empty-syntax">
         <div class="folio">Search syntax</div>
         <div class="empty-syntax-row">
@@ -2453,6 +2605,15 @@ function _buildEmptyState() {
       ${actions ? `<div class="empty-actions">${actions}</div>` : ''}
     </div>
   `;
+  // Wire any synonym-suggestion buttons.
+  li.querySelectorAll('[data-empty-suggest]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const term = btn.dataset.emptySuggest;
+      $('#q').value = term;
+      state.query = term;
+      runSearch();
+    });
+  });
 
   // Wire the recovery buttons (idempotent — buttons may not exist for case (d))
   li.querySelector('[data-empty-action="clear-q"]')?.addEventListener('click', () => {
@@ -2474,8 +2635,8 @@ function appendNextPage(list, terms) {
   if (start >= end) return false;
   const frag = document.createDocumentFragment();
   for (let i = start; i < end; i++) {
-    const { p } = state.results[i];
-    frag.appendChild(renderResult(p, i + 1, terms));
+    const { p, snippetHtml } = state.results[i];
+    frag.appendChild(renderResult(p, i + 1, terms, { snippetHtml }));
   }
   // Insert before the sentinel so the sentinel stays at the tail.
   const sentinel = list.querySelector('.result-sentinel');
@@ -2722,8 +2883,12 @@ function renderResult(p, rank, terms, opts = {}) {
 
   // Build a KWIC window when the keyword falls past the visible fold; for
   // short paragraphs and queries with no hits, smartSnippet returns the full
-  // text (highlighted) untouched.
-  const snippet = smartSnippet(p.text, terms);
+  // text (highlighted) untouched. When the API supplied its own snippet
+  // (FTS5's snippet() with <mark> tags), prefer it — the server already
+  // chose the best 24-token window around the highest-scoring match.
+  const snippet = opts.snippetHtml
+    ? { html: opts.snippetHtml, isKwic: false, fullLen: p.text.length }
+    : smartSnippet(p.text, terms);
   const kwicBadge = snippet.isKwic
     ? `<span class="kwic-badge" title="Keyword-in-context · click result to read full paragraph">◎ KWIC · ${snippet.fullLen.toLocaleString()} chars</span>`
     : '';

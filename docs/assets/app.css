@@ -246,6 +246,13 @@
   color: var(--jur-tone);
   border-color: var(--jur-tone);
 }
+/* v19: live "API · NN ms" pill that appears when ?api=1 is active. */
+.rb-pill.rb-api {
+  background: var(--paper-3);
+  color: var(--garnet);
+  border-color: var(--garnet);
+  font-feature-settings: "tnum";
+}
 
 /* Copy link to current search */
 .copy-link-btn {
@@ -1051,6 +1058,26 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+}
+/* v19: synonym suggestions surfaced when the API returns 0 hits. */
+.empty-also-try {
+  margin: 14px 0 4px;
+  padding: 10px 12px;
+  background: var(--paper-2);
+  border: 1px dashed var(--rule);
+  border-radius: 3px;
+}
+.empty-also-try .folio { display: block; margin-bottom: 6px; }
+.empty-also-try-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.empty-also-try-row .btn {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--garnet);
 }
 
 .result-sentinel {
