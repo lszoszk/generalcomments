@@ -1560,6 +1560,16 @@ body.is-reading-mode .dossier { padding-top: 64px; }
   border-bottom: 0.5px solid var(--garnet-edge);
 }
 .foot-link:hover { border-bottom-color: var(--garnet); }
+/* v19.3: keep the report link visually identical to the GitHub link
+   even though it's a <button>. */
+.foot-report-btn {
+  background: transparent;
+  border: 0;
+  border-bottom: 0.5px solid var(--garnet-edge);
+  cursor: pointer;
+  font-family: var(--display);
+  padding: 0;
+}
 
 /* ─────────────  LOADER  ───────────── */
 .loader {
@@ -2635,6 +2645,163 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .diff-pane-pn { color: var(--ink); font-family: var(--mono); }
 .diff-pane-text { font-family: var(--display); font-size: 15px; line-height: 1.7; color: var(--ink); margin: 0; }
 .diff-modal-foot { padding: 8px 20px; border-top: 1px solid var(--rule); background: var(--paper-2); text-align: center; color: var(--ink-4); font-size: 9px; letter-spacing: 0.08em; }
+/* v19.3: report-a-problem modal. Pattern mirrors the diff-modal so
+   the visual language stays consistent across the two dialogs. */
+.report-modal[hidden] { display: none !important; }
+.report-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 230;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+}
+.report-modal-backdrop { position: absolute; inset: 0; background: rgba(20, 18, 16, 0.65); }
+.report-modal-card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0,0,0,.30);
+  overflow: hidden;
+}
+.report-modal-head {
+  position: relative;
+  padding: 18px 22px 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.report-modal-head .folio { display: block; margin-bottom: 4px; }
+.report-modal-title {
+  font-family: var(--display);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}
+.report-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: transparent;
+  border: 0;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-3);
+}
+.report-modal-close:hover { color: var(--garnet); }
+.report-form {
+  padding: 16px 22px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.report-kind {
+  border: 1px dashed var(--rule);
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+  margin: 0;
+}
+.report-kind legend {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--garnet);
+  padding: 0 6px;
+}
+.report-kind label {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--ink);
+}
+.report-kind label small {
+  font-size: 11px;
+  color: var(--ink-3);
+  font-style: italic;
+  margin-left: 22px;
+}
+.report-kind label input { margin-right: 6px; }
+.report-context {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 8px 12px;
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+.report-context .folio { color: var(--garnet); }
+.report-context .mono { color: var(--ink-2); font-size: 11px; word-break: break-all; }
+.report-context-toggle {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.report-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.report-field .folio { display: block; }
+.report-field textarea,
+.report-field input {
+  font-family: var(--body);
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 8px 10px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  color: var(--ink);
+  resize: vertical;
+  box-sizing: border-box;
+}
+.report-field textarea:focus,
+.report-field input:focus {
+  outline: none;
+  border-color: var(--garnet);
+}
+.report-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+.report-note {
+  font-size: 11px;
+  color: var(--ink-3);
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+.report-status {
+  font-family: var(--mono);
+  font-size: 12px;
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 2px;
+}
+.report-status.is-pending { background: var(--paper-2); color: var(--ink-3); }
+.report-status.is-ok      { background: oklch(94% 0.05 145); color: oklch(40% 0.15 145); }
+.report-status.is-err     { background: oklch(94% 0.07 25);  color: var(--garnet); }
+
 @media (max-width: 800px) {
   .diff-modal-grid { grid-template-columns: 1fr; }
   .diff-tray { width: 240px; bottom: 8px; right: 8px; }

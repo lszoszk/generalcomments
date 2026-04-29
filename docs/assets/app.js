@@ -1505,6 +1505,18 @@ function bindUI() {
       paintDocsRail();
     }, 150);
   });
+
+  // v19.3: report-a-problem affordance in the footer + Esc / backdrop close
+  // on the modal. The actual submit handler lives in openReportModal()
+  // because it needs to know the current paragraph context at click time.
+  $('#foot-report')?.addEventListener('click', () => openReportModal());
+  $('#report-modal .report-modal-backdrop')?.addEventListener('click', closeReportModal);
+  $('#report-modal .report-modal-close')?.addEventListener('click', closeReportModal);
+  $('#report-modal .report-cancel')?.addEventListener('click', closeReportModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !$('#report-modal')?.hidden) closeReportModal();
+  });
+  $('#report-form')?.addEventListener('submit', submitReport);
 }
 
 function scopeCommitteeSet(scope) {
@@ -4104,6 +4116,105 @@ function openDiffModal() {
 function closeDiffModal() {
   const modal = $('#diff-modal');
   if (modal) { modal.hidden = true; modal.innerHTML = ''; }
+}
+
+// ─────────── v19.3: Report-a-problem modal ───────────
+//
+// Posts to /api/feedback (the unhrdb-api endpoint that lands feedback
+// in /home/amuvmuser/unhrdb/feedback/feedback.jsonl on the VM). The
+// endpoint is rate-limited to 5/hour/IP server-side; we don't need a
+// client-side limit. When a paragraph is currently active in the
+// dossier or the docs reader, we offer to attach paraId + docId as
+// context — the user can untick to send a generic report instead.
+function openReportModal({ paraId = null, docId = null } = {}) {
+  const modal = $('#report-modal');
+  if (!modal) return;
+
+  // Resolve the active paragraph if not explicitly passed.
+  const id = paraId || state.docsActiveParaId || state.activeId;
+  const p  = id ? state.paragraphById.get(id) : null;
+  const d  = p?.docId ? state.documents.get(p.docId) : null;
+
+  const ctx = $('#report-context');
+  const detail = $('#report-context-detail');
+  if (id && p) {
+    detail.textContent = `${id}${p.n != null ? ` · ¶${p.n}` : ''}${d?.signature ? `  ·  ${d.signature}` : ''}`;
+    ctx.hidden = false;
+    modal.dataset.paraId = id;
+    modal.dataset.docId  = p.docId;
+  } else {
+    ctx.hidden = true;
+    delete modal.dataset.paraId;
+    delete modal.dataset.docId;
+  }
+
+  // Reset form (don't clobber email — users tend to re-use it).
+  $('#report-message').value = '';
+  $('#report-status').hidden = true;
+  $('#report-status').textContent = '';
+  $('#report-submit').disabled = false;
+
+  modal.hidden = false;
+  setTimeout(() => $('#report-message')?.focus(), 50);
+}
+
+function closeReportModal() {
+  const modal = $('#report-modal');
+  if (modal) modal.hidden = true;
+}
+
+async function submitReport(ev) {
+  ev.preventDefault();
+  const modal = $('#report-modal');
+  const submitBtn = $('#report-submit');
+  const status = $('#report-status');
+
+  const kind = $('#report-form input[name="kind"]:checked')?.value || 'other';
+  const message = $('#report-message').value.trim();
+  const contact = $('#report-contact').value.trim();
+  const includeContext = $('#report-context-include')?.checked;
+
+  if (message.length < 4) {
+    status.hidden = false;
+    status.textContent = 'Message is too short — please add a few more words.';
+    status.className = 'report-status is-err';
+    return;
+  }
+
+  const body = {
+    kind,
+    message,
+    contact: contact || null,
+    paraId: includeContext ? (modal.dataset.paraId || null) : null,
+    docId:  includeContext ? (modal.dataset.docId || null)  : null,
+  };
+
+  submitBtn.disabled = true;
+  status.hidden = false;
+  status.className = 'report-status is-pending';
+  status.textContent = 'Sending…';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/feedback`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      // 429 = rate-limited; 422 = validation; everything else: generic.
+      let detail = 'Send failed (' + res.status + ').';
+      if (res.status === 429) detail = 'Too many reports from your IP for now — please retry in an hour.';
+      else if (res.status === 422) detail = 'Server rejected the report — try shortening the message.';
+      throw new Error(detail);
+    }
+    status.className = 'report-status is-ok';
+    status.textContent = 'Thanks — your report was logged.';
+    setTimeout(closeReportModal, 1400);
+  } catch (e) {
+    status.className = 'report-status is-err';
+    status.textContent = e.message || 'Send failed — try again, or open a GitHub issue.';
+    submitBtn.disabled = false;
+  }
 }
 
 // ─────────── B4 Year histogram ───────────

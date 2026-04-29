@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260429-v19-2-api-pagination-1" />
-<link rel="stylesheet" href="assets/app.css?v=20260429-v19-2-api-pagination-1" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260429-v19-3-report" />
+<link rel="stylesheet" href="assets/app.css?v=20260429-v19-3-report" />
 </head>
 <body>
 
@@ -558,8 +558,59 @@
     <span class="serif" style="font-style: italic;">Set in Spectral &amp; Source Serif. App by Łukasz Szoszkiewicz and Zuzanna Kowalska.</span>
     <span class="dim">·</span>
     <a href="https://github.com/lszoszk" class="serif foot-link">GitHub</a>
+    <span class="dim">·</span>
+    <button id="foot-report" class="serif foot-link foot-report-btn" type="button"
+            title="Spotted a bad citation, missing paragraph, or weird behaviour? Tell us about it.">Report a problem</button>
   </div>
 </footer>
+
+<!-- ──────────────────  REPORT-A-PROBLEM MODAL (v19.3)  ─────────────── -->
+<div id="report-modal" class="report-modal" hidden>
+  <div class="report-modal-backdrop"></div>
+  <div class="report-modal-card" role="dialog" aria-modal="true" aria-labelledby="report-modal-title">
+    <header class="report-modal-head">
+      <div class="folio garnet">REPORT A PROBLEM</div>
+      <h3 id="report-modal-title" class="report-modal-title">What did you spot?</h3>
+      <button class="report-modal-close" type="button" aria-label="Close">×</button>
+    </header>
+    <form id="report-form" class="report-form">
+      <fieldset class="report-kind">
+        <legend class="folio">Kind</legend>
+        <label><input type="radio" name="kind" value="bug" checked> <span>Bug</span><small>UI broken, error, lost data</small></label>
+        <label><input type="radio" name="kind" value="data"> <span>Data issue</span><small>Wrong text, missing ¶, bad citation</small></label>
+        <label><input type="radio" name="kind" value="feature"> <span>Feature request</span><small>Something you'd like added</small></label>
+        <label><input type="radio" name="kind" value="other"> <span>Other</span><small>Anything else</small></label>
+      </fieldset>
+      <div class="report-context" id="report-context" hidden>
+        <span class="folio">Context</span>
+        <span id="report-context-detail" class="mono"></span>
+        <label class="report-context-toggle">
+          <input type="checkbox" id="report-context-include" checked>
+          Include this in the report
+        </label>
+      </div>
+      <label class="report-field">
+        <span class="folio">Message <span class="dim">(required, ≥4 chars)</span></span>
+        <textarea id="report-message" rows="4" required minlength="4" maxlength="2000"
+                  placeholder="What happened, what you expected, and how to reproduce."></textarea>
+      </label>
+      <label class="report-field">
+        <span class="folio">Email <span class="dim">(optional, only if you want a reply)</span></span>
+        <input id="report-contact" type="email" maxlength="120" placeholder="you@example.org">
+      </label>
+      <div class="report-actions">
+        <button type="button" class="btn btn-ghost report-cancel">Cancel</button>
+        <button type="submit" class="btn btn-garnet" id="report-submit">Send</button>
+      </div>
+      <p class="report-note serif">
+        Reports go to a private log on the project's server. We don't track you;
+        the only data persisted is what you typed plus a timestamp and your
+        approximate IP. Email is only used to reply.
+      </p>
+      <p class="report-status" id="report-status" hidden></p>
+    </form>
+  </div>
+</div>
 
 <!-- ───────────────────────────  LOADING OVERLAY  ──────────────────── -->
 <div class="loader" id="loader" aria-live="polite">
@@ -574,6 +625,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260429-v19-2-api-pagination-1"></script>
+<script type="module" src="assets/app.js?v=20260429-v19-3-report"></script>
 </body>
 </html>
