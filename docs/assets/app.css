@@ -3024,3 +3024,117 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
     justify-content: flex-start;
   }
 }
+
+/* ─────────── Footnotes (v19.8) ───────────
+   In-paragraph marker, popover, and "match in citation" pill. Designed
+   to fit the Garamond + steel-grey aesthetic; markers stay subtle so they
+   don't fight the text, popover sits above the rest of the chrome. */
+
+.fn-marker {
+  display: inline;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--garnet);
+  font-family: var(--mono);
+  font-size: inherit;
+  padding: 0 1px;
+  margin: 0 1px;
+  line-height: 1;
+  vertical-align: baseline;
+  border-radius: 2px;
+}
+.fn-marker > sup {
+  font-size: 0.72em;
+  line-height: 1;
+  font-feature-settings: "sups";
+}
+.fn-marker:hover,
+.fn-marker:focus-visible {
+  background: var(--paper-2);
+  outline: 1px solid var(--garnet);
+  outline-offset: 1px;
+}
+.fn-marker[aria-expanded="true"] {
+  background: var(--garnet);
+  color: var(--paper);
+  outline: 0;
+}
+
+.fn-popover {
+  position: absolute;
+  z-index: 9000;
+  max-width: 360px;
+  min-width: 220px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.fn-popover[hidden] { display: none; }
+.fn-popover-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-2);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.fn-popover-head .folio {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--garnet);
+}
+.fn-popover-n {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.fn-popover-close {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--ink-soft);
+  padding: 0 4px;
+}
+.fn-popover-close:hover { color: var(--garnet); }
+.fn-popover-body {
+  padding: 8px 10px 10px;
+  white-space: pre-wrap;
+  font-style: italic;
+}
+
+.match-in-citation {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--garnet);
+  background: var(--paper-2);
+  padding: 1px 6px;
+  border-radius: 3px;
+  border: 1px dashed var(--garnet);
+  margin-left: 6px;
+}
+
+@media (max-width: 600px) {
+  /* Below 600px, the popover behaves like a bottom sheet — full width,
+     anchored to bottom of viewport. We override the absolute positioning
+     set by JS via !important since the JS measures viewport-relative. */
+  .fn-popover {
+    position: fixed !important;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    top: auto !important;
+    max-width: none;
+    width: auto;
+  }
+}

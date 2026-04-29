@@ -1,15 +1,15 @@
 {
-  "version": "20260428",
-  "builtAt": "2026-04-28T15:20:40+00:00",
+  "version": "20260429",
+  "builtAt": "2026-04-29T23:14:03+00:00",
   "counts": {
-    "documents": 359,
-    "paragraphs": 25843,
-    "gcDocuments": 186,
-    "gcParagraphs": 7103,
+    "documents": 360,
+    "paragraphs": 25902,
+    "gcDocuments": 187,
+    "gcParagraphs": 7162,
     "spDocuments": 173,
     "spParagraphs": 18740,
     "labels": 19,
-    "committees": 13,
+    "committees": 14,
     "yearRange": [
       1960,
       2026
@@ -17,16 +17,16 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "98ed10783f0177d4",
-      "bytes": 25355088
+      "sha": "6fa5867dba231102",
+      "bytes": 25419399
     },
     "documents.json": {
-      "sha": "7bce3a9d33f9dfee",
-      "bytes": 330502
+      "sha": "afc424a264f66701",
+      "bytes": 332082
     },
     "facets.json": {
-      "sha": "e5f8edf91416157b",
-      "bytes": 6921
+      "sha": "f5cbb0ed70c3dc31",
+      "bytes": 6951
     }
   },
   "schema": {

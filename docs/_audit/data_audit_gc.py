@@ -178,7 +178,7 @@ def audit_doc_id_uniqueness(docs):
 def audit_committee_values(docs):
     section("6 · Committee values")
     known = {
-        'CAT', 'CCPR', 'CEDAW', 'CED', 'CERD', 'CESCR', 'CMW', 'CRC', 'CRPD',
+        'CAT', 'CAT-OP', 'CCPR', 'CEDAW', 'CED', 'CERD', 'CESCR', 'CMW', 'CRC', 'CRPD',
     }
     odd = []
     for d in docs:

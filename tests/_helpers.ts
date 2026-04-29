@@ -102,8 +102,74 @@ export async function resetWorkspace(page: Page): Promise<void> {
       Object.keys(localStorage)
         .filter((k) => k.startsWith('unhrdb_'))
         .forEach((k) => localStorage.removeItem(k));
+      // v19.8: drop the cached FlexSearch index. Tests that seed synthetic
+      // footnotes mutate corpus.json after fetch, but the cache key is the
+      // upstream sha, so without this the seeded fnText would never be
+      // indexed (the previous test run's index would be restored).
+      try { indexedDB.deleteDatabase('gr-cache'); } catch {}
     } catch {
       // about:blank or similar — ignore.
     }
   });
+}
+
+/**
+ * Seed synthetic footnotes onto specific paragraphs by intercepting the
+ * corpus.json fetch BEFORE the app reads it. Used by the v19.8 footnote
+ * tests: production data has no footnotes yet, but the UX must still be
+ * exercised end-to-end so we can catch render / popover / search regressions.
+ *
+ * Each entry mutates exactly one paragraph by id:
+ *   - patches `text` to insert [[fn:N]] markers at the given offsets (or
+ *     appends them if no anchor is given)
+ *   - sets `footnotes: [{n, text}]`
+ *
+ * Pass `[]` to disable seeding without changing the call site.
+ */
+export interface FootnoteSeed {
+  paraId: string;
+  /** Footnote bodies. Each becomes a [[fn:n]] marker appended to text unless `anchor` is set. */
+  footnotes: { n: number; text: string; anchor?: string }[];
+}
+export async function seedFootnotes(page: Page, seeds: FootnoteSeed[]): Promise<void> {
+  await page.addInitScript((seeds) => {
+    // Tell ensureSearchIndex() not to use the IDB-cached index — the cache
+    // key is the upstream sha and our seeded fnText would otherwise be
+    // missing from the restored (stale) index.
+    (window as any).__unhrdbDisableIdxCache = true;
+    const _fetch = window.fetch.bind(window);
+    window.fetch = async (...args: Parameters<typeof fetch>) => {
+      const resp = await _fetch(...args);
+      const url = typeof args[0] === 'string' ? args[0] : (args[0] as URL | Request).toString();
+      if (!/corpus\.json(\?.*)?$/.test(url)) return resp;
+      try {
+        const body = await resp.clone().json();
+        const byId = new Map<string, any>();
+        for (const p of body) byId.set(p.id, p);
+        for (const s of seeds) {
+          const p = byId.get(s.paraId);
+          if (!p) continue;
+          let text = String(p.text || '');
+          for (const f of s.footnotes) {
+            const marker = `[[fn:${f.n}]]`;
+            if (f.anchor && text.includes(f.anchor)) {
+              const idx = text.indexOf(f.anchor) + f.anchor.length;
+              text = text.slice(0, idx) + marker + text.slice(idx);
+            } else {
+              text = text + marker;
+            }
+          }
+          p.text = text;
+          p.footnotes = s.footnotes.map(({ n, text }) => ({ n, text }));
+        }
+        return new Response(JSON.stringify(body), {
+          status: resp.status,
+          statusText: resp.statusText,
+          headers: resp.headers,
+        });
+      } catch {
+        return resp;
+      }
+    };
+  }, seeds as any);
 }

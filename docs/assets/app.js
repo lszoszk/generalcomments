@@ -978,7 +978,7 @@ function paintDocReaderBody(doc, paraId) {
           <button class="docs-para-cite" data-act="cite" title="Cite this paragraph (APA / Chicago / BibTeX / RIS / URL)">”</button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">📝</span>' : ''}
         </div>
-        <p class="docs-reader-para-text serif">${escape(p.text)}</p>
+        <p class="docs-reader-para-text serif">${renderParagraphHtml(p.text, p.footnotes)}</p>
       </div>`;
   }).join('');
 
@@ -988,6 +988,15 @@ function paintDocReaderBody(doc, paraId) {
   host.querySelectorAll('.docs-reader-para').forEach(el => {
     const id = el.dataset.paraId;
     el.addEventListener('click', (e) => {
+      // Footnote markers: open popover, swallow further handling so the
+      // paragraph doesn't re-paint underneath us.
+      const fn = e.target.closest('button.fn-marker');
+      if (fn) {
+        e.stopPropagation();
+        e.preventDefault();
+        openFnPopover(fn);
+        return;
+      }
       const btn = e.target.closest('button[data-act]');
       if (btn) {
         e.stopPropagation();
@@ -2009,14 +2018,23 @@ async function ensureSearchIndex() {
   const cacheKey = `idx-${sha}`;
 
   state.searchIndex = new FlexSearch.Document({
-    document: { id: 'id', index: ['text'] },
+    // v19.8: index `text` (marker-stripped body) AND `fnText` (concatenated
+    // footnote bodies). FlexSearch uses BM25-ish scoring; default field
+    // weights are equal which matches the user's desired UX (footnote hits
+    // should surface, but the renderer downranks them visually with the
+    // "match in citation" pill rather than via index weighting).
+    document: { id: 'id', index: ['text', 'fnText'] },
     tokenize: 'forward',
     charset: 'latin:simple',
     cache: 100,
   });
 
-  // Try to restore from IndexedDB
-  const cached = sha ? await idbGet(cacheKey) : null;
+  // Try to restore from IndexedDB. v19.8: tests that seed synthetic
+  // footnotes via the corpus.json fetch interceptor set
+  // `__unhrdbDisableIdxCache` so the cached (pre-seed) index isn't reused.
+  // Production paths leave this flag false → caching behaves as before.
+  const skipCache = typeof window !== 'undefined' && window.__unhrdbDisableIdxCache === true;
+  const cached = !skipCache && sha ? await idbGet(cacheKey) : null;
   if (cached && Array.isArray(cached) && cached.length) {
     try {
       for (const [key, value] of cached) state.searchIndex.import(key, value);
@@ -2026,13 +2044,23 @@ async function ensureSearchIndex() {
     }
   }
 
-  // Build fresh
+  // Build fresh — feed marker-stripped text to the index so [[fn:N]] tokens
+  // never become search hits (only the surrounding prose does).
   const t0 = performance.now();
-  for (const p of state.paragraphs) state.searchIndex.add({ id: p.id, text: p.text });
+  for (const p of state.paragraphs) {
+    const fnText = (p.footnotes && p.footnotes.length)
+      ? p.footnotes.map(f => f.text || '').join(' ')
+      : '';
+    state.searchIndex.add({
+      id: p.id,
+      text: stripFnMarkers(p.text),
+      fnText,
+    });
+  }
   console.info(`FlexSearch built in ${(performance.now() - t0).toFixed(0)} ms`);
 
   // Serialise to IDB after a brief idle (don't block first paint).
-  if (sha) {
+  if (sha && !skipCache) {
     setTimeout(async () => {
       try {
         const dump = await dumpIndex();
@@ -2399,11 +2427,20 @@ async function runSearch() {
     }
 
     const text = p.text.toLowerCase();
+    // v19.8: build the AST-verification haystack from BOTH body text and
+    // footnote bodies so a query that hits a footnote-only term (e.g. a
+    // case citation) survives the substring re-check below. BM25 scoring
+    // still uses `text` only, so footnote-only hits stay ranked beneath
+    // body hits — and the renderer flags them with the
+    // "match in citation" pill.
+    const haystack = (p.footnotes && p.footnotes.length)
+      ? text + ' ' + p.footnotes.map(f => (f.text || '').toLowerCase()).join(' ')
+      : text;
 
     // AST-level enforcement: catches NOT clauses, phrases that need exact
     // substring, and prefix wildcards. FlexSearch alone can produce
     // stemming-only matches that don't actually contain the term.
-    if (ast && !paragraphMatchesAst(text, ast)) continue;
+    if (ast && !paragraphMatchesAst(haystack, ast)) continue;
 
     // BM25-lite ranking: rare terms (high IDF) outweigh common ones; long
     // paragraphs are penalised so a 5-occurrence hit in a 200-char doc beats
@@ -3107,11 +3144,25 @@ function renderResult(p, rank, terms, opts = {}) {
   // text (highlighted) untouched. When the API supplied its own snippet
   // (FTS5's snippet() with <mark> tags), prefer it — the server already
   // chose the best 24-token window around the highest-scoring match.
+  // v19.8: smartSnippet receives marker-stripped text so [[fn:N]] tokens
+  // never appear in snippets. The full marker text is only used inside the
+  // documents reader.
+  const bareText = stripFnMarkers(p.text);
   const snippet = opts.snippetHtml
-    ? { html: opts.snippetHtml, isKwic: false, fullLen: p.text.length }
-    : smartSnippet(p.text, terms);
+    ? { html: opts.snippetHtml, isKwic: false, fullLen: bareText.length }
+    : smartSnippet(bareText, terms);
   const kwicBadge = snippet.isKwic
     ? `<span class="kwic-badge" title="Keyword-in-context · click result to read full paragraph">◎ KWIC · ${snippet.fullLen.toLocaleString()} chars</span>`
+    : '';
+
+  // v19.8: detect "match in citation" — query term hit only inside a
+  // footnote (visible snippet wouldn't show why). Show a small pill so the
+  // user understands the match without opening the doc.
+  const matchInFn = p.footnotes && p.footnotes.length
+    && hasFootnoteMatch(p, terms || [])
+    && !(terms || []).some(t => bareText.toLowerCase().includes(String(t).toLowerCase()));
+  const fnMatchPill = matchInFn
+    ? `<span class="match-in-citation" title="Search term matched a footnote citation, not the paragraph body">◇ match in citation</span>`
     : '';
 
   // Workspace state for this paragraph (B1/B2/B3 indicators)
@@ -3128,6 +3179,7 @@ function renderResult(p, rank, terms, opts = {}) {
       <div class="result-headline">
         ${headline}
         ${kwicBadge}
+        ${fnMatchPill}
       </div>
       <p class="result-text${snippet.isKwic ? ' is-kwic' : ''}">${snippet.html}</p>
       <div class="result-meta">
@@ -4786,6 +4838,179 @@ function highlight(text, terms) {
   const escaped = escape(text);
   const re = new RegExp('(' + sorted.map(t => escapeRe(t)).join('|') + ')', 'gi');
   return escaped.replace(re, '<mark class="hl">$1</mark>');
+}
+
+// ─────────── Footnote helpers (v19.8) ───────────
+//
+// Convention: paragraph.text may contain marker tokens of the form `[[fn:N]]`
+// where N matches an entry in paragraph.footnotes (an array of {n, text}).
+// Paragraphs that lack footnotes never carry markers, so existing 7,103¶
+// render exactly as before.
+//
+// stripFnMarkers(text)              → text with [[fn:N]] removed (search/snippets)
+// renderParagraphHtml(text, fns)    → escaped HTML with marker tokens replaced
+//                                     by clickable <button> anchors. The button
+//                                     carries data-fn-n + data-fn-text so a
+//                                     single delegated handler can drive the
+//                                     popover anywhere we render paragraphs.
+//
+const FN_MARKER_RE = /\[\[fn:(\d+)\]\]/g;
+function stripFnMarkers(text) {
+  return String(text || '').replace(FN_MARKER_RE, '');
+}
+function renderParagraphHtml(text, footnotes, opts = {}) {
+  const t = String(text || '');
+  const terms = opts.terms || null;
+  const noMarkers = opts.noMarkers === true;
+
+  // Fast paths -------------------------------------------------------------
+  if (!FN_MARKER_RE.test(t)) {
+    FN_MARKER_RE.lastIndex = 0;
+    return terms ? highlight(t, terms) : escape(t);
+  }
+  FN_MARKER_RE.lastIndex = 0;
+  if (noMarkers) {
+    const bare = stripFnMarkers(t);
+    return terms ? highlight(bare, terms) : escape(bare);
+  }
+
+  // Build a quick lookup: marker N → footnote text.
+  const byN = new Map();
+  if (Array.isArray(footnotes)) {
+    for (const f of footnotes) {
+      if (f && f.n != null) byN.set(Number(f.n), String(f.text || ''));
+    }
+  }
+
+  // Tokenise around markers so we can highlight the prose chunks while
+  // keeping marker buttons un-highlighted.
+  let html = '';
+  let last = 0;
+  let m;
+  FN_MARKER_RE.lastIndex = 0;
+  while ((m = FN_MARKER_RE.exec(t)) !== null) {
+    const before = t.slice(last, m.index);
+    html += terms ? highlight(before, terms) : escape(before);
+    const n = Number(m[1]);
+    const fnText = byN.get(n) || '';
+    html += '<button type="button" class="fn-marker" '
+          + `data-fn-n="${n}" `
+          + `data-fn-text="${escape(fnText)}" `
+          + `aria-label="Footnote ${n}: ${escape(fnText.slice(0, 80))}${fnText.length > 80 ? '…' : ''}" `
+          + `aria-expanded="false">`
+          + `<sup>${n}</sup>`
+          + '</button>';
+    last = m.index + m[0].length;
+  }
+  const tail = t.slice(last);
+  html += terms ? highlight(tail, terms) : escape(tail);
+  return html;
+}
+
+// Returns true if any of `terms` (case-insensitive substring) appears in any
+// of the paragraph's footnote bodies. Used to flag "match in citation" pills
+// in the search results when the visible snippet itself doesn't contain the
+// term (i.e. FlexSearch hit was scored from the fnText field only).
+function hasFootnoteMatch(paragraph, terms) {
+  if (!paragraph || !paragraph.footnotes || !paragraph.footnotes.length) return false;
+  if (!terms || !terms.length) return false;
+  const probes = terms.map(t => String(t || '').toLowerCase()).filter(Boolean);
+  if (!probes.length) return false;
+  for (const f of paragraph.footnotes) {
+    const ft = String(f.text || '').toLowerCase();
+    if (probes.some(p => ft.includes(p))) return true;
+  }
+  return false;
+}
+
+// ─────────── Footnote popover (singleton) ───────────
+//
+// One popover element appended to <body>, positioned anchored to the clicked
+// marker. Closes on Escape, click-outside, scroll. ARIA: role=tooltip;
+// trigger gets aria-expanded toggling.
+let _fnPopover = null;
+let _fnPopoverTrigger = null;
+function _ensureFnPopover() {
+  if (_fnPopover) return _fnPopover;
+  const el = document.createElement('div');
+  el.className = 'fn-popover';
+  el.setAttribute('role', 'tooltip');
+  el.hidden = true;
+  el.innerHTML = `
+    <div class="fn-popover-head">
+      <span class="folio">FOOTNOTE</span>
+      <span class="fn-popover-n mono"></span>
+      <button class="fn-popover-close" type="button" aria-label="Close footnote">×</button>
+    </div>
+    <div class="fn-popover-body serif"></div>`;
+  document.body.appendChild(el);
+  el.querySelector('.fn-popover-close').addEventListener('click', closeFnPopover);
+  _fnPopover = el;
+  return el;
+}
+function openFnPopover(triggerBtn) {
+  if (!triggerBtn) return;
+  if (_fnPopoverTrigger === triggerBtn) { closeFnPopover(); return; }
+  closeFnPopover();
+  const n = triggerBtn.dataset.fnN || '';
+  const text = triggerBtn.dataset.fnText || '';
+  const pop = _ensureFnPopover();
+  pop.querySelector('.fn-popover-n').textContent = '¹ '.replace('¹', '') + n;
+  pop.querySelector('.fn-popover-body').textContent = text;
+  pop.hidden = false;
+  triggerBtn.setAttribute('aria-expanded', 'true');
+  _fnPopoverTrigger = triggerBtn;
+  _positionFnPopover(triggerBtn, pop);
+  // Bind close handlers (idempotent — using bound singleton listeners).
+  document.addEventListener('keydown', _fnPopoverKey, true);
+  document.addEventListener('click', _fnPopoverDocClick, true);
+  window.addEventListener('scroll', closeFnPopover, true);
+  window.addEventListener('resize', closeFnPopover, true);
+}
+function closeFnPopover() {
+  if (!_fnPopover) return;
+  _fnPopover.hidden = true;
+  if (_fnPopoverTrigger) {
+    _fnPopoverTrigger.setAttribute('aria-expanded', 'false');
+    _fnPopoverTrigger = null;
+  }
+  document.removeEventListener('keydown', _fnPopoverKey, true);
+  document.removeEventListener('click', _fnPopoverDocClick, true);
+  window.removeEventListener('scroll', closeFnPopover, true);
+  window.removeEventListener('resize', closeFnPopover, true);
+}
+function _fnPopoverKey(e) {
+  if (e.key === 'Escape') {
+    if (_fnPopoverTrigger) _fnPopoverTrigger.focus();
+    closeFnPopover();
+  }
+}
+function _fnPopoverDocClick(e) {
+  if (!_fnPopover) return;
+  if (e.target === _fnPopoverTrigger) return;
+  if (_fnPopover.contains(e.target)) return;
+  if (e.target.closest && e.target.closest('.fn-marker')) return;
+  closeFnPopover();
+}
+function _positionFnPopover(trigger, pop) {
+  const r = trigger.getBoundingClientRect();
+  // Show popover hidden at top-left first to measure its size.
+  pop.style.left = '0px';
+  pop.style.top = '0px';
+  const pr = pop.getBoundingClientRect();
+  const margin = 8;
+  // Default: below + slightly right of trigger; flip up if it would overflow.
+  let top = r.bottom + window.scrollY + margin;
+  let left = r.left + window.scrollX;
+  if (left + pr.width > window.scrollX + window.innerWidth - margin) {
+    left = window.scrollX + window.innerWidth - pr.width - margin;
+  }
+  if (left < window.scrollX + margin) left = window.scrollX + margin;
+  if (top + pr.height > window.scrollY + window.innerHeight - margin) {
+    top = r.top + window.scrollY - pr.height - margin;
+  }
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
 }
 
 function escapeRe(s) {
