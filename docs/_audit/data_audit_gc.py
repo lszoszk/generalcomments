@@ -34,9 +34,20 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-REPO = ROOT.parent / 'generalcomments-repo'
-DOCS = REPO / 'docs' / 'documents.json'
-CORPUS = REPO / 'docs' / 'corpus.json'
+# Try a few locations so the script works whether it lives in the repo
+# (docs/_audit/) or next to a sibling generalcomments-repo/ checkout.
+_candidates = [
+    ROOT.parent,                                  # docs/_audit/.. → docs/  → in-repo
+    ROOT.parent / 'generalcomments-repo' / 'docs',  # GC_Database layout
+    ROOT.parent.parent / 'generalcomments-repo' / 'docs',
+]
+for _c in _candidates:
+    if (_c / 'documents.json').exists():
+        DOCS = _c / 'documents.json'
+        CORPUS = _c / 'corpus.json'
+        break
+else:
+    raise FileNotFoundError('documents.json not found in any expected location')
 
 
 # ---------------------------------------------------------------------------
