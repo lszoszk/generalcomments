@@ -3,6 +3,12 @@
     "ID": "1.",
     "Section": "",
     "Labels": [],
+    "Text": "April 1998 (initial submission) Date of adoption of Views 29 July 1998 On 29 July 1998, the Human Rights Committee adopted its Views under article 5, paragraph 4, of the Optional Protocol in respect of communication No. 813/1998. The text of the Views is appended to the present document. [ANNEX] * Made public by decision of the Human Rights Committee. View813 ANNEX* VIEWS OF THE HUMAN RIGHTS COMMITTEE UNDER ARTICLE 5, PARAGRAPH 4, OF THE OPTIONAL PROTOCOL TO THE INTERNATIONAL COVENANT ON CIVIL AND POLITICAL RIGHTS - Sixty-third session - concerning Communication Nº 813/1998** Submitted by: Dole Chadee et al (represented by Mr. David Smythe, of Kingsley Napley, a law firm in London) Victim: The authors State party: Trinidad and Tobago Date of communication: 1 April 1998 (initial submission) The Human Rights Committee, established under article 28 of the International Covenant on Civil and Political Rights, Meeting on 29 July 1998, Having concluded its consideration of communication No.813/1998 submitted to the Human Rights Committee by Dole Chadee et al., under the Optional Protocol to the International Covenant on Civil and Political Rights, Having taken into account all written information made available to it by the author of the communication, his counsel and the State party, Adopts the following: **The text of individual opinions by Committee members Eckart Klein, David Kretzmer and Martin Scheinin is appended to the present document. Views under article 5, paragraph 4, of the Optional Protocol"
+  },
+  {
+    "ID": "1.",
+    "Section": "",
+    "Labels": [],
     "Text": "The authors of the communication are Nankissoon Boodram (Dole Chadee), Joel Ramsingh, Joey Ramiah, Ramkalawan Singh, Russell Sankeralli, Bhagwandeen Singh, Clive Thomas, Robin Gopaul and Stephen Eversley, all Trinidadian nationals at present detained on Death Row in the State Prison of Trinidad. They initially claim to be a victim of violations by Trinidad & Tobago of article 14 of the Covenant. They are represented by David Smythe of Kingsley Napley Solicitors in London, England. The facts as submitted"
   },
   {
@@ -321,102 +327,132 @@
     "ID": "11.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Human Rights Committee, acting under article 5, paragraph 4, of the Optional Protocol to the International Covenant on Civil and Political Rights, is of the view that the facts before it do not reveal a breach of any of the provisions of the Covenant. Individual opinion of E. Klein and D. Kretzmer (dissenting in part)"
+    "Text": "The Human Rights Committee, acting under article 5, paragraph 4, of the Optional Protocol to the International Covenant on Civil and Political Rights, is of the view that the facts before it do not reveal a breach of any of the provisions of the Covenant."
   },
   {
-    "ID": "1.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-1.",
+    "Section": "Individual opinion of E. Klein and D. Kretzmer (dissenting in part)",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "In the present case the authors made specific allegations regarding the quality of the water with which they are provided in jail. Thus, in a questionnaire submitted by Robin Gopaul, he states: “The water come from a tank and is often brownish in colour. The officer who work in the division don’t ever drink this water.” Similarly, Russell Sankeralli states in his questionnaire: “I am allowed to fill my two-litre mug twice a day, but the water is either dirty and/or tasting of rust and mud. The prison officers bost (sic) of their not having to drink of that water, they get special water from outside the division.” In response to these detailed allegations the State party merely states that the water is clean."
+    "Text": "In the present case the authors made specific allegations regarding the quality of the water with which they are provided in jail. Thus, in a questionnaire submitted by Robin Gopaul, he states: “The water come from a tank and is often brownish in colour. The officer who work in the division don’t ever drink this water.” Similarly, Russell Sankeralli states in his questionnaire: “I am allowed to fill my two-litre mug twice a day, but the water is either dirty and/or tasting of rust and mud. The prison officers bost (sic) of their not having to drink of that water, they get special water from outside the division.” In response to these detailed allegations the State party merely states that the water is clean.",
+    "OriginalID": "1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-2.",
+    "Section": "Individual opinion of E. Klein and D. Kretzmer (dissenting in part)",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "It has always been te jurisprudence of the Committee that when the author of a communication makes specific allegations that would point to a violation of a Covenant right, the State party cannot refute those allegations by a simple blanket denial. It must relate to the specifics of the case and do everything reasonably in its power to show that the allegations are unfounded. In the present case the State party could have given details of the water source from which water is supplied to inmates in the division in which the authors are being held, and the quality of that water. It could also have provided evidence that the prison officers drink from the same water source as the prisoners. It failed to do so. Due credence must therefore be given to the author’s allegations regarding the water. These unrefuted allegations establish that the State party has violated the authors’ right under article 10, paragraph 1, of the Covenant. Eckart Klein (signed) David Kretzmer (signed) Individual opinion by Mr. Scheinin (dissenting)"
+    "Text": "It has always been te jurisprudence of the Committee that when the author of a communication makes specific allegations that would point to a violation of a Covenant right, the State party cannot refute those allegations by a simple blanket denial. It must relate to the specifics of the case and do everything reasonably in its power to show that the allegations are unfounded. In the present case the State party could have given details of the water source from which water is supplied to inmates in the division in which the authors are being held, and the quality of that water. It could also have provided evidence that the prison officers drink from the same water source as the prisoners. It failed to do so. Due credence must therefore be given to the author’s allegations regarding the water. These unrefuted allegations establish that the State party has violated the authors’ right under article 10, paragraph 1, of the Covenant. Eckart Klein (signed) David Kretzmer (signed)",
+    "OriginalID": "2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "1.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-1.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "To my great regret it was impossible to find a consensus within the Committee on the merits of this communication, submitted by nine authors awaiting execution. My dissent relates to two separate issues, (a) prison conditions and (b) the fairness of the trial. (a) Conditions on Death Row: Violation of article 10, paragraph 1"
+    "Text": "To my great regret it was impossible to find a consensus within the Committee on the merits of this communication, submitted by nine authors awaiting execution. My dissent relates to two separate issues, (a) prison conditions and (b) the fairness of the trial. (a) Conditions on Death Row: Violation of article 10, paragraph 1",
+    "OriginalID": "1.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "2.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-2.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "In my opinion, paragraph 5.4 and the beginning of para. 6.4 of the Views should have read as follows:"
+    "Text": "In my opinion, paragraph 5.4 and the beginning of para. 6.4 of the Views should have read as follows:",
+    "OriginalID": "2.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "5.4.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-5.4.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "Counsel presents a second additional claim and argues that there has been a violation of article 7 of the Covenant in respect of all nine authors, because of the inhuman conditions of detention to which the authors have been subjected since their arrest. He refers to questionnaires completed by Dole Chadee, Joey Ramiah, Joel Ramsingh, Bhagwandeen Singh, Russell Sankeralli and Robin Gopaul which contain partly individualized details as to the treatment of the authors, partly information that relates to the conditions on Death Row that affect all the authors. The complaints relate to, inter alia, unsatisfactory medical treatment and specific instances of requested medical attention being denied, to water given to the detainees from a tank being contaminated and brownish, to the cells being without natural lighting, insufficiently ventilated and infested with insects, to frequent intimidating searches, to inadequate sanitary and sewage facilities, to the food being bad or even rotten. It is further claimed that the authors have not been allowed to go out for weeks or even months and that at best they can do so once a week."
+    "Text": "Counsel presents a second additional claim and argues that there has been a violation of article 7 of the Covenant in respect of all nine authors, because of the inhuman conditions of detention to which the authors have been subjected since their arrest. He refers to questionnaires completed by Dole Chadee, Joey Ramiah, Joel Ramsingh, Bhagwandeen Singh, Russell Sankeralli and Robin Gopaul which contain partly individualized details as to the treatment of the authors, partly information that relates to the conditions on Death Row that affect all the authors. The complaints relate to, inter alia, unsatisfactory medical treatment and specific instances of requested medical attention being denied, to water given to the detainees from a tank being contaminated and brownish, to the cells being without natural lighting, insufficiently ventilated and infested with insects, to frequent intimidating searches, to inadequate sanitary and sewage facilities, to the food being bad or even rotten. It is further claimed that the authors have not been allowed to go out for weeks or even months and that at best they can do so once a week.",
+    "OriginalID": "5.4.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "6.4.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-6.4.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": ". With regard to the claim that there has been a violation of article 7 of the Covenant because of the conditions of detention, the State party denies that such a violation has taken place. This part of the State party submission consists of a general denial of the allegation presented on behalf of all nine authors plus a rather detailed description of the prison conditions in the Royal Gaol. In relation to the information presented on the questionnaires, the State party replies by stating that it is largely incorrect and that in so far it is accurate does not constitute a breach of article 7. [...]"
+    "Text": "With regard to the claim that there has been a violation of article 7 of the Covenant because of the conditions of detention, the State party denies that such a violation has taken place. This part of the State party submission consists of a general denial of the allegation presented on behalf of all nine authors plus a rather detailed description of the prison conditions in the Royal Gaol. In relation to the information presented on the questionnaires, the State party replies by stating that it is largely incorrect and that in so far it is accurate does not constitute a breach of article 7. [...]",
+    "OriginalID": "6.4.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "3.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-3.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "As a consequence, a violation of article 10, para. 1, (but not of article 7) should have been established by adopting para. 10.3 of the Views as follows:"
+    "Text": "As a consequence, a violation of article 10, para. 1, (but not of article 7) should have been established by adopting para. 10.3 of the Views as follows:",
+    "OriginalID": "3.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "10.3.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-10.3.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": ". The authors have provided detailed information with regard to their conditions of detention. The concrete allegations relate both to conditions that affect all nine authors and to the individual treatment of those six of the authors who provided such details by filling a questionnaire. The State party has addressed the claims made by the authors, and has submitted that the authors’ conditions of detention do not violate the standards set out in the Covenant. The Committee notes, however, that the State party has failed to address the authors’ claims in detail, in particular in respect to the lack of medical treatment and the contamination of the water. In the circumstances, the Committee finds that the information before it discloses a violation of article 10, paragraph 1, of the Covenant in relation to all nine authors."
+    "Text": "The authors have provided detailed information with regard to their conditions of detention. The concrete allegations relate both to conditions that affect all nine authors and to the individual treatment of those six of the authors who provided such details by filling a questionnaire. The State party has addressed the claims made by the authors, and has submitted that the authors’ conditions of detention do not violate the standards set out in the Covenant. The Committee notes, however, that the State party has failed to address the authors’ claims in detail, in particular in respect to the lack of medical treatment and the contamination of the water. In the circumstances, the Committee finds that the information before it discloses a violation of article 10, paragraph 1, of the Covenant in relation to all nine authors.",
+    "OriginalID": "10.3.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "4.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-4.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "The consequence of my findings is that the authors are entitled to an effective remedy, including commutation of the death penalty."
+    "Text": "The consequence of my findings is that the authors are entitled to an effective remedy, including commutation of the death penalty.",
+    "OriginalID": "4.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "5.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-5.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "Although the State party's reply, extensively paraphrased in paras. 6.4 to 6.8, represents a rather detailed account of prison conditions, it does not actually reply to the concrete allegations on inhuman treatment. For instance, both in relation to the quality of drinking water and access to medical service the authors have provided detailed and individualized information that could have easily been contested, if untrue, by the State party through providing a chemist's report on a water analysis and a doctor's report on some of the visiting rounds in Death Row. No information whatsoever from independent sources has been provided, and the State party reply on the allegations related to the drinking water consists basically of one word: \"clean\"."
+    "Text": "Although the State party's reply, extensively paraphrased in paras. 6.4 to 6.8, represents a rather detailed account of prison conditions, it does not actually reply to the concrete allegations on inhuman treatment. For instance, both in relation to the quality of drinking water and access to medical service the authors have provided detailed and individualized information that could have easily been contested, if untrue, by the State party through providing a chemist's report on a water analysis and a doctor's report on some of the visiting rounds in Death Row. No information whatsoever from independent sources has been provided, and the State party reply on the allegations related to the drinking water consists basically of one word: \"clean\".",
+    "OriginalID": "5.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "6.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-6.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "By making detailed and individualized allegations on their conditions of detention the authors have substantiated, taking into account the possibilities that they, on the one hand, and the State party, on the other, have for providing independent expert information, their claims to the effect that the State party would have had to submit objective evidence to refute the claims. Furthermore, the authors' description of the prison conditions is supported by the fact that the Committee has, in the cases of Harold Elahie v. Trinidad and Tobago (Communication No. 533/1993) and Clyde Neptune v. Trinidad and Tobago (Communication No. 523/1992), found a violation of article 10, para. 1, based on partly similar allegations by prisoners detained in the same prison (though not on Death Row). A violation of article 10, para. 1, in the case of a Death Row inmate in the same prison was established in Balkissoon Soogrim v. Trinidad and Tobago (Communication No. 362/1989) in relation to ill-treatment by warders but not in relation to the actual prison conditions. A distinctive element of the latter conclusion compared to the present case was the fact that the State party had produced individualized information on medical treatment, based on the medical record of the detainee. (b) Fair trial: Violation of article 14, paragraphs 1 and 2"
+    "Text": "By making detailed and individualized allegations on their conditions of detention the authors have substantiated, taking into account the possibilities that they, on the one hand, and the State party, on the other, have for providing independent expert information, their claims to the effect that the State party would have had to submit objective evidence to refute the claims. Furthermore, the authors' description of the prison conditions is supported by the fact that the Committee has, in the cases of Harold Elahie v. Trinidad and Tobago (Communication No. 533/1993) and Clyde Neptune v. Trinidad and Tobago (Communication No. 523/1992), found a violation of article 10, para. 1, based on partly similar allegations by prisoners detained in the same prison (though not on Death Row). A violation of article 10, para. 1, in the case of a Death Row inmate in the same prison was established in Balkissoon Soogrim v. Trinidad and Tobago (Communication No. 362/1989) in relation to ill-treatment by warders but not in relation to the actual prison conditions. A distinctive element of the latter conclusion compared to the present case was the fact that the State party had produced individualized information on medical treatment, based on the medical record of the detainee. (b) Fair trial: Violation of article 14, paragraphs 1 and 2",
+    "OriginalID": "6.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "7.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-7.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "According to the authors the extensive pre-trial publicity of their case made a fair trial impossible. As is explained in para. 2.1 of the Views their constitutional motion based on this point was dismissed. In doing so, the Court of Appeal in January 1995, in my opinion rightly, stated that the securing of a fair trial was in the hands of the trial judge \"who had at his disposal several options\" to that end."
+    "Text": "According to the authors the extensive pre-trial publicity of their case made a fair trial impossible. As is explained in para. 2.1 of the Views their constitutional motion based on this point was dismissed. In doing so, the Court of Appeal in January 1995, in my opinion rightly, stated that the securing of a fair trial was in the hands of the trial judge \"who had at his disposal several options\" to that end.",
+    "OriginalID": "7.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "8.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-8.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "The problem as to the fairness of the trial arises, however, from the fact that this outcome of the constitutional motion was not respected. The State party resorted, in 1996, to legislative measures that affected the trial in two important respects, namely by providing for an unlimited number of potential jurors (amendment to the Jury Act) and by allowing the use of the deposition of a deceased witness as evidence (amendment to the Evidence Act). Both amendments were passed while the case of the authors was awaiting trial, both had been designed for this particular case and both changed the list of \"several options\" that had been referred to in the Court of Appeal decision referred to above."
+    "Text": "The problem as to the fairness of the trial arises, however, from the fact that this outcome of the constitutional motion was not respected. The State party resorted, in 1996, to legislative measures that affected the trial in two important respects, namely by providing for an unlimited number of potential jurors (amendment to the Jury Act) and by allowing the use of the deposition of a deceased witness as evidence (amendment to the Evidence Act). Both amendments were passed while the case of the authors was awaiting trial, both had been designed for this particular case and both changed the list of \"several options\" that had been referred to in the Court of Appeal decision referred to above.",
+    "OriginalID": "8.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "9.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-9.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "The Committee has, in Byron Young v. Jamaica (Communication No. 615/1995) dealt with the relevance of a verdict by jury for the Committee’s own work. The Committee took the position that very limited possibilities to contest a verdict by jury in domestic appeal proceedings does not constitute a violation of article 14 provided, inter alia , that the trial itself was not unfair. In the present case the legislative amendments referred to in the preceding paragraph, enacted to secure the commencement of the trial, had the effect that a trial by jury could not be, and was not, fair. After the extensive media coverage, the constitutional motion process, the legislative amendments and the jury selection, subjecting the authors to a trial by jury constituted a violation of both the general principle of a right to a fair trial (article 14, para. 1) and the presumption of innocence (article 14, para. 2). Although the absolute prohibition against retroactive criminal legislation (article 15), does not as such apply to criminal procedure, article 14, paras. 1 and 2, must be understood to limit the enactment of retroactive legislation even in the procedural field when such legislation is designed for a concrete case."
+    "Text": "The Committee has, in Byron Young v. Jamaica (Communication No. 615/1995) dealt with the relevance of a verdict by jury for the Committee’s own work. The Committee took the position that very limited possibilities to contest a verdict by jury in domestic appeal proceedings does not constitute a violation of article 14 provided, inter alia , that the trial itself was not unfair. In the present case the legislative amendments referred to in the preceding paragraph, enacted to secure the commencement of the trial, had the effect that a trial by jury could not be, and was not, fair. After the extensive media coverage, the constitutional motion process, the legislative amendments and the jury selection, subjecting the authors to a trial by jury constituted a violation of both the general principle of a right to a fair trial (article 14, para. 1) and the presumption of innocence (article 14, para. 2). Although the absolute prohibition against retroactive criminal legislation (article 15), does not as such apply to criminal procedure, article 14, paras. 1 and 2, must be understood to limit the enactment of retroactive legislation even in the procedural field when such legislation is designed for a concrete case.",
+    "OriginalID": "9.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "10.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP2-10.",
+    "Section": "Individual opinion by Mr. Scheinin (dissenting)",
     "Labels": [],
-    "Text": "I wish to emphasize that the finding in the preceding paragraph does not question, as such or in general, the jury institution as a constituent element of certain legal systems of the world. The consequence is a more limited one: if a State party to the Covenant opts for trial by jury and for limited possibilities to question the verdict on appeal, it must, in order to comply with article 14, also accept that there will be exceptional cases in which a trial will become impossible. If the laws of a State party do not provide for a fair trial, the only available remedy is release. Martin Scheinin (signed)"
+    "Text": "I wish to emphasize that the finding in the preceding paragraph does not question, as such or in general, the jury institution as a constituent element of certain legal systems of the world. The consequence is a more limited one: if a State party to the Covenant opts for trial by jury and for limited possibilities to question the verdict on appeal, it must, in order to comply with article 14, also accept that there will be exceptional cases in which a trial will become impossible. If the laws of a State party do not provide for a fair trial, the only available remedy is release. Martin Scheinin (signed)",
+    "OriginalID": "10.",
+    "Namespace": "OP2"
   }
 ]

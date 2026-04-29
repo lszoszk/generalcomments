@@ -70,7 +70,13 @@
     "ID": "3.",
     "Section": "Complaint",
     "Labels": [],
-    "Text": "The author alleges that the failure of the New South Wales government to provide an adequate remedy for the maltreatment she suffered constitutes an ongoing violation by Australia of articles 6, paragraph 1; 7; 9, paragraphs 1, 4, and 5; 10, paragraph 1; 16; 17, paragraphs 1 and 2; and 26; juncto article 2, paragraphs 2 and 3 of the International Covenant on Civil and Political Rights."
+    "Text": "The author alleges that the failure of the New South Wales government to provide an adequate remedy for the maltreatment she suffered constitutes an ongoing violation by Australia of articles 6, paragraph 1; 7; 9, paragraphs"
+  },
+  {
+    "ID": "1.",
+    "Section": "Complaint",
+    "Labels": [],
+    "Text": "4, and 5; 10, paragraph 1; 16; 17, paragraphs 1 and 2; and 26; juncto article 2, paragraphs 2 and 3 of the International Covenant on Civil and Political Rights."
   },
   {
     "ID": "4.1.",
@@ -88,6 +94,6 @@
     "ID": "5.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Human Rights Committee therefore decides: (a) That the communication is inadmissible; (b) That this decision shall be communicated to the author and, for information, to the State party. [Done in English, French and Spanish, the English text being the original version.]"
+    "Text": "The Human Rights Committee therefore decides: (a) That the communication is inadmissible; (b) That this decision shall be communicated to the author and, for information, to the State party. version.]"
   }
 ]

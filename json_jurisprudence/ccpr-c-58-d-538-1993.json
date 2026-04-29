@@ -1,6 +1,18 @@
 [
   {
     "ID": "1.",
+    "Section": "",
+    "Labels": [],
+    "Text": "November 1996 On 1 November 1996, the Human Rights Committee adopted its Views under article 5, paragraph 4, of the Optional Protocol in respect of communication No. 538/1993. The text of the Views is appended to the present document. [ANNEX] * Made public by decision of the Human Rights Committee."
+  },
+  {
+    "ID": "18.",
+    "Section": "ANNEX",
+    "Labels": [],
+    "Text": "February 1993 (initial submission) Date of decision on admissibility: 18 March 1994 The Human Rights Committee, established under article 28 of the International Covenant on Civil and Political Rights, Meeting on 1 November 1996, Having concluded its consideration of communication No. 538/1993 submitted to the Human Rights Committee on behalf of Mr. Charles E. Stewart under the Optional Protocol to the International Covenant on Civil and Political Rights, Having taken into account all written information made available to it by the author of the communication, his counsel and the State party, Adopts the following: Views under article 5, paragraph 4, of the Optional Protocol"
+  },
+  {
+    "ID": "1.",
     "Section": "ANNEX",
     "Labels": [],
     "Text": "The author of the communication is Charles Edward Stewart, a British citizen born in 1960. He has resided in Ontario, Canada, since the age of seven, and currently faces deportation from Canada. He claims to be a victim of violations by Canada of articles 7, 9, 12, 13, 17 and 23 of the International Covenant on Civil and Political Rights. He is represented by counsel. * The text of five individual opinions, signed by eight Committee members, is appended to the present document."
@@ -59,10 +71,16 @@
   {
     "ID": "3.1.",
     "Section": "The facts as submitted by the author",
+    "Labels": [],
+    "Text": "The author claims that the above facts reveal violations of articles 7,"
+  },
+  {
+    "ID": "9.",
+    "Section": "The facts as submitted by the author",
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The author claims that the above facts reveal violations of articles 7, 9, 12, 13, 17 and 23 of the Covenant. He claims that in respect of article 23, the State party has failed to provide for clear legislative recognition of the protection of the family. In the absence of such legislation which ensures that family interests would be given due weight in administrative proceedings such as, for example, those before the Immigration and Refugee Board, he claims, there is a prima facie issue as to whether Canadian law is compatible with the requirement of protection of the family."
+    "Text": "12, 13, 17 and 23 of the Covenant. He claims that in respect of article 23, the State party has failed to provide for clear legislative recognition of the protection of the family. In the absence of such legislation which ensures that family interests would be given due weight in administrative proceedings such as, for example, those before the Immigration and Refugee Board, he claims, there is a prima facie issue as to whether Canadian law is compatible with the requirement of protection of the family."
   },
   {
     "ID": "3.2.",
@@ -457,108 +475,236 @@
     "Text": "The Human Rights Committee, acting under article 5, paragraph 4, of the Optional Protocol to the International Covenant on Civil and Political Rights, is of the view that the facts before the Committee do not disclose a violation of any of the provisions of the International Covenant on Civil and Political Rights. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee's annual report to the General Assembly.]"
   },
   {
-    "ID": "1.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-U1.",
+    "Section": "Individual opinion by Eckart Klein (concurring)",
     "Labels": [],
-    "Text": "Firstly, I concur with the reasons given by the Committee at paragraph 12.10 and the decision taken that there was no violation of articles 17 and 23 of the Covenant."
+    "Text": "Being in full agreement with the finding of the Committee that the facts of the case disclose neither a violation of article 12, paragraph 4, nor of articles 17 and 23 of the Covenant, for the reasons given in the view, I cannot accept the way how the relationship between article 12, paragraph 4, and article 13 has been determined. Although this issue is not decisive for the outcome of the present case, it could become relevant for the consideration of other communications, and I therefore feel obliged to clarify this point.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-U2.",
+    "Section": "Individual opinion by Eckart Klein (concurring)",
     "Labels": [],
-    "Text": "But, secondly, I do not agree with the Committee's restricted application of his “own country” concept at the fourth sentence of paragraph 12.3 of the Committee's decision under reference (“That provision speaks of an 'alien lawfully in the territory of a State party' in limiting the rights of States to expel an individual categorized as an 'alien'.”) Does it preclude the expulsion of unlawful aliens? Of course not -falling as they do under another legal regime. I have made this point in order to suggest that the legal significance in relation to “an alien lawfully in the territory of a State party” as appears in the first line of article 13 of the Covenant, is related to the first line of article 12: “everyone lawfully in the territory of a State”, which includes aliens but, it may be borne in mind that in respect of a compatriot of Mr. Stewart lawfully in Canada on a visitor's visa (not being a permanent resident of Canada) he would not normally have acquired “own country” status as Mr. Stewart had, and would be indifferent to the application of article 12, paragraph 4. But Mr. Stewart would certainly be concerned as indeed he has been."
+    "Text": "The view suggests that there is a category of persons who are not “nationals in the formal sense”, but are also not “aliens within the meaning of article 13\" (paragraph 12.4). While I clearly accept that the scope of article 12, paragraph 4, is not entirely restricted to nationals but may embrace other persons as pointed out in the view, I nevertheless think that this category of persons - not being nationals, but still covered by article 12, paragraph 4 - may be deemed to be “aliens” in the sense of article 13. I do not believe that article 13 deals only with some aliens.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "3.",
-    "Section": "Issues and proceedings before the Committee",
-    "Labels": [],
-    "Text": "Thirdly, were it intended to restrict the application of article 13 to exclude aliens lawfully in the territory of a State party who had acquired “own country” status, such exclusion would have been specifically provided in article 13 itself and not left to the interpretation of the scope of article 12, paragraph 4, which incontestably applies to nationals and other persons contemplated in the Committee's text."
-  },
-  {
-    "ID": "4.",
-    "Section": "Issues and proceedings before the Committee",
-    "Labels": [
-      "Migrants"
-    ],
-    "Text": "In regard to “own country” status in its submission of 24 February 1995 the State party argues that “Mr. Stewart has never acquired an unconditional right to remain in Canada as his 'own country'. Moreover 1 his deportation will not operate as an absolute bar to his re-entry to Canada. A humanitarian review in the context of the future application to re-enter Canada as an immigrant is a viable administrative procedure that does not entail reconsideration of the judicial decision of the Immigration Appeal Board” (see 9.1) . Implicit in the foregoing is the admission that the State party recognizes Mr. Stewart's status as a permanent resident in Canada as his “own country”. It is that qualified right applicable to such status which facilitated the decision to expel Mr. Stewart. But for the foregoing statement attributable to the State party we could have concluded that the decision taken to expel Mr. Stewart terminated his “own country” status in regard to Canada but in light of such statement the “own country” status remains only suspended at the pleasure of the State party. On the basis of the foregoing analysis, I am unable to support the decision of the Committee that Mr. Stewart had at no time acquired “own country” status in Canada. Laurel B. Francis [signed] [Original: English]"
-  },
-  {
-    "ID": "1.",
-    "Section": "Issues and proceedings before the Committee",
-    "Labels": [],
-    "Text": "We are unable to agree with the Committee's conclusion that the author cannot claim the protection of article 12, paragraph 4."
-  },
-  {
-    "ID": "2.",
-    "Section": "Issues and proceedings before the Committee",
-    "Labels": [],
-    "Text": "A preliminary issue is whether the arbitrary deportation of a person from his/her own country should be equated with arbitrary deprivation of the right to enter that country, in circumstances where there has as yet been no attempt to enter or re-enter the country. The Committee does not reach a conclusion on this issue; it merely assumes that if article 12, paragraph 4, were to apply to the author, the State would be precluded from deporting him (paragraph 12.2). The effect of the various proceedings taken by Canada, and the orders made, is that the author's right of residence has been taken away and his deportation ordered. He can no longer enter Canada as of right, and the prospects of his ever being able to secure permission to enter for more than a short period, if at all, seem remote. In our view, the right to enter a country is as much a prospective as a present right, and the deprivation of that right can occur, as in the circumstances of this case, whether or not there has been any actual refusal of entry. If a State party is under an obligation to allow entry of a person it is prohibited from deporting that person. In our opinion the author has been deprived of the right to enter Canada, whether he remains in Canada awaiting deportation or whether he has already been deported."
-  },
-  {
-    "ID": "3.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-U3.",
+    "Section": "Individual opinion by Eckart Klein (concurring)",
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The author's communication under article 13 was found inadmissible, and no issue arises for consideration under that provision. The Committee's view is, however, that article 12, paragraph 4 applies only to persons who are nationals, or who, while not nationals in a formal sense are also not aliens within the meaning of article 13 (paragraph 12.3). Two consequences appear to follow from this view. The first one is that the relationship between an individual and a State may be not only that of national or alien (including stateless) but may also fall into a further, undefined, category. We do not think this is supported either by article 12 of the Covenant or by general international law. As a consequence of the Committee's view it would also appear to follow that a person could not claim the protection of both article 13 and 12, paragraph 4. We do not agree. In our view article 13 provides a minimum level of protection in respect of expulsion for any alien, that is any non-national, lawfully in a State. Furthermore, there is nothing in the language of article 13 which suggests that it is intended to be the exclusive source of rights for aliens, or that an alien who is lawfully within the territory of a State may not also claim the protection of article 12, paragraph 4, if he or she can establish that it is his/her own country. Each provision should be given its full meaning."
+    "Text": "The wording of the article is clear and provides for no exceptions, and aliens are all non-nationals. The relationship between article 12, paragraph 4, and article 13 is not exclusive. Both provisions may come into play together.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U3.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "4.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-U4.",
+    "Section": "Individual opinion by Eckart Klein (concurring)",
+    "Labels": [],
+    "Text": "I therefore hold that article 13 applies in all cases where an alien is to be expelled. Article 13 deals with the procedure of expelling aliens, while article 12, paragraph 4, and, under certain circumstances, also other provisions of the Covenant may bar deportation for substantive reasons. Thus, article 12, paragraph 4, may apply even though it concerns a person who is an “alien”. [Original: English]",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U4.",
+    "Namespace": "OP1"
+  },
+  {
+    "ID": "OP2-U1.",
+    "Section": "Individual opinion by Laurel B. Francis (concurring)",
+    "Labels": [],
+    "Text": "This opinion is given against the background of my recorded views during the Committee's preliminary consideration of this case quite early in the session when I stated inter alia that (a) Mr. Stewart was an “own country” resident under article 12 of the Covenant and (b) his expulsion under article 13 was not in violation of article 12, paragraph 4.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-U2.",
+    "Section": "Individual opinion by Laurel B. Francis (concurring)",
+    "Labels": [],
+    "Text": "I will as far as possible avoid a discursive format in relation to the Committee's decision adopted on November 1 with respect to the question whether the expulsion of Mr. Stewart from Canada (under article 13 of the Covenant) violates the State party's obligation under articles 12, paragraph 4, 17 and 23 of the Covenant.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U2.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-1.",
+    "Section": "Individual opinion by Laurel B. Francis (concurring)",
+    "Labels": [],
+    "Text": "Firstly, I concur with the reasons given by the Committee at paragraph 12.10 and the decision taken that there was no violation of articles 17 and 23 of the Covenant.",
+    "OriginalID": "1.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-2.",
+    "Section": "Individual opinion by Laurel B. Francis (concurring)",
+    "Labels": [],
+    "Text": "But, secondly, I do not agree with the Committee's restricted application of his “own country” concept at the fourth sentence of paragraph 12.3 of the Committee's decision under reference (“That provision speaks of an 'alien lawfully in the territory of a State party' in limiting the rights of States to expel an individual categorized as an 'alien'.”) Does it preclude the expulsion of unlawful aliens? Of course not -falling as they do under another legal regime. I have made this point in order to suggest that the legal significance in relation to “an alien lawfully in the territory of a State party” as appears in the first line of article 13 of the Covenant, is related to the first line of article 12: “everyone lawfully in the territory of a State”, which includes aliens but, it may be borne in mind that in respect of a compatriot of Mr. Stewart lawfully in Canada on a visitor's visa (not being a permanent resident of Canada) he would not normally have acquired “own country” status as Mr. Stewart had, and would be indifferent to the application of article 12, paragraph 4. But Mr. Stewart would certainly be concerned as indeed he has been.",
+    "OriginalID": "2.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-3.",
+    "Section": "Individual opinion by Laurel B. Francis (concurring)",
+    "Labels": [],
+    "Text": "Thirdly, were it intended to restrict the application of article 13 to exclude aliens lawfully in the territory of a State party who had acquired “own country” status, such exclusion would have been specifically provided in article 13 itself and not left to the interpretation of the scope of article 12, paragraph 4, which incontestably applies to nationals and other persons contemplated in the Committee's text.",
+    "OriginalID": "3.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-4.",
+    "Section": "Individual opinion by Laurel B. Francis (concurring)",
     "Labels": [
       "Migrants"
     ],
-    "Text": "The Committee attempts to identify the further category of individuals who could make use of article 12, paragraph 4, by stating that a person cannot claim that a State is his or her own country, within the meaning of article 12, paragraph 4, unless that person is a national of that State, or has been stripped of his or her nationality, or denied nationality by that State in the circumstances described (paragraph 12.4). The Committee is also of the view that unless unreasonable impediments have been placed in the way of an immigrant acquiring nationality, a person who enters a given State under its immigration laws, and who had the opportunity to acquire its nationality, cannot regard that State as his own country when he has failed to acquire its nationality (paragraph 12.5)."
+    "Text": "In regard to “own country” status in its submission of 24 February 1995 the State party argues that “Mr. Stewart has never acquired an unconditional right to remain in Canada as his 'own country'. Moreover 1 his deportation will not operate as an absolute bar to his re-entry to Canada. A humanitarian review in the context of the future application to re-enter Canada as an immigrant is a viable administrative procedure that does not entail reconsideration of the judicial decision of the Immigration Appeal Board” (see 9.1) . Implicit in the foregoing is the admission that the State party recognizes Mr. Stewart's status as a permanent resident in Canada as his “own country”. It is that qualified right applicable to such status which facilitated the decision to expel Mr. Stewart. But for the foregoing statement attributable to the State party we could have concluded that the decision taken to expel Mr. Stewart terminated his “own country” status in regard to Canada but in light of such statement the “own country” status remains only suspended at the pleasure of the State party. On the basis of the foregoing analysis, I am unable to support the decision of the Committee that Mr. Stewart had at no time acquired “own country” status in Canada. [Original: English]",
+    "OriginalID": "4.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "5.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP3-1.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
     "Labels": [],
-    "Text": "In our opinion, the Committee has taken too narrow a view of article 12, paragraph 4, and has not considered the raison d'être of its formulation. Individuals cannot be deprived of the right to enter “their own country” because it is deemed unacceptable to deprive any person of close contact with his family, or his friends or, put in general terms, with the web of relationships that form his or her social environment. This is the reason why this right is set forth in article 12, which addresses individuals lawfully within the territory of a State, not those who have formal links to that State. For the rights set forth in article 12, the existence of a formal link to the State is irrelevant; the Covenant is here concerned with the strong personal and emotional links an individual may have with the territory where he lives and with the social circumstances obtaining in it. This is what article 12, paragraph 4, protects."
+    "Text": "We are unable to agree with the Committee's conclusion that the author cannot claim the protection of article 12, paragraph 4.",
+    "OriginalID": "1.",
+    "Namespace": "OP3"
   },
   {
-    "ID": "6.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP3-2.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
     "Labels": [],
-    "Text": "The object and purpose of the right set forth in article 12, paragraph 4, are reaffirmed by its wording. Nothing in it or in article 12 generally suggests that its application should be restricted in the manner suggested by the Committee. While a person's 'own country' would certainly include the country of nationality, there are factors other than nationality which may establish close and enduring connections between a person and a country, connections which may be stronger than those of nationality. After all, a person may have several nationalities, and yet have only the slightest or no actual connections of home and family with one or more of the States in question. The words 'his own country' on the face of it invite consideration of such matters as long standing residence, close personal and family ties and intentions to remain (as well as to the absence of such ties elsewhere). Where a person is not a citizen of the country in question, the connections would need to be strong to support a finding that it is his “own country”. Nevertheless our view is that it is open to an alien to show that there are such well established links with a State that he or she is entitled to claim the protection of article 12, paragraph 4."
+    "Text": "A preliminary issue is whether the arbitrary deportation of a person from his/her own country should be equated with arbitrary deprivation of the right to enter that country, in circumstances where there has as yet been no attempt to enter or re-enter the country. The Committee does not reach a conclusion on this issue; it merely assumes that if article 12, paragraph 4, were to apply to the author, the State would be precluded from deporting him (paragraph 12.2). The effect of the various proceedings taken by Canada, and the orders made, is that the author's right of residence has been taken away and his deportation ordered. He can no longer enter Canada as of right, and the prospects of his ever being able to secure permission to enter for more than a short period, if at all, seem remote. In our view, the right to enter a country is as much a prospective as a present right, and the deprivation of that right can occur, as in the circumstances of this case, whether or not there has been any actual refusal of entry. If a State party is under an obligation to allow entry of a person it is prohibited from deporting that person. In our opinion the author has been deprived of the right to enter Canada, whether he remains in Canada awaiting deportation or whether he has already been deported.",
+    "OriginalID": "2.",
+    "Namespace": "OP3"
   },
   {
-    "ID": "7.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP3-3.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
+    "Labels": [
+      "Non-citizens and stateless"
+    ],
+    "Text": "The author's communication under article 13 was found inadmissible, and no issue arises for consideration under that provision. The Committee's view is, however, that article 12, paragraph 4 applies only to persons who are nationals, or who, while not nationals in a formal sense are also not aliens within the meaning of article 13 (paragraph 12.3). Two consequences appear to follow from this view. The first one is that the relationship between an individual and a State may be not only that of national or alien (including stateless) but may also fall into a further, undefined, category. We do not think this is supported either by article 12 of the Covenant or by general international law. As a consequence of the Committee's view it would also appear to follow that a person could not claim the protection of both article 13 and 12, paragraph 4. We do not agree. In our view article 13 provides a minimum level of protection in respect of expulsion for any alien, that is any non-national, lawfully in a State. Furthermore, there is nothing in the language of article 13 which suggests that it is intended to be the exclusive source of rights for aliens, or that an alien who is lawfully within the territory of a State may not also claim the protection of article 12, paragraph 4, if he or she can establish that it is his/her own country. Each provision should be given its full meaning.",
+    "OriginalID": "3.",
+    "Namespace": "OP3"
+  },
+  {
+    "ID": "OP3-4.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
+    "Labels": [
+      "Migrants"
+    ],
+    "Text": "The Committee attempts to identify the further category of individuals who could make use of article 12, paragraph 4, by stating that a person cannot claim that a State is his or her own country, within the meaning of article 12, paragraph 4, unless that person is a national of that State, or has been stripped of his or her nationality, or denied nationality by that State in the circumstances described (paragraph 12.4). The Committee is also of the view that unless unreasonable impediments have been placed in the way of an immigrant acquiring nationality, a person who enters a given State under its immigration laws, and who had the opportunity to acquire its nationality, cannot regard that State as his own country when he has failed to acquire its nationality (paragraph 12.5).",
+    "OriginalID": "4.",
+    "Namespace": "OP3"
+  },
+  {
+    "ID": "OP3-5.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
+    "Labels": [],
+    "Text": "In our opinion, the Committee has taken too narrow a view of article 12, paragraph 4, and has not considered the raison d'être of its formulation. Individuals cannot be deprived of the right to enter “their own country” because it is deemed unacceptable to deprive any person of close contact with his family, or his friends or, put in general terms, with the web of relationships that form his or her social environment. This is the reason why this right is set forth in article 12, which addresses individuals lawfully within the territory of a State, not those who have formal links to that State. For the rights set forth in article 12, the existence of a formal link to the State is irrelevant; the Covenant is here concerned with the strong personal and emotional links an individual may have with the territory where he lives and with the social circumstances obtaining in it. This is what article 12, paragraph 4, protects.",
+    "OriginalID": "5.",
+    "Namespace": "OP3"
+  },
+  {
+    "ID": "OP3-6.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
+    "Labels": [],
+    "Text": "The object and purpose of the right set forth in article 12, paragraph 4, are reaffirmed by its wording. Nothing in it or in article 12 generally suggests that its application should be restricted in the manner suggested by the Committee. While a person's 'own country' would certainly include the country of nationality, there are factors other than nationality which may establish close and enduring connections between a person and a country, connections which may be stronger than those of nationality. After all, a person may have several nationalities, and yet have only the slightest or no actual connections of home and family with one or more of the States in question. The words 'his own country' on the face of it invite consideration of such matters as long standing residence, close personal and family ties and intentions to remain (as well as to the absence of such ties elsewhere). Where a person is not a citizen of the country in question, the connections would need to be strong to support a finding that it is his “own country”. Nevertheless our view is that it is open to an alien to show that there are such well established links with a State that he or she is entitled to claim the protection of article 12, paragraph 4.",
+    "OriginalID": "6.",
+    "Namespace": "OP3"
+  },
+  {
+    "ID": "OP3-7.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
     "Labels": [
       "Children",
       "Women/girls"
     ],
-    "Text": "The circumstances relied on by the author to establish that Canada is his own country are that he had lived in Canada for over thirty years, was brought up in Canada from the age of seven, had married and divorced there. His children, mother, handicapped brother continue to reside there. He had no ties with any other country, other than that he was a citizen of the UK; his elder brother had been deported to the UK some years before. The circumstances of his offences are set out in paragraph 2.2; as a result of these offences it is not clear if the author was ever entitled to apply for citizenship. Underlying the connections mentioned is the fact that the author and his family were accepted by Canada as immigrants when he was a child and that he became in practical terms a member of the Canadian community. He knows no other country. In all the circumstances, our view is that the author has established that Canada is his own country."
+    "Text": "The circumstances relied on by the author to establish that Canada is his own country are that he had lived in Canada for over thirty years, was brought up in Canada from the age of seven, had married and divorced there. His children, mother, handicapped brother continue to reside there. He had no ties with any other country, other than that he was a citizen of the UK; his elder brother had been deported to the UK some years before. The circumstances of his offences are set out in paragraph 2.2; as a result of these offences it is not clear if the author was ever entitled to apply for citizenship. Underlying the connections mentioned is the fact that the author and his family were accepted by Canada as immigrants when he was a child and that he became in practical terms a member of the Canadian community. He knows no other country. In all the circumstances, our view is that the author has established that Canada is his own country.",
+    "OriginalID": "7.",
+    "Namespace": "OP3"
   },
   {
-    "ID": "8.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP3-8.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
     "Labels": [],
-    "Text": "Was the deprivation of the author's right to enter Canada arbitrary? In another context, the Committee has taken the view that “arbitrary” means unreasonable in the particular circumstances, or contrary to the aims and objectives of the Covenant (General Comment on article 17). That approach also appears to be appropriate in the context of article 12, paragraph 4. In the case of citizens, there are likely to be few if any situations when deportation would not be considered arbitrary in the sense outlined. In the case of an alien such as the author, deportation could be considered arbitrary if the grounds relied on to deprive him of his right to enter and remain in the country were, in the circumstances, unreasonable, when weighed against the circumstances which make that country his “own country”."
+    "Text": "Was the deprivation of the author's right to enter Canada arbitrary? In another context, the Committee has taken the view that “arbitrary” means unreasonable in the particular circumstances, or contrary to the aims and objectives of the Covenant (General Comment on article 17). That approach also appears to be appropriate in the context of article 12, paragraph 4. In the case of citizens, there are likely to be few if any situations when deportation would not be considered arbitrary in the sense outlined. In the case of an alien such as the author, deportation could be considered arbitrary if the grounds relied on to deprive him of his right to enter and remain in the country were, in the circumstances, unreasonable, when weighed against the circumstances which make that country his “own country”.",
+    "OriginalID": "8.",
+    "Namespace": "OP3"
   },
   {
-    "ID": "9.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP3-9.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
     "Labels": [],
-    "Text": "The grounds relied on by the State party to justify the expulsion of the author are his criminal activities. It must be doubted whether the commission of criminal offences alone could justify the expulsion of a person from his own country, unless the State could show that there are compelling reasons of national security or public order which require such a course. The nature of the offences committed by the author do not lead readily to that conclusion. In any event, Canada can hardly claim that these grounds were compelling in the case of the author when it has in another context argued that the author might well be granted an entry visa for a short period to enable him to visit his family. Furthermore, while the deportation proceedings were not unfair in procedural terms, the issue which arose for determination in those proceedings was whether the author could show reasons against his deportation, not whether there were grounds for taking away his right to enter “his own country”. The onus was put on the author rather than on the State. In these circumstances, we conclude that the decision to deport the author was arbitrary, and thus a violation of his rights under article 12, paragraph 4."
+    "Text": "The grounds relied on by the State party to justify the expulsion of the author are his criminal activities. It must be doubted whether the commission of criminal offences alone could justify the expulsion of a person from his own country, unless the State could show that there are compelling reasons of national security or public order which require such a course. The nature of the offences committed by the author do not lead readily to that conclusion. In any event, Canada can hardly claim that these grounds were compelling in the case of the author when it has in another context argued that the author might well be granted an entry visa for a short period to enable him to visit his family. Furthermore, while the deportation proceedings were not unfair in procedural terms, the issue which arose for determination in those proceedings was whether the author could show reasons against his deportation, not whether there were grounds for taking away his right to enter “his own country”. The onus was put on the author rather than on the State. In these circumstances, we conclude that the decision to deport the author was arbitrary, and thus a violation of his rights under article 12, paragraph 4.",
+    "OriginalID": "9.",
+    "Namespace": "OP3"
   },
   {
-    "ID": "10.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP3-10.",
+    "Section": "Individual opinion by Elizabeth Evatt and Cecilia Medina Quiroga, co-signed by Francisco José Aguilar Urbina (dissenting)",
     "Labels": [],
-    "Text": "We agree with the Committee that the deportation of the author will undoubtedly interfere with his family relations in Canada (paragraph 12.10), but we cannot agree that this interference is not arbitrary, since we have come to the conclusion that the decision to deport the author - which is the cause of the interference with the family - was arbitrary. We have to conclude, therefore, that Canada has also violated the author's rights under articles 17 and 23. Elizabeth Evatt [signed] Cecilia Medina Quiroga [signed] Francisco José Aguilar Urbina [signed] [Original: English]"
+    "Text": "We agree with the Committee that the deportation of the author will undoubtedly interfere with his family relations in Canada (paragraph 12.10), but we cannot agree that this interference is not arbitrary, since we have come to the conclusion that the decision to deport the author - which is the cause of the interference with the family - was arbitrary. We have to conclude, therefore, that Canada has also violated the author's rights under articles 17 and 23. Francisco José Aguilar Urbina [signed] [Original: English]",
+    "OriginalID": "10.",
+    "Namespace": "OP3"
   },
   {
-    "ID": "1.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP4-U1.",
+    "Section": "Individual opinion by Christine Chanet, co-signed by Julio Prado Vallejo",
     "Labels": [],
-    "Text": "Emphasis mine (see 9.1)."
+    "Text": "I do not share the Committee's position with regard to the Stewart case, in which it concludes that, “as Canada cannot be regarded as Mr. Stewart's 'own country'”, there has been no violation by Canada of article 12, paragraph 4, of the Covenant.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "2.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP4-U2.",
+    "Section": "Individual opinion by Christine Chanet, co-signed by Julio Prado Vallejo",
     "Labels": [],
-    "Text": "See also paragraph 4.2 statements attributable to the State party, including the following “... furthermore, he would not be barred once and for all from re-admission to Canada”. -----"
+    "Text": "My criticism concerns the approach taken to the case on this point:",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U2.",
+    "Namespace": "OP4"
+  },
+  {
+    "ID": "OP4-U3.",
+    "Section": "Individual opinion by Christine Chanet, co-signed by Julio Prado Vallejo",
+    "Labels": [],
+    "Text": "- assuming that wrongful acts disqualified the author from acquiring nationality and that, as a consequence, Canada may consider that it is not his own country, that conclusion should have led the Committee to reject the communication at the admissibility stage, since its awareness of that impediment should have precluded any application of article 12, paragraph 4, of the Covenant.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U3.",
+    "Namespace": "OP4"
+  },
+  {
+    "ID": "OP4-U4.",
+    "Section": "Individual opinion by Christine Chanet, co-signed by Julio Prado Vallejo",
+    "Labels": [],
+    "Text": "- there is nothing either in the Covenant itself or in the travaux préparatoires about the “own country” concept; the Committee must, therefore, either decide the question on a case-by-case basis or establish criteria and make them known to States and authors, thus avoiding any contradition with admissibility decisions; if a person is unable to acquire the nationality of a country owing to legal impediments, then regardless of any other criteria or factual circumstances, the communication should not be declared admissible under article 12, paragraph 4, of the Covenant.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U4.",
+    "Namespace": "OP4"
+  },
+  {
+    "ID": "OP4-U5.",
+    "Section": "Individual opinion by Christine Chanet, co-signed by Julio Prado Vallejo",
+    "Labels": [],
+    "Text": "I agree with the substance of the individual opinion formulated by Ms. Evatt and Ms. Medina Quiroga.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U5.",
+    "Namespace": "OP4"
   }
 ]

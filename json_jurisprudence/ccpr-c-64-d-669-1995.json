@@ -179,12 +179,26 @@
     "ID": "7.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Human Rights Committee therefore decides: (a) that the communication is inadmissible; (b) that this decision shall be communicated to the State party and to the author. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.] Individual opinion by Committee members Cecilia Medina Quiroga and Eckart Klein (partly dissenting) To our regret we cannot follow the Committee’s decision that the communication is also inadmissible as far as the author claims that he is a victim of a violation of article 26 of the Covenant, because the Law No. 87/1991 would deliberately discriminate against him for ethnical reasons (See para."
+    "Text": "The Human Rights Committee therefore decides: (a) that the communication is inadmissible; (b) that this decision shall be communicated to the State party and to the author. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.]"
   },
   {
-    "ID": "3.4.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-U1.",
+    "Section": "Individual opinion by Committee members Cecilia Medina Quiroga and Eckart Klein",
     "Labels": [],
-    "Text": "). For the reasons given in our Individual Opinion in Communication No. 643/1995 (Drobek v. Slovakia), we think that the Committee should have declared the communication admissible in this regard. Cecilia Medina Quiroga (signed) Eckart Klein (signed)"
+    "Text": "To our regret we cannot follow the Committee’s decision that the communication is also inadmissible as far as the author claims that he is a victim of a violation of article 26 of the Covenant, because the Law No. 87/1991 would deliberately discriminate against him for ethnical reasons (See para. 3.4). For the reasons given in our Individual Opinion in Communication No. 643/1995 (Drobek v. Slovakia), we think that the Committee should have declared the communication admissible in this regard.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP1"
+  },
+  {
+    "ID": "OP1-U2.",
+    "Section": "Individual opinion by Committee members Cecilia Medina Quiroga and Eckart Klein",
+    "Labels": [],
+    "Text": "Cecilia Medina Quiroga (signed) Eckart Klein (signed)",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U2.",
+    "Namespace": "OP1"
   }
 ]

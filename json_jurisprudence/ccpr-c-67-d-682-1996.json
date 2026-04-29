@@ -1,5 +1,11 @@
 [
   {
+    "ID": "22.",
+    "Section": "ANNEX",
+    "Labels": [],
+    "Text": "November 1995 Date of admissibility decision: 16 October 1997 The Human Rights Committee, established under article 28 of the International Covenant on Civil and Political Rights, Meeting on 3 November 1999 Having concluded its consideration of communication No.682/1996 submitted to the Human Rights Committee on behalf of Paul Westerman, under the Optional Protocol to the International Covenant on Civil and Political Rights, Having taken into account all written information made available to it by the author of the communication, his counsel and the State party, Adopts the following: Views under article 5, paragraph 4, of the Optional Protocol"
+  },
+  {
     "ID": "1.",
     "Section": "ANNEX",
     "Labels": [],
@@ -23,13 +29,7 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On 22 November 1990 the case was considered by the Arrondissementskrijgsraad (military tribunal) of Arnhem on the basis of article 114 of the Wetboek van Militaire Strafrecht (Military Penal Code) which stated that “The military who refuses or intentionally fails to obey any official order, or who on his own initiative oversteps such an order, will be punished with a sentence of imprisonment of maximum one year and nine months, for being guilty of intentional disobedience. “.... the maximum of the punishment will be doubled if:"
-  },
-  {
-    "ID": "1.",
-    "Section": "ANNEX",
-    "Labels": [],
-    "Text": "the perpetrator intentionally persists in his disobedience, after a superior has pointed out that his behaviour is punishable."
+    "Text": "On 22 November 1990 the case was considered by the Arrondissementskrijgsraad (military tribunal) of Arnhem on the basis of article 114 of the Wetboek van Militaire Strafrecht (Military Penal Code) which stated that “The military who refuses or intentionally fails to obey any official order, or who on his own initiative oversteps such an order, will be punished with a sentence of imprisonment of maximum one year and nine months, for being guilty of intentional disobedience. “.... the maximum of the punishment will be doubled if: 1. the perpetrator intentionally persists in his disobedience, after a superior has pointed out that his behaviour is punishable."
   },
   {
     "ID": "2.4.",
@@ -166,29 +166,65 @@
   {
     "ID": "10.",
     "Section": "Issues and proceedings before the Committee",
+    "Labels": [],
+    "Text": "The Human Rights Committee, acting under article 5, paragraph 4, of the Optional Protocol to the International Covenant on Civil and Political Rights, is of the view that the facts before it do not disclose a violation of any of the articles of the International Covenant on Civil and Political Rights. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.] Appendix"
+  },
+  {
+    "ID": "OP1-U1.",
+    "Section": "Individual opinion (dissenting) by Committee members P. Bhagwati, L. Henkin, C. Medina Quiroga, F. Pocar and M. Scheinin",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The Human Rights Committee, acting under article 5, paragraph 4, of the Optional Protocol to the International Covenant on Civil and Political Rights, is of the view that the facts before it do not disclose a violation of any of the articles of the International Covenant on Civil and Political Rights. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.] Appendix Individual opinion (dissenting) by Committee members P. Bhagwati, L. Henkin, C. Medina Quiroga, F. Pocar and M. Scheinin In our opinion the author’s reasons for conscientious objection to military service, as reproduced in paragraph 9.4 of the Views of the Committee, show that his objection constituted a legitimate manifestation of his freedom of thought, conscience or religion under article 18 of the Covenant. The State party’s arguments presented to justify the denial of conscientious objector status in the author’s case, reflected in paragraphs 6.4 and 6.5 of the Views, may suffice to explain why the author’s reasons did not constitute conscientious objections under the State party’s domestic law. However, we find that the State party has failed to provide justification for its decision to interfere with the author’s right under article 18 of the Covenant in the form of denial of conscientious objector’s status and imposing a term of imprisonment. As was stated by the Committee in paragraph 11 of its General Comment 22 [48], there should be no differentiation among conscientious objectors on the basis of the nature of their particular beliefs. We find that the author is the victim of a violation of article 18. P. Bhagwati (signed) L. Henkin (signed)"
+    "Text": "In our opinion the author’s reasons for conscientious objection to military service, as reproduced in paragraph 9.4 of the Views of the Committee, show that his objection constituted a legitimate manifestation of his freedom of thought, conscience or religion under article 18 of the Covenant. The State party’s arguments presented to justify the denial of conscientious objector status in the author’s case, reflected in paragraphs 6.4 and 6.5 of the Views, may suffice to explain why the author’s reasons did not constitute conscientious objections under the State party’s domestic law. However, we find that the State party has failed to provide justification for its decision to interfere with the author’s right under article 18 of the Covenant in the form of denial of conscientious objector’s status and imposing a term of imprisonment. As was stated by the Committee in paragraph 11 of its General Comment 22 [48], there should be no differentiation among conscientious objectors on the basis of the nature of their particular beliefs. We find that the author is the victim of a violation of article 18.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "9.2.",
-    "Section": "F. Pocar (signed)",
+    "ID": "OP1-U2.",
+    "Section": "Individual opinion (dissenting) by Committee members P. Bhagwati, L. Henkin, C. Medina Quiroga, F. Pocar and M. Scheinin",
+    "Labels": [],
+    "Text": "M. Scheinin (signed) version. Subsequently to be translated also into Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.]",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U2.",
+    "Namespace": "OP1"
+  },
+  {
+    "ID": "OP2-U1.",
+    "Section": "Individual opinion (dissenting) by Committee member H. Solari Yrigoyen",
+    "Labels": [],
+    "Text": "In my opinion, the Committee’s decision should have read as follows:",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-9.2.",
+    "Section": "Individual opinion (dissenting) by Committee member H. Solari Yrigoyen",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The Committee notes that from the moment he first contacted his country’s military authorities concerning his military service, the author stated that he was a conscientious objector, and that the relevant authorities - the Minister of Defence and the Council of State - refused to accord him that status and declared him eligible for military service. At the start of his military service, on 29 October 1990, the author again stated that by virtue of his status as a “total” conscientious objector he was prevented from performing any sort of military service, and refused to put on a uniform when ordered to do so by an officer. In the eyes of the State party the author committed the crimes of insubordination and refusal to perform any type of military service, punishable under article 114 of the Military Penal Code then in force. In the author’s view his refusal to perform military service and to obey the order to put on a uniform was the consequence of his being a conscientious objector. The Court of Appeal of Arnhem sentenced the author to nine months’ imprisonment, a judgement that was confirmed by the Supreme Court. Those decisions rejected the defence of conscientious objection repeatedly invoked by the author. The State party’s legislation accords limited recognition to conscientious objection to performing military service, when these objections constitute an insurmountable obstacle to performing military service “because of the use of violent means in which one might become involved while serving …”, as stated in paragraph 6.5. Consequently, the status of “total objector” invoked by the author to explain the incompatibility of his objections with military service, its regulations and its orders, could not be squared with the restrictive limits laid down by the Netherlands law, and would be very difficult to establish in times of peace when “violent means” were not used. Nonetheless, even in peacetime, military service is connected with war. As for the author’s contention that his case reveals a violation of article 15 of the Covenant, the Committee notes that the sentence was based on the legislation in force at the time of the acts, and not on the legislation subsequently enacted. Consequently the Committee considers that there has been no violation of article 15."
+    "Text": "The Committee notes that from the moment he first contacted his country’s military authorities concerning his military service, the author stated that he was a conscientious objector, and that the relevant authorities - the Minister of Defence and the Council of State - refused to accord him that status and declared him eligible for military service. At the start of his military service, on 29 October 1990, the author again stated that by virtue of his status as a “total” conscientious objector he was prevented from performing any sort of military service, and refused to put on a uniform when ordered to do so by an officer. In the eyes of the State party the author committed the crimes of insubordination and refusal to perform any type of military service, punishable under article 114 of the Military Penal Code then in force. In the author’s view his refusal to perform military service and to obey the order to put on a uniform was the consequence of his being a conscientious objector. The Court of Appeal of Arnhem sentenced the author to nine months’ imprisonment, a judgement that was confirmed by the Supreme Court. Those decisions rejected the defence of conscientious objection repeatedly invoked by the author. The State party’s legislation accords limited recognition to conscientious objection to performing military service, when these objections constitute an insurmountable obstacle to performing military service “because of the use of violent means in which one might become involved while serving …”, as stated in paragraph 6.5. Consequently, the status of “total objector” invoked by the author to explain the incompatibility of his objections with military service, its regulations and its orders, could not be squared with the restrictive limits laid down by the Netherlands law, and would be very difficult to establish in times of peace when “violent means” were not used. Nonetheless, even in peacetime, military service is connected with war. As for the author’s contention that his case reveals a violation of article 15 of the Covenant, the Committee notes that the sentence was based on the legislation in force at the time of the acts, and not on the legislation subsequently enacted. Consequently the Committee considers that there has been no violation of article 15.",
+    "OriginalID": "9.2.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "9.3.",
-    "Section": "F. Pocar (signed)",
+    "ID": "OP2-9.3.",
+    "Section": "Individual opinion (dissenting) by Committee member H. Solari Yrigoyen",
     "Labels": [],
-    "Text": "The author further argues that the sentence he received involves a violation of article 18 of the Covenant. It is thus for the Committee to decide whether or not that article was violated. The positions of the parties reveal a conflict of values, in which the State’s position has prevailed up until now, given the compulsory rather than voluntary nature of military service. Conscientious objection is based on a pluralistic conception of society in which acceptance rather than coercion is the decisive factor. The Committee considers that conscientious objection to performing military service is a clear manifestation of the freedom of thought, conscience and religion recognized by article 18 of the Universal Declaration of Human Rights, protected by article 18 of the International Covenant on Civil and Political Rights, and supported by a growing tendency for legislation to accept this fundamental right, without prejudice to provision, in cases such as the present one, for alternative service whose nature is such as to recognize equality before the law. One example of this tendency is Commission on Human Rights draft resolution E/CN.4/1998/L.93, concerning conscientious objection to military service, sponsored by the State party and 11 other European States."
+    "Text": "The author further argues that the sentence he received involves a violation of article 18 of the Covenant. It is thus for the Committee to decide whether or not that article was violated. The positions of the parties reveal a conflict of values, in which the State’s position has prevailed up until now, given the compulsory rather than voluntary nature of military service. Conscientious objection is based on a pluralistic conception of society in which acceptance rather than coercion is the decisive factor. The Committee considers that conscientious objection to performing military service is a clear manifestation of the freedom of thought, conscience and religion recognized by article 18 of the Universal Declaration of Human Rights, protected by article 18 of the International Covenant on Civil and Political Rights, and supported by a growing tendency for legislation to accept this fundamental right, without prejudice to provision, in cases such as the present one, for alternative service whose nature is such as to recognize equality before the law. One example of this tendency is Commission on Human Rights draft resolution E/CN.4/1998/L.93, concerning conscientious objection to military service, sponsored by the State party and 11 other European States.",
+    "OriginalID": "9.3.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "10.",
-    "Section": "F. Pocar (signed)",
+    "ID": "OP2-10.",
+    "Section": "Individual opinion (dissenting) by Committee member H. Solari Yrigoyen",
     "Labels": [],
-    "Text": "In view of the fact that the sentence imposed on the author was a direct consequence of the rejection of conscientious objection repeatedly invoked by the author, the Committee is of the opinion that article 18 of the Covenant has been violated in the present case. The above is my dissenting opinion. Hipólito Solari Yrigoyen (signed) [Done in English, French and Spanish, the Spanish text being the original version. Subsequently to be translated also into Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.]"
+    "Text": "In view of the fact that the sentence imposed on the author was a direct consequence of the rejection of conscientious objection repeatedly invoked by the author, the Committee is of the opinion that article 18 of the Covenant has been violated in the present case. The above is my dissenting opinion. Hipólito Solari Yrigoyen (signed) version. Subsequently to be translated also into Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.]",
+    "OriginalID": "10.",
+    "Namespace": "OP2"
   }
 ]

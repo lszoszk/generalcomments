@@ -5,7 +5,7 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author of the communication is Michael Robinson, a citizen of Jamaica, at the time of submission detained on death row in St Catherine’s District Prison. His death sentence has since been commuted to life imprisonment. He claims to be a victim of violations by Jamaica of articles 7, 10, and 14, paragraphs 1, 2, 3(b), 3(d), 3(e) and 5, of the International Covenant on Civil and Political Rights. He is represented by Mr. Graham Huntley of the London law firm of Lovell White Durrant."
+    "Text": "The author of the communication is Michael Robinson, a citizen of Jamaica, at the time of submission detained on death row in St Catherine’s District Prison. His death sentence has since been commuted to life imprisonment. He claims to be a victim of violations by Jamaica of articles 7, 10, and 14, paragraphs 1, 2, 3(b), 3(d), 3(e) and Mr. Graham Huntley of the London law firm of Lovell White Durrant."
   },
   {
     "ID": "2.1.",
@@ -429,6 +429,26 @@
     "ID": "13.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "On becoming a State party to the Optional Protocol, Jamaica recognized the competence of the Committee to determine whether there has been a violation of the Covenant or not. This case was submitted for consideration before Jamaica's denunciation of the Optional Protocol became effective on 23 January 1998; in accordance with article 12(2) of the Optional Protocol the communication is subject to the continued application of the Optional Protocol. Pursuant to article 2 of the Covenant, the State party has undertaken to ensure to all individuals within its territory and subject to its jurisdiction the rights recognized in the Covenant and to provide an effective and enforceable remedy in case a violation has been established. The Committee wishes to receive from the State Party, within ninety days, information about the measures taken to give effect to the Committee's Views. The State party is also requested to publish the Committee's Views. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly] Individual opinion by member Louis Henkin I concur in the conclusion of the Committee (paragraph 9.3) that, according to the jurisprudence of the Committee as formulated in previous cases, the circumstances of this case do not constitute a violation by the State party of article 7 of the Covenant. Like several of my colleagues, I continue to be troubled by the Committee’s formulation of the relevant principles, but do not consider the present case to be an appropriate vehicle for reexamining and reformulating them. Louis Henkin (signed) [Done in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.]"
+    "Text": "On becoming a State party to the Optional Protocol, Jamaica recognized the competence of the Committee to determine whether there has been a violation of the Covenant or not. This case was submitted for consideration before Jamaica's denunciation of the Optional Protocol became effective on 23 January 1998; in accordance with article 12(2) of the Optional Protocol the communication is subject to the continued application of the Optional Protocol. Pursuant to article 2 of the Covenant, the State party has undertaken to ensure to all individuals within its territory and subject to its jurisdiction the rights recognized in the Covenant and to provide an effective and enforceable remedy in case a violation has been established. The Committee wishes to receive from the State Party, within ninety days, information about the measures taken to give effect to the Committee's Views. The State party is also requested to publish the Committee's Views. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued in Arabic, Chinese and Russian as part of the"
+  },
+  {
+    "ID": "OP1-U1.",
+    "Section": "Individual opinion by member Louis Henkin",
+    "Labels": [],
+    "Text": "I concur in the conclusion of the Committee (paragraph 9.3) that, according to the jurisprudence of the Committee as formulated in previous cases, the circumstances of this case do not constitute a violation by the State party of article 7 of the Covenant.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP1"
+  },
+  {
+    "ID": "OP1-U2.",
+    "Section": "Individual opinion by member Louis Henkin",
+    "Labels": [],
+    "Text": "Like several of my colleagues, I continue to be troubled by the Committee’s formulation of the relevant principles, but do not consider the present case to be an appropriate vehicle for reexamining and reformulating them.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U2.",
+    "Namespace": "OP1"
   }
 ]

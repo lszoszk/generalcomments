@@ -1,5 +1,11 @@
 [
   {
+    "ID": "2.",
+    "Section": "ANNEX",
+    "Labels": [],
+    "Text": "January 1993 (initial submission) Date of decision on admissibility : 19 July 1995 The Human Rights Committee , established under article 28 of the International Covenant on Civil and Political Rights, Meeting on 8 November 1996, Having concluded its consideration of communication No. 550/1993 submitted to the Human Rights Committee by Mr. Robert Faurisson under the Optional Protocol to the International Covenant on Civil and Political Rights, Having taken into account all written information made available to it by the author of the communication and the State party, Adopts the following: Views under article 5, paragraph 4, of the Optional Protocol"
+  },
+  {
     "ID": "1.",
     "Section": "ANNEX",
     "Labels": [],
@@ -388,155 +394,273 @@
     "Text": "The Human Rights Committee, acting under article 5, paragraph 4, of the Optional Protocol to the International Covenant on Civil and Political Rights, is of the view that the facts as found by the Committee do not reveal a violation by France of article 19, paragraph 3, of the Covenant. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee's annual report to the General Assembly.]"
   },
   {
-    "ID": "1.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP1-U1.",
+    "Section": "Individual opinion by Nisuke Ando",
     "Labels": [],
-    "Text": "While we concur in the view of the Committee that in the particular circumstances of this case the right to freedom of expression of the author was not violated, given the importance of the issues involved we have decided to append our separate, concurring, opinion."
+    "Text": "While I do not oppose the adoption of the Views by the Human Rights Committee in the present case, I would like to express my concern about the danger that the French legislation in question, the Gayssot Act, might entail.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP1-U2.",
+    "Section": "Individual opinion by Nisuke Ando",
     "Labels": [],
-    "Text": "Any restriction on the right to freedom of expression must cumulatively meet the following conditions: it must be provided by law, it must address one of the aims set out in paragraph 3 (a) and (b) of article 19, and it must be necessary to achieve that aim. In this case we are concerned with the restriction on the author's freedom of expression arising from his conviction for his statements in the interview published in Le Choc du Mois . As this conviction was based on the prohibition laid down in the Gayssot Act, it was indeed a restriction provided by law. The main issue is whether the restriction has been shown by the State party to be necessary, in terms of article 19, paragraph 3 (a), for respect of the rights or reputations of others."
+    "Text": "As I understand it, the Act criminalises the negation (\"contestation\" in French), by one of the means enumerated in article 23 of the Law on the Freedom of the Press of 1881, of one or several of the crimes against humanity in the sense of article 6 of the Statute of the International Military Tribunal of Nuremberg (see para. 4.2). In my view the term \"negation\" (\"contestation\"), if loosely interpreted, could comprise various forms of expression of opinions and thus has a possibility of threatening or encroaching the right to freedom of expression, which constitutes an indispensable prerequisite for the proper functioning of a democratic society.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "3.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP1-U3.",
+    "Section": "Individual opinion by Nisuke Ando",
     "Labels": [],
-    "Text": "The State party has argued that the author's conviction was justified \"by the necessity of securing respect for the judgment of the International Military Tribunal at Nuremburg, and through it the memory of the survivors and the descendants of the victims of Nazism.\" While we entertain no doubt whatsoever that the author's statements are highly offensive both to Holocaust survivors and to descendants of Holocaust victims (as well as to many others), the question under the Covenant is whether a restriction on freedom of expression in order to achieve this purpose may be regarded as a restriction necessary for the respect of the rights of others."
+    "Text": "In order to eliminate this possibility it would probably be better to replace the Act with a specific legislation prohibiting well-defined acts of anti-semitism or with a provision of the criminal code protecting the rights or reputations of others in general. [Original: English]",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U3.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "4.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP2-1.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
+    "Labels": [],
+    "Text": "While we concur in the view of the Committee that in the particular circumstances of this case the right to freedom of expression of the author was not violated, given the importance of the issues involved we have decided to append our separate, concurring, opinion.",
+    "OriginalID": "1.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-2.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
+    "Labels": [],
+    "Text": "Any restriction on the right to freedom of expression must cumulatively meet the following conditions: it must be provided by law, it must address one of the aims set out in paragraph 3 (a) and (b) of article 19, and it must be necessary to achieve that aim. In this case we are concerned with the restriction on the author's freedom of expression arising from his conviction for his statements in the interview published in Le Choc du Mois . As this conviction was based on the prohibition laid down in the Gayssot Act, it was indeed a restriction provided by law. The main issue is whether the restriction has been shown by the State party to be necessary, in terms of article 19, paragraph 3 (a), for respect of the rights or reputations of others.",
+    "OriginalID": "2.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-3.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
+    "Labels": [],
+    "Text": "The State party has argued that the author's conviction was justified \"by the necessity of securing respect for the judgment of the International Military Tribunal at Nuremburg, and through it the memory of the survivors and the descendants of the victims of Nazism.\" While we entertain no doubt whatsoever that the author's statements are highly offensive both to Holocaust survivors and to descendants of Holocaust victims (as well as to many others), the question under the Covenant is whether a restriction on freedom of expression in order to achieve this purpose may be regarded as a restriction necessary for the respect of the rights of others.",
+    "OriginalID": "3.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-4.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "Every individual has the right to be free not only from discrimination on grounds of race, religion and national origins, but also from incitement to such discrimination. This is stated expressly in article 7 of the Universal Declaration of Human Rights. It is implicit in the obligation placed on States parties under article 20, paragraph 2, of the Covenant to prohibit by law any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence. The crime for which the author was convicted under the Gayssot Act does not expressly include the element of incitement, nor do the statements which served as the basis for the conviction fall clearly within the boundaries of incitement, which the State party was bound to prohibit, in accordance with article 20, paragraph 2. However, there may be circumstances in which the right of a person to be free from incitement to discrimination on grounds of race, religion or national origins cannot be fully protected by a narrow, explicit law on incitement that falls precisely within the boundaries of article 20, paragraph 2. This is the case where, in a particular social and historical context, statements that do not meet the strict legal criteria of incitement can be shown to constitute part of a pattern of incitement against a given racial, religious or national group, or where those interested in spreading hostility and hatred adopt sophisticated forms of speech that are not punishable under the law against racial incitement, even though their effect may be as pernicious as explicit incitement, if not more so."
+    "Text": "Every individual has the right to be free not only from discrimination on grounds of race, religion and national origins, but also from incitement to such discrimination. This is stated expressly in article 7 of the Universal Declaration of Human Rights. It is implicit in the obligation placed on States parties under article 20, paragraph 2, of the Covenant to prohibit by law any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence. The crime for which the author was convicted under the Gayssot Act does not expressly include the element of incitement, nor do the statements which served as the basis for the conviction fall clearly within the boundaries of incitement, which the State party was bound to prohibit, in accordance with article 20, paragraph 2. However, there may be circumstances in which the right of a person to be free from incitement to discrimination on grounds of race, religion or national origins cannot be fully protected by a narrow, explicit law on incitement that falls precisely within the boundaries of article 20, paragraph 2. This is the case where, in a particular social and historical context, statements that do not meet the strict legal criteria of incitement can be shown to constitute part of a pattern of incitement against a given racial, religious or national group, or where those interested in spreading hostility and hatred adopt sophisticated forms of speech that are not punishable under the law against racial incitement, even though their effect may be as pernicious as explicit incitement, if not more so.",
+    "OriginalID": "4.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "5.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP2-5.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
     "Labels": [],
-    "Text": "In the discussion in the French Senate on the Gayssot Act the then Minister of Justice, Mr. Arpaillange, explained that the said law, which, inter alia , prohibits denial of the Holocaust, was needed since Holocaust denial is a contemporary expression of racism and anti-semitism. Furthermore, the influence of the author's statements on racial or religious hatred was considered by the Paris Court of Appeal, which held that by virtue of the fact that such statements propagate ideas tending to revive Nazi doctrine and the policy of racial discrimination, they tend to disrupt the harmonious coexistence of different groups in France."
+    "Text": "In the discussion in the French Senate on the Gayssot Act the then Minister of Justice, Mr. Arpaillange, explained that the said law, which, inter alia , prohibits denial of the Holocaust, was needed since Holocaust denial is a contemporary expression of racism and anti-semitism. Furthermore, the influence of the author's statements on racial or religious hatred was considered by the Paris Court of Appeal, which held that by virtue of the fact that such statements propagate ideas tending to revive Nazi doctrine and the policy of racial discrimination, they tend to disrupt the harmonious coexistence of different groups in France.",
+    "OriginalID": "5.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "6.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP2-6.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
     "Labels": [],
-    "Text": "The notion that in the conditions of present-day France, Holocaust denial may constitute a form of incitement to anti-semitism cannot be dismissed. This is a consequence not of the mere challenge to well-documented historical facts, established both by historians of different persuasions and backgrounds as well as by international and domestic tribunals, but of the context, in which it is implied, under the guise of impartial academic research, that the victims of Nazism were guilty of dishonest fabrication, that the story of their victimization is a myth and that the gas chambers in which so many people were murdered are \"magic\"."
+    "Text": "The notion that in the conditions of present-day France, Holocaust denial may constitute a form of incitement to anti-semitism cannot be dismissed. This is a consequence not of the mere challenge to well-documented historical facts, established both by historians of different persuasions and backgrounds as well as by international and domestic tribunals, but of the context, in which it is implied, under the guise of impartial academic research, that the victims of Nazism were guilty of dishonest fabrication, that the story of their victimization is a myth and that the gas chambers in which so many people were murdered are \"magic\".",
+    "OriginalID": "6.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "7.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP2-7.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
     "Labels": [],
-    "Text": "The Committee correctly points out, as it did in its General Comment 10, that the right for the protection of which restrictions on freedom of expression are permitted by article 19, paragraph 3, may relate to the interests of a community as a whole. This is especially the case in which the right protected is the right to be free from racial, national or religious incitement. The French courts examined the statements made by the author and came to the conclusion that his statements were of a nature as to raise or strengthen anti-semitic tendencies. It appears therefore that the restriction on the author's freedom of expression served to protect the right of the Jewish community in France to live free from fear of incitement to anti-semitism. This leads us to the conclusion that the State party has shown that the aim of the restrictions on the author's freedom of expression was to respect the right of others, mentioned in article 19, paragraph 3. The more difficult question is whether imposing liability for such statements was necessary in order to protect that right."
+    "Text": "The Committee correctly points out, as it did in its General Comment 10, that the right for the protection of which restrictions on freedom of expression are permitted by article 19, paragraph 3, may relate to the interests of a community as a whole. This is especially the case in which the right protected is the right to be free from racial, national or religious incitement. The French courts examined the statements made by the author and came to the conclusion that his statements were of a nature as to raise or strengthen anti-semitic tendencies. It appears therefore that the restriction on the author's freedom of expression served to protect the right of the Jewish community in France to live free from fear of incitement to anti-semitism. This leads us to the conclusion that the State party has shown that the aim of the restrictions on the author's freedom of expression was to respect the right of others, mentioned in article 19, paragraph 3. The more difficult question is whether imposing liability for such statements was necessary in order to protect that right.",
+    "OriginalID": "7.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "8.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP2-8.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
     "Labels": [],
-    "Text": "The power given to States parties under article 19, paragraph 3, to place restrictions on freedom of expression, must not be interpreted as license to prohibit unpopular speech, or speech which some sections of the population find offensive. Much offensive speech may be regarded as speech that impinges on one of the values mentioned in article 19, paragraph 3 (a) or (b) (the rights or reputations of others, national security, ordre public, public health or morals). The Covenant therefore stipulates that the purpose of protecting one of those values is not, of itself, sufficient reason to restrict expression. The restriction must be necessary to protect the given value. This requirement of necessity implies an element of proportionality. The scope of the restriction imposed on freedom of expression must be proportional to the value which the restriction serves to protect. It must not exceed that needed to protect that value. As the Committee stated in its General Comment 10, the restriction must not put the very right itself in jeopardy."
+    "Text": "The power given to States parties under article 19, paragraph 3, to place restrictions on freedom of expression, must not be interpreted as license to prohibit unpopular speech, or speech which some sections of the population find offensive. Much offensive speech may be regarded as speech that impinges on one of the values mentioned in article 19, paragraph 3 (a) or (b) (the rights or reputations of others, national security, ordre public, public health or morals). The Covenant therefore stipulates that the purpose of protecting one of those values is not, of itself, sufficient reason to restrict expression. The restriction must be necessary to protect the given value. This requirement of necessity implies an element of proportionality. The scope of the restriction imposed on freedom of expression must be proportional to the value which the restriction serves to protect. It must not exceed that needed to protect that value. As the Committee stated in its General Comment 10, the restriction must not put the very right itself in jeopardy.",
+    "OriginalID": "8.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "9.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP2-9.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
     "Labels": [],
-    "Text": "The Gayssot Act is phrased in the widest language and would seem to prohibit publication of bona fide research connected with matters decided by the Nuremburg Tribunal. Even if the purpose of this prohibition is to protect the right to be free from incitement to anti-semitism, the restrictions imposed do not meet the proportionality test. They do not link liability to the intent of the author, nor to the tendency of the publication to incite to anti-semitism. Furthermore, the legitimate object of the law could certainly have been achieved by a less drastic provision that would not imply that the State party had attempted to turn historical truths and experiences into legislative dogma that may not be challenged, no matter what the object behind that challenge, nor its likely consequences. In the present case we are not concerned, however, with the Gayssot Act, in abstracto , but only with the restriction placed on the freedom of expression of the author by his conviction for his statements in the interview in Le Choc du Mois . Does this restriction meet the proportionality test?"
+    "Text": "The Gayssot Act is phrased in the widest language and would seem to prohibit publication of bona fide research connected with matters decided by the Nuremburg Tribunal. Even if the purpose of this prohibition is to protect the right to be free from incitement to anti-semitism, the restrictions imposed do not meet the proportionality test. They do not link liability to the intent of the author, nor to the tendency of the publication to incite to anti-semitism. Furthermore, the legitimate object of the law could certainly have been achieved by a less drastic provision that would not imply that the State party had attempted to turn historical truths and experiences into legislative dogma that may not be challenged, no matter what the object behind that challenge, nor its likely consequences. In the present case we are not concerned, however, with the Gayssot Act, in abstracto , but only with the restriction placed on the freedom of expression of the author by his conviction for his statements in the interview in Le Choc du Mois . Does this restriction meet the proportionality test?",
+    "OriginalID": "9.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "10.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP2-10.",
+    "Section": "Individual opinion by Elizabeth Evatt and David Kretzmer, co-signed by Eckart Klein",
     "Labels": [],
-    "Text": "The French courts examined the author's statements in great detail. Their decisions, and the interview itself, refute the author's argument that he is only driven by his interest in historical research. In the interview the author demanded that historians \"particularly Jewish historians\" (\"les historiens, en particulier juifs\") who agree that some of the findings of the Nuremburg Tribunal were mistaken be prosecuted. The author referred to the \"magic gas chamber\" (\"la magique chambre à gaz\") and to \"the myth of the gas chambers\" (\"le mythe des chambres à gaz\"), that was a \"dirty trick\" (\"une gredinerie\") endorsed by the victors in Nuremburg. The author has, in these statements, singled out Jewish historians over others, and has clearly implied that the Jews, the victims of the Nazis, concocted the story of gas chambers for their own purposes. While there is every reason to maintain protection of bona fide historical research against restriction, even when it challenges accepted historical truths and by so doing offends people, anti-semitic allegations of the sort made by the author, which violate the rights of others in the way described, do not have the same claim to protection against restriction. The restrictions placed on the author did not curb the core of his right to freedom of expression, nor did they in any way affect his freedom of research; they were intimately linked to the value they were meant to protect - the right to be free from incitement to racism or anti-semitism; protecting that value could not have been achieved in the circumstances by less drastic means. It is for these reasons that we joined the Committee in concluding that, in the specific circumstances of the case, the restrictions on the author's freedom of expression met the proportionality test and were necessary in order to protect the rights of others. Elizabeth Evatt [signed] David Kretzmer [signed] Eckart Klein [signed] [Original: English]"
+    "Text": "The French courts examined the author's statements in great detail. Their decisions, and the interview itself, refute the author's argument that he is only driven by his interest in historical research. In the interview the author demanded that historians \"particularly Jewish historians\" (\"les historiens, en particulier juifs\") who agree that some of the findings of the Nuremburg Tribunal were mistaken be prosecuted. The author referred to the \"magic gas chamber\" (\"la magique chambre à gaz\") and to \"the myth of the gas chambers\" (\"le mythe des chambres à gaz\"), that was a \"dirty trick\" (\"une gredinerie\") endorsed by the victors in Nuremburg. The author has, in these statements, singled out Jewish historians over others, and has clearly implied that the Jews, the victims of the Nazis, concocted the story of gas chambers for their own purposes. While there is every reason to maintain protection of bona fide historical research against restriction, even when it challenges accepted historical truths and by so doing offends people, anti-semitic allegations of the sort made by the author, which violate the rights of others in the way described, do not have the same claim to protection against restriction. The restrictions placed on the author did not curb the core of his right to freedom of expression, nor did they in any way affect his freedom of research; they were intimately linked to the value they were meant to protect - the right to be free from incitement to racism or anti-semitism; protecting that value could not have been achieved in the circumstances by less drastic means. It is for these reasons that we joined the Committee in concluding that, in the specific circumstances of the case, the restrictions on the author's freedom of expression met the proportionality test and were necessary in order to protect the rights of others. [Original: English]",
+    "OriginalID": "10.",
+    "Namespace": "OP2"
   },
   {
-    "ID": "1.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP3-1.",
+    "Section": "Individual opinion by Cecilia Medina Quiroga",
     "Labels": [],
-    "Text": "I concur with the Committee's opinion in this case and wish to associate myself with the individual opinion formulated by Ms. Evatt and Mr. Kretzmer as being the one that most clearly expresses my own thoughts."
+    "Text": "I concur with the Committee's opinion in this case and wish to associate myself with the individual opinion formulated by Ms. Evatt and Mr. Kretzmer as being the one that most clearly expresses my own thoughts.",
+    "OriginalID": "1.",
+    "Namespace": "OP3"
   },
   {
-    "ID": "2.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP3-2.",
+    "Section": "Individual opinion by Cecilia Medina Quiroga",
     "Labels": [],
-    "Text": "I would like to add that a determining factor for my position is the fact that, although the wording of the Gayssot Act might, in application, constitute a clear violation of article 19 of the Covenant, the French court which tried Mr. Faurisson interpreted and applied that Act in the light of the provisions of the Covenant, thereby adapting the Act to France's international obligations with regard to freedom of expression. Cecilia Medina Quiroga [signed] [Original: Spanish]"
+    "Text": "I would like to add that a determining factor for my position is the fact that, although the wording of the Gayssot Act might, in application, constitute a clear violation of article 19 of the Covenant, the French court which tried Mr. Faurisson interpreted and applied that Act in the light of the provisions of the Covenant, thereby adapting the Act to France's international obligations with regard to freedom of expression.",
+    "OriginalID": "2.",
+    "Namespace": "OP3"
   },
   {
-    "ID": "1.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U1.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "I have reservations on the approach adopted by the Committee in arriving at its conclusions. I also reach the same conclusions for different reasons."
+    "Text": "The facts giving rise to this communication have been set out in detail in the majority opinion of the Committee and it would be an idle exercise for me to reiterate the same over again. I will, instead, proceed straight away to deal with the question of law raised by the author of the communication.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "2.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U2.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "It is perhaps necessary to identify, in the first place, what restrictions or prohibitions a State party may legitimately impose, by law, on the right to freedom of expression or opinion, whether under article 19, paragraph 3, or 20, paragraph 2, of the Covenant; and, secondly, where the non-observance of such restrictions or prohibitions is criminalized by law, what are the elements of the offence that the law must, in its formulation, provide for so that an individual may know what these elements are and so that he may be able to defend himself, in respect of those elements, by virtue of the fundamental right to a fair trial by a Court conferred upon him under article 14 of the Covenant."
+    "Text": "The question is whether the conviction of the author under the Gayssot Act was violative of article 19, paragraph 2, of the International Covenant on Civil and Political Rights.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U2.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "3.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U3.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "The Committee, and indeed my colleagues Evatt and Kretzmer whose separate opinion I have had the advantage of reading, have properly analyzed the purposes for which restrictions may legitimately be imposed under article 19, paragraph 3, of the Covenant. They have also properly underlined the requirement that the restrictions must be necessary to achieve those purposes. I need not add anything further on this particular aspect of the matter."
+    "Text": "Article 19, paragraph 2, declares that everyone shall have the right to freedom of expression which includes freedom to impart information and ideas of all kinds through any media, but restrictions can be imposed on this freedom under article 19, paragraph 3, provided such restrictions cumulatively meet the following conditions: (1) they must be provided for by law, (2) they must address one of the aims enumerated in paragraph 3 (a) and 3 (b) of article 19 and (3) they must be necessary to achieve a legitimate purpose, this last requirement introducing the principle of proportionality.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U3.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "4.",
-    "Section": "The facts as submitted by the author",
-    "Labels": [],
-    "Text": "In so far as restrictions or prohibitions in pursuance of article 20, paragraph 2, are concerned, the element of necessity is merged with the very nature of the expression which may legitimately be prohibited by law, that is to say, the expression must amount to advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence."
+    "ID": "OP4-U4.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
+    "Labels": [
+      "Persons deprived of their liberty"
+    ],
+    "Text": "The Gayssot Act was passed by the French Legislature on 13 July 1990 amending the law on the Freedom of the Press by adding an article 24 bis which made it an offence to contest the existence of the category of crimes against humanity as defined in the London Charter of 8 August 1945 on the basis of which Nazi leaders were tried and convicted by the International Military Tribunal at Nuremberg in 1945-46. The Gayssot Act thus provided restriction on freedom of expression by making it an offence to speak or write denying the existence of the Holocaust or of gas asphyxiation of Jews in gas chambers by Nazis. The author was convicted for breach of the provisions of the Gayssot Act and it was therefore breach of this restriction on which the finding of guilt recorded against him was based. The offending statements made by the author on which his conviction was based were the following: \"... No one will have me admit that two plus two make five, that the earth is flat or that the Nuremberg trial was infallible. I have excellent reasons not to believe in this policy of extermination of Jews or in the magic gas chamber ...\" \"I would wish to see that 100 per cent of all French citizens realize that the myth of the gas chambers is a dishonest fabrication ('est une gredinerie'), endorsed by the victorious powers of Nuremberg in 1945-46 and officialized on 14 July 1990 by the current French Government with the approval of the Court historians.\" These statements were clearly in breach of the restriction imposed by the Gayssot Act and were therefore plainly covered by the prohibition under the Gayssot Act. But the question is whether the restriction imposed by the Gayssot Act which formed the basis of the conviction of the author, satisfied the other two elements in article 19, paragraph 3, in order to pass the test of permissible restriction.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U4.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "5.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U5.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "The second question as to what the law must provide for, in its formulation, is a more difficult one. I would see no great difficulty in the formulation of a law which prohibits, in the very terms of article 20, paragraph 2, the advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence. The formulation becomes more problematic for the purposes of article 19, paragraph 3. Because, here, it is not, as is the case under article 20, paragraph 2, the particular expression that may be restricted but rather the adverse effect that the expression must necessarily have on the specified objects or interests which paragraphs (a) and (b) are designed to protect. It is the prejudice to these objects or interests which becomes the material element of the restriction or prohibition and, consequently, of the offence."
+    "Text": "The second element in article 19, paragraph 3, requires that the restriction imposed by the Gayssot Act must address one of the aims enumerated in paragraph 3 (a) and (b) of article 19. It must be necessary (a) for respect of the rights or reputations of others or (b) for the protection of national security or of public order (ordre public) or of public health or morals. It would be difficult to bring the restriction under paragraph 3 (b) because it cannot be said to be necessary for any of the purposes set out in paragraph 3 (b). The only question to which it is necessary to address oneself is whether the restriction can be said to be necessary for respect of the rights and reputations of others so as to be justifiable under paragraph 3 (a).",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U5.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "6.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U6.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "As my colleagues Evatt and Kretzmer have noted, the Gayssot Act is formulated in the widest terms and would seem to prohibit publication of bona fide research connected with principles and matters decided by the Nuremberg Tribunal. It creates an absolute liability in respect of which no defence appears to be possible. It does not link liability either to the intent of the author nor to the prejudice that it causes to respect for the rights or reputations of others as required under article 19, paragraph 3 (a), or to the protection of national security or of public order or of public health or morals as required under article 19, paragraph 3 (b)."
+    "Text": "Now if a law were merely to prohibit any criticism of the functioning of the International Military Tribunal at Nuremberg or any denial of a historical event simpliciter, on pain of penalty, such law would not be justifiable under paragraph 3 (a) of article 19 and it would clearly be inconsistent under article 19, paragraph 2. But, it is clear from the submissions made by the State party and particularly, the submission made on 3 July 1996 that the object and purpose of imposing restriction under the Gayssot Act on freedom of expression was to prohibit or prevent insidious expression of anti-semitism.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U6.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "7.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U7.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "What is significant in the Gayssot Act is that it appears to criminalize, in substance, any challenge to the conclusions and the verdict of the Nuremberg Tribunal. In its effects, the Act criminalizes the bare denial of historical facts. The assumption, in the provisions of the Act, that the denial is necessarily anti-semitic or incites anti-semitism is a Parliamentary or legislative judgment and is not a matter left to adjudication or judgment by the Courts. For this reason, the Act would appear, in principle, to put in jeopardy the right of any person accused of a breach of the Act to be tried by an independent Court."
+    "Text": "According to the State party: \"the denial of the Holocaust by authors who qualify themselves as revisionists could only be qualified as an expression of racism and the principal vehicle of anti-semitism.\" \"the denial of the genocide of the Jews during World War Two fuels debates of a profoundly anti-semitic character, since it accuses the Jews of having fabricated themselves the myth of their extermination.\" Thus, according to the State party, the necessary consequence of denial of extermination of Jews by asphyxiation in the gas chamber was fuelling of anti-semitic sentiment by the clearest suggestion that the myth of the gas chamber was a dishonest fabrication by the Jews and it was in fact so articulated by the author in his offending statement.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U7.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "8.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U8.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "I am conscious, however, that the Act must not be read in abstracto but in its application to the author. In this regard, the next question to be examined is whether any deficiencies in the Act, in its application to the author, were or were not remedied by the Courts."
+    "Text": "It is therefore clear that the restriction on freedom of expression imposed by the Gayssot Act was intended to protect the Jewish community against hostility, antagonism and ill-will which would be generated against them by statements imputing dishonest fabrication of the myth of gas chamber and extermination of Jews by asphyxiation in the gas chamber. It may be noted, as observed by the Committee in its General Comment 10, that the rights for the protection of which restrictions on the freedom of expression are permitted by article 19, paragraph 3 (a), may relate to the interests of other persons or to those of the community as a whole . Since the statement made by the author, read in the context of its necessary consequence, was calculated or was at least of such a nature as to raise or strengthen anti-semitic feelings and create or promote hatred, hostility or contempt against the Jewish community as dishonest fabricators of lies, the restriction imposed on such statement by the Gayssot Act was intended to serve the purpose of respect for the right and interest of the Jewish community to live free from fear of an atmosphere of anti-semitism, hostility or contempt. The second element required for the applicability of article 19, paragraph 3, was therefore satisfied.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U8.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "9.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U9.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "It would appear, as also noted by my colleagues Evatt and Kretzmer that the author's statements on racial or religious hatred were considered by the French Courts. Those Courts came to the conclusion that the statements propagated ideas tending to revive Nazi doctrine and the policy of racial discrimination. The statements were also found to have been of such a nature as to raise or strengthen anti-semitic tendencies. It is beyond doubt that, on the basis of the findings of the French Courts, the statements of the author amounted to the advocacy of racial or religious hatred constituting incitement, at the very least, to hostility and discrimination towards people of the Jewish faith which France was entitled under article 20, paragraph 2, of the Covenant to proscribe. In this regard, in considering this aspect of the matter and reaching the conclusions which they did, the French Courts would appear to have, quite properly, arrogated back to themselves the power to decide a question which the Legislature had purported to decide by a legislative judgement."
+    "Text": "That takes me to a consideration of the question whether the third element could be said to have been satisfied in the present case. Was the restriction on the author's freedom of expression imposed under the Gayssot Act necessary for respect of the rights and interests of the Jewish community?",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U9.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "10.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U10.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "Whatever deficiencies, therefore, which the Act contained were, in the case of the author, remedied by the Courts. When considering a communication under the Optional Protocol what must be considered is the action of the State as such, irrespective of whether the State had acted through its legislative arm or its judicial arm or through both."
+    "Text": "The answer must obviously be in the affirmative. If the restriction on freedom of expression in the manner provided under the Gayssot Act had not been imposed and statements denying the Holocaust and the extermination of Jews by asphyxiation in the gas chamber had not been made penal, the author and other revisionists like him could have gone on making statements similar to the one which invited the conviction of the author and the necessary consequence and fall-out of such statements would have been, in the context of the situation prevailing in Europe, promotion and strengthening of anti-semitic feelings, as emphatically pointed out by the State party in its submissions. Therefore, the imposition of restriction by the Gayssot Act was necessary for securing respect for the rights and interests of the Jewish community to live in society with full human dignity and free from an atmosphere of anti-semitism.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U10.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "11.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U11.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "I conclude, therefore, that the creation of the offence provided for in the Gayssot Act, as it has been applied by the Courts to the author's case, falls more appropriately, in my view, within the powers of France under article 20, paragraph 2, of the Covenant. The result is that there has, for this reason, been no violation by France under the Covenant."
+    "Text": "It is therefore clear that the restriction on freedom of expression imposed by the Gayssot Act satisfied all the three elements required for the applicability of article 19, paragraph 3, and was not inconsistent with article 19, paragraph 2, and consequently, the conviction of the author under the Gayssot Act was not violative of his freedom of expression guaranteed under article 19, paragraph 2. I have reached this conclusion under the greatest reluctance because I firmly believe that in a free democratic society, freedom of speech and expression is one of the most prized freedoms which must be defended and upheld at any cost and this should be particularly so in the land of Voltaire. It is indeed unfortunate that in the world of today, when science and technology have advanced the frontiers of knowledge and mankind is beginning to realize that human happiness can be realized only through inter-dependence and cooperation, the threshold of tolerance should be going down. It is high time man should realize his spiritual dimension and replace bitterness and hatred by love and compassion, tolerance and forgiveness.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U11.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "12.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U12.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "I am aware that the communication of the author was declared admissible only with regard to article 19. I note, however, that no particular article was specified by the author when submitting his communication. And, in the course of the exchange of observations by both the author and the State party, the substance of matters relevant to article 20, paragraph 2, were also mooted or brought in issue. I would see no substantive or procedural difficulty in invoking article 20, paragraph 2."
+    "Text": "I have written this separate opinion because, though I agree with the majority conclusion of no violation, the process of reasoning through which I have reached this conclusion is a little different from the one which has found favour with the majority. [Original: English]",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U12.",
+    "Namespace": "OP4"
   },
   {
-    "ID": "13.",
-    "Section": "The facts as submitted by the author",
+    "ID": "OP4-U13.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
     "Labels": [],
-    "Text": "Recourse to restrictions that are, in principle, permissible under article 19, paragraph 3, bristles with difficulties, tending to destroy the very existence of the right sought to be restricted. The right to freedom of opinion and expression is a most valuable right and may turn out to be too fragile for survival in the face of the too frequently professed necessity for its restriction in the wide range of areas envisaged under paragraphs (a) and (b) of article 19, paragraph 3. Rajsoomer Lallah [signed] [Original: English]"
+    "Text": "Notes 1/ Cases Nos. 8348/78 and 8406/78 ( Glimmerveen and Hagenbeek v.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U13.",
+    "Namespace": "OP4"
+  },
+  {
+    "ID": "OP4-U14.",
+    "Section": "Individual opinion by Prafullachandra Bhagwati",
+    "Labels": [],
+    "Text": "The Netherlands ), declared inadmissible on 11 October 1979. 2/ Communication No. 104/1981 ( J.R.T. and the W.G. Party v. Canada ), declared inadmissible 6 April 1983, para. 8 (b). 3/ No. 84-181 D.C. of 10 and 11 October 1984, Rec. p. 78. 4/ Case No. 9235/81 ( X. v. Federal Republic of Germany ), declared inadmissible 16 July 1982. 5/ Cf. Seventeenth Criminal Chamber, Tribunal Correctionnel de Paris , 18 April 1991.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U14.",
+    "Namespace": "OP4"
   }
 ]

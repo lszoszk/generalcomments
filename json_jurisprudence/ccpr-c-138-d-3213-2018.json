@@ -387,63 +387,79 @@
     "Text": "The Committee, acting under article 5 (4) of the Optional Protocol, is of the view that the facts before it do not disclose a violation by the State party of the author’s rights under article 14 (1) of the Covenant."
   },
   {
-    "ID": "1.",
+    "ID": "OP1-1.",
     "Section": "Individual opinion of Committee member Bacre Waly Ndiaye (dissenting)",
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The protection of adults with a mental disability is first and foremost a question of law, not a question of fact."
+    "Text": "The protection of adults with a mental disability is first and foremost a question of law, not a question of fact.",
+    "OriginalID": "1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
+    "ID": "OP1-2.",
     "Section": "Individual opinion of Committee member Bacre Waly Ndiaye (dissenting)",
     "Labels": [],
-    "Text": "This is especially true when they have to appear before the criminal courts for acts that are difficult to dissociate from their mental state."
+    "Text": "This is especially true when they have to appear before the criminal courts for acts that are difficult to dissociate from their mental state.",
+    "OriginalID": "2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "3.",
+    "ID": "OP1-3.",
     "Section": "Individual opinion of Committee member Bacre Waly Ndiaye (dissenting)",
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "For this reason, and for the same reasons that led the international community to adopt the Convention on the Rights of Persons with Disabilities and to elect a body of experts to monitor compliance with the treaty, the State party has introduced rules of procedure to ensure the protection of persons with disabilities and to offset the inequality between the parties before the criminal courts."
+    "Text": "For this reason, and for the same reasons that led the international community to adopt the Convention on the Rights of Persons with Disabilities and to elect a body of experts to monitor compliance with the treaty, the State party has introduced rules of procedure to ensure the protection of persons with disabilities and to offset the inequality between the parties before the criminal courts.",
+    "OriginalID": "3.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "4.",
+    "ID": "OP1-4.",
     "Section": "Individual opinion of Committee member Bacre Waly Ndiaye (dissenting)",
     "Labels": [],
-    "Text": "Both the Committee and the State party have acknowledged that these rules of procedure, including the rules governing the notification of administrators, were indisputably and repeatedly violated with regard to Mr. Ehrmann."
+    "Text": "Both the Committee and the State party have acknowledged that these rules of procedure, including the rules governing the notification of administrators, were indisputably and repeatedly violated with regard to Mr. Ehrmann.",
+    "OriginalID": "4.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "5.",
+    "ID": "OP1-5.",
     "Section": "Individual opinion of Committee member Bacre Waly Ndiaye (dissenting)",
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "These rules of procedure are of a substantive nature, as they are intended to offset the inequality experienced by persons with disabilities and ensure their protection; therefore, once a violation was found to have occurred, a violation of the provisions of article 14 of the Covenant aimed at ensuring the equality of the parties and scrupulous respect for the rights of the defence should also have been found, without the need to embark on a dubious and empirical investigation of the author’s mental capacities at every stage of the proceedings."
+    "Text": "These rules of procedure are of a substantive nature, as they are intended to offset the inequality experienced by persons with disabilities and ensure their protection; therefore, once a violation was found to have occurred, a violation of the provisions of article 14 of the Covenant aimed at ensuring the equality of the parties and scrupulous respect for the rights of the defence should also have been found, without the need to embark on a dubious and empirical investigation of the author’s mental capacities at every stage of the proceedings.",
+    "OriginalID": "5.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "6.",
+    "ID": "OP1-6.",
     "Section": "Individual opinion of Committee member Bacre Waly Ndiaye (dissenting)",
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "This is especially true since the psychiatric evaluation, which should have been the basis for the investigation, was rejected by the national judge."
+    "Text": "This is especially true since the psychiatric evaluation, which should have been the basis for the investigation, was rejected by the national judge.",
+    "OriginalID": "6.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "7.",
+    "ID": "OP1-7.",
     "Section": "Individual opinion of Committee member Bacre Waly Ndiaye (dissenting)",
     "Labels": [
       "Children"
     ],
-    "Text": "The protection of adults incapable of managing their own affairs is based on the same rules and principles that apply to the protection of minors. Yet, compliance with the rules governing the protection of minors is guaranteed before both criminal and civil courts, with no option to assess the minor’s maturity or to query whether, in the absence of a guardian, the minor had a competent lawyer."
+    "Text": "The protection of adults incapable of managing their own affairs is based on the same rules and principles that apply to the protection of minors. Yet, compliance with the rules governing the protection of minors is guaranteed before both criminal and civil courts, with no option to assess the minor’s maturity or to query whether, in the absence of a guardian, the minor had a competent lawyer.",
+    "OriginalID": "7.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "8.",
+    "ID": "OP1-8.",
     "Section": "Individual opinion of Committee member Bacre Waly Ndiaye (dissenting)",
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The Human Rights Committee regularly recommends that States parties raise the age of criminal liability to expand the scope of protection. The same approach, precautions and strict protection should have been applied in the case of the author, as an adult with a mental disability."
+    "Text": "The Human Rights Committee regularly recommends that States parties raise the age of criminal liability to expand the scope of protection. The same approach, precautions and strict protection should have been applied in the case of the author, as an adult with a mental disability.",
+    "OriginalID": "8.",
+    "Namespace": "OP1"
   }
 ]

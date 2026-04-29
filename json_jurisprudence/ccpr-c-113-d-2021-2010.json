@@ -360,25 +360,31 @@
     "Text": "Therefore, the Human Rights Committee decides that: (a) The communication is inadmissible under articles 1 and 2 of the Optional Protocol;"
   },
   {
-    "ID": "1.",
+    "ID": "OP1-1.",
     "Section": "Individual opinion of Committee member Yuval Shany (concurring)",
     "Labels": [],
-    "Text": "While I concur with the decision of the Committee, I wish to express some doubts as to whether the State party indeed complied with the rights of the author under the Covenant when it barred him from being present in his appellate hearings."
+    "Text": "While I concur with the decision of the Committee, I wish to express some doubts as to whether the State party indeed complied with the rights of the author under the Covenant when it barred him from being present in his appellate hearings.",
+    "OriginalID": "1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
+    "ID": "OP1-2.",
     "Section": "Individual opinion of Committee member Yuval Shany (concurring)",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "According to the facts presented to the Committee, Almaty Regional Court held that “participation of the convicted person is mandatory only in cases in which the prosecutor asks for a more serious penalty than the verdict of the trial court” (para. 2.9) and that the author’s presence was “not necessary” (para. 4.6). Although the Covenant does not require States parties to provide for the physical presence of convicted persons in all appellate hearings (as opposed to their physical presence at the trial phase, which is mandated by article 14 (3) (d)), the conduct of appellate proceedings must provide the individual in question with the some of the key safeguards provided in article 14 (1) — most significantly, with the right to equality before the courts and the right to a fair hearing by a competent, independent and impartial tribunal established by law. Thus, in circumstances in which it had been shown that the convicted person’s request for physical presence in the appellate hearings had been disposed of in a discriminatory manner, or that such a presence was essential for ensuring the fairness of the appellate hearings, barring him or her from attending them would amount to a violation of the Covenant."
+    "Text": "According to the facts presented to the Committee, Almaty Regional Court held that “participation of the convicted person is mandatory only in cases in which the prosecutor asks for a more serious penalty than the verdict of the trial court” (para. 2.9) and that the author’s presence was “not necessary” (para. 4.6). Although the Covenant does not require States parties to provide for the physical presence of convicted persons in all appellate hearings (as opposed to their physical presence at the trial phase, which is mandated by article 14 (3) (d)), the conduct of appellate proceedings must provide the individual in question with the some of the key safeguards provided in article 14 (1) — most significantly, with the right to equality before the courts and the right to a fair hearing by a competent, independent and impartial tribunal established by law. Thus, in circumstances in which it had been shown that the convicted person’s request for physical presence in the appellate hearings had been disposed of in a discriminatory manner, or that such a presence was essential for ensuring the fairness of the appellate hearings, barring him or her from attending them would amount to a violation of the Covenant.",
+    "OriginalID": "2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "3.",
+    "ID": "OP1-3.",
     "Section": "Individual opinion of Committee member Yuval Shany (concurring)",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "In the present case, the author has not established that article 408 of the Criminal Procedure Code of Kazakhstan, which provides for mandatory court presence in cases involving an appeal brought by the prosecution, but not in appeals brought by the defence, was designed to discriminate against convicted persons or actually violated his right to equality of arms, given the fact that he was represented in the appellate proceedings by three counsels. Furthermore, the author has not explained how his exclusion from the appellate hearings actually affected the fairness of the proceedings. As a result, although I still have doubts as to whether article 408 conforms with the Covenant and whether Almaty Regional Court properly weighed the rights of the author under article 14 (1) when it decided to bar him from attending the appellate hearings, I agree with the Committee that the author failed to substantiate his claims in this regard under article 14 (1) of the Covenant."
+    "Text": "In the present case, the author has not established that article 408 of the Criminal Procedure Code of Kazakhstan, which provides for mandatory court presence in cases involving an appeal brought by the prosecution, but not in appeals brought by the defence, was designed to discriminate against convicted persons or actually violated his right to equality of arms, given the fact that he was represented in the appellate proceedings by three counsels. Furthermore, the author has not explained how his exclusion from the appellate hearings actually affected the fairness of the proceedings. As a result, although I still have doubts as to whether article 408 conforms with the Covenant and whether Almaty Regional Court properly weighed the rights of the author under article 14 (1) when it decided to bar him from attending the appellate hearings, I agree with the Committee that the author failed to substantiate his claims in this regard under article 14 (1) of the Covenant.",
+    "OriginalID": "3.",
+    "Namespace": "OP1"
   }
 ]

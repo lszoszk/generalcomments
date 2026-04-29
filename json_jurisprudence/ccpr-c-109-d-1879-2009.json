@@ -231,24 +231,30 @@
     "Text": "The Committee therefore decides that:"
   },
   {
-    "ID": "1.",
+    "ID": "A1-1.",
     "Section": "Appendix",
     "Labels": [
       "LGBTI+",
       "Persons with disabilities"
     ],
-    "Text": "Although we agree that the author’s petition is inadmissible, we are concerned that the language used by the Committee in its Views may be read to limit more than is necessary the right of victims to submit communications. The Optional Protocol only allows for submission of communications by persons claiming to be a victim of a violation of a right protected by the Covenant and does not recognize actio popularis. Still, in situations where an act or omission by a State party adversely affects a group of individuals, all members of the group who can demonstrate either that the act or omission already impaired the exercise of their right under the Covenant or that such impairment is imminent, may be considered as victims for the purposes of their right of standing. Indeed, in Toonen v. Australia, the Committee took the view that, although the law criminalizing private homosexual conduct was of a general nature and had a pervasive impact on administrative practices and public opinion in Tasmania, the author had demonstrated that the threat of enforcement of the law and the discriminatory social attitudes it sustained had actually affected him and continued to affect him personally."
+    "Text": "Although we agree that the author’s petition is inadmissible, we are concerned that the language used by the Committee in its Views may be read to limit more than is necessary the right of victims to submit communications. The Optional Protocol only allows for submission of communications by persons claiming to be a victim of a violation of a right protected by the Covenant and does not recognize actio popularis. Still, in situations where an act or omission by a State party adversely affects a group of individuals, all members of the group who can demonstrate either that the act or omission already impaired the exercise of their right under the Covenant or that such impairment is imminent, may be considered as victims for the purposes of their right of standing. Indeed, in Toonen v. Australia, the Committee took the view that, although the law criminalizing private homosexual conduct was of a general nature and had a pervasive impact on administrative practices and public opinion in Tasmania, the author had demonstrated that the threat of enforcement of the law and the discriminatory social attitudes it sustained had actually affected him and continued to affect him personally.",
+    "OriginalID": "1.",
+    "Namespace": "A1"
   },
   {
-    "ID": "2.",
+    "ID": "A1-2.",
     "Section": "Appendix",
     "Labels": [],
-    "Text": "In the present case, the author failed to establish that the decision of the State party not to bring criminal charges in connection with the specific statements delivered by Mr. Krarup, Mr. Messerschmidt and Mr. Camre had actually affected him, or that the specific consequences of the said decision were imminent and would affect him personally. The fact that the author is a member of the Muslim minority in and that the said statements targeted this minority group is not enough to conclude that the State party prima facie failed to adequately protect the author and that such a failure had actually affected the exercise of his rights under the Covenant."
+    "Text": "In the present case, the author failed to establish that the decision of the State party not to bring criminal charges in connection with the specific statements delivered by Mr. Krarup, Mr. Messerschmidt and Mr. Camre had actually affected him, or that the specific consequences of the said decision were imminent and would affect him personally. The fact that the author is a member of the Muslim minority in and that the said statements targeted this minority group is not enough to conclude that the State party prima facie failed to adequately protect the author and that such a failure had actually affected the exercise of his rights under the Covenant.",
+    "OriginalID": "2.",
+    "Namespace": "A1"
   },
   {
-    "ID": "3.",
+    "ID": "A1-3.",
     "Section": "Appendix",
     "Labels": [],
-    "Text": "As a result, we are of the view that the correct ground for inadmissibility should be the author’s failure to substantiate a violation of his rights under articles 20, paragraph 2, and 27 of the Covenant, and not lack of victim status due to the collective nature of the harm allegedly afflicted by the acts or omissions of the State party."
+    "Text": "As a result, we are of the view that the correct ground for inadmissibility should be the author’s failure to substantiate a violation of his rights under articles 20, paragraph 2, and 27 of the Covenant, and not lack of victim status due to the collective nature of the harm allegedly afflicted by the acts or omissions of the State party.",
+    "OriginalID": "3.",
+    "Namespace": "A1"
   }
 ]

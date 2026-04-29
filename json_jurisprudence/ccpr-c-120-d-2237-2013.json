@@ -374,27 +374,35 @@
     "Text": "The Committee, acting under article 5 (4) of the Optional Protocol, is of the view that the facts before it do not disclose a violation of the author’s rights under the Covenant."
   },
   {
-    "ID": "1.",
+    "ID": "OP1-1.",
     "Section": "Individual opinion of Committee member Ahmed Amin Fathalla (dissenting)",
     "Labels": [],
-    "Text": "Compulsory voting is contrary to States parties’ obligations under articles 18 and 19 of the Covenant and constitutes a violation of the rights to freedom of thought, of expression and to hold an opinion."
+    "Text": "Compulsory voting is contrary to States parties’ obligations under articles 18 and 19 of the Covenant and constitutes a violation of the rights to freedom of thought, of expression and to hold an opinion.",
+    "OriginalID": "1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
+    "ID": "OP1-2.",
     "Section": "Individual opinion of Committee member Ahmed Amin Fathalla (dissenting)",
     "Labels": [],
-    "Text": "The choice of a person not to vote at political elections is by itself a manifestation of his or her opinion on the issue put to the vote, and/or constitutes his or her opinion about the whole process of voting. In this regard, a blank vote cannot replace in any way the decision not to participate in a given election."
+    "Text": "The choice of a person not to vote at political elections is by itself a manifestation of his or her opinion on the issue put to the vote, and/or constitutes his or her opinion about the whole process of voting. In this regard, a blank vote cannot replace in any way the decision not to participate in a given election.",
+    "OriginalID": "2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "3.",
+    "ID": "OP1-3.",
     "Section": "Individual opinion of Committee member Ahmed Amin Fathalla (dissenting)",
     "Labels": [],
-    "Text": "A compulsory voting system at political elections constitutes a coercion against the exercise and enjoyment of the rights enshrined in articles 18 and 19 of the Covenant, in particular when a fine is imposed on those that fail to vote. The issue of whether a fine is unreasonable or disproportionate is not relevant as the compulsory voting system as such is contrary to the Covenant. Fines for failure to vote should only be deemed as a punishment that aggravates the violations of these rights."
+    "Text": "A compulsory voting system at political elections constitutes a coercion against the exercise and enjoyment of the rights enshrined in articles 18 and 19 of the Covenant, in particular when a fine is imposed on those that fail to vote. The issue of whether a fine is unreasonable or disproportionate is not relevant as the compulsory voting system as such is contrary to the Covenant. Fines for failure to vote should only be deemed as a punishment that aggravates the violations of these rights.",
+    "OriginalID": "3.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "4.",
+    "ID": "OP1-4.",
     "Section": "Individual opinion of Committee member Ahmed Amin Fathalla (dissenting)",
     "Labels": [],
-    "Text": "Therefore, I am of the view that the imposition of compulsory voting at political elections, as well as the fines imposed owing to the failure to vote, constitutes a violation of articles 18 and 19 of the Covenant."
+    "Text": "Therefore, I am of the view that the imposition of compulsory voting at political elections, as well as the fines imposed owing to the failure to vote, constitutes a violation of articles 18 and 19 of the Covenant.",
+    "OriginalID": "4.",
+    "Namespace": "OP1"
   }
 ]

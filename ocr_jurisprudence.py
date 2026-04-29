@@ -107,6 +107,14 @@ SAFE_OCR_CORRECTIONS: list[tuple[re.Pattern, str]] = [
 ]
 
 
+TESSERACT_TSV_LEAK = re.compile(
+    r'(?<!\d)[1-5][\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+-?\d+(?:\.\d+)?[\t ]+'
+)
+TESSERACT_TSV_LINE_START = re.compile(
+    r'(?m)^[1-5][\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+-?\d+(?:\.\d+)?[\t ]+'
+)
+
+
 def slug(symbol: str) -> str:
     s = symbol.lower().strip()
     s = re.sub(r'[/\.\\:]+', '-', s)
@@ -288,6 +296,10 @@ class OcrCandidate:
 def apply_safe_corrections(text: str) -> tuple[str, int]:
     count = 0
     fixed = text
+    fixed, n = TESSERACT_TSV_LEAK.subn(' ', fixed)
+    count += n
+    fixed, n = TESSERACT_TSV_LINE_START.subn('', fixed)
+    count += n
     for pattern, repl in SAFE_OCR_CORRECTIONS:
         fixed, n = pattern.subn(repl, fixed)
         count += n

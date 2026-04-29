@@ -1,5 +1,11 @@
 [
   {
+    "ID": "29.",
+    "Section": "ANNEX",
+    "Labels": [],
+    "Text": "February 1996 The Human Rights Committee, established under article 28 of the International Covenant on Civil and Political Rights, Meeting on 3 November 1999 Having concluded its consideration of communication No.694/1996 submitted to the Human Rights Committee on behalf of Arieh Hollis Waldman, under the Optional Protocol to the International Covenant on Civil and Political Rights, Having taken into account all written information made available to it by the author of the communication, his counsel and the State party, Adopts the following: Views under article 5, paragraph 4, of the Optional Protocol"
+  },
+  {
     "ID": "1.1.",
     "Section": "ANNEX",
     "Labels": [],
@@ -57,7 +63,13 @@
     "ID": "2.6.",
     "Section": "The facts",
     "Labels": [],
-    "Text": "The issue of public funding for non-Catholic religious schools in Ontario has been the subject of domestic litigation since 1978. The first case, brought 8 February 1978, sought to make religious instruction mandatory in specific schools, thereby integrating existing Hebrew schools into public schools. On 3 April 1978, affirmed 9 April 1979, Ontario courts found that mandatory religious instruction in public schools was not permitted."
+    "Text": "The issue of public funding for non-Catholic religious schools in Ontario has been the subject of domestic litigation since 1978. The first case, brought 8 February 1978, sought to make religious instruction mandatory in specific schools, thereby integrating existing Hebrew schools into public schools. On"
+  },
+  {
+    "ID": "3.",
+    "Section": "The facts",
+    "Labels": [],
+    "Text": "April 1978, affirmed 9 April 1979, Ontario courts found that mandatory religious instruction in public schools was not permitted."
   },
   {
     "ID": "2.7.",
@@ -167,7 +179,7 @@
     "Labels": [
       "Children"
     ],
-    "Text": ". In relation to article 18, the State party refers to the travaux préparatoires which make it clear that article 18 does not include the right to require the State to fund private religious schools. During the drafting the question was expressly raised and answered in the negative. As a consequence, 4 the State party argues that the author’s claim under article 18 is inadmissible ratione materiae. In the alternative, the State party argues that its policy meets the guarantee of freedom of religion contained in article 18, because it provides a public school system which is open to persons of all religious beliefs and which does not provide instruction in a particular religion or belief, and because there is freedom to establish private religious schools and parents are free to send their children to such religious schools. The State party denies that paragraph 4 of article 18 obligates States to subsidize private religious schools or religious education. According to the State party, 5 the purpose of article 18 is to ensure that religious observance, beliefs and practices remain a private matter, free from State coercion or restraint. It is the State’s obligation to provide an education open and accessible to all children regardless of religion. There is no obligation to either offer or finance religious instruction or indoctrination. While the province must ensure that religious freedom and religious differences are accommodated within the public school system, it has no obligation to fund individuals who, for religious reasons, exercise their freedom to opt out of the public school system."
+    "Text": "In relation to article 18, the State party refers to the travaux préparatoires which make it clear that article 18 does not include the right to require the State to fund private religious schools. During the drafting the question was expressly raised and answered in the negative. As a consequence, 4 the State party argues that the author’s claim under article 18 is inadmissible ratione materiae. In the alternative, the State party argues that its policy meets the guarantee of freedom of religion contained in article 18, because it provides a public school system which is open to persons of all religious beliefs and which does not provide instruction in a particular religion or belief, and because there is freedom to establish private religious schools and parents are free to send their children to such religious schools. The State party denies that paragraph 4 of article 18 obligates States to subsidize private religious schools or religious education. According to the State party, 5 the purpose of article 18 is to ensure that religious observance, beliefs and practices remain a private matter, free from State coercion or restraint. It is the State’s obligation to provide an education open and accessible to all children regardless of religion. There is no obligation to either offer or finance religious instruction or indoctrination. While the province must ensure that religious freedom and religious differences are accommodated within the public school system, it has no obligation to fund individuals who, for religious reasons, exercise their freedom to opt out of the public school system."
   },
   {
     "ID": "4.4.2.",
@@ -387,50 +399,72 @@
     "ID": "13.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "Bearing in mind that, by becoming a State party to the Optional Protocol, the State party has recognized the competence of the Committee to determine whether there has been a violation of the Covenant or not and that, pursuant to article 2 of the Covenant, the State party has undertaken to ensure to all individuals within its territory and subject to its jurisdiction the rights recognized in the Covenant and to provide an effective and enforceable remedy in case a violation has been established, the Committee wishes to receive from the State party, within ninety days, information about the measures taken to give effect to the Committee's Views. The State party is also requested to publish the Committee’s Views. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.] Appendix Individual opinion by member Martin Scheinin (concurring) While I concur with the Committee's finding that the author is a victim of a violation of article 26 of the Covenant, I wish to explain my reasons for such a conclusion."
+    "Text": "Bearing in mind that, by becoming a State party to the Optional Protocol, the State party has recognized the competence of the Committee to determine whether there has been a violation of the Covenant or not and that, pursuant to article 2 of the Covenant, the State party has undertaken to ensure to all individuals within its territory and subject to its jurisdiction the rights recognized in the Covenant and to provide an effective and enforceable remedy in case a violation has been established, the Committee wishes to receive from the State party, within ninety days, information about the measures taken to give effect to the Committee's Views. The State party is also requested to publish the Committee’s Views. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.] Appendix"
   },
   {
-    "ID": "1.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-U1.",
+    "Section": "Individual opinion by member Martin Scheinin (concurring)",
+    "Labels": [],
+    "Text": "While I concur with the Committee's finding that the author is a victim of a violation of article 26 of the Covenant, I wish to explain my reasons for such a conclusion.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP1"
+  },
+  {
+    "ID": "OP1-1.",
+    "Section": "Individual opinion by member Martin Scheinin (concurring)",
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The Covenant does not require the separation of church and state, although countries that do not make such a separation often encounter specific problems in securing their compliance with articles 18, 26 and 27 of the Covenant. Varying arrangements are in place in states parties to the Covenant, ranging from full separation to the existence of a constitutionally enforced state church. As the Committee has expressed in its General Comment No. 22 [48] on article 18, the fact that a religion is recognized as a state religion or that it is established as official or traditional or that its followers comprise the majority of the population, \"shall not result in any impairment of the enjoyment of any of the rights under the Covenant, including articles 18 and 27, nor in any discrimination against adherents to other religions or non-believers\" (para. 9)."
+    "Text": "The Covenant does not require the separation of church and state, although countries that do not make such a separation often encounter specific problems in securing their compliance with articles 18, 26 and 27 of the Covenant. Varying arrangements are in place in states parties to the Covenant, ranging from full separation to the existence of a constitutionally enforced state church. As the Committee has expressed in its General Comment No. 22 [48] on article 18, the fact that a religion is recognized as a state religion or that it is established as official or traditional or that its followers comprise the majority of the population, \"shall not result in any impairment of the enjoyment of any of the rights under the Covenant, including articles 18 and 27, nor in any discrimination against adherents to other religions or non-believers\" (para. 9).",
+    "OriginalID": "1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-2.",
+    "Section": "Individual opinion by member Martin Scheinin (concurring)",
     "Labels": [],
-    "Text": "The plurality of acceptable arrangements in the relationship between state and religion relates also to education. In some countries, all forms of religious instruction or observance are prohibited in public schools, and religious education, protected under article 18 (4), takes place either outside school hours or in private schools. In some other countries there is religious education in the official or majority religion in public schools, with provision for full exemption for adherents of other religions and non-religious persons. In a third group of countries instruction in several or even all religions is offered, on the basis of demand, within the public system of education. A fourth arrangement is the inclusion in public school curricula of neutral and objective instruction in the general history of religions and ethics. All these arrangements allow for compliance with the Covenant. As was specifically stated in the Committee's General Comment No. 22 [48], \"public education that includes instruction in a particular religion or belief is inconsistent with article 18 (4) unless provision is made for non-discriminatory exemptions or alternatives that would accommodate the wishes of parents and guardians\" (para. 6). This statement reflects the Committee's findings in the case of Hartikainen et al. v. Finland (Communication No. 40/1978)."
+    "Text": "The plurality of acceptable arrangements in the relationship between state and religion relates also to education. In some countries, all forms of religious instruction or observance are prohibited in public schools, and religious education, protected under article 18 (4), takes place either outside school hours or in private schools. In some other countries there is religious education in the official or majority religion in public schools, with provision for full exemption for adherents of other religions and non-religious persons. In a third group of countries instruction in several or even all religions is offered, on the basis of demand, within the public system of education. A fourth arrangement is the inclusion in public school curricula of neutral and objective instruction in the general history of religions and ethics. All these arrangements allow for compliance with the Covenant. As was specifically stated in the Committee's General Comment No. 22 [48], \"public education that includes instruction in a particular religion or belief is inconsistent with article 18 (4) unless provision is made for non-discriminatory exemptions or alternatives that would accommodate the wishes of parents and guardians\" (para. 6). This statement reflects the Committee's findings in the case of Hartikainen et al. v. Finland (Communication No. 40/1978).",
+    "OriginalID": "2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "3.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-3.",
+    "Section": "Individual opinion by member Martin Scheinin (concurring)",
     "Labels": [],
-    "Text": "In the present case the Committee correctly focussed its attention on article"
+    "Text": "In the present case the Committee correctly focussed its attention on article",
+    "OriginalID": "3.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "26.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-26.",
+    "Section": "Individual opinion by member Martin Scheinin (concurring)",
     "Labels": [
       "Children"
     ],
-    "Text": "Although both General Comment No. 22 [48] and the Hartikainen case are related to article 18, there is a considerable degree of interdependence between that provision and the non-discrimination clause in article 26. In general, arrangements in the field of religious education that are in compliance with article 18 are likely to be in conformity with article 26 as well, because non- discrimination is a fundamental component in the test under article 18 (4). In the cases of Blom v. Sweden (Communication No. 191/1985) and Lundgren et al. and Hjord et al. v. Sweden (Communications 288 and 299/1988) the Committee elaborated its position in the question what constitutes discrimination in the field of education. While the Committee left open whether the Covenant entails, in certain situations, an obligation to provide some public funding for private schools, it concluded that the fact that private schools, freely chosen by the parents and their children, do not receive the same level of funding as public schools does not amount to discrimination."
+    "Text": "Although both General Comment No. 22 [48] and the Hartikainen case are related to article 18, there is a considerable degree of interdependence between that provision and the non-discrimination clause in article 26. In general, arrangements in the field of religious education that are in compliance with article 18 are likely to be in conformity with article 26 as well, because non- discrimination is a fundamental component in the test under article 18 (4). In the cases of Blom v. Sweden (Communication No. 191/1985) and Lundgren et al. and Hjord et al. v. Sweden (Communications 288 and 299/1988) the Committee elaborated its position in the question what constitutes discrimination in the field of education. While the Committee left open whether the Covenant entails, in certain situations, an obligation to provide some public funding for private schools, it concluded that the fact that private schools, freely chosen by the parents and their children, do not receive the same level of funding as public schools does not amount to discrimination.",
+    "OriginalID": "26.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "4.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-4.",
+    "Section": "Individual opinion by member Martin Scheinin (concurring)",
     "Labels": [
       "Children"
     ],
-    "Text": "In the Province of Ontario, the system of public schools provides for religious instruction in one religion but adherents of other religious denominations must arrange for their religious education either outside school hours or by establishing private religious schools. Although arrangements exist for indirect public funding to existing private schools, the level of such funding is only a fraction of the costs incurred to the families, whereas public Roman Catholic schools are free. This difference in treatment between adherents of the Roman Catholic religion and such adherents of other religions that wish to provide religious schools for their children is, in the Committee's view, discriminatory. While I concur with this finding I wish to point out that the existence of public Roman Catholic schools in Ontario is related to a historical arrangement for minority protection and hence needs to be addressed not only under article 26 of the Covenant but also under articles 27 and 18. The question whether the arrangement in question should be discontinued is a matter of public policy and the general design of the educational system within the State party, not a requirement under the Covenant."
+    "Text": "In the Province of Ontario, the system of public schools provides for religious instruction in one religion but adherents of other religious denominations must arrange for their religious education either outside school hours or by establishing private religious schools. Although arrangements exist for indirect public funding to existing private schools, the level of such funding is only a fraction of the costs incurred to the families, whereas public Roman Catholic schools are free. This difference in treatment between adherents of the Roman Catholic religion and such adherents of other religions that wish to provide religious schools for their children is, in the Committee's view, discriminatory. While I concur with this finding I wish to point out that the existence of public Roman Catholic schools in Ontario is related to a historical arrangement for minority protection and hence needs to be addressed not only under article 26 of the Covenant but also under articles 27 and 18. The question whether the arrangement in question should be discontinued is a matter of public policy and the general design of the educational system within the State party, not a requirement under the Covenant.",
+    "OriginalID": "4.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "5.",
-    "Section": "Issues and proceedings before the Committee",
+    "ID": "OP1-5.",
+    "Section": "Individual opinion by member Martin Scheinin (concurring)",
     "Labels": [
       "Children"
     ],
-    "Text": "When implementing the Committee's views in the present case the State party should in my opinion bear in mind that article 27 imposes positive obligations for States to promote religious instruction in minority religions, and that providing such education as an optional arrangement within the public education system is one permissible arrangement to that end. Providing for publicly funded education in minority languages for those who wish to receive such education is not as such discriminatory, although care must of course be taken that possible distinctions between different minority languages are based on objective and reasonable grounds. The same rule applies in relation to religious education in minority religions. In order to avoid discrimination in funding religious (or linguistic) education for some but not all minorities States may legitimately base themselves on whether there is a constant demand for such education. For many religious minorities the existence of a fully secular alternative within the public school system is sufficient, as the communities in question wish to arrange for religious education outside school hours and outside school premises. And if demands for religious schools do arise, one legitimate criterion for deciding whether it would amount to discrimination not to establish a public minority school or not to provide comparable public funding to a private minority school is whether there is a sufficient number of children to attend such a school so that it could operate as a viable part in the overall system of education. In the present case this condition was met. Consequently, the level of indirect public funding allocated to the education of the author's children amounted to discrimination when compared to the full funding of public Roman Catholic schools in Ontario. Martin Scheinin (signed)"
+    "Text": "When implementing the Committee's views in the present case the State party should in my opinion bear in mind that article 27 imposes positive obligations for States to promote religious instruction in minority religions, and that providing such education as an optional arrangement within the public education system is one permissible arrangement to that end. Providing for publicly funded education in minority languages for those who wish to receive such education is not as such discriminatory, although care must of course be taken that possible distinctions between different minority languages are based on objective and reasonable grounds. The same rule applies in relation to religious education in minority religions. In order to avoid discrimination in funding religious (or linguistic) education for some but not all minorities States may legitimately base themselves on whether there is a constant demand for such education. For many religious minorities the existence of a fully secular alternative within the public school system is sufficient, as the communities in question wish to arrange for religious education outside school hours and outside school premises. And if demands for religious schools do arise, one legitimate criterion for deciding whether it would amount to discrimination not to establish a public minority school or not to provide comparable public funding to a private minority school is whether there is a sufficient number of children to attend such a school so that it could operate as a viable part in the overall system of education. In the present case this condition was met. Consequently, the level of indirect public funding allocated to the education of the author's children amounted to discrimination when compared to the full funding of public Roman Catholic schools in Ontario. Martin Scheinin (signed)",
+    "OriginalID": "5.",
+    "Namespace": "OP1"
   }
 ]

@@ -3,7 +3,7 @@
     "ID": "1.",
     "Section": "",
     "Labels": [],
-    "Text": "The author of the communication (initial submission dated 3 May 1987 and subsequent correspondence) is D.S., a Jamaican citisen currently awaiting execution at St. Catherine District Prison, Jamaica. He claims to be the victim of a violation of his human rights by the Government of Jamaica. Although he does not specifically invoke the International Covenant on Civil and Political Rights, it is apparent from the content of his submissions that his claims relate to article 14, paragraphs 1 and 3 (d), of the Covenant. as s-ted bv the author"
+    "Text": "The author of the communication (initial submission dated 3 May 1987 and subsequent correspondence) is D.S., a Jamaican citisen currently awaiting execution at St. Catherine District Prison, Jamaica. He claims to be the victim of a violation of his human rights by the Government of Jamaica. Although he does not specifically invoke the International Covenant on Civil and Political Rights, it is apparent from the content of his submissions that his claims relate to article 1 and 3 (d), of the Covenant. as s-ted bv the author"
   },
   {
     "ID": "2.1.",
@@ -63,7 +63,15 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The State party explains that the principal criterion for granting legal aid is the inability of the convicted individual to retain counsel on his own. The formalities are laid down in section 3, Paragraph 1, which stipulates that 8 “Where it appears to a certifying authority, that is, a resident magistrate or judge of the Supreme Court, that the means of a person charged with or . . . convicted of a criminal offence are insufficient to enable that person to obtain legal aid, the certifying authority shall grant in respect of that person a legal aid certificate, which shall entitle him to free legal aia in the preparation and conduct of his defence in “he appropriate proceedings . . . . and to have counsel or solicitor assigned to him for that purpose in the prescribed manner.”"
+    "Text": "The State party explains that the principal criterion for granting legal aid is the inability of the convicted individual to retain counsel on his own. The formalities are laid down in section"
+  },
+  {
+    "ID": "3.",
+    "Section": "",
+    "Labels": [
+      "Persons deprived of their liberty"
+    ],
+    "Text": "Paragraph 1, which stipulates that 8 “Where it appears to a certifying authority, that is, a resident magistrate or judge of the Supreme Court, that the means of a person charged with or . . . convicted of a criminal offence are insufficient to enable that person to obtain legal aid, the certifying authority shall grant in respect of that person a legal aid certificate, which shall entitle him to free legal aia in the preparation and conduct of his defence in “he appropriate proceedings . . . . and to have counsel or solicitor assigned to him for that purpose in the prescribed manner.”"
   },
   {
     "ID": "4.3.",
@@ -81,12 +89,24 @@
     "ID": "5.3.",
     "Section": "",
     "Labels": [],
-    "Text": "With respect to the requirement of exhaustion of domestic remedies, the Committee takes note of the State party’s contention that the communication is inadmissible because of the author’s failure to petition the Judicial Committee of the Privy Council for special leave to appeal. It has further noted the author’s claim that he has not been able to secure legal aid for this purpose. No additional clarifications have, however, been received from the author in this context, in spite of several reminders, and the State party has indicated that its records do not reveal that any formal request for legal aid was filed. On the basis of the information provided by the parties, the Committee must conclude that the author failed to pursue remedies available to him under Jamaican law, and that the requirements of article 5, paragraph 2 (b), of the Optional Protocol, have not been met,"
+    "Text": "With respect to the requirement of exhaustion of domestic remedies, the Committee takes note of the State party’s contention that the communication is inadmissible because of the author’s failure to petition the Judicial Committee of the Privy Council for special leave to appeal. It has further noted the author’s claim that he has not been able to secure legal aid for this purpose. No additional clarifications have, however, been received from the author in this context, in spite of several reminders, and the State party has indicated that its records do not reveal that any formal request for legal aid was filed. On the basis of the information provided by the parties, the Committee must conclude that the author failed to pursue remedies available to him under Jamaican law, and that the requirements of article"
+  },
+  {
+    "ID": "5.",
+    "Section": "",
+    "Labels": [],
+    "Text": "paragraph 2 (b), of the Optional Protocol, have not been met,"
   },
   {
     "ID": "6.",
     "Section": "",
     "Labels": [],
-    "Text": "The Human Rights Committee therefore decides: (a) That the communication is inadmissible under articles 2 and 3 of the Optional Protocol inasmuch as it relates to the author’s claim under article 14, paragraph 1, of the Covenant, and inadmissible under article 5, paragraph 2 (b), inasmuch as it relates to the author’s claim under article 14, paragraph 3 (d), of the Covenant; (b) That this decision be transmitted to the State party and to the author. [Done in English, French, Russian and Spanish, the English text being the original version.] -270-"
+    "Text": "The Human Rights Committee therefore decides: (a) That the communication is inadmissible under articles 2 and 3 of the Optional Protocol inasmuch as it relates to the author’s claim under article 14, paragraph 1, of the Covenant, and inadmissible under article"
+  },
+  {
+    "ID": "5.",
+    "Section": "",
+    "Labels": [],
+    "Text": "paragraph 2 (b), inasmuch as it relates to the author’s claim under article 14, paragraph 3 (d), of the Covenant; (b) That this decision be transmitted to the State party and to the author. [Done in English, French, Russian and Spanish, the English text being the original version.] -270-"
   }
 ]

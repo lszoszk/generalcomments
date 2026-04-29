@@ -272,10 +272,12 @@
     "Text": "The Committee, acting under article 5 (4) of the Optional Protocol, is of the view that the information before it does not disclose a violation by the State party of article 14 (1) and (2) of the Covenant."
   },
   {
-    "ID": "1.",
+    "ID": "A1-1.",
     "Section": "Annex I",
     "Labels": [],
-    "Text": "Mr. Furuya and Mr. Moore are unable to concur with the view adopted by the Committee that the author’s claim of violation of article 14 (3) (d) and (e) concerning his trial in absentia is inadmissible (para. 6.6), and Mr. Furuya and Ms. Tigroudja disagree with its conclusion that the resolution of Parliament which describes the author and his co-defendants as organizers and perpetrators of the tragic events in Osh and Jalalabad of May and June 2010 does not constitute a violation of article 14 (2) (para. 7.2)."
+    "Text": "Mr. Furuya and Mr. Moore are unable to concur with the view adopted by the Committee that the author’s claim of violation of article 14 (3) (d) and (e) concerning his trial in absentia is inadmissible (para. 6.6), and Mr. Furuya and Ms. Tigroudja disagree with its conclusion that the resolution of Parliament which describes the author and his co-defendants as organizers and perpetrators of the tragic events in Osh and Jalalabad of May and June 2010 does not constitute a violation of article 14 (2) (para. 7.2).",
+    "OriginalID": "1.",
+    "Namespace": "A1"
   },
   {
     "ID": "2.",
@@ -332,39 +334,51 @@
     "Text": "Accordingly, Mr. Furuya and Ms. Tigroudja have to conclude that the adoption of the said resolution by Parliament, which clearly suggested the guilt of the author before a competent court had so decided, constitutes a violation of his right under article 14 (2)."
   },
   {
-    "ID": "1.",
+    "ID": "OP1-1.",
     "Section": "Individual opinion of Committee member Gentian Zyberi (dissenting)",
     "Labels": [],
-    "Text": "Regrettably, I do not agree with the Committee’s finding that the author’s claim of violation of article 14 (3) (d) concerning his trial in absentia is inadmissible (para. 6.6). Also, contrary to the Committee’s Views (para. 7.2), I argue that the resolution of Parliament which describes the author and his co-defendants as organizers and perpetrators of the tragic events in Osh and Jalalabad of May and June 2010 does constitute a violation of the presumption of innocence under article 14 (2)."
+    "Text": "Regrettably, I do not agree with the Committee’s finding that the author’s claim of violation of article 14 (3) (d) concerning his trial in absentia is inadmissible (para. 6.6). Also, contrary to the Committee’s Views (para. 7.2), I argue that the resolution of Parliament which describes the author and his co-defendants as organizers and perpetrators of the tragic events in Osh and Jalalabad of May and June 2010 does constitute a violation of the presumption of innocence under article 14 (2).",
+    "OriginalID": "1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
+    "ID": "OP1-2.",
     "Section": "Trial in absentia",
     "Labels": [],
-    "Text": "Article 14 (3) (d) affirms that a person accused of an offence has a right to be present at trial. The Committee’s general comment No. 32 (2007) explains that trials in absentia “are only compatible with article 14, paragraph 3 (d) if the necessary steps are taken to summon accused persons in a timely manner and to inform them beforehand about the date and place of their trial and to request their attendance”. In the case at hand, the State party merely claims that the author was hiding (para. 4.10), while the author asserts that he did not go into hiding and from the moment his criminal case was opened on 19 May 2010 until the moment he left the country, i.e. 25 days later, he continued working as usual in his office in Osh and attended a conference in Bishkek (para. 5.9)."
+    "Text": "Article 14 (3) (d) affirms that a person accused of an offence has a right to be present at trial. The Committee’s general comment No. 32 (2007) explains that trials in absentia “are only compatible with article 14, paragraph 3 (d) if the necessary steps are taken to summon accused persons in a timely manner and to inform them beforehand about the date and place of their trial and to request their attendance”. In the case at hand, the State party merely claims that the author was hiding (para. 4.10), while the author asserts that he did not go into hiding and from the moment his criminal case was opened on 19 May 2010 until the moment he left the country, i.e. 25 days later, he continued working as usual in his office in Osh and attended a conference in Bishkek (para. 5.9).",
+    "OriginalID": "2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "3.",
+    "ID": "OP1-3.",
     "Section": "Trial in absentia",
     "Labels": [],
-    "Text": "While there are exceptions to the right to be present at trial, and there are limits to what can be expected of the competent authorities to establish contact with an accused, the Committee has held that “judgment in absentia requires that, notwithstanding the absence of the accused, all due notification has been made to inform him of the date and place of his trial and to request his attendance”. Unfortunately, the State party has provided no information to the Committee with regard to the concrete steps it took to inform the author of the charges against him or to notify him of the court proceedings. In the absence of such information from the State party, the trial in absentia constitutes a violation of the author’s rights under article 14 (3) (d)."
+    "Text": "While there are exceptions to the right to be present at trial, and there are limits to what can be expected of the competent authorities to establish contact with an accused, the Committee has held that “judgment in absentia requires that, notwithstanding the absence of the accused, all due notification has been made to inform him of the date and place of his trial and to request his attendance”. Unfortunately, the State party has provided no information to the Committee with regard to the concrete steps it took to inform the author of the charges against him or to notify him of the court proceedings. In the absence of such information from the State party, the trial in absentia constitutes a violation of the author’s rights under article 14 (3) (d).",
+    "OriginalID": "3.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "4.",
+    "ID": "OP1-4.",
     "Section": "Parliamentary resolution of 16 June 2011",
     "Labels": [],
-    "Text": "Article 14 (2) provides that everyone charged with a criminal offence shall have the right to be presumed innocent until proved guilty according to law. The Committee’s general comment No. 32 (2007) explains that “the presumption of innocence, which is fundamental to the protection of human rights, imposes on the prosecution the burden of proving the charge, guarantees that no guilt can be presumed until the charge has been proved beyond reasonable doubt, ensures that the accused has the benefit of doubt, and requires that persons accused of a criminal act must be treated in accordance with this principle”. Consequently, it is “a duty for all public authorities to refrain from prejudging the outcome of a trial, e.g. by abstaining from making public statements affirming the guilt of the accused”. This general obligation imposed on public authorities is important to ensure utmost respect for the fundamental principle of the presumption of innocence."
+    "Text": "Article 14 (2) provides that everyone charged with a criminal offence shall have the right to be presumed innocent until proved guilty according to law. The Committee’s general comment No. 32 (2007) explains that “the presumption of innocence, which is fundamental to the protection of human rights, imposes on the prosecution the burden of proving the charge, guarantees that no guilt can be presumed until the charge has been proved beyond reasonable doubt, ensures that the accused has the benefit of doubt, and requires that persons accused of a criminal act must be treated in accordance with this principle”. Consequently, it is “a duty for all public authorities to refrain from prejudging the outcome of a trial, e.g. by abstaining from making public statements affirming the guilt of the accused”. This general obligation imposed on public authorities is important to ensure utmost respect for the fundamental principle of the presumption of innocence.",
+    "OriginalID": "4.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "5.",
+    "ID": "OP1-5.",
     "Section": "Parliamentary resolution of 16 June 2011",
     "Labels": [],
-    "Text": "In the case at hand, the resolution by Parliament explicitly mentions the author by name as one of the perpetrators of the events with which he was criminally charged (para. 7.2). This fact should suffice for finding a violation of the presumption of innocence under article 14 (2). Regrettably, the Committee reverses the burden of proof, by expecting the author to provide information indicating how the resolution – a political document – could have affected the criminal proceedings in his case (para. 7.2). This approach goes against the sense of article 14 (2) of the Covenant and general comment No. 32 (2007): contrary to what the general comment requires, a public statement has been issued which prima facie prejudges the presumption of innocence of an accused, therefore it is for the State party to show that such conduct by its organs or officials has not negatively affected the presumption of innocence and the criminal proceedings."
+    "Text": "In the case at hand, the resolution by Parliament explicitly mentions the author by name as one of the perpetrators of the events with which he was criminally charged (para. 7.2). This fact should suffice for finding a violation of the presumption of innocence under article 14 (2). Regrettably, the Committee reverses the burden of proof, by expecting the author to provide information indicating how the resolution – a political document – could have affected the criminal proceedings in his case (para. 7.2). This approach goes against the sense of article 14 (2) of the Covenant and general comment No. 32 (2007): contrary to what the general comment requires, a public statement has been issued which prima facie prejudges the presumption of innocence of an accused, therefore it is for the State party to show that such conduct by its organs or officials has not negatively affected the presumption of innocence and the criminal proceedings.",
+    "OriginalID": "5.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "6.",
+    "ID": "OP1-6.",
     "Section": "Parliamentary resolution of 16 June 2011",
     "Labels": [],
-    "Text": "Hence, the adoption of the said resolution by Parliament, which clearly suggested the guilt of the author before a competent court had had the chance to assess the evidence and conclude that this was the case, constitutes a violation of his right to be presumed innocent under article 14 (2)."
+    "Text": "Hence, the adoption of the said resolution by Parliament, which clearly suggested the guilt of the author before a competent court had had the chance to assess the evidence and conclude that this was the case, constitutes a violation of his right to be presumed innocent under article 14 (2).",
+    "OriginalID": "6.",
+    "Namespace": "OP1"
   }
 ]

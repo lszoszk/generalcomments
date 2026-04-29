@@ -421,89 +421,111 @@
     "Text": "Bearing in mind that, by becoming a party to the Optional Protocol, the State party has recognized the competence of the Committee to determine whether there has been a violation of the Covenant and that, pursuant to article 2 of the Covenant, the State party has undertaken to ensure to all individuals within its territory and subject to its jurisdiction the rights recognized in the Covenant, the Committee wishes to receive from the State party, within 180 days, information about the measures taken to give effect to the present Views. The State party is also requested to publish the present Views and to have them translated into the official language of the State party and widely distributed."
   },
   {
-    "ID": "1.",
+    "ID": "A1-1.",
     "Section": "Annex I",
     "Labels": [
       "Children"
     ],
-    "Text": "We regret that we are unable to join the majority on the Committee in finding that, in deciding to deport the author and her children to Italy, Denmark would, if it implemented the decision, violate its obligations under article 7 of the Covenant."
+    "Text": "We regret that we are unable to join the majority on the Committee in finding that, in deciding to deport the author and her children to Italy, Denmark would, if it implemented the decision, violate its obligations under article 7 of the Covenant.",
+    "OriginalID": "1.",
+    "Namespace": "A1"
   },
   {
-    "ID": "2.",
+    "ID": "A1-2.",
     "Section": "Annex I",
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "According to the well-established case law of the Committee, State parties are obliged not to deport persons from their territory where there are substantial grounds for believing that there is a real risk of irreparable harm, such as that contemplated by articles 6 and 7 of the Covenant, either in the country to which removal is to be effected or in any country to which the person may subsequently be removed. Not every exposure to personal hardship in the country of removal would, however, fall within the scope of the removing State’s non-refoulement obligations."
+    "Text": "According to the well-established case law of the Committee, State parties are obliged not to deport persons from their territory where there are substantial grounds for believing that there is a real risk of irreparable harm, such as that contemplated by articles 6 and 7 of the Covenant, either in the country to which removal is to be effected or in any country to which the person may subsequently be removed. Not every exposure to personal hardship in the country of removal would, however, fall within the scope of the removing State’s non-refoulement obligations.",
+    "OriginalID": "2.",
+    "Namespace": "A1"
   },
   {
-    "ID": "3.",
+    "ID": "A1-3.",
     "Section": "Annex I",
     "Labels": [
       "Persons living in poverty",
       "Refugees & asylum-seekers"
     ],
-    "Text": "With the possible exceptions of those individuals who face special hardships owing to a particular situation of vulnerability that renders their plight exceptionally harsh and irreparable in nature, non-availability of social assistance does not constitute grounds for non-refoulement. A contrary interpretation, recognizing all economically destitute individuals as potential victims of article 7 of the Covenant, has little support in the case law of the Committee or in State practice and would extend the protections of article 7 and the non-refoulement principle (which are absolute in nature) beyond a breaking point."
+    "Text": "With the possible exceptions of those individuals who face special hardships owing to a particular situation of vulnerability that renders their plight exceptionally harsh and irreparable in nature, non-availability of social assistance does not constitute grounds for non-refoulement. A contrary interpretation, recognizing all economically destitute individuals as potential victims of article 7 of the Covenant, has little support in the case law of the Committee or in State practice and would extend the protections of article 7 and the non-refoulement principle (which are absolute in nature) beyond a breaking point.",
+    "OriginalID": "3.",
+    "Namespace": "A1"
   },
   {
-    "ID": "4.",
+    "ID": "A1-4.",
     "Section": "Annex I",
     "Labels": [
       "Children",
       "Women/girls"
     ],
-    "Text": "Although we supported the Views adopted by the Committee in Jasin et al v. Denmark, the facts in that case were significantly different than the facts of the present case and do not warrant the same legal conclusion. In Jasin, the author was in a particularly vulnerable situation that made it nearly impossible for her to confront the exceptional hardships expected were she to be deported to Italy: a single mother of three small children who had to contend with her own health problems, who had lost her immigration status in Italy and whom the Italian welfare system has demonstrably failed to assist. Under those exceptional circumstances, we were of the view that, without specific assurances of social assistance, Italy could be considered a “safe country” of removal for the author and her children (raising, as a result, the possibility of de facto refoulement from Italy to her country of origin)."
+    "Text": "Although we supported the Views adopted by the Committee in Jasin et al v. Denmark, the facts in that case were significantly different than the facts of the present case and do not warrant the same legal conclusion. In Jasin, the author was in a particularly vulnerable situation that made it nearly impossible for her to confront the exceptional hardships expected were she to be deported to Italy: a single mother of three small children who had to contend with her own health problems, who had lost her immigration status in Italy and whom the Italian welfare system has demonstrably failed to assist. Under those exceptional circumstances, we were of the view that, without specific assurances of social assistance, Italy could be considered a “safe country” of removal for the author and her children (raising, as a result, the possibility of de facto refoulement from Italy to her country of origin).",
+    "OriginalID": "4.",
+    "Namespace": "A1"
   },
   {
-    "ID": "5.",
+    "ID": "A1-5.",
     "Section": "Annex I",
     "Labels": [
       "Children",
       "Women/girls"
     ],
-    "Text": "In the present case, the author and her two 18-year old twin girls are able-bodied adults who may, pursuant to their subsidiary protection status in Italy, lawfully work and support themselves and the two minor children accompanying them (aged 15 and 12). The facts also suggest that, unlike in the case of Jasin, where there had been a demonstrable failure by the Italian authorities to attend to social needs of the author and her family, in the present case the author’s daughters never registered in Italy and have stayed in the country for five days only. Hence, it has not been established that Italy is unwilling or unable to provide social assistance to single-parent families like the author’s, and such a conclusion cannot be deduced from the real difficulties in accessing social assistance experienced by the author on her own, before her daughters joined her. While deportation to Italy may put the authors in a more difficult situation than the one confronting them in Denmark, we do not have before us information suggesting that their plight is expected to reach the exceptional level of harshness and irreparability that would result in a violation of article 7."
+    "Text": "In the present case, the author and her two 18-year old twin girls are able-bodied adults who may, pursuant to their subsidiary protection status in Italy, lawfully work and support themselves and the two minor children accompanying them (aged 15 and 12). The facts also suggest that, unlike in the case of Jasin, where there had been a demonstrable failure by the Italian authorities to attend to social needs of the author and her family, in the present case the author’s daughters never registered in Italy and have stayed in the country for five days only. Hence, it has not been established that Italy is unwilling or unable to provide social assistance to single-parent families like the author’s, and such a conclusion cannot be deduced from the real difficulties in accessing social assistance experienced by the author on her own, before her daughters joined her. While deportation to Italy may put the authors in a more difficult situation than the one confronting them in Denmark, we do not have before us information suggesting that their plight is expected to reach the exceptional level of harshness and irreparability that would result in a violation of article 7.",
+    "OriginalID": "5.",
+    "Namespace": "A1"
   },
   {
-    "ID": "6.",
+    "ID": "A1-6.",
     "Section": "Annex I",
     "Labels": [],
-    "Text": "Under these circumstances, we cannot conclude that the decision of the Danish authorities to deport the authors to Italy was manifestly arbitrary and would entail a violation of article 7 of the Covenant by Denmark."
+    "Text": "Under these circumstances, we cannot conclude that the decision of the Danish authorities to deport the authors to Italy was manifestly arbitrary and would entail a violation of article 7 of the Covenant by Denmark.",
+    "OriginalID": "6.",
+    "Namespace": "A1"
   },
   {
-    "ID": "1.",
+    "ID": "OP1-1.",
     "Section": "Individual opinion of Committee member Dheerujlall Seetulsingh (dissenting)",
     "Labels": [],
-    "Text": "As in the case of Jasin et al v. Denmark (communication No. 2360/2014) I find myself once more compelled to dissent from the views of the majority on the Committee."
+    "Text": "As in the case of Jasin et al v. Denmark (communication No. 2360/2014) I find myself once more compelled to dissent from the views of the majority on the Committee.",
+    "OriginalID": "1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
+    "ID": "OP1-2.",
     "Section": "Individual opinion of Committee member Dheerujlall Seetulsingh (dissenting)",
     "Labels": [
       "Children",
       "Refugees & asylum-seekers"
     ],
-    "Text": "The principles applied by the Committee in dealing with communications from refugees alleging violations of article 7 of the Covenant if they were to be deported either to the country of origin or to the country of first asylum are clearly set out in paragraph 13.3 of the decision of the majority. However, one cannot help noting that the Committee, in exercising an almost quasi-judicial function in its examination of communications, may find itself in a situation where it becomes an appellate instance on facts. Actually the assessment of risk of a personal and irreparable harm is based on the factual circumstances surrounding a particular case, for example, in the present case, the situation in which the alleged victims would find themselves were they to be deported to Italy. The Refugee Appeals Board in the State party is being taxed with having made an arbitrary appreciation of the facts concerning risk and in misapplying the provisions of the Covenant, whereas the Board may be better placed, with all the materials at its disposal, to judge the seriousness of the situation in order to reach a reasonable conclusion. Does the Committee have extraneous elements or information on which to rely? It does not seem so. The reproach made to the State party is a failure to take into due consideration the special vulnerability of the author and her four children. Has the State party made an error of judgment in applying the provisions of the Covenant which has resulted in a denial of justice? They have not in fact made any error of interpretation in applying the provisions of the Covenant."
+    "Text": "The principles applied by the Committee in dealing with communications from refugees alleging violations of article 7 of the Covenant if they were to be deported either to the country of origin or to the country of first asylum are clearly set out in paragraph 13.3 of the decision of the majority. However, one cannot help noting that the Committee, in exercising an almost quasi-judicial function in its examination of communications, may find itself in a situation where it becomes an appellate instance on facts. Actually the assessment of risk of a personal and irreparable harm is based on the factual circumstances surrounding a particular case, for example, in the present case, the situation in which the alleged victims would find themselves were they to be deported to Italy. The Refugee Appeals Board in the State party is being taxed with having made an arbitrary appreciation of the facts concerning risk and in misapplying the provisions of the Covenant, whereas the Board may be better placed, with all the materials at its disposal, to judge the seriousness of the situation in order to reach a reasonable conclusion. Does the Committee have extraneous elements or information on which to rely? It does not seem so. The reproach made to the State party is a failure to take into due consideration the special vulnerability of the author and her four children. Has the State party made an error of judgment in applying the provisions of the Covenant which has resulted in a denial of justice? They have not in fact made any error of interpretation in applying the provisions of the Covenant.",
+    "OriginalID": "2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "3.",
+    "ID": "OP1-3.",
     "Section": "Individual opinion of Committee member Dheerujlall Seetulsingh (dissenting)",
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "Ultimately, the above situation gives rise to a difficulty in terms of the remedies recommended by the majority of the Committee. In many cases of deportation the case is remitted to the authorities of the State party for reconsideration of the request for asylum and the need to obtain assurances from the country of first asylum (see Jasin). After sending the case to be reconsidered by the Refugee Appeals Board, the State party usually claims that it has complied with the Views of the Committee, whether or not the outcome is decided in favour of the author of the Communication. That course of action provides a leeway to the State party to re-examine the case and grants it the possibility to come to exactly the same conclusion that its immigration authorities had reached in the first instance. That may result in a virtual ineffectiveness of the remedies recommended by the Committee. Probably the wiser course would be to stop at a finding of violation without a request for reconsideration by the State party, thus ensuring a “genuine” higher rate of compliance with the Views of the Committee. Subsequently, when drawing up its report on follow-up to Views on communications, the Committee would have a better picture of State parties’ compliance with its Views."
+    "Text": "Ultimately, the above situation gives rise to a difficulty in terms of the remedies recommended by the majority of the Committee. In many cases of deportation the case is remitted to the authorities of the State party for reconsideration of the request for asylum and the need to obtain assurances from the country of first asylum (see Jasin). After sending the case to be reconsidered by the Refugee Appeals Board, the State party usually claims that it has complied with the Views of the Committee, whether or not the outcome is decided in favour of the author of the Communication. That course of action provides a leeway to the State party to re-examine the case and grants it the possibility to come to exactly the same conclusion that its immigration authorities had reached in the first instance. That may result in a virtual ineffectiveness of the remedies recommended by the Committee. Probably the wiser course would be to stop at a finding of violation without a request for reconsideration by the State party, thus ensuring a “genuine” higher rate of compliance with the Views of the Committee. Subsequently, when drawing up its report on follow-up to Views on communications, the Committee would have a better picture of State parties’ compliance with its Views.",
+    "OriginalID": "3.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "4.",
+    "ID": "OP1-4.",
     "Section": "Individual opinion of Committee member Dheerujlall Seetulsingh (dissenting)",
     "Labels": [
       "Children"
     ],
-    "Text": "As far as the present case is concerned, however much sympathy one may have regarding the sad plight of refugees, certain rules have to be applied and certain considerations borne in mind by the authorities of the State party when assessing applications for asylum. The author has two grown-up daughters and two minor daughters, who joined her in Italy — although the author claimed she was suffering hardship in that country — and who stayed only for five days in Italy. They thereafter moved to Denmark to seek asylum there. She failed to substantiate in what way Italy had not been able to provide assistance to her and to show that she and her family would suffer irreparable harm in the country of first asylum where three able-bodied adults should be able to look for work to fund themselves. The State party and its immigration authorities gave due weight to all the circumstances surrounding the case. They did not reach a decision that would enable us to conclude that they could have made such an erroneous interpretation of the situation as to justify a reversal of the decision."
+    "Text": "As far as the present case is concerned, however much sympathy one may have regarding the sad plight of refugees, certain rules have to be applied and certain considerations borne in mind by the authorities of the State party when assessing applications for asylum. The author has two grown-up daughters and two minor daughters, who joined her in Italy — although the author claimed she was suffering hardship in that country — and who stayed only for five days in Italy. They thereafter moved to Denmark to seek asylum there. She failed to substantiate in what way Italy had not been able to provide assistance to her and to show that she and her family would suffer irreparable harm in the country of first asylum where three able-bodied adults should be able to look for work to fund themselves. The State party and its immigration authorities gave due weight to all the circumstances surrounding the case. They did not reach a decision that would enable us to conclude that they could have made such an erroneous interpretation of the situation as to justify a reversal of the decision.",
+    "OriginalID": "4.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "5.",
+    "ID": "OP1-5.",
     "Section": "Individual opinion of Committee member Dheerujlall Seetulsingh (dissenting)",
     "Labels": [],
-    "Text": "In the circumstances, I find that the decision of the State party was not arbitrary and did not bear the characteristics of a violation of article 7 of the Covenant."
+    "Text": "In the circumstances, I find that the decision of the State party was not arbitrary and did not bear the characteristics of a violation of article 7 of the Covenant.",
+    "OriginalID": "5.",
+    "Namespace": "OP1"
   }
 ]

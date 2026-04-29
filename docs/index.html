@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="uRqyBExQlN44ffcViC03Aa1do01KisztE9Sol47X8Jg" />
 <title>UN Human Rights Database</title>
-<meta name="description" content="Paragraph-level search across UN Treaty Body General Comments, CEDAW/CRPD jurisprudence preview, and Special Procedures reports — for human rights researchers, academics and legal practitioners." />
+<meta name="description" content="Paragraph-level search across UN Treaty Body General Comments, CCPR/CEDAW/CRPD jurisprudence preview, and Special Procedures reports — for human rights researchers, academics and legal practitioners." />
 <link rel="canonical" href="https://lszoszk.github.io/generalcomments/" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://lszoszk.github.io/generalcomments/" />
 <meta property="og:title" content="UN Human Rights Database" />
-<meta property="og:description" content="Paragraph-level search across General Comments, CEDAW/CRPD jurisprudence preview, and Special Procedures reports." />
+<meta property="og:description" content="Paragraph-level search across General Comments, CCPR/CEDAW/CRPD jurisprudence preview, and Special Procedures reports." />
 <meta property="og:site_name" content="UN Human Rights Database" />
 
 <!-- Twitter -->
@@ -42,7 +42,7 @@
       "@type": "Dataset",
       "@id": "https://lszoszk.github.io/generalcomments/#dataset",
       "name": "UN Treaty Body General Comments and Special Procedures reports",
-      "description": "Paragraph-level corpus of UN Treaty Body General Comments, CEDAW/CRPD jurisprudence preview and Special Procedures reports, indexed for search.",
+      "description": "Paragraph-level corpus of UN Treaty Body General Comments, CCPR/CEDAW/CRPD jurisprudence preview and Special Procedures reports, indexed for search.",
       "url": "https://lszoszk.github.io/generalcomments/",
       "creator": [
         { "@type": "Person", "name": "Łukasz Szoszkiewicz" },
@@ -415,11 +415,13 @@
         <div class="about-block">
           <h3 class="folio">Jurisprudence</h3>
           <p class="serif">
-            <strong>2,937 CCPR/CEDAW/CRPD jurisprudence documents</strong> are included as a
+            <strong>3,104 CCPR/CEDAW/CRPD jurisprudence documents</strong> are included as a
             preview. They are published as separate shards under
             <code class="mono">docs/jur/</code>, so the main General Comments
             interface stays lightweight while the full Treaty Body jurisprudence
-            corpus is still being prepared.
+            corpus is still being prepared. CCPR now includes OCR-recovered
+            scanned legacy cases; 51 CCPR records remain pending because their
+            English source files still need repair or manual verification.
           </p>
         </div>
 
@@ -466,6 +468,15 @@
             <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/build_corpus.py" target="_blank" rel="noopener">build_corpus.py</a>;
             search runs entirely in the browser via FlexSearch with stemming, and
             the index is cached in IndexedDB after first load.
+          </p>
+          <p class="serif">
+            <strong>Jurisprudence OCR.</strong> Older scanned CCPR PDFs are recovered
+            through a quality-first OCR sidecar pipeline. Published paragraphs keep
+            official numbering where possible; individual opinions are namespaced
+            as <code class="mono">OP1-</code>, <code class="mono">OP2-</code>, and real
+            case appendices as <code class="mono">A1-</code>. Generated IDs and OCR
+            provenance are exposed in the export rather than silently merged into
+            official text.
           </p>
           <p class="serif">
             <strong>Two annotation layers.</strong> Labels applied manually before

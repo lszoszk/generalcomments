@@ -1,5 +1,11 @@
 [
   {
+    "ID": "3.",
+    "Section": "Annex",
+    "Labels": [],
+    "Text": "July 2008 (initial submission) The Human Rights Committee, established under article 28 of the International Covenant on Civil and Political Rights, Meeting on 26 October 2011, Having concluded its consideration of communication No. 1815/2008, submitted to the Human Rights Committee on behalf of Mr. Alexander Adonis under the Optional Protocol to the International Covenant on Civil and Political Rights, Having taken into account all written information made available to it by the author of the communication, and the State party, Adopts the following: Views under article 5, paragraph 4, of the Optional Protocol"
+  },
+  {
     "ID": "1.",
     "Section": "Annex",
     "Labels": [],
@@ -135,7 +141,7 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": ". In a letter dated 12 September 2011, the author notes that the Supreme Court of the Philippines has interpreted criminal libel as a constitutional exception to the right to freedom of expression. On this basis, Philippine lower courts have routinely assumed the constitutionality of criminal libel and its consistency with constitutional freedoms. Therefore, Philippine law has maintained criminal libel with imprisonment as a penalty, even though certain exceptions have been allowed, such as public interest and public figure exceptions. However, these exceptions have been implemented unevenly and have not prevented these cases from resulting in prosecutions that run counter to freedom of expression, as in the present case. The author concludes that he has no further recourse under the Philippine judicial system to challenge the violation of his right to freedom of expression."
+    "Text": "In a letter dated 12 September 2011, the author notes that the Supreme Court of the Philippines has interpreted criminal libel as a constitutional exception to the right to freedom of expression. On this basis, Philippine lower courts have routinely assumed the constitutionality of criminal libel and its consistency with constitutional freedoms. Therefore, Philippine law has maintained criminal libel with imprisonment as a penalty, even though certain exceptions have been allowed, such as public interest and public figure exceptions. However, these exceptions have been implemented unevenly and have not prevented these cases from resulting in prosecutions that run counter to freedom of expression, as in the present case. The author concludes that he has no further recourse under the Philippine judicial system to challenge the violation of his right to freedom of expression."
   },
   {
     "ID": "6.1.",
@@ -239,66 +245,166 @@
     "ID": "10.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "Bearing in mind that, by becoming a party to the Optional Protocol, the State party has recognized the competence of the Committee to determine whether there has been a violation of the Covenant or not and that, pursuant to article 2 of the Covenant, the State party has undertaken to ensure to all individuals within its territory or subject to its jurisdiction the rights recognized in the Covenant and to provide an effective remedy when it has been determined that a violation has occurred, the Committee wishes to receive from the State party, within 180 days, information about the measures taken to give effect to the Committee’s Views. In addition, it requests the State party to publish the Committee’s Views. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.] Appendix Individual opinion by Committee member, Mr. Fabían Omar Salvioli (partially dissenting)"
+    "Text": "Bearing in mind that, by becoming a party to the Optional Protocol, the State party has recognized the competence of the Committee to determine whether there has been a violation of the Covenant or not and that, pursuant to article 2 of the Covenant, the State party has undertaken to ensure to all individuals within its territory or subject to its jurisdiction the rights recognized in the Covenant and to provide an effective remedy when it has been determined that a violation has occurred, the Committee wishes to receive from the State party, within 180 days, information about the measures taken to give effect to the Committee’s Views. In addition, it requests the State party to publish the Committee’s Views. [Adopted in English, French and Spanish, the English text being the original version. annual report to the General Assembly.] Appendix"
   },
   {
-    "ID": "1.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-1.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "I fully agree with the decision of the Human Rights Committee concerning a violation of article 19 of the International Covenant on Civil and Political Rights in the case Adonis v. the Philippines, communication No. 1815/2008. The Committee has rightly determined that the facts as established constitute a violation of the right to freedom of expression."
+    "Text": "I fully agree with the decision of the Human Rights Committee concerning a violation of article 19 of the International Covenant on Civil and Political Rights in the case Adonis v. the Philippines, communication No. 1815/2008. The Committee has rightly determined that the facts as established constitute a violation of the right to freedom of expression.",
+    "OriginalID": "1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-2.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "However, for the reasons set out below, I consider that the Committee should have concluded that in the case at hand the State party has also committed a violation of article 2, paragraph 2, of the International Covenant of Civil and Political Rights. The Committee should also have indicated that in its view, the State should amend the legislation which was applied to the detriment of the author and which is incompatible with the Covenant. (a) Competence of the Committee to find violations of articles not referred to in the complaint"
+    "Text": "However, for the reasons set out below, I consider that the Committee should have concluded that in the case at hand the State party has also committed a violation of article 2, paragraph 2, of the International Covenant of Civil and Political Rights. The Committee should also have indicated that in its view, the State should amend the legislation which was applied to the detriment of the author and which is incompatible with the Covenant. (a) Competence of the Committee to find violations of articles not referred to in the complaint",
+    "OriginalID": "2.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "3.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-3.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "Since I became a member of the Committee, I have taken the view that the Committee has of its own volition and incomprehensibly restricted its competence to determine a violation of the Covenant in the absence of a specific legal claim, provided the facts clearly demonstrate such a violation. The legal basis and explanation of why this does not mean that States will be left without a defence may be found in paragraphs 3–5 of my partially dissenting opinion in the case of Weerawansa v. Sri Lanka to which I refer.1 (b) The violation of article 2, paragraph 2, of the Covenant"
+    "Text": "Since I became a member of the Committee, I have taken the view that the Committee has of its own volition and incomprehensibly restricted its competence to determine a violation of the Covenant in the absence of a specific legal claim, provided the facts clearly demonstrate such a violation. The legal basis and explanation of why this does not mean that States will be left without a defence may be found in paragraphs 3–5 of my partially dissenting opinion in the case of Weerawansa v. Sri Lanka to which I refer.1 (b) The violation of article 2, paragraph 2, of the Covenant",
+    "OriginalID": "3.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "4.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-4.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "The international responsibility of the State may be engaged, inter alia, by an act or omission on the part of any of its branches, including, of course, the legislative branch or any other branch with legislative powers in accordance with the Constitution. Article 2, paragraph 2, of the Covenant specifies: “Where not already provided for by existing legislative or other measures, each State party to the present Covenant undertakes to take the necessary steps, in accordance with its constitutional processes and with the provisions of the present Covenant, to adopt such laws or other measures as may be necessary to give effect to the rights recognized in the present Covenant.” Although the obligation laid down in article 2, paragraph 2, is of a general nature, failure to fulfil it may engage the international responsibility of the State. The provision in question is of a self-executing nature. The Committee, quite rightly, has indicated that: “The obligations of the Covenant in general and article 2 in particular are binding on every State party as a whole. All branches of government (executive, legislative and judicial), and other public or governmental authorities, at whatever level (national, regional or local) are in a position to engage the responsibility of the State party.”2 1 Anura Weerawansa v. Sri Lanka, communication 1406/2005; partially dissenting opinion of Mr. Fabian Salvioli. General comment No. 31 (2004) on the nature of the general legal obligation imposed on States parties to the Covenant, Official Records of the General Assembly, Fifty-ninth Session, Supplement No. 40, vol. I (A/59/40 (Vol. I)), annex III, para. 4."
+    "Text": "The international responsibility of the State may be engaged, inter alia, by an act or omission on the part of any of its branches, including, of course, the legislative branch or any other branch with legislative powers in accordance with the Constitution. Article 2, paragraph 2, of the Covenant specifies: “Where not already provided for by existing legislative or other measures, each State party to the present Covenant undertakes to take the necessary steps, in accordance with its constitutional processes and with the provisions of the present Covenant, to adopt such laws or other measures as may be necessary to give effect to the rights recognized in the present Covenant.” Although the obligation laid down in article 2, paragraph 2, is of a general nature, failure to fulfil it may engage the international responsibility of the State. The provision in question is of a self-executing nature. The Committee, quite rightly, has indicated that: “The obligations of the Covenant in general and article 2 in particular are binding on every State party as a whole. All branches of government (executive, legislative and judicial), and other public or governmental authorities, at whatever level (national, regional or local) are in a position to engage the responsibility of the State party.”2 1 Anura Weerawansa v. Sri Lanka, communication 1406/2005; partially dissenting opinion of Mr. Fabian Salvioli. General comment No. 31 (2004) on the nature of the general legal obligation imposed on States parties to the Covenant, Official Records of the General Assembly, Fifty-ninth Session, Supplement No. 40, vol. I (A/59/40 (Vol. I)), annex III, para. 4.",
+    "OriginalID": "4.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "5.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-5.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "Just as States parties to the Covenant may not adopt measures which violate recognized rights and freedoms, failure to adjust domestic legislation to the provisions of the Covenant in my view implies per se a violation of the obligations laid down in its article 2, paragraph 2. In the case at hand, Adonis, the author specifically alleges that the norm established by the Philippine Criminal Code implies a violation of the Covenant (see paragraph 3.1 in fine and paragraph 3.2 of the Committee’s decision)."
+    "Text": "Just as States parties to the Covenant may not adopt measures which violate recognized rights and freedoms, failure to adjust domestic legislation to the provisions of the Covenant in my view implies per se a violation of the obligations laid down in its article 2, paragraph 2. In the case at hand, Adonis, the author specifically alleges that the norm established by the Philippine Criminal Code implies a violation of the Covenant (see paragraph 3.1 in fine and paragraph 3.2 of the Committee’s decision).",
+    "OriginalID": "5.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "6.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-6.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "In this case, the Committee concludes that the sanction imposed on the author is incompatible with article 19, paragraph 3, of the Covenant (para. 7.10) and consequently decides that the facts disclose a violation of this article (para. 8)."
+    "Text": "In this case, the Committee concludes that the sanction imposed on the author is incompatible with article 19, paragraph 3, of the Covenant (para. 7.10) and consequently decides that the facts disclose a violation of this article (para. 8).",
+    "OriginalID": "6.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "7.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-7.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "The said sanction was imposed on the author by the court because it was provided for by the Criminal Code; consequently, that sanction is incompatible with the Covenant and its continued presence in the Philippine Criminal Code is a violation of the duty to adapt domestic legislation to the Covenant, which is specifically required by article 2, paragraph 2. As the sanction has been imposed, the Committee would not be deciding “in abstracto” in respect of the legislative policy of the State party. Consequently, the Committee should have found that in this case there has been a violation of article 2, paragraph 2, to the detriment of Alexander Adonis. (c) Reparation"
+    "Text": "The said sanction was imposed on the author by the court because it was provided for by the Criminal Code; consequently, that sanction is incompatible with the Covenant and its continued presence in the Philippine Criminal Code is a violation of the duty to adapt domestic legislation to the Covenant, which is specifically required by article 2, paragraph 2. As the sanction has been imposed, the Committee would not be deciding “in abstracto” in respect of the legislative policy of the State party. Consequently, the Committee should have found that in this case there has been a violation of article 2, paragraph 2, to the detriment of Alexander Adonis. (c) Reparation",
+    "OriginalID": "7.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "8.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-8.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "The Committee is inconsistent if it finds that a norm is incompatible with the Covenant but fails expressly to draw attention to the need to amend it: in paragraph 9 of its decision, it indicates that the State party should review its legislation. Does the State provide reparation merely by reviewing its Criminal Code? What happens if after such a review the State does not change the norm? Clearly, a norm that is considered by the Committee to be incompatible with the Covenant will remain in force. In this case, how will the State comply with that part of the Committee’s decision in which it states that “The State party is also under an obligation to take steps to prevent similar violations occurring in the future”? Will the judicial branch be empowered to disregard the norm?"
+    "Text": "The Committee is inconsistent if it finds that a norm is incompatible with the Covenant but fails expressly to draw attention to the need to amend it: in paragraph 9 of its decision, it indicates that the State party should review its legislation. Does the State provide reparation merely by reviewing its Criminal Code? What happens if after such a review the State does not change the norm? Clearly, a norm that is considered by the Committee to be incompatible with the Covenant will remain in force. In this case, how will the State comply with that part of the Committee’s decision in which it states that “The State party is also under an obligation to take steps to prevent similar violations occurring in the future”? Will the judicial branch be empowered to disregard the norm?",
+    "OriginalID": "8.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "9.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-9.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "The judicial branch is required to ascertain compatibility with treaties and not to apply any domestic norms that are incompatible with the Covenant in order to avoid engaging the State’s international responsibility; however, all the branches of government bear the same obligation in respect of human rights, including, naturally, the legislative branch. In the case at hand, Adonis v. the Philippines, the Committee has missed a clear opportunity expressly and unambiguously to indicate to the State party that it must change its criminal law on the crime of defamation to make it compatible with the Covenant and with the criteria of general comment No. 34."
+    "Text": "The judicial branch is required to ascertain compatibility with treaties and not to apply any domestic norms that are incompatible with the Covenant in order to avoid engaging the State’s international responsibility; however, all the branches of government bear the same obligation in respect of human rights, including, naturally, the legislative branch. In the case at hand, Adonis v. the Philippines, the Committee has missed a clear opportunity expressly and unambiguously to indicate to the State party that it must change its criminal law on the crime of defamation to make it compatible with the Covenant and with the criteria of general comment No. 34.",
+    "OriginalID": "9.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "10.",
-    "Section": "Consideration of the merits",
+    "ID": "OP1-10.",
+    "Section": "Individual opinion by Committee member, Mr. Fabían Omar Salvioli",
     "Labels": [],
-    "Text": "The more specific the reparatory measures decided by the Committee, the easier it will be for a State to comply with its views and to honour the international commitments it has accepted to guarantee the human rights of all persons subject to its jurisdiction. [Signed] Fabían Omar Salvioli [Done in English, French and Spanish, the Spanish text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.] Individual opinion by Committee member, Mr. Rajsoomer Lallah I had indicated, at the conclusion of the deliberations on this communication, that I might join my colleague Salvioli in the separate opinion which he proposed to write and which he has now given. I would wish, however, to make some observations and suggest an alternative which would be usefully consistent with the Committee’s approach in relation generally to article 2 of the Covenant as such. As I have understood from my colleague Salvioli’s approach in the particular case before us, since it was the legislation itself of the State Party that purported to restrict the article 19 rights guaranteed to the author of the communication, it would have been legitimate for the Committee to draw the conclusion, as a logical legal consequence, that the violation of the author’s rights under article 19 also necessarily constituted a failure by the State party to give effect to its obligations under article 2 paragraph 2. In my view, the different obligations assumed by a State party under part II of the Covenant (arts. 2–5) are basic and general in character. They apply to all the rights guaranteed under part III of the Covenant (arts. 6–27) and apply to all individuals in the territory of the State party or subject to its jurisdiction. A violation of any of those rights in relation to a victim would necessarily imply a failure by the State party to discharge its obligations under part II of the Covenant, depending on the particular nature of a victim’s right which has been breached and the consequent corresponding obligation breached by the State party under any of the articles 2–5, for example article 5, paragraph 1, where a State party engages in an activity – which might conceivably include a legislative act – limiting or restricting a right to a greater extent than is warranted under the Covenant. There is of course a direct link between a particular right of the individual under Part III of the Covenant and the general obligations of a State party under part II of the Covenant to ensure and respect it. In my view, it is not incorrect to deal with the State party’s obligations in a separate paragraph as the Committee does in paragraph 9 of its Views. I wonder, therefore, whether an express and specific declaration of a violation of that provision of article 2 is necessary as the only solution and whether an alternative approach consistent with the one adopted by the Committee in relation to the State party’s general obligation to provide an effective remedy as prescribed in article 2, paragraph 3 (a), might not be the most appropriate solution. Clearly, paragraph article 4, paragraph 2, of the Optional Protocol assumes that the Committee has competence to determine whether such a remedy has been provided by the State party to the victim. Of course, the solution I had ventured to propose in the Committee may turn out to be a routine drafting formulation in all relevant cases where the Committee finds a violation of a right guaranteed under part III of the Covenant, just as the reference to article 2, paragraph 3 (a), has turned out to be, where the Committee recalls the State party’s obligation to provide an effective remedy to the author (vide the initial part of paragraph 9 of the Views). Indeed, in my view, it would perhaps have served the purpose designed to be achieved, when recommending a review of doubtful or inappropriate legislation, simply to make a formal reference to article 2, paragraph 2. At least, this approach would be consistent with the way in which the Committee in paragraph 9 of the Views deals with article 2, paragraph 3 (a), in relation to remedies. The last part of paragraph 9 of the Views could then only have included an appropriate reference as indicated in italics and as was done in the first part of the paragraph in relation to remedies, as follows: “The State Party is also under an obligation, to take steps to prevent similar violations occurring in the future including reviewing, in pursuance of article 2 paragraph 2, the relevant legislation”. [signed] Rajsoomer Lallah [Done in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.]"
+    "Text": "The more specific the reparatory measures decided by the Committee, the easier it will be for a State to comply with its views and to honour the international commitments it has accepted to guarantee the human rights of all persons subject to its jurisdiction. [Signed] Fabían Omar Salvioli annual report to the General Assembly.]",
+    "OriginalID": "10.",
+    "Namespace": "OP1"
+  },
+  {
+    "ID": "OP2-U1.",
+    "Section": "Individual opinion by Committee member, Mr. Rajsoomer Lallah",
+    "Labels": [],
+    "Text": "I had indicated, at the conclusion of the deliberations on this communication, that I might join my colleague Salvioli in the separate opinion which he proposed to write and which he has now given. I would wish, however, to make some observations and suggest an alternative which would be usefully consistent with the Committee’s approach in relation generally to article 2 of the Covenant as such.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U1.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-U2.",
+    "Section": "Individual opinion by Committee member, Mr. Rajsoomer Lallah",
+    "Labels": [],
+    "Text": "As I have understood from my colleague Salvioli’s approach in the particular case before us, since it was the legislation itself of the State Party that purported to restrict the article 19 rights guaranteed to the author of the communication, it would have been legitimate for the Committee to draw the conclusion, as a logical legal consequence, that the violation of the author’s rights under article 19 also necessarily constituted a failure by the State party to give effect to its obligations under article 2 paragraph 2.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U2.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-U3.",
+    "Section": "Individual opinion by Committee member, Mr. Rajsoomer Lallah",
+    "Labels": [],
+    "Text": "In my view, the different obligations assumed by a State party under part II of the Covenant (arts. 2–5) are basic and general in character. They apply to all the rights guaranteed under part III of the Covenant (arts. 6–27) and apply to all individuals in the territory of the State party or subject to its jurisdiction. A violation of any of those rights in relation to a victim would necessarily imply a failure by the State party to discharge its obligations under part II of the Covenant, depending on the particular nature of a victim’s right which has been breached and the consequent corresponding obligation breached by the State party under any of the articles 2–5, for example article 5, paragraph 1, where a State party engages in an activity – which might conceivably include a legislative act – limiting or restricting a right to a greater extent than is warranted under the Covenant.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U3.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-U4.",
+    "Section": "Individual opinion by Committee member, Mr. Rajsoomer Lallah",
+    "Labels": [],
+    "Text": "There is of course a direct link between a particular right of the individual under Part III of the Covenant and the general obligations of a State party under part II of the Covenant to ensure and respect it. In my view, it is not incorrect to deal with the State party’s obligations in a separate paragraph as the Committee does in paragraph 9 of its Views.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U4.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-U5.",
+    "Section": "Individual opinion by Committee member, Mr. Rajsoomer Lallah",
+    "Labels": [],
+    "Text": "I wonder, therefore, whether an express and specific declaration of a violation of that provision of article 2 is necessary as the only solution and whether an alternative approach consistent with the one adopted by the Committee in relation to the State party’s general obligation to provide an effective remedy as prescribed in article 2, paragraph 3 (a), might not be the most appropriate solution. Clearly, paragraph article 4, paragraph 2, of the Optional Protocol assumes that the Committee has competence to determine whether such a remedy has been provided by the State party to the victim.",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U5.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-U6.",
+    "Section": "Individual opinion by Committee member, Mr. Rajsoomer Lallah",
+    "Labels": [],
+    "Text": "Of course, the solution I had ventured to propose in the Committee may turn out to be a routine drafting formulation in all relevant cases where the Committee finds a violation of a right guaranteed under part III of the Covenant, just as the reference to article 2, paragraph 3 (a), has turned out to be, where the Committee recalls the State party’s obligation to provide an effective remedy to the author (vide the initial part of paragraph 9 of the Views).",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U6.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-U7.",
+    "Section": "Individual opinion by Committee member, Mr. Rajsoomer Lallah",
+    "Labels": [],
+    "Text": "Indeed, in my view, it would perhaps have served the purpose designed to be achieved, when recommending a review of doubtful or inappropriate legislation, simply to make a formal reference to article 2, paragraph 2. At least, this approach would be consistent with the way in which the Committee in paragraph 9 of the Views deals with article 2, paragraph 3 (a), in relation to remedies. The last part of paragraph 9 of the Views could then only have included an appropriate reference as indicated in italics and as was done in the first part of the paragraph in relation to remedies, as follows: “The State Party is also under an obligation, to take steps to prevent similar violations occurring in the future including reviewing, in pursuance of article 2 paragraph 2, the relevant legislation”. [signed]",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U7.",
+    "Namespace": "OP2"
+  },
+  {
+    "ID": "OP2-U8.",
+    "Section": "Individual opinion by Committee member, Mr. Rajsoomer Lallah",
+    "Labels": [],
+    "Text": "Rajsoomer Lallah annual report to the General Assembly.]",
+    "GeneratedID": true,
+    "GeneratedIDReason": "unnumbered_opinion_paragraph",
+    "OriginalID": "U8.",
+    "Namespace": "OP2"
   }
 ]

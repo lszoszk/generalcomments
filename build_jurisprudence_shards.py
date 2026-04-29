@@ -76,7 +76,9 @@ def compact_document(doc: dict) -> dict:
         'communicationYear', 'adoptionYear', 'outcome', 'submittedDate',
         'adoptionDate', 'languages', 'link', 'sourceFile', 'sourceFormat',
         'shardId', 'paragraphCount', 'wordCount', 'labelCount',
-        'caseLabels', 'articlesCited', 'firstAddedAt', 'lastVerifiedAt',
+        'caseLabels', 'articlesCited', 'ocrStatus', 'ocrMeanConf',
+        'ocrLowConfRatio', 'ocrPageCount', 'ocrWordCount', 'ocrWarnings',
+        'firstAddedAt', 'lastVerifiedAt',
     ]
     return {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
 
@@ -182,15 +184,26 @@ def load_paragraphs(doc: dict) -> list[dict]:
         labels = [x for x in (item.get('Labels') or []) if isinstance(x, str)]
         section = (item.get('Section') or '').strip()
         original_id = item.get('ID')
+        original_source_id = item.get('OriginalID')
         rows.append({
             'id': f'{doc["docId"]}-{idx:04d}',
             'docId': doc['docId'],
             'idx': idx,
             'n': paragraph_number(original_id),
             'paragraphId': original_id,
+            'originalParagraphId': original_source_id,
+            'rawParagraphId': item.get('RawID'),
+            'idCorrection': item.get('IdCorrection'),
+            'generatedParagraphId': item.get('GeneratedID'),
+            'generatedIdReason': item.get('GeneratedIDReason'),
+            'namespace': item.get('Namespace'),
             'section': section or None,
             'text': re.sub(r'\s+', ' ', text),
             'labels': labels,
+            'sourceFormat': item.get('SourceFormat') or doc.get('sourceFormat'),
+            'ocrStatus': item.get('OcrStatus') or doc.get('ocrStatus'),
+            'ocrMeanConf': item.get('OcrMeanConf') or doc.get('ocrMeanConf'),
+            'ocrLowConfRatio': item.get('OcrLowConfRatio') or doc.get('ocrLowConfRatio'),
             'type': 'jur',
             'treaty': doc.get('treaty'),
             'country': doc.get('country'),
@@ -295,7 +308,7 @@ def main() -> int:
         },
         'schema': {
             'document': ['docId', 'type', 'treaty', 'symbol', 'country', 'year', 'communicationYear?', 'adoptionYear?', 'title', 'outcome', 'adoptionDate?', 'languages', 'link', 'sourceFile', 'sourceFormat', 'shardId', 'paragraphCount', 'wordCount', 'labelCount', 'caseLabels'],
-            'paragraph': ['id', 'docId', 'idx', 'n', 'paragraphId', 'section', 'text', 'labels', 'type', 'treaty', 'country', 'year', 'outcome'],
+            'paragraph': ['id', 'docId', 'idx', 'n', 'paragraphId', 'originalParagraphId?', 'rawParagraphId?', 'idCorrection?', 'generatedParagraphId?', 'generatedIdReason?', 'namespace?', 'section', 'text', 'labels', 'sourceFormat?', 'ocrStatus?', 'ocrMeanConf?', 'ocrLowConfRatio?', 'type', 'treaty', 'country', 'year', 'outcome'],
         },
         'diagnostics': diagnostics,
     }

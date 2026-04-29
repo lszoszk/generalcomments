@@ -371,7 +371,15 @@ def _is_non_english_annex_marker(text: str) -> bool:
     return bool(
         re.search(r'\bCOMUNICACI[ÓO]N\s+\(CEDAW\)', t, re.IGNORECASE)
         or re.fullmatch(r'DISPOSICIONES\s+FINALES', t, re.IGNORECASE)
+        or re.search(r'\bOriginal\s*:\s*(?:French|Spanish|Arabic|Chinese|Russian)\b', t, re.IGNORECASE)
+        or re.search(r'\bOpinion\s+individuelle\b', t, re.IGNORECASE)
     )
+
+
+def _is_english_annex_marker(text: str) -> bool:
+    """Detect a return from a non-English annex to an English annex/opinion."""
+    t = re.sub(r'\s+', ' ', text.strip())
+    return bool(re.search(r'\bOriginal\s*:\s*English\b', t, re.IGNORECASE))
 
 
 def extract_docx_paragraphs(path: Path) -> list[dict]:
@@ -464,8 +472,8 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
                 pending_text.append(t)
     _flush()
     if paragraphs:
-        return paragraphs
-    return extract_docx_unnumbered_decision(doc)
+        return apply_paragraph_namespaces(paragraphs)
+    return apply_paragraph_namespaces(extract_docx_unnumbered_decision(doc))
 
 
 def extract_docx_unnumbered_decision(doc: DocxDocument) -> list[dict]:
@@ -550,7 +558,8 @@ def _is_signature_line(text: str) -> bool:
 # ---------------------------------------------------------------------------
 # PDF + legacy DOC extractors
 # ---------------------------------------------------------------------------
-PDF_PARA_MARKER = re.compile(r'^(\d{1,3}(?:\.\d+)+|\d{1,3}\.)\s*(.*)$')
+PDF_PARA_MARKER = re.compile(r'^(\d{1,3}(?:\.\d+)+\.?|\d{1,3}[.,])(?:\s+(.*)|\s*)$')
+PDF_TOPLEVEL_MARKER = re.compile(r'^(\d{1,2})\s+([A-Z][^\t].*)$')
 PDF_SECTION_LETTER = re.compile(r'^[A-Z]\.$')
 PDF_HEADING_RE = re.compile(
     r'^(?:'
@@ -564,17 +573,213 @@ PDF_HEADING_RE = re.compile(
     r'consideration\s+of\s+(?:admissibility|the\s+merits)|'
     r'(?:the\s+)?committee[’\']?s\s+consideration|'
     r'admissibility|merits|conclusions?|'
-    r'individual\s+opinion|separate\s+opinion|annex'
+    r'individual\s+opinion(?:\s+.*)?|separate\s+opinion(?:\s+.*)?|dissenting\s+opinion(?:\s+.*)?|concurring\s+opinion(?:\s+.*)?|annex'
     r')$',
     re.IGNORECASE,
+)
+TESSERACT_TSV_LEAK = re.compile(
+    r'(?<!\d)[1-5][\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+-?\d+(?:\.\d+)?[\t ]+'
+)
+TESSERACT_TSV_LINE_START = re.compile(
+    r'(?m)^[1-5][\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+-?\d+(?:\.\d+)?[\t ]+'
 )
 
 
 def normalize_para_id(raw: str) -> str:
     """Return the house paragraph-ID shape: `1.` / `2.1.` / `7.3.2.`."""
     s = raw.strip()
-    s = s[:-1] if s.endswith('.') else s
+    s = s[:-1] if s.endswith(('.', ',')) else s
     return f'{s}.'
+
+
+def para_id_tuple(raw: str | None) -> tuple[int, ...] | None:
+    if not raw:
+        return None
+    s = raw.strip()
+    s = s[:-1] if s.endswith(('.', ',')) else s
+    if not re.fullmatch(r'\d+(?:\.\d+)*', s):
+        return None
+    return tuple(int(part) for part in s.split('.'))
+
+
+def _strip_tesseract_tsv_leaks(text: str) -> str:
+    """Remove tab-separated Tesseract TSV rows that occasionally leak into OCR.
+
+    The leak usually appears attached to a valid word, e.g.
+    ``the5<TSV metadata>only5<TSV metadata>thing``. Replacing the TSV metadata
+    with a space preserves the surrounding words: ``the only thing``.
+    """
+    text = TESSERACT_TSV_LEAK.sub(' ', text)
+    text = TESSERACT_TSV_LINE_START.sub('', text)
+    return text
+
+
+def _pdf_marker_action(raw_id: str, rest: str, current_id: str | None) -> str:
+    """Return `new`, `append_line`, or `append_rest` for a candidate marker."""
+    if not current_id:
+        return 'new'
+    rest = (rest or '').strip()
+    current = para_id_tuple(current_id)
+    candidate = para_id_tuple(raw_id)
+    if not current or not candidate:
+        return 'new'
+    if rest.startswith((',', ';', ':', ')', ']')):
+        return 'append_line'
+    if rest and rest[0].islower():
+        return 'append_line'
+    if len(candidate) == 1 and candidate[0] >= 40:
+        return 'append_rest'
+    # OCR sometimes turns continuing body text into a paragraph-looking marker,
+    # e.g. "25.4 square miles..." in the middle of paragraph 19.1.
+    if rest and rest[0].islower() and candidate[0] > current[0] + 1:
+        return 'append_rest'
+    # Cited case numbers such as "10.145, 10.305..." or TSV residue can look
+    # like impossible paragraph IDs. Keep them in the text, do not split.
+    if len(candidate) > 1 and candidate[-1] >= 40:
+        return 'append_line'
+    return 'new'
+
+
+def _is_front_matter_date_marker(raw_id: str, rest: str, has_paragraphs: bool, current_section: str) -> bool:
+    """Skip OCR front-matter dates that look like top-level paragraphs."""
+    if has_paragraphs or current_section:
+        return False
+    candidate = para_id_tuple(raw_id)
+    if not candidate or len(candidate) != 1 or candidate[0] <= 1:
+        return False
+    low = (rest or '').strip().lower()
+    return bool(
+        (low and low[0].islower())
+        or re.match(
+            r'^(?:january|february|march|april|may|june|july|august|september|october|november|december)\b',
+            low,
+        )
+        or 'original:' in low
+        or 'human rights committee' in low
+        or 'submitted by:' in low
+    )
+
+
+def _set_corrected_para_id(para: dict, corrected_id: str, reason: str) -> None:
+    if para.get('ID') == corrected_id:
+        return
+    para.setdefault('RawID', para.get('ID'))
+    para['ID'] = corrected_id
+    para['IdCorrection'] = reason
+
+
+def repair_paragraph_id_sequence(paragraphs: list[dict]) -> list[dict]:
+    """Correct narrow, sequence-obvious OCR errors in paragraph IDs.
+
+    This does not invent missing paragraphs. It only repairs IDs when adjacent
+    numbering makes the intended value clear, e.g. `4.4, 4.2, 4.3` → `4.1,
+    4.2, 4.3` or `2.20, 2.11, 2.12` → `2.10, 2.11, 2.12`.
+    """
+    for _ in range(3):
+        changed = False
+        for i in range(1, len(paragraphs) - 1):
+            prev = paragraphs[i - 1]
+            cur = paragraphs[i]
+            nxt = paragraphs[i + 1]
+            if (prev.get('Section') or '') != (cur.get('Section') or ''):
+                continue
+            if (cur.get('Section') or '') != (nxt.get('Section') or ''):
+                continue
+            a = para_id_tuple(prev.get('ID'))
+            b = para_id_tuple(cur.get('ID'))
+            c = para_id_tuple(nxt.get('ID'))
+            if not a or not b or not c:
+                continue
+            if len(a) == len(b) == len(c) == 2 and a[0] == b[0] == c[0]:
+                parent = a[0]
+                # Previous ID misread high: 4.4, 4.2, 4.3 -> 4.1, 4.2, 4.3.
+                if a[1] > b[1] and c[1] == b[1] + 1 and b[1] > 1:
+                    corrected = f'{parent}.{b[1] - 1}.'
+                    _set_corrected_para_id(prev, corrected, 'sequence_previous_high')
+                    changed = True
+                    continue
+                # Current ID misread low: 3.7, 3.6, 3.9 -> 3.7, 3.8, 3.9.
+                if b[1] < a[1] and c[1] == a[1] + 2:
+                    corrected = f'{parent}.{a[1] + 1}.'
+                    _set_corrected_para_id(cur, corrected, 'sequence_current_low')
+                    changed = True
+            # Current parent misread: 5.1, 5.2, 8.3, 5.4 -> 5.1, 5.2, 5.3, 5.4.
+            if len(a) == len(b) == len(c) == 2 and a[0] == c[0] and c[1] == a[1] + 2 and b[1] == a[1] + 1:
+                corrected = f'{a[0]}.{b[1]}.'
+                _set_corrected_para_id(cur, corrected, 'sequence_current_parent')
+                changed = True
+        if not changed:
+            break
+    return paragraphs
+
+
+def apply_paragraph_namespaces(paragraphs: list[dict]) -> list[dict]:
+    """Prefix paragraph IDs in official trailing materials with stable namespaces.
+
+    Main-body IDs remain untouched. Separate/individual/dissenting opinions use
+    OP1-, OP2-, ...; real appendix/annex materials use A1-, A2-, ... . A bare
+    historical "Annex" heading from UN report compilations is not treated as a
+    case annex because many old HRC decisions live under that generic heading.
+    """
+    opinion_count = 0
+    annex_count = 0
+    current_prefix = ''
+    last_section = object()
+    opinion_zone = False
+
+    for para in paragraphs:
+        section = (para.get('Section') or '').strip()
+        low = section.lower()
+        section_changed = section != last_section
+        if section_changed:
+            is_opinion = bool(re.search(r'\b(?:individual|separate|dissenting|concurring)\s+opinion\b', low))
+            is_annex = bool(re.search(r'\b(?:appendix|annex\s+(?:\d+|[ivx]+|[a-z]))\b', low, re.IGNORECASE))
+            if is_opinion or (opinion_zone and re.match(r'^[A-Z]\.\s+', section)):
+                opinion_count += 1
+                current_prefix = f'OP{opinion_count}'
+                opinion_zone = True
+            elif is_annex:
+                annex_count += 1
+                current_prefix = f'A{annex_count}'
+            elif not opinion_zone:
+                current_prefix = ''
+            last_section = section
+
+        if current_prefix:
+            original = para.get('OriginalID') or para.get('ID')
+            if original:
+                para['OriginalID'] = original
+                para['Namespace'] = current_prefix
+                para['ID'] = f'{current_prefix}-{original}'
+    return paragraphs
+
+
+def _is_opinion_section(section: str) -> bool:
+    low = (section or '').strip().lower()
+    return bool(re.search(r'\b(?:individual|separate|dissenting|concurring)\s+opinion\b', low))
+
+
+def _is_namespaced_continuation_section(section: str, opinion_zone: bool) -> bool:
+    return bool(opinion_zone and re.match(r'^[A-Z]\.\s+', (section or '').strip()))
+
+
+def _is_pdf_noise_line(line: str) -> bool:
+    t = line.strip()
+    if not t:
+        return True
+    if re.match(r'^[A-Z]{2,6}/C/\d+/D/\d+/\d+(?:/Rev\.\d+)?$', t):
+        return True
+    if re.match(r'^page\s+\d+$', t, re.IGNORECASE):
+        return True
+    if re.match(r'^GE\.\d{2}-\d{4,6}', t):
+        return True
+    if re.match(r'^[A-Z](?:\.\s*)?[A-Za-z .’\'-]+\s*[\[{]\s*signed\s*[\]}]', t, re.IGNORECASE):
+        return True
+    if t.startswith('[Done in') or re.match(r'^Subsequently to be (?:issued|translated)', t, re.IGNORECASE):
+        return True
+    if re.match(r'^Committee[’\']?s Annual Report to the General Assembly\.?\]?$', t, re.IGNORECASE):
+        return True
+    return False
 
 
 def _is_pdf_heading(line: str, previous_text: str = '') -> bool:
@@ -588,21 +793,49 @@ def _is_pdf_heading(line: str, previous_text: str = '') -> bool:
     t = line.strip()
     if not t or len(t) > 130:
         return False
+    if _is_signature_line(t):
+        return False
     if PDF_SECTION_LETTER.match(t):
+        return True
+    if re.match(r'^(?:(?:A|B|C|D|E|F)\.\s+)?individual\s+opinion\b', t, re.IGNORECASE):
+        return True
+    if re.match(r'^(?:A|B|C|D|E|F)\.\s+.*\bindividual\s+opinion\b', t, re.IGNORECASE):
         return True
     if t.endswith((',', ';', ':')):
         return False
     if t[0].islower():
         return False
-    if previous_text and previous_text.rstrip()[-1:] not in '.!?)”’':
+    if previous_text and previous_text.rstrip()[-1:] not in '.!?)”’]':
         return False
     low = re.sub(r'\s+', ' ', t.lower()).strip(' .')
     if PDF_HEADING_RE.match(low):
         return True
-    return bool(re.match(r'^(?:A|B|C|D|E|F)\.\s+', t))
+    lettered = re.match(r'^(?:A|B|C|D|E|F)\.\s+(.+)', t)
+    if lettered:
+        tail = lettered.group(1).lower()
+        return bool(re.search(
+            r'\b(?:decision|opinion|admissibility|merits|facts?|complaints?|communication|proceedings|observations?|comments?|annex)\b',
+            tail,
+        ))
+    return False
+
+
+def _section_needs_continuation(section: str) -> bool:
+    t = (section or '').strip()
+    low = t.lower()
+    return bool(
+        _is_opinion_section(t)
+        and (
+            t.endswith(',')
+            or re.search(r'\bcommittee\s+member$', low)
+            or re.search(r'\bcommittee\s+members?$', low)
+            or re.search(r'\band\s+[A-Z][A-Za-z’\'-]+$', t)
+        )
+    )
 
 
 def _clean_extracted_text(text: str) -> str:
+    text = _strip_tesseract_tsv_leaks(text)
     text = re.sub(r'-\s*\n\s*', '', text)
     text = re.sub(r'(?<=[.!?”\)])\s*\d{1,3}(?=\s+[A-Z])', '', text)
     text = re.sub(r'[ \t]+', ' ', text)
@@ -615,6 +848,10 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
     current_section = ''
     pending_heading = ''
     buf: list[str] = []
+    unnumbered_buf: list[str] = []
+    unnumbered_counter = 0
+    opinion_zone = False
+    skip_non_english = False
 
     def flush() -> None:
         nonlocal current_id, buf
@@ -633,23 +870,93 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
         current_id = None
         buf = []
 
+    def flush_unnumbered() -> None:
+        nonlocal unnumbered_buf, unnumbered_counter
+        if not unnumbered_buf:
+            return
+        text = _clean_extracted_text(' '.join(x.strip() for x in unnumbered_buf if x.strip()))
+        unnumbered_buf = []
+        if len(text) < 40:
+            return
+        unnumbered_counter += 1
+        paragraphs.append({
+            'ID': f'U{unnumbered_counter}.',
+            'Section': current_section,
+            'Labels': [],
+            'Text': text,
+            'GeneratedID': True,
+            'GeneratedIDReason': 'unnumbered_opinion_paragraph',
+        })
+
+    def starts_new_unnumbered_paragraph(line: str) -> bool:
+        if not unnumbered_buf:
+            return False
+        previous = ' '.join(unnumbered_buf).rstrip()
+        if line.startswith(('-', '•')):
+            return True
+        if previous.endswith(('.', '!', '?', ';', ':', ']', ')')) and line[:1].isupper():
+            return True
+        return False
+
     for page_text in pages:
+        page_text = _strip_tesseract_tsv_leaks(page_text)
         for raw_line in page_text.splitlines():
             line = raw_line.strip()
             if not line:
+                flush_unnumbered()
+                continue
+            if skip_non_english:
+                if _is_english_annex_marker(line):
+                    skip_non_english = False
+                    current_section = ''
+                    opinion_zone = False
+                    unnumbered_counter = 0
+                continue
+            if _is_pdf_noise_line(line):
                 continue
             if _is_non_english_annex_marker(line):
+                flush_unnumbered()
                 flush()
-                return paragraphs
+                skip_non_english = True
+                current_section = ''
+                opinion_zone = False
+                continue
 
             marker = PDF_PARA_MARKER.match(line)
+            if not marker and not opinion_zone:
+                top_marker = PDF_TOPLEVEL_MARKER.match(line)
+                if top_marker:
+                    current_tuple = para_id_tuple(current_id)
+                    candidate_top = int(top_marker.group(1))
+                    if not current_tuple or candidate_top == current_tuple[0] + 1:
+                        marker = top_marker
             if marker:
-                if _is_non_english_annex_marker(marker.group(2)):
+                raw_id = marker.group(1)
+                rest = (marker.group(2) or '').strip()
+                split_decimal = re.match(r'^(\d{1,2})\s+(.+)', rest)
+                if raw_id.endswith(('.', ',')) and split_decimal:
+                    raw_id = f'{raw_id[:-1]}.{split_decimal.group(1)}'
+                    rest = split_decimal.group(2).strip()
+                if _is_non_english_annex_marker(rest):
+                    flush_unnumbered()
                     flush()
-                    return paragraphs
+                    skip_non_english = True
+                    current_section = ''
+                    opinion_zone = False
+                    continue
+                if _is_front_matter_date_marker(raw_id, rest, bool(paragraphs), current_section):
+                    continue
+                action = _pdf_marker_action(raw_id, rest, current_id)
+                if action == 'append_line' and current_id:
+                    buf.append(line)
+                    continue
+                if action == 'append_rest' and current_id:
+                    if rest:
+                        buf.append(rest)
+                    continue
+                flush_unnumbered()
                 flush()
-                current_id = normalize_para_id(marker.group(1))
-                rest = marker.group(2).strip()
+                current_id = normalize_para_id(raw_id)
                 buf = [rest] if rest else []
                 continue
 
@@ -662,28 +969,63 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
 
             previous = ' '.join(buf)
             if _is_pdf_heading(line, previous):
+                flush_unnumbered()
                 flush()
                 if PDF_SECTION_LETTER.match(line):
                     pending_heading = ''
                     continue
                 current_section = line.rstrip('.')
                 pending_heading = current_section
+                opinion_zone = opinion_zone or _is_opinion_section(current_section)
+                if _is_opinion_section(current_section) or _is_namespaced_continuation_section(current_section, opinion_zone):
+                    unnumbered_counter = 0
                 continue
 
             if current_id:
                 buf.append(line)
+            elif _is_opinion_section(current_section) or _is_namespaced_continuation_section(current_section, opinion_zone):
+                if not unnumbered_buf and _section_needs_continuation(current_section):
+                    current_section = f'{current_section} {line}'.strip()
+                    pending_heading = current_section
+                    continue
+                if starts_new_unnumbered_paragraph(line):
+                    flush_unnumbered()
+                unnumbered_buf.append(line)
             else:
                 # Descriptive heading following "A." / "B." style markers.
                 if pending_heading == '' and _is_pdf_heading(line):
+                    flush_unnumbered()
                     current_section = line.rstrip('.')
+                    opinion_zone = opinion_zone or _is_opinion_section(current_section)
 
+    flush_unnumbered()
     flush()
-    return paragraphs
+    paragraphs = repair_paragraph_id_sequence(paragraphs)
+    return apply_paragraph_namespaces(paragraphs)
 
 
 def _load_ocr_pages(doc_id: str | None) -> list[str]:
-    if not doc_id:
+    meta = _load_ocr_meta(doc_id)
+    if not meta:
         return []
+    meta_path = Path(meta['_metaPath'])
+    doc_text = meta_path.parent / (meta.get('textPath') or 'document.txt')
+    pages = []
+    for page in meta.get('pages') or []:
+        page_path = meta_path.parent / (page.get('textPath') or '')
+        if page_path.exists():
+            pages.append(page_path.read_text())
+    if pages:
+        return pages
+    if doc_text.exists():
+        text = doc_text.read_text()
+        return [text] if text.strip() else []
+    return []
+
+
+def _load_ocr_meta(doc_id: str | None) -> dict | None:
+    if not doc_id:
+        return None
     candidates = sorted(OCR_DIR.glob(f'*/{doc_id}/ocr.json'))
     for meta_path in candidates:
         try:
@@ -692,19 +1034,9 @@ def _load_ocr_pages(doc_id: str | None) -> list[str]:
             continue
         if meta.get('ocrStatus') not in ('pass', 'review'):
             continue
-        doc_text = meta_path.parent / (meta.get('textPath') or 'document.txt')
-        if not doc_text.exists():
-            continue
-        pages = []
-        for page in meta.get('pages') or []:
-            page_path = meta_path.parent / (page.get('textPath') or '')
-            if page_path.exists():
-                pages.append(page_path.read_text())
-        if pages:
-            return pages
-        text = doc_text.read_text()
-        return [text] if text.strip() else []
-    return []
+        meta['_metaPath'] = str(meta_path)
+        return meta
+    return None
 
 
 def extract_pdf_paragraphs(path: Path, doc_id: str | None = None) -> list[dict]:
@@ -977,9 +1309,15 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
     body_blob = ' '.join(p['Text'] for p in paragraphs)
     outcome = classify_outcome(catalog_record.get('title', ''), body_blob)
 
+    ocr_meta = _load_ocr_meta(doc_id) if fmt == 'pdf' else None
     source_format = fmt
-    if fmt == 'pdf' and list(OCR_DIR.glob(f'*/{doc_id}/ocr.json')):
+    if fmt == 'pdf' and ocr_meta:
         source_format = 'pdf_ocr'
+        for p in paragraphs:
+            p['SourceFormat'] = 'pdf_ocr'
+            p['OcrStatus'] = ocr_meta.get('ocrStatus')
+            p['OcrMeanConf'] = ocr_meta.get('meanConf')
+            p['OcrLowConfRatio'] = ocr_meta.get('lowConfRatio')
 
     # docId + paths
     out_para_path = OUT_DIR_PARAGRAPHS / f'{doc_id}.json'
@@ -993,7 +1331,7 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
 
     # Tier-1 record
     today = date.today().isoformat()
-    return {
+    info = {
         'docId': doc_id,
         'type': 'jur',
         'name': catalog_record.get('title', '').strip() or sym,
@@ -1023,6 +1361,16 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
         'firstAddedAt': today,
         'lastVerifiedAt': today,
     }
+    if ocr_meta:
+        info.update({
+            'ocrStatus': ocr_meta.get('ocrStatus'),
+            'ocrMeanConf': ocr_meta.get('meanConf'),
+            'ocrLowConfRatio': ocr_meta.get('lowConfRatio'),
+            'ocrPageCount': ocr_meta.get('pageCount'),
+            'ocrWordCount': ocr_meta.get('wordCount'),
+            'ocrWarnings': ocr_meta.get('warnings') or [],
+        })
+    return info
 
 
 def main() -> int:

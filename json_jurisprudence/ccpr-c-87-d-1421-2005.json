@@ -428,15 +428,19 @@
     "Text": "Bearing in mind that, by becoming a party to the Optional Protocol, the State party has recognized the competence of the Committee to determine whether there has been a violation of the Covenant or not and that, pursuant to article 2 of the Covenant, that State party has undertaken to ensure all individuals within its territory or subject to its jurisdiction the rights recognized in the Covenant and to provide an effective and enforceable remedy in case a violation has been established, the Committee wishes to receive from the State party, within 90 days, information about the measures taken to give effect to the Committee’s Views. The State party is also requested to publish the Committee’s Views. [Adopted in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.]"
   },
   {
-    "ID": "1.",
+    "ID": "OP1-1.",
     "Section": "Individual opinion by Committee member Mr. Nisuke Ando",
     "Labels": [],
-    "Text": "Reference is made to my individual opinion in case Carpo et al v. The Philippines (Case No. 1077/2002)."
+    "Text": "Reference is made to my individual opinion in case Carpo et al v. The Philippines (Case No. 1077/2002).",
+    "OriginalID": "1.",
+    "Namespace": "OP1"
   },
   {
-    "ID": "2.",
+    "ID": "OP1-2.",
     "Section": "Individual opinion by Committee member Mr. Nisuke Ando",
     "Labels": [],
-    "Text": "I do not think it proper for the Committee to quote here a judgment of the European Court of Human Rights in footnote 59."
+    "Text": "I do not think it proper for the Committee to quote here a judgment of the European Court of Human Rights in footnote 59.",
+    "OriginalID": "2.",
+    "Namespace": "OP1"
   }
 ]
