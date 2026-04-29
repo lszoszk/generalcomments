@@ -163,6 +163,8 @@ async function boot() {
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
     bindRouter();
+    initDossierResizer();                // v15: drag handle + persisted width
+    initDossierFontPref();               // v15: restore S/M/L preference
     paintDiffTray();                     // restore pinned-tray on reload
     paintWorkspaceBadge();
     setView(viewFromHash());             // honor the initial hash
@@ -217,6 +219,14 @@ function jurCommitteeFacets() {
     value: item.value,
     count: treaties.length === 1 && paraTotal ? paraTotal : item.count,
   }));
+}
+
+function jurTreatyLabel({ compact = false } = {}) {
+  const treaties = (state.jur.facets?.treaties || []).map(item => item.value).filter(Boolean);
+  if (!treaties.length) return compact ? 'preview' : 'jurisprudence';
+  if (compact && treaties.length > 1) return `${treaties.length} bodies`;
+  if (treaties.length <= 3) return treaties.join(' + ');
+  return `${treaties.length} treaty bodies`;
 }
 
 function mergeFacetItems(...lists) {
@@ -317,7 +327,7 @@ function paintScopeCounts() {
   const m = state.manifest.counts;
   $('#count-gc').textContent = m.gcDocuments;
   $('#count-jur').textContent = state.jur.manifest
-    ? `${state.jur.manifest.counts.documents} · CRPD`
+    ? `${state.jur.manifest.counts.documents} · ${jurTreatyLabel({ compact: true })}`
     : '—';
   $('#count-sp').textContent = `${m.spDocuments} · 4 mandates`;
 }
@@ -334,7 +344,7 @@ function applyUrlState(parsed) {
   });
   $('#scope-meta').textContent = {
     gc:  'Treaty body output · near-hard-law',
-    jur: 'Treaty body jurisprudence · CRPD preview',
+    jur: `Treaty body jurisprudence · ${jurTreatyLabel()} preview`,
     sp:  'Mandate-holder reports · soft law · preview',
     all: 'Combined view',
   }[validScope];
@@ -463,7 +473,7 @@ function paintDocumentsView() {
     for (const c of sortedCommittees(groups.gc)) html.push(renderDocsCommittee(c, groups.gc.get(c), 'gc'));
   }
   if (groups.jur.size && (wantScope === 'all' || wantScope === 'jur')) {
-    html.push('<div class="docs-section-head jur-section-head">Jurisprudence · CRPD cases · preview</div>');
+    html.push(`<div class="docs-section-head jur-section-head">Jurisprudence · ${escape(jurTreatyLabel())} cases · preview</div>`);
     for (const c of sortedCommittees(groups.jur)) html.push(renderDocsCommittee(c, groups.jur.get(c), 'jur'));
   }
   if (groups.sp.size && (wantScope === 'all' || wantScope === 'sp')) {
@@ -755,7 +765,7 @@ function bindUI() {
 
     const meta = {
       gc:  'Treaty body output · near-hard-law',
-      jur: 'Treaty body jurisprudence · CRPD preview',
+      jur: `Treaty body jurisprudence · ${jurTreatyLabel()} preview`,
       sp:  'Mandate-holder reports · soft law · preview',
       all: 'Combined view',
     }[state.scope];
@@ -1065,10 +1075,11 @@ function paintScopeBanner(scope = 'sp') {
   if (scope === 'jur') {
     const docs = state.jur.manifest?.counts?.documents || 0;
     const paras = state.jur.manifest?.counts?.paragraphs || 0;
+    const treatyLabel = jurTreatyLabel();
     const banner = $('#scope-banner');
     banner.innerHTML = `
       <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
-      <span class="folio">JURISPRUDENCE PREVIEW</span>Treaty Body jurisprudence is currently a CRPD pilot: <strong>${docs} cases</strong> and <strong>${paras.toLocaleString()} paragraphs</strong>. The full corpus stays sharded and can move to the VM/API once the pilot UI is settled.
+      <span class="folio">JURISPRUDENCE PREVIEW</span>Treaty Body jurisprudence currently includes ${escape(treatyLabel)}: <strong>${docs} cases</strong> and <strong>${paras.toLocaleString()} paragraphs</strong>. The full corpus stays sharded and can move to the VM/API once the preview UI is settled.
     `;
     $('#banner-dismiss').addEventListener('click', () => { banner.hidden = true; });
     return;
@@ -1519,7 +1530,7 @@ async function ensureScopeLoaded(scope) {
 
 async function loadJurCorpus() {
   $('#results-title').textContent = 'Loading jurisprudence preview…';
-  $('#results-sub').textContent = 'Fetching CRPD case paragraphs.';
+  $('#results-sub').textContent = 'Fetching jurisprudence case paragraphs.';
 
   const shardNames = Object.keys(state.jur.manifest.files || {})
     .filter(name => name.startsWith('shards/'))
@@ -1534,8 +1545,8 @@ async function loadJurCorpus() {
         ...p,
         type: 'jur',
         labels: p.labels || [],
-        committee: doc?.committee || p.treaty || 'CRPD',
-        committees: doc?.committees || (p.treaty ? [p.treaty] : ['CRPD']),
+        committee: doc?.committee || p.treaty || 'Jurisprudence',
+        committees: doc?.committees || (p.treaty ? [p.treaty] : ['Jurisprudence']),
         year: p.year ?? doc?.year ?? null,
         n: p.n ?? p.paragraphId ?? p.idx,
       });
@@ -2112,7 +2123,7 @@ function renderResultGroup(docId, rows, terms) {
 function scopeNotice() {
   const span = document.createElement('span');
   if (state.scope === 'jur') {
-    span.innerHTML = ` <span class="badge badge-jur">PREVIEW</span> · CRPD jurisprudence pilot.`;
+    span.innerHTML = ` <span class="badge badge-jur">PREVIEW</span> · ${escape(jurTreatyLabel())} jurisprudence preview.`;
   } else if (state.scope === 'sp') {
     span.innerHTML = ` <span class="badge badge-preview">PREVIEW</span> · soft-law preview, 4 mandates only.`;
   } else if (state.scope === 'all') {
@@ -2292,7 +2303,7 @@ function paintDossier() {
     : '';
   const abstractHtml = '';
   // Folio kind — for jurisprudence include the treaty so it reads as
-  // "JURISPRUDENCE · CRPD · PREVIEW" and pin a colourful outcome badge
+  // "JURISPRUDENCE · CEDAW · PREVIEW" and pin a colourful outcome badge
   // next to it (e.g. " · VIOLATION FOUND ").
   const dossierKind = isJurDoc
     ? `JURISPRUDENCE · ${escape(doc?.treaty || 'TREATY BODY')} · PREVIEW`
@@ -2323,10 +2334,23 @@ function paintDossier() {
 
   // Country first when it's a case (the "where did this happen" anchor),
   // then outcome (already on a badge), then communication / adoption dates.
+  // v15: S/M/L font-size controls live in the folio strip alongside the
+  // outcome badge. Persisted preference is restored at boot.
+  const currentFont = _lsGet(_LS.dossierFont, 'M');
+  const fontControls = `
+    <div class="dossier-font-controls" role="group" aria-label="Dossier text size">
+      ${['S','M','L'].map(k => `
+        <button type="button" data-font-key="${k}"
+                class="${k === currentFont ? 'is-active' : ''}"
+                title="Text size ${k === 'S' ? '— small' : k === 'L' ? '— large' : '— medium (default)'}">${k}</button>
+      `).join('')}
+    </div>`;
+
   host.innerHTML = `
     <div class="folio garnet dossier-folio-row">
       <span>${dossierKind}</span>
       ${outcomeBadge}
+      ${fontControls}
     </div>
     <h3 class="dossier-title">${escape(doc?.name || para.docId)}</h3>
     <div class="dossier-sig">${escape(doc?.signature || '')}${
@@ -2431,6 +2455,11 @@ function paintDossier() {
   // Reading mode toggle — sync button label with body class.
   $('#reading-toggle')?.addEventListener('click', toggleReadingMode);
   syncReadingModeButton();
+
+  // v15: S/M/L font-size controls.
+  $$('.dossier-font-controls button').forEach(btn => {
+    btn.addEventListener('click', () => applyDossierFontPref(btn.dataset.fontKey));
+  });
 
   // Mark active in list — using data-para-id is stable across re-renders.
   $$('.result').forEach(el => {
@@ -2585,7 +2614,7 @@ function cmdkBuildItems() {
   // 2. Scope flips
   for (const [key, label, sub] of [
     ['gc',  'Scope · General Comments', 'Treaty body interpretive output'],
-    ['jur', 'Scope · Jurisprudence',    'CRPD case-law preview'],
+    ['jur', 'Scope · Jurisprudence',    `${jurTreatyLabel()} case-law preview`],
     ['sp',  'Scope · Special Procedures', 'Mandate-holder reports preview'],
     ['all', 'Scope · All sources',      'Combined view'],
   ]) {
@@ -2806,6 +2835,8 @@ const _LS = {
   notes: 'unhrdb_notes_v1',
   pins:  'unhrdb_pins_v1',
   ss:    'unhrdb_searches_v1',
+  dossierWidth: 'unhrdb_dossier_width_v1',  // v15: user-resized dossier (px, integer)
+  dossierFont:  'unhrdb_dossier_font_v1',   // v15: 'S' | 'M' | 'L'
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
@@ -3073,7 +3104,18 @@ function renderWorkspace() {
   const pins = pinList();
   const ss = ssList();
 
+  const totalItems = bms.length + noteIds.length + pins.length + ss.length;
+  const exportBar = totalItems > 0 ? `
+    <div class="ws-export-bar">
+      <span class="dim mono">${totalItems} item${totalItems === 1 ? '' : 's'} in your workspace</span>
+      <div class="ws-export-actions">
+        <button class="btn btn-ghost" id="ws-export-md" type="button" title="Download a Markdown file with every bookmark, note, pin, and saved search">⬇ Markdown</button>
+        <button class="btn btn-ghost" id="ws-export-json" type="button" title="Download a JSON backup of the entire workspace">⬇ JSON</button>
+      </div>
+    </div>` : '';
+
   host.innerHTML = `
+    ${exportBar}
     <div class="ws-block">
       <h3 class="folio">★ Bookmarks <span class="dim">(${bms.length})</span></h3>
       ${bms.length === 0
@@ -3119,6 +3161,27 @@ function renderWorkspace() {
     b.addEventListener('click', () => { pinToggle(b.dataset.pinId); renderWorkspace(); });
   });
   $('#ws-open-diff')?.addEventListener('click', openDiffModal);
+
+  // v15: every workspace row carries an inline note editor. Autosave on
+  // input (debounced 600 ms) + on blur. Removing the last character clears
+  // the note from storage so it stops appearing in the Notes section.
+  host.querySelectorAll('.ws-row-note').forEach(ta => {
+    let t;
+    const id = ta.dataset.noteFor;
+    const save = () => {
+      noteSet(id, ta.value);
+      paintWorkspaceBadge();
+      // No re-render — that would steal focus mid-typing.
+    };
+    ta.addEventListener('input', () => { clearTimeout(t); t = setTimeout(save, 600); });
+    ta.addEventListener('blur',  () => { clearTimeout(t); save(); });
+  });
+
+  // v15: workspace export. Markdown is human-readable; JSON is a full
+  // backup the user can re-import (we'll add import in a later release).
+  $('#ws-export-md')?.addEventListener('click', () => exportWorkspace('md'));
+  $('#ws-export-json')?.addEventListener('click', () => exportWorkspace('json'));
+
   host.querySelectorAll('.ws-jump').forEach(a => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
@@ -3210,25 +3273,234 @@ function _wsRowFor(paraId, kind) {
   const doc = state.documents.get(docId || '');
   const sig = doc?.signature || doc?.symbol || paraId;
   const where = doc?.country ? ` · ${escape(doc.country)}` : '';
-  const snippet = para
-    ? para.text.slice(0, 180) + (para.text.length > 180 ? '…' : '')
-    : '<em>(paragraph body will load when you open this scope — click to navigate)</em>';
+
+  // v15: snippets are full-text by default. Long ones (≥320 chars) get a
+  // "Show less" toggle (`<details>`) so the workspace stays scannable.
+  const fullText = para?.text || '';
+  const longText = fullText.length >= 320;
+  const snippetHtml = para
+    ? (longText
+        ? `<details class="ws-snippet-fold" open><summary class="ws-snippet-toggle dim">Collapse</summary><p class="ws-row-snippet serif">${escape(fullText)}</p></details>`
+        : `<p class="ws-row-snippet serif">${escape(fullText)}</p>`)
+    : `<p class="ws-row-snippet serif"><em>(paragraph body will load when you open this scope — click ${escape(sig)} to navigate)</em></p>`;
+
   const dataAttr = kind === 'bm' ? `data-bm-id="${escape(paraId)}"`
                  : kind === 'note' ? `data-note-id="${escape(paraId)}"`
                  : kind === 'pin' ? `data-pin-id="${escape(paraId)}"` : '';
-  const noteText = kind === 'note'
-    ? `<p class="ws-note serif">${escape(_lsGet(_LS.notes, {})[paraId] || '')}</p>`
-    : '';
-  return `<li class="ws-row">
+
+  // v15: every row gets an editable note. Lets users add/edit notes directly
+  // from the workspace without having to navigate to the dossier first.
+  const existingNote = _lsGet(_LS.notes, {})[paraId] || '';
+  const noteEditor = `<textarea class="ws-row-note serif" data-note-for="${escape(paraId)}"
+                              placeholder="Add a private note — autosaved to this browser."
+                              rows="2">${escape(existingNote)}</textarea>`;
+
+  return `<li class="ws-row" data-para-id="${escape(paraId)}">
     <div class="ws-row-meta">
       <a class="ws-jump mono" href="#search" data-para-id="${escape(paraId)}">${escape(sig)}</a>
       ${para?.n != null ? `<span class="dim mono">¶${escape(String(para.n))}</span>` : ''}
       <span class="dim">${escape(doc?.nameShort || doc?.name || '')}${where}</span>
     </div>
-    <p class="ws-row-snippet serif">${escape(snippet)}</p>
-    ${noteText}
+    ${snippetHtml}
+    ${noteEditor}
     <button class="ws-row-del" type="button" ${dataAttr} title="Remove">×</button>
   </li>`;
+}
+
+// v15: export the entire personal workspace (bookmarks + notes + pins + saved
+// searches) as either Markdown (human-readable, drop into Obsidian/Word/etc.)
+// or JSON (full structured backup).  Both formats include the source signature
+// + paragraph number + full body text where the paragraph is currently loaded.
+function exportWorkspace(fmt) {
+  const bms = bmList();
+  const notes = _lsGet(_LS.notes, {});
+  const pins = pinList();
+  const ss = ssList();
+  const stamp = new Date().toISOString().slice(0, 10);
+
+  // Build a unified record per paragraph id so the user gets ONE block per
+  // paragraph in markdown, with [bookmark][note][pinned] tags.
+  const ids = new Set([
+    ...bms.map(b => b.paraId),
+    ...Object.keys(notes),
+    ...pins.map(p => p.paraId),
+  ]);
+  const rows = [...ids].map(id => {
+    const para = state.paragraphById.get(id);
+    const doc = state.documents.get(para?.docId || _docIdFromParaId(id) || '');
+    return {
+      paraId: id,
+      sig:    doc?.signature || doc?.symbol || id,
+      title:  doc?.name || doc?.nameShort || '',
+      country: doc?.country || null,
+      year:   doc?.year || null,
+      paragraphN: para?.n ?? null,
+      text:   para?.text || null,
+      labels: para?.labels || [],
+      sourceLink: doc?.link || null,
+      bookmarked: bms.some(b => b.paraId === id),
+      pinned:     pins.some(p => p.paraId === id),
+      note:       notes[id] || null,
+    };
+  });
+
+  let blob, filename, mime;
+  if (fmt === 'json') {
+    const payload = {
+      schemaVersion: 1,
+      exportedAt: new Date().toISOString(),
+      source: 'UN Human Rights Database (Geneva Reporter)',
+      counts: { bookmarks: bms.length, notes: Object.keys(notes).length, pins: pins.length, savedSearches: ss.length },
+      paragraphs: rows,
+      savedSearches: ss,
+    };
+    blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    filename = `unhrdb-workspace-${stamp}.json`;
+    mime = 'application/json';
+  } else {
+    const lines = [];
+    lines.push(`# UN Human Rights Database — Workspace export`);
+    lines.push('');
+    lines.push(`*Exported on ${new Date().toLocaleString('en-GB')}*`);
+    lines.push('');
+    lines.push(`- ${bms.length} bookmark${bms.length === 1 ? '' : 's'}`);
+    lines.push(`- ${Object.keys(notes).length} note${Object.keys(notes).length === 1 ? '' : 's'}`);
+    lines.push(`- ${pins.length} pinned for compare`);
+    lines.push(`- ${ss.length} saved search${ss.length === 1 ? '' : 'es'}`);
+    lines.push('');
+    if (rows.length) {
+      lines.push('## Paragraphs');
+      lines.push('');
+      for (const r of rows) {
+        const tags = [
+          r.bookmarked ? '★ bookmarked' : null,
+          r.pinned ? '📌 pinned' : null,
+          r.note ? '📝 note' : null,
+        ].filter(Boolean).join(' · ');
+        lines.push(`### ${r.sig}${r.paragraphN != null ? ` ¶${r.paragraphN}` : ''}`);
+        if (r.title)  lines.push(`*${r.title}*${r.country ? ` — ${r.country}` : ''}${r.year ? ` (${r.year})` : ''}`);
+        if (tags)     lines.push(`<small>${tags}</small>`);
+        lines.push('');
+        if (r.text)   lines.push(`> ${r.text.replace(/\n+/g, ' ')}`);
+        else          lines.push(`> *(paragraph body not yet loaded — open ${r.sig} in the app to fetch)*`);
+        if (r.note) {
+          lines.push('');
+          lines.push(`**Note:** ${r.note}`);
+        }
+        if (r.sourceLink) {
+          lines.push('');
+          lines.push(`[Open original document](${r.sourceLink})`);
+        }
+        lines.push('');
+        lines.push('---');
+        lines.push('');
+      }
+    }
+    if (ss.length) {
+      lines.push('## Saved searches');
+      lines.push('');
+      for (const s of ss) {
+        const url = (location.origin || '') + (s.url.startsWith('/') ? s.url : '/' + s.url);
+        lines.push(`- **${s.name}** — [reopen](${url}) *(saved ${new Date(s.savedAt).toLocaleDateString('en-GB')})*`);
+      }
+      lines.push('');
+    }
+    blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
+    filename = `unhrdb-workspace-${stamp}.md`;
+    mime = 'text/markdown';
+  }
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 100);
+}
+
+// v15: dossier resize handle. The user drags the slim gutter between the
+// results column and the dossier; we update --col-dossier live and persist
+// the px width to localStorage on mouseup. Double-click resets to 440 px.
+const _DOSSIER_DEFAULT = 440;
+const _DOSSIER_MIN = 280;
+const _DOSSIER_MAX = 900;
+
+function initDossierResizer() {
+  const handle = document.getElementById('dossier-resizer');
+  if (!handle) return;
+
+  // Restore saved width
+  const saved = parseInt(_lsGet(_LS.dossierWidth, _DOSSIER_DEFAULT), 10);
+  if (!Number.isNaN(saved)) {
+    document.documentElement.style.setProperty('--col-dossier', clampDossier(saved) + 'px');
+  }
+
+  // Drag-to-resize. Pointer events handle mouse + touch + pen with one path.
+  let dragging = false;
+  const onMove = (ev) => {
+    if (!dragging) return;
+    const x = ev.clientX ?? (ev.touches && ev.touches[0]?.clientX);
+    if (x == null) return;
+    const newW = clampDossier(window.innerWidth - x);
+    document.documentElement.style.setProperty('--col-dossier', newW + 'px');
+  };
+  const onUp = () => {
+    if (!dragging) return;
+    dragging = false;
+    handle.classList.remove('is-dragging');
+    document.body.classList.remove('is-resizing-dossier');
+    const cur = getComputedStyle(document.documentElement).getPropertyValue('--col-dossier').trim();
+    const px  = parseInt(cur, 10);
+    if (!Number.isNaN(px)) _lsSet(_LS.dossierWidth, px);
+    window.removeEventListener('pointermove', onMove);
+    window.removeEventListener('pointerup', onUp);
+  };
+  handle.addEventListener('pointerdown', (ev) => {
+    ev.preventDefault();
+    dragging = true;
+    handle.classList.add('is-dragging');
+    document.body.classList.add('is-resizing-dossier');
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+  });
+
+  // Double-click to reset.
+  handle.addEventListener('dblclick', () => {
+    document.documentElement.style.setProperty('--col-dossier', _DOSSIER_DEFAULT + 'px');
+    _lsSet(_LS.dossierWidth, _DOSSIER_DEFAULT);
+  });
+
+  // Keyboard: ←/→ nudge by 16 px when handle has focus.
+  handle.addEventListener('keydown', (ev) => {
+    if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
+    ev.preventDefault();
+    const cur = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--col-dossier'), 10) || _DOSSIER_DEFAULT;
+    const next = clampDossier(cur + (ev.key === 'ArrowLeft' ? 16 : -16));
+    document.documentElement.style.setProperty('--col-dossier', next + 'px');
+    _lsSet(_LS.dossierWidth, next);
+  });
+}
+
+function clampDossier(px) {
+  return Math.max(_DOSSIER_MIN, Math.min(_DOSSIER_MAX, Math.round(px)));
+}
+
+// v15: dossier font-size preference. 'S' / 'M' / 'L' map to multipliers
+// 0.9 / 1 / 1.15 applied via the --dossier-font CSS variable.
+const _DOSSIER_FONT_SCALE = { S: 0.9, M: 1, L: 1.15 };
+function applyDossierFontPref(letter) {
+  const m = _DOSSIER_FONT_SCALE[letter] || 1;
+  document.documentElement.style.setProperty('--dossier-font', String(m));
+  _lsSet(_LS.dossierFont, letter);
+  // Visual sync if the dossier is on screen.
+  document.querySelectorAll('.dossier-font-controls button').forEach(b => {
+    b.classList.toggle('is-active', b.dataset.fontKey === letter);
+  });
+}
+function initDossierFontPref() {
+  const saved = _lsGet(_LS.dossierFont, 'M');
+  applyDossierFontPref(saved);
 }
 
 // ─────────── Helpers ───────────

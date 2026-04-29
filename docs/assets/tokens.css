@@ -47,7 +47,8 @@
 
   /* Layout */
   --col-filters:  260px;
-  --col-dossier:  360px;
+  --col-dossier:  440px;          /* user-resizable; saved to localStorage */
+  --dossier-font: 1;              /* multiplier for dossier text — 0.9 / 1 / 1.15 */
 }
 
 [data-theme="dark"] {

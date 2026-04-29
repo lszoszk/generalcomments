@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="uRqyBExQlN44ffcViC03Aa1do01KisztE9Sol47X8Jg" />
 <title>UN Human Rights Database</title>
-<meta name="description" content="Paragraph-level search across UN Treaty Body General Comments, CRPD jurisprudence preview, and Special Procedures reports — for human rights researchers, academics and legal practitioners." />
+<meta name="description" content="Paragraph-level search across UN Treaty Body General Comments, CEDAW/CRPD jurisprudence preview, and Special Procedures reports — for human rights researchers, academics and legal practitioners." />
 <link rel="canonical" href="https://lszoszk.github.io/generalcomments/" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://lszoszk.github.io/generalcomments/" />
 <meta property="og:title" content="UN Human Rights Database" />
-<meta property="og:description" content="Paragraph-level search across General Comments, CRPD jurisprudence preview, and Special Procedures reports." />
+<meta property="og:description" content="Paragraph-level search across General Comments, CEDAW/CRPD jurisprudence preview, and Special Procedures reports." />
 <meta property="og:site_name" content="UN Human Rights Database" />
 
 <!-- Twitter -->
@@ -42,7 +42,7 @@
       "@type": "Dataset",
       "@id": "https://lszoszk.github.io/generalcomments/#dataset",
       "name": "UN Treaty Body General Comments and Special Procedures reports",
-      "description": "Paragraph-level corpus of UN Treaty Body General Comments, CRPD jurisprudence preview and Special Procedures reports, indexed for search.",
+      "description": "Paragraph-level corpus of UN Treaty Body General Comments, CEDAW/CRPD jurisprudence preview and Special Procedures reports, indexed for search.",
       "url": "https://lszoszk.github.io/generalcomments/",
       "creator": [
         { "@type": "Person", "name": "Łukasz Szoszkiewicz" },
@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260429-workspace-fix" />
-<link rel="stylesheet" href="assets/app.css?v=20260429-workspace-fix" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260429-v15-dossier-uxa" />
+<link rel="stylesheet" href="assets/app.css?v=20260429-v15-dossier-uxa" />
 </head>
 <body>
 
@@ -281,7 +281,11 @@
     <div class="result-more" id="result-more"></div>
   </section>
 
-  <!-- RIGHT: document detail -->
+  <!-- RIGHT: drag handle + document detail -->
+  <div class="dossier-resizer" id="dossier-resizer"
+       role="separator" aria-orientation="vertical" aria-label="Resize document panel"
+       title="Drag to resize · double-click to reset"
+       tabindex="0"></div>
   <aside class="dossier" id="dossier">
     <div class="dossier-empty">
       <div class="folio garnet">CASE NOTE</div>
@@ -348,11 +352,11 @@
           <p class="serif dropcap">
             UN Human Rights Database is a paragraph-level search interface for UN human
             rights interpretation. Its primary corpus is Treaty Body General
-            Comments. CRPD jurisprudence and Special Procedures are separate
+            Comments. CEDAW/CRPD jurisprudence and Special Procedures are separate
             expansion streams, clearly marked as previews while those collections
             are still under development. The General Comments corpus remains the
             priority; preview material is loaded lazily on demand.
-            Across the current published build, <strong>29,569 paragraphs</strong> are searchable,
+            Across the current published build, <strong>38,492 paragraphs</strong> are searchable,
             filterable and citable down to their number.
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule);">
@@ -386,8 +390,8 @@
         <div class="about-block">
           <h3 class="folio">Jurisprudence</h3>
           <p class="serif">
-            <strong>88 CRPD jurisprudence documents</strong> are included as a pilot
-            preview. They are published as a separate shard under
+            <strong>256 CEDAW/CRPD jurisprudence documents</strong> are included as a
+            preview. They are published as separate shards under
             <code class="mono">docs/jur/</code>, so the main General Comments
             interface stays lightweight while the full Treaty Body jurisprudence
             corpus is still being prepared.
@@ -545,6 +549,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260429-workspace-fix"></script>
+<script type="module" src="assets/app.js?v=20260429-v15-dossier-uxa"></script>
 </body>
 </html>
