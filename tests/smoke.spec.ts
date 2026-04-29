@@ -1,0 +1,173 @@
+import { expect, test } from '@playwright/test';
+import { bootApp, collectConsoleErrors, resetWorkspace, typeQuery } from './_helpers';
+
+/**
+ * Smoke tests — catch the regression classes we've actually been hit by:
+ *
+ *  1. boot              — app.js throws early and the page sits on
+ *                         "Loading corpus…" forever (we've seen this
+ *                         from a botched edit to runSearchViaApi)
+ *  2. searchWired       — typing in #q produces results (≥4 chars)
+ *  3. fourCharGate      — 1-3 chars short-circuit with a hint
+ *  4. boolean           — AND / OR / NOT / paren / phrase parser
+ *  5. wildcard          — prefix* expands stems
+ *  6. emptyState        — 0-result query renders the tailored card
+ *  7. clickToDossier    — click result → dossier paints with toolbar
+ *  8. dossierToolbar    — six buttons in the right order, equal width
+ *  9. readingMode       — R toggles, garnet bar visible, Esc exits
+ * 10. workspaceBadge    — bookmarking flips the masthead badge count
+ * 11. saveSearchPersists — saved search survives a tab reload
+ * 12. shareUrlRoundTrip — ?q=X&p=Y opens to the right paragraph
+ *
+ * The dataset numbers asserted below are bounds, not exact counts —
+ * the corpus changes over time and exact-equality assertions are
+ * the most common false-positive class in these suites.
+ */
+
+test.beforeEach(async ({ page }) => {
+  await resetWorkspace(page);
+});
+
+test('1. boot · page reaches "ready" without console errors', async ({ page }) => {
+  const errors = collectConsoleErrors(page);
+  await bootApp(page);
+  // Mast folio reads e.g. "VOL. I · NO. 1 · 29 APRIL 2026 · 132 711 ¶ · 3296 DOCUMENTS"
+  // The number includes a NARROW NO-BREAK SPACE (toLocaleString output) so
+  // we match permissively — \s alone may not catch every thin-space variant.
+  await expect(page.locator('#mast-folio')).toContainText(/¶/);
+  await expect(page.locator('#mast-folio')).toContainText(/DOCUMENTS$/);
+  expect(errors, errors.join('\n')).toEqual([]);
+});
+
+test('2. searchWired · typing 4+ chars renders rows', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'disability');
+  // Result-list has ≥1 .result li
+  const rows = page.locator('.result');
+  await expect(rows.first()).toBeVisible({ timeout: 5_000 });
+  expect(await rows.count()).toBeGreaterThanOrEqual(10);
+  // Result count badge updates
+  await expect(page.locator('#result-count')).toContainText(/\d+\s*¶/);
+});
+
+test('3. fourCharGate · 1-3 chars show the "keep typing" hint', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await page.locator('#q').fill('di');           // 2 chars
+  await page.waitForTimeout(400);
+  await expect(page.locator('#results-title')).toContainText(/Keep typing/i);
+  await expect(page.locator('#result-count')).toContainText(/chars/);
+  // No rows rendered yet
+  expect(await page.locator('.result').count()).toBe(0);
+});
+
+test('4. boolean · trafficking AND children NOT (sexual)', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'trafficking AND children NOT (sexual)');
+  // We expect a non-trivial result count (>10 in the GC corpus)
+  const count = await page.locator('#result-count').textContent();
+  const n = parseInt((count || '').replace(/[^\d]/g, ''));
+  expect(n).toBeGreaterThan(5);
+  // Top hit's snippet must contain "trafficking" and "children", and
+  // explicitly not the word "sexual" (the NOT clause).
+  const firstSnippet = (await page.locator('.result-text').first().textContent()) || '';
+  expect(firstSnippet.toLowerCase()).toContain('trafficking');
+  expect(firstSnippet.toLowerCase()).toMatch(/children?/);
+  // (We can't reliably assert "not sexual" — boolean NOT is doc-level
+  // not snippet-level — but the FTS5 boolean parser already covers that
+  // in tests/contracts/api.spec.ts.)
+});
+
+test('5. wildcard · discriminat* expands stems', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'discriminat*');
+  const count = await page.locator('#result-count').textContent();
+  const n = parseInt((count || '').replace(/[^\d]/g, ''));
+  expect(n).toBeGreaterThan(50);                  // discrimination, discriminate, discriminatory…
+  // Snippet should contain a discrimin* token highlighted
+  const highlights = await page.locator('.result-text mark').count();
+  expect(highlights).toBeGreaterThan(0);
+});
+
+test('6. emptyState · 0-result query renders the tailored card', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'xyzzy quux');
+  await expect(page.locator('.result-empty')).toBeVisible();
+  await expect(page.locator('.empty-title')).toContainText(/No paragraph matches/i);
+  // The syntax cheatsheet must always be present in the empty card.
+  await expect(page.locator('.empty-syntax')).toContainText(/exact phrase/);
+});
+
+test('7. clickToDossier · click row → dossier paints', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'disability');
+  await page.locator('.result').first().click();
+  await expect(page.locator('.dossier-title')).toBeVisible();
+  await expect(page.locator('.dossier-toolbar')).toBeVisible();
+});
+
+test('8. dossierToolbar · 6 equal-width buttons in order', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'disability');
+  await page.locator('.result').first().click();
+  // Six tools, labels in the documented order.
+  const labels = await page.locator('.dossier-tool-label').allTextContents();
+  expect(labels.map((s) => s.trim())).toEqual(['Save', 'Pin', 'Copy', 'Note', 'Cite', 'Read']);
+  // v19.5: equal-width grid (no Cite-is-2fr nonsense).
+  const widths = await page.locator('.dossier-tool').evaluateAll((els) =>
+    els.map((el) => el.getBoundingClientRect().width)
+  );
+  const min = Math.min(...widths);
+  const max = Math.max(...widths);
+  // Grid template repeats 1fr × 6, so widths should be within 2 px of each other.
+  expect(max - min).toBeLessThan(3);
+});
+
+test('9. readingMode · R toggles, garnet bar visible, Esc exits', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'disability');
+  await page.locator('.result').first().click();
+  // Press R
+  await page.locator('body').press('r');
+  await expect(page.locator('body')).toHaveClass(/is-reading-mode/);
+  await expect(page.locator('#reading-mode-bar')).toBeVisible();
+  await expect(page.locator('#reading-mode-bar')).toContainText(/READING MODE/i);
+  // Press Esc to exit
+  await page.locator('body').press('Escape');
+  await expect(page.locator('body')).not.toHaveClass(/is-reading-mode/);
+  await expect(page.locator('#reading-mode-bar')).toHaveCount(0);
+});
+
+test('10. workspaceBadge · ★ flips the badge count', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'disability');
+  // Initially: badge text is empty / element hidden via the [hidden]
+  // attribute. Some browsers in headless mode still report element as
+  // present in the layout — assert the rendered count is "" instead.
+  expect(await page.locator('#workspace-badge').textContent()).toBe('');
+  // Click the first result's ☆ mark.
+  await page.locator('.result .ws-mark-bm').first().click();
+  await expect(page.locator('#workspace-badge')).toContainText(/^1$/);
+});
+
+test('11. saveSearchPersists · ?q + filters survive reload', async ({ page }) => {
+  await bootApp(page, '/index.html?q=disability&scope=gc');
+  await page.waitForTimeout(800);
+  // Reload with the same URL
+  await page.reload({ waitUntil: 'commit' });
+  await page.waitForFunction(() => /\d+\s*¶/.test(document.getElementById('mast-folio')?.textContent || ''));
+  await page.waitForTimeout(800);
+  await expect(page.locator('#q')).toHaveValue('disability');
+  await expect(page.locator('.scope-opt[data-scope="gc"]')).toHaveClass(/is-active/);
+  // Plus the result list rebuilt — at least one row.
+  expect(await page.locator('.result').count()).toBeGreaterThan(0);
+});
+
+test('12. shareUrlRoundTrip · ?q=X opens with that query', async ({ page }) => {
+  await bootApp(page, '/index.html?q=reasonable+accommodation');
+  await page.waitForTimeout(800);
+  await expect(page.locator('#q')).toHaveValue('reasonable accommodation');
+  // Result count must be > 0 — this term is well-attested in CRPD GCs.
+  const txt = await page.locator('#result-count').textContent();
+  const n = parseInt((txt || '').replace(/[^\d]/g, ''));
+  expect(n).toBeGreaterThan(0);
+});

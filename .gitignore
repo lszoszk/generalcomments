@@ -136,3 +136,9 @@ __pycache__/
 .DS_Store
 dist/
 docs/_site/
+
+# Playwright test rig (added v19.5)
+node_modules/
+test-results/
+playwright-report/
+.playwright-cache/
