@@ -184,8 +184,54 @@ async function runSearchViaApi(runId) {
   // we only paged in 200 rows.
   state.alsoTry = body.alsoTry || [];
   state.apiTotal = body.total;
+  // v19.2: stash the params + page cursor so the IntersectionObserver
+  // can fetch /api/search?page=N+1 when the user scrolls past 200.
+  state.apiPage = 1;
+  state.apiPageSize = params.page_size;
+  state.apiSearchParams = params;
+  state.apiHasMore = body.total > matched.length;
+  state.apiPageInflight = null;
   paintResults();
   updateDocumentTitle();
+}
+
+// v19.2: pull the next /api/search page and append to state.results.
+// Returns true when new rows landed, false when the server has nothing
+// left or the call failed. Concurrency-safe via state.apiPageInflight —
+// a Promise stash prevents two scroll ticks from double-fetching.
+async function fetchNextApiPage() {
+  if (!state.apiHasMore) return false;
+  if (state.apiPageInflight) return state.apiPageInflight;
+
+  const t0 = performance.now();
+  paintApiBadge(true, '…');
+  const nextPage = (state.apiPage || 1) + 1;
+  const params = { ...state.apiSearchParams, page: nextPage };
+
+  state.apiPageInflight = (async () => {
+    try {
+      const body = await apiFetch('/api/search', params);
+      const more = body.hits.map(h => {
+        const p = adaptApiHit(h);
+        if (!state.paragraphById.has(p.id)) state.paragraphById.set(p.id, p);
+        if (!state.documents.has(p.docId)) state.documents.set(p.docId, adaptApiDoc(h));
+        return { p, score: h.score ?? 0, snippetHtml: h.snippet };
+      });
+      state.results.push(...more);
+      state.apiPage = nextPage;
+      state.apiHasMore = state.results.length < body.total;
+      paintApiBadge(true, Math.round(performance.now() - t0));
+      return more.length > 0;
+    } catch (e) {
+      console.warn('[unhrdb-api] fetchNextApiPage failed:', e.message);
+      state.apiHasMore = false;
+      paintApiBadge(false);
+      return false;
+    } finally {
+      state.apiPageInflight = null;
+    }
+  })();
+  return state.apiPageInflight;
 }
 
 // Map one `hits[i]` entry from the API into a paragraph object that
@@ -2327,6 +2373,8 @@ async function runSearch() {
   state.results = matched;
   state.alsoTry = [];                       // v19: local path doesn't have synonyms
   state.apiTotal = null;                    // local path: state.results.length is the truth
+  state.apiHasMore = false;                 // v19.2: no API pagination on the local path
+  state.apiPageInflight = null;
   sortResults();
   paintResults();
   updateDocumentTitle();
@@ -2628,6 +2676,10 @@ function _buildEmptyState() {
 }
 
 // Append the next page of paragraph results into the list.
+// `state.results` may be shorter than the true match-set when running
+// against the API (200 rows per fetch); the IntersectionObserver tops
+// it up before calling this, so by the time we slice we always have at
+// least RESULT_PAGE_SIZE buffered (or are at the very end).
 function appendNextPage(list, terms) {
   const total = state.results.length;
   const start = state.renderedCount;
@@ -2649,7 +2701,11 @@ function appendNextPage(list, terms) {
 }
 
 function updateResultMore() {
-  const total = state.results.length;
+  // v19.2: the source-of-truth total is state.apiTotal when we're in
+  // API-paginated mode, otherwise state.results.length. Keep the
+  // "End of results" copy honest in both modes.
+  const buffered = state.results.length;
+  const total = state.apiTotal != null ? state.apiTotal : buffered;
   const rendered = state.renderedCount;
   const more = $('#result-more');
   if (!more) return;
@@ -2660,6 +2716,10 @@ function updateResultMore() {
       : '';
   } else if (rendered >= RESULT_HARD_CAP) {
     more.textContent = `Showing first ${RESULT_HARD_CAP.toLocaleString()} of ${total.toLocaleString()} passages — refine your filters to narrow down.`;
+  } else if (state.apiHasMore && rendered >= buffered) {
+    // We've rendered every buffered row and the server has more; the
+    // sentinel is about to fetch.
+    more.textContent = `Loading next page from server… (${rendered.toLocaleString()} of ${total.toLocaleString()})`;
   } else {
     more.textContent = `Showing ${rendered.toLocaleString()} of ${total.toLocaleString()} passages — keep scrolling for more.`;
   }
@@ -2676,19 +2736,103 @@ function _attachResultSentinel(list, terms) {
     sentinel.style.display = 'none';
     return;
   }
-  _resultObserver = new IntersectionObserver((entries) => {
-    for (const e of entries) {
-      if (!e.isIntersecting) continue;
-      const more = appendNextPage(list, terms);
-      if (!more || state.renderedCount >= state.results.length || state.renderedCount >= RESULT_HARD_CAP) {
-        sentinel.style.display = 'none';
-        _resultObserver?.disconnect();
-        _resultObserver = null;
-        break;
+  // The result list lives in a `.results` section that has its own
+  // overflow-y: auto, so the **section** scrolls, not the window.
+  // IntersectionObserver should handle this with a custom root, but
+  // Chrome's implementation misses events when a scrollTop=… jump
+  // happens inside a custom-root container in some cases. A plain
+  // throttled scroll listener does what we need without the corner
+  // cases.
+  const scrollRoot = _findScrollAncestor(list) || window;
+  const isWindow = scrollRoot === window;
+
+  let scheduled = false;
+  let teardown = null;
+  let inflight = false;
+
+  const tick = async () => {
+    scheduled = false;
+    if (inflight) return;
+    if (sentinel.style.display === 'none') return;
+
+    // Distance from the sentinel's top to the bottom of the scroll-root's
+    // viewport. Negative = sentinel below visible area; <= 600 = the
+    // 600px pre-load margin we want to honour.
+    const rootBottom = isWindow ? window.innerHeight : scrollRoot.getBoundingClientRect().bottom;
+    const dist = sentinel.getBoundingClientRect().top - rootBottom;
+    if (dist > 600) return;
+
+    inflight = true;
+    try {
+      // Loop here so that one scroll-to-bottom keeps appending pages
+      // until the sentinel finally exits the 600px pre-load zone.
+      let safety = 0;
+      while (safety++ < 12) {
+        if (sentinel.style.display === 'none') return;
+
+        const buffered = state.results.length - state.renderedCount;
+        if (state.apiHasMore && buffered <= RESULT_PAGE_SIZE) {
+          sentinel.querySelector('.dot')?.classList.add('is-loading');
+          await fetchNextApiPage();
+          sentinel.querySelector('.dot')?.classList.remove('is-loading');
+        }
+
+        const more = appendNextPage(list, terms);
+        const exhausted = !more
+          || state.renderedCount >= RESULT_HARD_CAP
+          || (!state.apiHasMore && state.renderedCount >= state.results.length);
+        if (exhausted) {
+          sentinel.style.display = 'none';
+          teardown?.();
+          return;
+        }
+
+        // Re-measure: did this batch push the sentinel below the
+        // pre-load zone? If so, we're done until the next scroll.
+        const newRootBottom = isWindow ? window.innerHeight : scrollRoot.getBoundingClientRect().bottom;
+        const newDist = sentinel.getBoundingClientRect().top - newRootBottom;
+        if (newDist > 600) break;
       }
+    } finally {
+      inflight = false;
     }
-  }, { rootMargin: '600px 0px' });
-  _resultObserver.observe(sentinel);
+  };
+
+  const onScroll = () => {
+    if (scheduled) return;
+    scheduled = true;
+    setTimeout(tick, 0);                  // microtask-deferred so we coalesce a burst of events
+  };
+
+  scrollRoot.addEventListener('scroll', onScroll, { passive: true });
+  // Also handle the "page already short enough that the sentinel is
+  // visible at boot" case — fire one tick on mount.
+  setTimeout(tick, 0);
+
+  teardown = () => {
+    scrollRoot.removeEventListener('scroll', onScroll);
+    teardown = null;
+  };
+  // Stash on the module-level pointer so a fresh paintResults() can
+  // tear this down before re-attaching.
+  _resultObserver = { disconnect: () => teardown?.() };
+}
+
+// Walk up from `el` to the first ancestor whose computed overflow-y is
+// auto/scroll AND that actually has scrollable content. Returns null
+// (i.e. document viewport root) if nothing matches — that's the right
+// fallback for layouts where the window itself scrolls.
+function _findScrollAncestor(el) {
+  let cur = el?.parentElement;
+  while (cur && cur !== document.body) {
+    const cs = getComputedStyle(cur);
+    if ((cs.overflowY === 'auto' || cs.overflowY === 'scroll') &&
+        cur.scrollHeight > cur.clientHeight) {
+      return cur;
+    }
+    cur = cur.parentElement;
+  }
+  return null;
 }
 
 function resultSubtitle() {

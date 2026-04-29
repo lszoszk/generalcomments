@@ -1101,6 +1101,14 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   display: inline-block;
   animation: pulse 1.2s ease-in-out infinite;
 }
+.result-sentinel .dot.is-loading {
+  /* v19.2: while we're awaiting the next API page, swap the slow pulse
+     for a faster, brighter one so the user sees that something is
+     happening over the network. */
+  animation-duration: 0.6s;
+  background: var(--ink);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
 @keyframes pulse {
   0%, 100% { opacity: 0.3; transform: scale(0.9); }
   50%      { opacity: 1; transform: scale(1.1); }
