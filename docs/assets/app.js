@@ -1092,9 +1092,11 @@ function paintDocReaderBody(doc, paraId) {
         if (btn.dataset.act === 'bm')  { bmToggle(id); paintWorkspaceBadge(); }
         if (btn.dataset.act === 'pin') { pinToggle(id); paintDiffTray(); }
         if (btn.dataset.act === 'cite') {
-          // v18.2: per-paragraph cite popover anchored to this button.
+          // v19.16: one-click cite using the user's preferred format
+          // (set via the docs-drawer <details> Cite menu). Mid-panels
+          // never open a chooser — that's the drawer's job.
           const para = state.paragraphById.get(id);
-          if (para) openInlineCitePopover(btn, para);
+          if (para) copyCiteWithPref(btn, para);
           return;                                  // skip the re-paint
         }
         if (btn.dataset.act === 'flag') {
@@ -1181,11 +1183,11 @@ function paintDocDrawer(doc) {
       <details class="docs-drawer-cite">
         <summary class="btn btn-ghost">”  Cite this paragraph</summary>
         <div class="docs-drawer-cite-pop">
-          ${CITE_FORMATS.map(c => `
-            <button type="button" class="cite-opt" data-cite-key="${c.key}">
+          ${(() => { const pk = getPrefCiteFmt(); return CITE_FORMATS.map(c => `
+            <button type="button" class="cite-opt ${c.key === pk ? 'is-default' : ''}" data-cite-key="${c.key}">
               <span class="cite-fmt">${escape(c.fmt)}</span>
               <span class="cite-name">${escape(c.name)}</span>
-            </button>`).join('')}
+            </button>`).join(''); })()}
         </div>
       </details>
     </div>` : '<div class="docs-drawer-block"><p class="serif dim" style="font-size:12px">Click any paragraph to bookmark, note, pin or cite it.</p></div>';
@@ -1243,6 +1245,10 @@ function paintDocDrawer(doc) {
         if (!fmt) return;
         const cite = fmt.build(doc, para);
         try { navigator.clipboard?.writeText(cite); } catch {}
+        // v19.16: drawer click persists choice as the one-click default.
+        setPrefCiteFmt(fmt.key);
+        body.querySelectorAll('.docs-drawer-cite .cite-opt').forEach(b => b.classList.remove('is-default'));
+        btn.classList.add('is-default');
         const lbl = btn.querySelector('.cite-fmt');
         const orig = lbl.textContent;
         lbl.textContent = '✓';
@@ -3433,19 +3439,31 @@ function renderResult(p, rank, terms, opts = {}) {
     </div>
     <div class="result-aside">
       <div class="folio">Source</div>
-      <div class="sig">${escape(doc?.signature || '—')}</div>
+      <div class="sig">${
+        doc?.link
+          ? `<a class="sig-link" href="${escape(doc.link)}" target="_blank" rel="noopener" title="Open original document on un.org" data-no-dossier="1">${escape(doc?.signature || '—')} <span class="sig-arrow" aria-hidden="true">↗</span></a>`
+          : escape(doc?.signature || '—')
+      }</div>
       <div class="result-marks">
         <button class="ws-mark ws-mark-bm ${isBookmarked ? 'on' : ''}" type="button"
                 data-ws="bm" title="${isBookmarked ? 'Bookmarked' : 'Bookmark'}">${isBookmarked ? '★' : '☆'}</button>
         <button class="ws-mark ws-mark-pin ${isPinned ? 'on' : ''}" type="button"
                 data-ws="pin" title="${pinHas(p.id) ? 'Pinned for compare' : 'Pin for compare'}">📌</button>
         <button class="ws-mark ws-mark-cite" type="button"
-                data-ws="cite" title="Cite this paragraph (APA / Chicago / BibTeX / RIS / URL)">”</button>
+                data-ws="cite" title="Copy citation in your default format (change default in dossier ‟ menu)">”</button>
         ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">📝</span>' : ''}
       </div>
     </div>
   `;
   li.addEventListener('click', (e) => {
+    // v19.16: source-symbol link → opens un.org in a new tab, doesn't
+    // touch the active paragraph. The browser handles the navigation;
+    // we just need to bail before setActive so the dossier doesn't
+    // also flip while the user is just chasing a citation.
+    if (e.target.closest('.sig-link[data-no-dossier="1"]')) {
+      e.stopPropagation();
+      return;
+    }
     // Workspace marks click: don't open the dossier, just toggle the action
     const wsBtn = e.target.closest('.ws-mark[data-ws]');
     if (wsBtn) {
@@ -3453,8 +3471,11 @@ function renderResult(p, rank, terms, opts = {}) {
       if (wsBtn.dataset.ws === 'bm') bmToggle(p.id);
       else if (wsBtn.dataset.ws === 'pin') pinToggle(p.id);
       else if (wsBtn.dataset.ws === 'cite') {
-        // Open the cite quick-pick popover anchored to this button.
-        openInlineCitePopover(wsBtn, p);
+        // v19.16: one-click cite — copies in the user's preferred format
+        // (default 'unfn', set via the dossier-toolbar / docs-drawer
+        // popover). No popover here; mid-panels are for action, not
+        // choice. Tooltip on the button reflects the current pref.
+        copyCiteWithPref(wsBtn, p);
         return;                                  // don't repaint marks
       }
       // Re-paint just this row's marks instead of the whole list
@@ -3502,7 +3523,7 @@ function refreshResultMarks(paraId) {
   aside.innerHTML = `
     <button class="ws-mark ws-mark-bm ${isBM ? 'on' : ''}" type="button" data-ws="bm" title="${isBM ? 'Bookmarked' : 'Bookmark'}">${isBM ? '★' : '☆'}</button>
     <button class="ws-mark ws-mark-pin ${isPin ? 'on' : ''}" type="button" data-ws="pin" title="${isPin ? 'Pinned for compare' : 'Pin for compare'}">📌</button>
-    <button class="ws-mark ws-mark-cite" type="button" data-ws="cite" title="Cite this paragraph (APA / Chicago / BibTeX / RIS / URL)">”</button>
+    <button class="ws-mark ws-mark-cite" type="button" data-ws="cite" title="Copy citation in your default format (change default in dossier ‟ menu)">”</button>
     ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">📝</span>' : ''}
   `;
 }
@@ -3781,7 +3802,11 @@ function paintDossier() {
       ${fontControls}
     </div>
     <h3 class="dossier-title">${escape(doc?.name || para.docId)}</h3>
-    <div class="dossier-sig">${escape(doc?.signature || '')}${
+    <div class="dossier-sig">${
+      doc?.link
+        ? `<a class="dossier-sig-link" href="${escape(doc.link)}" target="_blank" rel="noopener" title="Open original document on un.org">${escape(doc?.signature || '—')} <span class="dossier-sig-arrow" aria-hidden="true">↗</span></a>`
+        : escape(doc?.signature || '')
+    }${
       isJurDoc && doc?.country ? ` · <span class="dossier-country">${escape(doc.country)}</span>` : ''
     }</div>
     ${abstractHtml}
@@ -3851,11 +3876,11 @@ function paintDossier() {
           <span class="dossier-tool-label">Cite</span>
         </button>
         <div class="cite-pop" id="cite-pop" role="menu" hidden>
-          ${CITE_FORMATS.map(c => `
-            <button type="button" class="cite-opt" data-cite-key="${c.key}" role="menuitem">
+          ${(() => { const pk = getPrefCiteFmt(); return CITE_FORMATS.map(c => `
+            <button type="button" class="cite-opt ${c.key === pk ? 'is-default' : ''}" data-cite-key="${c.key}" role="menuitem">
               <span class="cite-fmt">${escape(c.fmt)}</span>
               <span class="cite-name">${escape(c.name)}</span>
-            </button>`).join('')}
+            </button>`).join(''); })()}
         </div>
       </div>
       <button class="dossier-tool" id="ws-flag" type="button"
@@ -3881,12 +3906,10 @@ function paintDossier() {
       <textarea class="dossier-note serif" id="ws-note"
                 placeholder="Private note — autosaved to this browser only."></textarea>
     </div>
-    ${doc?.link ? `
-      <div class="dossier-original">
-        <a class="dossier-original-link" href="${escape(doc.link)}" target="_blank" rel="noopener">
-          ↗ Open original document on un.org
-        </a>
-      </div>` : ''}
+    ${'' /* v19.16: standalone .dossier-original block removed — the
+            same un.org link is now on the .dossier-sig line right under
+            the title (more discoverable, doesn't compete with the note
+            editor for vertical space). */}
     ${isJurDoc ? renderMetaFeedbackStrip(doc?.docId) : ''}
   `;
 
@@ -4023,6 +4046,13 @@ function paintDossier() {
       if (!fmt) return;
       const cite = fmt.build(doc, para);
       try { navigator.clipboard?.writeText(cite); } catch {}
+      // v19.16: drawer click also persists the choice as the default
+      // for one-click cite buttons in the middle panels. Move the ★
+      // marker to the just-clicked option so the user sees the change
+      // without re-rendering the popover.
+      setPrefCiteFmt(fmt.key);
+      $$('#cite-pop .cite-opt').forEach(b => b.classList.remove('is-default'));
+      btn.classList.add('is-default');
       const label = btn.querySelector('.cite-fmt');
       const original = label.textContent;
       label.textContent = '✓ COPIED';
@@ -4243,10 +4273,47 @@ const CITE_FORMATS = [
   { key: 'url',     name: 'Plain URL',       fmt: 'LINK',    build: _citePlainURL },
 ];
 
+// v19.16: user-preferred cite format. Drawer popovers (search-dossier
+// toolbar + docs-drawer <details>) write this every time a format is
+// clicked. Mid-panel buttons (result rows, docs-reader paragraph rows)
+// read it for one-click cite — no popover.
+const DEFAULT_CITE_FMT = 'unfn';
+function getPrefCiteFmt() {
+  const k = _lsGet(_LS.prefCiteFmt, DEFAULT_CITE_FMT);
+  return CITE_FORMATS.some(f => f.key === k) ? k : DEFAULT_CITE_FMT;
+}
+function setPrefCiteFmt(key) {
+  if (CITE_FORMATS.some(f => f.key === key)) _lsSet(_LS.prefCiteFmt, key);
+}
+// One-click: build + copy the citation in the user's preferred format,
+// flash the anchor button, and toast the format name so the user sees
+// what just landed on the clipboard. Returns the format object on
+// success (handy for tests / keyboard handlers).
+function copyCiteWithPref(anchorEl, para) {
+  const doc = state.documents.get(para.docId);
+  const key = getPrefCiteFmt();
+  const fmt = CITE_FORMATS.find(f => f.key === key) || CITE_FORMATS[0];
+  const cite = fmt.build(doc, para);
+  try { navigator.clipboard?.writeText(cite); } catch {}
+  // Visual feedback on the button. We add `is-flash` for ~700 ms, same
+  // class the dossier Copy button uses, so the same CSS rule covers it.
+  if (anchorEl) {
+    anchorEl.classList.add('is-flash');
+    setTimeout(() => anchorEl.classList.remove('is-flash'), 700);
+  }
+  showFeedbackToast({ ok: true, _msg: `${fmt.name} copied`, _mark: '”' });
+  return fmt;
+}
+
 // v18.2: shared inline cite popover. Anchors next to whatever button
 // triggered it (a result-row mark, a docs-reader paragraph row, or
 // the dossier toolbar). Only one open at a time — clicking elsewhere
 // or pressing Esc closes it.
+//
+// v19.16: middle-panel buttons (result rows, docs-reader rows) no
+// longer call this — they use copyCiteWithPref() instead. The
+// drawer chooser still uses this code path so users can pick a
+// format AND set it as default in one click.
 let _inlineCiteCleanup = null;
 function openInlineCitePopover(anchorEl, para) {
   closeInlineCitePopover();
@@ -4254,8 +4321,9 @@ function openInlineCitePopover(anchorEl, para) {
   const pop = document.createElement('div');
   pop.className = 'inline-cite-pop';
   pop.setAttribute('role', 'menu');
+  const prefKey = getPrefCiteFmt();
   pop.innerHTML = CITE_FORMATS.map(c => `
-    <button type="button" class="cite-opt" data-cite-key="${c.key}" role="menuitem">
+    <button type="button" class="cite-opt ${c.key === prefKey ? 'is-default' : ''}" data-cite-key="${c.key}" role="menuitem">
       <span class="cite-fmt">${escape(c.fmt)}</span>
       <span class="cite-name">${escape(c.name)}</span>
     </button>
@@ -4269,7 +4337,8 @@ function openInlineCitePopover(anchorEl, para) {
   pop.style.top  = `${window.scrollY + r.bottom + 6}px`;
   pop.style.left = `${x}px`;
 
-  // Wire each format. After click → write to clipboard, flash, close.
+  // Wire each format. After click → write to clipboard, persist as the
+  // user's default for one-click cite, flash, close.
   pop.querySelectorAll('.cite-opt').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -4277,6 +4346,7 @@ function openInlineCitePopover(anchorEl, para) {
       if (!fmt) return;
       const cite = fmt.build(doc, para);
       try { navigator.clipboard?.writeText(cite); } catch {}
+      setPrefCiteFmt(fmt.key);                     // remember as default
       const lbl = btn.querySelector('.cite-fmt');
       const orig = lbl.textContent;
       lbl.textContent = '✓ COPIED';
@@ -4624,6 +4694,7 @@ const _LS = {
   metaVote:     'unhrdb_meta_vote_v1',      // v19.10: docId → 'ok' | 'bad'
   searchInFn:   'unhrdb_search_in_fn_v1',   // v19.12: '1' | '0' (default '1')
   feedbackDraft:'unhrdb_feedback_draft_v1', // v19.14: {paraId, kind, message, contact, ts}
+  prefCiteFmt:  'unhrdb_pref_cite_fmt_v1',  // v19.16: cite-format key for one-click cite
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }

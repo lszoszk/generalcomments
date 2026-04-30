@@ -1180,6 +1180,24 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   color: var(--ink-3);
   word-break: break-all;
 }
+/* v19.16: per-row source link. Same restraint as the dossier-sig-link —
+   underline-on-hover, tiny ↗ glyph that signals "leaves the app" without
+   shouting. Clicks don't flip the active paragraph (handled in the
+   row's click delegate; see data-no-dossier). */
+.result-aside .sig-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+.result-aside .sig-link:hover {
+  color: var(--garnet);
+  border-bottom-color: var(--garnet);
+}
+.result-aside .sig-arrow {
+  font-size: 9px;
+  opacity: 0.7;
+  margin-left: 1px;
+}
 
 .result-more {
   margin-top: 24px;
@@ -1218,6 +1236,23 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   font-size: 11px;
   color: var(--ink-4);
   margin-top: 4px;
+}
+/* v19.16: the doc-symbol is now the source link itself (replaces the
+   standalone bottom .dossier-original line). Underline-on-hover so it
+   reads as link without making the every-paragraph header visually loud. */
+.dossier-sig-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+.dossier-sig-link:hover {
+  color: var(--garnet);
+  border-bottom-color: var(--garnet);
+}
+.dossier-sig-arrow {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-left: 1px;
 }
 .dossier-grid {
   display: grid;
@@ -2363,6 +2398,15 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   background: oklch(70% 0.18 145);   /* green-ish OK indication */
   color: var(--paper);
 }
+/* v19.16: same flash treatment for the one-click cite buttons in the
+   middle panels (result rows + docs-reader paragraph rows). The user
+   needs explicit feedback that "I just copied something" because there
+   is no popover modal to confirm it. */
+.ws-mark-cite.is-flash,
+.docs-para-cite.is-flash {
+  background: oklch(70% 0.18 145);
+  color: var(--paper);
+}
 .dossier-tool-icon {
   font-size: 16px;
   line-height: 1;
@@ -2449,20 +2493,32 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 }
 .ws-mark-cite:hover { background: var(--garnet); color: var(--paper); }
 
-/* Citation popover — anchored to the cite button, doesn't push layout. */
+/* Citation popover — anchored to the cite button, doesn't push layout.
+   v19.16: opens UPWARD (`bottom` instead of `top`) so the 9-format list
+   doesn't get clipped by the viewport bottom — the toolbar sits near
+   the dossier's bottom edge, with the blockquote giving plenty of
+   headroom above. Drop shadow flipped to point downward. */
 .cite-pop {
   position: absolute;
   right: 0;
-  top: calc(100% + 6px);
+  bottom: calc(100% + 6px);
   z-index: 30;
   min-width: 240px;
   background: var(--paper);
   border: 1px solid var(--ink);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.14);
   display: flex;
   flex-direction: column;
 }
 .cite-pop[hidden] { display: none; }
+/* Star-marker on the user's currently preferred format. Tiny, monochrome
+   so it doesn't compete with the format label. */
+.cite-opt.is-default .cite-fmt::after {
+  content: ' ★';
+  color: var(--garnet);
+  font-size: 9px;
+  letter-spacing: 0;
+}
 
 /* Note editor — opens in a row below the toolbar, full width. */
 .dossier-note-wrap {
