@@ -99,30 +99,37 @@ test('A2. fallbackOnError · 500 from /api/stats → no infinite loop', async ({
 });
 
 test('A3. searchRoutes · scope=jur GETs /api/search', async ({ page }) => {
-  let searchHit = false;
   await page.route('**/unhrdb-api/api/stats', (route) =>
     route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
   );
-  await page.route('**/unhrdb-api/api/search**', (route) => {
-    searchHit = true;
-    route.fulfill({ status: 200, body: JSON.stringify(mockSearchPage({ total: 50, page: 1, pageSize: 200 })) });
-  });
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(mockSearchPage({ total: 50, page: 1, pageSize: 200 })) })
+  );
+  // v19.11 added a 1.5 s ping-grace window inside runSearch which, on top
+  // of corpus load + FlexSearch build, easily exceeds a fixed
+  // waitForTimeout in CI. Wait on the actual request landing instead.
+  const searchReq = page.waitForRequest(
+    (req) => /unhrdb-api\/api\/search/.test(req.url()),
+    { timeout: 15_000 },
+  );
   await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
-  await page.waitForTimeout(1500);
-  expect(searchHit).toBe(true);
+  await searchReq;
 });
 
 test('A4. searchUsesBodyParam · chip filter sends body=, not lumped 3-way (v19.4)', async ({ page }) => {
-  let capturedUrl = '';
   await page.route('**/unhrdb-api/api/stats', (route) =>
     route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
   );
-  await page.route('**/unhrdb-api/api/search**', (route) => {
-    capturedUrl = route.request().url();
-    route.fulfill({ status: 200, body: JSON.stringify(mockSearchPage({ total: 50, page: 1, pageSize: 200 })) });
-  });
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(mockSearchPage({ total: 50, page: 1, pageSize: 200 })) })
+  );
+  const searchReq = page.waitForRequest(
+    (req) => /unhrdb-api\/api\/search/.test(req.url()),
+    { timeout: 15_000 },
+  );
   await bootApp(page, '/index.html?api=1&scope=jur&q=disability&tb=CRPD');
-  await page.waitForTimeout(1500);
+  const req = await searchReq;
+  const capturedUrl = req.url();
   // Must contain body=CRPD and NOT contain treaties=CRPD&committees=CRPD&mandates=CRPD
   expect(capturedUrl).toContain('body=CRPD');
   expect(capturedUrl).not.toMatch(/committees=[^&]*CRPD[^&]*&treaties=[^&]*CRPD[^&]*&mandates=[^&]*CRPD/);
@@ -168,10 +175,19 @@ test('A7. paginateAcrossApi · second-page fetch on scroll', async ({ page }) =>
       body: JSON.stringify(mockSearchPage({ total: 600, page: p, pageSize: 200 })),
     });
   });
+  // Wait for the page=1 request before kicking off scrolls — otherwise the
+  // first scroll fires before the initial request lands and the scroll
+  // handler bails because the result list is empty.
+  const firstReq = page.waitForRequest(
+    (req) => /unhrdb-api\/api\/search/.test(req.url()),
+    { timeout: 15_000 },
+  );
   await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
-  await page.waitForTimeout(1200);
-  // Scroll the .results section to trigger pagination.
-  for (let i = 0; i < 12; i++) {
+  await firstReq;
+  // Scroll the .results section to trigger pagination — keep scrolling
+  // until the page=2 request shows up, with a hard cap so a regression
+  // doesn't run forever.
+  for (let i = 0; i < 20 && !pages.includes(2); i++) {
     await page.evaluate(() => {
       const sec = document.querySelector('.results') as HTMLElement | null;
       if (sec) {
@@ -179,7 +195,7 @@ test('A7. paginateAcrossApi · second-page fetch on scroll', async ({ page }) =>
         sec.dispatchEvent(new Event('scroll', { bubbles: true }));
       }
     });
-    await page.waitForTimeout(700);
+    await page.waitForTimeout(500);
   }
   expect(pages).toContain(1);
   expect(pages).toContain(2);

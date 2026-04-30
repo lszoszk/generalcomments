@@ -749,8 +749,12 @@ function applyUrlState(parsed) {
     state.resultGroup = parsed.resultGroup;
     state.resultGroupUserSet = true;     // explicit URL choice — keep on scope switch
   } else {
-    // v19.10: default to "documents" on jurisprudence, "paragraphs" elsewhere.
-    state.resultGroup = state.scope === 'jur' ? 'documents' : 'paragraphs';
+    // v19.10 introduced a JUR-specific default of "documents"; reverted in
+    // v19.11.1 because the new shorter result-rendering already addresses
+    // the original motivation (overwhelming first-page paint), and the
+    // special case made JUR feel inconsistent with GC and SP. Now every
+    // scope defaults to "paragraphs" unless the URL specifies otherwise.
+    state.resultGroup = 'paragraphs';
   }
   syncResultsControls();
 
