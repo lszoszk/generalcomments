@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260430-v19-17-syntax-help" />
-<link rel="stylesheet" href="assets/app.css?v=20260430-v19-17-syntax-help" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260430-v19-18-popover-fit" />
+<link rel="stylesheet" href="assets/app.css?v=20260430-v19-18-popover-fit" />
 </head>
 <body>
 
@@ -169,14 +169,10 @@
     </button>
   </div>
   <div class="searchbar-hint">
-    <span class="folio">Operators</span>
-    <span class="op" title="Exact phrase">"exact phrase"</span>
-    <span class="op" title="Both terms must appear (implicit when separated by space)">A AND B</span>
-    <span class="op" title="Either term">A OR B</span>
-    <span class="op" title="Exclude term — also: -term">NOT term</span>
-    <span class="op" title="Group with parentheses">( … )</span>
-    <span class="op" title="Prefix wildcard — biases, biased, biasing">prefix*</span>
-    <span class="op-sep" aria-hidden="true">·</span>
+    <!-- v19.18: operator chips removed — the ? popover next to #q now
+         covers them with prose + clickable examples + tip. The strip
+         here is reserved for actionable controls (#fn-toggle) and
+         quick-test examples (.suggest). -->
     <button id="fn-toggle" class="op-toggle is-on" type="button"
             aria-pressed="true"
             title="Include footnote text in search. Click to toggle off and search paragraph bodies only.">
@@ -654,6 +650,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260430-v19-17-syntax-help"></script>
+<script type="module" src="assets/app.js?v=20260430-v19-18-popover-fit"></script>
 </body>
 </html>

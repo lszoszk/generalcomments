@@ -4438,16 +4438,26 @@ function openQueryHelpPopover(triggerEl) {
   `;
   document.body.appendChild(pop);
 
-  // Position: align right edge to the trigger, drop below by 6 px.
-  // If that would clip past the viewport bottom, flip above the trigger.
+  // Position: align right edge to the trigger. Prefer dropping BELOW —
+  // the search bar lives near the viewport top, so above-the-input
+  // almost always clips against page chrome. Only flip above when the
+  // space there is genuinely larger. Either way, cap the popover's
+  // height to whatever fits and let it scroll internally — that way
+  // the user can always read the whole content even on short windows.
+  const SAFE_GAP = 12;
   const r = triggerEl.getBoundingClientRect();
   const popW = pop.offsetWidth;
-  const popH = pop.offsetHeight;
+  const maxBelow = window.innerHeight - r.bottom - SAFE_GAP;
+  const maxAbove = r.top - SAFE_GAP;
+  const below = maxBelow >= 240 || maxBelow >= maxAbove;
+  const maxH = Math.max(160, below ? maxBelow : maxAbove);
+  pop.style.maxHeight = `${maxH}px`;
+  pop.style.overflowY = 'auto';
+  const popH = Math.min(pop.offsetHeight, maxH);
   const x = Math.max(8, Math.min(window.innerWidth - popW - 8, r.right - popW));
-  let y = window.scrollY + r.bottom + 6;
-  if (r.bottom + popH + 12 > window.innerHeight) {
-    y = window.scrollY + r.top - popH - 6;        // flip above when clipping
-  }
+  const y = below
+    ? window.scrollY + r.bottom + 6
+    : window.scrollY + r.top - popH - 6;
   pop.style.left = `${x}px`;
   pop.style.top  = `${y}px`;
 

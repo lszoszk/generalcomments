@@ -184,6 +184,19 @@
   color: var(--ink-4);
   font-style: italic;
 }
+/* v19.18: suppress WebKit/Chromium's built-in <input type="search"> clear
+   icon. We render our own .q-clear-btn for cross-browser consistency
+   (Firefox doesn't show the native one), so the native + custom were
+   stacking as two visible × glyphs. Affects Safari + Chrome + mobile. */
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+.search-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
 #result-count {
   flex-shrink: 0;
   font-feature-settings: "tnum";
