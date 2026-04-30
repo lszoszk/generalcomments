@@ -14,12 +14,12 @@ import { bootApp, resetWorkspace, seedFootnotes, typeQuery } from './_helpers';
  *   F6. zeroRegressions      — paragraph without footnotes renders identical HTML
  */
 
-// v19.8 P3: CCPR GC32 → GC35 → GC38 retarget. Each round of footnote
-// ingestion makes a previously-clean doc dirty. Current pick is CEDAW
-// GR38 (122 ¶, no footnotes after P3). Update again whenever the next
-// batch annotates this doc.
+// v19.13: footnote source data was reverted (PDF extractor bugs — see
+// docs/_audit/FOOTNOTES_MIGRATION_PLAN.md "v19.13 reset"). CAT/OP/GC/1
+// is the only doc with real footnotes for now; pick a quiet doc with
+// no footnotes for synthetic seeding so assertions stay stable.
+// CEDAW GR38 (122 ¶, no footnotes after revert) is a good target.
 const SEED_DOC_ID = 'cedaw-c-gc-38';
-// CEDAW GR38 ¶33 — emergency / health crises / increased vulnerability.
 const SEED_PARA_ID = 'cedaw-c-gc-38-0033';
 
 test.beforeEach(async ({ page }) => {

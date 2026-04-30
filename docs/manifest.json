@@ -1,6 +1,6 @@
 {
   "version": "20260430",
-  "builtAt": "2026-04-30T07:03:10+00:00",
+  "builtAt": "2026-04-30T12:25:30+00:00",
   "counts": {
     "documents": 360,
     "paragraphs": 25902,
@@ -17,15 +17,15 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "0a9913140f42a455",
-      "bytes": 26297320
+      "sha": "6fa5867dba231102",
+      "bytes": 25419399
     },
     "documents.json": {
-      "sha": "15be9346156d0ad7",
+      "sha": "afc424a264f66701",
       "bytes": 332082
     },
     "facets.json": {
-      "sha": "e74aed60eb07f378",
+      "sha": "f5cbb0ed70c3dc31",
       "bytes": 6951
     }
   },

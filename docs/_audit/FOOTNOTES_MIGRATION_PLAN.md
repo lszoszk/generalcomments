@@ -1,19 +1,32 @@
 # Footnote restoration — migration plan
-_(v19.8 · 2026‑04‑30 · last batch: P2)_
+_(v19.8 infrastructure · v19.13 data reset · 2026‑04‑30)_
 
 This document records how the footnote infrastructure was wired in v19.8 and
-the work still pending to backfill footnote DATA across the existing 186-doc
-corpus.
+the data work that's pending to land footnotes across the 186-doc GC corpus.
+
+## v19.13 reset
+
+The P0/P2/P3 batches landed real footnote data on 43 of 187 docs but the PDF
+extractor had several layout-handling bugs that produced visible regressions
+(paragraph 3 of CCPR GC35 starting with "freedom of action" instead of
+"Liberty of person…", footnote 7 of CEDAW GR30/Add.1 ¶23 anchored at the
+wrong word, "(E)" page-language tags leaking into prose, etc.). Rather than
+keep iterating on the extractor while shipping buggy data, **v19.13 reverts
+all PDF-derived footnote data while keeping the entire infrastructure in
+place**: the schema, renderer, popover, search-toggle, and tests all remain.
+Only one doc — CAT/OP/GC/1 (DOCX-extracted, no extractor bug) — currently
+ships with real footnotes.
+
+OHCHR's own HTML versions of these documents publish without footnotes, so
+this is a quality improvement, not a parity requirement.
 
 ## Status snapshot
 
-| Batch | Date | Docs | Footnotes | Cumulative |
-|---|---|---|---|---|
-| Infra + CAT/OP/GC/1 | 2026-04-30 | 1 | 63 | 1 doc · 63 fn |
-| P0 | 2026-04-30 | 5 | 339 | 6 docs · 565 fn |
-| **P2 (mass pass)** | **2026-04-30** | **37** | **1,762** | **43 docs · 2,327 fn** |
-
-23 % of GCs (43 / 187) now carry footnotes. **Pending: 144 docs, broken down below.**
+| Batch | Status | Docs | Footnotes |
+|---|---|---|---|
+| Infra + CAT/OP/GC/1 | shipped (DOCX, clean) | 1 | 63 |
+| P0/P2/P3 (PDF) | reverted v19.13 — sources restored to pre-batch state | 0 | 0 |
+| **Total live** | | **1** | **63** |
 
 ## What v19.8 ships
 
@@ -26,17 +39,106 @@ corpus.
 | FlexSearch index | Second field `fnText` indexes concatenated footnote bodies; AST verifier extended to consider footnote text. | Yes — `fnText: ''` for paragraphs without footnotes. |
 | Tests | 7 specs (`tests/footnotes.spec.ts`) + 1 real-data smoke (CAT/OP/GC/1). | n/a |
 
-## Done (real footnote data)
+## Done (real footnote data, live in v19.13)
 
-- **CAT/OP/GC/1** ingested from the OHCHR DOCX with all 63 footnotes preserved
-  (`extract_docx_with_footnotes.py` → `json_data_gc_labeled/Annotated_CAT_OP_GC1_art4.json`).
+- **CAT/OP/GC/1** — DOCX-extracted, 63 footnotes, no extractor bugs.
+
+## Reverted in v19.13
+
+The PDF-extracted batches are reverted because of layout-handling bugs the
+extractor doesn't yet handle reliably. **Sources restored from
+`*.bak.v19_8_p0` / `*.bak.v19_8_p2` / `*.bak.v19_8_p3_ccpr` backups** (kept
+on disk so we can re-extract later without losing anything). Affected:
+
 - **P0 batch** (5 docs): CMW/C/GC/6, E/C.12/GC/27, CMW/C/GC/7+CERD/C/GC/38,
-  CMW/C/GC/8+CERD/C/GC/39, CEDAW/C/GC/30/Add.1 — extracted from local PDFs via
-  the new `extract_pdf_with_footnotes.py`.
-- **P2 mass pass** (37 docs with footnotes, 64 successful extractions overall):
-  bulk run of `p2_batch_runner.py` against the 160 standalone GC candidates.
-  Picked the format (DOCX vs PDF) whose paragraph count was closest to the
-  existing source. Coverage spans every committee.
+  CMW/C/GC/8+CERD/C/GC/39, CEDAW/C/GC/30/Add.1
+- **P2 mass pass** (37 docs): CCPR GC32/34/36/37, CEDAW GR32–GR40, CRC GC13/19/20/21/24/25/26,
+  CRPD GC3–GC8, CESCR GC21–GC25/GC27, CMW GC1/GC5, CERD GR35–GR37, CED GC1, CAT GC3/GC4
+- **P3 CCPR batch** (3 docs from `~/Desktop/AI/HURIDOCS/Footnotes-CCPR/`): CCPR GC33, GC35, GC36
+
+Total reverted: **45 docs · ~2,700 footnotes** (currently absent from corpus).
+
+## How to resume this work later
+
+The extractor (`/Users/lszoszk/Desktop/GC_Database/extract_pdf_with_footnotes.py`)
+has all the right pieces but several layout edge cases that break para-by-para
+text fidelity. To resume cleanly, here's the punch list of known bugs and the
+fixes already implemented vs still needed:
+
+### Known bug classes (priority-ordered)
+
+1. **`(E)` / `(F)` page-language tag leaks** ✅ Mostly handled. Extended
+   `CHROME_RE` to match `GE.NN-NNNNN [optional " (X)"]`, plus
+   `CHROME_LINE_RE` drops standalone `*`, `(E)`, etc. lines. Some leaks remain
+   (e.g. doubled date stamps like `200225 200225` from production headers).
+
+2. **Paragraph numbers mis-anchored to wrong line** ✅ Handled via:
+   - **Cluster-based y bucketing** (CLUSTER_GAP=4 px) — replaces the naive
+     `round(y)` approach. Spans whose y is within 4 px of the cluster anchor
+     stay on the same logical line. Fixes the GC35-style "Liberty of person"
+     bug (paragraph 3 starting one line too early).
+   - **Stitch split paragraph numbers** — when a digit-only span at left
+     margin is followed within 4 px by a period-only span at left margin,
+     merge them into "N." in a single span. Fixes CERD GR35 ¶29.
+   - **Pending-number preservation** — when a standalone "N." line doesn't
+     match the monotonic sequence, restore it as continuation prose so we
+     don't lose mid-paragraph "paragraph 18." citations (CRC GC21 ¶47).
+
+3. **Footnote markers in wrong place mid-paragraph** ✅ Handled by cluster
+   bucketing. Verified on CCPR GC35 ¶3 (`[[fn:1]]` after "freedom of action.")
+   and CEDAW Add.1 ¶23 (`[[fn:7]]` after "violence,").
+
+4. **Words jammed without spaces** ("dressand legal") ✅ Handled by **x-gap
+   inter-span join**: spans within a line are space-joined only when the gap
+   between previous span's right edge and next span's left edge exceeds 2 pt.
+   Avoids spuriously splitting words like "consider" + "s" → "consider s".
+
+5. **Hyphen line-wrap rejoin** ("non- repetition") ✅ Handled by **smart
+   commit join**: when a continuation line starts after a part ending with
+   `-`, no space is inserted. Produces "non-repetition" not "non- repetition".
+
+6. **Section headers leak into previous paragraph** ⚠️ NOT resolved. ~43
+   paragraphs corpus-wide get a trailing section title. Filtering by bold
+   flag (`flags & 16`) drops legitimate body content (CEDAW GR36 ¶81 chapeau
+   is bold). Possible fixes (not implemented):
+   - Detect "short bold span between two regular paragraphs" via vertical
+     spacing (gap > 1.4× line height before AND after).
+   - Use a per-doc font-name heuristic (some docs use a distinct heading
+     font that the body text doesn't).
+   - Manual list of known-header strings to filter (brittle).
+
+7. **Font-size detection on legacy docs** ✅ Adaptive: body, fn_body,
+   fn_marker_inline, fn_marker_section sizes inferred per doc. Wider ranges
+   handle 9.4 pt body (CCPR GC36) and 8 pt inline markers (CCPR GC33).
+
+### Suggested resumption sprint shape
+
+When you come back to this:
+
+1. **Fix bug class 6** (section header leak). Pick the vertical-spacing
+   heuristic — it's the most general. ~2 h.
+2. **Re-run** `python3 p3_reextract_all.py --dry-run` to see current state.
+   Sample 5 docs in detail, confirm no regressions vs current OLD source.
+3. **Persist** by dropping `--dry-run`. Backups land at
+   `*.bak.v19_13_resume`. Rebuild corpus.
+4. **Test** the 11 footnote specs + full chromium suite.
+5. **Spot-check live UI** on ~5 high-traffic docs (CCPR GC32, CRC GC14,
+   CEDAW GR35, etc.) before pushing.
+
+### Per-doc test paragraphs to spot-check
+
+| Doc | ¶ | What to verify |
+|---|---|---|
+| CCPR GC35 | 3 | Starts with "Liberty of person concerns…" |
+| CCPR GC35 | 63 | No stray "1." mid-paragraph |
+| CEDAW Add.1 | 23 | `[[fn:7]]` lands after "violence," not "in conflict" |
+| CAT GC3 | 1 | No "ar" / "ticle" mid-word break |
+| CAT GC3 | 6 | "non-repetition" not "non- repetition" |
+| CCPR GC34 | 12 | "dress and legal" not "dressand legal" |
+| CERD GR35 | 29 | Starts with "Freedom of expression…" (not lost to splitter) |
+| CEDAW GR36 | 81 | Full chapeau visible (bold body, not dropped) |
+
+These are the cases the v19.8–v19.12 iteration uncovered.
 
 ## P3 backlog (144 docs)
 
