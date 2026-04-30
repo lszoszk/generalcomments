@@ -37,10 +37,10 @@ test('D1. saveToggles · bookmark on/off survives reload', async ({ page }) => {
 });
 
 test('D2. pinTwoForCompare · 2 pins surface the diff tray', async ({ page }) => {
+  // v19.15 removed the dossier-toolbar #ws-pin; pinning lives only on
+  // the per-result-row 📌 affordance in the mid-panel now.
   await openDossier(page);
-  // Pin the active paragraph
-  await page.locator('#ws-pin').click();
-  // Pin a second paragraph from the result list (.ws-mark-pin)
+  await page.locator('.result .ws-mark-pin').nth(0).click();
   await page.locator('.result .ws-mark-pin').nth(1).click();
   await expect(page.locator('.diff-tray')).toBeVisible();
   await expect(page.locator('.diff-tray')).toContainText(/2\/2|PINNED/);
@@ -83,32 +83,34 @@ test.fixme('D4. noteEditor · opens, focuses, autosaves on blur', async ({ page 
   await expect(page.locator('#ws-note')).toHaveValue('Test note from playwright suite');
 });
 
-test('D5. citeMenu · click → 5 formats → APA copies', async ({ page, browserName }) => {
+test('D5. citeMenu · 9 formats incl. legal-IL ones → UN footnote copies', async ({ page, browserName }) => {
   test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
   await openDossier(page);
   await page.locator('#cite-trigger').click();
   await expect(page.locator('#cite-pop')).toBeVisible();
-  // Five known format keys
+  // v19.15: legal formats first, academic/tooling formats after.
   const formats = await page.locator('#cite-pop .cite-opt').evaluateAll((els) =>
     els.map((e) => (e as HTMLElement).dataset.citeKey)
   );
-  expect(formats).toEqual(['apa', 'chicago', 'bibtex', 'ris', 'url']);
-  // APA click → copy + flash
-  await page.locator('#cite-pop .cite-opt[data-cite-key="apa"]').click();
-  await expect(page.locator('#cite-pop .cite-opt[data-cite-key="apa"] .cite-fmt')).toContainText(/COPIED/);
+  expect(formats).toEqual(['unfn', 'oscola', 'bluebook', 'mcgill', 'apa', 'chicago', 'bibtex', 'ris', 'url']);
+  // Click UN treaty-body footnote → copy + flash
+  await page.locator('#cite-pop .cite-opt[data-cite-key="unfn"]').click();
+  await expect(page.locator('#cite-pop .cite-opt[data-cite-key="unfn"] .cite-fmt')).toContainText(/COPIED/);
   const text = await page.evaluate(() => navigator.clipboard.readText());
-  expect(text).toMatch(/UN Doc\.|UN Human Rights Database/);
+  // Shape: "<Long committee>, General Comment No. N, ¶ M, U.N. Doc. <symbol> (YYYY)."
+  expect(text).toMatch(/U\.N\. Doc\. /);
+  expect(text).toMatch(/Committee/);
 });
 
-test('D6. citeOpenStyle · open-state inverts colour, no garnet bold (v19.5)', async ({ page }) => {
+test('D6. citeOpenStyle · open-state inverts colour, equal-width grid', async ({ page }) => {
+  // v19.15: Pin removed (-1), Link added (+1) — toolbar still 7 cols.
+  // Order: Save · Copy · Note · Cite · Flag · Link · Read.
   await openDossier(page);
-  // Toolbar grid should be 6 equal columns (no `2fr` nonsense any more).
   const cols = await page.locator('.dossier-toolbar').evaluate((el) => {
     return getComputedStyle(el).gridTemplateColumns;
   });
-  // Six tokens, all approximately equal.
   const widths = cols.split(/\s+/).map((w) => parseFloat(w));
-  expect(widths.length).toBe(6);
+  expect(widths.length).toBe(7);
   expect(Math.max(...widths) - Math.min(...widths)).toBeLessThan(2);
   // Cite cell has no special background or border before opening.
   const closed = await page.locator('#cite-menu').evaluate((el) => {
@@ -121,12 +123,33 @@ test('D6. citeOpenStyle · open-state inverts colour, no garnet bold (v19.5)', a
   await expect(page.locator('#cite-menu')).toHaveClass(/is-open/);
 });
 
-test('D7. readingModeFromBtn · 📖 toggle works (independent of R key)', async ({ page }) => {
+test('D7. readNavigatesToFullDoc · Read jumps to #documents/<docId>?p=…', async ({ page }) => {
+  // v19.15: Read no longer toggles a styling overlay. It navigates to
+  // the documents view with the active paragraph centered + highlighted
+  // (the existing R4 deep-link path).
   await openDossier(page);
-  await page.locator('#reading-toggle').click();
-  await expect(page.locator('body')).toHaveClass(/is-reading-mode/);
-  await expect(page.locator('#reading-mode-bar')).toBeVisible();
-  // Click bar to exit (the user's main complaint mode in v15)
-  await page.locator('#reading-mode-bar').click();
-  await expect(page.locator('body')).not.toHaveClass(/is-reading-mode/);
+  // Capture the active paragraph's id from the URL ?p= param.
+  const beforeUrl = new URL(page.url());
+  const paraId = beforeUrl.searchParams.get('p');
+  expect(paraId).toBeTruthy();
+  await page.locator('#ws-read').click();
+  // After click: hash starts with #documents/<docId>, ?p= preserved.
+  await page.waitForFunction(() => window.location.hash.startsWith('#documents/'));
+  expect(page.url()).toContain(`#documents/${paraId!.replace(/-\d{4}$/, '')}`);
+  expect(page.url()).toContain(`p=${paraId}`);
+  // Full document reader is now visible with the matching ¶ active.
+  await expect(page.locator('.docs-reader-para.is-active')).toHaveAttribute('data-para-id', paraId!);
+});
+
+test('D8. permalink · Link button copies a deep URL containing ?p=…', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
+  await openDossier(page);
+  const paraId = new URL(page.url()).searchParams.get('p');
+  await page.locator('#ws-permalink').click();
+  // Toast confirmation
+  await expect(page.locator('#feedback-toast.is-shown')).toBeVisible({ timeout: 3_000 });
+  await expect(page.locator('#feedback-toast')).toContainText(/Permalink copied/);
+  // Clipboard carries the URL with ?p=
+  const text = await page.evaluate(() => navigator.clipboard.readText());
+  expect(text).toContain(`p=${paraId}`);
 });

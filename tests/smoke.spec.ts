@@ -13,8 +13,8 @@ import { bootApp, collectConsoleErrors, resetWorkspace, typeQuery } from './_hel
  *  5. wildcard          — prefix* expands stems
  *  6. emptyState        — 0-result query renders the tailored card
  *  7. clickToDossier    — click result → dossier paints with toolbar
- *  8. dossierToolbar    — six buttons in the right order, equal width
- *  9. readingMode       — R toggles, garnet bar visible, Esc exits
+ *  8. dossierToolbar    — 7 buttons in the right order, equal width
+ *  9. openInDocFromR    — R opens the active ¶ in the full-doc reader
  * 10. workspaceBadge    — bookmarking flips the masthead badge count
  * 11. saveSearchPersists — saved search survives a tab reload
  * 12. shareUrlRoundTrip — ?q=X&p=Y opens to the right paragraph
@@ -106,14 +106,15 @@ test('7. clickToDossier · click row → dossier paints', async ({ page }) => {
 });
 
 test('8. dossierToolbar · 7 equal-width buttons in order', async ({ page }) => {
-  // v19.14 added the ⚐ Flag button; v19.5 had 6 tools, the order is now:
-  // Save · Pin · Copy · Note · Cite · Flag · Read
+  // v19.15: Pin removed (now mid-panel only); Link button added.
+  // v19.14 added the ⚐ Flag button. Order is now:
+  // Save · Copy · Note · Cite · Flag · Link · Read
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
   const labels = await page.locator('.dossier-tool-label').allTextContents();
   expect(labels.map((s) => s.trim())).toEqual([
-    'Save', 'Pin', 'Copy', 'Note', 'Cite', 'Flag', 'Read',
+    'Save', 'Copy', 'Note', 'Cite', 'Flag', 'Link', 'Read',
   ]);
   const widths = await page.locator('.dossier-tool').evaluateAll((els) =>
     els.map((el) => el.getBoundingClientRect().width)
@@ -124,19 +125,22 @@ test('8. dossierToolbar · 7 equal-width buttons in order', async ({ page }) => 
   expect(max - min).toBeLessThan(3);
 });
 
-test('9. readingMode · R toggles, garnet bar visible, Esc exits', async ({ page }) => {
+test('9. openInDocFromR · R navigates to full-document reader', async ({ page }) => {
+  // v19.15: the styling-only "reading mode" overlay was retired. Pressing
+  // R (or clicking 📖 Read) now opens the active paragraph inside the
+  // full document reader (the existing #documents/<docId>?p=… deep
+  // link). The R5 docs-reader test verifies the underlying landing page;
+  // this one verifies the keyboard shortcut wiring from the dossier.
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
-  // Press R
+  const paraId = new URL(page.url()).searchParams.get('p');
+  expect(paraId).toBeTruthy();
   await page.locator('body').press('r');
-  await expect(page.locator('body')).toHaveClass(/is-reading-mode/);
-  await expect(page.locator('#reading-mode-bar')).toBeVisible();
-  await expect(page.locator('#reading-mode-bar')).toContainText(/READING MODE/i);
-  // Press Esc to exit
-  await page.locator('body').press('Escape');
-  await expect(page.locator('body')).not.toHaveClass(/is-reading-mode/);
-  await expect(page.locator('#reading-mode-bar')).toHaveCount(0);
+  await page.waitForFunction(() => window.location.hash.startsWith('#documents/'));
+  expect(page.url()).toContain(`p=${paraId}`);
+  await expect(page.locator('.docs-reader-para.is-active'))
+    .toHaveAttribute('data-para-id', paraId!);
 });
 
 test('10. workspaceBadge · ★ flips the badge count', async ({ page }) => {

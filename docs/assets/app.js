@@ -1062,7 +1062,8 @@ function paintDocReaderBody(doc, paraId) {
           <span class="mono">${marker}</span>
           <button class="docs-para-bm ${isBm ? 'on' : ''}" data-act="bm" title="${isBm ? 'Remove bookmark' : 'Bookmark this paragraph'}">${isBm ? '★' : '☆'}</button>
           <button class="docs-para-pin ${isPin ? 'on' : ''}" data-act="pin" title="${isPin ? 'Unpin' : 'Pin for compare'}">📌</button>
-          <button class="docs-para-cite" data-act="cite" title="Cite this paragraph (APA / Chicago / BibTeX / RIS / URL)">”</button>
+          <button class="docs-para-cite" data-act="cite" title="Cite this paragraph">”</button>
+          <button class="docs-para-link" data-act="link" title="Copy permalink to this paragraph">🔗</button>
           <button class="docs-para-flag" data-act="flag" title="Report a problem with this paragraph">⚐</button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">📝</span>' : ''}
         </div>
@@ -1102,6 +1103,12 @@ function paintDocReaderBody(doc, paraId) {
           // issues without losing their place in the doc.
           const para = state.paragraphById.get(id);
           openReportModal({ paraId: id, docId: para?.docId });
+          return;
+        }
+        if (btn.dataset.act === 'link') {
+          // v19.15: copy a permalink to clipboard.
+          const para = state.paragraphById.get(id);
+          if (para) copyPermalink(para);
           return;
         }
         // Re-paint just this paragraph row + drawer.
@@ -1168,7 +1175,6 @@ function paintDocDrawer(doc) {
       <div class="docs-drawer-active mono">${escape(para.id)}${para.n != null ? ` · ¶${escape(String(para.n))}` : ''}</div>
       <div class="docs-drawer-actions">
         <button class="btn btn-ghost" id="dw-bm" type="button">${bmHas(para.id) ? '★ Bookmarked' : '☆ Bookmark'}</button>
-        <button class="btn btn-ghost" id="dw-pin" type="button">${pinHas(para.id) ? '📌 Pinned' : '📌 Pin'}</button>
       </div>
       <textarea class="docs-drawer-note serif" id="dw-note" rows="3"
                 placeholder="Private note — autosaved per paragraph.">${escape(noteGet(para.id) || '')}</textarea>
@@ -1217,7 +1223,9 @@ function paintDocDrawer(doc) {
 
   if (para) {
     $('#dw-bm')?.addEventListener('click', () => { bmToggle(para.id); paintDocReaderBody(doc, para.id); paintDocDrawer(doc); paintWorkspaceBadge(); });
-    $('#dw-pin')?.addEventListener('click', () => { pinToggle(para.id); paintDocReaderBody(doc, para.id); paintDocDrawer(doc); paintDiffTray(); });
+    // v19.15: dw-pin removed — pinning lives on the per-¶ row in the
+    // reader body (📌 button next to ☆/cite/flag), so the drawer doesn't
+    // duplicate the affordance.
 
     const noteTa = $('#dw-note');
     if (noteTa) {
@@ -3784,7 +3792,7 @@ function paintDossier() {
           <div class="dossier-dp"><div class="folio">Communication</div><div class="v">${doc?.communicationYear ?? doc?.year ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">Treaty body</div><div class="v">${escape(doc?.committees?.join(' · ') || doc?.treaty || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
-          ${para.section ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Section of this paragraph</div><div class="v">${escape(para.section)}</div></div>` : ''}
+          ${'' /* v19.15: section moved to a breadcrumb above the quote — see dossier-breadcrumb. */}
           ${submittedByHtml}
           ${subjectMatterHtml}
           ${articlesInvokedHtml}
@@ -3804,6 +3812,13 @@ function paintDossier() {
           ${isSpDoc && doc?.presented ? `<div class="dossier-dp"><div class="folio">Presented</div><div class="v">${escape(doc.presented)}</div></div>` : ''}
         `}
     </div>
+    ${para.section ? `<div class="dossier-breadcrumb folio" aria-label="Section">${
+       String(para.section).split(/\s*[›>/]\s*/).filter(Boolean).map((seg, i, arr) =>
+         `<span class="dossier-bc-seg">${escape(seg)}</span>${
+           i < arr.length - 1 ? '<span class="dossier-bc-sep">›</span>' : ''
+         }`
+       ).join('')
+     }</div>` : ''}
     <blockquote>
       <span class="pn">¶ ${para.n ?? para.idx}</span>
       <p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p>
@@ -3814,12 +3829,6 @@ function paintDossier() {
               aria-label="${bmHas(para.id) ? 'Remove bookmark' : 'Bookmark'}">
         <span class="dossier-tool-icon">${bmHas(para.id) ? '★' : '☆'}</span>
         <span class="dossier-tool-label">${bmHas(para.id) ? 'Saved' : 'Save'}</span>
-      </button>
-      <button class="dossier-tool ${pinHas(para.id) ? 'on' : ''}" id="ws-pin" type="button"
-              title="${pinHas(para.id) ? 'Unpin' : 'Pin for compare (max 2)'}"
-              aria-label="${pinHas(para.id) ? 'Unpin' : 'Pin for compare'}">
-        <span class="dossier-tool-icon">📌</span>
-        <span class="dossier-tool-label">${pinHas(para.id) ? 'Pinned' : 'Pin'}</span>
       </button>
       <button class="dossier-tool" id="ws-copy" type="button"
               title="Copy paragraph text to clipboard"
@@ -3855,11 +3864,17 @@ function paintDossier() {
         <span class="dossier-tool-icon">⚐</span>
         <span class="dossier-tool-label">Flag</span>
       </button>
-      <button class="dossier-tool reading-mode-btn" id="reading-toggle" type="button"
-              title="Reading mode (R) — single-column reading view"
-              aria-label="Reading mode (R)">
+      <button class="dossier-tool" id="ws-permalink" type="button"
+              title="Copy permalink to this paragraph"
+              aria-label="Copy permalink">
+        <span class="dossier-tool-icon">🔗</span>
+        <span class="dossier-tool-label">Link</span>
+      </button>
+      <button class="dossier-tool" id="ws-read" type="button"
+              title="Open this paragraph in the full document (R)"
+              aria-label="Open in document (R)">
         <span class="dossier-tool-icon">📖</span>
-        <span class="dossier-tool-label reading-mode-label">Read</span>
+        <span class="dossier-tool-label">Read</span>
       </button>
     </div>
     <div class="dossier-note-wrap" id="ws-note-wrap" ${noteHas(para.id) ? '' : 'hidden'}>
@@ -3892,7 +3907,8 @@ function paintDossier() {
   // B1 Bookmark toggle
   $('#ws-bookmark')?.addEventListener('click', () => { bmToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
   // B3 Pin toggle
-  $('#ws-pin')?.addEventListener('click', () => { pinToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
+  // v19.15: ws-pin removed from dossier toolbar — the per-result-row 📌
+  // handles this without making the dossier feel cluttered.
 
   // v18: Copy paragraph text. Strips highlight markup, leaves a clean
   // verbatim paragraph the user can paste into their draft.
@@ -4017,9 +4033,12 @@ function paintDossier() {
     });
   });
 
-  // Reading mode toggle — sync button label with body class.
-  $('#reading-toggle')?.addEventListener('click', toggleReadingMode);
-  syncReadingModeButton();
+  // v19.15: Read button → open the paragraph in its full document context.
+  // Replaces the old `is-reading-mode` overlay (which just hid chrome
+  // around the same paragraph the user already had on screen).
+  $('#ws-read')?.addEventListener('click', () => openInDocReader(para));
+  // v19.15: Permalink button → copy a deep-link to clipboard.
+  $('#ws-permalink')?.addEventListener('click', () => copyPermalink(para));
 
   // v15: S/M/L font-size controls.
   $$('.dossier-font-controls button').forEach(btn => {
@@ -4059,6 +4078,112 @@ function _citeBaseFields(doc, para) {
   const paraNum = para?.n ?? para?.idx ?? '';
   const shareUrl = location.origin + location.pathname + '?p=' + encodeURIComponent(para?.id || '');
   return { year, date, author, symbol, title, country, paraNum, shareUrl };
+}
+
+// ─────────── Legal citation formats (v19.15) ───────────
+//
+// Long-form committee names per Bluebook T.10 / OSCOLA-style usage.
+const _CITE_LONG_COMMITTEE = {
+  CCPR:    'Human Rights Committee',
+  CESCR:   'Committee on Economic, Social and Cultural Rights',
+  CERD:    'Committee on the Elimination of Racial Discrimination',
+  CEDAW:   'Committee on the Elimination of Discrimination against Women',
+  CAT:     'Committee against Torture',
+  'CAT-OP':'Subcommittee on Prevention of Torture',
+  CRC:     'Committee on the Rights of the Child',
+  CMW:     'Committee on Migrant Workers',
+  CRPD:    'Committee on the Rights of Persons with Disabilities',
+  CED:     'Committee on Enforced Disappearances',
+};
+function _committeeLong(doc) {
+  const c = doc?.committee || (doc?.committees && doc.committees[0]) || 'CCPR';
+  return _CITE_LONG_COMMITTEE[c] || c;
+}
+function _gcLongRef(doc) {
+  const ish = (doc?.committee === 'CEDAW' || doc?.committee === 'CERD');
+  const kind = ish ? 'General Recommendation' : 'General Comment';
+  const m = /(?:GC|GR)\s*(\d+)/i.exec(doc?.nameShort || '')
+        || /(?:gc|gr)-?(\d+)/i.exec(doc?.docId || '');
+  if (m) return `${kind} No. ${m[1]}`;
+  return doc?.signature || '';
+}
+
+// (1) UN treaty-body footnote — what every IL paper actually uses.
+// "Human Rights Committee, General Comment No. 32, ¶ 33, U.N. Doc. CCPR/C/GC/32 (2007)."
+function _citeUnFootnote(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  const long = _committeeLong(doc);
+  const gc = _gcLongRef(doc);
+  const para_ = f.paraNum !== '' ? `, ¶ ${f.paraNum}` : '';
+  const ref = gc ? `${long}, ${gc}${para_}` : `${long}${para_}`;
+  const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
+  const yr = f.year ? ` (${f.year})` : '';
+  return `${ref}${symbol}${yr}.`;
+}
+
+// (2) OSCOLA — Oxford Standard for Citation of Legal Authorities.
+// "UNHRC, General Comment 32: Article 14 (23 August 2007) UN Doc CCPR/C/GC/32, para 33."
+function _citeOSCOLA(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  const c = doc?.committee || 'UN';
+  const short = c === 'CCPR' ? 'UNHRC' : c;
+  const gcRaw = _gcLongRef(doc);
+  // OSCOLA strips "No." → "General Comment 32"
+  const gc = gcRaw.replace(/^General (Comment|Recommendation) No\.\s*/, 'General $1 ');
+  const title = doc?.nameShort && doc.nameShort.includes(':')
+    ? doc.nameShort.split(':').slice(1).join(':').trim()
+    : '';
+  const titlePart = title ? `: ${title}` : '';
+  const ref = gc ? `${gc}${titlePart}` : (doc?.name || f.symbol);
+  const dateStr = doc?.adoptionDate || f.year || '';
+  const datePart = dateStr ? ` (${dateStr})` : '';
+  const docPart = f.symbol ? ` UN Doc ${f.symbol}` : '';
+  const para_ = f.paraNum !== '' ? `, para ${f.paraNum}` : '';
+  return `${short}, ${ref}${datePart}${docPart}${para_}.`;
+}
+
+// (3) Bluebook — US legal citation, T.16 style for treaty-body GCs.
+// "U.N. Hum. Rts. Comm., Gen. Cmt. No. 32, ¶ 33, U.N. Doc. CCPR/C/GC/32 (2007)."
+const _CITE_BLUEBOOK_SHORT = {
+  CCPR:    'U.N. Hum. Rts. Comm.',
+  CESCR:   'Comm. on Econ., Soc. & Cultural Rts.',
+  CERD:    'Comm. on the Elimination of Racial Discrimination',
+  CEDAW:   'Comm. on the Elimination of Discrimination Against Women',
+  CAT:     'Comm. Against Torture',
+  'CAT-OP':'Subcomm. on Prevention of Torture',
+  CRC:     'Comm. on the Rights of the Child',
+  CMW:     'Comm. on Migrant Workers',
+  CRPD:    'Comm. on the Rights of Persons with Disabilities',
+  CED:     'Comm. on Enforced Disappearances',
+};
+function _citeBluebook(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  const c = doc?.committee || 'CCPR';
+  const short = _CITE_BLUEBOOK_SHORT[c] || c;
+  const ish = (c === 'CEDAW' || c === 'CERD');
+  const m = /(?:GC|GR)\s*(\d+)/i.exec(doc?.nameShort || '')
+        || /(?:gc|gr)-?(\d+)/i.exec(doc?.docId || '');
+  const ref = m
+    ? `${ish ? 'Gen. Recommendation' : 'Gen. Cmt.'} No. ${m[1]}`
+    : f.title;
+  const para_ = f.paraNum !== '' ? `, ¶ ${f.paraNum}` : '';
+  const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
+  const yr = f.year ? ` (${f.year})` : '';
+  return `${short}, ${ref}${para_}${symbol}${yr}.`;
+}
+
+// (4) McGill — Canadian Guide to Uniform Legal Citation, 9th ed.
+// "UNHR Committee, General Comment No 32 (23 August 2007), UN Doc CCPR/C/GC/32 at para 33."
+function _citeMcGill(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  const long = _committeeLong(doc).replace('Human Rights Committee', 'UNHR Committee');
+  // McGill: drop the period after No (Canadian style).
+  const gc = (_gcLongRef(doc) || '').replace(/^General (Comment|Recommendation) No\./, 'General $1 No');
+  const dateStr = doc?.adoptionDate || f.year || '';
+  const datePart = dateStr ? ` (${dateStr})` : '';
+  const docPart = f.symbol ? `, UN Doc ${f.symbol}` : '';
+  const para_ = f.paraNum !== '' ? ` at para ${f.paraNum}` : '';
+  return `${long}, ${gc}${datePart}${docPart}${para_}.`;
 }
 
 function _citeAPA(doc, para) {
@@ -4103,11 +4228,19 @@ function _citePlainURL(doc, para) {
 }
 
 const CITE_FORMATS = [
-  { key: 'apa',     name: 'APA (7th ed.)', fmt: 'APA',     build: _citeAPA },
-  { key: 'chicago', name: 'Chicago notes', fmt: 'CHICAGO', build: _citeChicago },
-  { key: 'bibtex',  name: 'BibTeX',         fmt: '.BIB',    build: _citeBibTeX },
-  { key: 'ris',     name: 'RIS / EndNote',  fmt: '.RIS',    build: _citeRIS },
-  { key: 'url',     name: 'Plain URL',      fmt: 'LINK',    build: _citePlainURL },
+  // v19.15: legal-citation formats first — what HR lawyers actually
+  // paste into briefs. Default order surfaces the UN treaty-body
+  // footnote (the dominant IL convention) at the top.
+  { key: 'unfn',    name: 'UN treaty-body footnote', fmt: 'UN', build: _citeUnFootnote },
+  { key: 'oscola',  name: 'OSCOLA (UK / Commonwealth)', fmt: 'OSCOLA', build: _citeOSCOLA },
+  { key: 'bluebook',name: 'Bluebook (US)', fmt: 'BLUEBOOK', build: _citeBluebook },
+  { key: 'mcgill',  name: 'McGill (Canada)', fmt: 'MCGILL', build: _citeMcGill },
+  // Academic + tooling formats kept for cross-discipline use.
+  { key: 'apa',     name: 'APA (7th ed.)',  fmt: 'APA',     build: _citeAPA },
+  { key: 'chicago', name: 'Chicago notes',  fmt: 'CHICAGO', build: _citeChicago },
+  { key: 'bibtex',  name: 'BibTeX',          fmt: '.BIB',    build: _citeBibTeX },
+  { key: 'ris',     name: 'RIS / EndNote',   fmt: '.RIS',    build: _citeRIS },
+  { key: 'url',     name: 'Plain URL',       fmt: 'LINK',    build: _citePlainURL },
 ];
 
 // v18.2: shared inline cite popover. Anchors next to whatever button
@@ -4169,73 +4302,54 @@ function closeInlineCitePopover() {
   if (_inlineCiteCleanup) _inlineCiteCleanup();
 }
 
-// ─────────── Reading mode (A3) ───────────
+// ─────────── Read → Open in document (v19.15) ───────────
 //
-// Toggles a single class on <body>. CSS does the work — collapses the
-// filter rail, expands the dossier pane, bumps font size on result text
-// + dossier blockquote. Press R, Esc, or click the prominent EXIT bar.
-function toggleReadingMode(forceState) {
-  const want = typeof forceState === 'boolean' ? forceState
-                                                : !document.body.classList.contains('is-reading-mode');
-  document.body.classList.toggle('is-reading-mode', want);
-  ensureReadingModeBar(want);
-  syncReadingModeButton();
-}
-function syncReadingModeButton() {
-  const btn = $('#reading-toggle');
-  if (!btn) return;
-  const on = document.body.classList.contains('is-reading-mode');
-  btn.classList.toggle('is-active', on);
-  const lbl = btn.querySelector('.reading-mode-label');
-  if (lbl) lbl.textContent = on ? 'Exit' : 'Read';      // v18: fits the 6-button toolbar
+// Replaces the v16 reading-mode overlay. Lawyers reading a paragraph in
+// the dossier almost always need to verify the surrounding context —
+// what comes before/after, what section heading it sits under, whether
+// adjacent paragraphs caveat or strengthen the position. Toggling a
+// styling class never gave them that. Now Read navigates to the full
+// document with the paragraph centered + highlighted (uses the existing
+// `#documents/<docId>?p=<paraId>` deep-link path that R4 verifies).
+function openInDocReader(para) {
+  if (!para) return;
+  const u = new URL(window.location);
+  u.searchParams.set('p', para.id);
+  // Clear search-only params that don't apply to the documents view.
+  // Keep `q` so back-navigation restores the result list cleanly.
+  u.hash = `#documents/${para.docId}`;
+  window.location.assign(u.toString());
 }
 
-// v16: a fixed-top "you are in reading mode" bar with explicit instructions
-// for exit. Appears only when reading mode is on; click anywhere on it (or
-// the X) closes the mode. Eliminates the lost-user "I can't get out" issue.
-function ensureReadingModeBar(on) {
-  let bar = document.getElementById('reading-mode-bar');
-  if (!on) {
-    bar?.remove();
-    return;
-  }
-  if (bar) return;
-  bar = document.createElement('div');
-  bar.id = 'reading-mode-bar';
-  bar.className = 'reading-mode-bar';
-  bar.setAttribute('role', 'button');
-  bar.setAttribute('tabindex', '0');
-  bar.innerHTML = `
-    <span class="reading-mode-bar-icon">📖</span>
-    <span class="reading-mode-bar-label">Reading mode</span>
-    <span class="reading-mode-bar-hint">Press <kbd>Esc</kbd> or <kbd>R</kbd> · or click here to exit</span>
-    <span class="reading-mode-bar-close" aria-hidden="true">×</span>`;
-  bar.addEventListener('click', () => toggleReadingMode(false));
-  bar.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleReadingMode(false); }
-  });
-  document.body.appendChild(bar);
+// v19.15: copy a stable deep-link to the active paragraph. Uses
+// query-param `?p=<paraId>` which the boot path resolves to
+// `state.activeId` and scrolls to. Not view-bound — works whether
+// the recipient lands in search or documents.
+function copyPermalink(para) {
+  if (!para) return;
+  const u = new URL(window.location);
+  u.searchParams.set('p', para.id);
+  u.hash = u.hash.startsWith('#documents/') ? u.hash : '';
+  navigator.clipboard?.writeText(u.toString())
+    .then(() => showFeedbackToast({ ok: true, _msg: 'Permalink copied', _mark: '🔗' }))
+    .catch(() => showFeedbackToast({ ok: true, _msg: 'Copy failed — select the URL manually', _mark: '⚠' }));
 }
 
-// Bind R + Esc globally — but only when the user isn't typing into a
-// search input or content-editable surface.
+// Bind R globally — only when the user isn't typing. Esc no longer
+// has a reading-mode handler (the overlay is gone) but other UI
+// elements still own the Escape semantics they always did.
 document.addEventListener('keydown', (e) => {
   const tag = (e.target?.tagName || '').toLowerCase();
   const inEditable = tag === 'input' || tag === 'textarea' || e.target?.isContentEditable;
-
-  // Esc exits reading mode (only when on, and not while typing).
-  if (e.key === 'Escape' && document.body.classList.contains('is-reading-mode') && !inEditable) {
-    e.preventDefault();
-    toggleReadingMode(false);
-    return;
-  }
-
-  // R toggles.
   if (e.key !== 'r' && e.key !== 'R') return;
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   if (inEditable) return;
+  // Resolve the active paragraph the same way the dossier does.
+  const id = state.activeId || state.docsActiveParaId;
+  const para = id ? state.paragraphById.get(id) : null;
+  if (!para) return;
   e.preventDefault();
-  toggleReadingMode();
+  openInDocReader(para);
 });
 
 // ─────────── Command palette ⌘K (A2) ───────────
@@ -4267,8 +4381,12 @@ function cmdkBuildItems() {
   // 1. Quick actions (always at top)
   items.push({ kind: 'action', label: 'Toggle dark mode', sub: 'Light ↔ dark theme', icon: '◐',
                run: () => $('#theme-toggle')?.click() });
-  items.push({ kind: 'action', label: 'Reading mode', sub: 'Press R · expands the dossier', icon: '📖',
-               run: () => toggleReadingMode() });
+  items.push({ kind: 'action', label: 'Open in full document', sub: 'Press R · jumps to the active paragraph in context', icon: '📖',
+               run: () => {
+                 const id = state.activeId || state.docsActiveParaId;
+                 const para = id ? state.paragraphById.get(id) : null;
+                 if (para) openInDocReader(para);
+               } });
   items.push({ kind: 'action', label: 'Reset all filters', sub: 'Clear committees, labels, year range…', icon: '⌫',
                run: () => $('#reset-filters')?.click() });
   items.push({ kind: 'action', label: 'About', sub: 'Methodology, citation, contact', icon: 'ⓘ',
@@ -4820,6 +4938,10 @@ async function submitReport(ev) {
 // v19.14: lightweight toast notifying the user that their report
 // landed, with a deep link to the GitHub issue when the backend
 // surfaces one. Auto-dismisses after 6s, manually closeable.
+// Renders a small toast bottom-right. Used by feedback submit (with
+// optional GitHub-issue link) AND by lightweight per-action confirmations
+// (permalink copied, etc.) — pass `_msg` to override the default text +
+// `_mark` to override the icon.
 function showFeedbackToast(reply) {
   let toast = document.getElementById('feedback-toast');
   if (!toast) {
@@ -4833,16 +4955,20 @@ function showFeedbackToast(reply) {
   const issueLink = reply && reply.issueUrl
     ? ` · <a href="${escape(reply.issueUrl)}" target="_blank" rel="noopener">issue #${escape(String(reply.issueNumber))}</a>`
     : '';
+  const msg = reply && reply._msg
+    ? escape(reply._msg)
+    : `Thanks — report filed${issueLink}.`;
+  const mark = reply && reply._mark ? escape(reply._mark) : '⚐';
   toast.innerHTML = `
-    <span class="feedback-toast-mark">⚐</span>
-    <span class="feedback-toast-msg">Thanks — report filed${issueLink}.</span>
+    <span class="feedback-toast-mark">${mark}</span>
+    <span class="feedback-toast-msg">${msg}</span>
     <button type="button" class="feedback-toast-close" aria-label="Dismiss">×</button>
   `;
   toast.classList.add('is-shown');
   toast.querySelector('.feedback-toast-close')?.addEventListener('click', () => {
     toast.classList.remove('is-shown');
   }, { once: true });
-  setTimeout(() => toast.classList.remove('is-shown'), 6000);
+  setTimeout(() => toast.classList.remove('is-shown'), 4000);
 }
 
 // ─────────── B4 Year histogram ───────────

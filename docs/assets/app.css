@@ -2319,12 +2319,14 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 /* v18 unified toolbar ─────────────────────────────────────────── */
 .dossier-toolbar {
   display: grid;
-  /* v19.5: equal-width 6-column grid. The v18.2 attempt to highlight
-     Cite by giving it a wider cell + a special border + bold garnet
-     text made it visually loud and inconsistent with the rest of the
-     toolbar. Equal cells let the row breathe; Cite still gets a
-     distinct hover/open treatment in CSS below. */
-  grid-template-columns: repeat(6, 1fr);
+  /* v19.5: equal-width grid. The v18.2 attempt to highlight Cite by
+     giving it a wider cell + a special border + bold garnet text made
+     it visually loud and inconsistent with the rest of the toolbar.
+     Equal cells let the row breathe; Cite still gets a distinct
+     hover/open treatment in CSS below.
+     v19.14: bumped 6→7 (Flag).
+     v19.15: still 7 (Pin out, Link in). */
+  grid-template-columns: repeat(7, 1fr);
   gap: 4px;
   margin-top: 20px;
   padding: 8px;

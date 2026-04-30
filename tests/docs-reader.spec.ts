@@ -71,7 +71,7 @@ test('R5. drawerOutline · outline + workspace tools render', async ({ page, vie
   // .first() because strict mode would fail on three matches.
   await expect(page.locator('.docs-drawer-block').first()).toBeVisible();
   await expect(page.locator('#dw-bm')).toBeVisible();
-  await expect(page.locator('#dw-pin')).toBeVisible();
+  // v19.15: #dw-pin removed — pin lives only on the per-row 📌 affordance now.
   await expect(page.locator('#dw-note')).toBeVisible();
 });
 
