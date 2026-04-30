@@ -16,6 +16,9 @@ const state = {
   facets: null,
   baseFacets: null,
   searchIndex: null,            // FlexSearch.Document instance, populated after boot
+  // v19.11: ternary online status. null = ping not yet returned, true = API
+  // reachable, false = unreachable (local fallback engaged for the session).
+  apiOnline: null,
   view: 'search',               // 'search' | 'documents' | 'about' — driven by URL hash
   docsScope: 'all',             // documents-view scope: 'all' | 'gc' | 'jur' | 'sp'
   docsFilter: '',               // documents-view free-text filter
@@ -55,27 +58,39 @@ const state = {
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
 const JUR_BASE = './jur/';    // jurisprudence pilot: metadata eager, paragraphs lazy
 
-// v19: server-side search API. Opt-in via `?api=1` in the URL or
-// `localStorage.unhrdb_useApi = '1'`. When active, JUR-scope and
-// "all" searches route through https://150.254.115.204/unhrdb-api/
-// instead of the local FlexSearch index — bypasses the 30 MB shard
-// download for users on slow connections. GC + SP stay local because
-// they fit in the static corpus.json.
+// v19.11: server-side search API is the DEFAULT for jurisprudence and
+// scope=all. The local FlexSearch path stays as the offline fallback —
+// it kicks in automatically if the boot-time ping fails or any API call
+// errors. Opt-out is via `?api=0` in the URL or
+// `localStorage.unhrdb_useApi = '0'`. The corpus is now ~125 MB of JUR
+// shards plus the FlexSearch build, so downloading + indexing it in
+// every browser was a 60-second tax — letting the SQLite FTS5 server
+// handle JUR brings first-search latency under 200 ms while the local
+// path remains a graceful degradation.
 const API_BASE = 'https://150.254.115.204/unhrdb-api';
+const API_TIMEOUT_MS = 5_000;     // fail fast if the VM is unreachable
 function apiEnabled() {
   try {
-    if (new URLSearchParams(location.search).get('api') === '1') return true;
-    if (localStorage.getItem('unhrdb_useApi') === '1') return true;
+    // Explicit per-session opt-out (URL wins over localStorage).
+    const urlFlag = new URLSearchParams(location.search).get('api');
+    if (urlFlag === '0') return false;
+    if (urlFlag === '1') return true;        // legacy explicit-opt-in still honored
+    const lsFlag = localStorage.getItem('unhrdb_useApi');
+    if (lsFlag === '0') return false;
+    // No explicit signal → default ON.
   } catch {}
-  return false;
+  return true;
 }
 function apiActive(scope) {
-  // Hybrid mode (per VM_DEPLOY_PLAN.md): only JUR + all routes through
-  // the API; GC + SP stay local. Even when api=1, GC users still get
-  // the keystroke-fast in-browser FlexSearch path. If the API was
-  // probed at boot and is unreachable, we transparently fall back to
-  // local — `state.apiOnline === false` blocks subsequent attempts so
-  // a single failure doesn't cause an infinite recursion via runSearch.
+  // Hybrid mode: only JUR + all routes through the API; GC + SP stay
+  // local because their corpora are small and the keystroke-fast
+  // in-browser FlexSearch path beats any round-trip. If the API was
+  // probed at boot and is unreachable, fall back to local —
+  // `state.apiOnline === false` blocks subsequent attempts so a single
+  // failure doesn't cause an infinite recursion via runSearch. While
+  // the ping is in flight (`state.apiOnline === null`) we OPTIMISTICALLY
+  // try the API; runSearchViaApi has its own catch that flips to local
+  // and the timeout means we fail fast.
   if (!apiEnabled()) return false;
   if (state.apiOnline === false) return false;
   return scope === 'jur' || scope === 'all';
@@ -85,16 +100,26 @@ async function apiFetch(path, params) {
   for (const [k, v] of Object.entries(params || {})) {
     if (v !== null && v !== undefined && v !== '') url.searchParams.set(k, v);
   }
-  const res = await fetch(url.toString(), { credentials: 'omit' });
-  if (!res.ok) throw new Error(`API ${path} → ${res.status}`);
-  return res.json();
+  // AbortController gives us a hard wall: if the VM is down or behind
+  // a captive portal, we want fallback within seconds rather than the
+  // browser-default 30+ seconds. AbortSignal.timeout() is widely
+  // supported in modern browsers; older Safari needs the manual variant.
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(new Error('timeout')), API_TIMEOUT_MS);
+  try {
+    const res = await fetch(url.toString(), { credentials: 'omit', signal: ac.signal });
+    if (!res.ok) throw new Error(`API ${path} → ${res.status}`);
+    return await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
-// v19: small boot-time smoke for the API. Logs the round-trip time +
-// version to the console when ?api=1 is active so we can verify the
-// connection from the browser without firing a real search. Also
-// stamps a tiny "API" badge near the result count so users on the
-// opt-in flag see a visible affordance.
+// Boot-time smoke for the API. v19.11: API is the default for JUR/all,
+// so this runs for everyone unless explicitly opted out (?api=0). Logs
+// round-trip time + version, stamps a tiny "API · NN ms" badge near
+// the result count, and crucially sets state.apiOnline so apiActive()
+// can decide between API vs local for subsequent searches.
 async function pingApi() {
   if (!apiEnabled()) return;
   const t0 = performance.now();
@@ -300,8 +325,9 @@ function paintApiBadge(online, ms) {
   }
   badge.textContent = online ? `API · ${ms} ms` : 'API · offline';
   badge.title = online
-    ? `Connected to ${API_BASE}. JUR queries route through the API.`
-    : `${API_BASE} unreachable. Falling back to local FlexSearch.`;
+    ? `Connected to ${API_BASE}. JUR queries route through the API for instant search. Add ?api=0 to the URL to force local mode.`
+    : `${API_BASE} unreachable. Using local FlexSearch (the JUR corpus is ~125 MB; first search may take ~60 s while it indexes).`;
+  badge.classList.toggle('rb-api-offline', !online);
 }
 // First-page render budget. v19.10: trimmed from 50 → 20 because each
 // jurisprudence row carries enriched metadata (case name, articles, issues),
@@ -446,7 +472,7 @@ async function boot() {
     bindRouter();
     initDossierResizer();                // v15: drag handle + persisted width
     initDossierFontPref();               // v15: restore S/M/L preference
-    pingApi();                           // v19: smoke API on boot (only if api=1)
+    state.apiPingPromise = pingApi();    // v19.11: stashed so the first JUR runSearch can await it briefly
     paintDiffTray();                     // restore pinned-tray on reload
     paintWorkspaceBadge();
     setView(viewFromHash());             // honor the initial hash
@@ -2466,7 +2492,22 @@ async function runSearch() {
   const runId = ++state.searchRun;
   scheduleUrlUpdate();
 
-  // v19: when the API is opt-in for this scope, bypass local FlexSearch
+  // v19.11: if the boot-time ping is still in flight when JUR/all needs
+  // to choose between API vs local, give it a brief grace window. This
+  // avoids speculatively firing an API search that times out 5 s later
+  // when the VM is actually unreachable. We race against a 1.5 s wall
+  // so a slow ping doesn't punish the first keystroke either way.
+  if (state.apiPingPromise && (state.scope === 'jur' || state.scope === 'all') && state.apiOnline === null) {
+    try {
+      await Promise.race([
+        state.apiPingPromise,
+        new Promise((resolve) => setTimeout(resolve, 1500)),
+      ]);
+    } catch { /* pingApi swallows its own errors */ }
+    if (runId !== state.searchRun) return;
+  }
+
+  // When the API is active for this scope, bypass local FlexSearch
   // entirely. GC stays local because GC corpus fits in the browser and
   // beats any round-trip; JUR + scope=all ride the SQLite FTS5 server.
   if (apiActive(state.scope)) {
