@@ -14,12 +14,13 @@ import { bootApp, resetWorkspace, seedFootnotes, typeQuery } from './_helpers';
  *   F6. zeroRegressions      — paragraph without footnotes renders identical HTML
  */
 
-// v19.8 P2: CCPR GC32 (and many other docs) now carries real footnotes from
-// the OHCHR DOCX/PDF re-extraction. Pick a doc that's still clean — i.e.
-// has no footnotes after P2 — so synthetic seed assertions are stable.
-const SEED_DOC_ID = 'ccpr-c-gc-35';
-// CCPR GC35 ¶33 — "promptly" / 48-hours-after-arrest paragraph.
-const SEED_PARA_ID = 'ccpr-c-gc-35-0033';
+// v19.8 P3: CCPR GC32 → GC35 → GC38 retarget. Each round of footnote
+// ingestion makes a previously-clean doc dirty. Current pick is CEDAW
+// GR38 (122 ¶, no footnotes after P3). Update again whenever the next
+// batch annotates this doc.
+const SEED_DOC_ID = 'cedaw-c-gc-38';
+// CEDAW GR38 ¶33 — emergency / health crises / increased vulnerability.
+const SEED_PARA_ID = 'cedaw-c-gc-38-0033';
 
 test.beforeEach(async ({ page }) => {
   await resetWorkspace(page);
@@ -80,14 +81,14 @@ test('F3. popoverEscapeCloses · Escape dismisses popover', async ({ page }) => 
 });
 
 test('F4. snippetHidesMarkers · search snippets never render [[fn:N]]', async ({ page }) => {
-  // "promptness" hits a small handful of paragraphs including the seeded
-  // CCPR GC35 ¶33 (48-hours-after-arrest), so the seeded result row is
-  // guaranteed to show up. We assert NO snippet across the result list
-  // contains a marker token — the row whose underlying text DOES contain
-  // markers must have had them stripped by stripFnMarkers before rendering.
+  // "desperation" hits 3 paragraphs including the seeded CEDAW GR38 ¶33,
+  // so the seeded result row is guaranteed to show up. We assert NO snippet
+  // across the result list contains a marker token — the row whose
+  // underlying text DOES contain markers must have had them stripped by
+  // stripFnMarkers before rendering.
   await bootApp(page, '/index.html');
   await page.waitForTimeout(800);
-  await typeQuery(page, 'promptness');
+  await typeQuery(page, 'desperation');
   const seededResult = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
   await expect(seededResult).toHaveCount(1, { timeout: 6_000 });
   const allSnippets = await page.locator('.result-text').allInnerTexts();

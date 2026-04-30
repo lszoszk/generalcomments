@@ -1,8 +1,8 @@
-Build report - 2026-04-30T00:03:29+00:00
+Build report - 2026-04-30T07:03:10+00:00
 ============================================================
 
 Documents: 360 (187 GC + 173 SP)
-Paragraphs: 25896 (7156 GC + 18740 SP)
+Paragraphs: 25902 (7162 GC + 18740 SP)
 Labels: 19
 Committees: 14
 Year range: [1960, 2026]
