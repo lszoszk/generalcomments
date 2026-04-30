@@ -1,9 +1,19 @@
 # Footnote restoration — migration plan
-_(v19.8 · 2026‑04‑30)_
+_(v19.8 · 2026‑04‑30 · last batch: P2)_
 
 This document records how the footnote infrastructure was wired in v19.8 and
 the work still pending to backfill footnote DATA across the existing 186-doc
 corpus.
+
+## Status snapshot
+
+| Batch | Date | Docs | Footnotes | Cumulative |
+|---|---|---|---|---|
+| Infra + CAT/OP/GC/1 | 2026-04-30 | 1 | 63 | 1 doc · 63 fn |
+| P0 | 2026-04-30 | 5 | 339 | 6 docs · 565 fn |
+| **P2 (mass pass)** | **2026-04-30** | **37** | **1,762** | **43 docs · 2,327 fn** |
+
+23 % of GCs (43 / 187) now carry footnotes. **Pending: 144 docs, broken down below.**
 
 ## What v19.8 ships
 
@@ -20,6 +30,39 @@ corpus.
 
 - **CAT/OP/GC/1** ingested from the OHCHR DOCX with all 63 footnotes preserved
   (`extract_docx_with_footnotes.py` → `json_data_gc_labeled/Annotated_CAT_OP_GC1_art4.json`).
+- **P0 batch** (5 docs): CMW/C/GC/6, E/C.12/GC/27, CMW/C/GC/7+CERD/C/GC/38,
+  CMW/C/GC/8+CERD/C/GC/39, CEDAW/C/GC/30/Add.1 — extracted from local PDFs via
+  the new `extract_pdf_with_footnotes.py`.
+- **P2 mass pass** (37 docs with footnotes, 64 successful extractions overall):
+  bulk run of `p2_batch_runner.py` against the 160 standalone GC candidates.
+  Picked the format (DOCX vs PDF) whose paragraph count was closest to the
+  existing source. Coverage spans every committee.
+
+## P3 backlog (144 docs)
+
+The runner produced a per-doc result log at
+`/tmp/p2_batch/p2_run_log.json` with one of these statuses:
+
+| Status | Count | What it means | Path forward |
+|---|---|---|---|
+| `no-en-url` | 45 | OHCHR landing page has no downloadable English file | These are mostly the early `annotated-cedaw-gr*` and `annotated-cerd-gr*` series whose source documents existed only in committee report compilations (e.g. A/40/18, A/49/38). Need a per-committee compilation extractor that splits an annual report PDF into individual GR chapters. ~4 h work + per-doc QA. |
+| `extract-empty` | 40 | File downloaded but no numbered paragraphs found | The downloaded file is typically the full annual report containing the GC as a chapter (e.g. `a-53-44` is the entire 1997 CAT annual report — GC1 is one section). Same fix as `no-en-url`: chapter-level splitting. |
+| `divergent:>30%` | 12 | Extraction succeeded but ¶ count too far from existing source. **Source NOT overwritten** by the runner. | Per-doc tuning. Several known cases:<br>· `crc-c-gc-14`, `crc-c-gc-15`, `crc-c-gc-16` (CRC GCs with embedded sub-paragraphs the line-aware splitter doesn't handle)<br>· `e-c-12-2002-11`, `e-c-12-gc-26`, `e-1998-22` (CESCR docs with non-standard paragraph numbering)<br>· The OHCHR `Download.aspx` for these may also be returning the wrong file (annual report vs. GC). |
+| `HRI/GEN/1` | 21 | Bundled compilation series (older CCPR GCs only published in HRI/GEN/1/Rev.9) | Full compilation PDF is downloadable; needs page-range splitting to extract the per-GC chapters. Lowest scholarly priority since most modern citations point at the post-Rev.1 standalone versions. |
+| Already done | 43 | Footnotes present | — |
+| **Total GC corpus** | **187** | | |
+
+## When you re-run the P2 pass
+
+The runner is *idempotent* — it caches downloads under `/tmp/p2_batch/{docId}/`
+and writes one backup per source per "run version" (`*.json.bak.v19_8_p2`,
+`*.json.bak.v19_8_p3`, etc.). You can safely:
+
+```bash
+rm -rf /tmp/p2_batch                                  # full re-fetch
+python3 p2_batch_runner.py --only DOCID1,DOCID2       # spot-check
+python3 p2_batch_runner.py --limit 10 --dry-run       # preview only
+```
 
 ## Pending (181 docs)
 
