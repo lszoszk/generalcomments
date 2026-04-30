@@ -1581,11 +1581,21 @@ function bindUI() {
   }));
 
   $('#expand-groups').addEventListener('click', () => {
+    if (state.resultGroup === 'paragraphs') {
+      // v19.19: in paragraph view, expand every truncated snippet at once.
+      $$('#result-list .result-expand-btn:not(.is-expanded)').forEach(btn => btn.click());
+      return;
+    }
     state.collapsedDocGroups.clear();
     paintResults();
   });
 
   $('#collapse-groups').addEventListener('click', () => {
+    if (state.resultGroup === 'paragraphs') {
+      // v19.19: in paragraph view, collapse every expanded snippet at once.
+      $$('#result-list .result-expand-btn.is-expanded').forEach(btn => btn.click());
+      return;
+    }
     for (const docId of currentResultGroupDocIds()) state.collapsedDocGroups.add(docId);
     paintResults();
   });
@@ -2802,11 +2812,15 @@ function syncResultsControls() {
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
 
-  // Expand/collapse buttons apply to both 'documents' AND 'bodies' grouping.
+  // Expand/collapse buttons work in grouped views AND (v19.19) in paragraph
+  // view with a query — where they expand/collapse all truncated snippets.
   const grouped = (state.resultGroup === 'documents' || state.resultGroup === 'bodies')
                   && state.results.length > 0;
-  $('#expand-groups')?.toggleAttribute('disabled', !grouped);
-  $('#collapse-groups')?.toggleAttribute('disabled', !grouped);
+  const canExpandSnippets = state.resultGroup === 'paragraphs'
+                            && state.results.length > 0
+                            && hasSearchQuery();
+  $('#expand-groups')?.toggleAttribute('disabled', !grouped && !canExpandSnippets);
+  $('#collapse-groups')?.toggleAttribute('disabled', !grouped && !canExpandSnippets);
 }
 
 function currentResultGroupDocIds() {
@@ -3410,10 +3424,19 @@ function renderResult(p, rank, terms, opts = {}) {
   // documents reader.
   const bareText = stripFnMarkers(p.text);
   const snippet = opts.snippetHtml
-    ? { html: opts.snippetHtml, isKwic: false, fullLen: bareText.length }
+    ? { html: opts.snippetHtml, isKwic: false, isTruncated: false, fullLen: bareText.length }
     : smartSnippet(bareText, terms);
   const kwicBadge = snippet.isKwic
-    ? `<span class="kwic-badge" title="Keyword-in-context · click result to read full paragraph">◎ KWIC · ${snippet.fullLen.toLocaleString()} chars</span>`
+    ? `<span class="kwic-badge" title="Keyword-in-context · paragraph is long — click Expand to read in full">◎ KWIC · ${snippet.fullLen.toLocaleString()} chars</span>`
+    : '';
+  // v19.19: truncated rows get an inline expand toggle; "Expand all" fires it
+  // in batch. The button is omitted when the API already sent a pre-trimmed
+  // snippet (the server snippet is intentionally opaque — we don't have the
+  // full text to show here in a meaningful way without an extra round-trip).
+  const isTruncated = snippet.isTruncated;
+  const expandBtnHtml = isTruncated
+    ? `<button class="result-expand-btn" type="button" aria-expanded="false"
+               title="Show the full paragraph text">Expand ▾ <span class="result-expand-count">${snippet.fullLen.toLocaleString()} chars</span></button>`
     : '';
 
   // v19.8: detect "match in citation" — query term hit only inside a
@@ -3447,6 +3470,7 @@ function renderResult(p, rank, terms, opts = {}) {
         ${fnMatchPill}
       </div>
       <p class="result-text${snippet.isKwic ? ' is-kwic' : ''}">${snippet.html}</p>
+      ${expandBtnHtml}
       <div class="result-meta">
         ${committeeChips}
         ${labelChips}
@@ -3470,6 +3494,29 @@ function renderResult(p, rank, terms, opts = {}) {
       </div>
     </div>
   `;
+  // v19.19: expand/collapse a truncated paragraph snippet.
+  // stopPropagation() keeps the li click-to-dossier handler from firing.
+  if (isTruncated) {
+    const expandBtnEl = li.querySelector('.result-expand-btn');
+    expandBtnEl?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const textEl = li.querySelector('.result-text');
+      if (!textEl) return;
+      const expanded = expandBtnEl.classList.contains('is-expanded');
+      if (expanded) {
+        textEl.innerHTML = snippet.html;
+        expandBtnEl.classList.remove('is-expanded');
+        expandBtnEl.setAttribute('aria-expanded', 'false');
+        expandBtnEl.innerHTML = `Expand ▾ <span class="result-expand-count">${snippet.fullLen.toLocaleString()} chars</span>`;
+      } else {
+        textEl.innerHTML = highlight(bareText, terms);
+        expandBtnEl.classList.add('is-expanded');
+        expandBtnEl.setAttribute('aria-expanded', 'true');
+        expandBtnEl.textContent = 'Collapse ▴';
+      }
+    });
+  }
+
   li.addEventListener('click', (e) => {
     // v19.16: source-symbol link → opens un.org in a new tab, doesn't
     // touch the active paragraph. The browser handles the navigation;
@@ -4431,9 +4478,9 @@ function openQueryHelpPopover(triggerEl) {
     </div>
     <h4>Tip</h4>
     <p class="q-help-tip">
-      Quoted phrases stay literal — <code>"AI"</code> matches only AI, not aid.
-      Bare words stem on the server (<code>women</code> matches women / womens),
-      so <code>women NOT girl</code> excludes girl/girls/girlfriend in one shot.
+      Quoted phrases stay literal — <code>"arbitrary detention"</code> matches exactly, no stemming.
+      Bare words stem (<code>child</code> matches child, children, childhood),
+      so <code>children NOT (armed forces)</code> is one clean filter.
     </p>
   `;
   document.body.appendChild(pop);
@@ -5850,26 +5897,34 @@ function formatOutcome(value) {
 // ─────────── KWIC (keyword-in-context) snippets ───────────
 //
 // Adapted from UnitedNations_recommendations/dashboard-search.js (smartSnippet
-// + _findBestCluster). For long paragraphs whose first match falls past the
-// fade-out fold (~400 chars), we build a 1–2-sentence window centred on the
-// best cluster of query terms — so the user can see WHY the paragraph matched
-// without expanding it.
+// + _findBestCluster). For long paragraphs we build a 1–2-sentence window
+// centred on the best cluster of query terms so the user can scan many results
+// without wading through wall-of-text treaty prose.
 //
-// Returns { html, isKwic, fullLen }.
+// v19.19: every paragraph longer than KWIC_TRUNCATE is truncated in the result
+// list regardless of where the match falls — even hits near the top of a
+// 2,000-char paragraph are obscured by the subsequent text. An "Expand ▾"
+// button appears below the snippet; "Expand all" expands every row at once.
+//
+// Returns { html, isKwic, isTruncated, fullLen }.
+const KWIC_TRUNCATE   = 600;   // paragraphs longer than this are always capped
 const KWIC_PRE_CHARS  = 140;
 const KWIC_POST_CHARS = 240;
-const KWIC_FADE_FOLD  = 400;
+const KWIC_FADE_FOLD  = 400;   // isKwic badge — match was deep in the text
 
 function smartSnippet(text, terms) {
   const t = String(text || '');
   const fullLen = t.length;
   const cleanTerms = (terms || []).filter(Boolean);
-  if (!cleanTerms.length || fullLen <= 500) {
-    return { html: highlight(t, cleanTerms), isKwic: false, fullLen };
+  if (!cleanTerms.length || fullLen <= KWIC_TRUNCATE) {
+    return { html: highlight(t, cleanTerms), isKwic: false, isTruncated: false, fullLen };
   }
+  // Always truncate long paragraphs and centre on the best term cluster.
   const idx = _findBestCluster(t, cleanTerms);
-  if (idx < 0 || idx < KWIC_FADE_FOLD) {
-    return { html: highlight(t, cleanTerms), isKwic: false, fullLen };
+  if (idx < 0) {
+    // Stem-only match — no literal hit position: show the opening text.
+    const head = t.slice(0, KWIC_PRE_CHARS + KWIC_POST_CHARS);
+    return { html: highlight(head, cleanTerms) + ' …', isKwic: false, isTruncated: true, fullLen };
   }
   // Anchor a window roughly one sentence before + one after the cluster.
   let start = Math.max(0, idx - KWIC_PRE_CHARS);
@@ -5883,7 +5938,8 @@ function smartSnippet(text, terms) {
   const suffix = end < fullLen ? ' …' : '';
   return {
     html: prefix + highlight(snippet, cleanTerms) + suffix,
-    isKwic: true,
+    isKwic: idx >= KWIC_FADE_FOLD,   // badge only when match was deep in text
+    isTruncated: true,
     fullLen,
   };
 }

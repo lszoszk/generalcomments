@@ -36,6 +36,11 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   workers: 1,
   reporter: process.env.CI ? 'github' : 'list',
+  // v19.19: raised from implicit 30 s to 60 s. The first test in each
+  // browser project has to launch the browser cold; on this VM that
+  // occasionally takes >30 s — the extra headroom prevents the P1
+  // beforeEach timeout flake without masking real slow tests.
+  timeout: 60_000,
 
   use: {
     baseURL: 'http://localhost:8765',
