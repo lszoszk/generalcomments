@@ -1276,6 +1276,65 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   background: var(--paper-2);
   border-color: var(--rule);
 }
+
+/* JUR metadata-confidence pill — sits next to the outcome badge in the
+   dossier folio. Only shown for medium/low confidence (or PDF/OCR
+   provenance) so high-confidence cases stay visually quiet. */
+.meta-confidence-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  cursor: help;
+}
+.meta-confidence-low {
+  color: #8a4a00;
+  background: #fdf6ee;
+  border-color: #c98e3f;
+}
+.meta-confidence-medium {
+  color: #6b6058;
+  background: #f6f1ec;
+  border-color: #b9ad9d;
+}
+
+/* Metadata-quality feedback — anonymous thumb up/down strip under the
+   dossier grid. Low-effort, no form, optional one-line note on thumbs-down. */
+.meta-feedback {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 0;
+  border-top: 1px dashed var(--rule);
+  font-size: 11px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+}
+.meta-feedback-prompt { text-transform: uppercase; }
+.meta-feedback-btn {
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--ink-2);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.meta-feedback-btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.meta-feedback-btn.is-flash {
+  background: var(--garnet);
+  color: var(--paper);
+  border-color: var(--garnet);
+}
+.meta-feedback-thanks { font-style: italic; }
 .dossier-abstract {
   margin: 14px 0 0;
   padding: 10px 14px;

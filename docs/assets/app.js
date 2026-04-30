@@ -35,6 +35,7 @@ const state = {
     yearMin: null,
     yearMax: null,
     reportTypes: new Set(),      // SP only — annual / thematic / communications / addendum / country-visit
+    countries: new Set(),        // JUR only — state party of the case
     showSuperseded: false,       // hide superseded GCs by default
   },
   results: [],
@@ -302,12 +303,16 @@ function paintApiBadge(online, ms) {
     ? `Connected to ${API_BASE}. JUR queries route through the API.`
     : `${API_BASE} unreachable. Falling back to local FlexSearch.`;
 }
-const RESULT_PAGE_SIZE = 50;       // first-page render budget; subsequent pages append on scroll
+// First-page render budget. v19.10: trimmed from 50 → 20 because each
+// jurisprudence row carries enriched metadata (case name, articles, issues),
+// which makes per-row paint heavier. Subsequent pages append on scroll.
+const RESULT_FIRST_PAGE = 20;
+const RESULT_PAGE_SIZE = 50;       // page size for subsequent appends
 const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard match doesn't blow up the DOM
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy' };
 
 function encodeUrlState() {
   if (!state.facets) return;
@@ -326,6 +331,7 @@ function encodeUrlState() {
   if (state.resultSort !== 'relevance') u.set(URL_KEYS.sort, state.resultSort);
   if (state.resultGroup !== 'paragraphs') u.set(URL_KEYS.group, state.resultGroup);
   if (state.filters.reportTypes.size) u.set(URL_KEYS.rt, [...state.filters.reportTypes].join('|'));
+  if (state.filters.countries.size) u.set(URL_KEYS.cy, [...state.filters.countries].join('|'));
   if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
   if (state.activeId) u.set(URL_KEYS.p, state.activeId);
   const qs = u.toString();
@@ -349,9 +355,13 @@ function decodeUrlState() {
     yearMin: u.get(URL_KEYS.y1) ? parseInt(u.get(URL_KEYS.y1)) : null,
     yearMax: u.get(URL_KEYS.y2) ? parseInt(u.get(URL_KEYS.y2)) : null,
     resultSort: u.get(URL_KEYS.sort) || 'relevance',
-    resultGroup: u.get(URL_KEYS.group) || 'paragraphs',
+    // resultGroup: leave undefined when no URL key is present so the
+    // boot-time auto-default ("documents" on jurisprudence, "paragraphs"
+    // elsewhere) wins. An explicit value freezes the user's choice.
+    resultGroup: u.get(URL_KEYS.group) || null,
     activeId: u.get(URL_KEYS.p) || null,
     reportTypes: split('rt'),
+    countries: split('cy'),
     showSuperseded: u.get(URL_KEYS.sup) === '1',
   };
 }
@@ -428,7 +438,9 @@ async function boot() {
     paintLabelFilter();
     paintReportTypeFilter();
     paintStatusFilter();
+    paintCountryFilter();
     syncReportTypeFilterVisibility();
+    syncCountryFilterVisibility();
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
     bindRouter();
@@ -689,6 +701,11 @@ function applyUrlState(parsed) {
   state.filters.reportTypes = new Set((parsed.reportTypes || []).filter(r => validReportTypes.has(r)));
   state.filters.showSuperseded = !!parsed.showSuperseded;
 
+  // JUR state-party filter — only meaningful when jurisprudence is in scope.
+  const jurCountrySet = computeJurCountryFacet().map(c => c.value);
+  const validCountries = new Set(jurCountrySet);
+  state.filters.countries = new Set((parsed.countries || []).filter(c => validCountries.has(c)));
+
   // Year range
   const { min, max } = state.facets.years;
   state.filters.yearMin = parsed.yearMin != null ? Math.max(min, Math.min(max, parsed.yearMin)) : min;
@@ -702,7 +719,13 @@ function applyUrlState(parsed) {
 
   // Results controls
   state.resultSort = ['relevance', 'date'].includes(parsed.resultSort) ? parsed.resultSort : 'relevance';
-  state.resultGroup = ['paragraphs', 'documents', 'bodies'].includes(parsed.resultGroup) ? parsed.resultGroup : 'paragraphs';
+  if (['paragraphs', 'documents', 'bodies'].includes(parsed.resultGroup)) {
+    state.resultGroup = parsed.resultGroup;
+    state.resultGroupUserSet = true;     // explicit URL choice — keep on scope switch
+  } else {
+    // v19.10: default to "documents" on jurisprudence, "paragraphs" elsewhere.
+    state.resultGroup = state.scope === 'jur' ? 'documents' : 'paragraphs';
+  }
   syncResultsControls();
 
   // Active paragraph
@@ -1299,6 +1322,53 @@ function syncReportTypeFilterVisibility() {
   block.hidden = !(state.scope === 'sp' || state.scope === 'all');
 }
 
+// JUR-only state-party filter. The country list is derived from the loaded
+// jurisprudence catalog (state.documents) — we don't ship a precomputed
+// facet for it. Only displayed when scope === 'jur'.
+function computeJurCountryFacet() {
+  const counts = new Map();
+  for (const d of state.documents.values()) {
+    if (d.type !== 'jur' || !d.country) continue;
+    counts.set(d.country, (counts.get(d.country) || 0) + (d.paragraphCount || 1));
+  }
+  return [...counts.entries()]
+    .map(([value, count]) => ({ value, count }))
+    .sort((a, b) => (b.count - a.count) || a.value.localeCompare(b.value));
+}
+
+function paintCountryFilter() {
+  const host = $('#filter-countries');
+  const counter = $('#filter-country-count');
+  if (!host) return;
+  const facet = computeJurCountryFacet();
+  if (counter) counter.textContent = facet.length ? `${facet.length} states` : '';
+  host.innerHTML = '';
+  for (const { value, count } of facet) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip chip-compact jur-chip';
+    if (state.filters.countries.has(value)) b.classList.add('on');
+    b.dataset.country = value;
+    b.innerHTML = `${escape(value)} <span class="chip-count">${count.toLocaleString()}</span>`;
+    b.addEventListener('click', () => {
+      if (state.filters.countries.has(value)) state.filters.countries.delete(value);
+      else state.filters.countries.add(value);
+      b.classList.toggle('on');
+      runSearch();
+    });
+    host.appendChild(b);
+  }
+}
+
+// Show the JUR state-party filter only when jurisprudence is in scope.
+// We hide it on 'all' too — country values would be meaningless next to
+// GC + SP paragraphs that don't carry country.
+function syncCountryFilterVisibility() {
+  const block = $('#filter-block-country');
+  if (!block) return;
+  block.hidden = state.scope !== 'jur';
+}
+
 function initYearRange() {
   const { min, max } = state.facets.years;
   state.filters.yearMin = min;
@@ -1392,6 +1462,7 @@ function bindUI() {
 
   $$('#result-group .result-opt').forEach(b => b.addEventListener('click', () => {
     state.resultGroup = b.dataset.group;
+    state.resultGroupUserSet = true;     // freeze auto-switch on scope changes
     syncResultsControls();
     paintResults();
     updateDocumentTitle();
@@ -1423,8 +1494,30 @@ function bindUI() {
     for (const c of [...state.filters.committees]) {
       if (!valid.has(c)) state.filters.committees.delete(c);
     }
+    // Country filter is JUR-only — drop the chips when leaving the jur tab
+    // so a stale state-party doesn't silently zero out GC/SP results.
+    if (state.scope !== 'jur' && state.filters.countries.size) {
+      state.filters.countries.clear();
+    }
     paintCommitteeFilter(state.scope);
     syncReportTypeFilterVisibility();
+    syncCountryFilterVisibility();
+
+    // v19.10: jurisprudence has 3,100+ documents and 111k paragraphs, so
+    // the default "Paragraphs" view dumps a wall of weakly-related rows on
+    // a cold tab switch. Group by document by default — much more useful,
+    // far fewer DOM nodes. The user's explicit choice (clicked the
+    // segmented control) wins via state.resultGroupUserSet.
+    if (!state.resultGroupUserSet) {
+      const targetGroup = state.scope === 'jur' ? 'documents' : 'paragraphs';
+      if (state.resultGroup !== targetGroup) {
+        state.resultGroup = targetGroup;
+        $$('#result-group .result-opt').forEach(x => {
+          x.classList.toggle('is-active', x.dataset.group === targetGroup);
+          x.setAttribute('aria-pressed', x.dataset.group === targetGroup ? 'true' : 'false');
+        });
+      }
+    }
 
     const meta = {
       gc:  'Treaty body output · near-hard-law',
@@ -1518,11 +1611,12 @@ function bindUI() {
     state.filters.committees.clear();
     state.filters.labels.clear();
     state.filters.reportTypes.clear();
+    state.filters.countries.clear();
     state.filters.showSuperseded = false;
     state.filters.labelsMode = 'any';
     state.filters.yearMin = state.facets.years.min;
     state.filters.yearMax = state.facets.years.max;
-    $$('#filter-committees .chip, #filter-mandates .chip').forEach(c => c.classList.remove('on'));
+    $$('#filter-committees .chip, #filter-mandates .chip, #filter-countries .chip').forEach(c => c.classList.remove('on'));
     $$('#filter-labels input').forEach(i => i.checked = false);
     $$('#labels-mode .aa-opt').forEach(x => x.classList.toggle('is-active', x.dataset.mode === 'any'));
     $('#year-min').value = state.facets.years.min;
@@ -1530,6 +1624,7 @@ function bindUI() {
     paintYearFill();
     paintReportTypeFilter();
     paintStatusFilter();
+    paintCountryFilter();
     runSearch();
   });
 
@@ -2431,6 +2526,9 @@ async function runSearch() {
     }
 
     if (f.committees.size && !p.committees.some(c => f.committees.has(c))) continue;
+    // JUR-only country filter. GC/SP paragraphs lack p.country, so a
+    // non-empty country filter naturally narrows the result set to jur.
+    if (f.countries.size && (!p.country || !f.countries.has(p.country))) continue;
     if (f.labels.size) {
       const pl = p.labels || [];
       if (f.labelsMode === 'all') {
@@ -2739,6 +2837,7 @@ function _buildEmptyState() {
     f.committees.size > 0 ||
     f.labels.size > 0 ||
     f.reportTypes.size > 0 ||
+    f.countries.size > 0 ||
     (f.yearMin && state.facets && f.yearMin > state.facets.years.min) ||
     (f.yearMax && state.facets && f.yearMax < state.facets.years.max);
 
@@ -2824,7 +2923,10 @@ function _buildEmptyState() {
 function appendNextPage(list, terms) {
   const total = state.results.length;
   const start = state.renderedCount;
-  const end   = Math.min(start + RESULT_PAGE_SIZE, total, RESULT_HARD_CAP);
+  // First paint uses a smaller batch (RESULT_FIRST_PAGE) so the user sees
+  // results sooner; the IntersectionObserver picks up the rest on scroll.
+  const pageSize = start === 0 ? RESULT_FIRST_PAGE : RESULT_PAGE_SIZE;
+  const end   = Math.min(start + pageSize, total, RESULT_HARD_CAP);
   if (start >= end) return false;
   const frag = document.createDocumentFragment();
   for (let i = start; i < end; i++) {
@@ -3340,6 +3442,76 @@ function flashToolBtn(selector, mark = '✓') {
   }, 900);
 }
 
+// ─────────── Metadata-quality feedback (jurisprudence) ───────────
+// Anonymous, one-click signal so users can flag inaccurate enriched
+// metadata (case name, parties, articles, etc.). Posts to /api/feedback
+// fire-and-forget; the user's vote is also remembered locally so the
+// strip doesn't keep nagging them on a doc they already rated.
+function metaVoteGet(docId) {
+  return _lsGet(_LS.metaVote, {})[docId] || null;
+}
+function metaVoteSet(docId, vote) {
+  const all = _lsGet(_LS.metaVote, {});
+  if (vote == null) delete all[docId];
+  else all[docId] = vote;
+  _lsSet(_LS.metaVote, all);
+}
+function renderMetaFeedbackStrip(docId) {
+  if (!docId) return '';
+  const prior = metaVoteGet(docId);
+  if (prior === 'ok') {
+    return `
+      <div class="meta-feedback" data-doc-id="${escape(docId)}">
+        <span class="meta-feedback-thanks">Thanks — you marked this metadata as accurate.</span>
+        <button type="button" class="meta-feedback-btn" data-meta-vote="reset"
+                title="Undo your vote">undo</button>
+      </div>`;
+  }
+  if (prior === 'bad') {
+    return `
+      <div class="meta-feedback" data-doc-id="${escape(docId)}">
+        <span class="meta-feedback-thanks">Thanks — flagged for review.</span>
+        <button type="button" class="meta-feedback-btn" data-meta-vote="add-note"
+                title="Add a one-line note describing the issue">add note</button>
+        <button type="button" class="meta-feedback-btn" data-meta-vote="reset"
+                title="Undo your vote">undo</button>
+      </div>`;
+  }
+  return `
+    <div class="meta-feedback" data-doc-id="${escape(docId)}">
+      <span class="meta-feedback-prompt">Metadata accurate?</span>
+      <button type="button" class="meta-feedback-btn" data-meta-vote="ok"
+              aria-label="Looks accurate" title="Anonymous quick vote — no contact info collected">👍 looks right</button>
+      <button type="button" class="meta-feedback-btn" data-meta-vote="bad"
+              aria-label="Flag inaccuracy" title="Anonymous quick flag — opens an optional note field">👎 flag</button>
+    </div>`;
+}
+
+async function postMetaVote(docId, vote, note) {
+  const body = {
+    kind: 'data',
+    message: vote === 'ok'
+      ? `Metadata confirmed accurate (anonymous quick vote)${note ? ' — ' + note : ''}`
+      : `Metadata flagged as inaccurate (anonymous quick vote)${note ? ' — ' + note : ''}`,
+    contact: null,
+    docId,
+    paraId: null,
+  };
+  try {
+    await fetch(`${API_BASE}/api/feedback`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      // Keep the vote anonymous and unblocking — fire and forget.
+      keepalive: true,
+    });
+  } catch (e) {
+    // Server may be unreachable (preview/offline). The local vote is
+    // still recorded so the user sees their choice acknowledged.
+    console.warn('[meta-vote] post failed:', e?.message || e);
+  }
+}
+
 function paintDossier() {
   const host = $('#dossier');
   if (!state.activeId) {
@@ -3382,6 +3554,25 @@ function paintDossier() {
   // case disposition before the title.
   const outcomeBadge = (isJurDoc && doc?.outcome)
     ? `<span class="outcome-badge outcome-${escape(doc.outcome)}">${escape(formatOutcome(doc.outcome))}</span>`
+    : '';
+
+  // JUR-only metadata-confidence pill. We only surface it when confidence
+  // is medium or low so users know to double-check against the original
+  // PDF. "high" confidence stays silent. The PDF/OCR provenance flag also
+  // demotes to medium even if the front-matter parse looked clean.
+  const isOcr = doc?.sourceFormat === 'pdf_ocr';
+  const conf = isJurDoc ? doc?.metadataConfidence : null;
+  const confTone = conf === 'low' || isOcr ? 'low' : (conf === 'medium' ? 'medium' : null);
+  const confLabel = confTone === 'low'
+    ? (isOcr ? 'OCR · verify' : 'Low confidence · verify')
+    : (confTone === 'medium' ? 'Medium confidence' : '');
+  const confTitle = confTone === 'low'
+    ? 'Metadata extraction confidence is LOW. Verify case name, parties, and articles against the source PDF before citing.'
+    : (confTone === 'medium'
+        ? 'Metadata extraction confidence is medium. Spot-check fields against the source PDF for sensitive uses.'
+        : '');
+  const confidencePill = (isJurDoc && confTone)
+    ? `<span class="meta-confidence-pill meta-confidence-${confTone}" title="${escape(confTitle)}">${escape(confLabel)}</span>`
     : '';
 
   // JUR-only Articles cited — chip strip in the grid.
@@ -3463,6 +3654,7 @@ function paintDossier() {
     <div class="folio garnet dossier-folio-row">
       <span>${dossierKind}</span>
       ${outcomeBadge}
+      ${confidencePill}
       ${fontControls}
     </div>
     <h3 class="dossier-title">${escape(doc?.name || para.docId)}</h3>
@@ -3559,6 +3751,7 @@ function paintDossier() {
           ↗ Open original document on un.org
         </a>
       </div>` : ''}
+    ${isJurDoc ? renderMetaFeedbackStrip(doc?.docId) : ''}
   `;
 
   // B1 Bookmark toggle
@@ -3600,6 +3793,42 @@ function paintDossier() {
     };
     noteTa.addEventListener('input', () => { clearTimeout(t); t = setTimeout(save, 600); });
     noteTa.addEventListener('blur', () => { clearTimeout(t); save(); });
+  }
+
+  // Metadata-quality feedback handlers (jurisprudence dossier strip).
+  const metaStrip = host.querySelector('.meta-feedback');
+  if (metaStrip) {
+    const stripDocId = metaStrip.dataset.docId;
+    metaStrip.addEventListener('click', async (e) => {
+      const btn = e.target.closest('[data-meta-vote]');
+      if (!btn) return;
+      const action = btn.dataset.metaVote;
+      if (action === 'reset') {
+        metaVoteSet(stripDocId, null);
+        paintDossier();
+        return;
+      }
+      if (action === 'add-note') {
+        // Reuse the existing report modal so the user can leave a free-text
+        // note. Pre-fill kind=data + docId so the report lands in the same
+        // bucket as the quick vote.
+        openReportModal({ docId: stripDocId });
+        const dataKindRadio = $('#report-form input[name="kind"][value="data"]');
+        if (dataKindRadio) dataKindRadio.checked = true;
+        const messageBox = $('#report-message');
+        if (messageBox && !messageBox.value) {
+          messageBox.value = 'Metadata issue (case name / parties / articles / state party / dates):\n— ';
+          messageBox.focus();
+        }
+        return;
+      }
+      if (action === 'ok' || action === 'bad') {
+        metaVoteSet(stripDocId, action);
+        // Fire-and-forget — no contact field, anonymous.
+        postMetaVote(stripDocId, action, null);
+        paintDossier();
+      }
+    });
   }
 
   // v18: Cite menu — popover toggled by the trigger button. We dropped
@@ -4139,6 +4368,7 @@ const _LS = {
   dossierWidth: 'unhrdb_dossier_width_v1',  // v15: user-resized dossier (px, integer)
   dossierFont:  'unhrdb_dossier_font_v1',   // v15: 'S' | 'M' | 'L'
   theme:        'unhrdb_theme_v1',          // v19.6: 'light' | 'dark'
+  metaVote:     'unhrdb_meta_vote_v1',      // v19.10: docId → 'ok' | 'bad'
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
