@@ -76,7 +76,10 @@ test('A1. badgeAppears · pingApi paints "API · NN ms" pill', async ({ page }) 
     route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
   );
   await bootApp(page, '/index.html?api=1');
-  await expect(page.locator('#api-badge')).toBeVisible();
+  // pingApi() runs at the end of boot (after FlexSearch index build); on
+  // CI with the v19.9-enriched JUR catalog this can take longer than the
+  // default 5 s assertion timeout. Wait explicitly.
+  await expect(page.locator('#api-badge')).toBeVisible({ timeout: 15_000 });
   await expect(page.locator('#api-badge')).toContainText(/API · \d+ ms/);
 });
 

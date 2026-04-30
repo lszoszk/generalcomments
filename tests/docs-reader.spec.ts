@@ -77,7 +77,14 @@ test('R5. drawerOutline · outline + workspace tools render', async ({ page, vie
 
 test('R6. railFilterText · typing narrows rail rows', async ({ page }) => {
   await bootApp(page, '/index.html#documents');
-  await page.waitForTimeout(600);
+  // Wait on actual rows, not a fixed timeout — boot loads GC + JUR + SP
+  // catalogs and builds the FlexSearch index before setView() paints the
+  // docs view, and the JUR catalog is now ~7.8 MB.
+  await page.waitForFunction(
+    () => document.querySelectorAll('.docs-rail-row').length > 100,
+    null,
+    { timeout: 15_000 }
+  );
   const before = await page.locator('.docs-rail-row').count();
   await page.locator('#docs-filter').fill('trafficking');
   await page.waitForTimeout(400);
