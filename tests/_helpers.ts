@@ -47,12 +47,23 @@ export async function bootApp(
   url: string = '/index.html?q=disability'
 ): Promise<void> {
   await page.goto(url, { waitUntil: 'commit' });
-  // The mast-folio shows "LOADING…" until paintMastFolio runs at the end
-  // of boot. Wait for the actual count instead.
+  // Two boot signals matter:
+  //  1. mast-folio populates with "N ¶" — fires at line ~433 of app.js,
+  //     mid-boot (before corpus loads).
+  //  2. body[data-active-view] gets set — fires at line ~478, AFTER the
+  //     full corpus + FlexSearch index are ready. The view-routing CSS
+  //     hides every <section data-view> until this runs, so any test
+  //     that touches search-view UI (#fn-toggle, .workspace-grid, etc.)
+  //     can race the visibility flip on slow CI runs and assert
+  //     "hidden" against an element whose ancestor is still display:none.
+  // Wait for BOTH so the test only proceeds when search/workspace/docs
+  // sections are actually visible per CSS.
   await page.waitForFunction(
     () => {
       const folio = document.getElementById('mast-folio')?.textContent || '';
-      return /\d+[\s ]*\d*\s*¶/.test(folio);
+      const ready = /\d+[\s ]*\d*\s*¶/.test(folio);
+      const viewSet = !!document.body.dataset.activeView;
+      return ready && viewSet;
     },
     null,
     { timeout: 15_000 }

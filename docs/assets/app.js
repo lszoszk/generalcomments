@@ -3621,7 +3621,15 @@ function paintDossier() {
       </div>`;
     return;
   }
-  const para = state.paragraphs.find(p => p.id === state.activeId);
+  // v19.13: JUR paragraphs come from the API and live ONLY in
+  // state.paragraphById (hydrated by runSearchViaApi → adaptApiHit).
+  // state.paragraphs is just the local GC corpus, so a `.find()` against
+  // it returns nothing for JUR rows and the dossier silently bails —
+  // user clicks a JUR result and nothing opens. Look up via the id-map
+  // first; fall back to the local array for any code path that wrote
+  // there but not into the map.
+  const para = state.paragraphById.get(state.activeId)
+            || state.paragraphs.find(p => p.id === state.activeId);
   if (!para) return;
   const doc = state.documents.get(para.docId);
   const isSpDoc = para.type === 'sp';

@@ -201,6 +201,38 @@ test('A7. paginateAcrossApi · second-page fetch on scroll', async ({ page }) =>
   expect(pages).toContain(2);
 });
 
+test('A9. jurResultClickOpensDossier · clicking a JUR row paints the dossier', async ({ page }) => {
+  // Regression for v19.13: paintDossier looked up the active paragraph in
+  // state.paragraphs (local GC corpus only), so clicking a JUR row
+  // silently bailed — user lost the source link and metadata pane.
+  // The dossier now consults state.paragraphById first (where JUR hits
+  // are hydrated by runSearchViaApi).
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(mockSearchPage({ total: 5, page: 1, pageSize: 200 })) })
+  );
+  const searchReq = page.waitForRequest(
+    (req) => /unhrdb-api\/api\/search/.test(req.url()),
+    { timeout: 15_000 },
+  );
+  await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
+  await searchReq;
+  // Click the first JUR result.
+  const firstResult = page.locator('.result').first();
+  await expect(firstResult).toBeVisible({ timeout: 8_000 });
+  await firstResult.click();
+  // Dossier should paint with the JUR-specific kind label and the
+  // paragraph quote should be visible (NOT the empty "Click a paragraph…"
+  // placeholder).
+  const dossier = page.locator('#dossier');
+  await expect(dossier.locator('blockquote .pn')).toBeVisible({ timeout: 4_000 });
+  await expect(dossier.locator('.dossier-empty')).toHaveCount(0);
+  // The dossier folio must reflect JUR provenance.
+  await expect(dossier).toContainText(/JURISPRUDENCE/i);
+});
+
 test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ page }) => {
   await page.route('**/unhrdb-api/api/stats', (route) =>
     route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
