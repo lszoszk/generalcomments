@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260430-v19-13-reset" />
-<link rel="stylesheet" href="assets/app.css?v=20260430-v19-13-reset" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260430-v19-14-feedback" />
+<link rel="stylesheet" href="assets/app.css?v=20260430-v19-14-feedback" />
 </head>
 <body>
 
@@ -601,37 +601,37 @@
     </header>
     <form id="report-form" class="report-form" novalidate>
       <fieldset class="report-kind">
-        <legend class="folio">Kind</legend>
-        <label><input type="radio" name="kind" value="bug" checked> <span>Bug</span><small>UI broken, error, lost data</small></label>
-        <label><input type="radio" name="kind" value="data"> <span>Data issue</span><small>Wrong text, missing ¶, bad citation</small></label>
-        <label><input type="radio" name="kind" value="feature"> <span>Feature request</span><small>Something you'd like added</small></label>
-        <label><input type="radio" name="kind" value="other"> <span>Other</span><small>Anything else</small></label>
+        <legend class="folio">What's wrong?</legend>
+        <label><input type="radio" name="kind" value="wrong-text" checked> <span>Wrong text / typo</span><small>Misspelling, garbled paragraph, missing word</small></label>
+        <label><input type="radio" name="kind" value="wrong-fn"> <span>Missing or wrong footnote</span><small>Marker mis-anchored, missing citation</small></label>
+        <label><input type="radio" name="kind" value="wrong-label"> <span>Wrong "Concerned group" label</span><small>Children / Women/girls / etc.</small></label>
+        <label><input type="radio" name="kind" value="wrong-meta"> <span>Wrong metadata</span><small>Year, signature, committee, status</small></label>
+        <label><input type="radio" name="kind" value="wrong-link"> <span>Wrong link to OHCHR original</span><small>Source link broken or points elsewhere</small></label>
+        <label><input type="radio" name="kind" value="other"> <span>Other</span><small>Anything else — UX, request, etc.</small></label>
       </fieldset>
       <div class="report-context" id="report-context" hidden>
-        <span class="folio">Context</span>
+        <span class="folio">Context auto-attached</span>
         <span id="report-context-detail" class="mono"></span>
-        <label class="report-context-toggle">
-          <input type="checkbox" id="report-context-include" checked>
-          Include this in the report
-        </label>
       </div>
       <label class="report-field">
-        <span class="folio">Message <span class="dim">(required, ≥4 chars)</span></span>
-        <textarea id="report-message" rows="4" required minlength="4" maxlength="2000"
-                  placeholder="What happened, what you expected, and how to reproduce."></textarea>
+        <span class="folio">Comment <span class="dim">(optional, up to 280 chars)</span></span>
+        <textarea id="report-message" rows="3" maxlength="280"
+                  placeholder="Anything else the triager should know? (optional)"></textarea>
+        <span class="report-charcount mono dim" id="report-charcount">0 / 280</span>
       </label>
-      <label class="report-field">
-        <span class="folio">Email <span class="dim">(optional, only if you want a reply)</span></span>
+      <label class="report-field report-field-collapsed">
+        <span class="folio dim">Email <span class="dim">(optional, only if you want a reply)</span></span>
         <input id="report-contact" type="email" maxlength="120" placeholder="you@example.org">
       </label>
       <div class="report-actions">
         <button type="button" class="btn btn-ghost report-cancel">Cancel</button>
-        <button type="submit" class="btn btn-garnet" id="report-submit">Send</button>
+        <button type="submit" class="btn btn-garnet" id="report-submit">Submit</button>
       </div>
       <p class="report-note serif">
-        Reports go to a private log on the project's server. We don't track you;
-        the only data persisted is what you typed plus a timestamp and your
-        approximate IP. Email is only used to reply.
+        Filed as a public issue at
+        <a href="https://github.com/lszoszk/generalcomments-feedback/issues" target="_blank" rel="noopener">lszoszk/generalcomments-feedback</a>.
+        We log paragraph context, current view URL and your search query
+        so the curator can reproduce — no tracking beyond that.
       </p>
       <p class="report-status" id="report-status" hidden></p>
     </form>
@@ -651,6 +651,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260430-v19-13-reset"></script>
+<script type="module" src="assets/app.js?v=20260430-v19-14-feedback"></script>
 </body>
 </html>

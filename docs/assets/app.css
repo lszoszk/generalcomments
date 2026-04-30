@@ -3247,3 +3247,103 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
     width: auto;
   }
 }
+
+/* ─────────── v19.14: Per-paragraph feedback flow ───────────
+   Adds a ⚐ button in the dossier toolbar and the documents reader
+   paragraph row, plus a toast that appears after a successful submit
+   and a char-counter on the comment textarea. */
+
+/* In-paragraph "flag" affordance in the documents reader. Mirrors the
+   adjacent .docs-para-cite styling. */
+.docs-para-flag {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--ink-3);
+  padding: 2px 4px;
+  line-height: 1;
+}
+.docs-para-flag:hover { color: var(--garnet); }
+
+/* Char counter on the comment textarea — sits below-right, dim. */
+.report-charcount {
+  align-self: flex-end;
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+/* Email field is collapsed-by-default style (less prominent than the
+   message field — it's optional + power-user). */
+.report-field-collapsed { gap: 2px; }
+.report-field-collapsed input {
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+/* Footer note links to the public feedback repo. */
+.report-form .report-note a {
+  color: var(--garnet);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Toast for the post-submit success message. Anchored bottom-right,
+   slides up + fades in. */
+.feedback-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9500;
+  background: var(--paper);
+  border: 1px solid var(--garnet);
+  border-radius: 4px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--ink);
+  max-width: 360px;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.feedback-toast.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.feedback-toast-mark {
+  font-size: 16px;
+  color: var(--garnet);
+  font-weight: 700;
+}
+.feedback-toast-msg a {
+  color: var(--garnet);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.feedback-toast-close {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--ink-3);
+  padding: 0 4px;
+  line-height: 1;
+  margin-left: auto;
+}
+.feedback-toast-close:hover { color: var(--garnet); }
+
+@media (max-width: 600px) {
+  .feedback-toast {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    max-width: none;
+  }
+}

@@ -105,20 +105,22 @@ test('7. clickToDossier · click row → dossier paints', async ({ page }) => {
   await expect(page.locator('.dossier-toolbar')).toBeVisible();
 });
 
-test('8. dossierToolbar · 6 equal-width buttons in order', async ({ page }) => {
+test('8. dossierToolbar · 7 equal-width buttons in order', async ({ page }) => {
+  // v19.14 added the ⚐ Flag button; v19.5 had 6 tools, the order is now:
+  // Save · Pin · Copy · Note · Cite · Flag · Read
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
-  // Six tools, labels in the documented order.
   const labels = await page.locator('.dossier-tool-label').allTextContents();
-  expect(labels.map((s) => s.trim())).toEqual(['Save', 'Pin', 'Copy', 'Note', 'Cite', 'Read']);
-  // v19.5: equal-width grid (no Cite-is-2fr nonsense).
+  expect(labels.map((s) => s.trim())).toEqual([
+    'Save', 'Pin', 'Copy', 'Note', 'Cite', 'Flag', 'Read',
+  ]);
   const widths = await page.locator('.dossier-tool').evaluateAll((els) =>
     els.map((el) => el.getBoundingClientRect().width)
   );
   const min = Math.min(...widths);
   const max = Math.max(...widths);
-  // Grid template repeats 1fr × 6, so widths should be within 2 px of each other.
+  // Grid template repeats 1fr × 7, so widths stay within 2 px of each other.
   expect(max - min).toBeLessThan(3);
 });
 

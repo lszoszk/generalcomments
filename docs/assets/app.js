@@ -1063,6 +1063,7 @@ function paintDocReaderBody(doc, paraId) {
           <button class="docs-para-bm ${isBm ? 'on' : ''}" data-act="bm" title="${isBm ? 'Remove bookmark' : 'Bookmark this paragraph'}">${isBm ? '★' : '☆'}</button>
           <button class="docs-para-pin ${isPin ? 'on' : ''}" data-act="pin" title="${isPin ? 'Unpin' : 'Pin for compare'}">📌</button>
           <button class="docs-para-cite" data-act="cite" title="Cite this paragraph (APA / Chicago / BibTeX / RIS / URL)">”</button>
+          <button class="docs-para-flag" data-act="flag" title="Report a problem with this paragraph">⚐</button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">📝</span>' : ''}
         </div>
         <p class="docs-reader-para-text serif">${renderParagraphHtml(p.text, p.footnotes)}</p>
@@ -1094,6 +1095,14 @@ function paintDocReaderBody(doc, paraId) {
           const para = state.paragraphById.get(id);
           if (para) openInlineCitePopover(btn, para);
           return;                                  // skip the re-paint
+        }
+        if (btn.dataset.act === 'flag') {
+          // v19.14: open the report modal pre-populated with this
+          // paragraph's context so a curator-level reader can flag
+          // issues without losing their place in the doc.
+          const para = state.paragraphById.get(id);
+          openReportModal({ paraId: id, docId: para?.docId });
+          return;
         }
         // Re-paint just this paragraph row + drawer.
         state.docsActiveParaId = id;
@@ -1741,6 +1750,7 @@ function bindUI() {
     if (e.key === 'Escape' && !$('#report-modal')?.hidden) closeReportModal();
   });
   $('#report-form')?.addEventListener('submit', submitReport);
+  $('#report-message')?.addEventListener('input', _updateReportCharcount);
 }
 
 function scopeCommitteeSet(scope) {
@@ -3839,6 +3849,12 @@ function paintDossier() {
             </button>`).join('')}
         </div>
       </div>
+      <button class="dossier-tool" id="ws-flag" type="button"
+              title="Report a problem with this paragraph (typo, wrong footnote, missing label, etc.)"
+              aria-label="Report a problem">
+        <span class="dossier-tool-icon">⚐</span>
+        <span class="dossier-tool-label">Flag</span>
+      </button>
       <button class="dossier-tool reading-mode-btn" id="reading-toggle" type="button"
               title="Reading mode (R) — single-column reading view"
               aria-label="Reading mode (R)">
@@ -3868,6 +3884,10 @@ function paintDossier() {
       openFnPopover(btn);
     });
   });
+
+  // v19.14: Flag paragraph for triage — opens the report modal
+  // pre-populated with this paragraph's full context.
+  $('#ws-flag')?.addEventListener('click', () => openReportModal({ paraId: para.id, docId: para.docId }));
 
   // B1 Bookmark toggle
   $('#ws-bookmark')?.addEventListener('click', () => { bmToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
@@ -4485,6 +4505,7 @@ const _LS = {
   theme:        'unhrdb_theme_v1',          // v19.6: 'light' | 'dark'
   metaVote:     'unhrdb_meta_vote_v1',      // v19.10: docId → 'ok' | 'bad'
   searchInFn:   'unhrdb_search_in_fn_v1',   // v19.12: '1' | '0' (default '1')
+  feedbackDraft:'unhrdb_feedback_draft_v1', // v19.14: {paraId, kind, message, contact, ts}
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
@@ -4687,29 +4708,48 @@ function openReportModal({ paraId = null, docId = null } = {}) {
   // Resolve the active paragraph if not explicitly passed.
   const id = paraId || state.docsActiveParaId || state.activeId;
   const p  = id ? state.paragraphById.get(id) : null;
-  const d  = p?.docId ? state.documents.get(p.docId) : null;
+  const d  = p?.docId ? state.documents.get(p.docId) : (docId ? state.documents.get(docId) : null);
 
   const ctx = $('#report-context');
   const detail = $('#report-context-detail');
   if (id && p) {
     detail.textContent = `${id}${p.n != null ? ` · ¶${p.n}` : ''}${d?.signature ? `  ·  ${d.signature}` : ''}`;
     ctx.hidden = false;
-    modal.dataset.paraId = id;
-    modal.dataset.docId  = p.docId;
+    modal.dataset.paraId   = id;
+    modal.dataset.docId    = p.docId || docId || '';
+    modal.dataset.signature = d?.signature || '';
   } else {
     ctx.hidden = true;
     delete modal.dataset.paraId;
     delete modal.dataset.docId;
+    delete modal.dataset.signature;
   }
 
-  // Reset form (don't clobber email — users tend to re-use it).
-  $('#report-message').value = '';
+  // Restore a draft if the user previously hit Submit and the API was
+  // down — keeps them from losing what they typed.
+  const draft = _lsGet(_LS.feedbackDraft, null);
+  if (draft && draft.paraId === id) {
+    const radio = $(`#report-form input[name="kind"][value="${draft.kind}"]`);
+    if (radio) radio.checked = true;
+    $('#report-message').value = draft.message || '';
+    $('#report-contact').value = draft.contact || '';
+  } else {
+    $('#report-message').value = '';
+    // Don't clobber email — users tend to re-use it.
+  }
   $('#report-status').hidden = true;
   $('#report-status').textContent = '';
   $('#report-submit').disabled = false;
+  _updateReportCharcount();
 
   modal.hidden = false;
   setTimeout(() => $('#report-message')?.focus(), 50);
+}
+
+function _updateReportCharcount() {
+  const counter = $('#report-charcount');
+  const ta = $('#report-message');
+  if (counter && ta) counter.textContent = `${ta.value.length} / 280`;
 }
 
 function closeReportModal() {
@@ -4726,27 +4766,32 @@ async function submitReport(ev) {
   const kind = $('#report-form input[name="kind"]:checked')?.value || 'other';
   const message = $('#report-message').value.trim();
   const contact = $('#report-contact').value.trim();
-  const includeContext = $('#report-context-include')?.checked;
+  const paraId = modal.dataset.paraId || null;
+  const docId  = modal.dataset.docId  || null;
+  const signature = modal.dataset.signature || null;
+  const para = paraId ? state.paragraphById.get(paraId) : null;
+  const excerpt = para ? (para.text || '').replace(/\[\[fn:\d+\]\]/g, '').slice(0, 280) : null;
 
-  if (message.length < 4) {
-    status.hidden = false;
-    status.textContent = 'Message is too short — please add a few more words.';
-    status.className = 'report-status is-err';
-    return;
-  }
-
+  // Auto-captured page context — what view, what URL, what query.
   const body = {
     kind,
-    message,
+    message: message || null,
     contact: contact || null,
-    paraId: includeContext ? (modal.dataset.paraId || null) : null,
-    docId:  includeContext ? (modal.dataset.docId || null)  : null,
+    paraId, docId, signature,
+    view:    state.view || 'search',
+    url:     window.location.href.slice(0, 500),
+    query:   state.query || null,
+    scope:   state.scope || null,
+    excerpt: excerpt,
   };
+
+  // Persist a draft so a network failure doesn't lose the user's text.
+  _lsSet(_LS.feedbackDraft, { paraId, kind, message, contact, ts: Date.now() });
 
   submitBtn.disabled = true;
   status.hidden = false;
   status.className = 'report-status is-pending';
-  status.textContent = 'Sending…';
+  status.textContent = 'Submitting…';
 
   try {
     const res = await fetch(`${API_BASE}/api/feedback`, {
@@ -4755,20 +4800,49 @@ async function submitReport(ev) {
       body: JSON.stringify(body),
     });
     if (!res.ok) {
-      // 429 = rate-limited; 422 = validation; everything else: generic.
-      let detail = 'Send failed (' + res.status + ').';
-      if (res.status === 429) detail = 'Too many reports from your IP for now — please retry in an hour.';
-      else if (res.status === 422) detail = 'Server rejected the report — try shortening the message.';
+      let detail = 'Submit failed (' + res.status + ').';
+      if (res.status === 429) detail = 'Too many reports from your IP — try again in an hour.';
+      else if (res.status === 422) detail = 'Server rejected the report — comment may be too long.';
       throw new Error(detail);
     }
-    status.className = 'report-status is-ok';
-    status.textContent = 'Thanks — your report was logged.';
-    setTimeout(closeReportModal, 1400);
+    const reply = await res.json().catch(() => ({}));
+    // Success: clear the draft, close modal, show toast.
+    try { localStorage.removeItem(_LS.feedbackDraft); } catch {}
+    closeReportModal();
+    showFeedbackToast(reply);
   } catch (e) {
     status.className = 'report-status is-err';
-    status.textContent = e.message || 'Send failed — try again, or open a GitHub issue.';
+    status.textContent = (e.message || 'Submit failed.') + ' Your text is kept locally — retry when you have signal.';
     submitBtn.disabled = false;
   }
+}
+
+// v19.14: lightweight toast notifying the user that their report
+// landed, with a deep link to the GitHub issue when the backend
+// surfaces one. Auto-dismisses after 6s, manually closeable.
+function showFeedbackToast(reply) {
+  let toast = document.getElementById('feedback-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'feedback-toast';
+    toast.className = 'feedback-toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toast);
+  }
+  const issueLink = reply && reply.issueUrl
+    ? ` · <a href="${escape(reply.issueUrl)}" target="_blank" rel="noopener">issue #${escape(String(reply.issueNumber))}</a>`
+    : '';
+  toast.innerHTML = `
+    <span class="feedback-toast-mark">⚐</span>
+    <span class="feedback-toast-msg">Thanks — report filed${issueLink}.</span>
+    <button type="button" class="feedback-toast-close" aria-label="Dismiss">×</button>
+  `;
+  toast.classList.add('is-shown');
+  toast.querySelector('.feedback-toast-close')?.addEventListener('click', () => {
+    toast.classList.remove('is-shown');
+  }, { once: true });
+  setTimeout(() => toast.classList.remove('is-shown'), 6000);
 }
 
 // ─────────── B4 Year histogram ───────────
