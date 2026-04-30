@@ -1,14 +1,19 @@
-Build report - 2026-04-29T23:41:04+00:00
+Build report - 2026-04-30T00:03:29+00:00
 ============================================================
 
 Documents: 360 (187 GC + 173 SP)
-Paragraphs: 25904 (7164 GC + 18740 SP)
+Paragraphs: 25896 (7156 GC + 18740 SP)
 Labels: 19
 Committees: 14
 Year range: [1960, 2026]
 
-Diagnostics (9 entries):
+Diagnostics (14 entries):
 ------------------------------------------------------------
+[gc] crc-c-gc-7-rev-1-0017: text has [[fn:N]] markers [1] with no matching footnote — stripped
+[gc] crc-c-gc-7-rev-1-0027: text has [[fn:N]] markers [2] with no matching footnote — stripped
+[gc] e-c-12-gc-21-0009: text has [[fn:N]] markers [11] with no matching footnote — stripped
+[gc] e-c-12-gc-21-0010: text has [[fn:N]] markers [12] with no matching footnote — stripped
+[gc] e-c-12-gc-21-0013: text has [[fn:N]] markers [11, 12] with no matching footnote — stripped
 [sp] FILE WITHOUT METADATA: A_HRC_13_40_1.json
 [sp] FILE WITHOUT METADATA: A_HRC_9_18.json
 [sp] FILE WITHOUT METADATA: Disinformation and freedom of opinion and expression  during armed conflicts.json

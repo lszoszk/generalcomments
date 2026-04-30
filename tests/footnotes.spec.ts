@@ -14,9 +14,12 @@ import { bootApp, resetWorkspace, seedFootnotes, typeQuery } from './_helpers';
  *   F6. zeroRegressions      — paragraph without footnotes renders identical HTML
  */
 
-const SEED_DOC_ID = 'ccpr-c-gc-32';
-// CCPR GC32 ¶33 — well-known fair-trial paragraph, present in every build.
-const SEED_PARA_ID = 'ccpr-c-gc-32-0033';
+// v19.8 P2: CCPR GC32 (and many other docs) now carries real footnotes from
+// the OHCHR DOCX/PDF re-extraction. Pick a doc that's still clean — i.e.
+// has no footnotes after P2 — so synthetic seed assertions are stable.
+const SEED_DOC_ID = 'ccpr-c-gc-35';
+// CCPR GC35 ¶33 — "promptly" / 48-hours-after-arrest paragraph.
+const SEED_PARA_ID = 'ccpr-c-gc-35-0033';
 
 test.beforeEach(async ({ page }) => {
   await resetWorkspace(page);
@@ -77,14 +80,14 @@ test('F3. popoverEscapeCloses · Escape dismisses popover', async ({ page }) => 
 });
 
 test('F4. snippetHidesMarkers · search snippets never render [[fn:N]]', async ({ page }) => {
-  // "exculpatory" appears in CCPR GC32 ¶33 (the only CCPR GC32 hit) and a
-  // handful of other paragraphs. The seeded paragraph row is guaranteed to
-  // show up. We assert NO snippet across the result list contains a marker
-  // token — the row whose underlying text DOES contain markers must have
-  // had them stripped by stripFnMarkers before rendering.
+  // "promptness" hits a small handful of paragraphs including the seeded
+  // CCPR GC35 ¶33 (48-hours-after-arrest), so the seeded result row is
+  // guaranteed to show up. We assert NO snippet across the result list
+  // contains a marker token — the row whose underlying text DOES contain
+  // markers must have had them stripped by stripFnMarkers before rendering.
   await bootApp(page, '/index.html');
   await page.waitForTimeout(800);
-  await typeQuery(page, 'exculpatory');
+  await typeQuery(page, 'promptness');
   const seededResult = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
   await expect(seededResult).toHaveCount(1, { timeout: 6_000 });
   const allSnippets = await page.locator('.result-text').allInnerTexts();
@@ -113,7 +116,8 @@ test('F6. zeroRegressions · paragraph without footnotes renders without buttons
   // ¶34 was NOT seeded — confirm it has no .fn-marker buttons.
   await bootApp(page, `/index.html#documents/${SEED_DOC_ID}`);
   await page.waitForTimeout(800);
-  const otherPara = page.locator('[data-para-id="ccpr-c-gc-32-0034"]');
+  // Scope to reader pane (search list also carries data-para-id).
+  const otherPara = page.locator(`.docs-reader-para[data-para-id="${SEED_DOC_ID}-0034"]`);
   await expect(otherPara).toBeVisible();
   await expect(otherPara.locator('button.fn-marker')).toHaveCount(0);
 });
