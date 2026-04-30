@@ -1530,6 +1530,21 @@ function bindUI() {
     qInput.focus();
   });
 
+  // v19.17 (recommendation D): always-accessible search-syntax help.
+  // The empty-state card already shows a brief cheatsheet, but only
+  // when the query yields 0 hits — useless for the larger UX class
+  // of "I'm getting too many results, how do I narrow?". The ? button
+  // exposes operators + clickable examples + tips on demand.
+  $('#q-help')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const trigger = e.currentTarget;
+    if (trigger.getAttribute('aria-expanded') === 'true') {
+      closeQueryHelpPopover();
+    } else {
+      openQueryHelpPopover(trigger);
+    }
+  });
+
   // Suggestions
   $$('.suggest').forEach(b => b.addEventListener('click', () => {
     $('#q').value = b.dataset.q;
@@ -4370,6 +4385,107 @@ function openInlineCitePopover(anchorEl, para) {
 }
 function closeInlineCitePopover() {
   if (_inlineCiteCleanup) _inlineCiteCleanup();
+}
+
+// v19.17 (recommendation D): singleton search-syntax popover anchored
+// to the ? button next to #q. Same lifecycle as the cite popover —
+// click-outside / Esc / re-click on the trigger closes it. Examples
+// are clickable: filling them into #q runs the search via the same
+// debounced path the .suggest buttons already use.
+let _queryHelpCleanup = null;
+const _QUERY_HELP_OPS = [
+  { op: '"exact phrase"',     desc: 'Match the words verbatim and in order. Stays literal — no stemming.' },
+  { op: 'A B',                desc: 'Implicit AND on whitespace — both terms must appear.' },
+  { op: 'A AND B',            desc: 'Both terms must appear (explicit form).' },
+  { op: 'A OR B',             desc: 'Either term qualifies.' },
+  { op: 'NOT term · -term',   desc: 'Exclude paragraphs containing the term. Both forms work.' },
+  { op: '( … )',              desc: 'Group with parentheses to override default precedence (AND binds tighter than OR).' },
+  { op: 'prefix*',            desc: 'Trailing asterisk matches any continuation: discriminat* hits discrimination, discriminate, discriminatory.' },
+];
+const _QUERY_HELP_EXAMPLES = [
+  '"best interests of the child"',
+  'trafficking AND children NOT (sexual)',
+  'surveillance OR interception',
+  'discriminat*',
+  '(women OR girls) AND violence',
+];
+function openQueryHelpPopover(triggerEl) {
+  closeQueryHelpPopover();
+  const pop = document.createElement('div');
+  pop.className = 'q-help-pop';
+  pop.setAttribute('role', 'dialog');
+  pop.setAttribute('aria-label', 'Search syntax');
+  pop.innerHTML = `
+    <h4>Operators</h4>
+    <dl>
+      ${_QUERY_HELP_OPS.map(o => `
+        <dt>${escape(o.op)}</dt>
+        <dd>${escape(o.desc)}</dd>
+      `).join('')}
+    </dl>
+    <h4>Try</h4>
+    <div class="q-help-examples">
+      ${_QUERY_HELP_EXAMPLES.map(q => `
+        <button type="button" class="q-help-example" data-q="${escape(q)}">${escape(q)}</button>
+      `).join('')}
+    </div>
+    <h4>Tip</h4>
+    <p class="q-help-tip">
+      Quoted phrases stay literal — <code>"AI"</code> matches only AI, not aid.
+      Bare words stem on the server (<code>women</code> matches women / womens),
+      so <code>women NOT girl</code> excludes girl/girls/girlfriend in one shot.
+    </p>
+  `;
+  document.body.appendChild(pop);
+
+  // Position: align right edge to the trigger, drop below by 6 px.
+  // If that would clip past the viewport bottom, flip above the trigger.
+  const r = triggerEl.getBoundingClientRect();
+  const popW = pop.offsetWidth;
+  const popH = pop.offsetHeight;
+  const x = Math.max(8, Math.min(window.innerWidth - popW - 8, r.right - popW));
+  let y = window.scrollY + r.bottom + 6;
+  if (r.bottom + popH + 12 > window.innerHeight) {
+    y = window.scrollY + r.top - popH - 6;        // flip above when clipping
+  }
+  pop.style.left = `${x}px`;
+  pop.style.top  = `${y}px`;
+
+  triggerEl.setAttribute('aria-expanded', 'true');
+
+  // Examples → fill #q + dispatch input so the existing debounced
+  // handler kicks off the search. Same path as .suggest buttons.
+  pop.querySelectorAll('.q-help-example').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const q = btn.dataset.q;
+      const qInput = $('#q');
+      if (qInput) {
+        qInput.value = q;
+        qInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      closeQueryHelpPopover();
+    });
+  });
+
+  const onDoc = (e) => {
+    if (!pop.contains(e.target) && e.target !== triggerEl) closeQueryHelpPopover();
+  };
+  const onEsc = (e) => { if (e.key === 'Escape') closeQueryHelpPopover(); };
+  setTimeout(() => {
+    document.addEventListener('click', onDoc);
+    document.addEventListener('keydown', onEsc);
+  }, 0);
+  _queryHelpCleanup = () => {
+    pop.remove();
+    triggerEl.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('click', onDoc);
+    document.removeEventListener('keydown', onEsc);
+    _queryHelpCleanup = null;
+  };
+}
+function closeQueryHelpPopover() {
+  if (_queryHelpCleanup) _queryHelpCleanup();
 }
 
 // ─────────── Read → Open in document (v19.15) ───────────
