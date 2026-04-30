@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260430-v19-11-1" />
-<link rel="stylesheet" href="assets/app.css?v=20260430-v19-11-1" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260430-v19-12" />
+<link rel="stylesheet" href="assets/app.css?v=20260430-v19-12" />
 </head>
 <body>
 
@@ -173,6 +173,13 @@
     <span class="op" title="Exclude term — also: -term">NOT term</span>
     <span class="op" title="Group with parentheses">( … )</span>
     <span class="op" title="Prefix wildcard — biases, biased, biasing">prefix*</span>
+    <span class="op-sep" aria-hidden="true">·</span>
+    <button id="fn-toggle" class="op-toggle is-on" type="button"
+            aria-pressed="true"
+            title="Include footnote text in search. Click to toggle off and search paragraph bodies only.">
+      <span class="op-toggle-mark" aria-hidden="true">✓</span>
+      <span class="op-toggle-label">search in footnotes</span>
+    </button>
     <span class="folio">Try</span>
     <button class="suggest" data-q='"best interests of the child"'>"best interests of the child"</button>
     <button class="suggest" data-q='trafficking AND children NOT (sexual)'>trafficking AND children NOT (sexual)</button>
@@ -644,6 +651,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260430-v19-11-1"></script>
+<script type="module" src="assets/app.js?v=20260430-v19-12"></script>
 </body>
 </html>

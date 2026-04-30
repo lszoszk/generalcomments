@@ -364,6 +364,51 @@
   background: var(--paper-3);
   border: 1px solid var(--rule);
 }
+.searchbar-hint .op-sep {
+  color: var(--ink-3);
+  opacity: 0.5;
+  margin: 0 2px;
+}
+/* Toggle chip in the operators row — controls whether footnote text is
+   indexed alongside body text. Visually distinct from the static .op
+   hints because it's an actual interactive control. */
+.searchbar-hint .op-toggle {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  cursor: pointer;
+  color: var(--ink-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1.4;
+}
+.searchbar-hint .op-toggle:hover {
+  border-color: var(--garnet);
+}
+.searchbar-hint .op-toggle .op-toggle-mark {
+  display: inline-block;
+  width: 12px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--garnet);
+}
+.searchbar-hint .op-toggle.is-on {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--garnet);
+}
+.searchbar-hint .op-toggle:not(.is-on) .op-toggle-mark {
+  color: var(--ink-3);
+}
+.searchbar-hint .op-toggle:not(.is-on) .op-toggle-label {
+  color: var(--ink-3);
+  text-decoration: line-through;
+  text-decoration-thickness: 0.5px;
+}
 .suggest {
   font-family: var(--display);
   font-size: 13px;

@@ -123,6 +123,71 @@ test('F6. zeroRegressions · paragraph without footnotes renders without buttons
   await expect(otherPara.locator('button.fn-marker')).toHaveCount(0);
 });
 
+test('F7. dossierRendersMarkers · clicking a result paints buttons in the dossier', async ({ page }) => {
+  // The dossier (right pane in search view) used to render `[[fn:N]]`
+  // tokens as raw text. v19.12 wires renderParagraphHtml() into the
+  // paintDossier path. Open the seeded paragraph via the dossier and
+  // confirm the body paragraph carries a clickable marker.
+  await bootApp(page, '/index.html');
+  await page.waitForTimeout(800);
+  await typeQuery(page, 'Cuscumigratoria');
+  const result = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
+  await expect(result).toHaveCount(1, { timeout: 6_000 });
+  await result.click();
+  // Dossier renders the same paragraph; markers appear as fn-marker buttons.
+  const dossierMarkers = page.locator('#dossier button.fn-marker');
+  await expect(dossierMarkers).toHaveCount(2);
+  await expect(dossierMarkers.first()).toHaveAttribute('data-fn-n', '1');
+});
+
+test('F8. dossierPopover · marker click in dossier opens the popover', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await page.waitForTimeout(800);
+  await typeQuery(page, 'Cuscumigratoria');
+  const result = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
+  await expect(result).toHaveCount(1, { timeout: 6_000 });
+  await result.click();
+  await page.locator('#dossier button.fn-marker').first().click();
+  const pop = page.locator('.fn-popover');
+  await expect(pop).toBeVisible();
+  await expect(pop.locator('.fn-popover-body')).toContainText(/Blanco Domínguez/);
+});
+
+test('F9. fnToggle · default ON, click flips to OFF, persists across reload', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  const toggle = page.locator('#fn-toggle');
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveClass(/is-on/);
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  await toggle.click();
+  await expect(toggle).not.toHaveClass(/is-on/);
+  await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+  // Reload — preference persists via localStorage.
+  await page.reload();
+  await page.waitForFunction(() => {
+    const folio = document.getElementById('mast-folio')?.textContent || '';
+    return /\d+\s*¶/.test(folio);
+  }, null, { timeout: 15_000 });
+  await expect(page.locator('#fn-toggle')).not.toHaveClass(/is-on/);
+});
+
+test('F10. fnToggleHidesPill · OFF state suppresses match-in-citation hits', async ({ page }) => {
+  // With the toggle ON, "Cuscumigratoria" finds the seeded paragraph
+  // (footnote-only match) and the pill renders. Flip OFF and the same
+  // search returns zero results — the index never queried fnText.
+  await bootApp(page, '/index.html');
+  await page.waitForTimeout(800);
+  // Flip toggle OFF first
+  await page.locator('#fn-toggle').click();
+  await typeQuery(page, 'Cuscumigratoria');
+  await page.waitForTimeout(400);
+  // Should be no result for the seeded paragraph anymore.
+  const seeded = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
+  await expect(seeded).toHaveCount(0);
+  // And no match-in-citation pill anywhere.
+  await expect(page.locator('.match-in-citation')).toHaveCount(0);
+});
+
 test('F7. realDataCatOpGC1 · production footnotes render in the SPT general comment', async ({ page }) => {
   // CAT/OP/GC/1 was ingested in v19.8 with real footnotes from the OHCHR DOCX.
   // ¶1 carries [[fn:2]] [[fn:3]] [[fn:4]] markers anchored in the prose; this

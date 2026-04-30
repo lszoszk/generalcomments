@@ -29,6 +29,7 @@ const state = {
   scope: 'gc',         // 'gc' | 'jur' | 'sp' | 'all'
   resultSort: 'relevance',      // 'relevance' | 'date'
   resultGroup: 'paragraphs',    // 'paragraphs' | 'documents'
+  searchInFootnotes: true,      // v19.12: include fnText field in FlexSearch query
   collapsedDocGroups: new Set(),
   query: '',
   filters: {
@@ -338,7 +339,7 @@ const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard mat
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', fn: 'fn' };
 
 function encodeUrlState() {
   if (!state.facets) return;
@@ -359,6 +360,8 @@ function encodeUrlState() {
   if (state.filters.reportTypes.size) u.set(URL_KEYS.rt, [...state.filters.reportTypes].join('|'));
   if (state.filters.countries.size) u.set(URL_KEYS.cy, [...state.filters.countries].join('|'));
   if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
+  // v19.12: only emit fn=0 when toggle is OFF (default ON keeps URLs short).
+  if (state.searchInFootnotes === false) u.set(URL_KEYS.fn, '0');
   if (state.activeId) u.set(URL_KEYS.p, state.activeId);
   const qs = u.toString();
   // v17: preserve the hash — the docs reader relies on "#documents/<docId>"
@@ -389,6 +392,9 @@ function decodeUrlState() {
     reportTypes: split('rt'),
     countries: split('cy'),
     showSuperseded: u.get(URL_KEYS.sup) === '1',
+    // v19.12: omitted/anything-but-'0' = ON (default). 'fn=0' = OFF.
+    searchInFootnotes: u.get(URL_KEYS.fn) !== '0',
+    searchInFootnotesUrl: u.has(URL_KEYS.fn),     // explicit URL signal
   };
 }
 
@@ -758,8 +764,36 @@ function applyUrlState(parsed) {
   }
   syncResultsControls();
 
+  // v19.12: search-in-footnotes preference. URL > localStorage > default(ON).
+  if (parsed.searchInFootnotesUrl) {
+    state.searchInFootnotes = parsed.searchInFootnotes;
+  } else {
+    // localStorage stores the raw string '0' or '1' (no JSON wrapping) so
+    // a fresh user with no key reads as `null`, which we treat as ON.
+    let ls = null;
+    try { ls = localStorage.getItem(_LS.searchInFn); } catch {}
+    state.searchInFootnotes = ls !== '0';
+  }
+  syncFnToggleControl();
+
   // Active paragraph
   state.activeId = parsed.activeId;
+}
+
+// v19.12: keep the operators-row chip's visual state synchronized with
+// state.searchInFootnotes. Called whenever the value changes (URL apply,
+// click handler, programmatic toggle).
+function syncFnToggleControl() {
+  const btn = document.getElementById('fn-toggle');
+  if (!btn) return;
+  const on = state.searchInFootnotes !== false;
+  btn.classList.toggle('is-on', on);
+  btn.setAttribute('aria-pressed', String(on));
+  const mark = btn.querySelector('.op-toggle-mark');
+  if (mark) mark.textContent = on ? '✓' : '✗';
+  btn.title = on
+    ? 'Footnote text is included in search. Click to toggle off and search paragraph bodies only.'
+    : 'Search is restricted to paragraph bodies (footnotes excluded). Click to include footnotes.';
 }
 
 // ─────────── Hash router (Search / Documents / About) ───────────
@@ -1480,6 +1514,15 @@ function bindUI() {
     syncClearChip();
     runSearch();
   }));
+
+  // v19.12: footnote-search toggle in the operators row.
+  document.getElementById('fn-toggle')?.addEventListener('click', () => {
+    state.searchInFootnotes = !state.searchInFootnotes;
+    try { localStorage.setItem(_LS.searchInFn, state.searchInFootnotes ? '1' : '0'); } catch {}
+    syncFnToggleControl();
+    scheduleUrlUpdate();
+    runSearch();
+  });
 
   // Result sorting / grouping controls
   $$('#result-sort .result-opt').forEach(b => b.addEventListener('click', () => {
@@ -2238,9 +2281,14 @@ function dumpIndex() {
 
 // Run one FlexSearch term and return matching paragraph ids.
 // Boolean query semantics are composed below so OR always means a true union.
+// v19.12: when state.searchInFootnotes is false, restrict the index to the
+// `text` field so footnote text never matches. Default behaviour is to
+// query both fields (text + fnText) for citation-aware coverage.
 function flexSearchIds(query) {
   if (!state.searchIndex || !query) return null;
-  const hits = state.searchIndex.search(query, { limit: 5000, suggest: false });
+  const opts = { limit: 5000, suggest: false };
+  if (state.searchInFootnotes === false) opts.field = ['text'];
+  const hits = state.searchIndex.search(query, opts);
   const ids = new Set();
   for (const field of hits) for (const id of field.result) ids.add(id);
   return ids;
@@ -3332,7 +3380,11 @@ function renderResult(p, rank, terms, opts = {}) {
   // v19.8: detect "match in citation" — query term hit only inside a
   // footnote (visible snippet wouldn't show why). Show a small pill so the
   // user understands the match without opening the doc.
-  const matchInFn = p.footnotes && p.footnotes.length
+  // v19.12: only flag "match in citation" when the user has footnote-search
+  // enabled. With the toggle OFF the index never returns footnote-only hits,
+  // and showing the pill would be misleading.
+  const matchInFn = state.searchInFootnotes !== false
+    && p.footnotes && p.footnotes.length
     && hasFootnoteMatch(p, terms || [])
     && !(terms || []).some(t => bareText.toLowerCase().includes(String(t).toLowerCase()));
   const fnMatchPill = matchInFn
@@ -3736,7 +3788,7 @@ function paintDossier() {
     </div>
     <blockquote>
       <span class="pn">¶ ${para.n ?? para.idx}</span>
-      <p>${highlight(para.text, terms)}</p>
+      <p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p>
     </blockquote>
     <div class="dossier-toolbar" role="toolbar" aria-label="Paragraph actions">
       <button class="dossier-tool ${bmHas(para.id) ? 'on' : ''}" id="ws-bookmark" type="button"
@@ -3798,6 +3850,16 @@ function paintDossier() {
       </div>` : ''}
     ${isJurDoc ? renderMetaFeedbackStrip(doc?.docId) : ''}
   `;
+
+  // v19.12: footnote-marker click → singleton popover (mirrors reader UX).
+  // Delegated on the dossier root so we don't rebind per-marker.
+  host.querySelectorAll('button.fn-marker').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      openFnPopover(btn);
+    });
+  });
 
   // B1 Bookmark toggle
   $('#ws-bookmark')?.addEventListener('click', () => { bmToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
@@ -4414,6 +4476,7 @@ const _LS = {
   dossierFont:  'unhrdb_dossier_font_v1',   // v15: 'S' | 'M' | 'L'
   theme:        'unhrdb_theme_v1',          // v19.6: 'light' | 'dark'
   metaVote:     'unhrdb_meta_vote_v1',      // v19.10: docId → 'ok' | 'bad'
+  searchInFn:   'unhrdb_search_in_fn_v1',   // v19.12: '1' | '0' (default '1')
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
