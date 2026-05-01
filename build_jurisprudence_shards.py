@@ -34,6 +34,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 DEFAULT_INFO = ROOT / 'mysite_pythonanywhere' / 'jurisprudence_info.json'
 DEFAULT_OUT = ROOT / 'docs' / 'jur'
+PLACEHOLDER_TITLES = {
+    'english title',
+}
 
 
 def read_json(path: Path):
@@ -88,9 +91,74 @@ def compact_document(doc: dict) -> dict:
         'conventionArticlesParsed', 'optionalProtocolArticlesParsed',
         'rulesReferenced', 'interimMeasuresMentioned',
         'metadataConfidence', 'metadataSources', 'externalNameAuthority',
+        'jurisCaseId', 'jurisUrl', 'jurisTitle', 'jurisDecisionType',
+        'jurisCommunicationNumbers', 'jurisSessionNo', 'jurisAuthor',
+        'jurisCountry', 'jurisSubmissionDate', 'jurisDecisionDate',
+        'jurisComment', 'jurisSubstantiveIssues', 'jurisProceduralIssues',
+        'jurisSubstantiveArticles', 'jurisProceduralArticles',
+        'jurisDownloads', 'jurisLastCheckedAt',
         'firstAddedAt', 'lastVerifiedAt',
     ]
     return {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+
+
+def is_placeholder_title(value: str | None) -> bool:
+    return (value or '').strip().lower() in PLACEHOLDER_TITLES
+
+
+def fallback_case_title(doc: dict) -> str:
+    parts = [doc.get('symbol') or doc.get('signature') or doc.get('docId')]
+    if doc.get('country'):
+        parts.append(doc['country'])
+    return ' · '.join(str(p) for p in parts if p)
+
+
+def public_title(doc: dict) -> str:
+    for key in ('caseName', 'title', 'nameShort', 'name'):
+        value = doc.get(key)
+        if value and not is_placeholder_title(value):
+            return value
+    return fallback_case_title(doc)
+
+
+def lite_document(doc: dict) -> dict:
+    """Browser-facing Tier-1 document metadata.
+
+    The full documents.json keeps authority/download metadata for data work.
+    The site loads this light version at boot so General Comments do not pay
+    an 18 MB jurisprudence tax before the user opens JUR.
+    """
+    keys = [
+        'docId', 'type', 'name', 'nameShort', 'signature', 'committee',
+        'committees', 'treaty', 'symbol', 'country', 'year', 'title',
+        'communicationYear', 'adoptionYear', 'outcome', 'submittedDate',
+        'adoptionDate', 'languages', 'link', 'sourceFile', 'sourceFormat',
+        'shardId', 'paragraphCount', 'wordCount', 'labelCount', 'caseLabels',
+        'articlesCited', 'ocrStatus', 'ocrMeanConf', 'ocrLowConfRatio',
+        'nameConfidence', 'caseName', 'caseNameSource', 'caseNameConfidence',
+        'submittedBy', 'submittedByClean', 'representation', 'allegedVictims',
+        'stateParty', 'communicationDate', 'documentReferences',
+        'subjectMatter', 'proceduralIssues', 'substantiveIssues',
+        'covenantArticles', 'conventionArticles', 'optionalProtocolArticles',
+        'covenantArticlesParsed', 'conventionArticlesParsed',
+        'optionalProtocolArticlesParsed', 'rulesReferenced',
+        'interimMeasuresMentioned', 'metadataConfidence', 'jurisCaseId',
+        'jurisUrl', 'jurisTitle', 'jurisDecisionType',
+        'jurisCommunicationNumbers', 'jurisSessionNo', 'jurisAuthor',
+        'jurisCountry', 'jurisSubmissionDate', 'jurisDecisionDate',
+        'jurisSubstantiveIssues', 'jurisProceduralIssues',
+        'jurisSubstantiveArticles', 'jurisProceduralArticles',
+        'firstAddedAt', 'lastVerifiedAt',
+    ]
+    out = {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+    title = public_title(doc)
+    out['name'] = title
+    out['nameShort'] = title
+    out['title'] = title
+    out['caseName'] = title
+    if any(is_placeholder_title(doc.get(k)) for k in ('name', 'nameShort', 'title', 'caseName')):
+        out['placeholderTitleReplaced'] = True
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -209,6 +277,7 @@ def load_paragraphs(doc: dict) -> list[dict]:
             'namespace': item.get('Namespace'),
             'section': section or None,
             'text': re.sub(r'\s+', ' ', text),
+            'footnotes': item.get('Footnotes') or item.get('footnotes') or [],
             'labels': labels,
             'sourceFormat': item.get('SourceFormat') or doc.get('sourceFormat'),
             'ocrStatus': item.get('OcrStatus') or doc.get('ocrStatus'),
@@ -268,6 +337,8 @@ def main() -> int:
         for old_shard in shard_out.glob('*.json'):
             old_shard.unlink()
     write_json(out / 'documents.json', docs, pretty=args.pretty)
+    docs_lite = [lite_document(d) for d in docs]
+    write_json(out / 'documents-lite.json', docs_lite, pretty=args.pretty)
     facets = build_facets(docs, all_paragraphs)
     write_json(out / 'facets.json', facets, pretty=True)
 
@@ -310,6 +381,10 @@ def main() -> int:
                 'sha': sha256_file(out / 'documents.json'),
                 'bytes': (out / 'documents.json').stat().st_size,
             },
+            'documents-lite.json': {
+                'sha': sha256_file(out / 'documents-lite.json'),
+                'bytes': (out / 'documents-lite.json').stat().st_size,
+            },
             'facets.json': {
                 'sha': sha256_file(out / 'facets.json'),
                 'bytes': (out / 'facets.json').stat().st_size,
@@ -318,7 +393,7 @@ def main() -> int:
         },
         'schema': {
             'document': ['docId', 'type', 'treaty', 'symbol', 'country', 'year', 'communicationYear?', 'adoptionYear?', 'title', 'outcome', 'adoptionDate?', 'languages', 'link', 'sourceFile', 'sourceFormat', 'shardId', 'paragraphCount', 'wordCount', 'labelCount', 'caseLabels'],
-            'paragraph': ['id', 'docId', 'idx', 'n', 'paragraphId', 'originalParagraphId?', 'rawParagraphId?', 'idCorrection?', 'generatedParagraphId?', 'generatedIdReason?', 'namespace?', 'section', 'text', 'labels', 'sourceFormat?', 'ocrStatus?', 'ocrMeanConf?', 'ocrLowConfRatio?', 'type', 'treaty', 'country', 'year', 'outcome'],
+            'paragraph': ['id', 'docId', 'idx', 'n', 'paragraphId', 'originalParagraphId?', 'rawParagraphId?', 'idCorrection?', 'generatedParagraphId?', 'generatedIdReason?', 'namespace?', 'section', 'text', 'footnotes?', 'labels', 'sourceFormat?', 'ocrStatus?', 'ocrMeanConf?', 'ocrLowConfRatio?', 'type', 'treaty', 'country', 'year', 'outcome'],
         },
         'diagnostics': diagnostics,
     }

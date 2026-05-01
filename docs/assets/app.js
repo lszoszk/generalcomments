@@ -57,7 +57,7 @@ const state = {
 };
 
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
-const JUR_BASE = './jur/';    // jurisprudence pilot: metadata eager, paragraphs lazy
+const JUR_BASE = './jur/';    // jurisprudence pilot: lightweight metadata eager, paragraphs lazy
 
 // v19.11: server-side search API is the DEFAULT for jurisprudence and
 // scope=all. The local FlexSearch path stays as the offline fallback —
@@ -296,6 +296,16 @@ function adaptApiHit(h) {
   };
 }
 function adaptApiDoc(h) {
+  const title = publicDocTitle({
+    docId: h.doc_id,
+    type: h.type,
+    name: h.name,
+    nameShort: h.name_short,
+    title: h.name,
+    signature: h.signature,
+    symbol: h.signature,
+    country: h.country,
+  });
   return {
     docId:        h.doc_id,
     type:         h.type,
@@ -303,8 +313,9 @@ function adaptApiDoc(h) {
     committee:    h.committee,
     committees:   [h.committee || h.mandate || h.treaty].filter(Boolean),
     mandate:      h.mandate,
-    name:         h.name,
-    nameShort:    h.name_short,
+    name:         title,
+    nameShort:    title,
+    title:        title,
     signature:    h.signature,
     country:      h.country,
     outcome:      h.outcome,
@@ -504,7 +515,12 @@ async function loadJurMetadata() {
   try {
     state.jur.manifest = await fetchJson(`${JUR_BASE}manifest.json`);
     state.jur.facets = await fetchJson(`${JUR_BASE}facets.json`);
-    const docs = await fetchJson(`${JUR_BASE}documents.json`);
+    let docs;
+    try {
+      docs = await fetchJson(`${JUR_BASE}documents-lite.json`);
+    } catch {
+      docs = await fetchJson(`${JUR_BASE}documents.json`);
+    }
     docs.forEach(d => state.documents.set(d.docId, normalizeJurDocument(d)));
   } catch (err) {
     state.jur.error = err;
@@ -523,7 +539,7 @@ async function loadJurMetadata() {
 //   else:  fall back to nameShort / name / docId.
 function formatDocHeadline(doc, { compact = false } = {}) {
   if (!doc) return '';
-  const baseTitle = doc.nameShort || doc.name || doc.docId || '';
+  const baseTitle = publicDocTitle(doc);
   if (doc.type === 'gc') {
     const body = doc.committee || (doc.committees?.[0]) || '';
     return body ? `${body} · ${baseTitle}` : baseTitle;
@@ -536,7 +552,7 @@ function formatDocHeadline(doc, { compact = false } = {}) {
     if (compact) return parts.join(' · ');
     // Promote the case title (often "Communication Nº X: outcome") only when
     // we actually have one — otherwise the parts are sufficient.
-    const caseTitle = doc.title || doc.name || '';
+    const caseTitle = publicDocTitle(doc);
     return caseTitle && caseTitle !== sig
       ? `${treaty} · ${sig}${country ? ` · ${country}` : ''} — ${caseTitle}`
       : parts.join(' · ');
@@ -566,17 +582,40 @@ function mandateShortLabel(mandate) {
 }
 
 function normalizeJurDocument(d) {
+  const title = publicDocTitle(d);
   return {
     ...d,
     type: 'jur',
     committee: d.committee || d.treaty,
     committees: d.committees || (d.treaty ? [d.treaty] : []),
-    name: d.name || d.title || d.symbol || d.docId,
-    nameShort: d.nameShort || d.title || d.symbol || d.docId,
+    name: title,
+    nameShort: title,
+    title,
+    caseName: title,
     signature: d.signature || d.symbol || '',
     year: d.year ?? d.adoptionYear ?? d.communicationYear ?? null,
     adoptionDate: d.adoptionDate || '',
   };
+}
+
+function isPlaceholderTitle(value) {
+  return String(value || '').trim().toLowerCase() === 'english title';
+}
+
+function fallbackJurTitle(doc) {
+  const parts = [doc?.signature || doc?.symbol || doc?.docId];
+  if (doc?.country) parts.push(doc.country);
+  return parts.filter(Boolean).join(' · ') || doc?.docId || '';
+}
+
+function publicDocTitle(doc) {
+  if (!doc) return '';
+  if (doc.type !== 'jur') return doc.nameShort || doc.name || doc.title || doc.docId || '';
+  for (const key of ['caseName', 'title', 'nameShort', 'name']) {
+    const value = doc[key];
+    if (value && !isPlaceholderTitle(value)) return value;
+  }
+  return fallbackJurTitle(doc);
 }
 
 function jurCommitteeFacets() {
@@ -962,7 +1001,7 @@ function renderRailCommittee(committee, list, type) {
          href="#documents/${encodeURIComponent(d.docId)}"
          data-doc-id="${escape(d.docId)}">
         <span class="docs-rail-row-sig mono">${escape(d.signature || d.symbol || '—')}</span>
-        <span class="docs-rail-row-title">${escape(d.nameShort || d.name || d.docId)}${statusBadge}</span>
+        <span class="docs-rail-row-title">${escape(publicDocTitle(d) || d.docId)}${statusBadge}</span>
         <span class="docs-rail-row-meta mono">${d.year ?? '—'} · ${d.paragraphCount ?? 0}¶</span>
       </a>`;
   }).join('');
@@ -1035,7 +1074,7 @@ function paintDocReaderBody(doc, paraId) {
   const head = `
     <header class="docs-reader-head">
       <div class="folio garnet">${escape(formatDocHeadline(doc, { compact: true }))}</div>
-      <h1 class="docs-reader-title">${escape(doc.name || doc.nameShort || doc.docId)}</h1>
+      <h1 class="docs-reader-title">${escape(publicDocTitle(doc) || doc.docId)}</h1>
       <div class="docs-reader-meta mono">
         ${doc.signature ? `<span>${escape(doc.signature)}</span>` : ''}
         ${doc.adoptionDate ? `<span>${escape(doc.adoptionDate)}</span>` : (doc.year ? `<span>${doc.year}</span>` : '')}
@@ -2485,15 +2524,19 @@ async function ensureScopeLoaded(scope) {
 }
 
 async function loadJurCorpus() {
-  $('#results-title').textContent = 'Loading jurisprudence preview…';
-  $('#results-sub').textContent = 'Fetching jurisprudence case paragraphs.';
-
-  const shardNames = Object.keys(state.jur.manifest.files || {})
+  const files = state.jur.manifest?.files || {};
+  const shardNames = Object.keys(files)
     .filter(name => name.startsWith('shards/'))
     .sort();
+  const totalBytes = shardNames.reduce((sum, name) => sum + (files[name]?.bytes || 0), 0);
+  const mb = totalBytes ? ` (~${(totalBytes / 1024 / 1024).toFixed(0)} MB)` : '';
+  $('#results-title').textContent = 'Loading local jurisprudence fallback…';
+  $('#results-sub').textContent = `Fetching ${shardNames.length} paragraph shards${mb}. API search is faster; local mode keeps the database usable offline.`;
+  paintApiBadge(false);
 
   const loadedParagraphs = [];
-  for (const shardName of shardNames) {
+  for (const [i, shardName] of shardNames.entries()) {
+    $('#results-sub').textContent = `Loading local jurisprudence shard ${i + 1}/${shardNames.length}: ${shardName.replace('shards/', '')}${mb}.`;
     const shard = await fetchJson(`${JUR_BASE}${shardName}`);
     for (const p of shard.paragraphs || []) {
       const doc = state.documents.get(p.docId);
@@ -2512,7 +2555,10 @@ async function loadJurCorpus() {
   for (const p of loadedParagraphs) {
     state.paragraphs.push(p);
     state.paragraphById.set(p.id, p);
-    state.searchIndex?.add({ id: p.id, text: p.text });
+    const fnText = (p.footnotes && p.footnotes.length)
+      ? p.footnotes.map(f => f.text || '').join(' ')
+      : '';
+    state.searchIndex?.add({ id: p.id, text: stripFnMarkers(p.text), fnText });
   }
 
   state.jur.loaded = true;
@@ -3863,7 +3909,7 @@ function paintDossier() {
       ${confidencePill}
       ${fontControls}
     </div>
-    <h3 class="dossier-title">${escape(doc?.name || para.docId)}</h3>
+    <h3 class="dossier-title">${escape(publicDocTitle(doc) || para.docId)}</h3>
     <div class="dossier-sig">${
       doc?.link
         ? `<a class="dossier-sig-link" href="${escape(doc.link)}" target="_blank" rel="noopener" title="Open original document on un.org">${escape(doc?.signature || '—')} <span class="dossier-sig-arrow" aria-hidden="true">↗</span></a>`
@@ -4663,7 +4709,7 @@ function cmdkBuildItems() {
     if (doc.outcome && doc.outcome !== 'final') subBits.push(formatOutcome(doc.outcome));
     items.push({
       kind: 'doc', kindLabel: (doc.type || 'doc').toUpperCase(),
-      label: doc.nameShort || doc.name || symbol,
+      label: publicDocTitle(doc) || symbol,
       sub: `${symbol} · ${subBits.filter(Boolean).join(' · ')}`,
       icon: '📄',
       searchKey: `${symbol} ${doc.name || ''} ${doc.country || ''} ${doc.committee || ''}`.toLowerCase(),
@@ -5830,11 +5876,17 @@ function openFnPopover(triggerBtn) {
   triggerBtn.setAttribute('aria-expanded', 'true');
   _fnPopoverTrigger = triggerBtn;
   _positionFnPopover(triggerBtn, pop);
-  // Bind close handlers (idempotent — using bound singleton listeners).
-  document.addEventListener('keydown', _fnPopoverKey, true);
-  document.addEventListener('click', _fnPopoverDocClick, true);
-  window.addEventListener('scroll', closeFnPopover, true);
-  window.addEventListener('resize', closeFnPopover, true);
+  // Bind close handlers after the opening click has fully bubbled. Binding a
+  // capture-phase document click listener during the same click can make some
+  // engines immediately treat the opener as an outside click, leaving the
+  // singleton visible for a moment and then hidden before the user sees it.
+  setTimeout(() => {
+    if (_fnPopoverTrigger !== triggerBtn) return;
+    document.addEventListener('keydown', _fnPopoverKey, true);
+    document.addEventListener('click', _fnPopoverDocClick, true);
+    window.addEventListener('scroll', closeFnPopover, true);
+    window.addEventListener('resize', closeFnPopover, true);
+  }, 0);
 }
 function closeFnPopover() {
   if (!_fnPopover) return;
