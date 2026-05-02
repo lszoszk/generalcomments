@@ -489,6 +489,7 @@ async function boot() {
     bindRouter();
     initDossierResizer();                // v15: drag handle + persisted width
     initDossierFontPref();               // v15: restore S/M/L preference
+    initCompactHeader();                 // v19.20: shrink header on scroll
     state.apiPingPromise = pingApi();    // v19.11: stashed so the first JUR runSearch can await it briefly
     paintDiffTray();                     // restore pinned-tray on reload
     paintWorkspaceBadge();
@@ -2997,11 +2998,30 @@ function paintResultBreakdown() {
   // the pills reflect the FULL match-set (not just the 200-row page
   // slice that we have rendered). Falls back to a local count for the
   // FlexSearch path.
+  //
+  // v19.20: guard against stale state. The API always returns
+  // breakdown.gc + .jur + .sp === total, so any mismatch means
+  // state.apiBreakdown is from a different search than state.apiTotal
+  // (can happen during rapid filter changes). When inconsistent, fall
+  // back to counting from the rendered results — always consistent.
   let nGc, nJur, nSp;
   if (state.apiBreakdown) {
-    nGc  = state.apiBreakdown.gc  || 0;
-    nJur = state.apiBreakdown.jur || 0;
-    nSp  = state.apiBreakdown.sp  || 0;
+    const bd = state.apiBreakdown;
+    const bdSum = (bd.gc || 0) + (bd.jur || 0) + (bd.sp || 0);
+    const isConsistent = state.apiTotal == null || bdSum === state.apiTotal;
+    if (isConsistent) {
+      nGc  = bd.gc  || 0;
+      nJur = bd.jur || 0;
+      nSp  = bd.sp  || 0;
+    } else {
+      // Stale breakdown — recompute from rendered results.
+      nGc = nJur = nSp = 0;
+      for (const { p } of state.results) {
+        if (p.type === 'gc') nGc++;
+        else if (p.type === 'jur') nJur++;
+        else if (p.type === 'sp') nSp++;
+      }
+    }
   } else {
     nGc = nJur = nSp = 0;
     for (const { p } of state.results) {
@@ -5738,6 +5758,42 @@ function applyDossierFontPref(letter) {
 function initDossierFontPref() {
   const saved = _lsGet(_LS.dossierFont, 'M');
   applyDossierFontPref(saved);
+}
+
+// ─────────── Compact sticky header (v19.20) ───────────
+// When the user scrolls past COMPACT_THRESHOLD px the masthead shrinks:
+// folio text + subtitle collapse, title font drops, padding tightens.
+// The --mast-h CSS variable is kept in sync so the sticky filter panel
+// can always offset its `top` below the mast without hard-coding heights.
+function initCompactHeader() {
+  const mast = document.querySelector('header.mast');
+  if (!mast) return;
+  const root = document.documentElement;
+  const COMPACT_THRESHOLD = 60;
+  let compact = false;
+
+  function syncMastHeight() {
+    root.style.setProperty('--mast-h', mast.offsetHeight + 'px');
+  }
+
+  function applyCompact(nowCompact) {
+    if (nowCompact === compact) return;
+    compact = nowCompact;
+    mast.classList.toggle('mast--compact', compact);
+    // After the CSS transition finishes, re-measure and update the var.
+    setTimeout(syncMastHeight, 200);
+  }
+
+  window.addEventListener('scroll', () => {
+    applyCompact(window.scrollY > COMPACT_THRESHOLD);
+  }, { passive: true });
+
+  // Set accurately now (triggers a synchronous reflow which is fine
+  // here since we're called at the end of boot(), layout is stable)
+  // and once more after the first paint so percentage/calc values
+  // resolve correctly in older engines.
+  syncMastHeight();
+  requestAnimationFrame(syncMastHeight);
 }
 
 // ─────────── Helpers ───────────

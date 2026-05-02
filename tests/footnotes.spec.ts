@@ -162,7 +162,11 @@ test('F9. fnToggle · default ON, click flips to OFF, persists across reload', a
   await toggle.click();
   await expect(toggle).not.toHaveClass(/is-on/);
   await expect(toggle).toHaveAttribute('aria-pressed', 'false');
-  // Reload — preference persists via localStorage.
+  // Wait for the 250 ms URL-debounce to fire so ?fn=0 is in the address
+  // bar BEFORE we reload — the init script reads the URL param and skips
+  // the localStorage wipe that would reset the toggle back to ON.
+  await page.waitForURL(/fn=0/, { timeout: 3_000 });
+  // Reload — preference persists via localStorage + URL param.
   await page.reload();
   await page.waitForFunction(() => {
     const folio = document.getElementById('mast-folio')?.textContent || '';
