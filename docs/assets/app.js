@@ -179,7 +179,13 @@ async function runSearchViaApi(runId) {
   if (f.committees.size) {
     params.body = [...f.committees].join(',');
   }
-  if (f.labels.size) params.labels = [...f.labels].join(',');
+  if (f.labels.size) {
+    params.labels = [...f.labels].join(',');
+    // v19.21: forward the ANY/ALL toggle to the server. Without this the
+    // API silently treated every multi-label query as ANY (its IN-clause
+    // default), so the ALL toggle in scope=all / scope=jur was inert.
+    if (f.labelsMode === 'all') params.labels_mode = 'all';
+  }
   if (f.yearMin && f.yearMin !== state.facets?.years?.min) params.year_from = f.yearMin;
   if (f.yearMax && f.yearMax !== state.facets?.years?.max) params.year_to   = f.yearMax;
 
