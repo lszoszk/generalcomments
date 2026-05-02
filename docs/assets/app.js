@@ -44,8 +44,6 @@ const state = {
   },
   results: [],
   activeId: null,
-  bannerShownForSp: false,
-  bannerShownForJur: false,
   searchRun: 0,
   jur: {
     manifest: null,
@@ -755,12 +753,8 @@ function applyUrlState(parsed) {
     b.classList.toggle('is-active', on);
     b.setAttribute('aria-selected', on ? 'true' : 'false');
   });
-  $('#scope-meta').textContent = {
-    gc:  'Treaty body output · near-hard-law',
-    jur: `Treaty body jurisprudence · ${jurTreatyLabel()} preview`,
-    sp:  'Mandate-holder reports · soft law · preview',
-    all: 'Combined view',
-  }[validScope];
+  // v19.22: deep-link `?scope=jur|sp` opens the preview banner up front.
+  syncScopeBanner();
 
   // Query
   state.query = parsed.query;
@@ -1109,9 +1103,9 @@ function paintDocReaderBody(doc, paraId) {
           <button class="docs-para-bm ${isBm ? 'on' : ''}" data-act="bm" title="${isBm ? 'Remove bookmark' : 'Bookmark this paragraph'}">${isBm ? '★' : '☆'}</button>
           <button class="docs-para-pin ${isPin ? 'on' : ''}" data-act="pin" title="${isPin ? 'Unpin' : 'Pin for compare'}">📌</button>
           <button class="docs-para-cite" data-act="cite" title="Cite this paragraph">”</button>
-          <button class="docs-para-link" data-act="link" title="Copy permalink to this paragraph">🔗</button>
+          <button class="docs-para-link" data-act="link" title="Copy permalink to this paragraph">§</button>
           <button class="docs-para-flag" data-act="flag" title="Report a problem with this paragraph">⚐</button>
-          ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">📝</span>' : ''}
+          ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">✎</span>' : ''}
         </div>
         <p class="docs-reader-para-text serif">${renderParagraphHtml(p.text, p.footnotes)}</p>
       </div>`;
@@ -1686,24 +1680,11 @@ function bindUI() {
       }
     }
 
-    const meta = {
-      gc:  'Treaty body output · near-hard-law',
-      jur: `Treaty body jurisprudence · ${jurTreatyLabel()} preview`,
-      sp:  'Mandate-holder reports · soft law · preview',
-      all: 'Combined view',
-    }[state.scope];
-    $('#scope-meta').textContent = meta;
-
-    if (state.scope === 'jur' && !state.bannerShownForJur) {
-      paintScopeBanner('jur');
-      $('#scope-banner').hidden = false;
-      state.bannerShownForJur = true;
-    }
-    if (state.scope === 'sp' && !state.bannerShownForSp) {
-      paintScopeBanner('sp');
-      $('#scope-banner').hidden = false;
-      state.bannerShownForSp = true;
-    }
+    // v19.22: banner follows the scope.  Always show on jur/sp, always
+    // hide on gc/all — previously a "shown once" flag froze it open after
+    // first reveal even if the user navigated away.  Dismiss button still
+    // hides it for the current visit; re-entering the scope re-shows.
+    syncScopeBanner();
     runSearch();
   }));
 
@@ -2043,6 +2024,21 @@ async function runExport(format, button) {
 
 // Replace the banner body with the actual mandate breakdown computed from documents.
 // Strips out the mandate prefix so 'SR Freedom of Expression' reads as 'Freedom of Expression'.
+// v19.22: paint+show on jur/sp, hide otherwise. Single source of truth
+// for the preview banner — called from both the scope-tab click handler
+// and the URL-state restore path so a deep-link `?scope=jur` opens with
+// the banner visible.
+function syncScopeBanner() {
+  const banner = $('#scope-banner');
+  if (!banner) return;
+  if (state.scope === 'jur' || state.scope === 'sp') {
+    paintScopeBanner(state.scope);
+    banner.hidden = false;
+  } else {
+    banner.hidden = true;
+  }
+}
+
 function paintScopeBanner(scope = 'sp') {
   if (scope === 'jur') {
     const docs = state.jur.manifest?.counts?.documents || 0;
@@ -3562,7 +3558,7 @@ function renderResult(p, rank, terms, opts = {}) {
                 data-ws="pin" title="${pinHas(p.id) ? 'Pinned for compare' : 'Pin for compare'}">📌</button>
         <button class="ws-mark ws-mark-cite" type="button"
                 data-ws="cite" title="Copy citation in your default format (change default in dossier ‟ menu)">”</button>
-        ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">📝</span>' : ''}
+        ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">✎</span>' : ''}
       </div>
     </div>
   `;
@@ -3644,7 +3640,7 @@ function setActive(id) {
   scheduleUrlUpdate();
 }
 
-// After a workspace toggle, repaint the per-result marks (☆/📌/📝)
+// After a workspace toggle, repaint the per-result marks (☆/📌/✎)
 // so they reflect the new state without re-rendering the whole list.
 function refreshResultMarks(paraId) {
   const li = document.querySelector(`.result[data-para-id="${CSS.escape(paraId)}"]`);
@@ -3658,7 +3654,7 @@ function refreshResultMarks(paraId) {
     <button class="ws-mark ws-mark-bm ${isBM ? 'on' : ''}" type="button" data-ws="bm" title="${isBM ? 'Bookmarked' : 'Bookmark'}">${isBM ? '★' : '☆'}</button>
     <button class="ws-mark ws-mark-pin ${isPin ? 'on' : ''}" type="button" data-ws="pin" title="${isPin ? 'Pinned for compare' : 'Pin for compare'}">📌</button>
     <button class="ws-mark ws-mark-cite" type="button" data-ws="cite" title="Copy citation in your default format (change default in dossier ‟ menu)">”</button>
-    ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">📝</span>' : ''}
+    ${hasNote ? '<span class="ws-mark ws-mark-note" title="You have a note on this paragraph" aria-hidden="true">✎</span>' : ''}
   `;
 }
 
@@ -3992,14 +3988,14 @@ function paintDossier() {
       <button class="dossier-tool" id="ws-copy" type="button"
               title="Copy paragraph text to clipboard"
               aria-label="Copy paragraph text">
-        <span class="dossier-tool-icon">📋</span>
+        <span class="dossier-tool-icon">⎘</span>
         <span class="dossier-tool-label">Copy</span>
       </button>
       <button class="dossier-tool ${noteHas(para.id) ? 'on' : ''}" id="ws-note-toggle" type="button"
               title="${noteHas(para.id) ? 'Edit your private note' : 'Add a private note'}"
               aria-label="${noteHas(para.id) ? 'Edit note' : 'Add note'}"
               aria-expanded="${noteHas(para.id) ? 'true' : 'false'}">
-        <span class="dossier-tool-icon">📝</span>
+        <span class="dossier-tool-icon">✎</span>
         <span class="dossier-tool-label">Note</span>
       </button>
       <div class="dossier-tool dossier-tool-cite" id="cite-menu">
@@ -4026,13 +4022,13 @@ function paintDossier() {
       <button class="dossier-tool" id="ws-permalink" type="button"
               title="Copy permalink to this paragraph"
               aria-label="Copy permalink">
-        <span class="dossier-tool-icon">🔗</span>
+        <span class="dossier-tool-icon">§</span>
         <span class="dossier-tool-label">Link</span>
       </button>
       <button class="dossier-tool" id="ws-read" type="button"
               title="Open this paragraph in the full document (R)"
               aria-label="Open in document (R)">
-        <span class="dossier-tool-icon">📖</span>
+        <span class="dossier-tool-icon">▦</span>
         <span class="dossier-tool-label">Read</span>
       </button>
     </div>
@@ -4646,7 +4642,7 @@ function copyPermalink(para) {
   u.searchParams.set('p', para.id);
   u.hash = u.hash.startsWith('#documents/') ? u.hash : '';
   navigator.clipboard?.writeText(u.toString())
-    .then(() => showFeedbackToast({ ok: true, _msg: 'Permalink copied', _mark: '🔗' }))
+    .then(() => showFeedbackToast({ ok: true, _msg: 'Permalink copied', _mark: '§' }))
     .catch(() => showFeedbackToast({ ok: true, _msg: 'Copy failed — select the URL manually', _mark: '⚠' }));
 }
 
@@ -6021,10 +6017,12 @@ function formatOutcome(value) {
 // button appears below the snippet; "Expand all" expands every row at once.
 //
 // Returns { html, isKwic, isTruncated, fullLen }.
-const KWIC_TRUNCATE   = 600;   // paragraphs longer than this are always capped
-const KWIC_PRE_CHARS  = 140;
-const KWIC_POST_CHARS = 240;
-const KWIC_FADE_FOLD  = 400;   // isKwic badge — match was deep in the text
+// v19.22: bumped from 600/140/240/400 — earlier limits felt cramped on
+// the mid-pane and clipped paragraphs that read naturally at 800-900 chars.
+const KWIC_TRUNCATE   = 900;   // paragraphs longer than this are always capped
+const KWIC_PRE_CHARS  = 200;   // chars before the matched cluster
+const KWIC_POST_CHARS = 360;   // chars after the matched cluster
+const KWIC_FADE_FOLD  = 500;   // isKwic badge — match was deep in the text
 
 function smartSnippet(text, terms) {
   const t = String(text || '');
