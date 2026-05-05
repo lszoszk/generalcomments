@@ -4545,6 +4545,85 @@ body.is-corpus-loading #q { cursor: progress; }
     grid-column: 2;
     justify-content: flex-start;
   }
+
+  /* v19.43-fix17: mobile result row.
+     The desktop grid (64 px margin · 1fr body · 130 px aside) leaves
+     ~140 px for the body on a 390 px iPhone — text reflows to 2-3
+     words per line ("The Convention / and the / Optional / Protocols"
+     etc.). Drop the multi-column grid in favour of a stacked block
+     layout: title row inline at top, paragraph text full-width,
+     source + icons below. KWIC is line-clamped to 6 lines so long
+     paragraphs don't dominate the viewport — Expand still uncovers
+     the full text. */
+  .result,
+  .result.is-grouped-result {
+    display: block;
+    grid-template-columns: none;
+    gap: 0;
+    padding: 16px 0 18px;
+  }
+  .result.is-active {
+    margin: 0 -12px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .result-margin {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    text-align: left;
+    padding-top: 0;
+    margin-bottom: 4px;
+  }
+  .result-rank {
+    font-size: 10px;
+    color: var(--ink-4);
+  }
+  .result-pn {
+    font-size: 18px;
+    margin-top: 0;
+  }
+  .result-headline {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  .result-doc {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  .result-text {
+    font-size: 14px;
+    line-height: 1.55;
+    /* v19.43-fix17: clamp long snippets to 6 lines on mobile. Users
+       see the matched cluster, can hit Expand for the full text. The
+       desktop 30+ char-per-line layout already gives full prose; we
+       only short-change phones to keep result rows scannable. */
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .result-text.is-expanded {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+  .result-aside {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dotted var(--rule);
+  }
+  .result-aside .folio { font-size: 9px; flex: 0 0 auto; }
+  .result-aside .sig { font-size: 11px; flex: 1 1 auto; min-width: 0; }
+  .result-marks {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+  }
 }
 
 /* ─────────── Footnotes (v19.8) ───────────

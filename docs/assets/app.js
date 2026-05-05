@@ -4366,11 +4366,13 @@ function renderResult(p, rank, terms, opts = {}) {
       if (expanded) {
         textEl.innerHTML = snippet.html;
         expandBtnEl.classList.remove('is-expanded');
+        textEl.classList.remove('is-expanded');   // v19.43-fix17: drop mobile line-clamp release
         expandBtnEl.setAttribute('aria-expanded', 'false');
         expandBtnEl.innerHTML = `Expand ▾ <span class="result-expand-count">${snippet.fullLen.toLocaleString()} chars</span>`;
       } else {
         textEl.innerHTML = highlight(bareText, terms);
         expandBtnEl.classList.add('is-expanded');
+        textEl.classList.add('is-expanded');      // v19.43-fix17: lift mobile line-clamp
         expandBtnEl.setAttribute('aria-expanded', 'true');
         expandBtnEl.textContent = 'Collapse ▴';
       }
