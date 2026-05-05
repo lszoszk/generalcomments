@@ -771,7 +771,7 @@ function paintMastFolio(m) {
   // v19.43: write into the inner #mast-folio-text span so the loading
   // bar stays in the DOM (now invisible because progress reaches 100%).
   const textNode = document.getElementById('mast-folio-text');
-  const newText = `VOL. I · NO. 1 · ${today} · ${(m.counts.paragraphs + jurParas).toLocaleString()} ¶ · ${m.counts.documents + jurDocs} DOCUMENTS`;
+  const newText = `${today} · ${(m.counts.paragraphs + jurParas).toLocaleString()} ¶ · ${m.counts.documents + jurDocs} DOCUMENTS`;
   if (textNode) {
     textNode.textContent = newText;
   } else {
@@ -2132,7 +2132,48 @@ function syncYearSliderAria(el, min, max, val) {
 // per-key cost stays under one frame.
 const MIN_QUERY = 4;
 
+// v19.44-fix24: mobile filters accordion. Below 900 px the entire
+// filter pane collapses behind a "Filters · ▾" toggle pill at the top.
+// Researcher lands → sees results immediately. Tap toggle → filters
+// expand below. Toggle state lives only in the body class (no LS) so
+// every fresh visit starts collapsed (results-first UX).
+function initMobileFilterToggle() {
+  const filters = document.querySelector(".filters");
+  if (!filters || filters.querySelector(".mobile-filters-toggle")) return;
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "mobile-filters-toggle";
+  btn.setAttribute("aria-expanded", "false");
+  btn.setAttribute("aria-controls", "filters-content");
+  btn.innerHTML = `
+    <span><span class="folio">FILTERS</span> &nbsp;Source · year · groups · bodies</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  `;
+  filters.insertBefore(btn, filters.firstChild);
+
+  // Default state: collapsed on mobile.
+  if (window.matchMedia("(max-width: 900px)").matches) {
+    document.body.classList.add("is-mobile-filters-collapsed");
+  }
+
+  btn.addEventListener("click", () => {
+    const collapsed = document.body.classList.toggle("is-mobile-filters-collapsed");
+    btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
+  });
+
+  // Re-evaluate on viewport changes — if user rotates from portrait
+  // (mobile) to landscape that crosses the desktop breakpoint, drop
+  // the collapsed class so filters render normally.
+  window.addEventListener("resize", () => {
+    if (!window.matchMedia("(max-width: 900px)").matches) {
+      document.body.classList.remove("is-mobile-filters-collapsed");
+    }
+  });
+}
+
 function bindUI() {
+  initMobileFilterToggle();
   // Search input (debounced)
   let t;
   const qInput = $('#q');

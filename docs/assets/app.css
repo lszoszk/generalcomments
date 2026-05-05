@@ -4517,12 +4517,87 @@ body.is-corpus-loading #q { cursor: progress; }
   .mast-title { font-size: 24px; }
   .mast-sub { display: none; }
   #mast-folio { font-size: 9px; }
-  .mast-row { gap: 12px; }
-  .mast-nav { gap: 12px; font-size: 13px; }
+  .mast-row {
+    gap: 8px;
+    flex-direction: column;     /* brand top, nav directly below — guaranteed visible */
+    align-items: stretch;
+  }
+  /* v19.44-fix24: mobile nav was tap-blocked on iOS Safari because
+     the link tap targets were ~22 px tall (font 13 px + 2 px padding-
+     bottom). Below 700 px the nav now renders as a horizontal scroll-
+     able pill row with 44 px-tall taps (Apple HIG minimum), separated
+     from the title block by a hairline. */
+  .mast-nav {
+    gap: 6px;
+    font-size: 13px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    flex-wrap: nowrap;
+  }
+  .mast-nav a {
+    flex: 0 0 auto;
+    min-height: 36px;
+    padding: 8px 10px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+  }
+  .mast-nav a.active {
+    background: var(--paper-3);
+    border-bottom: 0;
+    border-radius: 3px;
+    color: var(--garnet);
+  }
   .mast-tour-btn { display: none; }       /* save space; tour still reachable from welcome card */
+  .mast-sep { display: none; }            /* nav is one row, no need for the separator */
+  #theme-toggle {
+    flex: 0 0 auto;
+    min-height: 36px;
+    margin-left: auto;
+  }
   .searchbar { padding: 12px 20px; }
   .searchbar-inner { gap: 8px; flex-wrap: wrap; }
   .foot-inner { padding: 8px 20px; font-size: 10px; }
+
+  /* v19.44-fix24: collapse the entire filter pane behind a single
+     toggle on mobile. Researchers land → see results immediately
+     (no need to scroll past 700 px of filter chrome). The toggle
+     pill lives at the top of .filters and exposes the filters on
+     demand. JS adds the .is-mobile-filters-collapsed body class on
+     boot below 900 px (see initMobileFilterToggle). */
+  .filters {
+    border-bottom: 1px solid var(--rule);
+    padding: 0;
+  }
+  .mobile-filters-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: var(--paper-2);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    padding: 12px 20px;
+    font-family: var(--display);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    cursor: pointer;
+    text-align: left;
+    min-height: 44px;
+  }
+  .mobile-filters-toggle .folio { font-size: 10px; color: var(--garnet); }
+  .mobile-filters-toggle .chev { font-family: var(--mono); font-size: 11px; color: var(--ink-3); transition: transform .18s; }
+  body.is-mobile-filters-collapsed .mobile-filters-toggle .chev { transform: rotate(-90deg); }
+  .filters > .filter-block {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  body.is-mobile-filters-collapsed .filters > .filter-block {
+    display: none;
+  }
 }
 @media (max-width: 600px) {
   /* Phone-only: tighter spacing, bigger touch targets. */
@@ -4623,6 +4698,24 @@ body.is-corpus-loading #q { cursor: progress; }
     display: flex;
     gap: 4px;
     margin-left: auto;
+  }
+
+  /* v19.44-fix24: grouped-by-document view on mobile.
+     The headline's `.result-spacer` (a 1-px dotted leader between
+     "MATCHED PARAGRAPH" and the year) renders as a competing line
+     against the result-aside's dotted top border + the row's solid
+     bottom border, creating visual noise on phones (per user
+     screenshot). Drop the leader on narrow screens — the year wraps
+     to its own line which is what we want anyway. */
+  .result-headline .result-spacer { display: none; }
+  .result-headline .folio { margin-left: auto; }   /* push year to right edge */
+
+  /* Tighter inter-result rhythm — fewer competing horizontal lines. */
+  .result.is-grouped-result {
+    padding: 12px 0 14px;
+  }
+  .result-list.is-grouped {
+    border-bottom: 0;
   }
 }
 
