@@ -545,16 +545,30 @@ async function boot() {
     // above (which we just called to honor the URL hash). Subsequent
     // navigations are tracked from setView + the hashchange listener.
 
-    // v19.43-fix14: kick off corpus + index load AFTER paint, on
-    // every platform. The post-loader timing is what saves mobile —
-    // the heavy 25 MB JSON.parse + index build happen when the
-    // browser has already composed the UI and memory pressure is at
-    // its lowest. On desktop this is barely perceptible; on mobile
-    // it shows a "Loading paragraphs…" status in the result lede
-    // instead of crashing the tab.
-    setTimeout(() => {
+    // v19.43-fix15: device-memory fallback. <2 GB devices (legacy
+    // Android phones, low-end laptops) can't safely parse the 25 MB
+    // corpus + build the FlexSearch index without OOM-crashing.
+    // Replace the search shell with a clear "use desktop" message
+    // and skip the corpus load entirely.
+    if (isLowMemoryDevice()) {
+      paintLowMemoryFallback();
+      return;
+    }
+
+    // v19.43-fix15: corpus pre-warm. Desktop uses requestIdleCallback
+    // so the browser parses the corpus in an idle slot (post-paint,
+    // not stealing CPU from the user's first scroll). Mobile sticks
+    // to a short setTimeout — idle callbacks on iOS Safari are
+    // unreliable. Either way the load is post-loader so the heavy
+    // JSON.parse runs after the UI has already composed.
+    const _kickCorpusLoad = () => {
       ensureCorpusReady().catch(e => console.warn('Background corpus load failed:', e));
-    }, 100);
+    };
+    if (!isMobileViewport() && typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(_kickCorpusLoad, { timeout: 2000 });
+    } else {
+      setTimeout(_kickCorpusLoad, 100);
+    }
 
     runSearch();   // awaits ensureCorpusReady internally; renders lede status while waiting
 
@@ -1086,9 +1100,54 @@ const TOUR_STEPS = [
 let _tourState = { idx: 0, active: false };
 
 function startTour(fromStep = 0) {
-  _tourState = { idx: fromStep, active: true };
+  // v19.43-fix15: mobile-aware tour entry. The desktop tour positions
+  // a 360-px popover with absolute coordinates against fixed-width
+  // panes; on phones the spotlights land off-screen and the popover
+  // overflows the viewport. Skip the walkthrough on narrow screens
+  // and surface a one-line orientation toast instead — researchers
+  // on mobile already get visible call-to-action ("type to search")
+  // from the empty result state.
   document.getElementById('welcome-card')?.setAttribute('hidden', '');
+  if (isMobileViewport()) {
+    showMobileOrientationToast();
+    try { localStorage.setItem(_LS.tourSeen, '1'); } catch {}
+    return;
+  }
+  _tourState = { idx: fromStep, active: true };
   paintTourStep();
+}
+
+// v19.43-fix15: shared mobile detection. Used in tour skip, deviceMemory
+// fallback, and (above) ensureCorpusReady's mobile-aware decisions.
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 900px)').matches;
+}
+function isLowMemoryDevice() {
+  // navigator.deviceMemory is an approximate GB count (Chrome / Edge /
+  // recent Firefox). Safari doesn't ship it, so treat absent as "ok".
+  const dm = navigator.deviceMemory;
+  return typeof dm === 'number' && dm > 0 && dm < 2;
+}
+
+// One-line mobile orientation toast — replaces the desktop tour on
+// phones. Auto-dismisses after 6 s; tap-to-dismiss too.
+function showMobileOrientationToast() {
+  let toast = document.getElementById('mobile-orient-toast');
+  if (toast) return;
+  toast = document.createElement('div');
+  toast.id = 'mobile-orient-toast';
+  toast.className = 'mobile-orient-toast';
+  toast.setAttribute('role', 'status');
+  toast.innerHTML = `
+    <span class="folio garnet">QUICK TOUR</span>
+    <p>Type a keyword in the search bar above. Tap any paragraph to see
+       its document context, citations and surrounding paragraphs.</p>
+    <button type="button" class="mobile-orient-toast-close" aria-label="Dismiss">×</button>`;
+  document.body.appendChild(toast);
+  const close = () => { toast.classList.add('is-out'); setTimeout(() => toast.remove(), 250); };
+  toast.querySelector('.mobile-orient-toast-close').addEventListener('click', close);
+  toast.addEventListener('click', (e) => { if (e.target === toast) close(); });
+  setTimeout(close, 6000);
 }
 
 function endTour({ markSeen = true } = {}) {
@@ -3126,55 +3185,99 @@ async function ensureScopeLoaded(scope) {
   return state.jur.loading;
 }
 
-// v19.43-fix14: lazy corpus + FlexSearch index loader. Boot only
-// loads metadata; the 25 MB corpus.json and index build happen here
-// on first interaction (or in the background on desktop). Idempotent
-// — second call returns the in-flight or completed promise.
+// v19.43-fix14: lazy corpus + FlexSearch index loader.
+// v19.43-fix15: device-memory aware. Adds an `is-corpus-loading` body
+// class while the heavy work is in flight so accidental taps don't
+// queue handlers that compound the JSON.parse memory peak (the cause
+// of mobile OOM crashes on click). Idempotent — second call returns
+// the in-flight or completed promise.
 async function ensureCorpusReady() {
   if (state.paragraphs.length && state.searchIndex) return;
   if (state._corpusLoadPromise) return state._corpusLoadPromise;
 
   state._corpusLoadPromise = (async () => {
-    // Step 1: corpus.json fetch + parse. Surfaces a tiny status row
-    // in the result lede so users on slow connections know it's still
-    // working. paintCorpusLoadingState handles the visual.
-    if (!state.paragraphs.length) {
-      paintCorpusLoadingState('fetch');
-      const arr = await fetchJson(`${DATA_BASE}corpus.json`);
-      state.paragraphs = arr;
-      _flushDfCache();
-      _avgDocLen = null;
-      for (const p of arr) state.paragraphById.set(p.id, p);
+    document.body.classList.add('is-corpus-loading');
+    try {
+      // Step 1: corpus.json fetch + parse.
+      if (!state.paragraphs.length) {
+        paintCorpusLoadingState('fetch');
+        const arr = await fetchJson(`${DATA_BASE}corpus.json`);
+        state.paragraphs = arr;
+        _flushDfCache();
+        _avgDocLen = null;
+        for (const p of arr) state.paragraphById.set(p.id, p);
+      }
+      // Step 2: FlexSearch index. IndexedDB cache hit → instant; cold
+      // build → 3-5 s on desktop, 8-15 s on mobile. The latter is the
+      // step that historically OOM'd on first run; we now do it after
+      // paint so the browser has memory headroom.
+      if (!state.searchIndex) {
+        paintCorpusLoadingState('index');
+        await ensureSearchIndex();
+      }
+      paintCorpusLoadingState('ready');
+    } finally {
+      document.body.classList.remove('is-corpus-loading');
     }
-    // Step 2: FlexSearch index. IndexedDB cache hit → instant; cold
-    // build → 3-5 s on desktop, 8-15 s on mobile. The latter is the
-    // step that historically OOM'd on first run; we now do it after
-    // paint so the browser has memory headroom.
-    if (!state.searchIndex) {
-      paintCorpusLoadingState('index');
-      await ensureSearchIndex();
-    }
-    paintCorpusLoadingState('ready');
   })();
   return state._corpusLoadPromise;
 }
 
-// Visual indicator while the lazy corpus loads. Shows a status pill
-// on the result count + a friendly note in the result lede; clears
-// itself on 'ready'.
+// v19.43-fix15: warmer first-visit messaging. The earlier copy was
+// neutral ("Loading the paragraph corpus (~25 MB)"); on a slow link
+// users assumed it was hung. New copy is reassuring + explains the
+// one-time cost of the local index. Once cached in IndexedDB, the
+// next visit shows nothing because cache hits are sub-100 ms.
 function paintCorpusLoadingState(phase) {
   const count = document.getElementById('result-count');
   const sub   = document.getElementById('results-sub');
+  const title = document.getElementById('results-title');
   if (!count || !sub) return;
   if (phase === 'fetch') {
-    count.textContent = '…loading';
-    sub.textContent = `Loading the paragraph corpus (~25 MB). On a slower connection this may take 10-20 s.`;
+    count.textContent = '— loading';
+    if (title) title.textContent = 'Setting up local search…';
+    sub.textContent = `First visit: indexing 7,077 paragraphs locally so search runs entirely in your browser. Search will be ready in ~10 s on a fast connection.`;
   } else if (phase === 'index') {
-    count.textContent = '…indexing';
-    sub.textContent = `Building the search index. First-time setup; subsequent visits are instant.`;
+    count.textContent = '— indexing';
+    if (title) title.textContent = 'Building search index…';
+    sub.textContent = `Almost there — the index is cached for the rest of your visits, so this only happens once.`;
   } else if (phase === 'ready') {
-    // runSearch will overwrite these; nothing to do here.
+    // runSearch repaints title/sub immediately after; nothing to do here.
   }
+}
+
+// v19.43-fix15: low-memory device fallback. Replaces the search
+// shell with a clear, non-blame-y explanation that the local index
+// is too large for this device, plus links to alternatives that work
+// in low-memory contexts (the OHCHR site, the document reader which
+// loads docs one-at-a-time, GitHub for power users).
+function paintLowMemoryFallback() {
+  const lede = document.getElementById('results-lede');
+  const tools = document.getElementById('results-tools');
+  const list = document.getElementById('result-list');
+  if (tools) tools.style.display = 'none';
+  if (list) list.style.display = 'none';
+  if (!lede) return;
+  lede.innerHTML = `
+    <div class="folio garnet">SEARCH UNAVAILABLE ON THIS DEVICE</div>
+    <h2 class="serif results-title" id="results-title" style="font-size:24px;">
+      The local search index is too large for this device's memory.
+    </h2>
+    <p class="serif results-sub" id="results-sub" style="font-style:italic;">
+      UNHRD runs a 7,077-paragraph FlexSearch index entirely in your browser.
+      That requires ~150 MB of working memory; this device reports
+      ${navigator.deviceMemory ?? '<2'} GB available, which isn't enough.
+    </p>
+    <ul class="serif" style="margin-top: 18px; line-height: 1.7;">
+      <li><strong>Use a laptop or desktop</strong> — the same URL works there
+          and the index loads in ~10 s.</li>
+      <li><strong>Browse documents one-by-one</strong> — the
+          <a class="about-link" href="#documents">Documents</a> reader
+          loads each General Comment individually, no index needed.</li>
+      <li><strong>Search via OHCHR</strong> — the official corpus is at
+          <a class="about-link" href="https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/TBSearch.aspx?Lang=en"
+             target="_blank" rel="noopener">tbinternet.ohchr.org</a>.</li>
+    </ul>`;
 }
 
 async function loadJurCorpus() {
@@ -4320,7 +4423,18 @@ function setActive(id) {
   $$('.result').forEach(el => {
     el.classList.toggle('is-active', el.dataset.paraId === id);
   });
-  paintDossier();
+  // v19.43-fix15: defer the heavy paintDossier work on mobile so iOS
+  // Safari can finish painting the tap feedback before we mount a
+  // full-screen overlay with formatted content. Without the defer,
+  // tap → setActive → paintDossier all ran in the same microtask
+  // and a low-memory phone could OOM. setTimeout(0) yields to the
+  // event loop (including paint) then runs — reliable in every
+  // browser, no RAF background-tab throttling caveats.
+  if (isMobileViewport()) {
+    setTimeout(paintDossier, 0);
+  } else {
+    paintDossier();
+  }
   updateDocumentTitle();
   scheduleUrlUpdate();
 }
@@ -4765,6 +4879,14 @@ function paintDossier() {
       // active ¶ keeps full size + a garnet left rule. A "Show entire
       // section" disclosure expands to the full section when it has
       // more paragraphs than the default window.
+      // v19.43-fix15: on mobile (<900 px), skip the context block to
+      // keep the dossier DOM small. Phones don't have the horizontal
+      // budget for sibling-paragraph context anyway, and the heavy
+      // DOM mutation of mounting a full-screen overlay + 5 ¶ of
+      // formatted text was OOM-crashing iOS Safari on first tap.
+      if (isMobileViewport()) {
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p></blockquote>`;
+      }
       const ctx = getDossierContext(para, { expanded: state.dossierExpanded });
       if (!ctx) {
         return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p></blockquote>`;
