@@ -1,0 +1,45 @@
+# Citation metadata for the UNHRD repository.
+# Read by GitHub to generate the "Cite this repository" widget,
+# and by tools such as Zotero, Zenodo and the citation-file-format
+# parser (CFF).  See https://citation-file-format.github.io
+cff-version: 1.2.0
+title: "UNHRD — UN Human Rights Database"
+message: >-
+  If you use this software or the curated dataset, please cite it
+  as below.  Individual paragraphs cited in academic work should
+  reference the original UN document signature (e.g. CRC/C/GC/25
+  ¶12), not this database.
+type: software
+authors:
+  - family-names: "Szoszkiewicz"
+    given-names: "Łukasz"
+    email: "l.szoszkiewicz@amu.edu.pl"
+    affiliation: "Adam Mickiewicz University, Poznań"
+  - family-names: "Kowalska"
+    given-names: "Zuzanna"
+    affiliation: "Adam Mickiewicz University, Poznań"
+abstract: >-
+  UNHRD is a paragraph-level search interface for UN Treaty Body
+  General Comments, with previews of CCPR/CEDAW/CRPD jurisprudence
+  and Special Procedures reports.  It indexes 7,000+ paragraphs
+  across 187 General Comments locally in the browser, resolves
+  in-document footnote cross-references (Ibid./op. cit./"see
+  paragraph N above"), exposes faceted filtering by treaty body,
+  concerned group, year and document status, and provides one-click
+  citation export in nine formats (UN footnote, OSCOLA, Bluebook,
+  McGill, APA, Chicago, BibTeX, RIS, plain URL).
+keywords:
+  - "UN Treaty Bodies"
+  - "General Comments"
+  - "human rights"
+  - "international law"
+  - "faceted search"
+  - "paragraph-level corpus"
+  - "jurisprudence"
+  - "special procedures"
+license-url: "https://www.gnu.org/licenses/agpl-3.0.txt"
+license: "AGPL-3.0-or-later"
+repository-code: "https://github.com/lszoszk/generalcomments"
+url: "https://lszoszk.github.io/generalcomments/"
+version: "19.43"
+date-released: "2026-05-05"

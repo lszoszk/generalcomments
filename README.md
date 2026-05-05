@@ -92,7 +92,40 @@ E-mail: [zuzkow4@st.amu.edu.pl](mailto:zuzkow4@st.amu.edu.pl)
 
 ## License
 
-This project is licensed under the <a href="https://choosealicense.com/licenses/mit/">MIT License</a> - see the LICENSE.md file for details
+This repository ships **two distinct works under two distinct licences**:
+
+- **Software** (the dashboard, build pipeline, all source code) is
+  released under the
+  [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.txt) —
+  see [`LICENSE`](LICENSE). Anyone running a modified copy as a hosted
+  service must release their modifications under the same licence.
+- **Curated dataset** (the paragraph-level corpus, document metadata,
+  section annotations, footnote cross-reference resolutions, concerned-
+  group labels, and any other human-authored data files) is licensed
+  under
+  [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/) —
+  see [`LICENSE-DATA`](LICENSE-DATA). Academic and non-commercial reuse
+  is welcome with attribution; commercial use requires permission.
+
+The underlying UN documents (General Comments, jurisprudence, Special
+Procedures reports) remain under the
+[United Nations content terms](https://www.un.org/en/about-us/copyright);
+they are not re-licensed by this project.
+
+See [`NOTICE`](NOTICE) for the full split and citation guidance, and
+[`CITATION.cff`](CITATION.cff) for machine-readable citation metadata.
+
+### Citation
+
+```
+Szoszkiewicz, Ł. & Kowalska, Z. (2026). UNHRD — UN Human Rights
+Database (paragraph-level search interface for UN Treaty Body General
+Comments). https://lszoszk.github.io/generalcomments/
+```
+
+When citing individual paragraphs in academic work, please reference
+the original UN document signature (e.g. `CRC/C/GC/25 ¶12`), not this
+database.
 
 ## Acknowledgments
 

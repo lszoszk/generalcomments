@@ -1,0 +1,60 @@
+UNHRD — UN Human Rights Database
+=================================
+
+This project contains two distinct components, each under its own
+licence:
+
+  Software         GNU Affero General Public License v3.0
+                   See:  LICENSE  (full AGPL-3.0 text)
+                   Covers:  docs/assets/app.js, docs/assets/app.css,
+                            docs/assets/tokens.css, docs/index.html,
+                            build_corpus.py, resolve_ibids.py, and
+                            all other source code in this repository.
+
+  Curated dataset  Creative Commons Attribution-NonCommercial-ShareAlike
+                   4.0 International (CC BY-NC-SA 4.0)
+                   See:  LICENSE-DATA
+                   Covers:  the paragraph-level corpus, document
+                            metadata, section annotations, footnote
+                            cross-reference resolutions, concerned-
+                            group labels, and any other human-
+                            authored data files under docs/, jur/,
+                            json_data_gc_labeled_v2/, etc.
+
+  Source UN docs   Public domain / United Nations terms.
+                   The underlying General Comments, jurisprudence
+                   decisions and Special Procedures reports are
+                   issued by UN Treaty Bodies and Special Procedures
+                   and are not subject to additional copyright by
+                   this project.
+                   See: https://www.un.org/en/about-us/copyright
+
+Why this split?
+---------------
+AGPL-3.0 on the software ensures anyone who runs a modified copy
+of UNHRD as a hosted service must release their modifications
+under the same licence — closing the "SaaS loophole" that GPL-
+only would leave open.
+
+CC BY-NC-SA 4.0 on the curated dataset preserves academic re-use
+(researchers, NGOs, treaty body members are free to use, share,
+and build upon) while preventing third-party commercial
+exploitation of the curation work.
+
+Citation
+--------
+Required attribution for both components:
+
+    Szoszkiewicz, Ł. & Kowalska, Z. (2026). UNHRD — UN Human
+    Rights Database. https://lszoszk.github.io/generalcomments/
+
+Individual paragraphs cited in academic work should reference
+the original UN document signature (e.g. CRC/C/GC/25 ¶12), not
+this database.
+
+Contact
+-------
+For commercial licensing enquiries, attribution clarifications,
+or anything outside the terms above, contact:
+
+    Łukasz Szoszkiewicz <l.szoszkiewicz@amu.edu.pl>

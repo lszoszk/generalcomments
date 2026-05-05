@@ -1,0 +1,72 @@
+UNHRD curated dataset — Licence
+================================
+
+Copyright (c) 2024-2026 Łukasz Szoszkiewicz and Zuzanna Kowalska.
+
+The CURATED DATASET in this repository — comprising the corpus
+selection, document metadata, paragraph-level identifiers,
+section/heading annotations, footnote cross-reference resolutions
+("Ibid.", "op. cit.", "see paragraph N above"), concerned-group
+labels, preamble flags, document provenance fields, and any other
+human-authored annotation files (the "Curation") — is licensed
+under
+
+    Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+    International (CC BY-NC-SA 4.0)
+
+You are free to:
+
+    Share — copy and redistribute the material in any medium or
+            format
+    Adapt — remix, transform, and build upon the material
+
+Under the following terms:
+
+    Attribution    — You must give appropriate credit, provide a
+                     link to the licence, and indicate if changes
+                     were made.
+    NonCommercial  — You may not use the material for commercial
+                     purposes.
+    ShareAlike     — If you remix, transform, or build upon the
+                     material, you must distribute your contri-
+                     butions under the same licence as the original.
+
+Full legal text:
+    https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+Plain-language deed:
+    https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Required attribution
+--------------------
+When citing or redistributing the curated dataset, use:
+
+    Szoszkiewicz, Ł. & Kowalska, Z. (2026). UNHRD — UN Human
+    Rights Database (paragraph-level corpus of UN Treaty Body
+    General Comments, with jurisprudence and Special Procedures
+    previews). Available at https://lszoszk.github.io/generalcomments/.
+    Licensed under CC BY-NC-SA 4.0.
+
+When citing individual paragraphs in academic work, please cite
+the original UN document signature (e.g. CRC/C/GC/25 ¶12), not
+this database.
+
+Source materials — public domain
+--------------------------------
+The underlying General Comments, jurisprudence decisions and
+Special Procedures reports are issued by United Nations Treaty
+Bodies and Special Procedures and are not subject to copyright
+restrictions under the United Nations' content licensing policy.
+The Curation is the licensable contribution; the source UN
+documents are reproduced under the UN's "Free use is permitted"
+guidance for non-commercial purposes (see
+https://www.un.org/en/about-us/copyright). The CC BY-NC-SA 4.0
+licence applies to the Curation; the underlying UN documents
+remain under their original UN terms.
+
+Software licence (separate)
+---------------------------
+The software in this repository (everything under docs/assets/,
+build_corpus.py, resolve_ibids.py, and other source files) is
+licensed separately under the GNU Affero General Public License
+v3.0 — see LICENSE in the repository root.

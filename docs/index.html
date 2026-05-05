@@ -48,7 +48,7 @@
         { "@type": "Person", "name": "Łukasz Szoszkiewicz" },
         { "@type": "Person", "name": "Zuzanna Kowalska" }
       ],
-      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
       "keywords": ["human rights", "UN treaty bodies", "general comments", "jurisprudence", "special procedures", "international law"]
     }
   ]
@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260505-v19-43w" />
-<link rel="stylesheet" href="assets/app.css?v=20260505-v19-43w" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260505-v19-43x" />
+<link rel="stylesheet" href="assets/app.css?v=20260505-v19-43x" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -689,8 +689,18 @@
         <div class="about-block">
           <h3 class="folio">Licence &amp; tech</h3>
           <p class="serif">
-            Code released under MIT; the curated dataset under
-            <a class="about-link" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.
+            Software is released under the
+            <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/LICENSE" target="_blank" rel="noopener">GNU Affero General Public License v3.0</a>
+            — anyone running a modified copy as a hosted service must release
+            their modifications under the same licence.  The
+            <strong>curated dataset</strong> (paragraph-level corpus, document
+            metadata, section annotations, footnote cross-reference resolutions,
+            concerned-group labels) is licensed under
+            <a class="about-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC&nbsp;BY-NC-SA&nbsp;4.0</a>
+            — academic and non-commercial reuse is welcome with attribution;
+            commercial use requires permission.  The underlying UN documents
+            remain under the United Nations'
+            <a class="about-link" href="https://www.un.org/en/about-us/copyright" target="_blank" rel="noopener">content terms</a>.
             Built as a static site on GitHub Pages with vanilla JavaScript,
             FlexSearch and SheetJS. Set in
             <em>Spectral</em>, <em>Source Serif 4</em> and <em>JetBrains Mono</em>.
@@ -787,6 +797,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260505-v19-43w"></script>
+<script type="module" src="assets/app.js?v=20260505-v19-43x"></script>
 </body>
 </html>
