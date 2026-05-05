@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260506-v19-44d" />
-<link rel="stylesheet" href="assets/app.css?v=20260506-v19-44d" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260506-v19-45a" />
+<link rel="stylesheet" href="assets/app.css?v=20260506-v19-45a" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -590,17 +590,55 @@
           <details class="about-method-detail" id="m-ocr">
             <summary class="about-method-summary">
               <span class="about-method-summary-title">Jurisprudence OCR</span>
-              <span class="about-method-summary-hint dim">scanned-PDF recovery, opinion namespacing</span>
+              <span class="about-method-summary-hint dim">scanned-PDF recovery · 5,359 ¶ OCR'd · 1,388 cleanup fixes · please report residual errors</span>
             </summary>
             <div class="about-method-body">
               <p class="serif">
-                Older scanned CCPR PDFs are recovered through a quality-first OCR
-                sidecar pipeline. Published paragraphs keep official numbering
-                where possible; individual opinions are namespaced as
-                <code class="mono">OP1-</code>, <code class="mono">OP2-</code>, and
-                real case appendices as <code class="mono">A1-</code>. Generated
-                IDs and OCR provenance are exposed in the export rather than
-                silently merged into official text.
+                170 older CCPR cases (mostly 1980s–90s scanned PDFs) come into
+                the corpus through Tesseract via a quality-first sidecar pipeline.
+                <strong>5,359 paragraphs</strong> across these cases are
+                OCR-recovered; the remaining 106,688 jurisprudence paragraphs
+                come from native text-layer PDFs or DOCX. Published paragraphs
+                keep official numbering where possible; individual opinions are
+                namespaced as <code class="mono">OP1-</code>,
+                <code class="mono">OP2-</code>, and real case appendices as
+                <code class="mono">A1-</code>. Generated IDs and OCR provenance
+                stay exposed in the export rather than silently merging into
+                official text.
+              </p>
+              <p class="serif" style="margin-top: 0.6rem;">
+                <strong class="folio">Cleanup pipeline (May 2026):</strong> a
+                five-stage post-OCR sweep brought <strong>1,388 fixes across
+                ~422 paragraphs</strong>. Stages: (1) mechanical fn-marker and
+                section-header repairs (436); (2) Tesseract <code class="mono">tsv</code>
+                word-row leak strip — 575 cases where coordinate metadata had
+                bled into paragraph text (e.g.&nbsp;
+                <code class="mono">August 19825 1 6 1 4 5 1049 1995 130 42 49.939957 from</code>
+                → <code class="mono">August 1982 from</code>); (3) hand-vetted
+                mangled-word audit on 229 prefilter-flagged ¶ — Spanish-name
+                accent recovery (<em>Sanjuán</em>, <em>Gaitán</em>, <em>Velásquez Rodríguez</em>),
+                sentence-start <em>I</em> mis-OCR'd as <em>1</em>, and well-known
+                case-name fixes (47); (4) ~80 letter-substitution rules covering
+                systematic Tesseract shape confusions
+                (<em>I↔l</em>, <em>u↔n</em>, <em>c↔e</em>, <em>h↔b</em>,
+                <em>m↔in</em>, <em>g↔s</em>) — 289 fixes; (5) end-to-end spot-read
+                of 10 heavily-fixed paragraphs catching one regression
+                (<code class="mono">beae. iciary</code> wrongly normalised to
+                <em>judiciary</em>; correct reading was <em>beneficiary</em>).
+                Every rule is verified in context; nothing was applied where the
+                source word could be a real English/Spanish/French token.
+              </p>
+              <p class="serif" style="margin-top: 0.6rem;">
+                <strong class="folio">Residual errors:</strong> non-systematic
+                single-character glitches remain (e.g.&nbsp;<code class="mono">cn</code>
+                for <em>on</em>, <code class="mono">i:to</code> for <em>into</em>).
+                The reader pane carries an <strong>OCR</strong> provenance banner
+                on every scanned-PDF case with a one-click
+                <a class="about-link" href="https://github.com/lszoszk/generalcomments/issues/new?labels=ocr-error" target="_blank" rel="noopener">report-issue link</a>.
+                If you spot one in your research, please file it — the cleanup
+                pipeline is open to community contributions and audit. Full
+                methodology and per-rule breakdown:
+                <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/_docs_internal/JUR_OCR_AUDIT_REPORT.md" target="_blank" rel="noopener">JUR_OCR_AUDIT_REPORT.md</a>.
               </p>
             </div>
           </details>
@@ -797,6 +835,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260506-v19-44d"></script>
+<script type="module" src="assets/app.js?v=20260506-v19-45a"></script>
 </body>
 </html>

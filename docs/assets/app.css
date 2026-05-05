@@ -3060,6 +3060,75 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .docs-reader-source { color: var(--garnet); text-decoration: none; }
 .docs-reader-source:hover { text-decoration: underline; }
 
+/* v19.45: OCR-provenance banner inside the document-reader head. Sits
+   directly under the meta line, full-width, paper-2 background with a
+   garnet left rule. Combines a clear "this is OCR'd text" advisory with
+   a one-click "report an issue" link to the GitHub tracker. */
+.docs-reader-ocr-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: var(--paper-2);
+  border-left: 3px solid var(--garnet);
+  border-radius: 2px;
+  max-width: 720px;
+}
+.ocr-banner-tag {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 7px;
+  background: var(--garnet);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-radius: 2px;
+}
+.ocr-banner-body {
+  font-family: var(--display);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.ocr-banner-body strong { color: var(--ink); font-weight: 600; }
+.ocr-banner-body a {
+  color: var(--garnet);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--garnet);
+}
+.ocr-banner-body a:hover { border-bottom-style: solid; }
+.ocr-banner-report {
+  display: inline-block;
+  margin-left: 6px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* v19.45: small "OCR" pill on result-list rows. Renders next to the
+   source badge so users can see at a glance which results came from
+   OCR'd source text. Tooltip carries the cleanup-pipeline summary. */
+.ocr-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 6px;
+  margin-right: 4px;
+  background: var(--paper-3);
+  color: var(--garnet);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--garnet);
+  border-radius: 2px;
+  cursor: help;
+}
+
 .docs-reader-stream {
   max-width: 720px;
 }

@@ -1541,6 +1541,39 @@ function paintDocReaderBody(doc, paraId) {
     return;
   }
 
+  // v19.45: OCR-provenance banner. When the document came from a scanned
+  // PDF (sourceFormat === "pdf_ocr"), surface that fact prominently in the
+  // reader so users know the text passed through OCR and may carry residual
+  // character-level errors despite the cleanup pipeline. The banner also
+  // exposes the OCR mean confidence and a pre-filled GitHub-issue link so
+  // anyone spotting a residual error can flag it in one click.
+  const isOcrDoc = doc.sourceFormat === 'pdf_ocr';
+  const ocrConf = typeof doc.ocrMeanConf === 'number' ? doc.ocrMeanConf.toFixed(1) : null;
+  const issueTitle = encodeURIComponent(`OCR error in ${doc.signature || doc.docId}`);
+  const issueBody = encodeURIComponent(
+    `**Document:** ${doc.signature || doc.docId}\n` +
+    `**Paragraph:** _(¶ number, e.g. ¶3.2)_\n` +
+    `**OCR error spotted:**\n\n_(quote the affected word/phrase as it currently reads)_\n\n` +
+    `**Should be:**\n\n_(what the original PDF says)_\n\n` +
+    `**Original PDF:** ${doc.link || '(link to source)'}\n`
+  );
+  const issueUrl = `https://github.com/lszoszk/generalcomments/issues/new?labels=ocr-error&title=${issueTitle}&body=${issueBody}`;
+  const ocrBanner = isOcrDoc
+    ? `<aside class="docs-reader-ocr-banner">
+         <span class="ocr-banner-tag">OCR</span>
+         <div class="ocr-banner-body">
+           <strong>Recovered from a scanned PDF via OCR${ocrConf ? ` (mean confidence ${ocrConf}%)` : ''}.</strong>
+           Text passed through Tesseract + a 5-stage corpus cleanup pipeline
+           (mechanical fn-marker repairs, Tesseract TSV-leak strip, ~80 letter-
+           substitution rules, hand-vetted mangled-word audit). Residual
+           character-level errors may remain — please cite cautiously and
+           verify against the
+           ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF'}.
+           <a class="ocr-banner-report" href="${issueUrl}" target="_blank" rel="noopener" title="Open a pre-filled GitHub issue">↗ report an OCR error</a>
+         </div>
+       </aside>`
+    : '';
+
   const head = `
     <header class="docs-reader-head">
       <div class="folio garnet">${escape(formatDocHeadline(doc, { compact: true }))}</div>
@@ -1553,6 +1586,7 @@ function paintDocReaderBody(doc, paraId) {
         <span>${paragraphs.length} paragraphs</span>
         ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener" class="docs-reader-source">↗ original</a>` : ''}
       </div>
+      ${ocrBanner}
     </header>`;
 
   // v19.43: emit only the section LEVELS that changed since the previous
@@ -4299,18 +4333,30 @@ function renderResult(p, rank, terms, opts = {}) {
 
   const badge = sourceBadge(p.type);
 
+  // v19.45: OCR-provenance pill on the result headline. Shown when the
+  // paragraph itself was OCR-recovered (per-¶ flag, since within an OCR
+  // doc some pages may be text-layer extracted). Tooltip points users at
+  // the issue tracker for residual character-level errors.
+  const isOcrPara = p.sourceFormat === 'pdf_ocr'
+    || (doc?.sourceFormat === 'pdf_ocr' && p.sourceFormat == null);
+  const ocrPill = isOcrPara
+    ? `<span class="ocr-pill" title="Recovered from a scanned PDF via OCR. Residual character-level errors may remain — click the title to open the document and use the “report issue” link to flag any. Cleanup: ~1,388 fixes applied (TSV-leak strip, letter-substitution sweep, mangled-word audit).">OCR</span>`
+    : '';
+
   const labelChips = (p.labels || []).slice(0, 4).map(l => `<span class="chip">${escape(l)}</span>`).join('');
   const committeeChips = p.committees.map(c => `<span class="chip ${isSp(c) ? 'sp-chip' : p.type === 'jur' ? 'jur-chip' : ''}">${escape(c)}</span>`).join('');
 
   const headline = opts.grouped
     ? `
         ${badge}
+        ${ocrPill}
         <span class="folio">MATCHED PARAGRAPH</span>
         <span class="result-spacer"></span>
         <span class="folio">${doc?.year ?? ''}</span>
       `
     : `
         ${badge}
+        ${ocrPill}
         <span class="result-doc">${escape(formatDocHeadline(doc) || p.docId)}</span>
         <span class="result-spacer"></span>
         <span class="folio">${doc?.year ?? ''}</span>
