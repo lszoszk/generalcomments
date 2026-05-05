@@ -1069,6 +1069,10 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   font-variant-numeric: tabular-nums;
 }
 .chip.on .chip-count { color: var(--paper); }
+/* v19.43-fix16: zero-hit chip — same convention as the checkbox
+   list above. */
+.chip.is-zero { opacity: 0.45; }
+.chip.is-zero .dim { font-style: italic; }
 
 /* Collapsible filter blocks (details/summary) */
 .filter-collapsible summary {
@@ -1147,6 +1151,12 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   padding: 2px 0;
 }
 .checkbox-list label:hover { color: var(--ink); }
+/* v19.43-fix16: visual cue for zero-hit facet values when a query
+   or filter is active. Doesn't disable — researcher can still un-
+   filter and re-pick — just reads as "this won't get you anything
+   right now". */
+.checkbox-list label.is-zero { opacity: 0.45; }
+.checkbox-list label.is-zero .count { font-style: italic; }
 .checkbox-list input[type=checkbox] { accent-color: var(--garnet); }
 .checkbox-list .count {
   margin-left: auto;
@@ -2858,13 +2868,19 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
    at the top of the section in normal flow.
    v19.43-fix4: explicit single-row track (minmax(0, 1fr)) so the grid
    row consumes parent height instead of expanding to content. */
+/* v19.43-fix16: variant-C layout — drop the 1600 px max-width.
+   Side panes grow proportionally on wide monitors (rail to ~22%,
+   outline to ~24%) while the centre body stays full‑width as a
+   grid cell — the actual reading column inside it is constrained
+   to ~720 px by `.docs-reader-body article` max-width. Eliminates
+   the 392 px outer gutters at 1992 px viewport without giving up
+   the 65–75 char reading line length. */
 .docs-reader {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr) 320px;
+  grid-template-columns: minmax(260px, 22%) minmax(0, 1fr) minmax(300px, 24%);
   grid-template-rows: minmax(0, 1fr);
   gap: 0;
-  max-width: 1600px;
-  margin: 0 auto;
+  margin: 0;
   width: 100%;
   flex: 1 1 0;
   min-height: 0;
@@ -2988,6 +3004,16 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   overflow-y: auto;
   min-height: 0;
   scroll-padding-top: 80px;
+}
+/* v19.43-fix16: reading-line constraint. The grid cell can be 1000+
+   px wide on a 27" monitor, but a single text column at 17 px serif
+   becomes unreadable past ~75 chars. Cap the head + stream at 760 px
+   and centre — gives the centre body breathing gutters without
+   stranding the side panes against the viewport edge. */
+.docs-reader-body > .docs-reader-head,
+.docs-reader-body > .docs-reader-stream {
+  max-width: 760px;
+  margin-inline: auto;
 }
 .docs-reader-empty {
   text-align: center;
@@ -3675,6 +3701,11 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .yh-bar { cursor: pointer; transition: opacity 0.12s; }
 .yh-bar.in-range  { fill: var(--garnet); opacity: 0.85; }
 .yh-bar.out-range { fill: var(--rule);   opacity: 0.55; }
+/* v19.43-fix16: bars with 0 hits in current query/filter — visible
+   but very dim, so the histogram still shows the corpus shape but
+   user can see at-a-glance which years have NO results for the
+   current query. */
+.yh-bar.is-zero { fill: var(--rule); opacity: 0.18; }
 .yh-bar:hover     { opacity: 1; }
 .yh-axis {
   display: flex;

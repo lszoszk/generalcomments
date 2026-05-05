@@ -3703,6 +3703,14 @@ function paintResults() {
   $('#results-sub').appendChild(scopeNotice());
   paintResultBreakdown();
 
+  // v19.43-fix16: refresh facet counts to reflect the current query +
+  // filter set. Both facet chips/checkboxes and the year histogram
+  // pick up new counts. Heavy-ish (~30 ms on 7K paragraphs) so we
+  // run it AFTER results are committed so user sees results-text
+  // first, then facets settle.
+  paintFacetCounts();
+  paintYearHistogram();
+
   // Empty state — render in place of the list. Provides one of three
   // tailored hints depending on what's narrowing the result set:
   //   (a) the user typed a query that nothing matched
@@ -6356,6 +6364,131 @@ function showFeedbackToast(reply) {
 
 // ─────────── B4 Year histogram ───────────
 //
+// v19.43-fix16: dynamic facet counts. Standard faceted-search
+// pattern (Westlaw, JSTOR, Google Scholar): every count next to a
+// facet value reflects "how many results would I see if I added/
+// replaced this facet" — compute by applying ALL OTHER filters, but
+// not the facet's own filter. Lets users do confident drill-down
+// without ever clicking into an empty result set.
+//
+// Compute is naive (~30 ms for 7K paragraphs × 3 facets) but fast
+// enough that we run it on every search. JUR/SP scopes that ride
+// the API path skip dynamic counts — server doesn't expose facet
+// breakdowns yet, and the static baseline counts are still correct
+// for the API result set.
+function computeDynamicFacetCounts() {
+  if (!state.paragraphs.length || !state.searchIndex) return null;
+
+  // Apply scope filter (GC-only / SP-only / all) — committees/labels
+  // don't span scopes so this gates the universe.
+  const scopeOk = (p) => {
+    if (state.scope === 'gc')  return p.type === 'gc' || p.type == null;
+    if (state.scope === 'jur') return p.type === 'jur';
+    if (state.scope === 'sp')  return p.type === 'sp';
+    return true;
+  };
+
+  // Query filter — paragraphs whose ID is in the FlexSearch result.
+  // null when no query (everything matches the query bucket).
+  const queryIds = state.query ? flexSearchIds(state.query) : null;
+  const queryOk = (p) => !queryIds || queryIds.has(p.id);
+
+  // Helper predicates per filter category. `except` skips the
+  // category's own filter so its counts aren't self-zeroed.
+  const matchesExcept = (p, except) => {
+    if (!scopeOk(p) || !queryOk(p)) return false;
+
+    if (except !== 'committee' && state.filters.committees.size) {
+      const committees = p.committees || (p.committee ? [p.committee] : []);
+      if (!committees.some(c => state.filters.committees.has(c))) return false;
+    }
+    if (except !== 'labels' && state.filters.labels.size) {
+      const labels = p.labels || [];
+      const want = [...state.filters.labels];
+      if (state.filters.labelsMode === 'all') {
+        if (!want.every(l => labels.includes(l))) return false;
+      } else {
+        if (!want.some(l => labels.includes(l))) return false;
+      }
+    }
+    if (except !== 'year') {
+      if (state.filters.yearMin != null && p.year != null && p.year < state.filters.yearMin) return false;
+      if (state.filters.yearMax != null && p.year != null && p.year > state.filters.yearMax) return false;
+    }
+    if (state.searchInPreamble === false && p.isPreamble) return false;
+    return true;
+  };
+
+  const committeeCounts = new Map();
+  const labelCounts     = new Map();
+  const yearCounts      = new Map();
+
+  for (const p of state.paragraphs) {
+    if (matchesExcept(p, 'committee')) {
+      const list = p.committees || (p.committee ? [p.committee] : []);
+      for (const c of list) {
+        if (c) committeeCounts.set(c, (committeeCounts.get(c) || 0) + 1);
+      }
+    }
+    if (matchesExcept(p, 'labels')) {
+      const labels = p.labels || [];
+      for (const l of labels) {
+        labelCounts.set(l, (labelCounts.get(l) || 0) + 1);
+      }
+    }
+    if (matchesExcept(p, 'year')) {
+      if (p.year != null) yearCounts.set(p.year, (yearCounts.get(p.year) || 0) + 1);
+    }
+  }
+  return { committeeCounts, labelCounts, yearCounts };
+}
+
+// In-place facet count refresher. Runs after each paintResults.
+// Updates the .dim count span on each committee chip + the .count
+// span on each label checkbox. The histogram repaints fully (its
+// bar heights change with counts).
+function paintFacetCounts() {
+  // Skip on API path — server doesn't expose facet breakdowns yet.
+  // The baseline static counts stay visible.
+  if (apiActive(state.scope)) return;
+
+  const counts = computeDynamicFacetCounts();
+  if (!counts) return;
+  const hasQueryOrFilter = !!state.query
+                          || state.filters.committees.size
+                          || state.filters.labels.size
+                          || (state.filters.yearMin != null && state.facets?.years && state.filters.yearMin > state.facets.years.min)
+                          || (state.filters.yearMax != null && state.facets?.years && state.filters.yearMax < state.facets.years.max);
+
+  // Committees — each .chip has data-committee attribute pointing at
+  // the value. Update the trailing .dim count span.
+  document.querySelectorAll('#filter-committees .chip[data-committee], #filter-mandates .chip[data-committee]').forEach(chip => {
+    const value = chip.dataset.committee;
+    const count = counts.committeeCounts.get(value) || 0;
+    const countEl = chip.querySelector('.dim');
+    if (countEl) countEl.textContent = count.toLocaleString();
+    // Visual cue: dim chips that would yield zero hits if clicked,
+    // but only when there's an active query/filter (otherwise every
+    // chip shows its full corpus count and dimming makes no sense).
+    chip.classList.toggle('is-zero', hasQueryOrFilter && count === 0);
+  });
+
+  // Concerned-group checkboxes — count span.
+  document.querySelectorAll('#filter-labels label').forEach(lbl => {
+    const cb = lbl.querySelector('input[type="checkbox"]');
+    if (!cb || !cb.id?.startsWith('lbl-')) return;
+    // Recover the original label value from the slug we generated
+    // (lowercase + hyphens). Match against our facet keys.
+    const span = lbl.querySelector('span:not(.count)');
+    const value = span?.textContent?.trim();
+    if (!value) return;
+    const count = counts.labelCounts.get(value) || 0;
+    const countEl = lbl.querySelector('.count');
+    if (countEl) countEl.textContent = count.toLocaleString();
+    lbl.classList.toggle('is-zero', hasQueryOrFilter && count === 0);
+  });
+}
+
 // Inline SVG chart. Reads facets.years.histogram. Click a bar to set
 // yearMin/yearMax to that single year; shift-click extends a range.
 function paintYearHistogram() {
@@ -6366,7 +6499,21 @@ function paintYearHistogram() {
 
   const yMin = state.facets.years.min;
   const yMax = state.facets.years.max;
-  const maxCount = Math.max(1, ...hist.map(b => b.count));
+
+  // v19.43-fix16: dynamic year counts from current query+filter (minus
+  // year filter itself, so dragging the range doesn't self-zero the
+  // bars). When no query/filter is active, falls back to corpus
+  // baseline so first-paint shows the natural shape of the dataset.
+  const dynCounts = !apiActive(state.scope) ? computeDynamicFacetCounts() : null;
+  const yearMap = dynCounts?.yearCounts;
+  const hasAnyFilter = !!state.query
+                      || state.filters.committees.size
+                      || state.filters.labels.size;
+  const useDyn = yearMap && hasAnyFilter;
+
+  const effectiveCount = (b) => useDyn ? (yearMap.get(b.year) || 0) : b.count;
+  const maxCount = Math.max(1, ...hist.map(effectiveCount));
+
   const W = 240, H = 36;
   const barW = (W - (hist.length - 1) * 1) / hist.length;
 
@@ -6376,15 +6523,18 @@ function paintYearHistogram() {
     (state.filters.yearMax == null || year <= state.filters.yearMax);
 
   const bars = hist.map((b, i) => {
-    const h = (b.count / maxCount) * H;
+    const c = effectiveCount(b);
+    const h = (c / maxCount) * H;
     const x = i * (barW + 1);
     const y = H - h;
-    const cls = inRange(b.year) ? 'in-range' : 'out-range';
+    let cls = inRange(b.year) ? 'in-range' : 'out-range';
+    if (c === 0) cls += ' is-zero';
+    const tipBaseline = useDyn ? ` · ${b.count.toLocaleString()} in corpus` : '';
     return `<rect class="yh-bar ${cls}"
-      data-year="${b.year}" data-count="${b.count}"
+      data-year="${b.year}" data-count="${c}"
       x="${x.toFixed(1)}" y="${y.toFixed(1)}"
-      width="${barW.toFixed(1)}" height="${h.toFixed(1)}">
-      <title>${b.year} · ${b.count.toLocaleString()} paragraphs</title>
+      width="${barW.toFixed(1)}" height="${Math.max(h,0.5).toFixed(1)}">
+      <title>${b.year} · ${c.toLocaleString()} paragraph${c===1?'':'s'}${tipBaseline}</title>
     </rect>`;
   }).join('');
 
