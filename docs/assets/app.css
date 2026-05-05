@@ -983,6 +983,14 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   overflow-y: auto;
   min-height: 0;
 }
+/* v19.44-fix25: the JS-injected mobile filters-toggle pill must be
+   hidden on desktop. The button is inserted into the DOM by
+   initMobileFilterToggle() regardless of viewport so it can react to
+   resize, but it should only become visible at the mobile breakpoint
+   (re-displayed inside @media (max-width: 700px)). Without this rule
+   it rendered as an unstyled native button at the top of the left
+   filter column on desktop. */
+.mobile-filters-toggle { display: none; }
 .filter-block {
   margin-bottom: 24px;
 }
@@ -4453,10 +4461,28 @@ body.is-corpus-loading #q { cursor: progress; }
     overflow: auto;
   }
   body { display: block; }
+  /* v19.44-fix25: the previous `section[data-view] { display: block }`
+     rule had equal specificity to `section[data-view] { display: none }`
+     at line 2673 and overrode it (later in cascade), so on mobile EVERY
+     view section was rendered simultaneously. The active-view rules
+     (body[data-active-view=…] section[data-view=…]) only flipped the
+     active one to flex/block — they never put the inactive ones back
+     to none. Result: clicking Documents/Workspace/About set the hash
+     and the body class but the search view stayed painted on top, so
+     the new view never appeared.
+     Fix: keep ALL inactive sections hidden on mobile too, but switch
+     the active one to display:block (not flex — the layout grid is
+     reverted to natural document flow on mobile so flex is wrong). */
   section[data-view] {
-    display: block;
+    display: none;
     flex: none;
     overflow: visible;
+  }
+  body[data-active-view="search"]    section[data-view="search"],
+  body[data-active-view="documents"] section[data-view="documents"],
+  body[data-active-view="workspace"] section[data-view="workspace"],
+  body[data-active-view="about"]     section[data-view="about"] {
+    display: block;
   }
   section[data-view="search"],
   section[data-view="documents"] {
