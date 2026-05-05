@@ -29,43 +29,63 @@ from __future__ import annotations
 import argparse, json, re
 from pathlib import Path
 
-# Trailing section header. Anchored to end of string ($). Matches:
-#   <punctuation or marker><whitespace><Roman or single letter>.<title>(<parenthetical>)?<eos>
-# - Roman is 1..4 of [IVXLCM] (covers I..XL).
-# - Letter is single A..Z.
-# - The title is capitalized first char + lowercase/space/dash mix; no period
-#   except the optional `(art.N)` parenthetical handled separately.
-# - The dot after the prefix may have NO trailing space (extractor bug) or one space.
-TRAIL_HEADER = re.compile(
-    r"""
-    [.!?;\]]                       # end of last sentence (period/!/?/;/]])
-    \s*                            # optional whitespace
-    (?:\[\[fn:\d+\]\])?            # optional [[fn:N]] right after the punct
-    \s+                            # at least one whitespace
-    (?P<prefix>[IVXLCM]{1,4}|[A-Z]) # Roman or single capital letter
-    \.                             # required dot
-    \s*                            # optional space (extractor sometimes drops it)
-    (?P<title>[A-Z][^.\n]{6,200}?) # title content; no periods, 6-200 chars
-    (?P<paren>\s*\([^)]{2,40}\))?  # optional `(art. N)` style trailer
-    \s*$                           # end of string
-    """,
-    re.VERBOSE,
+# Single section header — title chars exclude `.` and `(` so the regex
+# stops cleanly at the next header's prefix-dot or at a parenthetical.
+# Optional paren trailer (e.g. `(art. 6 of the Convention)`) is allowed.
+ONE_HEADER = (
+    r'(?:[IVXLCM]{1,4}|[A-Z])'              # Roman (I..XL) or single capital
+    r'\.\s*'                                 # required dot, optional space
+    r'[A-Z][^.()\n]{2,200}?'                 # capitalized title (lazy)
+    r'(?=\s+(?:[IVXLCM]{1,4}|[A-Z])\.\s*[A-Z]|\s*\(|\s*$)'  # stop at: next header / paren / EOS
+    r'(?:\s*\([^)]{2,80}\))?'                # optional `(art. N …)` paren trailer
+)
+
+# Trailing header chain anchored at end of string. Matches:
+#   <sentence-end punct> <optional [[fn:N]]> <ws>
+#   <one or more chained headers separated by whitespace>
+TRAIL_CHAIN = re.compile(
+    r'([.!?;\]])'                    # group 1: keep this punct
+    r'(\s*\[\[fn:\d+\]\])?'          # group 2: keep optional fn marker bonded
+    r'\s+'                           # ws between sentence and first header
+    r'(?:' + ONE_HEADER + r')'       # first header
+    r'(?:\s+(?:' + ONE_HEADER + r'))*'  # zero or more additional chained headers
+    r'\s*$'                          # to end of string
 )
 
 
 def strip_trailing_headers(text: str) -> tuple[str, int]:
-    """Iteratively strip trailing section headers. Returns (new, count)."""
-    n = 0
+    """Strip the trailing section-header chain at the end of `text`.
+
+    Returns (new_text, n_headers_stripped). Idempotent — running on
+    already-clean text returns it unchanged.
+    """
     cur = text.rstrip()
-    while True:
-        m = TRAIL_HEADER.search(cur)
-        if not m:
+    m = TRAIL_CHAIN.search(cur)
+    if not m:
+        return cur, 0
+
+    # Count how many headers we're stripping (for reporting)
+    chain_start = m.start()
+    # The chunk we keep is everything BEFORE the chain, plus the punct +
+    # optional [[fn:N]] (groups 1+2) bonded to the previous sentence.
+    keep_end = m.start() + len(m.group(1)) + (len(m.group(2)) if m.group(2) else 0)
+    new_text = cur[:keep_end].rstrip()
+    chain_text = cur[keep_end:].strip()
+
+    # Count individual headers in the chain
+    n = 0
+    pos = 0
+    one_header_re = re.compile(ONE_HEADER)
+    while pos < len(chain_text):
+        hm = one_header_re.match(chain_text, pos)
+        if not hm:
             break
-        # Remove the matched header chunk, but KEEP the punctuation that
-        # ended the previous sentence (it's the FIRST char of the match).
-        cur = cur[: m.start() + 1].rstrip()
+        pos = hm.end()
         n += 1
-    return cur, n
+        while pos < len(chain_text) and chain_text[pos].isspace():
+            pos += 1
+
+    return new_text, max(n, 1)
 
 
 def main():
