@@ -1,9 +1,15 @@
 [
   {
     "ID": "1.",
-    "Section": "Decision on admissibility",
+    "Section": "ANNEX",
     "Labels": [],
-    "Text": "The author of the communication is Jaroslav Novotny, a Czech national, who at the time of the events that gave rise to his communication, was serving a sentence at the prison Jiřice in the . He claims to be a victim of a violation of article 26 of the International Covenant on Civil and Political Rights by the . He is represented by counsel, Mr. David Strupek."
+    "Text": "The author of the communication is Jaroslav Novotny, a Czech national, who at the time of the events that gave rise to his communication, was serving a sentence at the prison Jiřice in the Czech Republic. He claims to be a victim of a violation of article 26 of the International Covenant on Civil and Political Rights by the Czech Republic[[fn:4]]. He is represented by counsel, Mr. David Strupek.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The Covenant and the Optional Protocol to the Covenant entered into force for the Czech Republic, succeeding to Czechoslovakia as State party to the Covenant and its Optional Protocol, on 22 February 1993."
+      }
+    ]
   },
   {
     "ID": "2.1.",
@@ -11,13 +17,19 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "From 25 September to 10 November 2006, the author was employed at a private entity, pursuant to section 30 of the Act on the Execution of the Penalty of Imprisonment (AEPI). His remuneration was CZK 4,500 monthly, as decided by the Prison’s Director on 21 September 2006, in application of the Government’s order No. 365/1999. At that time, the statutory minimum wage in the was CZK 7,995 monthly."
+    "Text": "From 25 September to 10 November 2006, the author was employed at a private entity, pursuant to section 30 of the Act on the Execution of the Penalty of Imprisonment (AEPI).[[fn:5]] His remuneration was CZK 4,500 monthly, as decided by the Prison’s Director on 21 September 2006, in application of the Government’s order No. 365/1999. At that time, the statutory minimum wage in the Czech Republic was CZK 7,995 monthly.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Under section 30 (1) prisons shall create conditions enabling prisoners to work either within the prison’s own operation, production or business, or within a contractual relationship with another entity."
+      }
+    ]
   },
   {
     "ID": "2.2.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "On unspecified dates, the author unsuccessfully complained to the General Directorate of the Prison Service and to the Public Defender about the inequality of being paid less than an employee earning the statutory minimum wage. On 3 January 2007, the author unsuccessfully filed a constitutional complaint with the , on the ground that he had been discriminated against in his right to just remuneration for work. On 1 March 2007, the complaint was rejected by the Court as manifestly ill-founded since a convict employed under the AEPI is not in a comparable position to a person employed on the basis of a labour contract."
+    "Text": "On unspecified dates, the author unsuccessfully complained to the General Directorate of the Prison Service and to the Public Defender about the inequality of being paid less than an employee earning the statutory minimum wage. On 3 January 2007, the author unsuccessfully filed a constitutional complaint with the Constitutional Court, on the ground that he had been discriminated against in his right to just remuneration for work. On 1 March 2007, the complaint was rejected by the Court as manifestly ill-founded since a convict employed under the AEPI is not in a comparable position to a person employed on the basis of a labour contract."
   },
   {
     "ID": "3.1.",
@@ -45,7 +57,13 @@
     "ID": "4.1.",
     "Section": "State party's observations",
     "Labels": [],
-    "Text": "On 3 October 2008, the State party submitted its observations on the communication, arguing that it is inadmissible for a number of reasons. Firstly, the State party, referring to the Committee’s jurisprudence, argues that it constitutes an abuse of the right to submit a communication. It claims that the author approached the Committee more than one year after the last domestic decision and that such delay, which was not justified by the author, is unreasonable."
+    "Text": "On 3 October 2008, the State party submitted its observations on the communication, arguing that it is inadmissible for a number of reasons. Firstly, the State party, referring to the Committee’s jurisprudence,[[fn:6]] argues that it constitutes an abuse of the right to submit a communication. It claims that the author approached the Committee more than one year after the last domestic decision and that such delay, which was not justified by the author, is unreasonable.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "Communications no. 1434/2005 Claude Fillacier v. France at para. 4.3, no. 787/1997 Vishwadeo Gobin v. Mauritius at para. 6.3, and no. 1452/2006 Renatus J. Chytil v. the Czech Republic at para, 6.2."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -53,7 +71,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The State party further argues that the claim is insufficiently substantiated for purposes of admissibility. It refers to the communication Marijan Radosevic v. Germany, also concerning the level of remuneration of work performed by a prisoner, in which the Committee held that the communication was inadmissible because, similarly to the present case, the author had not provided sufficient information on the work performed."
+    "Text": "The State party further argues that the claim is insufficiently substantiated for purposes of admissibility. It refers to the communication Marijan Radosevic v. Germany,[[fn:7]] also concerning the level of remuneration of work performed by a prisoner, in which the Committee held that the communication was inadmissible because, similarly to the present case, the author had not provided sufficient information on the work performed.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Communication no. 1292/2004 at para. 7.2."
+      }
+    ]
   },
   {
     "ID": "4.3.",
@@ -61,7 +85,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On the merits, the State party argues that the claim is ill-founded. It claims that the difference of treatment between prisoners and employees when it comes to remuneration for work, is justified and based on objective and reasonable criteria. Referring to the Committee’s jurisprudence on the interpretation of Article 26, the State party alleges that the author received a lower income than the minimum standard wage (around 60%) because of the specific circumstances of the work undertaken by convicts. It notes that the difference between the legal position of convicted prisoners and regular employees is self-evident. Under Czech law, all prisoners sentenced to imprisonment are obliged to work as long as their health allows. A prisoner assigned to work is not allowed to refuse to work for the State, public authorities or other public entities, but he may refuse to work for a private business. Work performed by convicts is part of the rehabilitation process which is the purpose of imprisonment. The purpose of their remuneration is not to secure their subsistence, as the State provides the convicts’ basic needs."
+    "Text": "On the merits, the State party argues that the claim is ill-founded. It claims that the difference of treatment between prisoners and employees when it comes to remuneration for work, is justified and based on objective and reasonable criteria. Referring to the Committee’s jurisprudence on the interpretation of Article 26,[[fn:8]] the State party alleges that the author received a lower income than the minimum standard wage (around 60%) because of the specific circumstances of the work undertaken by convicts. It notes that the difference between the legal position of convicted prisoners and regular employees is self-evident. Under Czech law, all prisoners sentenced to imprisonment are obliged to work as long as their health allows.[[fn:9]] A prisoner assigned to work is not allowed to refuse to work for the State, public authorities or other public entities, but he may refuse to work for a private business. Work performed by convicts is part of the rehabilitation process which is the purpose of imprisonment. The purpose of their remuneration is not to secure their subsistence, as the State provides the convicts’ basic needs.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Communication no. 182/1984 Zwaan de Vries v. the Netherlands, at paras. 12.1 to 13."
+      },
+      {
+        "n": 9,
+        "text": "Section 29 of the APEI."
+      }
+    ]
   },
   {
     "ID": "4.4.",
@@ -77,7 +111,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The State party also claims that the minimum wage is a social concept whereby employees are provided the security of a minimum subsistence level, but in the prisoners’ case, it is the State that provides the minimum subsistence to prisoners, regardless of whether they work or not. Thus, the minimum wage concept does not apply to prisoners. Furthermore, the State party provides information to the effect that it appears that other categories of regular employees are similarly provided with remuneration below the minimum standard wage, on the basis of their social or health situations."
+    "Text": "The State party also claims that the minimum wage is a social concept whereby employees are provided the security of a minimum subsistence level, but in the prisoners’ case, it is the State that provides the minimum subsistence to prisoners, regardless of whether they work or not. Thus, the minimum wage concept does not apply to prisoners. Furthermore, the State party provides information to the effect that it appears that other categories of regular employees are similarly provided with remuneration below the minimum standard wage, on the basis of their social or health situations.[[fn:10]]",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "Section 2 of the Government order No. 303/1995 on the minimum wage, provides that employees between 18 to 21 years old receive 90% of the minimum wage for their first job for six months; underage employees (between 15 to 18 years old) receive 80%; beneficiaries of a partial disability pension receive 75% and beneficiaries of a permanent disability pension or underage employees suffering from full disability and who are beneficiaries of a permanent disability pension receive 50% of the minimum wage."
+      }
+    ]
   },
   {
     "ID": "4.6.",
@@ -85,13 +125,29 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The State party observes that international standards provide for equitable remuneration of the work of prisoners, and not equal remuneration with the regular workforce, leaving a margin of appreciation to each State to determine the level of remuneration considered as equitable."
+    "Text": "The State party observes that international standards[[fn:11]] provide for equitable remuneration of the work of prisoners, and not equal remuneration with the regular workforce, leaving a margin of appreciation to each State to determine the level of remuneration considered as equitable.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "The United Nations Standard Minimum Rules for the Treatment of Prisoners (see ECOSOC resolutions 663 C (XXIV) of 31 July 1957 and 2076 (LXII) of 13 May 1977, and the 2006 Recommendation of the Committee of Ministers of the Council of Europe to member States on the European Prison Rules (Rec (2006)2)."
+      }
+    ]
   },
   {
     "ID": "5.1.",
     "Section": "Comments by the author",
     "Labels": [],
-    "Text": "On 18 December 2008, the author submits that the one year delay in his submission to the Committee cannot be compared to the delays encountered in the communications referred to by the State party. Furthermore, in some other instances, the Committee considered admissible, communications filed more than three years after the latest domestic decision."
+    "Text": "On 18 December 2008, the author submits that the one year delay in his submission to the Committee cannot be compared to the delays encountered in the communications referred to by the State party.[[fn:12]] Furthermore, in some other instances, the Committee considered admissible, communications filed more than three years after the latest domestic decision.[[fn:13]]",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "Fifteen, eight and ten years, respectively."
+      },
+      {
+        "n": 13,
+        "text": "See Communications no. 1353/2005 Njaru v. Cameroon and no. 1125/2002 Quispe Roque v. Peru."
+      }
+    ]
   },
   {
     "ID": "5.2.",
@@ -109,7 +165,13 @@
     "ID": "6.2.",
     "Section": "On admissibility",
     "Labels": [],
-    "Text": "As to the State party’s argument that the submission of the communication to the Committee amounts to an abuse of the right of submission under article 3 of the Optional Protocol, the Committee notes that there are no fixed time limits for submission of communications under the Optional Protocol and that a mere delay in submission does not of itself, except in exceptional circumstances, involve an abuse of the right to submit a communication. The Committee does not regard the delay of one year to have been so unreasonable as to amount to an abuse of the right of submission."
+    "Text": "As to the State party’s argument that the submission of the communication to the Committee amounts to an abuse of the right of submission under article 3 of the Optional Protocol, the Committee notes that there are no fixed time limits for submission of communications under the Optional Protocol and that a mere delay in submission does not of itself, except in exceptional circumstances, involve an abuse of the right to submit a communication.[[fn:14]] The Committee does not regard the delay of one year to have been so unreasonable as to amount to an abuse of the right of submission.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "See Communication no. 787/1997, Gobin v. Mauritius, Inadmissibility decision of 16 July 2001, para. 6.3, Communication no. 1434/2005, Claude Fillacier v. France, Inadmissibility decision of 27 March 2006, para. 4.3 and Communication no. 1101/2002, José María Alba Cabriadav. Spain, Views adopted on 1 November 2004, para. 6.3."
+      }
+    ]
   },
   {
     "ID": "6.3.",
@@ -117,7 +179,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The Committee notes the author’s claim that the fact that he received less than the minimum standard wage for the work he undertook as a prisoner between 25 September and 10 November 2006, in similar conditions to those of regular employees, amounts to discrimination under article 26 of the Covenant. The Committee recalls its jurisprudence in Radosevic v. Germany and notes that the author has not provided any information on the type of work he performed during his incarceration and whether it was of a kind that is available on the labour market. Neither has he provided information on the amount of subsistence provided by the State party to cover his “basic needs” in addition to his remuneration. The Committee observes the information provided by the State party regarding other regular workers who are not paid the minimum standard wage (para. 4.5), and notes that the author’s mere reference to minimum standard wage does not suffice to substantiate the alleged discrimination. The Committee also notes that the author only worked under the scheme in question for one and a half months, to which he freely agreed, with full knowledge of the remuneration to be received. For all of these reasons, the Committee considers that the author has not sufficiently substantiated, for purposes of admissibility, his claim that he was a victim of discrimination based on his status as a prisoner. It follows that the communication is inadmissible under article 2 of the Optional Protocol."
+    "Text": "The Committee notes the author’s claim that the fact that he received less than the minimum standard wage for the work he undertook as a prisoner between 25 September and 10 November 2006, in similar conditions to those of regular employees, amounts to discrimination under article 26 of the Covenant. The Committee recalls its jurisprudence in Radosevic v. Germany[[fn:15]] and notes that the author has not provided any information on the type of work he performed during his incarceration and whether it was of a kind that is available on the labour market. Neither has he provided information on the amount of subsistence provided by the State party to cover his “basic needs” in addition to his remuneration. The Committee observes the information provided by the State party regarding other regular workers who are not paid the minimum standard wage (para. 4.5), and notes that the author’s mere reference to minimum standard wage does not suffice to substantiate the alleged discrimination. The Committee also notes that the author only worked under the scheme in question for one and a half months, to which he freely agreed, with full knowledge of the remuneration to be received. For all of these reasons, the Committee considers that the author has not sufficiently substantiated, for purposes of admissibility, his claim that he was a victim of discrimination based on his status as a prisoner. It follows that the communication is inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "Communication no. 1292/2004 at para. 7.2."
+      }
+    ]
   },
   {
     "ID": "7.",

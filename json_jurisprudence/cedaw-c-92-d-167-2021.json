@@ -114,7 +114,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author maintains that, according to the reasoning provided by the Kardzhali District Court, the Act provides for protection only for the event specified by the victim, which took place within 30 days of the initiation of the proceedings. This reasoning was shared by the Kardzhali Regional Court. The victims were therefore expected to prove beyond reasonable doubt that they had been victims of emotional and psychological violence by showing written evidence about the different acts of violence and that the last acts of violence occurred on specified dates within the 30-day time limit. The Courts disregarded the range of events that had taken place before the one-month limit, all the evidence presented by the victims and their inability and lack of obligation to prove domestic violence beyond reasonable doubt."
+    "Text": "The author maintains that, according to the reasoning provided by the Kardzhali District Court, the Act provides for protection only for the event specified by the victim, which took place within 30 days of the initiation of the proceedings. This reasoning was shared by the Kardzhali Regional Court. The victims were therefore expected to prove beyond reasonable doubt that they had been victims of emotional and psychological violence by showing written evidence about the different acts of violence and that the last acts of violence occurred on specified dates within the 30day time limit. The Courts disregarded the range of events that had taken place before the one-month limit, all the evidence presented by the victims and their inability and lack of obligation to prove domestic violence beyond reasonable doubt."
   },
   {
     "ID": "3.3.",
@@ -306,7 +306,13 @@
     "ID": "6.7.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee recalls that it is not in a position to review the assessment of facts and evidence by domestic courts and authorities unless such assessment was in itself arbitrary or otherwise discriminatory. The Committee observes that, in the present case, the author has failed to explain what information or evidence the courts failed to duly consider and how their assessments and decisions were arbitrary or otherwise discriminatory on the basis of sex or gender. The Committee considers that, while the author disagrees with the findings of the national courts, she has not demonstrated that the courts’ assessment was manifestly arbitrary or amounted to a denial of justice."
+    "Text": "The Committee recalls that it is not in a position to review the assessment of facts and evidence by domestic courts and authorities unless such assessment was in itself arbitrary or otherwise discriminatory.[[fn:1]] The Committee observes that, in the present case, the author has failed to explain what information or evidence the courts failed to duly consider and how their assessments and decisions were arbitrary or otherwise discriminatory on the basis of sex or gender. The Committee considers that, while the author disagrees with the findings of the national courts, she has not demonstrated that the courts’ assessment was manifestly arbitrary or amounted to a denial of justice.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "See, for example, R.P.B. v. Philippines (CEDAW/C/57/D/34/2011), para. 7.5; T.N. v. Denmark (CEDAW/C/59/D/37/2012), para. 12.7; G.D. v. Bulgaria (CEDAW/C/80/D/142/2019), para. 6.5; and V.K. v. Bulgaria (CEDAW/C/49/D/20/2008), para. 9.6."
+      }
+    ]
   },
   {
     "ID": "7.",

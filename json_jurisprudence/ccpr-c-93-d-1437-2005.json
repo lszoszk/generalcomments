@@ -1,13 +1,19 @@
 [
   {
     "ID": "1.1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "",
     "Labels": [],
-    "Text": "The author of the communication is Mr. Wolfgang Jenny, an Austrian citizen born on 2 October 1940. He claims to be a victim of violations by Austria of articles 14, paragraph 1, alone and read in conjunction with articles 2, paragraph 1, and 26 of the International Covenant on Civil and Political Rights. The author is represented by counsel, Mr. Alexander H. E. Morawa."
+    "Text": "The author of the communication is Mr. Wolfgang Jenny, an Austrian citizen born on 2 October 1940. He claims to be a victim of violations by Austria[[fn:3]] of articles 14, paragraph 1, alone and read in conjunction with articles 2, paragraph 1, and 26 of the International Covenant on Civil and Political Rights. The author is represented by counsel, Mr. Alexander H. E. Morawa.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The ICCPR and the Optional Protocol entered into force for Austria respectively on 10 December 1978 and on 10 March 1988. Austria has made a reservation to the effect of excluding a case which has already been examined by the ECHR."
+      }
+    ]
   },
   {
     "ID": "1.2.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "",
     "Labels": [],
     "Text": "On 24 January 2006, the Special Rapporteur for New Communications, on behalf of the Committee, determined that the admissibility of this case should be considered separately from the merits."
   },
@@ -93,7 +99,13 @@
     "ID": "3.2.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author submits that the trial judge was manifestly biased, which rendered the hearing and decision flawed because the author was placed at a significant disadvantage with respect to the opposing party. The trial judge made it clear that he “[could] not imagine that Dr.W. should have done something like that”. The author refers to the Committee’s decision in Karttunen, where it found that “impartiality of the court implies that judges must not harbour preconceptions about the matter put before them, and that they must not act in ways that promote the interests of one of the parties.” Furthermore, the partiality of the judge was ignored on appeal, as the Court of Appeal only assessed whether the trial judge had decided the matter in a manner that was “inconceivable”. The Court was not ready to undergo a reassessment of the evidence and failed to look into the details of the trial judge’s evaluation of evidence."
+    "Text": "The author submits that the trial judge was manifestly biased, which rendered the hearing and decision flawed because the author was placed at a significant disadvantage with respect to the opposing party. The trial judge made it clear that he “[could] not imagine that Dr.W. should have done something like that”. The author refers to the Committee’s decision in Karttunen[[fn:4]], where it found that “impartiality of the court implies that judges must not harbour preconceptions about the matter put before them, and that they must not act in ways that promote the interests of one of the parties.” Furthermore, the partiality of the judge was ignored on appeal, as the Court of Appeal only assessed whether the trial judge had decided the matter in a manner that was “inconceivable”. The Court was not ready to undergo a reassessment of the evidence and failed to look into the details of the trial judge’s evaluation of evidence.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Communication No. 387/1989, Karttunen v. Finland, Views adopted on 23 October 1992, para. 7.2."
+      }
+    ]
   },
   {
     "ID": "3.3.",
@@ -129,19 +141,45 @@
     "ID": "5.2.",
     "Section": "Author’s comments",
     "Labels": [],
-    "Text": "The author contended that the decision of the Review Senate of the Salzburg Regional Court, dated 9 August 1999, did not contain instructions as to which appeals could be filed or inform him of his right to bring an appeal against the rejection of his challenge of the trial judge to the Linz Court of Appeals. He refers to a decision of the Constitutional Court, according to which a failure to give, or an incorrect appeals instruction, cannot be held against the party concerned. Therefore, the author was deprived of equal and fair access to the remedy in question, and was not required to exhaust it."
+    "Text": "The author contended that the decision of the Review Senate of the Salzburg Regional Court, dated 9 August 1999, did not contain instructions as to which appeals could be filed or inform him of his right to bring an appeal against the rejection of his challenge of the trial judge to the Linz Court of Appeals. He refers to a decision of the Constitutional Court, according to which a failure to give, or an incorrect appeals instruction, cannot be held against the party concerned[[fn:5]]. Therefore, the author was deprived of equal and fair access to the remedy in question, and was not required to exhaust it.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Constitutional Court Decision, B 1588/04 (28 February 2005)."
+      }
+    ]
   },
   {
     "ID": "5.3.",
     "Section": "Author’s comments",
     "Labels": [],
-    "Text": "The author argues that Austrian law governing challenges to judges is rigorous and requires a burden of proof for bias which is alien to the requirements of “impartiality” of article 14, paragraph 1. He refers to a judgement of the Supreme Court, in which it was ruled that a challenge is the ‘sharpest weapon’ a party can use against a trial judge. Such a challenge can only be successful if the reasons advanced therein are so grave that the impartiality of the judge in question is in severe doubt. Reasons for a challenge must be provided in detail and concretely. The Supreme Court has also held that facts must be shown which permit the conclusion that a judge will be guided by other than reasonable considerations when deciding the case; mere subjective doubts or concerns of a party that the judge may be biased are insufficient.” According to the author, a challenge under these conditions is therefore not an effective remedy within the meaning of the Optional Protocol."
+    "Text": "The author argues that Austrian law governing challenges to judges is rigorous and requires a burden of proof for bias which is alien to the requirements of “impartiality” of article 14, paragraph 1. He refers to a judgement of the Supreme Court[[fn:6]], in which it was ruled that a challenge is the ‘sharpest weapon’ a party can use against a trial judge. Such a challenge can only be successful if the reasons advanced therein are so grave that the impartiality of the judge in question is in severe doubt. Reasons for a challenge must be provided in detail and concretely. The Supreme Court has also held that facts must be shown which permit the conclusion that a judge will be guided by other than reasonable considerations when deciding the case; mere subjective doubts or concerns of a party that the judge may be biased are insufficient.”[[fn:7]] According to the author, a challenge under these conditions is therefore not an effective remedy within the meaning of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "Supreme Court Judgement, 11 Bkd 9/03 (13 January 2004)."
+      },
+      {
+        "n": 7,
+        "text": "Supreme Court Judgement, 11 Ns 4/89 (11 April 1989)."
+      }
+    ]
   },
   {
     "ID": "5.4.",
     "Section": "Author’s comments",
     "Labels": [],
-    "Text": "Under international standards, when testing the objective impartiality of a judge, petitioners are not required to prove that a judge was biased, but only to show that there existed a legitimate doubt as to his impartiality. Subjective bias is to be tested by assessing whether the judges “harbour preconceptions about the matter put before them.” The personal conviction of a judge as perceived by a party may give rise to an “objectively justified fear” of a lack of impartiality. “In certain circumstances, the appearance of bias may be such as to violate the right to a fair hearing by an independent and impartial tribunal.” Austrian law governing challenges, as applied by the Supreme Court, does not reflect these international standards. It imposes an exclusively objective standard for testing the impartiality of judges."
+    "Text": "Under international standards, when testing the objective impartiality of a judge, petitioners are not required to prove that a judge was biased, but only to show that there existed a legitimate doubt as to his impartiality. Subjective bias is to be tested by assessing whether the judges “harbour preconceptions about the matter put before them.”[[fn:8]] The personal conviction of a judge as perceived by a party may give rise to an “objectively justified fear” of a lack of impartiality. “In certain circumstances, the appearance of bias may be such as to violate the right to a fair hearing by an independent and impartial tribunal.”[[fn:9]] Austrian law governing challenges, as applied by the Supreme Court, does not reflect these international standards. It imposes an exclusively objective standard for testing the impartiality of judges.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "See Communication No. 387/1989, cit., para. 7.2."
+      },
+      {
+        "n": 9,
+        "text": "See Communication No. 904/2000, Van Marcke v. Belgium, Views adopted on 7 July 2004, para. 8.2."
+      }
+    ]
   },
   {
     "ID": "5.5.",
@@ -159,13 +197,29 @@
     "ID": "5.7.",
     "Section": "Author’s comments",
     "Labels": [],
-    "Text": "The author claims that by challenging the trial judge in his appeal to the Court of Appeal, as required by the law, he exhausted domestic remedies. For the purposes of article 5, paragraph 2(b), authors are required to bring the substance of their complaint before the domestic authorities so that the State party is given an opportunity to rectify the matter. The author did challenge the judge first during the hearing in which the judge expressed his bias, and again in his appeals brief to the Court of Appeal. That the renewed challenge was made in the appeals brief rather than in an appeal against the decision which rejected the original challenge is justified under Austrian law. Some reasons for challenging the trial judge became known to him only after the trial at first instance was concluded, which allowed him to raise this matter in his appeal on the merits. The author claimed in his appeal brief that the trial judge had decided the case arbitrarily by not evaluating the evidence fully, by not carefully balancing the evidence, by failing to take a certain memorandum into consideration, by not making due use of the evidence, and by introducing a “presumption of credibility” of a lawyer’s testimony over the testimony of a private party. The initial challenge, on the other hand, related only to the judge’s statements during the first hearing. The author refers to the jurisprudence of the Supreme Court and indicates that in civil cases, as opposed to criminal cases, judges may be challenged after their decision on the merits has been made, if the reasons for the challenge have manifested themselves only when or after the lower court’s judgement has been given. These new reasons for a challenge could not have been raised by the author if he had appealed against the decision not to recuse the trial judge, but only in his appeal on the merits."
+    "Text": "The author claims that by challenging the trial judge in his appeal to the Court of Appeal, as required by the law, he exhausted domestic remedies. For the purposes of article 5, paragraph 2(b), authors are required to bring the substance of their complaint before the domestic authorities so that the State party is given an opportunity to rectify the matter[[fn:10]]. The author did challenge the judge first during the hearing in which the judge expressed his bias, and again in his appeals brief to the Court of Appeal. That the renewed challenge was made in the appeals brief rather than in an appeal against the decision which rejected the original challenge is justified under Austrian law. Some reasons for challenging the trial judge became known to him only after the trial at first instance was concluded, which allowed him to raise this matter in his appeal on the merits. The author claimed in his appeal brief that the trial judge had decided the case arbitrarily by not evaluating the evidence fully, by not carefully balancing the evidence, by failing to take a certain memorandum into consideration, by not making due use of the evidence, and by introducing a “presumption of credibility” of a lawyer’s testimony over the testimony of a private party. The initial challenge, on the other hand, related only to the judge’s statements during the first hearing. The author refers to the jurisprudence of the Supreme Court[[fn:11]] and indicates that in civil cases, as opposed to criminal cases, judges may be challenged after their decision on the merits has been made, if the reasons for the challenge have manifested themselves only when or after the lower court’s judgement has been given. These new reasons for a challenge could not have been raised by the author if he had appealed against the decision not to recuse the trial judge, but only in his appeal on the merits.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See Communication No. 1356/2005, Parra Coral v. Spain, decision on admissibility adopted on 29 March 2005, para. 4.2."
+      },
+      {
+        "n": 11,
+        "text": "See Supreme Court Judgement, 6 Ob 276/05i (15 December 2005)."
+      }
+    ]
   },
   {
     "ID": "5.8.",
     "Section": "Author’s comments",
     "Labels": [],
-    "Text": "Furthermore, appeal courts can review matters only within the limits of the facts established by the first instance judge. The Supreme Court has ruled that “in an appeal against a rejection of a challenge of a judge, no new reasons for the challenge can be advanced”."
+    "Text": "Furthermore, appeal courts can review matters only within the limits of the facts established by the first instance judge. The Supreme Court has ruled that “in an appeal against a rejection of a challenge of a judge, no new reasons for the challenge can be advanced”[[fn:12]].",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "Supreme Court Judgement, 5Ob347/87 (1 September 1987)."
+      }
+    ]
   },
   {
     "ID": "5.9.",
@@ -255,7 +309,13 @@
     "ID": "9.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The author claims that the judge who tried his case against Dr. W. was biased because during the proceedings he made remarks, on two occasions, which showed his partiality in favour of Dr. W. The Committee recalls that the requirement of impartiality has two aspects. First, judges must not allow their judgement to be influenced by personal bias or prejudice, nor harbour preconceptions about the particular case before them, nor act in ways that improperly promote the interests of one of the parties to the detriment of the other. Second, the tribunal must also appear to a reasonable observer to be impartial. The two aspects refer to the subjective and objective elements of impartiality, respectively. As to the subjective element, the impartiality of a judge must be presumed until there is evidence to the contrary. In this respect the Committee notes the State Party’s statement regarding the evaluation of evidence carried out by the Regional Court, in particular the fact that the Court accepted the version of facts presented by Dr. W. in view of documentary evidence suggesting the approval of the author to the global settlement. The Committee concludes that the material before it does not disclose that the judge subjectively lacked impartiality in the present case. It must further be determined whether, quite apart from the judge’s personal mindset, there are ascertainable objective facts which may raise doubt as to his impartiality. Judges must not only be impartial, they must also be seen to be impartial. When deciding whether there is a legitimate reason to fear that a particular judge lacks impartiality, the standpoint of those claiming that there is a reason to doubt his impartiality is significant but not decisive. What is decisive is whether the fear can be objectively justified. In the present case, the remarks made by the judge may well have raised certain doubts as to his impartiality on the part of the author. However, the Committee finds that the remarks were not such as to objectively justify, in the absence of other elements, the author’s fear as to the judge’s impartiality. Accordingly, the Committee finds that in the present case the facts do not disclose a violation of Article 14, paragraph 1 of the Covenant."
+    "Text": "The author claims that the judge who tried his case against Dr. W. was biased because during the proceedings he made remarks, on two occasions, which showed his partiality in favour of Dr. W. The Committee recalls that the requirement of impartiality has two aspects. First, judges must not allow their judgement to be influenced by personal bias or prejudice, nor harbour preconceptions about the particular case before them, nor act in ways that improperly promote the interests of one of the parties to the detriment of the other. Second, the tribunal must also appear to a reasonable observer to be impartial.[[fn:13]] The two aspects refer to the subjective and objective elements of impartiality, respectively. As to the subjective element, the impartiality of a judge must be presumed until there is evidence to the contrary. In this respect the Committee notes the State Party’s statement regarding the evaluation of evidence carried out by the Regional Court, in particular the fact that the Court accepted the version of facts presented by Dr. W. in view of documentary evidence suggesting the approval of the author to the global settlement. The Committee concludes that the material before it does not disclose that the judge subjectively lacked impartiality in the present case. It must further be determined whether, quite apart from the judge’s personal mindset, there are ascertainable objective facts which may raise doubt as to his impartiality. Judges must not only be impartial, they must also be seen to be impartial. When deciding whether there is a legitimate reason to fear that a particular judge lacks impartiality, the standpoint of those claiming that there is a reason to doubt his impartiality is significant but not decisive. What is decisive is whether the fear can be objectively justified. In the present case, the remarks made by the judge may well have raised certain doubts as to his impartiality on the part of the author. However, the Committee finds that the remarks were not such as to objectively justify, in the absence of other elements, the author’s fear as to the judge’s impartiality. Accordingly, the Committee finds that in the present case the facts do not disclose a violation of Article 14, paragraph 1 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "General Comment No. 32, para. 21."
+      }
+    ]
   },
   {
     "ID": "10.",

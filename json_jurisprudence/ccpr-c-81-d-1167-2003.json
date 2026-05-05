@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [
       "Persons deprived of their liberty"
     ],
@@ -9,7 +9,7 @@
   },
   {
     "ID": "1.2.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "On 24 March 2003, the Human Rights Committee, through its Special Rapporteur on New Communications, requested the State party, pursuant to Rule 86 of its Rules of Procedure, not to carry out the death sentence against the author whilst his case was before the Committee."
   },
@@ -33,7 +33,13 @@
     "ID": "2.3.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 11 April 1997, after two days of detention, the author was forced to sign an extra-judicial confession, in which he admitted to having raped and killed one Mebelyn Gaznan. According to the author, a policeman forced him to sign the confession by poking a gun at him, and when he initially refused, he was struck with the gun on his back. He was not given an opportunity to read the confession before he signed it."
+    "Text": "On 11 April 1997, after two days of detention, the author was forced to sign an extra-judicial confession, in which he admitted to having raped and killed one Mebelyn Gaznan.[[fn:3]] According to the author, a policeman forced him to sign the confession by poking a gun at him, and when he initially refused, he was struck with the gun on his back. He was not given an opportunity to read the confession before he signed it.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "A 9-year-old girl whose body was found in the evening of 9 April 1997 in the vicinity of Balingasag."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -129,7 +135,13 @@
     "ID": "4.2.",
     "Section": "The State party’s submission on admissibility and merits",
     "Labels": [],
-    "Text": "On the merits and concerning article 6, paragraph 2, the State party considers the argument advanced to be a normative one which is outside the remit of the Committee. It is said to be purely an argument on the wisdom of imposing the death penalty for certain offences, while the determination of which crimes should so qualify is purely a matter of domestic discretion. According to the State party, the Covenant does not limit the right of the State party to determine the wisdom of a law that imposes the death penalty. The State party contends that the constitutionality of the law on the death penalty is a matter for the State party itself, and recalls that its Supreme Court had upheld the constitutionality of the law in question. It further argues that it does not fall to the Committee to interpret a State party’s Constitution for the purpose of determining that State party’s compliance with the Covenant."
+    "Text": "On the merits and concerning article 6, paragraph 2, the State party considers the argument advanced to be a normative one which is outside the remit of the Committee. It is said to be purely an argument on the wisdom of imposing the death penalty for certain offences, while the determination of which crimes should so qualify is purely a matter of domestic discretion. According to the State party, the Covenant does not limit the right of the State party to determine the wisdom of a law that imposes the death penalty. The State party contends that the constitutionality of the law on the death penalty is a matter for the State party itself, and recalls that its Supreme Court had upheld the constitutionality of the law in question.[[fn:4]] It further argues that it does not fall to the Committee to interpret a State party’s Constitution for the purpose of determining that State party’s compliance with the Covenant.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "People v. Echegaray (GR No. 117472, judgment of 7 February 1997)."
+      }
+    ]
   },
   {
     "ID": "4.3.",
@@ -161,19 +173,37 @@
     "ID": "4.7.",
     "Section": "The State party’s submission on admissibility and merits",
     "Labels": [],
-    "Text": "Concerning the author’s claim that there was no official record showing that prior to his confession, he was informed of his right to remain silent, and to be represented by a competent and independent counsel of his choice, the State party submits that it has been established under domestic law that “the constitutional procedures on custodial investigations do not apply to a spontaneous statement, not elicited through direct questioning by the authorities, but given in an ordinary manner whereby the accused orally admitted having committed the crime”. At any rate, the State party submits that the Supreme Court, in affirming the author’s conviction, did not rely on his confession, as his guilt was established by circumstantial evidence."
+    "Text": "Concerning the author’s claim that there was no official record showing that prior to his confession, he was informed of his right to remain silent, and to be represented by a competent and independent counsel of his choice, the State party submits that it has been established under domestic law that “the constitutional procedures on custodial investigations do not apply to a spontaneous statement, not elicited through direct questioning by the authorities, but given in an ordinary manner whereby the accused orally admitted having committed the crime”[[fn:5]]. At any rate, the State party submits that the Supreme Court, in affirming the author’s conviction, did not rely on his confession, as his guilt was established by circumstantial evidence.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Alvarez v. Court of Appeals, 359 SCRA 544[2001]"
+      }
+    ]
   },
   {
     "ID": "4.8.",
     "Section": "The State party’s submission on admissibility and merits",
     "Labels": [],
-    "Text": "As to the Supreme Court’s reliance on circumstantial evidence in affirming the author’s conviction, the State party explains the circumstances in which domestic courts accept such evidence and points out that in cases of rape with homicide, because of the nature of the crime, the evidence against the accused is generally circumstantial. In the State party’s view, in the instant case, the pieces of evidence, taken in their entirety, unmistakably point to the guilt of the author. It also submits that “an alleged infringement of the constitutional rights of the accused under custodial investigation is relevant and material only to cases in which an extra-judicial admission or confession extracted from the accused becomes the basis of his conviction”."
+    "Text": "As to the Supreme Court’s reliance on circumstantial evidence in affirming the author’s conviction, the State party explains the circumstances in which domestic courts accept such evidence and points out that in cases of rape with homicide, because of the nature of the crime, the evidence against the accused is generally circumstantial. In the State party’s view, in the instant case, the pieces of evidence, taken in their entirety, unmistakably point to the guilt of the author. It also submits that “an alleged infringement of the constitutional rights of the accused under custodial investigation is relevant and material only to cases in which an extra-judicial admission or confession extracted from the accused becomes the basis of his conviction”.[[fn:6]]",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "People v. Amestuzo, 361 SCRA 184 [2001]."
+      }
+    ]
   },
   {
     "ID": "4.9.",
     "Section": "The State party’s submission on admissibility and merits",
     "Labels": [],
-    "Text": "As to the claim that the testimony of the witnesses were not credible, the State party submits that it was sufficiently established at trial that the witnesses did not have any ill-motive to falsely implicate and testify against the author and that, pursuant to the domestic law of the State party, factual findings of the trial court made on the basis of its assessment of the credibility of witnesses are given great weight and, barring arbitrariness, are said to be conclusive."
+    "Text": "As to the claim that the testimony of the witnesses were not credible, the State party submits that it was sufficiently established at trial that the witnesses did not have any ill-motive to falsely implicate and testify against the author and that, pursuant to the domestic law of the State party, factual findings of the trial court made on the basis of its assessment of the credibility of witnesses are given great weight and, barring arbitrariness, are said to be conclusive.[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "People vv. Castillo, 289 SCRA 213 [1998]."
+      }
+    ]
   },
   {
     "ID": "4.10.",
@@ -257,7 +287,21 @@
     "ID": "7.1.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee notes the author’s claims of violations under articles 7 and 10, paragraph 1, on account of the fact that he would not be notified of the of his execution until dawn of the day in question, whereupon he would be executed within 8 hours and would have insufficient time to bid farewell to family members and organise his personal affairs. It further notes the State party’s contention that the death sentence shall be carried out “not earlier than one (1) year nor later than eighteen (18) months after the judgment has become final and executory, without prejudice to the exercise by the President of his executive clemency powers at all times.” The Committee understands from the legislation that the author would have at least one year and at most eighteen months, after the exhaustion of all available remedies, during which he may make arrangements to see members of his family prior to notification of the date of execution. It also notes that, under Section 16 of the Republic Act No. 8177, following notification of execution he would have approximately eight hours to finalise any personal matters and meet with members of his family The Committee reiterates its prior jurisprudence that the issue of a warrant for execution necessarily causes intense anguish to the individual concerned and is of the view that the State party should attempt to minimise this anguish as far as possible. However, on the basis of the information provided, the Committee cannot find that the setting of the time of the execution of the author within eight hours after notification, considering that he would already have had at least one year following the exhaustion of domestic remedies and prior to notification to organize his personal affairs and meet with family members, would violate his rights under articles 7, and 10, paragraph 1."
+    "Text": "The Committee notes the author’s claims of violations under articles 7 and 10, paragraph 1, on account of the fact that he would not be notified of the of his execution until dawn of the day in question, whereupon he would be executed within 8 hours and would have insufficient time to bid farewell to family members and organise his personal affairs. It further notes the State party’s contention that the death sentence shall be carried out “not earlier than one (1) year nor later than eighteen (18) months after the judgment has become final and executory, without prejudice to the exercise by the President of his executive clemency powers at all times.”[[fn:8]] The Committee understands from the legislation that the author would have at least one year and at most eighteen months, after the exhaustion of all available remedies, during which he may make arrangements to see members of his family prior to notification of the date of execution. It also notes that, under Section 16 of the Republic Act No. 8177[[fn:9]], following notification of execution he would have approximately eight hours to finalise any personal matters and meet with members of his family The Committee reiterates its prior jurisprudence that the issue of a warrant for execution necessarily causes intense anguish to the individual concerned and is of the view that the State party should attempt to minimise this anguish as far as possible.[[fn:10]] However, on the basis of the information provided, the Committee cannot find that the setting of the time of the execution of the author within eight hours after notification, considering that he would already have had at least one year following the exhaustion of domestic remedies and prior to notification to organize his personal affairs and meet with family members, would violate his rights under articles 7, and 10, paragraph 1.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Section 1, Republic Act No. 8177."
+      },
+      {
+        "n": 9,
+        "text": "Section 16 of Republic Act No. 8117 – “…During the interval between the notification and execution , the convict shall, as far as possible, be furnished such assistance as he may request in order to be attended in his last moments by a priest or minister of the religion he professes and to consult his lawyers, as well as in order to make a will and confer with members of his family or of persons in charge of the management of his business, of the administration of his property, or of the care of his descendants.” However, on 8 March 2004, counsel forwarded the text of EP 200, pursuant to which the condemned prisoner may only meet with a priest and his lawyer but not with family members."
+      },
+      {
+        "n": 10,
+        "text": "Pratt and Morgan v. Jamaica, Case no. 210/1986 and 225/1987, Views adopted on 6 April 1989."
+      }
+    ]
   },
   {
     "ID": "7.2.",
@@ -265,7 +309,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "Regarding the claim under article 6, paragraph 2, of the Covenant, the Committee observes that, in response to the State party's argument that the Committee's function is not to assess the constitutionality of a State party's law, its task is rather to determine the consistency with the Covenant of the particular claims brought before it. The Committee notes from the judgments of both the Regional Trial Court and the Supreme Court, that the author was convicted of the complex crime of rape with homicide under article 335 of the Revised Penal Code, as amended by RA No. 7659, which provides that “When by reason or on the occasion of the rape, a homicide is committed, the penalty shall be death.” Thus, the death penalty was imposed automatically by operation of article 335 of the Revised Penal Code, as amended. The Committee refers to its jurisprudence that the automatic and mandatory imposition of the death penalty constitutes an arbitrary deprivation of life, in violation of article 6, paragraph 1, of the Covenant, in circumstances where the death penalty is imposed without regard being able to be paid to the defendant's personal circumstances or the circumstances of the particular offence. It follows that the automatic imposition of the death penalty in the author’s case, by virtue of article 335 of the Revised Penal Code, as amended, violated his rights under article 6, paragraph 1, of the Covenant."
+    "Text": "Regarding the claim under article 6, paragraph 2, of the Covenant, the Committee observes that, in response to the State party's argument that the Committee's function is not to assess the constitutionality of a State party's law, its task is rather to determine the consistency with the Covenant of the particular claims brought before it.[[fn:11]] The Committee notes from the judgments of both the Regional Trial Court and the Supreme Court, that the author was convicted of the complex crime of rape with homicide under article 335 of the Revised Penal Code, as amended by RA No. 7659, which provides that “When by reason or on the occasion of the rape, a homicide is committed, the penalty shall be death.” Thus, the death penalty was imposed automatically by operation of article 335 of the Revised Penal Code, as amended. The Committee refers to its jurisprudence that the automatic and mandatory imposition of the death penalty constitutes an arbitrary deprivation of life, in violation of article 6, paragraph 1, of the Covenant, in circumstances where the death penalty is imposed without regard being able to be paid to the defendant's personal circumstances or the circumstances of the particular offence.[[fn:12]] It follows that the automatic imposition of the death penalty in the author’s case, by virtue of article 335 of the Revised Penal Code, as amended, violated his rights under article 6, paragraph 1, of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "Carpo v. The Philippines, Case no. 1077/2002, Views adopted on 28 March 2003."
+      },
+      {
+        "n": 12,
+        "text": "Thompson v. St. Vincent & The Grenadines, Case No. 806/1998, Views Adopted on 18 October 2000; and Kennedy v. Trinidad & Tobago, Case No. 845/1998, Views adopted on 26 March 2002."
+      }
+    ]
   },
   {
     "ID": "7.3.",

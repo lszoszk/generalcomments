@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [
       "Women/girls"
     ],
@@ -21,7 +21,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Shortly after, the author travelled to the United Kingdom. She discovered that, in the meantime, her former husband’s mother and the mother’s new husband had moved into the author’s family house and were now living with the author’s former husband. The former husband refused to allow the author into the house. An acquaintance present at the scene called the police but was advised that the author had to solve “this family matter” with the help of a solicitor."
+    "Text": "Shortly after, the author travelled to the United Kingdom. She discovered that, in the meantime, her former husband’s mother and the mother’s new husband had moved into the author’s family house and were now living with the author’s former husband.[[fn:1]] The former husband refused to allow the author into the house. An acquaintance present at the scene called the police but was advised that the author had to solve “this family matter” with the help of a solicitor.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "The author explains that she owned half of the family house."
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -43,7 +49,13 @@
     "Labels": [
       "Children"
     ],
-    "Text": "In June 2009, there was a hearing regarding the author’s application to move to Germany with the children. The judge, according to the author, was biased, as he was a good friend of the author’s former husband. As a result, the judge disregarded the author’s claims against the husband. Instead, the judge accused her of not being cooperative. The author had to move out of the family home every second week."
+    "Text": "In June 2009, there was a hearing regarding the author’s application to move to Germany with the children. The judge, according to the author, was biased, as he was a good friend of the author’s former husband. As a result, the judge disregarded the author’s claims against the husband. Instead, the judge accused her of not being cooperative. The author had to move out of the family home every second week.[[fn:2]]",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "The author claims that the judge ordered a “bird-nesting arrangement”, in which the children stayed in the family home and the parents alternated living with them. As a result, she had to ask the homeless services of the town of Chester for support. The author claims that she was unable to appeal against the judge’s decision as it was confidential and not final."
+      }
+    ]
   },
   {
     "ID": "2.6.",
@@ -306,7 +318,13 @@
     "ID": "4.17.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The State party believes, first, that the author’s communication should be declared inadmissible as manifestly ill-founded and insufficiently substantiated. The author has failed to explain why and how she considers that her rights under the Convention have been violated. The author in the present communication fails the test articulated in Mukhina v. Italy because she fails to identify the discrimination she is alleged to have suffered as a result of the acts of the United Kingdom and fails to explain why and how she considers that her rights under the Convention have been violated."
+    "Text": "The State party believes, first, that the author’s communication should be declared inadmissible as manifestly ill-founded and insufficiently substantiated. The author has failed to explain why and how she considers that her rights under the Convention have been violated.[[fn:3]] The author in the present communication fails the test articulated in Mukhina v. Italy because she fails to identify the discrimination she is alleged to have suffered as a result of the acts of the United Kingdom and fails to explain why and how she considers that her rights under the Convention have been violated.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The State party notes that in Mukhina v. Italy (CEDAW/C/50/D/27/2010), the Committee noted the author’s claim that her rights under art. 16 had been violated. The Committee took note of all materials submitted by the author in support of her claim. The Committee noted, however, that the author had not provided any specific explanation as to why and how she considered that her rights under the Convention had been violated. In the absence of any other pertinent information, the Committee considered that the author had failed to sufficiently substantiate her claims for the purposes of admissibility."
+      }
+    ]
   },
   {
     "ID": "4.18.",
@@ -539,7 +557,13 @@
     "ID": "6.16.",
     "Section": "Additional observations of the State party on admissibility and the merits",
     "Labels": [],
-    "Text": "According to the author, the judgment of May 2009 discriminated against her, as she considers that the English are prejudiced against Germans. There is no allegation that the judge discriminated against her based on sex. The State party notes that if the author were concerned about the judge’s impartiality and independence, she could have applied for him to recuse himself and she could have appealed against the judgment on the basis of bias. However, she failed to do so."
+    "Text": "According to the author, the judgment of May 2009 discriminated against her, as she considers that the English are prejudiced against Germans. There is no allegation that the judge discriminated against her based on sex. The State party notes that if the author were concerned about the judge’s impartiality and independence, she could have applied for him to recuse himself and she could have appealed against the judgment on the basis of bias. However, she failed to do so.[[fn:4]]",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The State party refers to an email from the author’s attorney dated April 2011 in which the lawyer notes that there was no need to write to the judge and ask him to recuse himself, as the judge had decided to recuse himself. However, according to the State party, the judge never recused himself."
+      }
+    ]
   },
   {
     "ID": "6.17.",
@@ -842,7 +866,17 @@
     "ID": "8.4.",
     "Section": "Issues and proceedings before the Committee concerning admissibility",
     "Labels": [],
-    "Text": "The Committee recalls that, under article 4 (1) of the Optional Protocol, authors must use all remedies in the domestic legal system that are available to them. It also recalls its jurisprudence, according to which the author must have raised, in substance, at the domestic level, the claim that he or she wishes to bring before the Committee so as to enable domestic authorities and/or the courts to have an opportunity to address such a claim."
+    "Text": "The Committee recalls that, under article 4 (1) of the Optional Protocol, authors must use all remedies in the domestic legal system that are available to them. It also recalls its jurisprudence, according to which the author must have raised, in substance, at the domestic level, the claim that he or she wishes to bring before the Committee[[fn:5]] so as to enable domestic authorities and/or the courts to have an opportunity to address such a claim.[[fn:6]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "See Kayhan v. Turkey (A/61/38, part one, annex I)."
+      },
+      {
+        "n": 6,
+        "text": "N.S.F. v. United Kingdom of Great Britain and Northern Ireland (CEDAW/C/38/D/10/2005)."
+      }
+    ]
   },
   {
     "ID": "8.5.",

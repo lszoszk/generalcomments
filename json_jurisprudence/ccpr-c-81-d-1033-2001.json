@@ -1,13 +1,13 @@
 [
   {
     "ID": "1.1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The author of the communication is Mr. Nallaratnam Singarasa, a Sri Lankan national, and a member of the Tamil community. He is currently serving a 35 year sentence at Boosa Prison, Sri Lanka. He claims to be a victim of violations of articles 14, paragraphs 1, 2, 3 (c), (f), (g), and 5, and 7, 26, and 2, paragraphs 1, and 3, of the International Covenant on Civil and Political Rights. He is represented by counsel, Mr. V.S. Ganesalingam of Home for Human Rights as well as Interights."
   },
   {
     "ID": "1.2.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The International Covenant on Civil and Political Rights entered into force for the State party on 11 September 1980 and the first Optional Protocol on 3 January 1998."
   },
@@ -21,7 +21,13 @@
     "ID": "2.2.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "On the evening of 16 July 1993, the author was handed over to the Counter Subversive Unit of the Batticaloa Police and detained “in the army detention camp of Batticaloa Prison”. He was detained pursuant to an order by the Minister of Defence under section 9(1) of the Prevention of Terrorism Act No. 48 of 1979 (as amended by Act No. 10 of 1982 and No. 22 of 1988) (hereinafter “the PTA”), which provides for detention without charge up to a period of eighteen months (renewable by order every three months), if the Minister of Defence “has reason to believe or suspect that any person is connected with or concerned in any unlawful activity”. The detention order was not served on the author and he was not informed of the reasons for his detention."
+    "Text": "On the evening of 16 July 1993, the author was handed over to the Counter Subversive Unit of the Batticaloa Police and detained “in the army detention camp of Batticaloa Prison”. He was detained pursuant to an order by the Minister of Defence under section 9(1) of the Prevention of Terrorism Act No. 48 of 1979 (as amended by Act No. 10 of 1982 and No. 22 of 1988) (hereinafter “the PTA”), which provides for detention without charge up to a period of eighteen months (renewable by order every three months), if the Minister of Defence “has reason to believe or suspect that any person is connected with or concerned in any unlawful activity”.[[fn:3]] The detention order was not served on the author and he was not informed of the reasons for his detention.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Section 9(1) of the PTA provides as follows: \"Where the Minister has reason to believe or suspect that any person is connected with or concerned in any unlawful activity, the Minister may order that such person be detained for a period not exceeding three months in the first instance, in such place and subject to such conditions as may be determined by the Minister, and any such order may be extended from time to time for a period not exceeding three months at a time.\""
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -35,7 +41,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "Sometime in August 1993, the author was first brought before a Magistrate, and remanded back into police custody. He remained in remand pending trial, without any possibility of seeking or obtaining bail, pursuant to section 15(2) of the PTA. The Magistrate did not review the detention order, pursuant to section 10 of the PTA, which states that a detention order under section 9 of the PTA is final and shall not be called in question before any court."
+    "Text": "Sometime in August 1993, the author was first brought before a Magistrate, and remanded back into police custody. He remained in remand pending trial, without any possibility of seeking or obtaining bail, pursuant to section 15(2) of the PTA[[fn:4]]. The Magistrate did not review the detention order, pursuant to section 10 of the PTA, which states that a detention order under section 9 of the PTA is final and shall not be called in question before any court.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Section 15(2) of the PTA (as amended by Act. 10 of 1982) provides as follows: \"Upon the indictment being received in the High Court against any person in respect of any offence under this Act or any offence to which the provisions of section 23 shall apply, the Court shall, in every case, order the remand of such person until the conclusion of the trial.\" The author makes no specific claim with respect to this issue."
+      },
+      {
+        "n": 5,
+        "text": "Section 10 of the PTA provides as follows: \"An order made under section 9 shall be final and shall not be called into question in any court or tribunal by way of writ or otherwise.\""
+      }
+    ]
   },
   {
     "ID": "2.5.",
@@ -73,7 +89,13 @@
     "ID": "2.10.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "On 2 June 1995, the author’s alleged confession was the subject of a voir dire hearing by the High Court, at which the ASP, PC and author gave evidence, and the medical report was considered. The High Court concluded that the confession was admissible, pursuant to section 16(1) of the PTA, which renders admissible any statement made before a police officer not below the rank of an ASP, provided that it is not found to be irrelevant under section 24 of the Evidence Ordinance. Section 16(2) of the PTA put the burden of proof that any such statement is irrelevant on the accused. The Court did not find the confession irrelevant, despite defence counsel’s motion to exclude it on the grounds that it was extracted from the author under threat."
+    "Text": "On 2 June 1995, the author’s alleged confession was the subject of a voir dire hearing by the High Court, at which the ASP, PC and author gave evidence, and the medical report was considered. The High Court concluded that the confession was admissible, pursuant to section 16(1) of the PTA, which renders admissible any statement made before a police officer not below the rank of an ASP, provided that it is not found to be irrelevant under section 24 of the Evidence Ordinance. Section 16(2) of the PTA put the burden of proof that any such statement is irrelevant on the accused[[fn:6]]. The Court did not find the confession irrelevant, despite defence counsel’s motion to exclude it on the grounds that it was extracted from the author under threat.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "Section 16 of the PTA provides as follows: \"(1) Notwithstanding the provisions of any other law, where any person is charged with an offence under this Act, any statement made by such person at any time, whether - (a) it amounts to a confession or not; (b) made orally or reduced to writing; (c) such person was or was not in custody or presence of a police officer; (d) made in the course of an investigation or not; (e) it was or was not wholly or partly in answer to any question, may be proved as against such person if such statement is not irrelevant under section 24 of the Evidence Ordinance: Provided however, that no such statement shall be proved as against such person if such statement was made to a police officer below the rank of an Assistant Superintendent.\"(2) The burden of proving that any statement referred to in subsection (1) is irrelevant under Section 24 of the Evidence Ordinance shall be on the person asserting it to be irrelevant. (3) Any statement admissible under subsection (1) may be proved as against any other person charged jointly with the person making the statement, if and only if, such statement is corroborated in material particulars by evidence other than the statements referred to in subsection (1).\"(emphasis added) The author notes that section 17 of the PTA further provides that sections 25, 26 and 30 of the Evidence Ordinance, which include additional restrictions on the admissibility of confessions, are not applicable in any proceedings under the PTA. Section 24 of the Evidence Ordinance provides as follows: \"A confession made by an accused person is irrelevant in a criminal proceeding if the making of the confession appears to the court to have been caused by any inducement, threat or promise having reference to the charge against the accused person, proceeding from a person in authority or proceeding from another person in the presence of a person in authority and with his sanction, and which inducement, threat or promise is sufficient in the opinion of the court to give the accused person grounds which would appear to him reasonable for supposing that by making it he would gain any advantage or avoid any evil of a temporal nature in reference to the proceedings against him.\""
+      }
+    ]
   },
   {
     "ID": "2.11.",
@@ -93,7 +115,13 @@
     "ID": "2.13.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "On 9 October 1995, the author appealed to the Court of Appeal, seeking to set aside his conviction and sentence. On 6 July 1999, the Court of Appeal affirmed the conviction but reduced the sentence to a total of 35 years. On 4 August 1999, the author filed a petition for special leave to appeal in the Supreme Court of Sri Lanka, on the ground that certain matters of law arising in the Court of Appeal's judgment should be considered by the Supreme Court. On 28 January 2000, the Supreme Court of Sri Lanka refused special leave to appeal."
+    "Text": "On 9 October 1995, the author appealed to the Court of Appeal, seeking to set aside his conviction and sentence. On 6 July 1999, the Court of Appeal affirmed the conviction but reduced the sentence to a total of 35 years. On 4 August 1999, the author filed a petition for special leave to appeal in the Supreme Court of Sri Lanka, on the ground that certain matters of law arising in the Court of Appeal's judgment should be considered by the Supreme Court.[[fn:7]] On 28 January 2000, the Supreme Court of Sri Lanka refused special leave to appeal.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Article 128 of the Constitution permits appeal to the Supreme Court only on matters of law."
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -113,7 +141,17 @@
     "ID": "3.3.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author claims that reliance on his confession, in the given circumstances, and in a situation in which the burden was on him to prove that the confession was not made voluntarily, rather than on the prosecution to prove that it was made voluntarily, amounts to a violation of his rights under article 14, paragraph 3(g). To him, this provision requires that the prosecution prove their case without resort to evidence “obtained through coercion or oppression in defiance of the will of the accused,” and prohibits treatment, which violates the rights of detainees to be treated with respect for the inherent dignity of the human person. He invokes the Committee’s General Comment No. 20, which states that “the law must prohibit the use or admissibility in judicial proceedings of statements or confessions obtained through torture or other prohibited treatment”, and observes that measures required in this respect would include, inter alia, provisions against incommunicado detention, and prompt and regular access to lawyers and doctors."
+    "Text": "The author claims that reliance on his confession, in the given circumstances, and in a situation in which the burden was on him to prove that the confession was not made voluntarily, rather than on the prosecution to prove that it was made voluntarily, amounts to a violation of his rights under article 14, paragraph 3(g). To him, this provision requires that the prosecution prove their case without resort to evidence “obtained through coercion or oppression in defiance of the will of the accused,” and prohibits treatment, which violates the rights of detainees to be treated with respect for the inherent dignity of the human person.[[fn:8]] He invokes the Committee’s General Comment No. 20, which states that “the law must prohibit the use or admissibility in judicial proceedings of statements or confessions obtained through torture or other prohibited treatment”, and observes that measures required in this respect would include, inter alia, provisions against incommunicado detention, and prompt and regular access to lawyers and doctors[[fn:9]].",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Saunders v UK (1996) 23 EHRR 313, CCPR General Comment No. 13, of 13 April 1984; Kelly v Jamaica, Case no.253 /87, Views adopted on 4 August 1991."
+      },
+      {
+        "n": 9,
+        "text": "CCPR General Comment No. 20, of 10 March 1992."
+      }
+    ]
   },
   {
     "ID": "3.4.",
@@ -137,7 +175,17 @@
     "ID": "3.7.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author claims a violation of article 2, paragraph 3, read together with articles 7 and 14, as the constitutional bar to challenging sections 16 (1) and (2) of the PTA effectively denies the author an effective remedy for the torture to which he was subjected and his unfair trial. The PTA provides for the admissibility of extra-judicial confessions obtained in police custody and in the absence of counsel, and places the burden of proving that such a confession was made “under threat” on the accused. In this way, the law itself has created a situation where rights under article 7 may be violated without any remedy available. The State must enforce the prohibition on torture and ill-treatment, which includes taking “effective legislative, administrative, judicial and other measures to prevent torture in any territory under its jurisdiction”. Thus, if in practice legislation encourages or facilitates violations, then at a minimum this falls foul of the positive duty to take all necessary measures to prevent torture and inhuman punishment. The author claims a separate violation of article 2, paragraph 3, alone, as the explicit ban under Sri Lankan law on constitutional challenges to enacted legislation prevented the author from challenging the operation of the PTA."
+    "Text": "The author claims a violation of article 2, paragraph 3, read together with articles 7 and 14, as the constitutional bar to challenging sections 16 (1) and (2) of the PTA effectively denies the author an effective remedy for the torture to which he was subjected and his unfair trial. The PTA provides for the admissibility of extra-judicial confessions obtained in police custody and in the absence of counsel, and places the burden of proving that such a confession was made “under threat” on the accused.[[fn:10]] In this way, the law itself has created a situation where rights under article 7 may be violated without any remedy available. The State must enforce the prohibition on torture and ill-treatment, which includes taking “effective legislative, administrative, judicial and other measures to prevent torture in any territory under its jurisdiction”.[[fn:11]] Thus, if in practice legislation encourages or facilitates violations, then at a minimum this falls foul of the positive duty to take all necessary measures to prevent torture and inhuman punishment. The author claims a separate violation of article 2, paragraph 3, alone, as the explicit ban under Sri Lankan law on constitutional challenges to enacted legislation prevented the author from challenging the operation of the PTA.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "In this respect, the author notes that the recent report of the United Nations Special Rapporteur on Summary and Extra Judicial Executions refers to repeated allegations of confessions being extracted under torture from persons accused of offences under the PTA Report by Special Rapporteur, Mr. Bacre Waly Ndiaye, Addendum, submitted pursuant to Commission on Human Rights resolution 1997/61, E/CN.4/1998/68/Add.2, 12 March 1998."
+      },
+      {
+        "n": 11,
+        "text": "Article 2, paragraph 1, of the Convention against Torture."
+      }
+    ]
   },
   {
     "ID": "3.8.",
@@ -155,7 +203,17 @@
     "ID": "3.10.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author submits that he has exhausted domestic remedies, as he was denied leave to appeal to the Supreme Court. As regards constitutional remedies, he notes that the Sri Lankan Constitution (article 126(1)) only permits judicial review of executive or administrative action , it explicitly prohibits any constitutional challenge to legislation already enacted (article 16, article 80(3) and article 126(1)). The courts have similarly held that judicial review of judicial action is not permissible. Thus, he was unable to seek judicial review of any of the judicial orders applicable to his case, or to challenge the constitutionality of the provisions of the PTA, which authorized his detention pending trial (in respect of Cases nos. 6823/94 and 6824/94), the admissibility of his alleged confession, and the shifted burden of proof regarding the admissibility of the confession."
+    "Text": "The author submits that he has exhausted domestic remedies, as he was denied leave to appeal to the Supreme Court. As regards constitutional remedies, he notes that the Sri Lankan Constitution (article 126(1)) only permits judicial review of executive or administrative action , it explicitly prohibits any constitutional challenge to legislation already enacted (article 16, article 80(3) and article 126(1))[[fn:12]]. The courts have similarly held that judicial review of judicial action is not permissible[[fn:13]]. Thus, he was unable to seek judicial review of any of the judicial orders applicable to his case, or to challenge the constitutionality of the provisions of the PTA, which authorized his detention pending trial (in respect of Cases nos. 6823/94 and 6824/94), the admissibility of his alleged confession, and the shifted burden of proof regarding the admissibility of the confession.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "Article 126(1), Constitution of Sri Lanka provides as follows: \"The Supreme Court shall have sole and exclusive jurisdiction to hear and determine any question relating to the infringement or imminent infringement by executive or administrative action of any fundamental right.\" (emphasis added). Article 16 (1) of the Constitution provides: \"All existing written and unwritten law shall be valid and operative notwithstanding any inconsistency with the preceding provisions of this Chapter [Chapter III on Fundamental Rights].\" Further, Article 80(3) Constitution of Sri Lanka provides: \"No court or tribunal shall inquire into, pronounce upon or in any manner call in question, the validity of [any Act of Parliament] on any ground whatsoever.\"As a former Chief Justice of Sri Lanka, Justice S. Sharvananda, has commented (see Justice S. Sharvananda, Fundamental Rights in Sri Lanka, (Sri Lanka: 1993) at p. 140): \"Article 80(3) vests enacted law with finality in the sense that the validity of an Act of Parliament cannot be called in question in any court or tribunal. In this Constitutional scheme, there is no room for the introduction of the concept of 'due process of law' or notions of reasonableness of the law and natural justice as has been done by the Supreme Court of India in Maneka Gandhi's case A.I.R. (1978) SC 597 at 691-692. As stated earlier, in Sri Lanka, it is not open to a court to invalidate a law on the ground that it seeks to deprive a person of his liberty contrary to the court's notions of justice or due process.”"
+      },
+      {
+        "n": 13,
+        "text": "Velmurugu v AG (1981) 1 SLR 406; Saman v Leeladasa SC Appl. No. 4/88 SC Minutes 12 December 1988."
+      }
+    ]
   },
   {
     "ID": "3.11.",
@@ -181,7 +239,13 @@
     "ID": "4.2.",
     "Section": "The State party’s submissions on admissibility and merits",
     "Labels": [],
-    "Text": "The State party argues that the author did not exhaust domestic remedies. Firstly, he could have requested the President for a pardon, to grant any respite of the execution of sentence, or to substitute a less severe form of punishment, as he is empowered to do under article 34(1) of the Constitution. Secondly, he could also have applied to the Supreme Court under article 11 of the Constitution, which prevents torture or other cruel, inhuman or degrading treatment or punishment, about his allegations of torture by army personnel and police officers. Such action would constitute “executive action” in terms of articles 17 and 26 of the Constitution. If the Supreme Court had found that the author was subjected to torture, it could have made a declaration that his rights under article 11 had been violated, ordered payment of compensation by the State, payment of costs of the legal proceedings and, if warranted, ordered the immediate release of the author."
+    "Text": "The State party argues that the author did not exhaust domestic remedies. Firstly, he could have requested the President for a pardon, to grant any respite of the execution of sentence, or to substitute a less severe form of punishment, as he is empowered to do under article 34(1) of the Constitution. Secondly, he could also have applied to the Supreme Court under article 11 of the Constitution, which prevents torture or other cruel, inhuman or degrading treatment or punishment, about his allegations of torture by army personnel and police officers. Such action would constitute “executive action” in terms of articles 17 and 26 of the Constitution[[fn:14]]. If the Supreme Court had found that the author was subjected to torture, it could have made a declaration that his rights under article 11 had been violated, ordered payment of compensation by the State, payment of costs of the legal proceedings and, if warranted, ordered the immediate release of the author.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "Article 17 provides that, “every person shall be entitled to apply to the Supreme Court, as provided by article 126, in respect of the infringement or imminent infringement, by executive or administrative action, of a fundamental right to which such person is entitled under the provisions of this chapter”. Article 26 provides that, “the Supreme Court shall have sole and exclusive jurisdiction to hear and determine any question relating to the infringement or imminent infringement by the executive or administrative action of any fundamental right or language right declared and recognized by Chapter III or Chapter IV.”"
+      }
+    ]
   },
   {
     "ID": "4.3.",
@@ -211,7 +275,13 @@
     "ID": "4.7.",
     "Section": "The State party’s submissions on admissibility and merits",
     "Labels": [],
-    "Text": "The State party submits that the author had the right to remain silent, or to make an unsworn statement from the dock or to give sworn evidence from the witness stand which could be cross-examined. It denies that he was compelled to testify at trial, to testify against himself or to confess guilt. Rather he elected to give evidence and on doing so the Court was entitled to consider such evidence in arriving at its verdict. The State party explains that under the Sri Lankan Evidence Ordinance, a statement made to a police officer is inadmissible, but under the PTA, a confession made to a police officer not below the rank of ASP is admissible, provided that such statement is not irrelevant under section 24 of the Evidence Ordinance. The voluntariness of such a statement or confession, before admission, may be challenged. Although the burden of proving its case, beyond a reasonable doubt, rests with the prosecution, the burden of proving that a confession was not made voluntarily lies with the person claiming it. According to the State party, this is consistent with “the universally accepted principle of law, namely, he who asserts must prove” and, the reliance on confessions does not amount to a violation of article 14, paragraph 3(g), of the Covenant, and is permissible under the Constitution. It argues that the burden on an accused to prove that a confession was made under duress is not beyond reasonable doubt but in fact is “placed very low”, and requires the accused to “show only a mere possibility of involuntariness.”"
+    "Text": "The State party submits that the author had the right to remain silent, or to make an unsworn statement from the dock or to give sworn evidence from the witness stand which could be cross-examined. It denies that he was compelled to testify at trial, to testify against himself or to confess guilt. Rather he elected to give evidence and on doing so the Court was entitled to consider such evidence in arriving at its verdict. The State party explains that under the Sri Lankan Evidence Ordinance, a statement made to a police officer is inadmissible, but under the PTA, a confession made to a police officer not below the rank of ASP is admissible, provided that such statement is not irrelevant under section 24 of the Evidence Ordinance[[fn:15]]. The voluntariness of such a statement or confession, before admission, may be challenged. Although the burden of proving its case, beyond a reasonable doubt, rests with the prosecution, the burden of proving that a confession was not made voluntarily lies with the person claiming it. According to the State party, this is consistent with “the universally accepted principle of law, namely, he who asserts must prove” and, the reliance on confessions does not amount to a violation of article 14, paragraph 3(g), of the Covenant, and is permissible under the Constitution. It argues that the burden on an accused to prove that a confession was made under duress is not beyond reasonable doubt but in fact is “placed very low”, and requires the accused to “show only a mere possibility of involuntariness.”",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "Section 28 provides that, “The provisions of this Act (Prevention of Terrorism Act) shall have effect not withstanding anything contained in any other written law and accordingly in the event of any conflict or inconsistency between the provisions of this Act and such other written law the provisions of this Act shall prevail”."
+      }
+    ]
   },
   {
     "ID": "4.8.",
@@ -281,7 +351,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "Although the State party has not argued that the communication is inadmissible ratione temporis, the Committee notes that the violations alleged by the author occurred prior to the entry into force of the Optional Protocol. The Committee refers to its prior jurisprudence and reiterates that it is precluded from considering a communication if the alleged violations occurred before the entry into force of the Optional Protocol, unless the alleged violations continue or have continuing effects which in themselves constitute a violation of the Covenant. A continuing violation is to be interpreted as an affirmation, after the entry into force of the Optional Protocol, by act or by clear implication, of previous violations of the State party. The Committee observes that although the author was convicted at first instance on 29 September 1995, i.e. before the entry into force of the Optional Protocol for the State party, the judgement of the Court of Appeal upholding the author’s conviction, and the Supreme Court’s order refusing leave to appeal were both rendered on 6 July 1999 and 28 January 2000, respectively, after the Optional Protocol came into force. The Committee considers the appeal courts decision, which confirmed the trial courts conviction, as an affirmation of the conduct of the trial. In the circumstances, the Committee concludes that it is not precluded ratione temporis from considering this communication. However, as to the author’s claims under article 26, article 2, paragraph 1 alone and read together with article 14, and his claim under article 9, paragraph 3, relating to his automatic remand in detention without bail, the Committee finds these claims inadmissible ratione temporis."
+    "Text": "Although the State party has not argued that the communication is inadmissible ratione temporis, the Committee notes that the violations alleged by the author occurred prior to the entry into force of the Optional Protocol. The Committee refers to its prior jurisprudence and reiterates that it is precluded from considering a communication if the alleged violations occurred before the entry into force of the Optional Protocol, unless the alleged violations continue or have continuing effects which in themselves constitute a violation of the Covenant. A continuing violation is to be interpreted as an affirmation, after the entry into force of the Optional Protocol, by act or by clear implication, of previous violations of the State party[[fn:16]]. The Committee observes that although the author was convicted at first instance on 29 September 1995, i.e. before the entry into force of the Optional Protocol for the State party, the judgement of the Court of Appeal upholding the author’s conviction, and the Supreme Court’s order refusing leave to appeal were both rendered on 6 July 1999 and 28 January 2000, respectively, after the Optional Protocol came into force. The Committee considers the appeal courts decision, which confirmed the trial courts conviction, as an affirmation of the conduct of the trial. In the circumstances, the Committee concludes that it is not precluded ratione temporis from considering this communication. However, as to the author’s claims under article 26, article 2, paragraph 1 alone and read together with article 14, and his claim under article 9, paragraph 3, relating to his automatic remand in detention without bail, the Committee finds these claims inadmissible ratione temporis.",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "E. and A. K. v. Hungary, Case no. 520/1992, Decision of 7 April 1994, and K. V. and C. V. v. Germany, Case no. 568/1993, Decision of 8 April 1994, Holland v. Ireland, Case no. 593/1994, Decision of 26 October 1996."
+      }
+    ]
   },
   {
     "ID": "6.4.",
@@ -317,19 +393,37 @@
     "ID": "7.2.",
     "Section": "Consideration of the Merits",
     "Labels": [],
-    "Text": "As to the claim of a violation of article 14, paragraph 3 (f), due to the absence of an external interpreter during the author’s alleged confession, the Committee notes that this provision provides for the right to an interpreter during the court hearing only, a right which was granted to the author. However, as clearly appears from the court proceedings, the confession took place in the sole presence of the two investigating officers – the Assistant Superintendent of Police and the Police Constable; the latter typed the statement and provided interpretation between Tamil and Sinhalese. The Committee concludes that the author was denied a fair trial in accordance with article 14, paragraph 1, of the Covenant by solely relying on a confession obtained in such circumstances."
+    "Text": "As to the claim of a violation of article 14, paragraph 3 (f), due to the absence of an external interpreter during the author’s alleged confession, the Committee notes that this provision provides for the right to an interpreter during the court hearing only, a right which was granted to the author.[[fn:17]] However, as clearly appears from the court proceedings, the confession took place in the sole presence of the two investigating officers – the Assistant Superintendent of Police and the Police Constable; the latter typed the statement and provided interpretation between Tamil and Sinhalese. The Committee concludes that the author was denied a fair trial in accordance with article 14, paragraph 1, of the Covenant by solely relying on a confession obtained in such circumstances.",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "B.d.B. v. Netherlands, Case no. 273/1988, Decision of 30 March 1989, and Yves Cadoret v. France, Case no. 221/1987, Decision of 11 April 1991 and Herve Le Bihan v. France, Case no. 323/ 1988, Decision of 9 November 1989."
+      }
+    ]
   },
   {
     "ID": "7.3.",
     "Section": "Consideration of the Merits",
     "Labels": [],
-    "Text": "As to the delay between conviction and the final dismissal of the author’s appeal by the Supreme Court (29 September 1995 to 28 January 2000) in Case no. 6825/1994, which has remained unexplained by the State party, the Committee notes with reference to its ratione temporis decision in paragraph 6.3 above, that more than two years of this period, from 3 January 1998 to 28 January 2000, relate to the time after the entry into force of the Optional Protocol. The Committee recalls its jurisprudence that the rights contained in article 14, paragraphs 3(c), and 5, read together, confer a right to review of a decision at trial without delay. In the circumstances, the Committee considers that the delay in the instant case violates the author’s right to review without delay and consequently finds a violation of article 14, paragraphs 3(c), and 5 of the Covenant."
+    "Text": "As to the delay between conviction and the final dismissal of the author’s appeal by the Supreme Court (29 September 1995 to 28 January 2000) in Case no. 6825/1994, which has remained unexplained by the State party, the Committee notes with reference to its ratione temporis decision in paragraph 6.3 above, that more than two years of this period, from 3 January 1998 to 28 January 2000, relate to the time after the entry into force of the Optional Protocol. The Committee recalls its jurisprudence that the rights contained in article 14, paragraphs 3(c), and 5, read together, confer a right to review of a decision at trial without delay.[[fn:18]] In the circumstances, the Committee considers that the delay in the instant case violates the author’s right to review without delay and consequently finds a violation of article 14, paragraphs 3(c), and 5 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 18,
+        "text": "Lubuto v. Zambia, Case no. 390/1990, Views adopted on 31 October 1995; Neptune v. Trinidad and Tobago, Case no. 523/1992, Views Adopted on 16 July 1996; Sam Thomas v Jamaica, Case no. 614/95, Views adopted on 31 March 1999; Clifford McLawrence v Jamaica, Case no.702/96, Views adopted on 18 July 1997;Johnson v. Jamaica, Case no. 588/1994, Views adopted on 22 March 1996."
+      }
+    ]
   },
   {
     "ID": "7.4.",
     "Section": "Consideration of the Merits",
     "Labels": [],
-    "Text": "On the claim of a violation of the author’s rights under article 14, paragraph 3 (g), in that he was forced to sign a confession and subsequently had to assume the burden of proof that it was extracted under duress and was not voluntary, the Committee must consider the principles underlying the right protected in this provision. It refers to its previous jurisprudence that the wording, in article 14, paragraph 3 (g), that no one shall “be compelled to testify against himself or confess guilt”, must be understood in terms of the absence of any direct or indirect physical or psychological coercion from the investigating authorities on the accused with a view to obtaining a confession of guilt. The Committee considers that it is implicit in this principle that the prosecution prove that the confession was made without duress. It further notes that pursuant to section 24 of the Sri Lankan Evidence Ordinance, confessions extracted by “inducement, threat or promise” are inadmissible and that in the instant case both the High Court and the Court of Appeal considered evidence that the author had been assaulted several days prior to the alleged confession. However, the Committee also notes that the burden of proving whether the confession was voluntary was on the accused. This is undisputed by the State party since it is so provided in Section 16 of the PTA. Even if, as argued by the State party, the threshold of proof is “placed very low” and “a mere possibility of involuntariness” would suffice to sway the court in favour of the accused, it remains that the burden was on the author. The Committee notes in this respect that the willingness of the courts at all stages to dismiss the complaints of torture and ill-treatment on the basis of the inconclusiveness of the medical certificate (especially one obtained over a year after the interrogation and ensuing confession) suggests that this threshold was not complied with. Further, insofar as the courts were prepared to infer that the author’s allegations lacked credibility by virtue of his failing to complain of ill-treatment before its Magistrate, the Committee finds that inference to be manifestly unsustainable in the light of his expected return to police detention. Nor did this treatment of the complaint by its courts satisfactorily discharge the State party’s obligation to investigate effectively complaints of violations of article 7. The Committee concludes that by placing the burden of proof that his confession was made under duress on the author, the State party violated article 14, paragraphs 2, and 3(g), read together with article 2, paragraph 3, and 7 of the Covenant."
+    "Text": "On the claim of a violation of the author’s rights under article 14, paragraph 3 (g), in that he was forced to sign a confession and subsequently had to assume the burden of proof that it was extracted under duress and was not voluntary, the Committee must consider the principles underlying the right protected in this provision. It refers to its previous jurisprudence that the wording, in article 14, paragraph 3 (g), that no one shall “be compelled to testify against himself or confess guilt”, must be understood in terms of the absence of any direct or indirect physical or psychological coercion from the investigating authorities on the accused with a view to obtaining a confession of guilt.[[fn:19]] The Committee considers that it is implicit in this principle that the prosecution prove that the confession was made without duress. It further notes that pursuant to section 24 of the Sri Lankan Evidence Ordinance, confessions extracted by “inducement, threat or promise” are inadmissible and that in the instant case both the High Court and the Court of Appeal considered evidence that the author had been assaulted several days prior to the alleged confession. However, the Committee also notes that the burden of proving whether the confession was voluntary was on the accused. This is undisputed by the State party since it is so provided in Section 16 of the PTA. Even if, as argued by the State party, the threshold of proof is “placed very low” and “a mere possibility of involuntariness” would suffice to sway the court in favour of the accused, it remains that the burden was on the author. The Committee notes in this respect that the willingness of the courts at all stages to dismiss the complaints of torture and ill-treatment on the basis of the inconclusiveness of the medical certificate (especially one obtained over a year after the interrogation and ensuing confession) suggests that this threshold was not complied with. Further, insofar as the courts were prepared to infer that the author’s allegations lacked credibility by virtue of his failing to complain of ill-treatment before its Magistrate, the Committee finds that inference to be manifestly unsustainable in the light of his expected return to police detention. Nor did this treatment of the complaint by its courts satisfactorily discharge the State party’s obligation to investigate effectively complaints of violations of article 7. The Committee concludes that by placing the burden of proof that his confession was made under duress on the author, the State party violated article 14, paragraphs 2, and 3(g), read together with article 2, paragraph 3, and 7 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "Berry v. Jamaica, Case no. 330/1988, Views adopted on 4 July 1994."
+      }
+    ]
   },
   {
     "ID": "7.5.",

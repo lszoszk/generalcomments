@@ -1,9 +1,15 @@
 [
   {
     "ID": "1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
-    "Text": "The author of the communication is Mr. Marijan Radosevic, a Croatian national currently residing in Switzerland. He claims to be a victim of a violation by Germany of his rights under article 26, read alone, as well as in conjunction with article 8, paragraph 3 (c) (i), of the Covenant. He is represented by counsel (Mr. Frank Selbmann)."
+    "Text": "The author of the communication is Mr. Marijan Radosevic, a Croatian national currently residing in Switzerland. He claims to be a victim of a violation by Germany[[fn:3]] of his rights under article 26, read alone, as well as in conjunction with article 8, paragraph 3 (c) (i), of the Covenant. He is represented by counsel (Mr. Frank Selbmann).",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The Covenant and the Optional Protocol to the Covenant entered into force for Germany on 23 March 1976 and 25 November 1993 respectively. Upon ratification of the Optional Protocol, the State Party entered the following reservation: “The Federal Republic of Germany formulates a reservation concerning article 5 paragraph 2 (a) to the effect that the competence of the Committee shall not apply to communications a) which have already been considered under another procedure of international investigation or settlement, or b) by means of which a violation of rights is reprimanded having its origin in events occurring prior to the entry into force of the Optional Protocol for the Federal Republic of Germany c) by means of which a violation of article 26 of the [said Covenant] is reprimanded, if and insofar as the reprimanded violation refers to rights other than those guaranteed under the aforementioned Covenant.”"
+      }
+    ]
   },
   {
     "ID": "2.1.",
@@ -17,7 +23,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "During imprisonment, the author performed work, as required under Section 41 of the German Enforcement of Sentences Act. He was remunerated from April 1998 until August 1999 and again in April 2000, as well as from June until August 2001. The wages were calculated pursuant to Section 200 of the Enforcement of Sentences Act, on the basis of five percent of the base amount from April until August 1999 and in April 2000, and on the basis of nine percent of the base amount from June until August 2001. They ranged from about 180 to about 400 Deutsche Mark (DM) per month."
+    "Text": "During imprisonment, the author performed work, as required under Section 41 of the German Enforcement of Sentences Act. He was remunerated from April 1998 until August 1999 and again in April 2000, as well as from June until August 2001. The wages were calculated pursuant to Section 200 of the Enforcement of Sentences Act, on the basis of five percent of the base amount[[fn:4]] from April until August 1999 and in April 2000, and on the basis of nine percent of the base amount from June until August 2001. They ranged from about 180 to about 400 Deutsche Mark (DM) per month.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Section 18 of Book IV of the German Social Security Code defines the base amount as follows: “Without prejudice to the specific provisions applicable to the different insurance systems, base amount within the meaning of the provisions on social security means the average amount of benefits payable under the statutory pensions insurance during the preceding calendar year, rounded up to the next highest amount which can be divided by 420.”"
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -51,7 +63,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author claims that the denial of an adequate remuneration for the work performed during his incarceration amounts to a violation of article 26 of the Covenant. He argues that his work was in many respects similar to that performed by the regular workforce. While conceding that prisoners are not entitled to absolutely equal remuneration, he submits that any differentiation must be justified by reasonable and objective criteria and must be proportionate in the individual circumstances. His remuneration was inadequate in the light of his vulnerable status as a prisoner and the overall objective of re-integration into society. By reference to Rule 76 (1) of the UN Standard Minimum Rules for the Treatment of Prisoners and Article 14 (1) of ILO Convention No. 29 (Forced or Compulsory Labour Convention, 1930), the author concludes that his wages were disproportionately low, in violation of article 26 of the Covenant."
+    "Text": "The author claims that the denial of an adequate remuneration for the work performed during his incarceration amounts to a violation of article 26 of the Covenant. He argues that his work was in many respects similar to that performed by the regular workforce. While conceding that prisoners are not entitled to absolutely equal remuneration, he submits that any differentiation must be justified by reasonable and objective criteria and must be proportionate in the individual circumstances. His remuneration was inadequate in the light of his vulnerable status as a prisoner and the overall objective of re-integration into society. By reference to Rule 76 (1)[[fn:5]] of the UN Standard Minimum Rules for the Treatment of Prisoners and Article 14 (1)[[fn:6]] of ILO Convention No. 29 (Forced or Compulsory Labour Convention, 1930), the author concludes that his wages were disproportionately low, in violation of article 26 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "“There shall be a system of equitable remuneration of the work of prisoners.”"
+      },
+      {
+        "n": 6,
+        "text": "“With the exception of the forced or compulsory labour provided for in Article 10 of this Convention, forced or compulsory labour of all kinds shall be remunerated in cash at rates not less than those prevailing for similar kinds of work either in the district in which the labour is employed or in the district from which the labour is recruited, whichever may be the higher.”"
+      }
+    ]
   },
   {
     "ID": "3.2.",
@@ -63,7 +85,13 @@
     "ID": "3.3.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author submits that the same matter is not being examined under another procedure of international investigation or settlement. On exhaustion of domestic remedies, he argues that it would have been futile to appeal the decision of the Heimsheim prison warden, given that the Federal Constitutional Court had itself authorized the continued application of Section 200 of the Enforcement of Sentences Act until 31 December 2000 and that, in a subsequent judgment, it had considered that the new legislation satisfies, even though barely so, the requirement of a significant raise of the remuneration of prison work stipulated in its earlier judgment."
+    "Text": "The author submits that the same matter is not being examined under another procedure of international investigation or settlement. On exhaustion of domestic remedies, he argues that it would have been futile to appeal the decision of the Heimsheim prison warden, given that the Federal Constitutional Court had itself authorized the continued application of Section 200 of the Enforcement of Sentences Act until 31 December 2000 and that, in a subsequent judgment,[[fn:7]] it had considered that the new legislation satisfies, even though barely so, the requirement of a significant raise of the remuneration of prison work stipulated in its earlier judgment.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "German Constitutional Court, judgment of 24 March 2002, 2 BvR 2175/01."
+      }
+    ]
   },
   {
     "ID": "4.1.",
@@ -77,13 +105,29 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The State party submits that the Committee’s competence to examine the alleged violation of article 26 is precluded by the German reservation, since the author did not claim a violation of a substantive Covenant right: The right to property is not protected under the Covenant; the prison work performed by him falls outside the prohibition of forced or compulsory labour in article 8, paragraph 3, of the Covenant, which specifically excludes any work or service normally required of a person who is under detention in consequence of a lawful order of a court. The travaux préparatoires of article 8 reveal that a proposal to include a right of prisoners to equitable remuneration for their work was rejected by the Commission on Human Rights."
+    "Text": "The State party submits that the Committee’s competence to examine the alleged violation of article 26 is precluded by the German reservation, since the author did not claim a violation of a substantive Covenant right: The right to property is not protected under the Covenant; the prison work performed by him falls outside the prohibition of forced or compulsory labour in article 8, paragraph 3, of the Covenant, which specifically excludes any work or service normally required of a person who is under detention in consequence of a lawful order of a court.[[fn:8]] The travaux préparatoires of article 8 reveal that a proposal to include a right of prisoners to equitable remuneration for their work was rejected by the Commission on Human Rights.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "See article 8, paragraph 3 (c) (i), of the Covenant."
+      },
+      {
+        "n": 9,
+        "text": "UN Doc. E/CN.4/365."
+      }
+    ]
   },
   {
     "ID": "4.3.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The State party argues that there is no indication that the reservation itself is inadmissible. While the Committee expressed its regret “that Germany maintains its reservations, […] which partially limit the competence of the Committee with respect to article 26 of the Covenant” and recommended considering their withdrawal, it did not conclude that they are inadmissible."
+    "Text": "The State party argues that there is no indication that the reservation itself is inadmissible. While the Committee expressed its regret “that Germany maintains its reservations, […] which partially limit the competence of the Committee with respect to article 26 of the Covenant” and recommended considering their withdrawal,[[fn:10]] it did not conclude that they are inadmissible.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "Human Rights Committee, 80th session, Concluding observations on the fifth periodic report of Germany, 4 May 2004, at para. 10."
+      }
+    ]
   },
   {
     "ID": "4.4.",
@@ -91,7 +135,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "For the State party, the author’s late submission of his complaint about the allegedly discriminatory remuneration of the prison work that he performed between April and August 1999 and in April 2000 to the Heimsheim prison warden and, subsequently, to the Committee constitutes an abuse of the right of application. Although no specific time-limit exists for the submission of a communication under the Optional Protocol, the Committee has held that the late submission of a complaint can amount to such abuse, in the absence of any justification. The author’s explanation, provided in his letter of 4 March 2004 to the prison warden, that he was unaware of the legal situation, being a foreign national, and that legal advice was unavailable to him, did not justify the delay, since it was hardly conceivable that the Federal Constitutional Court’s judgments of 1 July 1998 and of 24 March 2002 were not discussed among prisoners, whose interests were directly affected by these decisions, and since the author would have been free to seek legal advice during his incarceration."
+    "Text": "For the State party, the author’s late submission of his complaint about the allegedly discriminatory remuneration of the prison work that he performed between April and August 1999 and in April 2000 to the Heimsheim prison warden and, subsequently, to the Committee constitutes an abuse of the right of application. Although no specific time-limit exists for the submission of a communication under the Optional Protocol, the Committee has held that the late submission of a complaint can amount to such abuse, in the absence of any justification.[[fn:11]] The author’s explanation, provided in his letter of 4 March 2004 to the prison warden, that he was unaware of the legal situation, being a foreign national, and that legal advice was unavailable to him, did not justify the delay, since it was hardly conceivable that the Federal Constitutional Court’s judgments of 1 July 1998 and of 24 March 2002 were not discussed among prisoners, whose interests were directly affected by these decisions, and since the author would have been free to seek legal advice during his incarceration.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "The State party refers to Communication No. 787/1997, Gobin v. Mauritius, Decision on admissibility adopted on 16 July 2001, at para. 6.3."
+      }
+    ]
   },
   {
     "ID": "5.1.",
@@ -111,7 +161,13 @@
     "ID": "5.3.",
     "Section": "Author’s comments",
     "Labels": [],
-    "Text": "The author challenges the German reservation as being incompatible with the character of article 26 as an autonomous right to equality free from any limitations inherent in accessory non-discrimination clauses, such as article 14 of the European Convention on Human Rights. The effect of the reservation was to transform article 26 into an accessory right without independent existence, thereby duplicating the limited intra-Covenant non-discrimination clause of article 2 of the Covenant. This restrictive scope was neither intended by the drafters of article 26, nor supported by any of the traditional means of treaty interpretation. It was moreover inconsistent with the Committee’s constant jurisprudence on article 26 and defied recent trends to extend the level of protection afforded under international equal protection clauses. Thus, article 1 of Protocol No. 12 to the European Convention on Human Rights, once entered into force, would replace article 14 of the Convention with an independent right identical to article 26 of the Covenant; similar autonomous non-discrimination clauses can be found in article 24 of the American Convention on Human Rights and article 3 of the African Charter on Human and Peoples’ Rights. The author contends that what the Committee regretted in its concluding observations on Germany’s fifth periodic report “amounts to a reservation that unduly infringes upon the very essence of the right established in article 26 of the Covenant and should be found inapplicable.”"
+    "Text": "The author challenges the German reservation as being incompatible with the character of article 26 as an autonomous right to equality free from any limitations inherent in accessory non-discrimination clauses, such as article 14 of the European Convention on Human Rights. The effect of the reservation was to transform article 26 into an accessory right without independent existence, thereby duplicating the limited intra-Covenant non-discrimination clause of article 2 of the Covenant. This restrictive scope was neither intended by the drafters of article 26, nor supported by any of the traditional means of treaty interpretation. It was moreover inconsistent with the Committee’s constant jurisprudence on article 26[[fn:12]] and defied recent trends to extend the level of protection afforded under international equal protection clauses. Thus, article 1 of Protocol No. 12 to the European Convention on Human Rights, once entered into force, would replace article 14 of the Convention with an independent right identical to article 26 of the Covenant; similar autonomous non-discrimination clauses can be found in article 24 of the American Convention on Human Rights and article 3 of the African Charter on Human and Peoples’ Rights. The author contends that what the Committee regretted in its concluding observations on Germany’s fifth periodic report “amounts to a reservation that unduly infringes upon the very essence of the right established in article 26 of the Covenant and should be found inapplicable.”",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "The author refers to Communication No. 172/1984, Broeks v. The Netherlands, Views adopted on 9 April 1987, at para. 12.1, Communication No. 182/1984, Zwaan-de Vries v. The Netherlands, Views adopted on 9 April 1987, at para. 12.1, and General Comment 18 [37], 9 November 1989, at para. 12."
+      }
+    ]
   },
   {
     "ID": "5.4.",
@@ -119,7 +175,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "As regards the late submission of his communication, the author reiterates that, as a Croatian national without legal training, he could not be expected to follow the jurisprudence of the German Constitutional Court, which was extremely complex on the subject matter and therefore unlikely to become the topic of debate in a prison setting. On accessibility of legal advice, he submits that prison-internal legal services are rare in German prisons and that his deportation directly after his release on parole prevented him from contacting a lawyer. Once he had been able to secure legal representation, he and his counsel acted promptly and with due diligence. He denies that the Committee’s decision in Gobin v. Mauritius is a precedent to be followed, given that five Committee members dissented and considered that the Committee was precluded from introducing a preclusive time limit in the Optional Protocol, and that another member considered that a delay of five years should not be taken as a reason for shifting the burden of proof that such delay was (not) abusive from the State party to the author."
+    "Text": "As regards the late submission of his communication, the author reiterates that, as a Croatian national without legal training, he could not be expected to follow the jurisprudence of the German Constitutional Court, which was extremely complex on the subject matter and therefore unlikely to become the topic of debate in a prison setting. On accessibility of legal advice, he submits that prison-internal legal services are rare in German prisons and that his deportation directly after his release on parole prevented him from contacting a lawyer. Once he had been able to secure legal representation, he and his counsel acted promptly and with due diligence. He denies that the Committee’s decision in Gobin v. Mauritius is a precedent to be followed, given that five Committee members dissented and considered that the Committee was precluded from introducing a preclusive time limit in the Optional Protocol,[[fn:13]] and that another member considered that a delay of five years should not be taken as a reason for shifting the burden of proof that such delay was (not) abusive from the State party to the author.[[fn:14]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "Communication No. 787/1997, Gobin v. Mauritius, Decision on admissibility adopted on 16 July 2001, individual opinion by Committee members Christine Chanet, Louis Henkin, Martin Scheinin, Ivan Shearer and Max Yalden (dissenting)."
+      },
+      {
+        "n": 14,
+        "text": "Ibid., individual opinion by Committee member Eckart Klein (dissenting)."
+      }
+    ]
   },
   {
     "ID": "6.1.",
@@ -161,7 +227,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The Committee further notes the author’s claims that article 26, read in conjunction with article 8, paragraph 3 (c) (i), contains a right to adequate remuneration for work performed by prisoners, and that he was discriminated against in the enjoyment of that right because of the continued application of Section 200 of the Enforcement of Sentences Act for a transitional period of two years and six months after the Constitutional Court had declared that provision incompatible with the constitutional principle of re-socialization of prisoners. It considers that article 8, paragraph 3 (c) (i), read in conjunction with article 10, paragraph 3, of the Covenant requires that work performed by prisoners primarily aims at their social rehabilitation, as indicated by the word “normally” in article 8, paragraph 3 (c) (i), but does not specify whether such measures would include adequate remuneration for work performed by prisoners. While reiterating that, rather than being only retributory, penitentiary systems should seek the reformation and social rehabilitation of prisoners, the Committee notes that States may themselves choose the modalities for ensuring that treatment of prisoners, including any work or service normally required of them, is essentially directed at these aims. It notes that the German Constitutional Court justified the transitional period, during which prisoners were continued to be remunerated on the basis of five percent of the base amount, with the fact that the necessary amendment of Section 200 of the Enforcement of Sentences Act required a re-assessment by the legislator of the underlying re-socialization concept. It further recalls that it is generally for the national courts, and not for the Committee, to review the interpretation or application of domestic legislation in a particular case, unless it is apparent that the courts’ decisions are manifestly arbitrary or amount to a denial of justice. The Committee considers that the author has not substantiated any such defects in relation to the Constitutional Court’s decision to allow the legislator a transitional period until 31 December 2000 to amend Section 200. Accordingly, this part of the communication is inadmissible under article 2 of the Optional Protocol."
+    "Text": "The Committee further notes the author’s claims that article 26, read in conjunction with article 8, paragraph 3 (c) (i), contains a right to adequate remuneration for work performed by prisoners, and that he was discriminated against in the enjoyment of that right because of the continued application of Section 200 of the Enforcement of Sentences Act for a transitional period of two years and six months after the Constitutional Court had declared that provision incompatible with the constitutional principle of re-socialization of prisoners. It considers that article 8, paragraph 3 (c) (i), read in conjunction with article 10, paragraph 3, of the Covenant requires that work performed by prisoners primarily aims at their social rehabilitation, as indicated by the word “normally” in article 8, paragraph 3 (c) (i), but does not specify whether such measures would include adequate remuneration for work performed by prisoners. While reiterating that, rather than being only retributory, penitentiary systems should seek the reformation and social rehabilitation of prisoners,[[fn:15]] the Committee notes that States may themselves choose the modalities for ensuring that treatment of prisoners, including any work or service normally required of them, is essentially directed at these aims. It notes that the German Constitutional Court justified the transitional period, during which prisoners were continued to be remunerated on the basis of five percent of the base amount, with the fact that the necessary amendment of Section 200 of the Enforcement of Sentences Act required a re-assessment by the legislator of the underlying re-socialization concept. It further recalls that it is generally for the national courts, and not for the Committee, to review the interpretation or application of domestic legislation in a particular case, unless it is apparent that the courts’ decisions are manifestly arbitrary or amount to a denial of justice.[[fn:16]] The Committee considers that the author has not substantiated any such defects in relation to the Constitutional Court’s decision to allow the legislator a transitional period until 31 December 2000 to amend Section 200. Accordingly, this part of the communication is inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "General Comment 21 [44], 10 April 1992, at para. 10."
+      },
+      {
+        "n": 16,
+        "text": "Communication No. 1188/2003, Riedl-Riedenstein et al v. Germany, decision on admissibility adopted on 2 November 2004, at para. 7.3; Communication No. 1138/2002, Arenz et al. v. Germany, decision on admissibility adopted on 24 March 2004, at para. 8.6."
+      }
+    ]
   },
   {
     "ID": "8.",

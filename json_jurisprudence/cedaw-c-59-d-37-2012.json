@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.1.",
-    "Section": "",
+    "Section": "Annex",
     "Labels": [
       "Women/girls"
     ],
@@ -9,7 +9,7 @@
   },
   {
     "ID": "1.2.",
-    "Section": "",
+    "Section": "Annex",
     "Labels": [
       "Children"
     ],
@@ -30,7 +30,17 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "The author claims that the violence of her husband towards her and the children worsened in 2010 and that he was beating her on a daily basis. He became unapologetic about the violent episodes and made regular threats that she would never see the children again if she left him. Some members of the author’s family contacted the Embassy of the United States in Copenhagen to request assistance for the author in her difficult situation. One official has been in regular contact with the author and advised her to seek refuge at the Aarhus Krisecenter, a shelter for victims of domestic violence. On 10 May 2010, following another beating, the author went with her children to the shelter, where they lived for a few months. The police came to the shelter later that day to confiscate the passports of the author and her children at the request of the author’s husband, who was afraid that the author would leave the country with the children. At the shelter, the police officers refused to make a report on the domestic violence episode or to take note of the author’s injuries. The author explains that she later went to the police station to file a complaint of domestic violence, but the officer who took the initial complaint did not speak good English. The author was told that she would be further interviewed later, yet no hearing of the author or witnesses was conducted. The author, her lawyer and a representative of the Embassy of the United States enquired about the status of the complaint, but no reply was provided and no further action was taken by the police to investigate this episode of domestic violence."
+    "Text": "The author claims that the violence of her husband towards her and the children worsened in 2010 and that he was beating her on a daily basis. He became unapologetic about the violent episodes and made regular threats that she would never see the children again if she left him. Some members of the author’s family contacted the Embassy of the United States in Copenhagen to request assistance for the author in her difficult situation. One official has been in regular contact with the author and advised her to seek refuge at the Aarhus Krisecenter, a shelter for victims of domestic violence. On 10 May 2010, following another beating, the author went with her children to the shelter, where they lived for a few months. The police came to the shelter later that day to confiscate the passports of the author and her children at the request of the author’s husband, who was afraid that the author would leave the country with the children. At the shelter, the police officers refused to make a report on the domestic violence episode or to take note of the author’s injuries.[[fn:1]] The author explains that she later went to the police station to file a complaint of domestic violence, but the officer who took the initial complaint did not speak good English. The author was told that she would be further interviewed later, yet no hearing of the author or witnesses was conducted. The author, her lawyer and a representative of the Embassy of the United States[[fn:2]] enquired about the status of the complaint, but no reply was provided and no further action was taken by the police to investigate this episode of domestic violence.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "The author did not submit a medical certificate in connection with her alleged injuries."
+      },
+      {
+        "n": 2,
+        "text": "The author submitted copies of the correspondence (e-mails and letters)."
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -38,13 +48,29 @@
     "Labels": [
       "Children"
     ],
-    "Text": "In May 2010, the author filed for divorce. By a decision dated 30 June 2010, the Regional State Administration of Mid-Jutland decided that the children were to reside temporarily with the author until a court decision or an agreement on residence had been reached. The author’s husband contested the arrangement and the Aarhus District Court was seized of the question outside of the divorce proceedings. In the context of the custody proceedings, the author claimed that her husband used to beat her and the children when they were living together and that he continued to beat the children thereafter, whenever the children spent time with him under the joint custody arrangement. She states that the social services contacted the police several times about various incidents between 17 August 2010 and 14 September 2011. Between 16 August 2010 and 25 August 2011, hospitals produced several medical reports about injuries sustained by the author’s daughters, allegedly owing to their father’s behaviour. On 8 April 2011, 19 April 2011 and 31 August 2011, however, the prosecutor decided not to order that criminal investigations be opened."
+    "Text": "In May 2010, the author filed for divorce. By a decision dated 30 June 2010, the Regional State Administration of Mid-Jutland decided that the children were to reside temporarily with the author until a court decision or an agreement on residence had been reached. The author’s husband contested the arrangement and the Aarhus District Court was seized of the question outside of the divorce proceedings. In the context of the custody proceedings, the author claimed that her husband used to beat her and the children when they were living together and that he continued to beat the children thereafter, whenever the children spent time with him under the joint custody arrangement. She states that the social services contacted the police several times about various incidents between 17 August 2010 and 14 September 2011.[[fn:3]] Between 16 August 2010 and 25 August 2011, hospitals produced several medical reports about injuries sustained by the author’s daughters, allegedly owing to their father’s behaviour. On 8 April 2011, 19 April 2011 and 31 August 2011, however, the prosecutor decided not to order that criminal investigations be opened.[[fn:4]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The author provided translated copies of e-mails from the social services mentioning some violent episodes of the husband towards the children and the fact that they were reported to the police."
+      },
+      {
+        "n": 4,
+        "text": "The author provided copies of the prosecutor’s decisions in Danish only. The author indicates only that the prosecutor based the decisions on the conversations that he had with the author’s husband, who explained that the past violent episodes were accidents."
+      }
+    ]
   },
   {
     "ID": "2.4.",
     "Section": "Factual background on the basis of the submissions by the author",
     "Labels": [],
-    "Text": "The author also states that she was informed by the police in October 2010 that a restraining order had been issued against her husband in accordance with her request, following his attempts to have her deported by claiming that she was working illegally in the country and because he harassed her at work. It was later revealed, however, that the order had never been issued because the police considered that there was no evidence that her husband had sought to have her deported and/or harassed her. Further attempts by the author to obtain a restraining order also failed."
+    "Text": "The author also states that she was informed by the police in October 2010 that a restraining order had been issued against her husband in accordance with her request, following his attempts to have her deported by claiming that she was working illegally in the country and because he harassed her at work.[[fn:5]] It was later revealed, however, that the order had never been issued because the police considered that there was no evidence that her husband had sought to have her deported and/or harassed her. Further attempts by the author to obtain a restraining order also failed.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The author provided no further information on the circumstances in which she was informed that a restraining order had been issued."
+      }
+    ]
   },
   {
     "ID": "2.5.",
@@ -88,7 +114,13 @@
     "ID": "4.1.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "On 27 April 2012, the State party challenged the admissibility of the communication. As a preliminary argument, the State party considers that the Committee should reject such communications at the registration stage without requesting the State party to submit observations on such unstructured communications with voluminous documents annexed thereto, in which the author does not rely on any specific right enshrined in the Convention and does not specify the scope of her complaint."
+    "Text": "On 27 April 2012, the State party challenged the admissibility of the communication. As a preliminary argument, the State party considers that the Committee should reject such communications at the registration stage without requesting the State party to submit observations on such unstructured communications with voluminous documents annexed thereto, in which the author does not rely on any specific right enshrined in the Convention and does not specify the scope of her complaint.[[fn:6]]",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "It is correct that, in her initial complaint, the author did not point out which articles of the Convention had allegedly been breached by the State party."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -102,7 +134,13 @@
     "Labels": [
       "Children"
     ],
-    "Text": "The State party indicates that on 30 June 2010 the Regional State Administration of Mid-Jutland temporarily awarded joint custody to the author and her husband until a court decision or an agreement on residence had been reached. The Regional State Administration, with the assistance of the Bailiff’s Court, also decided that the children were to reside with the author, but fixed temporary access for the duration of the proceedings was granted to the author’s husband every second weekend for three nights and access for two nights during the following week."
+    "Text": "The State party indicates that on 30 June 2010 the Regional State Administration of Mid-Jutland temporarily awarded joint custody to the author and her husband until a court decision or an agreement on residence had been reached. The Regional State Administration, with the assistance of the Bailiff’s Court,[[fn:7]] also decided that the children were to reside with the author, but fixed temporary access for the duration of the proceedings was granted to the author’s husband every second weekend for three nights and access for two nights during the following week.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "In Denmark, the Bailiff’s Court is a division of the District Court that helps the parties to enforce claims."
+      }
+    ]
   },
   {
     "ID": "4.4.",
@@ -149,7 +187,13 @@
     "ID": "4.9.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The State party also submits that the author makes unsupported claims that have not been raised in substance before the Danish authorities, in particular her claim that she and/or her daughters were victims of gender-based discrimination. Consequently, the domestic authorities have had no opportunity to deal with any potential implied assertion of gender-based discrimination. For the communication to be admissible, it might not have been necessary for the author to have referred specifically to particular articles of the Convention before the Danish authorities, but she should at least have raised the relevant substantive rights of the Convention before them. The judgement of the Aarhus District Court of 13 October 2011 was made in accordance with standard proceedings regarding custody matters and there is no indication that any issues relating to the rights protected under the Convention were raised by the author during those proceedings, whether explicitly or implicitly. The communication should therefore also be declared inadmissible pursuant to article 4 (1) of the Optional Protocol for non-exhaustion of domestic remedies."
+    "Text": "The State party also submits that the author makes unsupported claims that have not been raised in substance before the Danish authorities, in particular her claim that she and/or her daughters were victims of gender-based discrimination. Consequently, the domestic authorities have had no opportunity to deal with any potential implied assertion of gender-based discrimination.[[fn:8]] For the communication to be admissible, it might not have been necessary for the author to have referred specifically to particular articles of the Convention before the Danish authorities, but she should at least have raised the relevant substantive rights of the Convention before them. The judgement of the Aarhus District Court of 13 October 2011 was made in accordance with standard proceedings regarding custody matters and there is no indication that any issues relating to the rights protected under the Convention were raised by the author during those proceedings, whether explicitly or implicitly. The communication should therefore also be declared inadmissible pursuant to article 4 (1) of the Optional Protocol for non-exhaustion of domestic remedies.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "The State party refers to the Committee’s jurisprudence in communication No. 10/2005, N.S.F. v. the United Kingdom of Great Britain and Northern Ireland, decision of inadmissibility adopted on 30 May 2007, para. 7.3, and communication No. 8/2005, Kayhan v. Turkey, decision of inadmissibility adopted on 27 January 2006, para. 7.7."
+      }
+    ]
   },
   {
     "ID": "4.10.",
@@ -175,7 +219,17 @@
     "ID": "5.",
     "Section": "Further information submitted by the State party",
     "Labels": [],
-    "Text": "On 25 June 2012, the State party confirmed that the High Court of Western Denmark had rendered its judgement on 29 March 2012 and upheld the decision about custody and access rights made on 13 October 2011 by the Aarhus District Court. The State party informed the Committee that the author’s application to appeal to the Supreme Court had been rejected by the Appeals Permission Board on 31 May 2012."
+    "Text": "On 25 June 2012, the State party confirmed that the High Court of Western Denmark had rendered its judgement on 29 March 2012 and upheld the decision about custody and access rights made on 13 October 2011 by the Aarhus District Court.[[fn:9]] The State party informed the Committee that the author’s application to appeal to the Supreme Court had been rejected by the Appeals Permission Board on 31 May 2012.[[fn:10]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "The State party submitted a translated copy of the decision."
+      },
+      {
+        "n": 10,
+        "text": "It is to be noted that, following that judgement, the author launched fresh proceedings for custody and access."
+      }
+    ]
   },
   {
     "ID": "6.1.",
@@ -190,7 +244,17 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "The author argues that her communication is founded on the existence of conclusively proven gender-based domestic violence experienced by her and her daughters, which in itself is a breach of the Convention. She claims that she has provided the Committee with a number of documents, including letters, confirming that she has been subjected to domestic violence by her husband. She refers in particular to a letter dated 5 May 2012, in which her obstetrician/gynaecologist, who assisted her in the United States during her pregnancies, attested to the sexual abuse that she suffered at the hands of her husband during their marriage and the physical and psychological consequences thereof. She also provides a letter dated 21 February 2012 from the lead case manager of the Americans Overseas Domestic Violence Crisis Center, a non-governmental organization based in the United States, which also confirms that the author has been a victim of domestic violence at the hands of her husband and that her children have suffered physical abuse, neglect and trauma at his hands."
+    "Text": "The author argues that her communication is founded on the existence of conclusively proven gender-based domestic violence experienced by her and her daughters, which in itself is a breach of the Convention.[[fn:11]] She claims that she has provided the Committee with a number of documents, including letters, confirming that she has been subjected to domestic violence by her husband. She refers in particular to a letter dated 5 May 2012, in which her obstetrician/gynaecologist, who assisted her in the United States during her pregnancies, attested to the sexual abuse that she suffered at the hands of her husband during their marriage and the physical and psychological consequences thereof. She also provides a letter dated 21 February 2012 from the lead case manager of the Americans Overseas Domestic Violence Crisis Center, a non-governmental organization based in the United States, which also confirms that the author has been a victim of domestic violence at the hands of her husband and that her children have suffered physical abuse, neglect and trauma at his hands.[[fn:12]]",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "The author refers to general recommendation No. 19 on violence against women, in which the Committee explicitly recognized such violence as a form of discrimination against women."
+      },
+      {
+        "n": 12,
+        "text": "The letter was prepared on the basis of the author’s own reports to the non-governmental organization. The copy provided by the author with her first comments is dated 17 May 2012."
+      }
+    ]
   },
   {
     "ID": "6.3.",
@@ -227,7 +291,13 @@
     "ID": "6.7.",
     "Section": "Author’s comments on State party’s observations on admissibility",
     "Labels": [],
-    "Text": "She notes that on 10 April 2012 she applied for leave to appeal to the Supreme Court against the judgement of the High Court of Western Denmark of 29 March 2012, alleging, among other things, that she and her daughters were victims of a violation of article 2 of the Convention, but that the Appeals Permission Board rejected her application on 31 May 2012."
+    "Text": "She notes that on 10 April 2012 she applied for leave to appeal to the Supreme Court against the judgement of the High Court of Western Denmark of 29 March 2012, alleging, among other things, that she and her daughters were victims of a violation of article 2 of the Convention, but that the Appeals Permission Board rejected her application on 31 May 2012.[[fn:13]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "The author provided a translated copy of her application for leave to appeal to the Supreme Court in which she referred to article 2 of the Convention."
+      }
+    ]
   },
   {
     "ID": "7.1.",
@@ -276,7 +346,13 @@
     "ID": "8.2.",
     "Section": "Additional information provided by the State party",
     "Labels": [],
-    "Text": "The State party recalls the recent domestic proceedings, in particular the decisions of the State Administration of 11 July 2012 and the Aarhus District Court of 9 October 2012. It also informs the Committee that the latter decision was upheld by the High Court of Western Denmark on 3 December 2012 and that, on 12 December 2012, the author applied to the Appeals Permission Board for leave to appeal. In the light of the fact that judicial proceedings are continuing, the State party contends that they have never been at a standstill and that domestic remedies have not been exhausted, given that nothing suggests that the remedy of applying for permission to appeal to the Supreme Court is ineffective and insufficient. The State party reiterates that the author should have raised at the national level the substance of the claims that she is bringing before the Committee."
+    "Text": "The State party recalls the recent domestic proceedings, in particular the decisions of the State Administration of 11 July 2012 and the Aarhus District Court of 9 October 2012. It also informs the Committee that the latter decision was upheld by the High Court of Western Denmark on 3 December 2012 and that, on 12 December 2012, the author applied to the Appeals Permission Board for leave to appeal.[[fn:14]] In the light of the fact that judicial proceedings are continuing, the State party contends that they have never been at a standstill and that domestic remedies have not been exhausted, given that nothing suggests that the remedy of applying for permission to appeal to the Supreme Court is ineffective and insufficient. The State party reiterates that the author should have raised at the national level the substance of the claims that she is bringing before the Committee.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "The application was pending at the time of the State party’s submission."
+      }
+    ]
   },
   {
     "ID": "8.3.",
@@ -288,7 +364,17 @@
     "ID": "8.4.",
     "Section": "Additional information provided by the State party",
     "Labels": [],
-    "Text": "Furthermore, the State party indicates that the author submitted the same matter to the European Court of Human Rights on 21 May 2012 and that her complaint was registered as application No. 36201/12. It stresses that the author has failed to inform the Committee about her application, her frequent correspondence notwithstanding. The State party notes that the application made by the author to the European Court is extremely broad and comprehensive, referring to alleged violations of articles 8 and 14 of the European Convention for the Protection of Human Rights and Fundamental Freedoms (European Convention on Human Rights), which are also anti-discrimination provisions. The State party considers that the issue at hand is the same as that brought before the European Court, given that it is presented by the same person, deals with the same facts and events and relates to the same substantive rights. On 20 December 2012, the European Court declared the application inadmissible. The State party therefore considers that, because the same matter has already been examined under another procedure of international investigation or settlement, the present communication is inadmissible under article 4 (2)(a) of the Optional Protocol."
+    "Text": "Furthermore, the State party indicates that the author submitted the same matter to the European Court of Human Rights on 21 May 2012 and that her complaint was registered as application No. 36201/12. It stresses that the author has failed to inform the Committee about her application, her frequent correspondence notwithstanding.[[fn:15]] The State party notes that the application made by the author to the European Court is extremely broad and comprehensive, referring to alleged violations of articles 8 and 14 of the European Convention for the Protection of Human Rights and Fundamental Freedoms (European Convention on Human Rights), which are also anti-discrimination provisions. The State party considers that the issue at hand is the same as that brought before the European Court, given that it is presented by the same person, deals with the same facts and events and relates to the same substantive rights. On 20 December 2012, the European Court declared the application inadmissible.[[fn:16]] The State party therefore considers that, because the same matter has already been examined under another procedure of international investigation or settlement, the present communication is inadmissible under article 4 (2)(a) of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "In her numerous submissions during the summer of 2012, the author omitted to mention her application to the European Court and even stated, on 26 June 2012, one month after submitting the complaint to the European Court, that “the matter of violations of United Nations conventions has not already been or is not being examined officially under another procedure of international investigation or settlement as far as the petitioner is aware”."
+      },
+      {
+        "n": 16,
+        "text": "The State party provided a copy of the decision, which is a standard letter informing the author that the European Court, sitting in a single-judge formation, had decided to declare the application inadmissible, given that it had found that the admissibility criteria set out in articles 34 and 35 of the European Convention on Human Rights had not been met."
+      }
+    ]
   },
   {
     "ID": "8.5.",
@@ -395,7 +481,17 @@
     "ID": "12.4.",
     "Section": "Issues and proceedings before the Committee concerning admissibility",
     "Labels": [],
-    "Text": "The Committee recalls that article 4 (2)(a) of the Optional Protocol precludes the Committee from declaring a communication admissible where the same matter has been or is being examined under another procedure of international investigation or settlement. The Committee notes the State party’s observation that the author filed an application before the European Court of Human Rights on 21 May 2012 on behalf of herself and her daughters, under articles 8 and 14 of the European Convention on Human Rights. The complaint filed by the author (application No. 36201/12) was found inadmissible by the European Court on 20 December 2012 for not meeting the admissibility criteria set out in articles 34 and 35 of the European Convention on Human Rights. The Committee notes that the Court’s decision pertained only to procedural grounds relating to the admissibility criteria and did not provide sufficient reasoning or elements of information to allow the Committee to consider that the European Court had examined the case in the sense of article 4 (2)(a) of the Optional Protocol. The Committee, while deploring the fact that the author submitted her complaint to the European Court while a complaint was being processed by the Committee, considers that there is no impediment arising out of article 4 (2)(a) regarding the admissibility of the communication."
+    "Text": "The Committee recalls that article 4 (2)(a) of the Optional Protocol precludes the Committee from declaring a communication admissible where the same matter has been or is being examined under another procedure of international investigation or settlement.[[fn:17]] The Committee notes the State party’s observation that the author filed an application before the European Court of Human Rights on 21 May 2012 on behalf of herself and her daughters, under articles 8 and 14 of the European Convention on Human Rights. The complaint filed by the author (application No. 36201/12) was found inadmissible by the European Court on 20 December 2012 for not meeting the admissibility criteria set out in articles 34 and 35 of the European Convention on Human Rights. The Committee notes that the Court’s decision pertained only to procedural grounds relating to the admissibility criteria and did not provide sufficient reasoning or elements of information to allow the Committee to consider that the European Court had examined the case in the sense of article 4 (2)(a) of the Optional Protocol.[[fn:18]] The Committee, while deploring the fact that the author submitted her complaint to the European Court while a complaint was being processed by the Committee, considers that there is no impediment arising out of article 4 (2)(a) regarding the admissibility of the communication.",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "See Kayhan v. Turkey (note 8 above), para. 7.3 (referring to case law of the Human Rights Committee regarding this issue and citing communication No. 75/1980, Fanali v. Italy, views adopted on 31 March 1983: “The concept of ‘the same matter’ within the meaning of article 5 (2)(a) of the Optional Protocol had to be understood as including the same claim concerning the same individual, submitted by him or someone else who has the standing to act on his behalf before the other international body.”). The claims must be identical to the extent that they must refer to the same facts and events (see communication No. 421/1990, Trébutien v. France, decision of inadmissibility adopted on 18 July 1994, para. 6.3). Furthermore, the claims must also relate to the same substantive rights (see communication No. 1115/2002, Petersen v. Germany, decision of inadmissibility adopted on 1 April 2004, para. 6.3)."
+      },
+      {
+        "n": 18,
+        "text": "See the jurisprudence of the Human Rights Committee, including communication No. 1636/2007, Onoufriou v. Cyprus, decision of inadmissibility adopted on 25 October 2010, para. 6.2, and communication No. 1510/2006, Vojnović v. Croatia, views adopted on 30 March 2009."
+      }
+    ]
   },
   {
     "ID": "12.5.",
@@ -415,7 +511,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee notes that the author claims that she and her daughters were discriminated against by the State party when it failed to protect them from alleged domestic violence by her husband. Her claims are mainly based on the alleged lack of investigation and prosecution of the alleged episodes of domestic violence. The Committee takes note of the State party’s argument that the claims are not substantiated and based on groundless facts. The Committee also notes that the State party has submitted detailed information and documents to provide an overview of the investigations conducted by the police in each incident of alleged domestic violence against the author’s daughters. The Committee further notes the lack of documentation supporting the author’s claim relating to the alleged domestic violence against her. The Committee recalls that it does not replace the national authorities in the assessment of the facts and evidence in conjunction with the investigations of the alleged domestic violence incidents, unless the assessment was clearly arbitrary or amounted to a denial of justice. From the information and documents before it, the Committee concludes that the author has failed to substantiate her claim that no investigation was conducted by the State party’s authorities with regard to her allegations of domestic violence."
+    "Text": "The Committee notes that the author claims that she and her daughters were discriminated against by the State party when it failed to protect them from alleged domestic violence by her husband. Her claims are mainly based on the alleged lack of investigation and prosecution of the alleged episodes of domestic violence. The Committee takes note of the State party’s argument that the claims are not substantiated and based on groundless facts. The Committee also notes that the State party has submitted detailed information and documents to provide an overview of the investigations conducted by the police in each incident of alleged domestic violence against the author’s daughters. The Committee further notes the lack of documentation supporting the author’s claim relating to the alleged domestic violence against her. The Committee recalls that it does not replace the national authorities in the assessment of the facts and evidence in conjunction with the investigations of the alleged domestic violence incidents, unless the assessment was clearly arbitrary or amounted to a denial of justice.[[fn:19]] From the information and documents before it, the Committee concludes that the author has failed to substantiate her claim that no investigation was conducted by the State party’s authorities with regard to her allegations of domestic violence.",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "See, for example, communication No. 34/2011, R.P.B. v. the Philippines, views adopted on 21 February 2014, para. 7.5."
+      }
+    ]
   },
   {
     "ID": "12.8.",

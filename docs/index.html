@@ -57,16 +57,75 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260502-v19-22-banner-kwic" />
-<link rel="stylesheet" href="assets/app.css?v=20260502-v19-22-banner-kwic" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260505-v19-43t" />
+<link rel="stylesheet" href="assets/app.css?v=20260505-v19-43t" />
+
+<!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
+     manually in app.js (trackPageView) so hash-route changes
+     (#search, #documents/<docId>, #workspace, #about) are recorded as
+     distinct page_view events. send_page_view: false here so we don't
+     double-count the initial load. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F3XBX45HQC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-F3XBX45HQC', { send_page_view: false, anonymize_ip: true });
+</script>
 </head>
 <body>
+
+<!-- v19.43: first-visit welcome card (dismissible).  Appears once for
+     a new user (gated by localStorage flag); offers a 30-second tour.
+     If dismissed without taking the tour, a small "Tour" link in the
+     masthead nav stays available for later. -->
+<aside class="welcome-card" id="welcome-card" hidden role="dialog"
+       aria-labelledby="welcome-card-title">
+  <button class="welcome-card-dismiss" id="welcome-card-dismiss" aria-label="Dismiss welcome">×</button>
+  <div class="folio garnet" id="welcome-card-title">FIRST VISIT?</div>
+  <p class="serif welcome-card-lede">
+    A 30-second tour of how to search, filter, and read these
+    documents. You can dismiss this and find a <em>Tour</em> link in
+    the top nav whenever you're ready.
+  </p>
+  <div class="welcome-card-actions">
+    <button class="btn welcome-card-start" id="welcome-card-start" type="button">
+      ➤ Start tour
+    </button>
+    <button class="btn btn-ghost welcome-card-skip" id="welcome-card-skip" type="button">
+      Skip — I'll explore on my own
+    </button>
+  </div>
+</aside>
+
+<!-- v19.43: Tour overlay. Spotlight on a target element + popover with
+     description. Created on demand by the tour controller in app.js. -->
+<div class="tour-overlay" id="tour-overlay" hidden aria-hidden="true">
+  <div class="tour-spotlight" id="tour-spotlight"></div>
+  <div class="tour-popover" id="tour-popover" role="dialog" aria-live="polite">
+    <div class="folio garnet"><span id="tour-step">1 / 7</span> · TOUR</div>
+    <h3 class="serif" id="tour-title">Title</h3>
+    <p class="serif" id="tour-body">Body</p>
+    <div class="tour-actions">
+      <button type="button" id="tour-skip" class="btn btn-ghost">Skip tour</button>
+      <span class="tour-spacer"></span>
+      <button type="button" id="tour-prev" class="btn btn-ghost">← Back</button>
+      <button type="button" id="tour-next" class="btn">Next →</button>
+    </div>
+  </div>
+</div>
 
 <!-- ───────────────────────────  MASTHEAD  ─────────────────────────── -->
 <header class="mast">
   <div class="mast-row">
     <div class="mast-brand">
-      <div class="folio" id="mast-folio">VOL. I · NO. 1 · ESTABLISHED 2024 · LOADING…</div>
+      <div class="folio" id="mast-folio">
+        <span id="mast-folio-text">VOL. I · NO. 1 · ESTABLISHED 2024</span>
+        <span class="mast-folio-bar" id="mast-folio-bar" aria-hidden="true">
+          <span class="mast-folio-bar-fill" id="mast-folio-bar-fill"></span>
+        </span>
+      </div>
       <h1 class="serif mast-title">UN Human Rights Database</h1>
       <div class="serif mast-sub">A paragraph-level companion to UN Treaty Body General Comments, jurisprudence &amp; mandate-holder reports</div>
     </div>
@@ -75,6 +134,9 @@
       <a href="#documents">Documents</a>
       <a href="#workspace" id="workspace-nav-link">Workspace<span class="workspace-badge" id="workspace-badge" hidden></span></a>
       <a href="#about">About</a>
+      <button id="tour-launch" class="btn btn-ghost mast-tour-btn" type="button" title="Take a 30-second tour of the dashboard">
+        Tour
+      </button>
       <span class="mast-sep"></span>
       <button id="theme-toggle" class="btn btn-ghost" title="Toggle dark mode">◐</button>
     </nav>
@@ -84,37 +146,11 @@
 <!-- ═══════════════════════════ SEARCH VIEW ═══════════════════════════ -->
 <section data-view="search">
 
-<!-- ───────────────────────────  SCOPE BAR  ────────────────────────── -->
-<div class="scope-bar">
-  <div class="scope-inner">
-    <span class="folio">SCOPE</span>
-    <div class="scope-segmented" role="tablist" aria-label="Source scope">
-      <button class="scope-opt is-active" data-scope="gc" role="tab" aria-selected="true">
-        General Comments
-        <span class="scope-count" id="count-gc">—</span>
-      </button>
-      <button class="scope-opt" data-scope="jur" role="tab" aria-selected="false">
-        Jurisprudence
-        <span class="scope-count" id="count-jur">—</span>
-        <span class="badge badge-jur">PREVIEW</span>
-      </button>
-      <button class="scope-opt" data-scope="sp" role="tab" aria-selected="false">
-        Special Procedures
-        <span class="scope-count" id="count-sp">—</span>
-        <span class="badge badge-preview">PREVIEW</span>
-      </button>
-      <button class="scope-opt" data-scope="all" role="tab" aria-selected="false">
-        All sources
-      </button>
-    </div>
-  </div>
-  <!-- Onboarding banner shown on first SP click. JS replaces the body
-       with a live mandate breakdown when scope flips to SP. -->
-  <div class="scope-banner" id="scope-banner" hidden>
-    <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
-    <span class="folio">SOFT-LAW PREVIEW</span>Special Procedures are reports by independent UN mandate-holders. Currently only a few mandates are indexed; the General Comments collection is exhaustive while this is a curated preview that will grow.
-  </div>
-</div>
+<!-- v19.43-fix2: SEARCH BAR placed BEFORE the scope bar. F-pattern eye
+     tracking shows users scan top-left first; the primary action (the
+     keyword input) belongs at the top of the visual stack. The scope
+     selector (GC / Jurisprudence / SP / All) is a secondary refinement
+     and now sits below — same content, more honest priority order. -->
 
 <!-- ───────────────────────────  SEARCH BAR  ───────────────────────── -->
 <section class="searchbar">
@@ -178,6 +214,12 @@
       <span class="op-toggle-mark" aria-hidden="true">✓</span>
       <span class="op-toggle-label">search in footnotes</span>
     </button>
+    <button id="pre-toggle" class="op-toggle is-on" type="button"
+            aria-pressed="true"
+            title="Include preamble text in search. Click to toggle off and search paragraph bodies only.">
+      <span class="op-toggle-mark" aria-hidden="true">✓</span>
+      <span class="op-toggle-label">search in preambles</span>
+    </button>
     <span class="folio">Try</span>
     <button class="suggest" data-q='"best interests of the child"'>"best interests of the child"</button>
     <button class="suggest" data-q='trafficking AND children NOT (sexual)'>trafficking AND children NOT (sexual)</button>
@@ -186,11 +228,49 @@
   </div>
 </section>
 
+<!-- v19.43-fix9: scope bar moved into the left filter pane (see
+     .filter-block.filter-block-source). Saves ~61 px of vertical
+     viewport for the results column. The .scope-banner (SP onboarding)
+     also lives there now, inline below the source list. -->
+
+
 <!-- ───────────────────────────  MAIN  ─────────────────────────────── -->
 <main class="layout">
 
   <!-- LEFT: filters -->
   <aside class="filters">
+    <!-- v19.43-fix9: scope (Source) lives at the top of the filter
+         pane as a vertical list. Same data-scope attributes / .scope-opt
+         class as before so JS handlers keep working unchanged. -->
+    <div class="filter-block filter-block-source" id="filter-block-source">
+      <div class="filter-head">
+        <span class="folio">Source</span>
+      </div>
+      <div class="scope-list" role="tablist" aria-label="Source scope">
+        <button class="scope-opt is-active" data-scope="gc" role="tab" aria-selected="true">
+          <span class="scope-opt-name">General Comments</span>
+          <span class="scope-count" id="count-gc">—</span>
+        </button>
+        <button class="scope-opt" data-scope="jur" role="tab" aria-selected="false">
+          <span class="scope-opt-name">Jurisprudence</span>
+          <span class="scope-count" id="count-jur">—</span>
+          <span class="badge badge-jur">PREVIEW</span>
+        </button>
+        <button class="scope-opt" data-scope="sp" role="tab" aria-selected="false">
+          <span class="scope-opt-name">Special Procedures</span>
+          <span class="scope-count" id="count-sp">—</span>
+          <span class="badge badge-preview">PREVIEW</span>
+        </button>
+        <button class="scope-opt" data-scope="all" role="tab" aria-selected="false">
+          <span class="scope-opt-name">All sources</span>
+        </button>
+      </div>
+      <div class="scope-banner" id="scope-banner" hidden>
+        <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
+        <span class="folio">SOFT-LAW PREVIEW</span>Special Procedures are reports by independent UN mandate-holders. Currently only a few mandates are indexed; the General Comments collection is exhaustive while this is a curated preview that will grow.
+      </div>
+    </div>
+
     <div class="filter-block">
       <div class="filter-head">
         <span class="folio">Years</span>
@@ -282,7 +362,12 @@
         <div class="result-segmented" id="result-group" role="group" aria-label="Group results">
           <button class="result-opt is-active" data-group="paragraphs" type="button" aria-pressed="true">Paragraphs</button>
           <button class="result-opt" data-group="documents" type="button" aria-pressed="false">Documents</button>
-          <button class="result-opt" data-group="bodies"    type="button" aria-pressed="false">By body</button>
+          <details class="result-more-views" id="result-more-views">
+            <summary class="result-opt result-opt-more" aria-label="More grouping options">…</summary>
+            <div class="result-more-views-pop">
+              <button class="result-opt" data-group="bodies" type="button" aria-pressed="false">By treaty body</button>
+            </div>
+          </details>
         </div>
       </div>
       <div class="result-actions" aria-label="Document group controls">
@@ -397,6 +482,12 @@
             Across the current published build, <strong>38,492 paragraphs</strong> are searchable,
             filterable and citable down to their number.
           </p>
+          <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule); font-style: italic; color: var(--ink-3);">
+            This is an <strong style="font-style:normal;">independent academic project</strong>, not affiliated
+            with or endorsed by the OHCHR or any UN entity. Citations of individual
+            paragraphs should reference the original UN document signature (e.g.
+            <code class="mono">CRC/C/GC/25 ¶12</code>), not this database.
+          </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule);">
             <strong class="folio">Dataset snapshot:</strong> last synchronised with
             <a class="about-link" href="https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/TBSearch.aspx?Lang=en" target="_blank" rel="noopener">OHCHR Treaty Body Database</a>
@@ -469,8 +560,13 @@
           </p>
         </div>
 
-        <div class="about-block">
+        <div class="about-block about-block-methodology">
           <h3 class="folio">Methodology — pipeline & quality</h3>
+          <!-- v19.43: TL;DR intro stays visible; the four sub-topics
+               (OCR, annotation layers, conservatism, AI role) are
+               native <details> accordions, collapsed by default.
+               Reduces this 700-word block to a scannable 5-line
+               overview with on-demand depth. -->
           <p class="serif">
             Each document is downloaded as PDF, converted to Markdown, then to
             structured JSON paragraph-by-paragraph. Paragraphs are annotated with
@@ -482,57 +578,100 @@
             search runs entirely in the browser via FlexSearch with stemming, and
             the index is cached in IndexedDB after first load.
           </p>
-          <p class="serif">
-            <strong>Jurisprudence OCR.</strong> Older scanned CCPR PDFs are recovered
-            through a quality-first OCR sidecar pipeline. Published paragraphs keep
-            official numbering where possible; individual opinions are namespaced
-            as <code class="mono">OP1-</code>, <code class="mono">OP2-</code>, and real
-            case appendices as <code class="mono">A1-</code>. Generated IDs and OCR
-            provenance are exposed in the export rather than silently merged into
-            official text.
-          </p>
-          <p class="serif">
-            <strong>Two annotation layers.</strong> Labels applied manually before
-            this pass are preserved verbatim; the automated pipeline only fills
-            paragraphs left unlabelled. Pipeline labels come from human-readable
-            regular expressions matched against paragraph text — every match is
-            deterministic and reproducible. After six iterations, the corpus reaches
-            <strong>74&nbsp;% coverage on General Comments</strong> (5,283 of 7,105
-            paragraphs labelled) and <strong>37&nbsp;% on Special Procedures</strong>
-            (about 6,990 of 18,751 paragraphs labelled). The 26&nbsp;% of GC paragraphs that remain unlabelled are
-            mostly procedural framework text or discuss groups outside the taxonomy
-            (older persons, persons of African descent, religious minorities).
-          </p>
-          <p class="serif">
-            <strong>Conservatism over coverage.</strong> Patterns target unambiguous
-            markers — full terms and fixed phrases such as <code class="mono">indigent</code>,
-            <code class="mono">free, prior and informed consent</code>,
-            <code class="mono">corporal punishment</code> — rather than generic
-            synonyms. During quality review we removed several patterns that produced
-            false positives: <code class="mono">social security</code> and
-            <code class="mono">social protection</code> (wrongly mapped to Poverty),
-            <code class="mono">forced displacement</code> (moved from Refugees to
-            Armed conflict), <code class="mono">marginalized</code> (removed from
-            Poverty in SP because it overwhelmingly described religious minorities
-            in freedom-of-religion reports), and <code class="mono">alien</code>
-            (too ambiguous for Non-citizens). 81 false-positive Poverty labels were
-            cleaned out in this pass; the largest precision-and-recall gains are in
-            Persons deprived of their liberty (+271) and Persons with disabilities
-            (+187).
-          </p>
-          <p class="serif">
-            <strong>Role of generative AI.</strong> Claude Sonnet 4.6 (Anthropic) was
-            used as a coding assistant — proposing candidate patterns, reading samples
-            of newly-applied labels to flag probable false positives, and writing the
-            audit scripts. <strong>No paragraph label in the published corpus was
-            generated by an LLM as free-form output.</strong> Every label is the
-            result of a regular expression that a human can read, audit and modify;
-            re-running the pipeline on the same input produces byte-identical output.
-            The full methodology, label-by-label deltas, audit examples and known
-            limitations (no cross-paragraph context, no negation handling) are in the
-            <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/METHODOLOGY.md" target="_blank" rel="noopener">METHODOLOGY.md</a>
-            document. App and corpus workflow by Łukasz Szoszkiewicz and Zuzanna Kowalska.
-          </p>
+
+          <div class="about-method-toc">
+            <span class="folio dim">Read more:</span>
+            <a class="about-method-toc-link" href="#m-ocr">Jurisprudence OCR</a>
+            <a class="about-method-toc-link" href="#m-layers">Two annotation layers</a>
+            <a class="about-method-toc-link" href="#m-conservatism">Conservatism over coverage</a>
+            <a class="about-method-toc-link" href="#m-ai">Role of generative AI</a>
+          </div>
+
+          <details class="about-method-detail" id="m-ocr">
+            <summary class="about-method-summary">
+              <span class="about-method-summary-title">Jurisprudence OCR</span>
+              <span class="about-method-summary-hint dim">scanned-PDF recovery, opinion namespacing</span>
+            </summary>
+            <div class="about-method-body">
+              <p class="serif">
+                Older scanned CCPR PDFs are recovered through a quality-first OCR
+                sidecar pipeline. Published paragraphs keep official numbering
+                where possible; individual opinions are namespaced as
+                <code class="mono">OP1-</code>, <code class="mono">OP2-</code>, and
+                real case appendices as <code class="mono">A1-</code>. Generated
+                IDs and OCR provenance are exposed in the export rather than
+                silently merged into official text.
+              </p>
+            </div>
+          </details>
+
+          <details class="about-method-detail" id="m-layers">
+            <summary class="about-method-summary">
+              <span class="about-method-summary-title">Two annotation layers</span>
+              <span class="about-method-summary-hint dim">manual labels first, automation only fills gaps · 74 % GC, 37 % SP coverage</span>
+            </summary>
+            <div class="about-method-body">
+              <p class="serif">
+                Labels applied manually before this pass are preserved verbatim;
+                the automated pipeline only fills paragraphs left unlabelled.
+                Pipeline labels come from human-readable regular expressions
+                matched against paragraph text — every match is deterministic
+                and reproducible. After six iterations, the corpus reaches
+                <strong>74&nbsp;% coverage on General Comments</strong>
+                (5,283 of 7,105 paragraphs labelled) and
+                <strong>37&nbsp;% on Special Procedures</strong>
+                (about 6,990 of 18,751 paragraphs labelled). The 26&nbsp;% of GC
+                paragraphs that remain unlabelled are mostly procedural framework
+                text or discuss groups outside the taxonomy (older persons,
+                persons of African descent, religious minorities).
+              </p>
+            </div>
+          </details>
+
+          <details class="about-method-detail" id="m-conservatism">
+            <summary class="about-method-summary">
+              <span class="about-method-summary-title">Conservatism over coverage</span>
+              <span class="about-method-summary-hint dim">patterns we removed · false-positive cleanups · 81 Poverty fixes</span>
+            </summary>
+            <div class="about-method-body">
+              <p class="serif">
+                Patterns target unambiguous markers — full terms and fixed phrases
+                such as <code class="mono">indigent</code>,
+                <code class="mono">free, prior and informed consent</code>,
+                <code class="mono">corporal punishment</code> — rather than generic
+                synonyms. During quality review we removed several patterns that
+                produced false positives: <code class="mono">social security</code>
+                and <code class="mono">social protection</code> (wrongly mapped
+                to Poverty), <code class="mono">forced displacement</code> (moved
+                from Refugees to Armed conflict), <code class="mono">marginalized</code>
+                (removed from Poverty in SP because it overwhelmingly described
+                religious minorities in freedom-of-religion reports), and
+                <code class="mono">alien</code> (too ambiguous for Non-citizens).
+                81 false-positive Poverty labels were cleaned out in this pass;
+                the largest precision-and-recall gains are in Persons deprived
+                of their liberty (+271) and Persons with disabilities (+187).
+              </p>
+            </div>
+          </details>
+
+          <details class="about-method-detail" id="m-ai">
+            <summary class="about-method-summary">
+              <span class="about-method-summary-title">Role of generative AI</span>
+              <span class="about-method-summary-hint dim">no LLM-generated labels · regex audit, byte-identical reproducibility</span>
+            </summary>
+            <div class="about-method-body">
+              <p class="serif">
+                Claude Sonnet 4.6 (Anthropic) was used as a coding assistant —
+                proposing candidate patterns, reading samples of newly-applied
+                labels to flag probable false positives, and writing the audit
+                scripts. <strong>No paragraph label in the published corpus was
+                generated by an LLM as free-form output.</strong> Every label is
+                the result of a regular expression that a human can read, audit
+                and modify; re-running the pipeline on the same input produces
+                byte-identical output.
+              </p>
+            </div>
+          </details>
         </div>
 
         <div class="about-block">
@@ -553,8 +692,7 @@
             Code released under MIT; the curated dataset under
             <a class="about-link" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.
             Built as a static site on GitHub Pages with vanilla JavaScript,
-            FlexSearch and SheetJS. Editorial design adapted from the
-            <em>Strasbourg Reporter</em> ECHR mockups. Set in
+            FlexSearch and SheetJS. Set in
             <em>Spectral</em>, <em>Source Serif 4</em> and <em>JetBrains Mono</em>.
           </p>
         </div>
@@ -649,6 +787,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260502-v19-22-banner-kwic"></script>
+<script type="module" src="assets/app.js?v=20260505-v19-43t"></script>
 </body>
 </html>

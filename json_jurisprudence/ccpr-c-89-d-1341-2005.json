@@ -1,21 +1,27 @@
 [
   {
     "ID": "1.1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author of the communication is Ernst Zundel, a German citizen born in 1939, currently imprisoned in Germany after his deportation from Canada to Germany. He claims to be a victim of violations by Canada of article 7; article 9, paragraphs 1 and 3; article 10; article 14, paragraphs 1, 2 and 3; article 18; article 19 and article 26 of the International Covenant on Civil and Political Rights. He is represented by counsel, Barbara Kulaszka."
+    "Text": "The author of the communication is Ernst Zundel, a German citizen born in 1939, currently imprisoned in Germany after his deportation from Canada to Germany. He claims to be a victim of violations by Canada[[fn:3]] of article 7; article 9, paragraphs 1 and 3; article 10; article 14, paragraphs 1, 2 and 3; article 18; article 19 and article 26 of the International Covenant on Civil and Political Rights. He is represented by counsel, Barbara Kulaszka.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The Covenant and the Optional Protocol entered into force for Canada on 19 August 1976."
+      }
+    ]
   },
   {
     "ID": "1.2.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "On 10 January and 1 March 2005, the Special Rapporteur on New Communications and Interim Measures denied the author’s requests for interim measures to prevent his deportation from Canada to Germany."
   },
   {
     "ID": "1.3.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "On 11 March 2005, the Committee's Special Rapporteur on New Communications decided to separate the consideration of the admissibility and merits of the communication."
   },
@@ -65,7 +71,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "In 2000 the author left Canada, to live with his wife in the US. He was deported from the US to Canada on 19 February 2003, on grounds of irregularities in immigration proceedings. He claimed refugee status and was initially detained under section 55 of the Immigration and Refugee Protection Act (the Act). On 24 February 2003, the Refugee Protection Division was notified by the Citizenship and Immigration Canada that pursuant to section 103 (1) of the Act, the Division was required to suspend consideration of the refugee claim on the grounds that the author’s case had been referred to the Immigration Division for a determination on inadmissibility on grounds of national security."
+    "Text": "In 2000 the author left Canada, to live with his wife in the US. He was deported from the US to Canada on 19 February 2003, on grounds of irregularities in immigration proceedings. He claimed refugee status and was initially detained under section 55[[fn:4]] of the Immigration and Refugee Protection Act (the Act). On 24 February 2003, the Refugee Protection Division was notified by the Citizenship and Immigration Canada that pursuant to section 103 (1) of the Act, the Division was required to suspend consideration of the refugee claim on the grounds that the author’s case had been referred to the Immigration Division for a determination on inadmissibility on grounds of national security.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Section 55(1) states: An officer may issue a warrant for the arrest and detention of a permanent resident or a foreign national who the offer has reasonable grounds to believe is inadmissible and is a danger to the public or is unlikely to appear for examination, an admissibility hearing or removal from Canada."
+      }
+    ]
   },
   {
     "ID": "2.8.",
@@ -77,7 +89,17 @@
     "ID": "2.9.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 1 May 2003, the Minister of Citizenship and Immigration and the Solicitor General of Canada (the Ministers) issued a certificate finding the author to be inadmissible to Canada on grounds of security, under section 77 of the Act. He was served with an arrest warrant, under section 82 of the Act, while detained at Niagara Detention Centre. The matter was referred to the Federal Court of Canada for a review of the reasonableness of the security certificate and a review of the need for the author’s continued detention, pending the outcome of security certificate reasonableness determination. Pursuant to section 77 of the Act, the Court reviewed the information Ministers in camera and determined that portions of the information should not be disclosed, as its disclosure would harm national security. On 5 May 2003, the Court ordered that the author be provided with a “Statement Summarizing the Information and Evidence” (the Summary), outlining the author’s position in the white supremacist movement and his contact with its members and other right-wing extremists. In addition to the Summary, the Ministers provided the author with a Reference Index containing more than 1600 pages of unclassified documents that support the information provided in the Summary."
+    "Text": "On 1 May 2003, the Minister of Citizenship and Immigration and the Solicitor General of Canada (the Ministers) issued a certificate finding the author to be inadmissible to Canada on grounds of security, under section 77 of the Act[[fn:5]]. He was served with an arrest warrant, under section 82 of the Act[[fn:6]], while detained at Niagara Detention Centre. The matter was referred to the Federal Court of Canada for a review of the reasonableness of the security certificate and a review of the need for the author’s continued detention, pending the outcome of security certificate reasonableness determination. Pursuant to section 77 of the Act, the Court reviewed the information Ministers in camera and determined that portions of the information should not be disclosed, as its disclosure would harm national security. On 5 May 2003, the Court ordered that the author be provided with a “Statement Summarizing the Information and Evidence” (the Summary), outlining the author’s position in the white supremacist movement and his contact with its members and other right-wing extremists. In addition to the Summary, the Ministers provided the author with a Reference Index containing more than 1600 pages of unclassified documents that support the information provided in the Summary.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Section 77(1): “The Minister and the Solicitor General of Canada shall sign a certificate stating that a permanent resident or a foreign national is inadmissible on grounds of security, violating human or international rights, serious criminality or organized criminality and refer it to the Federal Court, which shall make a determination under section 80.”"
+      },
+      {
+        "n": 6,
+        "text": "Section 82(1): “The Minister and the Solicitor General of Canada may issue a warrant for the arrest and detention of a permanent resident who is named in a certificate described in subsection 77(1) if they have reasonable grounds to believe that the permanent resident is a danger to national security or to the safety of any person or is unlikely to appear at a proceeding or for removal.”"
+      }
+    ]
   },
   {
     "ID": "2.10.",
@@ -101,7 +123,13 @@
     "ID": "2.13.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 24 November 2004, the author filed a Statement of Claim in the Federal Court, claiming that the provisions of the Act under which he was detained violated sections 7, 9 and 10(c) of the Charter, and that his detention in solitary confinement, while the Federal Court was reviewing the reasonableness of the security certificate, was unlawful and unconstitutional."
+    "Text": "On 24 November 2004, the author filed a Statement of Claim in the Federal Court, claiming that the provisions of the Act under which he was detained violated sections 7, 9 and 10(c)[[fn:7]] of the Charter, and that his detention in solitary confinement, while the Federal Court was reviewing the reasonableness of the security certificate, was unlawful and unconstitutional.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Section 7 of the Charter: “Everyone has the right to life, liberty and security of the person and the right not to be deprived thereof except in accordance with the principles of fundamental justice.” Section 9: “Everyone has the right not to be arbitrarily detained or imprisoned.” Section 10: “Everyone has the right on arrest or detention (a) to be informed promptly of the reasons therefore; (b) to retain and instruct counsel without delay and to be informed of that right; and (c) to have the validity of the detention determined by way of habeas corpus and to be released if the detention is not lawful.”"
+      }
+    ]
   },
   {
     "ID": "2.14.",
@@ -181,13 +209,25 @@
     "ID": "4.4.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "On admissibility, the State party submits that the author has failed to show that the availability of any domestic remedies would be unreasonably prolonged. The State party refers to the Committee’s jurisprudence that seeking redress for alleged violations of rights and freedoms, like those guaranteed under the Charter and other public law remedies, via the normal judicial process would not be unreasonably prolonged within the meaning of article 5(2)(b) of the Optional Protocol. It further submits that the author has failed to exhaust available remedies and that he has implicitly admitted that he has not done so."
+    "Text": "On admissibility, the State party submits that the author has failed to show that the availability of any domestic remedies would be unreasonably prolonged. The State party refers to the Committee’s jurisprudence that seeking redress for alleged violations of rights and freedoms, like those guaranteed under the Charter and other public law remedies, via the normal judicial process would not be unreasonably prolonged within the meaning of article 5(2)(b) of the Optional Protocol.[[fn:8]] It further submits that the author has failed to exhaust available remedies and that he has implicitly admitted that he has not done so.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "The State party refers to Communication No. 67/1980, E.H.P. v. Canada, decision of 27 October 1982, para.8; Communication No. 358/1989, R.L. et al. v. Canada, decision of 5 November 1991, para.6.4; Communication No.228/1987, C.L.D. v. France, decision of 18 July 1988, para.5.3; and Communication No. 296/1988, J.R.C. v. Costa Rica, decision of 30 March 1989, para.8.3."
+      }
+    ]
   },
   {
     "ID": "4.5.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "On the claims under article 7 and 10, the State party indicates that the Charter guarantees that conditions of detention respect the dignity of detainees. The author could have challenged his conditions of detention under any of Sections 2, 7, 8, 10 and 12 of the Charter. In addition, other more particular legal rules governed the author’s detention, the enforcement of which by a domestic court through judicial review could have provided a remedy to the type of complaints made by the author."
+    "Text": "On the claims under article 7 and 10, the State party indicates that the Charter guarantees that conditions of detention respect the dignity of detainees. The author could have challenged his conditions of detention under any of Sections 2, 7, 8, 10 and 12 of the Charter. In addition, other more particular legal rules governed the author’s detention, the enforcement of which by a domestic court through judicial review could have provided a remedy to the type of complaints made by the author.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "See sections 28 and 33-34 of the Ministry of Correctional Services Act, R.R.O. 1990 Reg. 778, which provides an avenue for inmates held in Ontario facilities, as was the author, to complain about their treatment."
+      }
+    ]
   },
   {
     "ID": "4.6.",
@@ -199,13 +239,29 @@
     "ID": "4.7.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "On the author’s claim under article 9, paragraph 1, relating to alleged violations arising from incidents dating from 1984 to 1995, the State party contends that the author has failed to demonstrate that he ever attempted to pursue domestic remedies that would have been available to redress any proven misconduct by law enforcement officials and/or Crown prosecutors. Various judicial remedies were and are potentially available to the author, including judicial review for mala fides, bias, flagrant impropriety, abuse of power, etc., and actions based on the Charter. Additionally, administrative complaint procedures could have provided effective remedies, but the author has not apparently pursued such remedies either. The author makes no claim to have pursued such remedies in relation to the law enforcement agencies that he seeks to impugn. Still in relation to the claim under article 9, paragraph 1, the State party adds that the author did not act diligently in presenting his claims that it failed to protect his security by not investigating and prosecuting alleged attacks made against him and his property between 1984 and 1995. For the State party, a delay of ten to twenty years without reasonable justification renders this claim inadmissible as an abuse of the right of submission."
+    "Text": "On the author’s claim under article 9, paragraph 1, relating to alleged violations arising from incidents dating from 1984 to 1995, the State party contends that the author has failed to demonstrate that he ever attempted to pursue domestic remedies that would have been available to redress any proven misconduct by law enforcement officials and/or Crown prosecutors. Various judicial remedies were and are potentially available to the author, including judicial review for mala fides, bias, flagrant impropriety, abuse of power, etc., and actions based on the Charter. Additionally, administrative complaint procedures could have provided effective remedies, but the author has not apparently pursued such remedies either. The author makes no claim to have pursued such remedies in relation to the law enforcement agencies that he seeks to impugn. Still in relation to the claim under article 9, paragraph 1, the State party adds that the author did not act diligently in presenting his claims that it failed to protect his security by not investigating and prosecuting alleged attacks made against him and his property between 1984 and 1995. For the State party, a delay of ten to twenty years without reasonable justification renders this claim inadmissible as an abuse of the right of submission.[[fn:10]]",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See Communication No. 787/1997, Gobin v. Mauritius, Views adopted on 16 July 2001, para.6.3."
+      }
+    ]
   },
   {
     "ID": "4.8.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "On the author’s claims under article 14, paragraphs 1 to 3, the State party indicates that the author has initiated domestic proceedings before the Federal Court of Canada alleging essentially the same complaints that he raises in this communication pursuant to article 14. One action relates to the alleged bias of the judge presiding over the reasonableness of the national security certificate and the ongoing reviews of his detention, while the other challenges the constitutionality of the national security certificate process as it applies to the author. In this constitutional challenge, the author makes claims under sections 7, 9 and 10(c) of the Charter, in relation to the promptness and fairness of the hearing, including matters of standard of proof, disclosure of evidence and procedural rights, and in relation to the duration and lawfulness of his continued detention. Given available domestic remedies, which are actually and still being pursued by the author, the State party considers that this portion of the case is inadmissible for failure to exhaust domestic remedies."
+    "Text": "On the author’s claims under article 14, paragraphs 1 to 3, the State party indicates that the author has initiated domestic proceedings before the Federal Court of Canada alleging essentially the same complaints that he raises in this communication pursuant to article 14.[[fn:11]] One action relates to the alleged bias of the judge presiding over the reasonableness of the national security certificate and the ongoing reviews of his detention[[fn:12]], while the other challenges the constitutionality of the national security certificate process as it applies to the author. In this constitutional challenge, the author makes claims under sections 7, 9 and 10(c) of the Charter, in relation to the promptness and fairness of the hearing, including matters of standard of proof, disclosure of evidence and procedural rights, and in relation to the duration and lawfulness of his continued detention. Given available domestic remedies, which are actually and still being pursued by the author, the State party considers that this portion of the case is inadmissible for failure to exhaust domestic remedies.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "Although the author has now been deported from Canada, this fact does not preclude him in law from continuing with his action, nor does it necessarily deprive him of a meaningful remedy if he ultimately proves successful. Pursuant to s. 24(1) of the Charter and s. 52 of the Constitution Act, 1982, Canadian courts have robust powers to remedy any constitutional wrongs."
+      },
+      {
+        "n": 12,
+        "text": "At the time of the State party’s submissions, the author’s latest attempt to have the Presiding Judge removed for bias was still pending before the Supreme Court of Canada, which was to decide whether to grant leave to appeal. Leave to appeal was denied on 25 August 2005."
+      }
+    ]
   },
   {
     "ID": "4.9.",
@@ -217,43 +273,101 @@
     "ID": "4.10.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "On the discrimination claim under article 26, the State party indicates that section 15 of the Charter guarantees to everyone the right to equality without discrimination. It refers to the Committee’s earlier decision in a case about the author, and recalls that failure to pursue a section 15 claim domestically in relation to a particular discrimination complaint makes that complaint inadmissible before the Committee."
+    "Text": "On the discrimination claim under article 26, the State party indicates that section 15 of the Charter guarantees to everyone the right to equality without discrimination. It refers to the Committee’s earlier decision in a case about the author[[fn:13]], and recalls that failure to pursue a section 15 claim domestically in relation to a particular discrimination complaint makes that complaint inadmissible before the Committee.",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "Communication No. 953/2000, Zündel v. Canada, inadmissibility decision of 27 July 2003, para.8.6."
+      }
+    ]
   },
   {
     "ID": "4.11.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "The State party argues that the author has failed to substantiate his claims. In relation to his claim under article 9, it points out that it relates to his detention as a threat to national security and refers to the Committee’s jurisprudence that there is nothing arbitrary, ipso facto, about detention of an alien based on the issuance of a security certificate provided for by law. For the State party, the communication clearly discloses that the author knows why he was detained pursuant to the Act, and knows the applicable legal standards that governed his detention and ultimate deportation. He had ample opportunity to make arguments before various courts and judges concerning the lawfulness of his continued detention, and to make arguments against the finding by the Ministers that he represents a threat to national security. By the express terms of the Act, as a permanent resident of Canada the author was entitled to have his detention reviewed at least every six months. In the author’s case, reviews did not lead to his release because he was repeatedly found to be a danger to national security. However, reviews are meaningful and can help to secure release from detention. The State party thus argues that this claim is incompatible ratione materiae with the Covenant."
+    "Text": "The State party argues that the author has failed to substantiate his claims. In relation to his claim under article 9, it points out that it relates to his detention as a threat to national security and refers to the Committee’s jurisprudence that there is nothing arbitrary, ipso facto, about detention of an alien based on the issuance of a security certificate provided for by law[[fn:14]]. For the State party, the communication clearly discloses that the author knows why he was detained pursuant to the Act, and knows the applicable legal standards that governed his detention and ultimate deportation. He had ample opportunity to make arguments before various courts and judges concerning the lawfulness of his continued detention, and to make arguments against the finding by the Ministers that he represents a threat to national security. By the express terms of the Act, as a permanent resident of Canada the author was entitled to have his detention reviewed at least every six months.[[fn:15]] In the author’s case, reviews did not lead to his release because he was repeatedly found to be a danger to national security. However, reviews are meaningful and can help to secure release from detention. The State party thus argues that this claim is incompatible ratione materiae with the Covenant.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "Communication No. 1051/2002, Ahani v. Canada, Views adopted on 29 March 2004, para.10.2. See also Communication No. 236/1987, V.M.R.B. v. Canada, inadmissibility decision of 18 July 1988, para.6.3."
+      },
+      {
+        "n": 15,
+        "text": "See Immigration and Refugee Protection Act, section 83(2)"
+      }
+    ]
   },
   {
     "ID": "4.12.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "On the claims under article 14, the State party submits that deportation proceedings do not involve either the determination of a criminal charge or rights and obligations in a suit at law, but are in the nature of the administration of public law. With respect to the “criminal charge” aspect of article 14, it claims that deportation proceedings are even less connected to the determination of a criminal charge than extradition proceedings, which the Committee has viewed as not falling within the scope of article 14. Consequently, the State party submits that those of the author’s claims that relate specifically to paragraphs 2 and 3 of article 14 are inadmissible as incompatible ratione materiae with the Covenant."
+    "Text": "On the claims under article 14, the State party submits that deportation proceedings do not involve either the determination of a criminal charge or rights and obligations in a suit at law, but are in the nature of the administration of public law. With respect to the “criminal charge” aspect of article 14, it claims that deportation proceedings are even less connected to the determination of a criminal charge than extradition proceedings, which the Committee has viewed as not falling within the scope of article 14.[[fn:16]] Consequently, the State party submits that those of the author’s claims that relate specifically to paragraphs 2 and 3 of article 14 are inadmissible as incompatible ratione materiae with the Covenant.",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "Communication No. 1020/2001, Cabal and Bertran v. Australia, Views adopted on 7 August 2003, para.7.6; and Communication No. 961/2000, Everett v. Spain, para.6.4."
+      }
+    ]
   },
   {
     "ID": "4.13.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "With respect to the “suit at law” aspect of article 14, the State party reiterates its arguments in V.R.M.B. v. Canada, that deportation proceedings are neither a determination of a “criminal charge” nor the determination of “rights or obligations in a suit at law”. Rather, deportation proceedings are in the realm of public law and involve the State’s ability to regulate citizenship and immigration. The Committee declined to express its view as to whether a deportation proceeding is a “suit at law” in that case, as well as in Ahani v. Canada, another case involving deportation proceedings of a person representing a threat to national security."
+    "Text": "With respect to the “suit at law” aspect of article 14, the State party reiterates its arguments in V.R.M.B. v. Canada[[fn:17]], that deportation proceedings are neither a determination of a “criminal charge” nor the determination of “rights or obligations in a suit at law”. Rather, deportation proceedings are in the realm of public law and involve the State’s ability to regulate citizenship and immigration. The Committee declined to express its view as to whether a deportation proceeding is a “suit at law” in that case, as well as in Ahani v. Canada, another case involving deportation proceedings of a person representing a threat to national security.[[fn:18]]",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "Communication No. 236/1987, V.M.R.B. v. Canada, Views adopted on 18 July 1988."
+      },
+      {
+        "n": 18,
+        "text": "Communication No. 1051/2002, Ahani v. Canada, Views adopted on 29 March 2004, para.10.5."
+      }
+    ]
   },
   {
     "ID": "4.14.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "The State party argues that, given the equivalence of article 6 of the European Convention and article 14 of the Covenant, the European Court’s case law is persuasive that the deportation proceedings challenged by the author are not encompassed by article 14 of the Covenant. In this respect, it refers to the case of Maaouia v. France, where the European Court held that the decision of whether or not to authorise an alien to stay in a country of which he is not a national does not entail any determination of his civil rights or obligations or of any criminal charge against him, within the meaning of article 6, paragraph 1, of the European Convention."
+    "Text": "The State party argues that, given the equivalence of article 6 of the European Convention and article 14 of the Covenant, the European Court’s case law is persuasive that the deportation proceedings challenged by the author are not encompassed by article 14 of the Covenant. In this respect, it refers to the case of Maaouia v. France[[fn:19]], where the European Court held that the decision of whether or not to authorise an alien to stay in a country of which he is not a national does not entail any determination of his civil rights or obligations or of any criminal charge against him, within the meaning of article 6, paragraph 1, of the European Convention.[[fn:20]]",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "Maaouia v. France, application no. 39652/98, decision rendered by the European Court of Human Rights on 5 October 2000."
+      },
+      {
+        "n": 20,
+        "text": "The State party refers to more than ten decisions of the European court supporting this statement, and provides copies of all of them in its annexes. These include the cases of Elvis Jakupovic v. Austria, application no. 36757/97, judgment of the European Court of Human Rights on 15 November 2001; and Veselin Marinkovic v. Austria, application no. 46548/99, judgment of the European Court of Human Rights of 23 October 2001."
+      }
+    ]
   },
   {
     "ID": "4.15.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "Subsidiarily, the State party submits that the author has failed to substantiate that the security certificate and detention reviews were conducted other than in full accordance with article 14. The author’s deportation, predicated on Canada’s reasonable belief that he is a threat to national security, proceeded according to Canadian law in a fair and impartial manner affording the author the assistance of legal counsel and the opportunity to challenge evidence, including by way of examination of a representative of the CSIS. To the extent that the author was restricted in his ability to challenge all the evidence against him, this was done for national security reasons, in accordance with Canadian law which the Committee has viewed as satisfactory, and which is consistent with the Covenant (article 13)."
+    "Text": "Subsidiarily, the State party submits that the author has failed to substantiate that the security certificate and detention reviews were conducted other than in full accordance with article 14. The author’s deportation, predicated on Canada’s reasonable belief that he is a threat to national security, proceeded according to Canadian law in a fair and impartial manner affording the author the assistance of legal counsel and the opportunity to challenge evidence, including by way of examination of a representative of the CSIS. To the extent that the author was restricted in his ability to challenge all the evidence against him, this was done for national security reasons,[[fn:21]] in accordance with Canadian law which the Committee has viewed as satisfactory,[[fn:22]] and which is consistent with the Covenant (article 13).",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "See Immigration and Refugee Protection Act, Division 9: “Protection of Information”."
+      },
+      {
+        "n": 22,
+        "text": "Communication No. 1051/2002, Ahani v. Canada, Views adopted on 29 March 2004, para.10.5."
+      }
+    ]
   },
   {
     "ID": "4.16.",
     "Section": "The State party’s observations",
     "Labels": [],
-    "Text": "The State party submits that there was no bias with respect to the author’s deportation proceedings. The domestic courts properly weighed the factual record and the applicable legal principles in rejecting the author’s bias allegations. The State party invokes the Committee’s established jurisprudence in this regard. No case of arbitrariness and bias in evaluation of evidence can be made out by the author, let alone in a prima facie way. The State party submits that any article 14 claim based on allegations of bias is inadmissible pursuant to article 3 of the Optional Protocol."
+    "Text": "The State party submits that there was no bias with respect to the author’s deportation proceedings. The domestic courts properly weighed the factual record and the applicable legal principles in rejecting the author’s bias allegations. The State party invokes the Committee’s established jurisprudence in this regard.[[fn:23]] No case of arbitrariness and bias in evaluation of evidence can be made out by the author, let alone in a prima facie way. The State party submits that any article 14 claim based on allegations of bias is inadmissible pursuant to article 3 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 23,
+        "text": "See e.g., Communication No. 1188/2003, Riedl-Riedstein et al. v. Germany, decision of 2 November 2004, para.7.3."
+      }
+    ]
   },
   {
     "ID": "4.17.",
@@ -277,7 +391,13 @@
     "ID": "6.2.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Committee notes that the State party challenges the totality of the communication. In respect of the author’s claims under article 7 and 10 related to his conditions and length of detention, the State party contends that the author could have pursued remedies for violations of the Canadian Charter, in particular under section 12, according to which “Everyone has the right not to be subjected to any cruel or unusual treatment or punishment”. In addition, the author could have complained about his detention conditions under the Ministry of Correctional Services Act, in particular under sections 28 on inmate complaints and section 34 relating to segregation. In the absence of any comments or objection from the author, who filed a constitutional action under other sections of the Charter, the Committee concludes that this part of the communication is inadmissible under article 5, paragraph 2(b), of the Optional Protocol, for failure to exhaust domestic remedies."
+    "Text": "The Committee notes that the State party challenges the totality of the communication. In respect of the author’s claims under article 7 and 10 related to his conditions and length of detention, the State party contends that the author could have pursued remedies for violations of the Canadian Charter, in particular under section 12, according to which “Everyone has the right not to be subjected to any cruel or unusual treatment or punishment”. In addition, the author could have complained about his detention conditions under the Ministry of Correctional Services Act, in particular under sections 28 on inmate complaints[[fn:24]] and section 34 relating to segregation. In the absence of any comments or objection from the author, who filed a constitutional action under other sections of the Charter, the Committee concludes that this part of the communication is inadmissible under article 5, paragraph 2(b), of the Optional Protocol, for failure to exhaust domestic remedies.",
+    "Footnotes": [
+      {
+        "n": 24,
+        "text": "Section 28: “Where an inmate alleges that the inmate’s privileges have been infringed or otherwise has a complaint against another inmate or employee, the inmate may make a complaint in writing to the Superintendent.”"
+      }
+    ]
   },
   {
     "ID": "6.3.",
@@ -295,7 +415,13 @@
     "ID": "6.5.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "On the claim under article 9, paragraph 1, of an alleged failure of the State party to ensure the security of the author, the State party claims that this part of the communication constitutes an abuse of the right of submission. The Committee recalls that there are no fixed time limits for submission of communications under the Optional Protocol and that mere delay in submission does not of itself involve abuse of the right of communication. However, in certain circumstances, the Committee expects a reasonable justification for such a delay. The alleged attacks against the author occurred between 1984 and 1995, i.e. twelve to twenty-three years ago. The Committee notes that the author has availed himself of the procedure under the Optional Protocol twice before, but that he did not take this opportunity to file such a claim before. In the absence of any justification of such a delay, the Committee considers (French: le Comité estime…) that submitting the communication after such a time lapse should be regarded as an abuse of the right of submission. It finds that this part of the communication is inadmissible under article 3 of the Optional Protocol."
+    "Text": "On the claim under article 9, paragraph 1, of an alleged failure of the State party to ensure the security of the author, the State party claims that this part of the communication constitutes an abuse of the right of submission. The Committee recalls that there are no fixed time limits for submission of communications under the Optional Protocol and that mere delay in submission does not of itself involve abuse of the right of communication[[fn:25]]. However, in certain circumstances, the Committee expects a reasonable justification for such a delay. The alleged attacks against the author occurred between 1984 and 1995, i.e. twelve to twenty-three years ago. The Committee notes that the author has availed himself of the procedure under the Optional Protocol twice before, but that he did not take this opportunity to file such a claim before. In the absence of any justification of such a delay, the Committee considers (French: le Comité estime…) that submitting the communication after such a time lapse should be regarded as an abuse of the right of submission. It finds that this part of the communication is inadmissible under article 3 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 25,
+        "text": "Communication No. 787/1997, Gobin v. Mauritius, inadmissibility decision of 16 July 2001, para.6.3."
+      }
+    ]
   },
   {
     "ID": "6.6.",
@@ -315,7 +441,13 @@
     "ID": "6.8.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Committee recalls, in addition, that the concept of a \"suit at law\" under article 14, paragraph 1, of the Covenant is based on the nature of the right in question rather than on the status of one of the parties. In the present case, the proceedings relate to the right of the author, who was a lawful permanent resident, to continue residing in the State party’s territory. The Committee considers that proceedings relating to an alien’s expulsion, the guarantees of which are governed by article 13 of the Covenant, do not also fall within the ambit of a determination of “rights and obligations in a suit at law”, within the meaning of article 14, paragraph 1. It concludes that the deportation proceedings of the author, who was found to represent a threat to national security, do not fall within the scope of article 14, paragraph 1, and are inadmissible ratione materiae, pursuant to article 3 of the Optional Protocol."
+    "Text": "The Committee recalls, in addition, that the concept of a \"suit at law\" under article 14, paragraph 1, of the Covenant is based on the nature of the right in question rather than on the status of one of the parties[[fn:26]]. In the present case, the proceedings relate to the right of the author, who was a lawful permanent resident, to continue residing in the State party’s territory. The Committee considers that proceedings relating to an alien’s expulsion, the guarantees of which are governed by article 13 of the Covenant, do not also fall within the ambit of a determination of “rights and obligations in a suit at law”, within the meaning of article 14, paragraph 1. It concludes that the deportation proceedings of the author, who was found to represent a threat to national security, do not fall within the scope of article 14, paragraph 1, and are inadmissible ratione materiae, pursuant to article 3 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "Communication No. 112/1981, Y.L. v. Canada, inadmissibility decision adopted on 8 April 1986, para.9.1 and 9.2; Communication No.441/1990, Casanovas v. France, Views adopted on 19 July 1994, para.5.2; Communication No. 1030/2001, Dimitrov v. Bulgaria, decision on admissibility adopted on 28 October 2005, para.8.3."
+      }
+    ]
   },
   {
     "ID": "6.9.",
@@ -329,7 +461,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The Committee reaches the same conclusion with respect to the author’s claim under article 26, as he has failed to pursue any remedy under section 15 of the Charter, which reads: “Every individual is equal before and under the law and has the right to the equal protection and equal benefit of the law without discrimination and, in particular, without discrimination based on race, national or ethnic origin, colour, religion, sex, age or mental or physical disability.” Although “discrimination on political or other opinion”, which is explicitly referred to in article 26 of the Covenant, is not listed in Section 15 of the Charter, the list is preceded and qualified by the terms “in particular”, which suggests that the list is not exhaustive. The author could therefore have availed himself of this remedy and once more has failed to fulfil the requirements under article 5, paragraph 2(b), of the Optional Protocol."
+    "Text": "The Committee reaches the same conclusion with respect to the author’s claim under article 26, as he has failed to pursue any remedy under section 15 of the Charter, which reads: “Every individual is equal before and under the law and has the right to the equal protection and equal benefit of the law without discrimination and, in particular, without discrimination based on race, national or ethnic origin, colour, religion, sex, age or mental or physical disability.” Although “discrimination on political or other opinion”, which is explicitly referred to in article 26 of the Covenant, is not listed in Section 15 of the Charter[[fn:27]], the list is preceded and qualified by the terms “in particular”, which suggests that the list is not exhaustive. The author could therefore have availed himself of this remedy and once more has failed to fulfil the requirements under article 5, paragraph 2(b), of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 27,
+        "text": "Section 15, of the Charter : «15(1) Every individual is equal before and under the law and has the right to the equal protection and equal benefit of the law without discrimination and, in particular, without discrimination based on race, national or ethnic origin, colour, religion, sex, age or mental or physical disability.»"
+      }
+    ]
   },
   {
     "ID": "7.",

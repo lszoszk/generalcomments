@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The author of the communication, initially dated 7 April 2006, is Ronald van der Plaat. He claims to be a victim of violations by New Zealand of article 9, paragraphs 1 and 4; article 15 and article 26 of the Covenant. He is represented by counsel, Mr. Tony Ellis."
   },
@@ -55,7 +55,21 @@
     "ID": "3.3.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author notes that the Committee’s jurisprudence provides little guidance on the matter, as the two cases which squarely raised the current point were resolved on other grounds. In Van Duzen v Canada, the author was released on mandatory supervision rather than serving a full term, while in MacIsaac v Canada the author had failed to prove that retroactive application of more liberal parole laws would have resulted in his being released earlier. Nor does academic commentary offer guidance."
+    "Text": "The author notes that the Committee’s jurisprudence provides little guidance on the matter, as the two cases which squarely raised the current point were resolved on other grounds. In Van Duzen v Canada,[[fn:3]] the author was released on mandatory supervision rather than serving a full term, while in MacIsaac v Canada[[fn:4]] the author had failed to prove that retroactive application of more liberal parole laws would have resulted in his being released earlier. Nor does academic commentary offer guidance.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Communication No. 50/1979, Views adopted on 18 May 1979."
+      },
+      {
+        "n": 4,
+        "text": "Communication No. 55/1979, Views adopted on 14 October 1982."
+      },
+      {
+        "n": 5,
+        "text": "Opsahl, T., and De Zayas, A.: “The Uncertain Scope of Article 15(1) of the International Covenant on Civil and Political Rights”, [1983] Canadian Human Rights Yearbook 237, at 243: “The precise scope of article 15(1) remains to be clarified. Doubts persist as regards both its applicability in time and stage of process, and the meaning of some its terms, such as ‘offender’, ‘penalty’ and ‘lighter penalty’.”"
+      }
+    ]
   },
   {
     "ID": "3.4.",
@@ -81,7 +95,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "With respect to the actual claim before the Committee, the author has not pursued any claim before the courts. He refers to a May 2005 decision of the Supreme Court of New Zealand, interpreting section 6 of the Sentencing Act 2006 which provides that anyone convicted of “an offence in respect of which the penalty has been varied between the commission of the offence and sentencing” has “the right … to the benefit of the lesser penalty”. The Court concluded, by a majority, that a statutory change from a regime of mandatory release on conditions (and subject to recall) after two-thirds of sentence, to a regime of release after full sentence was not a change in “penalty”; the penalty as prescribed by law for the underlying conduct had remained unchanged. In light of this jurisprudence, the author argues it would be futile to pursue an appeal to the Supreme Court to argue for the meaning that he contends in this communication."
+    "Text": "With respect to the actual claim before the Committee, the author has not pursued any claim before the courts. He refers to a May 2005 decision of the Supreme Court of New Zealand,[[fn:6]] interpreting section 6 of the Sentencing Act 2006 which provides that anyone convicted of “an offence in respect of which the penalty has been varied between the commission of the offence and sentencing” has “the right … to the benefit of the lesser penalty”. The Court concluded, by a majority, that a statutory change from a regime of mandatory release on conditions (and subject to recall) after two-thirds of sentence, to a regime of release after full sentence was not a change in “penalty”; the penalty as prescribed by law for the underlying conduct had remained unchanged. In light of this jurisprudence, the author argues it would be futile to pursue an appeal to the Supreme Court to argue for the meaning that he contends in this communication.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "Morgan v The Superintendent of Rimuka Prison; judgment of 19 May 2005 (Elias CJ, Gault, Blanchard. Tipping and Henry JJ.)"
+      }
+    ]
   },
   {
     "ID": "4.1.",
@@ -105,13 +125,25 @@
     "ID": "4.4.",
     "Section": "State party’s submissions on the admissibility and merits",
     "Labels": [],
-    "Text": "As to article 9, the State party argues that the author’s detention until the expiry of his 14 year sentence cannot be said to be arbitrary. Referring to the Committee’s jurisprudence that “deprivation of liberty until the expiry of the sentence, notwithstanding the remission [an author] may have earned, do[es] not in any way affect the guarantees … set out in article 9 of the Covenant”, the State party considers that this sentence was determined by the sentencing courts as the appropriate penalty for the serious offences committed."
+    "Text": "As to article 9, the State party argues that the author’s detention until the expiry of his 14 year sentence cannot be said to be arbitrary. Referring to the Committee’s jurisprudence that “deprivation of liberty until the expiry of the sentence, notwithstanding the remission [an author] may have earned, do[es] not in any way affect the guarantees … set out in article 9 of the Covenant”,[[fn:7]] the State party considers that this sentence was determined by the sentencing courts as the appropriate penalty for the serious offences committed.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "A.R.S. v Canada, Communication No. 91/1981, Decision adopted on 28 October 1981."
+      }
+    ]
   },
   {
     "ID": "4.5.",
     "Section": "State party’s submissions on the admissibility and merits",
     "Labels": [],
-    "Text": "As to article 26, the State party refers to its submissions under article 15 and disputes in any event that a date of sentence is a sufficient “other status” within the meaning of article 26. It notes the House of Lords’ recent rejection of length of sentence as being such a status in terms of article 14 of the European Convention. Even if “other status” were applicable, the differentiation would be reasonable and objective, applying only to persons sentenced after new legislation entered into force, and would pursue a legitimate Covenant purpose."
+    "Text": "As to article 26, the State party refers to its submissions under article 15 and disputes in any event that a date of sentence is a sufficient “other status” within the meaning of article 26. It notes the House of Lords’ recent rejection of length of sentence as being such a status in terms of article 14 of the European Convention.[[fn:8]] Even if “other status” were applicable, the differentiation would be reasonable and objective, applying only to persons sentenced after new legislation entered into force, and would pursue a legitimate Covenant purpose.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Clift v Secretary of State for the Home Department [2007] 2 WLR 34."
+      }
+    ]
   },
   {
     "ID": "5.1.",
@@ -157,7 +189,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The Committee notes its jurisprudence on changes in sentencing and parole regimes that “it is not the Committee’s function to make a hypothetical assessment of what would have happened if the new Act had been applicable to him”, and that it cannot be assumed what a sentencing judge applying new sentencing legislation would in fact have concluded by way of sentence. The Committee’s jurisprudence has also noted the relevance of a prediction as to the author’s own future behaviour to the duration of imprisonment."
+    "Text": "The Committee notes its jurisprudence on changes in sentencing and parole regimes that “it is not the Committee’s function to make a hypothetical assessment of what would have happened if the new Act had been applicable to him”, and that it cannot be assumed what a sentencing judge applying new sentencing legislation would in fact have concluded by way of sentence.[[fn:9]] The Committee’s jurisprudence has also noted the relevance of a prediction as to the author’s own future behaviour to the duration of imprisonment.[[fn:10]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "MacIsaac v Canada, op.cit, at paragraphs 11 and 12."
+      },
+      {
+        "n": 10,
+        "text": "Van Duzen v Canada, op.cit, at paragraph 10.3."
+      }
+    ]
   },
   {
     "ID": "6.4.",

@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.2.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The Optional Protocol to the International Covenant on Civil and Political Rights (Optional Protocol) entered into force for the Czech Republic on 22 February 1993."
   },
@@ -9,7 +9,17 @@
     "ID": "3.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author claims to be a victim of a violation of article 26 of the Covenant, as the citizenship requirement of the Act No. 87/1991 constitutes unlawful discrimination. She invokes the jurisprudence of the Committee in the case of Marik v. Czech Republic and Kriz v. Czech Republic, in which the Committee found a violation of article 26 by the State party."
+    "Text": "The author claims to be a victim of a violation of article 26 of the Covenant, as the citizenship requirement of the Act No. 87/1991 constitutes unlawful discrimination. She invokes the jurisprudence of the Committee in the case of Marik v. Czech Republic[[fn:3]] and Kriz v. Czech Republic[[fn:4]], in which the Committee found a violation of article 26 by the State party.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Communication No. 945/2000, Marik v. Czech Republic, Views adopted on 26 July 2005."
+      },
+      {
+        "n": 4,
+        "text": "Communication No. 1054/2002, Kriz v. Czech Republic, Views adopted on 1 November 2005."
+      }
+    ]
   },
   {
     "ID": "5.1.",
@@ -45,7 +55,13 @@
     "ID": "6.4.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee notes also the State party’s argument that the communication should be considered inadmissible as constituting an abuse of the right to submit communications under article 3 of the Optional Protocol, in view of the delay in submitting the communication to the Committee. The State party recalls that the author waited three years and five months after the decision of the European Court of Human Rights before submitting her complaint to the Committee. In the instant case, and having regard to the reasons given by the author, the Committee does not consider the delay to amount to an abuse of the right of submission. It therefore decides that the communication is admissible in as far as it appears to raise issues under article 26 of the Covenant."
+    "Text": "The Committee notes also the State party’s argument that the communication should be considered inadmissible as constituting an abuse of the right to submit communications under article 3 of the Optional Protocol, in view of the delay in submitting the communication to the Committee. The State party recalls that the author waited three years and five months after the decision of the European Court of Human Rights before submitting her complaint to the Committee. In the instant case, and having regard to the reasons given by the author, the Committee does not consider the delay to amount to an abuse of the right of submission.[[fn:7]] It therefore decides that the communication is admissible in as far as it appears to raise issues under article 26 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "See Communication No. 1305/2004, Victor Villamon Ventura v. Spain, Views of 31 October 2006, para. 6.4, Communication No. 1101/2002, Alba Cabriada v. Spain, Views of 1 November 2004, para. 6.3."
+      }
+    ]
   },
   {
     "ID": "7.1.",
@@ -57,13 +73,25 @@
     "ID": "7.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The issue before the Committee is whether the application to the author of Act No. 87/1991 amounted to discrimination, in violation of article 26 of the Covenant. The Committee reiterates its jurisprudence that not all differentiations in treatment can be deemed to be discriminatory under article 26. A differentiation which is compatible with the provisions of the Covenant and is based on objective and reasonable grounds does not amount to prohibited discrimination within the meaning of article 26."
+    "Text": "The issue before the Committee is whether the application to the author of Act No. 87/1991 amounted to discrimination, in violation of article 26 of the Covenant. The Committee reiterates its jurisprudence that not all differentiations in treatment can be deemed to be discriminatory under article 26. A differentiation which is compatible with the provisions of the Covenant and is based on objective and reasonable grounds does not amount to prohibited discrimination within the meaning of article 26.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "See Communication No. 182/1984, Zwaan-de Vries v. The Netherlands, Views adopted on 9 April 1987, paragraph 13."
+      }
+    ]
   },
   {
     "ID": "7.3.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee recalls its Views in the cases of Adam, Blazek, Marik, Kriz, Gratzinger and Ondracka where it held that article 26 had been violated, and that it would be incompatible with the Covenant to require the authors to meet the condition of Czech citizenship for the restitution of their property or alternatively for its compensation. The Committee considers that the principle established in these cases also applies in the case of the author of the present communication, and that the application by the domestic courts of the citizenship requirement violated her rights under article 26 of the Covenant."
+    "Text": "The Committee recalls its Views in the cases of Adam, Blazek, Marik, Kriz, Gratzinger and Ondracka[[fn:9]] where it held that article 26 had been violated, and that it would be incompatible with the Covenant to require the authors to meet the condition of Czech citizenship for the restitution of their property or alternatively for its compensation. The Committee considers that the principle established in these cases also applies in the case of the author of the present communication, and that the application by the domestic courts of the citizenship requirement violated her rights under article 26 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Communication No. 586/1994, Adam v. Czech Republic, Views adopted on 23 July 1996, paragraph 12.6; Communication No. 857/1999, Blazek v. Czech Republic, Views adopted on 12 July 2001, paragraph 5.8; Communication No. 945/2000, Marik v. Czech Republic, Views adopted on 26 July 2005, paragraph 6.4; Communication No. 1054/2002, Kriz v. Czech Republic, Views adopted on 1 November 2005, paragraph 7.3; Communication 1463/2006, Gratzinger v. Czech Republic, Views adopted on 25 October 2007, paragraph 7.5; and Communication No. 1533/2006, Ondracka v. Czech Republic, Views adopted on 2 November 2007, paragraph 7.3."
+      }
+    ]
   },
   {
     "ID": "8.",

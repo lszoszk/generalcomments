@@ -1,9 +1,9 @@
 [
   {
     "ID": "1.",
-    "Section": "Decision on admissibility",
+    "Section": "Annex",
     "Labels": [],
-    "Text": "The author of the communication is Mikhail Korolko, a Russian citizen born in 1969, who is currently serving a prison sentence in the . He claims that his rights have been violated by the State party, but invokes no specific articles of the Covenant. However, the communication may raise issues under articles 10, 14, paragraphs 1, 3(e) and 5, and 26, of the Covenant. The Optional Protocol entered into force for the State party on 1 January 1992. The author is unrepresented."
+    "Text": "The author of the communication is Mikhail Korolko, a Russian citizen born in 1969, who is currently serving a prison sentence in the Russian Federation. He claims that his rights have been violated by the State party, but invokes no specific articles of the Covenant. However, the communication may raise issues under articles 10, 14, paragraphs 1, 3(e) and 5, and 26, of the Covenant. The Optional Protocol entered into force for the State party on 1 January 1992. The author is unrepresented."
   },
   {
     "ID": "2.1.",
@@ -27,7 +27,7 @@
     "ID": "2.4.",
     "Section": "The alleged facts as presented by the author",
     "Labels": [],
-    "Text": "The author’s appeals were dismissed because the author had not raised the relevant issues at first instance, and had in fact told the court that his reason for escaping was to flee to . The author denies the latter argument and notes that this would have been one of the consequences of his escape, but not a reason for it. He claims that his appeals were not examined on the merits and that his case file does not have his petitions concerning his conditions in prison."
+    "Text": "The author’s appeals were dismissed because the author had not raised the relevant issues at first instance, and had in fact told the court that his reason for escaping was to flee to Central Asia. The author denies the latter argument and notes that this would have been one of the consequences of his escape, but not a reason for it. He claims that his appeals were not examined on the merits and that his case file does not have his petitions concerning his conditions in prison."
   },
   {
     "ID": "2.5.",
@@ -155,13 +155,25 @@
     "ID": "6.3.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee notes the State party’s argument that the author has not exhausted domestic remedies, as the author’s appeal of 11 March 2005 under the supervisory review procedure was under consideration by the Supreme Court. The author contested that such statement is false. The Committee recalls its previous jurisprudence, according to which supervisory review procedures against court decisions which have entered into force constitute an extraordinary mean of appeal which is dependent on the discretionary power of a judge or prosecutor. When such review takes place, it is limited to issues of law only and does not permit any review of facts and evidence. In such circumstances, the Committee considers that, in the present case, it is not precluded, for purposes of admissibility, by article 5, paragraph 2 (b), from examining the communication."
+    "Text": "The Committee notes the State party’s argument that the author has not exhausted domestic remedies, as the author’s appeal of 11 March 2005 under the supervisory review procedure was under consideration by the Supreme Court. The author contested that such statement is false. The Committee recalls its previous jurisprudence,[[fn:4]] according to which supervisory review procedures against court decisions which have entered into force constitute an extraordinary mean of appeal which is dependent on the discretionary power of a judge or prosecutor. When such review takes place, it is limited to issues of law only and does not permit any review of facts and evidence. In such circumstances, the Committee considers that, in the present case, it is not precluded, for purposes of admissibility, by article 5, paragraph 2 (b), from examining the communication.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "See the Committee's General comment No. 32 (article 14), document CCPR/C/GC/32, paragraph 50: \"A system of supervisory review that only applies to sentences whose execution has the commenced does not meet the requirements of article 14, paragraph 5, regardless of whether such review can be requested by the convicted person or is dependent on the discretionary power of a judge or prosecutor.\"; and, for example, Communication No. 836 of 1998, Gelazauskas v Lithuania, Views adopted 17 March 2003"
+      }
+    ]
   },
   {
     "ID": "6.4.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "As for the author’s claim that the court did not examine the question of his reasons for escaping and refused his request to invite a witness who could testify in that respect. The Committee notes the State party’s argument that the author confessed his guilt in escape, that his case file does not contain any statements that the escape was forced and that his request to invite one witness was denied because the person in question was not an eye-witness of the crime. The Committee observes that the author's claims relate to the evaluation of facts and evidence by the State party's courts. It recalls that it is generally for the courts of States parties to evaluate facts and evidence in a particular case, unless it can be ascertained that the evaluation was clearly arbitrary or amounted to a denial of justice. The material before the Committee does not contain enough elements to demonstrate that the court proceedings suffered from such defects. Accordingly, the Committee considers that the author has failed to substantiate his claims under article 14, paragraphs 1 and 3 (e), of the Covenant and thus declares them inadmissible under article 2 of the Optional Protocol."
+    "Text": "As for the author’s claim that the court did not examine the question of his reasons for escaping and refused his request to invite a witness who could testify in that respect. The Committee notes the State party’s argument that the author confessed his guilt in escape, that his case file does not contain any statements that the escape was forced and that his request to invite one witness was denied because the person in question was not an eye-witness of the crime. The Committee observes that the author's claims relate to the evaluation of facts and evidence by the State party's courts. It recalls that it is generally for the courts of States parties to evaluate facts and evidence in a particular case, unless it can be ascertained that the evaluation was clearly arbitrary or amounted to a denial of justice[[fn:5]]. The material before the Committee does not contain enough elements to demonstrate that the court proceedings suffered from such defects. Accordingly, the Committee considers that the author has failed to substantiate his claims under article 14, paragraphs 1 and 3 (e), of the Covenant and thus declares them inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "See, inter alia, Communication No. 541/1993, Errol Simms v. Jamaica, inadmissibility decision adopted on 3 April 1995, paragraph 6.2."
+      }
+    ]
   },
   {
     "ID": "6.5.",

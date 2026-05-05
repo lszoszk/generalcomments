@@ -1,9 +1,15 @@
 [
   {
     "ID": "1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
-    "Text": "The authors of the communication are Godfried Pohl (first author), his wife, Ingrid Pohl (second author), Wolfgang Mayer (third author) and Franz Wallmann (fourth author), all Austrian citizens. They claim to be victims of a violation by Austria of article 26 and, insofar as the fourth author is concerned, also of article 14, paragraph 1, of the International Covenant on Civil and Political Rights (the Covenant). They are represented by counsel."
+    "Text": "The authors of the communication are Godfried Pohl (first author), his wife, Ingrid Pohl (second author), Wolfgang Mayer (third author) and Franz Wallmann (fourth author), all Austrian citizens. They claim to be victims of a violation by Austria[[fn:3]] of article 26 and, insofar as the fourth author is concerned, also of article 14, paragraph 1, of the International Covenant on Civil and Political Rights (the Covenant). They are represented by counsel.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The Covenant and the Optional Protocol to the Covenant entered into force for the State party respectively on 10 December 1978 and 10 March 1988."
+      }
+    ]
   },
   {
     "ID": "2.1.",
@@ -75,13 +81,29 @@
     "ID": "3.2.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The authors argue that the differentiation between landowners in the City of Salzburg and those residing elsewhere in the Salzburg Province is neither based on prima facie objective and reasonable criteria nor proportionate. Thus, the municipalities surrounding Salzburg are equally and, in some cases, even more residential than the city itself, whereas some areas of the city, including the authors’ plots, are more “rural” than those of other municipalities and other cities in the vicinity. It was therefore unjustified to treat landowners in the City of Salzburg less favourably than landowners elsewhere, to whom the more beneficial 1962 Act applied. The latter required contributions only from landowners dumping wastewater into the sewerage and calculated their contributions on the basis of the reasonable criterion of living space of their dwellings. This differentiation had far-reaching adverse effects, as the authors’ contributions to the construction of the sewerage were three to four times higher than, for instance, the contributions charged from residents of the municipality of Koppl, without there being any indication that the construction of sewerages in the City of Salzburg was three or four times more expensive than elsewhere in the Province of Salzburg."
+    "Text": "The authors argue that the differentiation between landowners in the City of Salzburg and those residing elsewhere in the Salzburg Province is neither based on prima facie objective and reasonable criteria nor proportionate. Thus, the municipalities surrounding Salzburg are equally and, in some cases, even more residential than the city itself, whereas some areas of the city, including the authors’ plots, are more “rural” than those of other municipalities and other cities in the vicinity. It was therefore unjustified to treat landowners in the City of Salzburg less favourably than landowners elsewhere[[fn:4]], to whom the more beneficial 1962 Act applied. The latter required contributions only from landowners dumping wastewater into the sewerage and calculated their contributions on the basis of the reasonable criterion of living space of their dwellings. This differentiation had far-reaching adverse effects, as the authors’ contributions to the construction of the sewerage were three to four times higher than, for instance, the contributions charged from residents of the municipality of Koppl, without there being any indication that the construction of sewerages in the City of Salzburg was three or four times more expensive than elsewhere in the Province of Salzburg.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The authors submit that the overwhelming majority of Provinces and municipalities in Austria utilize “living Space” or related criteria as a basis for calculating landowners’ contributions, and cite several examples."
+      }
+    ]
   },
   {
     "ID": "3.3.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The authors submit that article 26 of the Covenant requires that objectively unequal situations be treated differently. The lack of differentiation, whether intentional or not, between owners of plots designated as “rural” and owners of those designated as “building land”, within the Municipality of the City of Salzburg, was discriminatory, as it failed to take into account the changes introduced by the 1992 Zoning Law, which absolutely prohibits any construction on plots designated as “rural”, while owners of plots on “building land” remain free to construct new or replace old homes, to develop and subdivide their land, and to build a range of residential or even commercial structures. By basing the assessment of contributions solely on the criterion of the size of the lot, the Landowners’ Contributions Act (1976) favoured owners of “building” lots, which can be occupied by a large number of residents using the newly constructed sewerage, over owners of “rural” lots, usually occupied by only a few residents living in single-family homes, who must pay the same or even larger contributions to the construction of sewerages, depending on the size of the lot. In the absence of an objective and reasonable justification, the failure to differentiate in the 1976 Act must be considered a “convenient omission” to adjust its provisions to the 1992 Zoning Law."
+    "Text": "The authors submit that article 26 of the Covenant requires that objectively unequal situations be treated differently. The lack of differentiation, whether intentional or not[[fn:5]], between owners of plots designated as “rural” and owners of those designated as “building land”, within the Municipality of the City of Salzburg, was discriminatory, as it failed to take into account the changes introduced by the 1992 Zoning Law, which absolutely prohibits any construction on plots designated as “rural”, while owners of plots on “building land” remain free to construct new or replace old homes, to develop and subdivide their land, and to build a range of residential or even commercial structures. By basing the assessment of contributions solely on the criterion of the size of the lot, the Landowners’ Contributions Act (1976) favoured owners of “building” lots, which can be occupied by a large number of residents using the newly constructed sewerage, over owners of “rural” lots, usually occupied by only a few residents living in single-family homes, who must pay the same or even larger contributions to the construction of sewerages, depending on the size of the lot. In the absence of an objective and reasonable justification, the failure to differentiate in the 1976 Act must be considered a “convenient omission”[[fn:6]] to adjust its provisions to the 1992 Zoning Law.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The authors refer to Communication No. 516/1992, Alina Simunek v. The Czech Republic, Views of 19 July 1995, at para. 11.7."
+      },
+      {
+        "n": 6,
+        "text": "Counsel refers to the judgment of the European Court of Human Rights in Larkos v. Cyprus of 18 February 1999."
+      }
+    ]
   },
   {
     "ID": "3.4.",
@@ -99,7 +121,13 @@
     "ID": "4.2.",
     "Section": "State party’s observations on the admissibility and authors’ comments thereon",
     "Labels": [],
-    "Text": "The State party submits that the fourth author failed to exhaust domestic remedies and that he cannot claim to be a directly affected victim of a violation of any of the rights in the Covenant, since he was never required to pay a contribution to the construction of the sewerage and was only contractually liable to reimburse the third author. An author who essentially asserts the rights of another is not entitled to submit a communication, in accordance with the Committee’s jurisprudence. In the absence of locus standi, the fourth author’s communication constitutes an actio popularis directed against the Austrian legal system as such."
+    "Text": "The State party submits that the fourth author failed to exhaust domestic remedies and that he cannot claim to be a directly affected victim of a violation of any of the rights in the Covenant, since he was never required to pay a contribution to the construction of the sewerage and was only contractually liable to reimburse the third author. An author who essentially asserts the rights of another is not entitled to submit a communication, in accordance with the Committee’s jurisprudence.[[fn:7]] In the absence of locus standi, the fourth author’s communication constitutes an actio popularis directed against the Austrian legal system as such.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "The State party refers to Communication No. 737/1997, Michelle Lamagna v. Australia, Decision on admissibility of 7 April 1999."
+      }
+    ]
   },
   {
     "ID": "4.3.",
@@ -123,7 +151,13 @@
     "ID": "5.3.",
     "Section": "State party’s observations on the admissibility and authors’ comments thereon",
     "Labels": [],
-    "Text": "The fourth author argues that he was legally prevented from exhausting domestic remedies, as his attempt to be heard, instead of the third author, in the landowners’ contributions assessment proceedings was rejected by the Municipality of Salzburg, on the basis that it was “impossible to issue decisions requiring payment of landowners’ contributions directly to the current owner,” given that “the date on which a duty to pay contributions becomes established (in the present case the construction of the main sewerage line) is decisive for the duty to pay contributions.”"
+    "Text": "The fourth author argues that he was legally prevented from exhausting domestic remedies, as his attempt to be heard, instead of the third author, in the landowners’ contributions assessment proceedings was rejected by the Municipality of Salzburg, on the basis that it was “impossible to issue decisions requiring payment of landowners’ contributions directly to the current owner,” given that “the date on which a duty to pay contributions becomes established (in the present case the construction of the main sewerage line) is decisive for the duty to pay contributions.” [[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Decision of the Municipality of Salzburg of 22 February 1999, addressed to the third author, at p. 3."
+      }
+    ]
   },
   {
     "ID": "5.4.",
@@ -203,13 +237,29 @@
     "ID": "7.2.",
     "Section": "Author’s comments on State party’s observations on the merits",
     "Labels": [],
-    "Text": "The authors reiterate that the State party’s contention that either the third or the fourth author should be rejected as a victim implies that both authors could per se be accepted as victims. Thus, the third author was a party to the proceedings and listed as one of the petitioners in the decision of the Constitutional Court of 10 June 2002. Whether or not the fourth author ultimately refunded to him the landowners’ contributions and legal fees was immaterial for his locus standi. It was apparent from the files that the fourth author had requested, and been refused, to join the assessment proceedings as a party, since the impugned administrative act addressed the issue of his standing. He also had a procedural and monetary interest in their outcome, as the deed of sale of the plot of land signed and executed on 15 June 1998, in conformity with Austrian legal practice, explicitly stipulated that “taxes and contributions” are transferred to the buyer. In the absence of any applicable exception, the lien on the property acquired would have required the fourth author to pay the contribution irrespective of whether the acquisition amounted to universal succession. Both authors therefore had locus standi, considering that admissibility requirements should be applied with a certain degree of flexibility."
+    "Text": "The authors reiterate that the State party’s contention that either the third or the fourth author should be rejected as a victim implies that both authors could per se be accepted as victims. Thus, the third author was a party to the proceedings and listed as one of the petitioners in the decision of the Constitutional Court of 10 June 2002. Whether or not the fourth author ultimately refunded to him the landowners’ contributions and legal fees was immaterial for his locus standi. It was apparent from the files that the fourth author had requested, and been refused, to join the assessment proceedings as a party, since the impugned administrative act addressed the issue of his standing. He also had a procedural and monetary interest in their outcome, as the deed of sale of the plot of land signed and executed on 15 June 1998, in conformity with Austrian legal practice, explicitly stipulated that “taxes and contributions” are transferred to the buyer. In the absence of any applicable exception, the lien on the property acquired would have required the fourth author to pay the contribution irrespective of whether the acquisition amounted to universal succession. Both authors therefore had locus standi, considering that admissibility requirements should be applied with a certain degree of flexibility.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "The authors refer to the jurisprudence of the European Court of Human Rights, inter alia, in Stögmüller v. Austria, judgment of 10 November 1969, Series A, No. 9, at para. 11, and Ringeisen v. Austria, judgment of 16 July 1971, Series A, No. 13, at paras. 89 and 92."
+      }
+    ]
   },
   {
     "ID": "7.3.",
     "Section": "Author’s comments on State party’s observations on the merits",
     "Labels": [],
-    "Text": "The authors argue that, although different exigencies justifying a “dual system” of landowners’ contributions applied to the modernization of wastewater treatment in the City and in the rest of the Province of Salzburg in the 1960s, such differences had ceased to exist by the end of the 1990s, when 90 percent of households and businesses in both the City and in the Province of Salzburg were connected to municipal sewer systems. Relevant statistics showed that population growth and increase of construction in residential areas are in fact more dynamic in other municipalities in the Province of Salzburg, especially in the rapidly developing areas in the vicinity of the City. The State party should have reviewed its legislation in the light of these factual changes. Its argument that, outside the City, sewerage systems could be constructed based on more stable data no longer applied and was not supported by statistics, surveys, maps, or zoning plans in the State party’s merits submission."
+    "Text": "The authors argue that, although different exigencies justifying a “dual system” of landowners’ contributions applied to the modernization of wastewater treatment in the City and in the rest of the Province of Salzburg in the 1960s, such differences had ceased to exist by the end of the 1990s, when 90 percent of households and businesses in both the City and in the Province of Salzburg were connected to municipal sewer systems. Relevant statistics[[fn:10]] showed that population growth and increase of construction in residential areas are in fact more dynamic in other municipalities in the Province of Salzburg, especially in the rapidly developing areas in the vicinity of the City. The State party should have reviewed its legislation in the light of these factual changes.[[fn:11]] Its argument that, outside the City, sewerage systems could be constructed based on more stable data no longer applied and was not supported by statistics, surveys, maps, or zoning plans in the State party’s merits submission.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "Detailed statistics are included in the communication."
+      },
+      {
+        "n": 11,
+        "text": "By way of analogy, the authors refer to the Committee’s jurisprudence that the Covenant must be interpreted in the light of changing social standards and perceptions. See Communication No. 172/1984, S.W.M. Broeks v. The Netherlands, Views adopted on 9 April 1987, at para. 14; Communication No. 182/1984, Zwaan-de Vries v. The Netherlands, Views adopted on 9 April 1987, at para. 14."
+      }
+    ]
   },
   {
     "ID": "7.4.",
@@ -251,7 +301,13 @@
     "ID": "8.4.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "Concerning the fourth author’s locus standi under article 1 of the Optional Protocol, the Committee notes that the deed of the sale of the plot of land, executed on 16 June 1998 by a notary public, states that, along with the possession, usufruct and benefits, any risk, taxes and contributions are passed on to the buyer, the fourth author. Irrespective of the existence of a lien on the acquired property, the Committee is therefore satisfied that the fourth author has substantiated, for purposes of admissibility, that he was directly affected by the imposition of the landowners’ contributions originally charged to the third author and remitted by the fourth author, in fulfillment of his contractual obligations under the sales contract."
+    "Text": "Concerning the fourth author’s locus standi under article 1 of the Optional Protocol, the Committee notes that the deed of the sale of the plot of land, executed on 16 June 1998 by a notary public, states that, along with the possession, usufruct and benefits, any risk, taxes and contributions are passed on to the buyer, the fourth author.[[fn:12]] Irrespective of the existence of a lien on the acquired property, the Committee is therefore satisfied that the fourth author has substantiated, for purposes of admissibility, that he was directly affected by the imposition of the landowners’ contributions originally charged to the third author and remitted by the fourth author, in fulfillment of his contractual obligations under the sales contract.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "See of the deed of sale of the plot of land, executed on 16 June 1998 by Mr. G. S., public notary, file no. 14526/98, at p. 4."
+      }
+    ]
   },
   {
     "ID": "8.5.",
@@ -281,7 +337,13 @@
     "ID": "9.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee begins by noting that, pursuant to article 50 of the Covenant, the delegation of competence for the construction and management of sewage disposal plants to Austrian provinces and municipalities does not relieve the State party of its obligations under the Covenant. Accordingly, the State party’s responsibility may be engaged by virtue of the impugned decisions of the Municipality of Salzburg based on provincial legislation, which have, moreover, been confirmed by the Austrian courts."
+    "Text": "The Committee begins by noting that, pursuant to article 50 of the Covenant, the delegation of competence for the construction and management of sewage disposal plants to Austrian provinces and municipalities does not relieve the State party of its obligations under the Covenant.[[fn:13]] Accordingly, the State party’s responsibility may be engaged by virtue of the impugned decisions of the Municipality of Salzburg based on provincial legislation, which have, moreover, been confirmed by the Austrian courts.",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "See, e.g., Communications Nos. 298/1988 and 299/1988, Lindgren et al. v. Sweden and Lindquist et al. v. Sweden, Views adopted on 9 November 1990, at para. 10.4."
+      }
+    ]
   },
   {
     "ID": "9.3.",
@@ -293,7 +355,17 @@
     "ID": "9.4.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee recalls that under article 26, discrimination in the equal protection of the law is prohibited on any grounds such as race, colour, sex, language, religion, political or other opinion, national or social origin, property, birth or other status. It notes that an indirect discrimination may result from a failure to treat different situations differently, if the negative results of such failure exclusively or disproportionaly affect persons of a particular race, colour, sex, language, religion, political or other opinion, national or social origin, property, birth or other status. While the Committee does not exclude that “residence” may be a “status” that prohibits discrimination, it notes that the alleged failure to distinguish between “urban” and “rural” plots of land is not linked to a particular place of residence within the municipality of Salzburg but depends on their assignment to a particular zoning area. The Committee also takes note of the State party’s explanation that the degree of contributions for “rural” parcels does depend on how much of the plot its owner sought to have designated as an area where a building may be constructed. The Committee concludes that the failure to distinguish between urban “building land” and “rural” plots of land with a building site is neither discriminatory by reference to any of the grounds mentioned in article 26 of the Covenant, nor arbitrary."
+    "Text": "The Committee recalls that under article 26, discrimination in the equal protection of the law is prohibited on any grounds such as race, colour, sex, language, religion, political or other opinion, national or social origin, property, birth or other status[[fn:14]]. It notes that an indirect discrimination may result from a failure to treat different situations differently, if the negative results of such failure exclusively or disproportionaly affect persons of a particular race, colour, sex, language, religion, political or other opinion, national or social origin, property, birth or other status[[fn:15]]. While the Committee does not exclude that “residence” may be a “status” that prohibits discrimination, it notes that the alleged failure to distinguish between “urban” and “rural” plots of land is not linked to a particular place of residence within the municipality of Salzburg but depends on their assignment to a particular zoning area. The Committee also takes note of the State party’s explanation that the degree of contributions for “rural” parcels does depend on how much of the plot its owner sought to have designated as an area where a building may be constructed. The Committee concludes that the failure to distinguish between urban “building land” and “rural” plots of land with a building site is neither discriminatory by reference to any of the grounds mentioned in article 26 of the Covenant, nor arbitrary.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "Communication No. 196/1983, Gueye v. France, Views adopted on 3 April 1989, at para. 9.4."
+      },
+      {
+        "n": 15,
+        "text": "See, e.g., Communication No. No. 998/2001 Althammer v. Austria, Views adopted on 8 August 2003, at para. 10.2."
+      }
+    ]
   },
   {
     "ID": "9.5.",

@@ -1,13 +1,13 @@
 [
   {
     "ID": "1.1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "",
     "Labels": [],
     "Text": "The author of the communication is Mr. D.M. Dissanayake, a Sri Lankan citizen, residing in Sri Lanka. He claims to be a victim of violations by the State party of article 7; article 8, paragraph 3(b); article 9, paragraph 1; article 14, paragraphs 1, 2, 3 (a), (e) and (g), and 5; article 15, paragraph 1; article 19, paragraph 3; article 25; and article 26 of the International Covenant on Civil and Political Rights. He is represented by counsel, Mr. Nihal Jayawickrama."
   },
   {
     "ID": "1.2.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "",
     "Labels": [
       "Persons deprived of their liberty"
     ],
@@ -29,7 +29,21 @@
     "ID": "2.3.",
     "Section": "The facts as submitted by the author",
     "Labels": [],
-    "Text": "On 3 November 2003, pursuant to the President’s request to the Chief Justice for an opinion on the exercise of defence powers between the President and the Minister of Defence, the author gave a speech during a public meeting in which he was reported in the press as saying that he and like-minded members of Parliament ‘would not accept any shameful decision the Court gives’. He was charged under Article 105 (3) of the Constitution with contempt of court. He was served a “Rule”, dated 7 April 2004, requiring him to show “why he should not be punished under article 105(3) of the Constitution” for the offence of contempt of the Supreme Court. He was tried before the Supreme Court on 7 May and 14 September 2004. The Chief Justice presided over the case, despite the author’s objection."
+    "Text": "On 3 November 2003, pursuant to the President’s request to the Chief Justice for an opinion on the exercise of defence powers between the President and the Minister of Defence, the author gave a speech during a public meeting in which he was reported in the press as saying that he and like-minded members of Parliament ‘would not accept any shameful decision the Court gives’. He was charged under Article 105 (3) of the Constitution with contempt of court[[fn:3]]. He was served a “Rule”[[fn:4]], dated 7 April 2004, requiring him to show “why he should not be punished under article 105(3) of the Constitution” for the offence of contempt of the Supreme Court. He was tried before the Supreme Court on 7 May and 14 September 2004. The Chief Justice presided over the case, despite the author’s objection[[fn:5]].",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "According to Article 105 (3), “The Supreme Court of the Republic of Sri Lanka and the Court of Appeal of the Republic of Sri Lanka shall each be a superior court of record and shall have all the powers of such court including the power to punish for contempt of itself, whether committed in the court itself or elsewhere, with imprisonment or fine or both as the court may deem fit.”"
+      },
+      {
+        "n": 4,
+        "text": "The author provides no further details on the definition of a “Rule”."
+      },
+      {
+        "n": 5,
+        "text": "According to the author, his lawyer met with the Chief Justice in his chambers prior to the hearing informing him that he objected to his participation in the hearing and asking him to recuse himself. The Chief Justice refused to do so."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -49,7 +63,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On 7 December 2004, the Court found the author guilty of contempt of court and sentenced him to two years of “rigorous imprisonment”. The author had no right of appeal from the Supreme Court. The judgement refers to a charge of contempt against the author in 2000 for which he was given a warning and admonition by the Supreme Court, but was not convicted. In the judgement, the Chief Justice commented adversely on the author’s conduct, due to his failure to admit at the outset that he had made the full statement in question and stated that he had displayed “a lack of candour”. The author began serving his sentence on the same day in the Welikade Prison and was assigned to work in its printing room. According to the author, the Supreme Court did not have the power to sentence him to hard labour under Sri Lankan law. According to section 2 of the Interpretation Ordinance, which applies to the Constitution, “(x) rigorous imprisonment, “simple imprisonment”, and “imprisonment of either imprisonment description” shall have the same meaning as in the Penal Code, and “imprisonment” shall mean simple imprisonment. Shortly after the author’s committal to prison, he was disqualified from being an elector and Member of Parliament pursuant to article 66(d) of the Constitution. Such a disqualification continues for a period of seven years commencing from the date on which the prisoner has served his prison sentence; in the author’s case for a period of nine years in all."
+    "Text": "On 7 December 2004, the Court found the author guilty of contempt of court and sentenced him to two years of “rigorous imprisonment”. The author had no right of appeal from the Supreme Court. The judgement refers to a charge of contempt against the author in 2000 for which he was given a warning and admonition by the Supreme Court, but was not convicted. In the judgement, the Chief Justice commented adversely on the author’s conduct, due to his failure to admit at the outset that he had made the full statement in question and stated that he had displayed “a lack of candour”. The author began serving his sentence on the same day in the Welikade Prison and was assigned to work in its printing room. According to the author, the Supreme Court did not have the power to sentence him to hard labour under Sri Lankan law. According to section 2 of the Interpretation Ordinance, which applies to the Constitution, “(x) rigorous imprisonment, “simple imprisonment”, and “imprisonment of either imprisonment description” shall have the same meaning as in the Penal Code, and “imprisonment” shall mean simple imprisonment[[fn:6]]. Shortly after the author’s committal to prison, he was disqualified from being an elector and Member of Parliament pursuant to article 66(d) of the Constitution. Such a disqualification continues for a period of seven years commencing from the date on which the prisoner has served his prison sentence; in the author’s case for a period of nine years in all.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The Penal Code of Sri Lanka (s. 30) states that imprisonment is of two descriptions: rigorous, that is, with hard labour; and simple. The Supreme Court purported to act under Article 105 (3) of the Constitution which refers to “imprisonment or fine”."
+      }
+    ]
   },
   {
     "ID": "2.7.",
@@ -71,7 +91,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author claims that his sentence was disproportionate to his alleged offence, and refers to other decisions of the Supreme Court dealing with defamation in which lighter penalties were handed down for more serious contempt. He submits that a sentence of two years rigorous imprisonment imposed upon him, being the first reported instance in over a hundred years when the Supreme Court imposed a sentence of such excessive length and rigour, is a grossly disproportionate sentence, and amounts to cruel, inhuman and degrading punishment, in violation of article 7."
+    "Text": "The author claims that his sentence was disproportionate to his alleged offence, and refers to other decisions of the Supreme Court dealing with defamation in which lighter penalties were handed down for more serious contempt[[fn:7]]. He submits that a sentence of two years rigorous imprisonment imposed upon him, being the first reported instance in over a hundred years when the Supreme Court imposed a sentence of such excessive length and rigour, is a grossly disproportionate sentence, and amounts to cruel, inhuman and degrading punishment, in violation of article 7.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "According to the information provided, the only other time the Supreme Court issued a sentence of “rigorous imprisonment” was in the case of Fernando, where the convict was sentenced to one year of rigorous imprisonment. This communication no. 1189/2003 was considered by the Committee, on 31 March 2005, and it found a violation of article 9, paragraph 1, for arbitrary deprivation of liberty."
+      }
+    ]
   },
   {
     "ID": "3.2.",
@@ -83,7 +109,13 @@
     "ID": "3.3.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author claims a violation of article 14, paragraph 2, as he was not presumed innocent and the burden of proof was placed on him rather than the prosecution. He refers to the facts set out in paragraph 2.4 and 2.5 above. He submits that while trial by summary procedure may be permissible where the alleged contempt has been committed “in the face of the court”, it is wholly inappropriate where the charge is based, not on the judge’s observations, but on a petition submitted by a individual in respect of an alleged offence which had taken place several months previously, to which the petitioner was not a party, with which he or she was not concerned, and of which no member of the court had any knowledge until the petition was received. Where such an offence is tried summarily, the burden of proof is imposed on the accused to establish that the alleged act was not committed by him."
+    "Text": "The author claims a violation of article 14, paragraph 2, as he was not presumed innocent and the burden of proof was placed on him rather than the prosecution. He refers to the facts set out in paragraph 2.4 and 2.5 above. He submits that while trial by summary procedure may be permissible where the alleged contempt has been committed “in the face of the court”, it is wholly inappropriate where the charge is based, not on the judge’s observations, but on a petition submitted by a individual in respect of an alleged offence which had taken place several months previously, to which the petitioner was not a party, with which he or she was not concerned, and of which no member of the court had any knowledge until the petition was received. Where such an offence is tried summarily, the burden of proof is imposed on the accused to establish that the alleged act was not committed by him[[fn:8]].",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "In support of his view, the author refers to a judgement of the Constitutional Court of South Africa, in the case of State v. Mamabolo [2002] 1 LRC 32."
+      }
+    ]
   },
   {
     "ID": "3.4.",
@@ -187,7 +219,13 @@
     "ID": "6.1.",
     "Section": "Author’s supplementary comments",
     "Labels": [],
-    "Text": "On 31 March 2008, on instructions from the Special Rapporteur on New Communications, the Secretariat requested the author to confirm whether a claim of article 9, paragraph 1, was implicit in his complaint, and to provide it with information on his release. On 6 April 2008, the author confirms that a claim of a violation of article 9, paragraph 1, is implicit in each of the violations claimed in his initial submission. He refers to the Committee’s Views in Fernando v. Sri Lanka, which were adopted three weeks after the present communication was submitted to the Committee, and in which the Committee found a violation of article 9, paragraph 1, for the arbitrary deprivation of liberty of the author by an act of the judiciary. The author also refers to the criteria by which the UN Working Group on Arbitrary Detention determines whether a deprivation of liberty is arbitrary - “when the complete or partial infringement of international standards relating to a fair trial is of such gravity as to confer on the deprivation of liberty, of whatever kind, an arbitrary character”, and “when such detention is the result of judicial proceedings consequent upon, or a sentence arising from, the exercise by an individual of the right to freedom of opinion and expression guaranteed by article 19 of the Covenant”."
+    "Text": "On 31 March 2008, on instructions from the Special Rapporteur on New Communications, the Secretariat requested the author to confirm whether a claim of article 9, paragraph 1, was implicit in his complaint, and to provide it with information on his release. On 6 April 2008, the author confirms that a claim of a violation of article 9, paragraph 1, is implicit in each of the violations claimed in his initial submission. He refers to the Committee’s Views in Fernando v. Sri Lanka[[fn:9]], which were adopted three weeks after the present communication was submitted to the Committee, and in which the Committee found a violation of article 9, paragraph 1, for the arbitrary deprivation of liberty of the author by an act of the judiciary. The author also refers to the criteria by which the UN Working Group on Arbitrary Detention determines whether a deprivation of liberty is arbitrary - “when the complete or partial infringement of international standards relating to a fair trial is of such gravity as to confer on the deprivation of liberty, of whatever kind, an arbitrary character”, and “when such detention is the result of judicial proceedings consequent upon, or a sentence arising from, the exercise by an individual of the right to freedom of opinion and expression guaranteed by article 19 of the Covenant”.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Communication No. 1189/2003, Views adopted on 31 March 2005,"
+      }
+    ]
   },
   {
     "ID": "6.2.",
@@ -223,7 +261,13 @@
     "ID": "8.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee recalls its observation, in previous jurisprudence, that courts notably in Common Law jurisdictions have traditionally exercised authority to maintain order and dignity in court proceedings by the exercise of a summary power to impose penalties for \"contempt of court.\" In this jurisprudence, the Committee also observed that the imposition of a draconian penalty without adequate explanation and without independent procedural safeguards falls within the prohibition of “arbitrary” deprivation of liberty, within the meaning of article 9, paragraph 1, of the Covenant. The fact that an act constituting a violation of article 9, paragraph 1, is committed by the judicial branch of government cannot prevent the engagement of the responsibility of the State party as a whole."
+    "Text": "The Committee recalls its observation, in previous jurisprudence[[fn:10]], that courts notably in Common Law jurisdictions have traditionally exercised authority to maintain order and dignity in court proceedings by the exercise of a summary power to impose penalties for \"contempt of court.\" In this jurisprudence, the Committee also observed that the imposition of a draconian penalty without adequate explanation and without independent procedural safeguards falls within the prohibition of “arbitrary” deprivation of liberty, within the meaning of article 9, paragraph 1, of the Covenant. The fact that an act constituting a violation of article 9, paragraph 1, is committed by the judicial branch of government cannot prevent the engagement of the responsibility of the State party as a whole.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "Fernando v. Sri Lanka, supra"
+      }
+    ]
   },
   {
     "ID": "8.3.",
@@ -243,7 +287,13 @@
     "ID": "8.5.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "As to the claim of a violation of article 25 (b), due to the prohibition on the author from voting or from being elected for seven years after his release from prison, the Committee recalls that the exercise of the right to vote and to be elected may not be suspended or excluded except on grounds, established by law, which are objective and reasonable. It also recalls that “if a conviction for an offence is a basis for suspending the right to vote, the period of such suspension should be proportionate to the offence and the sentence”. While noting that the restrictions in question are established by law, the Committee notes that, except for the assertion that the restrictions are reasonable, the State party has provided no argument as to how the restrictions on the author’s right to vote or stand for office are proportionate to the offence and sentence. Given that these restrictions rely on the author’s conviction and sentence, which the Committee has found to be arbitrary in violation of article 9, paragraph 1, as well as the fact that the State party has failed to adduce any justifications about the reasonableness and/or proportionality of these restrictions, the Committee concludes that the prohibition on the author’s right to be elected or to vote for a period of seven years after conviction and completion of sentence, are unreasonable and thus amount to a violation of article 25(b) of the Covenant."
+    "Text": "As to the claim of a violation of article 25 (b), due to the prohibition on the author from voting or from being elected for seven years after his release from prison, the Committee recalls that the exercise of the right to vote and to be elected may not be suspended or excluded except on grounds, established by law, which are objective and reasonable. It also recalls that “if a conviction for an offence is a basis for suspending the right to vote, the period of such suspension should be proportionate to the offence and the sentence”[[fn:11]]. While noting that the restrictions in question are established by law, the Committee notes that, except for the assertion that the restrictions are reasonable, the State party has provided no argument as to how the restrictions on the author’s right to vote or stand for office are proportionate to the offence and sentence. Given that these restrictions rely on the author’s conviction and sentence, which the Committee has found to be arbitrary in violation of article 9, paragraph 1, as well as the fact that the State party has failed to adduce any justifications about the reasonableness and/or proportionality of these restrictions, the Committee concludes that the prohibition on the author’s right to be elected or to vote for a period of seven years after conviction and completion of sentence, are unreasonable and thus amount to a violation of article 25(b) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "General Comment No. 25 [57]: The right to participate in public affairs, voting rights and the right of equal access to public service (Article 25), CCPR/C/21/Rev.1/Add.7, para. 14."
+      }
+    ]
   },
   {
     "ID": "8.6.",

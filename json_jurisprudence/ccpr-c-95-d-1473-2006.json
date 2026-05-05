@@ -18,10 +18,8 @@
   {
     "ID": "2.2.",
     "Section": "Factual background",
-    "Labels": [
-      "Persons living with HIV/AIDS"
-    ],
-    "Text": "A medical report dated 28 November 1990 issued at the time of his arrival at Gijón Prison noted that he had been diagnosed as HIV-positive on 4 April 1989. He was treated with intravenous Retrovir (AZT) in that prison from 11 July to 19 August 1991, and underwent medical check-ups to assess his tolerance of the drug, which proved negative. In October 1991 he applied to the Directorate General of Penal Institutions for a transfer to Murcia Prison or a nearby facility so that he could be closer to his family, but his application was rejected on 25 November 1991."
+    "Labels": [],
+    "Text": "A medical report dated 28 November 1990 issued at the time of his arrival at Gijón Prison noted that he had been diagnosed as HIVpositive on 4 April 1989. He was treated with intravenous Retrovir (AZT) in that prison from 11 July to 19 August 1991, and underwent medical checkups to assess his tolerance of the drug, which proved negative. In October 1991 he applied to the Directorate General of Penal Institutions for a transfer to Murcia Prison or a nearby facility so that he could be closer to his family, but his application was rejected on 25 November 1991."
   },
   {
     "ID": "2.3.",
@@ -30,7 +28,7 @@
       "Persons deprived of their liberty",
       "Persons living with HIV/AIDS"
     ],
-    "Text": "According to the authors, there is no evidence in the records of the other prisons in which he was incarcerated, including El Dueso Prison to which he was transferred on 7 December 1991, of any medical examination on arrival. On 11 March 1993 the medical service of the latter facility treated him for various ailments and ordered his admission to hospital the following day. He remained in hospital until 10 April 1993. During his stay, he was diagnosed with and treated for AIDS, pulmonary tuberculosis, probable pneumonia and an intestinal infection. The authors claim that during the period from December 1991 to March 1993 he received no medical care and underwent no AIDS tests or check-ups."
+    "Text": "According to the authors, there is no evidence in the records of the other prisons in which he was incarcerated, including El Dueso Prison to which he was transferred on 7 December 1991, of any medical examination on arrival. On 11 March 1993 the medical service of the latter facility treated him for various ailments and ordered his admission to hospital the following day. He remained in hospital until 10 April 1993. During his stay, he was diagnosed with and treated for AIDS, pulmonary tuberculosis, probable pneumonia and an intestinal infection. The authors claim that during the period from December 1991 to March 1993 he received no medical care and underwent no AIDS tests or checkups."
   },
   {
     "ID": "2.4.",
@@ -78,7 +76,7 @@
     "ID": "2.9.",
     "Section": "Factual background",
     "Labels": [],
-    "Text": "In mid-October Mr. Morales Tornel abandoned his medical treatment for TB, claiming that it upset his stomach, causing him to vomit. On 26 October 1993 he was examined in his cell by the prison medical officer who, while noting his poor condition, did not have him transferred to the infirmary. On 11 December 1993 he was again visited in his cell by the prison doctor. He had then been suffering severe loss of liquid for 15 days, which resulted in cachectic syndrome, characterized by a gradual pathological loss of weight. He was admitted to hospital again on 13 December 1993."
+    "Text": "In midOctober Mr. Morales Tornel abandoned his medical treatment for TB, claiming that it upset his stomach, causing him to vomit. On 26 October 1993 he was examined in his cell by the prison medical officer who, while noting his poor condition, did not have him transferred to the infirmary. On 11 December 1993 he was again visited in his cell by the prison doctor. He had then been suffering severe loss of liquid for 15 days, which resulted in cachectic syndrome, characterized by a gradual pathological loss of weight. He was admitted to hospital again on 13 December 1993."
   },
   {
     "ID": "2.10.",
@@ -110,7 +108,7 @@
     "Labels": [
       "Persons living with HIV/AIDS"
     ],
-    "Text": "The authors filed an administrative appeal with the National High Court. In that administrative appeal, they claimed that it was not known when Mr. Morales Tornel had been declared HIV-positive, since, despite their request, the administrative file does not contain medical records for the period from 1984 to 1990. Thus, he could have even contracted the infection while serving his prison sentence. While in the Gijón Prison from 11 July to 19 August 1991, he was treated with retroviral medication but the treatment had to be suspended because he could not tolerate it. On transferring to the El Dueso Prison in December of that year, he was again administered the same treatment. In light of his previous negative reaction to it, Mr. Morales Tornel abandoned it voluntarily. From December 1991 to March 1993, he was not administered any type of medication and did not undergo any AIDS tests or check-ups. By March 1993, not only had he developed AIDS but he had also contracted pulmonary tuberculosis, pneumonia and an intestinal infection while in prison."
+    "Text": "The authors filed an administrative appeal with the National High Court. In that administrative appeal, they claimed that it was not known when Mr. Morales Tornel had been declared HIVpositive, since, despite their request, the administrative file does not contain medical records for the period from 1984 to 1990. Thus, he could have even contracted the infection while serving his prison sentence. While in the Gijón Prison from 11 July to 19 August 1991, he was treated with retroviral medication but the treatment had to be suspended because he could not tolerate it. On transferring to the El Dueso Prison in December of that year, he was again administered the same treatment. In light of his previous negative reaction to it, Mr. Morales Tornel abandoned it voluntarily. From December 1991 to March 1993, he was not administered any type of medication and did not undergo any AIDS tests or checkups. By March 1993, not only had he developed AIDS but he had also contracted pulmonary tuberculosis, pneumonia and an intestinal infection while in prison."
   },
   {
     "ID": "2.14.",
@@ -125,10 +123,15 @@
     "ID": "2.15.",
     "Section": "Factual background",
     "Labels": [
-      "Persons deprived of their liberty",
-      "Persons living with HIV/AIDS"
+      "Persons deprived of their liberty"
     ],
-    "Text": "According to the authors, the judgement disregards the fact that Mr. Morales Tornel had been declared HIV-positive on 4 April 1989, as noted in his administrative file. With regard to the denial of conditional release, the authors show that the grounds invoked by the Court are unrelated to that decision, since it had nothing to do, in their view, with release on account of a risk to the prisoner’s life."
+    "Text": "According to the authors, the judgement disregards the fact that Mr. Morales Tornel had been declared HIVpositive on 4 April 1989, as noted in his administrative file. With regard to the denial of conditional release, the authors show that the grounds invoked by the Court are unrelated to that decision, since it had nothing to do, in their view, with release on account of a risk to the prisoner’s life.[[fn:4]]",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The judgement states: “release (...) clearly cannot cure a disease that has been diagnosed as incurable but may be justified solely on the ground that it promotes a relative improvement and slower progression of the disease with fewer acute episodes, since the change of environment has a positive impact on a human being’s psychosomatic wellbeing, whereas remaining in prison has a correspondingly negative impact. This is so, we wish to stress, provided that the other legal and regulatory preconditions for conditional release (...) have been met. In short, only a serious and incurable illness, the progression of which would be unfavourably affected by remaining in prison, entailing a deterioration in the patient’s health and thus shortening his or her life, even where there is no imminent risk of death, can justify the release of the prisoner concerned, provided that the other conditions laid down in the Criminal Code have also been met.” The conditions in question include a record of good conduct and an individually established favourable prospect of social reintegration."
+      }
+    ]
   },
   {
     "ID": "2.16.",
@@ -151,7 +154,13 @@
       "Persons deprived of their liberty",
       "Persons living with HIV/AIDS"
     ],
-    "Text": "The authors further allege that a large number of prisoners with AIDS have died in Spanish prisons. These prisoners are not only deprived of the necessary medical care but are also particularly at risk of contracting infectious diseases, which constitute an additional health hazard. In the case of Mr. Morales Tornel, the antiretroviral treatment only began in 1992, although he had been diagnosed as HIV-positive in April 1989."
+    "Text": "The authors further allege that a large number of prisoners with AIDS have died in Spanish prisons. These prisoners are not only deprived of the necessary medical care but are also particularly at risk of contracting infectious diseases, which constitute an additional health hazard. In the case of Mr. Morales Tornel, the antiretroviral treatment only began in 1992, although he had been diagnosed as HIVpositive in April 1989.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The application to the National Court notes that he was treated with Retrovir from 11 July until 19 August 1991 but proved allergic to the drug."
+      }
+    ]
   },
   {
     "ID": "3.3.",
@@ -237,7 +246,13 @@
     "ID": "5.1.",
     "Section": "Authors’ comments on the State party’s observations",
     "Labels": [],
-    "Text": "On 22 January 2007 the authors submitted comments on the State party’s observations. With regard to their status as victims, they claim that no doubt was cast on their status either by the Ministry of Justice, the National Court or the Supreme Court. The Constitutional Court was alone in holding that only the deceased had standing to defend his right to life. With regard to the exhaustion of domestic remedies, the authors point out that they pursued their case as far as the Constitutional Court, invoking the same complaints as had been raised before the Ministry of Justice and the Interior."
+    "Text": "On 22 January 2007 the authors submitted comments on the State party’s observations. With regard to their status as victims, they claim that no doubt was cast on their status either by the Ministry of Justice, the National Court or the Supreme Court. The Constitutional Court was alone in holding that only the deceased had standing to defend his right to life. With regard to the exhaustion of domestic remedies, the authors point out that they pursued their case as far as the Constitutional Court, invoking the same complaints as had been raised before the Ministry of Justice and the Interior.[[fn:6]]",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "See paragraphs 2.12 to 2.16."
+      }
+    ]
   },
   {
     "ID": "5.2.",
@@ -313,7 +328,13 @@
     "ID": "7.3.",
     "Section": "Examination of the merits",
     "Labels": [],
-    "Text": "The Committee must also decide whether the fact that the prison administration failed to inform the authors of the seriousness of Mr. Morales Tornel’s condition during the final months of his life constitutes a violation of the right of the authors not to be subjected to arbitrary interference with their family. The Committee recalls its jurisprudence to the effect that arbitrariness within the meaning of article 17 is not confined to procedural arbitrariness, but extends to the reasonableness of the interference with the person’s rights under article 17 and its compatibility with the purposes, aims and objectives of the Covenant."
+    "Text": "The Committee must also decide whether the fact that the prison administration failed to inform the authors of the seriousness of Mr. Morales Tornel’s condition during the final months of his life constitutes a violation of the right of the authors not to be subjected to arbitrary interference with their family. The Committee recalls its jurisprudence to the effect that arbitrariness within the meaning of article 17 is not confined to procedural arbitrariness, but extends to the reasonableness of the interference with the person’s rights under article 17 and its compatibility with the purposes, aims and objectives of the Covenant.[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "See communication No. 558/1993, Canepa v. Canada, Views of 3 April 1997, para. 11.4."
+      }
+    ]
   },
   {
     "ID": "7.4.",

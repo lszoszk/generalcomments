@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [
       "Children",
       "Refugees & asylum-seekers"
@@ -10,7 +10,7 @@
   },
   {
     "ID": "1.2.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [
       "Children",
       "Refugees & asylum-seekers"
@@ -39,7 +39,13 @@
     "ID": "2.4.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "Once in Irbid, her passport was taken away from her. At the time, she was 15 years old. Her grandmother arranged for her to marry a 47-year-old man whom she did not know, a decision that the local imam endorsed."
+    "Text": "Once in Irbid, her passport was taken away from her.[[fn:1]] At the time, she was 15 years old. Her grandmother arranged for her to marry a 47-year-old man whom she did not know, a decision that the local imam endorsed.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "No further details provided."
+      }
+    ]
   },
   {
     "ID": "2.5.",
@@ -78,7 +84,13 @@
     "Labels": [
       "Children"
     ],
-    "Text": "On at least four occasions, the author sought the protection of the police, showing marks of beating and bruises. The police either informed her that they could not help or advised her to initiate court proceedings. She applied to court “on three or four occasions”. The court informed her that, in the event of divorce, her husband would have full custody of the children, which she could not accept."
+    "Text": "On at least four occasions, the author sought the protection of the police, showing marks of beating and bruises. The police either informed her that they could not help or advised her to initiate court proceedings. She applied to court “on three or four occasions”. The court informed her that, in the event of divorce, her husband would have full custody of the children, which she could not accept.[[fn:2]]",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "No further details provided."
+      }
+    ]
   },
   {
     "ID": "2.10.",
@@ -96,7 +108,13 @@
       "Children",
       "Persons with disabilities"
     ],
-    "Text": "The youngest son of the author suffered from epilepsy and multiple disabilities. The husband was angry about having a child with disabilities and initially placed him in an institution. It was only when the author threatened to kill herself that the boy was returned to the family. Subsequently, on several occasions, the husband threatened to abandon the boy once he recovered full custody of the children."
+    "Text": "The youngest son of the author suffered from epilepsy and multiple disabilities. The husband was angry about having a child with disabilities and initially placed him in an institution.[[fn:3]] It was only when the author threatened to kill herself that the boy was returned to the family. Subsequently, on several occasions, the husband threatened to abandon the boy once he recovered full custody of the children.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "No further details provided."
+      }
+    ]
   },
   {
     "ID": "2.12.",
@@ -104,7 +122,17 @@
     "Labels": [
       "Children"
     ],
-    "Text": "In 2012, the author made a final attempt to divorce her husband and keep custody of the children. The Bani Kenana sharia court ruled that full custody of the four sons was to be given to the father owing to the author’s adultery. It also stated that the author had been referred to the authorities as a result of her husband’s threats."
+    "Text": "In 2012, the author made a final attempt to divorce her husband and keep custody of the children. The Bani Kenana sharia court ruled that full custody of the four sons was to be given to the father owing to the author’s adultery.[[fn:4]] It also stated that the author had been referred to the authorities as a result of her husband’s threats.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The author explains that, during her absence from her home, she met a male friend, leading to an accusation of adultery. She adds that the husband was not interested in obtaining custody of their daughter but only of their sons."
+      },
+      {
+        "n": 5,
+        "text": "No further details provided."
+      }
+    ]
   },
   {
     "ID": "2.13.",
@@ -210,7 +238,13 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "According to several reports, Jordan is in general a country characterized by patriarchal cultural norms and customs, resulting in legal and de facto discrimination against women. Women continue to suffer from legal inequality with respect to marriage, divorce and child custody. Under sharia law, women are not granted the same rights as men. Referring to the Special Rapporteur’s report, the author notes that men can divorce without providing a reason. Women may file for judicial divorce at the sharia court, but need evidence and witnesses to support their applications. Grounds for divorce can include domestic abuse, the husband’s failure to provide financially or prolonged absences. Procedures are often lengthy and divorces are usually denied."
+    "Text": "According to several reports,[[fn:6]] Jordan is in general a country characterized by patriarchal cultural norms and customs, resulting in legal and de facto discrimination against women. Women continue to suffer from legal inequality with respect to marriage, divorce and child custody. Under sharia law, women are not granted the same rights as men. Referring to the Special Rapporteur’s report, the author notes that men can divorce without providing a reason. Women may file for judicial divorce at the sharia court, but need evidence and witnesses to support their applications. Grounds for divorce can include domestic abuse, the husband’s failure to provide financially or prolonged absences. Procedures are often lengthy and divorces are usually denied.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "No further details provided."
+      }
+    ]
   },
   {
     "ID": "3.9.",
@@ -444,13 +478,25 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The State party recalls that important weight must be given to the statements made in the context of the interviews conducted by the State party, unless it is found that the evaluation was clearly arbitrary or amounted to a denial of justice, and that it is generally for the State’s organs to review or evaluate facts and evidence in order to determine whether such a risk exists. The State party notes that the Board, a collegial quasi-judicial body, made a thorough assessment of the author’s credibility, her specific circumstances and the background information available, and found that she had failed to render it probable that she would risk persecution or abuse justifying asylum in the event of her return to Jordan."
+    "Text": "The State party recalls that important weight must be given to the statements made in the context of the interviews conducted by the State party, unless it is found that the evaluation was clearly arbitrary or amounted to a denial of justice, and that it is generally for the State’s organs to review or evaluate facts and evidence in order to determine whether such a risk exists.[[fn:7]] The State party notes that the Board, a collegial quasi-judicial body, made a thorough assessment of the author’s credibility, her specific circumstances and the background information available, and found that she had failed to render it probable that she would risk persecution or abuse justifying asylum in the event of her return to Jordan.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Reference is made to P.T. v. Denmark (CCPR/C/113/D/2272/2013). With reference to Mr. X and Ms. X v. Denmark (CCPR/C/112/D/2186/2012), para. 7.5, the State party notes that the Human Rights Committee also concluded that “the authors’ refugee claims were thoroughly assessed by the State party’s authorities, which found that the authors’ declarations about the motive for seeking asylum and their account of the events that caused their fear of torture or killing were not credible. The Committee observes that the authors have not identified any irregularity in the decision-making process, or any risk factor that the State party’s authorities failed to take properly into account. In the light of the above, the Committee cannot conclude that the authors would face a real risk of treatment contrary to articles 6 or 7 of the Covenant if they were removed to the Russian Federation.”"
+      }
+    ]
   },
   {
     "ID": "4.28.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The State party further recalls that in another decision the Human Rights Committee found that, in the absence of evidence establishing that the Board was manifestly unreasonable or arbitrary with respect to the allegations of the author, it could not conclude that the information before it showed that the author’s removal would expose him to a real risk of treatment contrary to article 7 of the International Covenant on Civil and Political Rights."
+    "Text": "The State party further recalls that in another decision the Human Rights Committee found that, in the absence of evidence establishing that the Board was manifestly unreasonable or arbitrary with respect to the allegations of the author, it could not conclude that the information before it showed that the author’s removal would expose him to a real risk of treatment contrary to article 7 of the International Covenant on Civil and Political Rights.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "See Z. v. Denmark (CCPR/C/114/D/2329/2014), para. 7.4."
+      }
+    ]
   },
   {
     "ID": "4.29.",
@@ -464,7 +510,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The author presented her comments on 25 November 2015. With regard to credibility, she notes that the State party agrees with the Board’s assessment of her explanation regarding the violence, control and abuse during marriage, finding that it lacks credibility. She explains that she has admitted inconsistent statements regarding her departure, but these statements should not per se lead to a negative assessment of credibility. In this context, the author refers to the Office of the United Nations High Commissioner for Refugees (UNHCR) Handbook and Guidelines on Procedures and Criteria for Determining Refugee Status under the 1951 Convention and the 1967 Protocol relating to the Status of Refugees, according to which it may be necessary for the examiner to clarify any apparent inconsistencies and to resolve any contradictions, and to find an explanation for any misrepresentation or concealment of material facts. Untrue statements by themselves are not a reason for refusal of refugee status and it is the examiner’s responsibility to evaluate such statements in the light of all the circumstances of the case."
+    "Text": "The author presented her comments on 25 November 2015. With regard to credibility, she notes that the State party agrees with the Board’s assessment of her explanation regarding the violence, control and abuse during marriage, finding that it lacks credibility. She explains that she has admitted inconsistent statements regarding her departure, but these statements should not per se lead to a negative assessment of credibility. In this context, the author refers to the Office of the United Nations High Commissioner for Refugees (UNHCR) Handbook and Guidelines on Procedures and Criteria for Determining Refugee Status under the 1951 Convention and the 1967 Protocol relating to the Status of Refugees,[[fn:9]] according to which it may be necessary for the examiner to clarify any apparent inconsistencies and to resolve any contradictions, and to find an explanation for any misrepresentation or concealment of material facts. Untrue statements by themselves are not a reason for refusal of refugee status and it is the examiner’s responsibility to evaluate such statements in the light of all the circumstances of the case.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Available at https://cms.emergency.unhcr.org/documents/11982/49074/UNHCR+Handbook+ and+Guidelines+on+Procedures+and+Criteria+for+Determining+Refugee+Status+under+the+1951+Convention+and+the+1967+Protocol+Relating+to+the+Status+of+Refugees/30fe78f2-5414-47ec-9439-0f2663889e58."
+      }
+    ]
   },
   {
     "ID": "5.2.",
@@ -515,19 +567,35 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "Counsel further refers to the UNHCR guideline regarding credibility assessment, Beyond Proof: Credibility Assessment in the E.U. Asylum Systems, according to which an applicant may truthfully relate the core reasons for an application for international protection after having provided false information about the journey but that: Such behaviour should not automatically be used as grounds for imposing a higher credibility threshold or denying the applicant the benefit of the doubt. Where the provision of false information and/or documentation relates to a material fact, … the determining authority must determine whether the applicant can provide a satisfactory explanation for his or her behaviour. … Moreover, UNHCR recalls that untrue statements alone are not a reason for refusal of refugee status."
+    "Text": "Counsel further refers to the UNHCR guideline regarding credibility assessment, Beyond Proof: Credibility Assessment in the E.U. Asylum Systems,[[fn:10]] according to which an applicant may truthfully relate the core reasons for an application for international protection after having provided false information about the journey but that: Such behaviour should not automatically be used as grounds for imposing a higher credibility threshold or denying the applicant the benefit of the doubt. Where the provision of false information and/or documentation relates to a material fact, … the determining authority must determine whether the applicant can provide a satisfactory explanation for his or her behaviour. … Moreover, UNHCR recalls that untrue statements alone are not a reason for refusal of refugee status. Counsel believes that the author has given a plausible explanation regarding her stay in the United Arab Emirates.[[fn:11]]",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See https://www.refworld.org/cgi-bin/texis/vtx/rwmain?docid=51a704244."
+      },
+      {
+        "n": 11,
+        "text": "Counsel also refers to a judgment of the European Court of Human Rights in A.F. v. France (application No. 80086/13), judgment of 15 April 2015, regarding an asylum seeker using a false identity and whose application had been rejected. Subsequently, he used his true identity and the same asylum motive. The Court decided that his deportation would breach article 3 of the Convention for the Protection of Human Rights and Fundamental Freedoms."
+      }
+    ]
   },
   {
     "ID": "5.9.",
-    "Section": "Counsel believes that the author has given a plausible explanation regarding her stay in the United Arab Emirates",
+    "Section": "Author’s comments on the State party’s observations on admissibility and the merits",
     "Labels": [
       "Children"
     ],
-    "Text": "Regarding the husband’s attempt to locate the author, counsel explains that, in its last reports, the Danish police noted that it had received a letter from the husband, dated 22 March 2014, wherein he stated that he had tried to locate her and asked her to return with the children. The husband no longer contacts her father, since he did not return her to Jordan. The author has changed her telephone number and her husband cannot contact her anymore."
+    "Text": "Regarding the husband’s attempt to locate the author, counsel explains that, in its last reports, the Danish police noted that it had received a letter from the husband, dated 22 March 2014, wherein he stated that he had tried to locate her and asked her to return with the children.[[fn:12]] The husband no longer contacts her father, since he did not return her to Jordan. The author has changed her telephone number and her husband cannot contact her anymore.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "Counsel explains that he finds it strange that the State party has left this information out of its presentation to the Committee. He notes that this information was part of their appeal to the Refugee Appeals Board and that it was only one of several attempts by the husband to reach the author in Denmark. As explained to the Board, he had contacted her, her father, a friend of her father and his own friend in Denmark with threats and a request regarding her return with the children to Jordan."
+      }
+    ]
   },
   {
     "ID": "5.10.",
-    "Section": "Counsel believes that the author has given a plausible explanation regarding her stay in the United Arab Emirates",
+    "Section": "Author’s comments on the State party’s observations on admissibility and the merits",
     "Labels": [
       "Refugees & asylum-seekers"
     ],
@@ -535,13 +603,13 @@
   },
   {
     "ID": "5.11.",
-    "Section": "Counsel believes that the author has given a plausible explanation regarding her stay in the United Arab Emirates",
+    "Section": "Author’s comments on the State party’s observations on admissibility and the merits",
     "Labels": [],
     "Text": "Even if the punishment for not obeying traditional norms took place in 2002, it remains relevant to the overall assessment of whether the author has been and will be subjected to gender-based discrimination and violence. The family’s acceptance of the past forced marriage is closely linked, in counsel’s opinion, with the future risk of the author being again returned to a marriage characterized by violence and abuse. The failure to acknowledge and pay attention to the relationship between the punishment by the author’s family for not obeying traditional norms and the violent and abusive nature of her marriage, assessed in conjunction with the lack of efficient protection in Jordan, demonstrates, according to counsel, the lack of a gender-sensitive approach in the examination and assessment of the asylum claim."
   },
   {
     "ID": "5.12.",
-    "Section": "Counsel believes that the author has given a plausible explanation regarding her stay in the United Arab Emirates",
+    "Section": "Author’s comments on the State party’s observations on admissibility and the merits",
     "Labels": [
       "Refugees & asylum-seekers",
       "Women/girls"
@@ -566,7 +634,13 @@
     "ID": "6.3.",
     "Section": "State party’s additional observations",
     "Labels": [],
-    "Text": "The State party reiterates that, in her communication, the author merely disagrees with the conclusions of the asylum authorities. However, she has not established that the assessment made by the asylum authorities was arbitrary or amounted to a manifest error or a denial of justice. She also failed to identify any irregularity in the decision-making process or any factors that the Board failed to take properly into account."
+    "Text": "The State party reiterates that, in her communication, the author merely disagrees with the conclusions of the asylum authorities. However, she has not established that the assessment made by the asylum authorities was arbitrary or amounted to a manifest error or a denial of justice. She also failed to identify any irregularity in the decision-making process or any factors that the Board failed to take properly into account.[[fn:13]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "The State party further notes that the author has not demonstrated any similarities between her case and the case of A.F. v. France (see footnote 14 above)."
+      }
+    ]
   },
   {
     "ID": "6.4.",
@@ -600,7 +674,13 @@
       "Children",
       "Refugees & asylum-seekers"
     ],
-    "Text": "In particular, regarding the assessment of her credibility, the author notes that the Refugee Appeals Board, on 13 March 2014, found her statement about the violence and sexual abuse she suffered not to be considered as a fact. She recalls that she said to the police that she had left the Syrian Arab Republic as a result of the war and because of her sick child and that she wanted to divorce her husband. Before the Danish Immigration Service, she stated that she had a difficult relationship with her spouse, who had forced her to have sex and to cook and who had beaten her and locked her up, that she feared being thrown out of the house and that the children would be taken away by her husband in the event of their return. Before the Board, she stated that her relationship with her husband had been pure torture, that he had raped her and beaten her to the point of miscarriage twice and that he had prohibited her from leaving the home and burned her and poured hot oil on her hand."
+    "Text": "In particular, regarding the assessment of her credibility, the author notes that the Refugee Appeals Board, on 13 March 2014, found her statement about the violence and sexual abuse she suffered not to be considered as a fact. She recalls that she said to the police that she had left the Syrian Arab Republic[[fn:14]] as a result of the war and because of her sick child and that she wanted to divorce her husband. Before the Danish Immigration Service, she stated that she had a difficult relationship with her spouse, who had forced her to have sex and to cook and who had beaten her and locked her up, that she feared being thrown out of the house and that the children would be taken away by her husband in the event of their return. Before the Board, she stated that her relationship with her husband had been pure torture, that he had raped her and beaten her to the point of miscarriage twice and that he had prohibited her from leaving the home and burned her and poured hot oil on her hand.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "See para. 2.10 above."
+      }
+    ]
   },
   {
     "ID": "7.3.",
@@ -614,7 +694,13 @@
     "Labels": [
       "Children"
     ],
-    "Text": "On 13 November 2017, the author provided further comments. She adduced a statement made by a judge in Irbid, confirming that she had filed a number of cases in 2008 concerning alimony for her and the children and custody, which she later withdrew."
+    "Text": "On 13 November 2017, the author provided further comments. She adduced a statement made by a judge in Irbid, confirming that she had filed a number of cases in 2008 concerning alimony for her and the children and custody, which she later withdrew.[[fn:15]]",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "No further details provided."
+      }
+    ]
   },
   {
     "ID": "8.1.",
@@ -635,7 +721,13 @@
       "Children",
       "Refugees & asylum-seekers"
     ],
-    "Text": "As for the court document appended to her comments of 13 November 2017 as proof that she initiated court proceedings in 2008, the State party notes that it cannot lead to a different conclusion in the case. The document does not render it probable that the author’s spouse has been granted full custody of the children by a judgment delivered in 2012. Thus, there is no reason to request an authentication of the document in question. The State party notes that the decision to authenticate documents presented by asylum seekers is based on the overall assessment of, inter alia, the nature and content of the documents, in conjunction with the prospect of whether such verification could lead to a different assessment of the evidence, the timing and circumstances of the submission of the document and the credibility of the asylum seeker’s statements in the light of the general background country information. Making reference to the case law of the European Court of Human Rights, the State party notes that the Board is under no obligation to systematically verify the authenticity of documents in all cases."
+    "Text": "As for the court document appended to her comments of 13 November 2017 as proof that she initiated court proceedings in 2008, the State party notes that it cannot lead to a different conclusion in the case. The document does not render it probable that the author’s spouse has been granted full custody of the children by a judgment delivered in 2012. Thus, there is no reason to request an authentication of the document in question. The State party notes that the decision to authenticate documents presented by asylum seekers is based on the overall assessment of, inter alia, the nature and content of the documents, in conjunction with the prospect of whether such verification could lead to a different assessment of the evidence, the timing and circumstances of the submission of the document and the credibility of the asylum seeker’s statements in the light of the general background country information. Making reference to the case law of the European Court of Human Rights, the State party notes that the Board is under no obligation to systematically verify the authenticity of documents in all cases.[[fn:16]]",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "See J.K. and others v. Sweden (application No. 59166/12), judgment of 23 August 2016."
+      }
+    ]
   },
   {
     "ID": "8.4.",
@@ -669,10 +761,23 @@
     "ID": "9.4.",
     "Section": "Issues and proceedings before the Committee concerning admissibility",
     "Labels": [
-      "Refugees & asylum-seekers",
       "Women/girls"
     ],
-    "Text": "The Committee recalls that, under international human rights law, the non-refoulement principle imposes a duty on States parties to refrain from returning a person to a jurisdiction in which he or she may face serious violations of human rights, notably arbitrary deprivation of life or torture or other cruel, inhuman or degrading treatment or punishment. It also recalls that gender-based violence, which impairs or nullifies the enjoyment by women of human rights and fundamental freedoms under general international law or under human rights conventions, is discrimination within the meaning of article 1 of the Convention and that such rights include the right to life and the right not to be subjected to torture. It reaffirms the obligation of States parties to eliminate discrimination against women, including gender-based violence against women, and recalls that the obligation comprises two aspects of State responsibility for such violence: that which results from the acts or omissions of both the State party or its agents, on the one hand, and non-State actors, on the other."
+    "Text": "The Committee recalls that, under international human rights law, the nonrefoulement principle imposes a duty on States parties to refrain from returning a person to a jurisdiction in which he or she may face serious violations of human rights, notably arbitrary deprivation of life or torture or other cruel, inhuman or degrading treatment or punishment.[[fn:17]] It also recalls that gender-based violence, which impairs or nullifies the enjoyment by women of human rights and fundamental freedoms under general international law or under human rights conventions, is discrimination within the meaning of article 1 of the Convention and that such rights include the right to life and the right not to be subjected to torture.[[fn:18]] It reaffirms the obligation of States parties to eliminate discrimination against women, including gender-based violence against women, and recalls that the obligation comprises two aspects of State responsibility for such violence: that which results from the acts or omissions of both the State party or its agents, on the one hand, and non-State actors, on the other.[[fn:19]]",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "See general recommendation No. 32, para. 17."
+      },
+      {
+        "n": 18,
+        "text": "See general recommendation No. 19 (1992) on violence against women, para. 7."
+      },
+      {
+        "n": 19,
+        "text": "See general recommendation No. 35 (2017) on gender-based violence against women, updating general recommendation No. 19, in which the Committee develops its interpretation of violence against women as a form of gender-based discrimination."
+      }
+    ]
   },
   {
     "ID": "9.5.",
@@ -688,7 +793,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee recalls that it is generally for the authorities of States parties to the Convention to evaluate the facts and evidence in a particular case, unless it can be established that this evaluation was biased or based on gender stereotypes that constitute discrimination against women, or that it was clearly arbitrary or amounted to a denial of justice."
+    "Text": "The Committee recalls that it is generally for the authorities of States parties to the Convention to evaluate the facts and evidence in a particular case,[[fn:20]] unless it can be established that this evaluation was biased or based on gender stereotypes that constitute discrimination against women, or that it was clearly arbitrary or amounted to a denial of justice.",
+    "Footnotes": [
+      {
+        "n": 20,
+        "text": "See, for example, R.P.B. v. Philippines (CEDAW/C/57/D/34/2011), para. 7.5."
+      }
+    ]
   },
   {
     "ID": "9.7.",

@@ -1,15 +1,21 @@
 [
   {
     "ID": "1.1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author is Abdumalik Nazarov, a citizen of Kyrgyzstan, born in 1973, and currently serving a term of nine years’ imprisonment in Uzbekistan. He claims to be a victim of violations by Uzbekistan of article 10, paragraph 1, article 14, paragraphs 2, 3(b), (c) and (d), and article 18, paragraph (1), of the International Covenant on Civil and Political Rights. The communication also appears to raises issues under article 9(3) and article 14(3)(e). He is represented by counsel."
+    "Text": "The author is Abdumalik Nazarov, a citizen of Kyrgyzstan, born in 1973, and currently serving a term of nine years’ imprisonment in Uzbekistan[[fn:3]]. He claims to be a victim of violations by Uzbekistan of article 10, paragraph 1, article 14, paragraphs 2, 3(b), (c) and (d), and article 18, paragraph (1), of the International Covenant on Civil and Political Rights. The communication also appears to raises issues under article 9(3) and article 14(3)(e). He is represented by counsel.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The Optional Protocol entered into force for Uzbekistan on 28 September 1995."
+      }
+    ]
   },
   {
     "ID": "1.2.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The Covenant and the Optional Protocol entered into force in relation to Uzbekistan on 28 December 1995."
   },
@@ -123,7 +129,13 @@
     "ID": "6.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "In relation to article 9(3), the author notes that his arrest was confirmed by the relevant authority on 31 December 1997, 5 days after his detention, however it does not appear that the confirmation of the arrest involved the author being brought before a judge or other authorized judicial officer. In any event, the Committee does not consider that a period of 5 days could be considered ‘prompt’ for the purpose of article 9(3). Accordingly, in the absence of an explanation from the State party, the Committee considers that the communication discloses a violation of article 9(3) by the State party."
+    "Text": "In relation to article 9(3), the author notes that his arrest was confirmed by the relevant authority on 31 December 1997, 5 days after his detention, however it does not appear that the confirmation of the arrest involved the author being brought before a judge or other authorized judicial officer. In any event, the Committee does not consider that a period of 5 days could be considered ‘prompt’ for the purpose of article 9(3).[[fn:4]] Accordingly, in the absence of an explanation from the State party, the Committee considers that the communication discloses a violation of article 9(3) by the State party.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "See for example Communication no 852/1999, Borisenko v Hungary, 14 October 2002, where the Committee considered that a three day period was not ‘prompt’."
+      }
+    ]
   },
   {
     "ID": "6.3.",
@@ -141,7 +153,13 @@
     "ID": "8.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "Pursuant to article 2, paragraph 3(a) of the Covenant, the Committee considers that the author is entitled to an appropriate remedy, including compensation and his immediate release."
+    "Text": "Pursuant to article 2, paragraph 3(a) of the Covenant, the Committee considers that the author is entitled to an appropriate remedy, including compensation and his immediate release.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "See for example Gridin v Russian Federation, Communication no 770/1997, views adopted 20.07.2000."
+      }
+    ]
   },
   {
     "ID": "9.",

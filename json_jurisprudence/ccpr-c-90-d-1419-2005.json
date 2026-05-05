@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The author of the communication, dated 1 February 2005, is Francesco de Lorenzo. The author claims violations of articles 2, paragraph 1; 14, paragraph 1; 14, paragraph 3(d); 14, paragraph 5; and 26 of the Covenant by Italy. The Optional Protocol entered into force for Italy on 15 December 1978. He is represented by counsel, Andrea Saccucci."
   },
@@ -89,13 +89,45 @@
     "ID": "2.13.",
     "Section": "Factual background",
     "Labels": [],
-    "Text": "On 31 January 2001, the author submitted an application to the European Court of Human Rights alleging that: his conviction on the basis of statements of witnesses that he had no opportunity to examine violated articles 6(1) and 3(d) of the European Convention on Human Rights; that the refusal to adjourn the trial while the author was undergoing cancer treatment violated articles 6(1) and 6(3)(c) of the Convention; that the reading by the public prosecutor before the Tribunal of Naples of several statements made by the co-accused during the preliminary investigation violated article 6(1) of the Convention; that the unspecified nature of the accusations and the modification during the trial of the legal qualification of one of them violated articles 6(1) and 6(3)(a) and (b) of the Convention; that the lack of impartiality and independence of the “Panel for Ministerial Offences” violated article 6(1) of the Convention; that the difference in treatment between the author and his co-accused, especially regarding the application of new rules concerning the admissibility of evidence collected during the investigation, violated article 14, read in conjunction with article 6, of the Convention; that the fact that the author was compelled to appear at his own trial despite poor health violated articles 3 and 8 of the Convention; and that the fact that his conviction of having set up a criminal association was not substantially reviewed by a higher tribunal violated article 2 of Protocol No. 7 to the Convention."
+    "Text": "On 31 January 2001, the author submitted an application to the European Court of Human Rights alleging that: his conviction on the basis of statements of witnesses that he had no opportunity to examine violated articles 6(1) and 3(d) of the European Convention on Human Rights;[[fn:3]] that the refusal to adjourn the trial while the author was undergoing cancer treatment violated articles 6(1) and 6(3)(c) of the Convention;[[fn:4]] that the reading by the public prosecutor before the Tribunal of Naples of several statements made by the co-accused during the preliminary investigation violated article 6(1) of the Convention; that the unspecified nature of the accusations and the modification during the trial of the legal qualification of one of them violated articles 6(1) and 6(3)(a) and (b) of the Convention;[[fn:5]] that the lack of impartiality and independence of the “Panel for Ministerial Offences” violated article 6(1) of the Convention; that the difference in treatment between the author and his co-accused, especially regarding the application of new rules concerning the admissibility of evidence collected during the investigation, violated article 14, read in conjunction with article 6, of the Convention;[[fn:6]] that the fact that the author was compelled to appear at his own trial despite poor health violated articles 3 and 8 of the Convention;[[fn:7]] and that the fact that his conviction of having set up a criminal association was not substantially reviewed by a higher tribunal violated article 2 of Protocol No. 7 to the Convention.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Article 6(1) provides that “In the determination of his civil rights and obligations or of any criminal charge against him, everyone is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal established by law. Judgment shall be pronounced publicly but the press and public may be excluded from all or part of the trial in the interests of morals, public order or national security in a democratic society, where the interests of juveniles or the protection of the private life of the parties so require, or to the extent strictly necessary in the opinion of the court in special circumstances where publicity would prejudice the interests of justice.” Article 6(3)(d) provides that everyone charged with a criminal offence has the right “to examine or have examined witnesses against him and to obtain the attendance and examination of witnesses on his behalf under the same conditions as witnesses against him”."
+      },
+      {
+        "n": 4,
+        "text": "Article 6(3)(c) provides that everyone charged with a criminal offence has the right “to defend himself in person or through legal assistance of his own choosing or, if he has not sufficient means to pay for legal assistance, to be given it free when the interests of justice so require”."
+      },
+      {
+        "n": 5,
+        "text": "Article 6(3)(a) and (b) provides that everyone charged with a criminal offence has the right “to be informed promptly, in a language which he understands and in detail, of the nature and cause of the accusation against him” and “to have adequate time and facilities for the preparation of his defence”."
+      },
+      {
+        "n": 6,
+        "text": "Article 14 provides that “The enjoyment of the rights and freedoms set forth in this Convention shall be secured without discrimination on any ground such as sex, race, colour, language, religion, political or other opinion, national or social origin, association with a national minority, property, birth or other status."
+      },
+      {
+        "n": 7,
+        "text": "Article 3 provides that “No one shall be subjected to torture or to inhuman or degrading treatment or punishment.” Article 8 provides that “1 Everyone has the right to respect for his private and family life, his home and his correspondence. 2 There shall be no interference by a public authority with the exercise of this right except such as is in accordance with the law and is necessary in a democratic society in the interests of national security, public safety or the economic well-being of the country, for the prevention of disorder or crime, for the protection of health or morals, or for the protection of the rights and freedoms of others.”"
+      },
+      {
+        "n": 8,
+        "text": "Article 2 of Protocol No.7 provides that “1 Everyone convicted of a criminal offence by a tribunal shall have the right to have his conviction or sentence reviewed by a higher tribunal. The exercise of this right, including the grounds on which it may be exercised, shall be governed by law. 2 This right may be subject to exceptions in regard to offences of a minor character, as prescribed by law, or in cases in which the person concerned was tried in the first instance by the highest tribunal or was convicted following an appeal against acquittal."
+      }
+    ]
   },
   {
     "ID": "2.14.",
     "Section": "Factual background",
     "Labels": [],
-    "Text": "On 12 February 2004, the European Court declared the majority of these claims manifestly unfounded. The claim regarding the impartiality of the Panel was declared incompatible ratione materiae with article 6 of Convention because the guarantees provided for therein apply only to tribunals called upon to determine criminal charges. Accordingly, the similar claim made under article 14, read together with article 6, was also declared inadmissible as incompatible ratione materiae with the Convention."
+    "Text": "On 12 February 2004, the European Court declared the majority of these claims manifestly unfounded. The claim regarding the impartiality of the Panel was declared incompatible ratione materiae with article 6 of Convention because the guarantees provided for therein apply only to tribunals called upon to determine criminal charges.[[fn:9]] Accordingly, the similar claim made under article 14, read together with article 6, was also declared inadmissible as incompatible ratione materiae with the Convention.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "See European Court of Human Rights, judgment of 12 February 2004, application No.69264/01."
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -143,7 +175,13 @@
     "ID": "4.2.",
     "Section": "State party’s submissions on admissibility",
     "Labels": [],
-    "Text": "The State party notes that the author himself concedes that the same matter has already been examined by the European Court of Human Rights. Nonetheless, the author claims that his legal arguments are “substantially different from those relied upon in the proceedings before the European Court”. The State party recalls that, according to the Committee’s consistent jurisprudence, a matter is deemed to have already been investigated when the parties, the complaints advanced and the fact adduced in support are the same: the Committee has never identified “same legal arguments” as one of the elements constituting “the same matter”. In any case, it is difficult to identify any genuine new legal argument, since the claims and legal reasoning of the author, as well as the facts adduced to support them, perfectly coincide with those contained in his application before the European Court. Moreover, the State party notes that the same substantive rights are invoked before the Committee."
+    "Text": "The State party notes that the author himself concedes that the same matter has already been examined by the European Court of Human Rights. Nonetheless, the author claims that his legal arguments are “substantially different from those relied upon in the proceedings before the European Court”. The State party recalls that, according to the Committee’s consistent jurisprudence, a matter is deemed to have already been investigated when the parties, the complaints advanced and the fact adduced in support are the same: the Committee has never identified “same legal arguments” as one of the elements constituting “the same matter”.[[fn:10]] In any case, it is difficult to identify any genuine new legal argument, since the claims and legal reasoning of the author, as well as the facts adduced to support them, perfectly coincide with those contained in his application before the European Court. Moreover, the State party notes that the same substantive rights are invoked before the Committee.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See Communication No.168/1984, V.O. v. Norway, inadmissibility decision adopted on 17 July 1985, para.4.4."
+      }
+    ]
   },
   {
     "ID": "4.3.",
@@ -185,13 +223,29 @@
     "ID": "6.3.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "In the instant case, the Committee is seized of the “same matter” as the European Court. As to whether the Court “examined” the same matter, the Committee observes that most of the author's claims were declared inadmissible as manifestly ill-founded by the Court (see para.2.14 above), a conclusion for which it gave extensive justification. In that respect, the Committee concludes that the Court indeed “examined” most of the author's allegations and that the State party’s reservation to article 5, paragraph 2(a), of the Optional Protocol, applies. In respect of the author's remaining claim regarding the Panel, which was declared inadmissible as incompatible ratione materiae by the European Court, the Committee considers that the Court did not examine this claim within the meaning of article 5, paragraph 2(a)."
+    "Text": "In the instant case, the Committee is seized of the “same matter” as the European Court. As to whether the Court “examined” the same matter, the Committee observes that most of the author's claims were declared inadmissible as manifestly ill-founded by the Court (see para.2.14 above), a conclusion for which it gave extensive justification. In that respect, the Committee concludes that the Court indeed “examined” most of the author's allegations and that the State party’s reservation to article 5, paragraph 2(a), of the Optional Protocol, applies.[[fn:11]] In respect of the author's remaining claim regarding the Panel, which was declared inadmissible as incompatible ratione materiae by the European Court, the Committee considers that the Court did not examine this claim within the meaning of article 5, paragraph 2(a).[[fn:12]]",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "See Communication No.121/1982, A.M. v. Denmark, Inadmissibility decision adopted on 23 July 1982, para.4; and Communication No.584/1994, Valentijn v. France, Inadmissibility decision adopted on 22 July 1996, para.5.2."
+      },
+      {
+        "n": 12,
+        "text": "See Communication No.441/1990, Casanovas v. France, Views adopted on 19 July 1994, para. 5.1."
+      }
+    ]
   },
   {
     "ID": "6.4.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Committee notes the State party’s argument that the author did not exhaust domestic remedies. It does however consider that the author exhausted domestic remedies since he raised the issue of the independence and impartiality of the Panel before the Panel itself, the Naples Court of Appeal and the Constitutional Court. Nonetheless, the Committee notes that the European Court of Human Rights considered that the main purpose of article 6, paragraph 1, of the European Convention of Human Rights, as far as criminal matters are concerned, is to ensure a fair trial by a tribunal competent to “determine” any criminal charge and that the guarantees of independence and impartiality for a fair trial concern only jurisdictions called upon to determine the innocence or guilt of the accused. Similarly, the Committee considers that article 14, paragraph 1, mainly applies to “courts and tribunals” that deliver judgment in a criminal case. In the present case, the Panel for Ministerial Offences could only determine whether the author should be committed to stand trial, not whether he was guilty as charged. It was a sui generis jurisdiction which exercised the functions of prosecutor and judge of the preliminary investigation and the author himself requested that his case be transferred to this Panel. In such circumstances, the Committee considers that this part of the communication is inadmissible ratione materiae under article 3 of the Optional Protocol."
+    "Text": "The Committee notes the State party’s argument that the author did not exhaust domestic remedies. It does however consider that the author exhausted domestic remedies since he raised the issue of the independence and impartiality of the Panel before the Panel itself, the Naples Court of Appeal and the Constitutional Court. Nonetheless, the Committee notes that the European Court of Human Rights considered that the main purpose of article 6, paragraph 1, of the European Convention of Human Rights, as far as criminal matters are concerned, is to ensure a fair trial by a tribunal competent to “determine” any criminal charge and that the guarantees of independence and impartiality for a fair trial concern only jurisdictions called upon to determine the innocence or guilt of the accused.[[fn:13]] Similarly, the Committee considers that article 14, paragraph 1, mainly applies to “courts and tribunals” that deliver judgment in a criminal case. In the present case, the Panel for Ministerial Offences could only determine whether the author should be committed to stand trial, not whether he was guilty as charged. It was a sui generis jurisdiction which exercised the functions of prosecutor and judge of the preliminary investigation and the author himself requested that his case be transferred to this Panel. In such circumstances, the Committee considers that this part of the communication is inadmissible ratione materiae under article 3 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "See European Court of Human Rights, decision of 12 February 2004, application no.69264/01, p.26."
+      }
+    ]
   },
   {
     "ID": "6.5.",

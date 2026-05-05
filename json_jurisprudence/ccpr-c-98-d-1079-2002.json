@@ -1,9 +1,15 @@
 [
   {
     "ID": "1.",
-    "Section": "Decision on admissibility",
+    "Section": "ANNEX",
     "Labels": [],
-    "Text": "The author of the communication is A., an Uzbek national born in 1968. She submits the communication on her behalf and on behalf of B. (her father), an Uzbek national born in 1948; her brother, C., an Uzbek national born in 1977; and her uncle, D., also an Uzbek national born in 1961. The author claims that they are all victims of violations by , of their rights under article 2; article 7; article 9; article 10; article 11; article 19; and article 26, of the Covenant. Her allegations also raise issues under article 14 of the Covenant, although the author does not invoke this provision of the Covenant specifically in her initial submission. The author is unrepresented. The Optional Protocol entered into force for the State party on 28 December 1995."
+    "Text": "The author of the communication is A., an Uzbek national born in 1968. She submits the communication on her behalf and on behalf of B. (her father), an Uzbek national born in 1948; her brother, C., an Uzbek national born in 1977; and her uncle, D., also an Uzbek national born in 1961[[fn:4]]. The author claims that they are all victims of violations by Uzbekistan, of their rights under article 2; article 7; article 9; article 10; article 11; article 19; and article 26, of the Covenant. Her allegations also raise issues under article 14 of the Covenant, although the author does not invoke this provision of the Covenant specifically in her initial submission. The author is unrepresented. The Optional Protocol entered into force for the State party on 28 December 1995.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "At the time of registration of the communication, the author has submitted written authorisations to act on behalf of her brother and her uncle, but not on behalf of her father, who had allegedly disappeared at this moment. Subsequently, given that the author’s father had reappeared, the author submitted also a written authorisation to act on her father’s behalf. The author has not presented details on the exact circumstances of the reappearance of her father."
+      }
+    ]
   },
   {
     "ID": "2.1.",
@@ -15,7 +21,13 @@
     "ID": "2.2.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "The author affirms that her father had told her that his deputies had signed several documents in his absence what had resulted in the release and disappearance of several thousands of tons of flour from the State reserve, creating serious problems. Her father’s efforts to bring the situation to the attention of the President were in vain. According to the author, she discovered sometime later that the Vice-Prime Minister had provided the President with false information in this respect."
+    "Text": "The author affirms that her father had told her that his deputies had signed several documents in his absence what had resulted in the release and disappearance of several thousands of tons of flour from the State reserve, creating serious problems[[fn:5]]. Her father’s efforts to bring the situation to the attention of the President were in vain. According to the author, she discovered sometime later that the Vice-Prime Minister had provided the President with false information in this respect.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "According to the author, the whole system of recording of the wheat available in State depot in Uzbekistan was inaccurate, and her father was one of the first officials who started drawing the authorities’ attention to this."
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -29,7 +41,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "In the morning of 31 March 2000, the author’s father travelled to the city of , to attend the meeting of the Committee of Ministers. Later that day, the author was informed that her father had been arrested; subsequently, the police explained that in fact her father’s whereabouts were unknown and that an arrest warrant against him was issued. The same day, at her mother’s insistence, the author left . All subsequent requests in respect to B.’s whereabouts made by the family to different institutions have remained unanswered."
+    "Text": "In the morning of 31 March 2000, the author’s father travelled to the city of Dzhizak, to attend the meeting of the Committee of Ministers. Later that day, the author was informed that her father had been arrested; subsequently, the police explained that in fact her father’s whereabouts were unknown and that an arrest warrant against him was issued. The same day, at her mother’s insistence, the author left Uzbekistan. All subsequent requests in respect to B.’s whereabouts made by the family to different institutions have remained unanswered[[fn:6]].",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The author claims that such requests were addressed to the President, the Prosecutor General’s Office, the Ministry of Interior, etc."
+      }
+    ]
   },
   {
     "ID": "2.5.",
@@ -43,25 +61,31 @@
     "ID": "2.6.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "The author contends that prior to her departure from , she was responsible for the international relations of a private company called “NZI”. The director of the company was questioned by the police and allegedly beaten in an attempt to force her to provide the author’s whereabouts and information on the functioning of the firm. The company’s belongings and stamps were seized. Allegedly, the investigators were trying to establish the author’s responsibility for the misappropriation of a large sum of money. An arrest warrant against the author was issued on these grounds."
+    "Text": "The author contends that prior to her departure from Uzbekistan, she was responsible for the international relations of a private company called “NZI”. The director of the company was questioned by the police and allegedly beaten in an attempt to force her to provide the author’s whereabouts and information on the functioning of the firm. The company’s belongings and stamps were seized. Allegedly, the investigators were trying to establish the author’s responsibility for the misappropriation of a large sum of money. An arrest warrant against the author was issued on these grounds."
   },
   {
     "ID": "2.7.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "The author affirms that the investigators had also “fabricated” charges against her father and her brother. The charges against her father included breach of the rules of distribution of flour from the State reserve, theft of State property, abuse of power, etc. She explains that she and her brother have fled , as they do not trust the authorities."
+    "Text": "The author affirms that the investigators had also “fabricated” charges against her father and her brother. The charges against her father included breach of the rules of distribution of flour from the State reserve, theft of State property, abuse of power, etc. She explains that she and her brother have fled Uzbekistan, as they do not trust the authorities."
   },
   {
     "ID": "2.8.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 7 March 2001, the Tashkent City Court sentenced the author’s uncle to a nine years’ prison term. According to her, his sentence was groundless and his guilt was not proven. His conviction was partly based on witnesses’ statements unlawfully obtained, including under duress. According to the author, all claims formulated during the trial were rejected by the court without sufficient argumentation or were simply ignored. No economic experts’ examinations have been carried out, according to the author. In addition, her uncle received a copy of the sentence only forty days after its pronouncement and not within ten days required by law. For this reason, according to the author, her uncle was unable to file an appeal on time."
+    "Text": "On 7 March 2001, the Tashkent City Court sentenced the author’s uncle to a nine years’ prison term. According to her, his sentence was groundless and his guilt was not proven. His conviction was partly based on witnesses’ statements unlawfully obtained, including under duress. According to the author, all claims formulated during the trial were rejected by the court without sufficient argumentation or were simply ignored. No economic experts’ examinations have been carried out, according to the author. In addition, her uncle received a copy of the sentence only forty days after its pronouncement and not within ten days required by law. For this reason, according to the author, her uncle was unable to file an appeal on time[[fn:7]].",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "The author further claims, however, that at that moment, her uncle’s cassation claim to the Supreme Court had not yet been examined, and expresses concerns that the cassation claim would most probably only be examined formalistically, as was the case with the appeal examination of the Criminal College of the Tashkent City Court ."
+      }
+    ]
   },
   {
     "ID": "2.9.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "The author claims that her father was investigated in twenty two criminal cases, together with some other three hundred individuals, all accused of having organised serious theft and other crimes. Neither the investigators, nor the courts have ordered the conduct of any economic expert examination that might justify or explain the missing wheat, as well as the accuracy of distribution system of cereals form the State reserve. According to the author, her father and his family were all victims of an organised campaign, initiated by high-level officials in order to avoid the engagement of their own responsibility in the mismanagement that had occurred in the bread sector in . The criminal proceedings against the family were arbitrary and are based, according to the author, on unsubstantiated evidence."
+    "Text": "The author claims that her father was investigated in twenty two criminal cases, together with some other three hundred individuals, all accused of having organised serious theft and other crimes. Neither the investigators, nor the courts have ordered the conduct of any economic expert examination that might justify or explain the missing wheat, as well as the accuracy of distribution system of cereals form the State reserve. According to the author, her father and his family were all victims of an organised campaign, initiated by high-level officials in order to avoid the engagement of their own responsibility in the mismanagement that had occurred in the bread sector in Uzbekistan. The criminal proceedings against the family were arbitrary and are based, according to the author, on unsubstantiated evidence."
   },
   {
     "ID": "3.",
@@ -73,7 +97,13 @@
     "ID": "4.1.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "The State party presented its observations by Note verbale of 31 July 2007. It explains that B., then Chairman of the Board of Directors of “Uzdonmahsulot” State Joint-Stock company, had established a criminal society with his son, and other individuals. Using fake signatures of the staff of the “Uch Qahramon” subsidiary company, D. privatised the company, causing a harm to the State equal to 34 235 459 soums, as assessed by the Committee on the Management of State property. As a result, D. and C. officially became the new owners of the company that was called “Uch Qahramon ltd”."
+    "Text": "The State party presented its observations by Note verbale of 31 July 2007. It explains that B., then Chairman of the Board of Directors of “Uzdonmahsulot” State Joint-Stock company, had established a criminal society with his son, and other individuals. Using fake signatures of the staff of the “Uch Qahramon” subsidiary company, D. privatised the company, causing a harm to the State equal to 34 235 459 soums[[fn:8]], as assessed by the Committee on the Management of State property. As a result, D. and C. officially became the new owners of the company that was called “Uch Qahramon ltd”.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Equal at that time to around 145 000 US dollars (see http://data.un.org/CountryProfile.aspx?crName=Uzbekistan)."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -103,7 +133,13 @@
     "ID": "4.6.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "The State party contends that the criminal activities of B. and the group under his leadership, caused damages (to the public interest) for a total of 732 712 710 soums and 13 499 300 US dollars. On this basis, on 7 April 2000, and due to their absence, B., his daughter and his son were charged in absentia, and arrest warrants were issued against them. In 2001, due to the absence of information on their whereabouts, the investigation of the criminal case in connection to them was suspended, in accordance with article 364 of the Criminal Procedure Code (suspension of preliminary investigation)."
+    "Text": "The State party contends that the criminal activities of B. and the group under his leadership, caused damages (to the public interest) for a total of 732 712 710 soums and 13 499 300 US dollars. On this basis, on 7 April 2000, and due to their absence, B., his daughter and his son were charged in absentia[[fn:9]], and arrest warrants were issued against them. In 2001, due to the absence of information on their whereabouts, the investigation of the criminal case in connection to them was suspended, in accordance with article 364 of the Criminal Procedure Code (suspension of preliminary investigation).",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "According to the State party, they were charged under article 205 of the Criminal Code (Abuse of power or abuse of authority by an official)."
+      }
+    ]
   },
   {
     "ID": "4.7.",
@@ -133,13 +169,25 @@
     "ID": "4.11.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "The State party further contends that the author’s allegations in the present communication are groundless."
+    "Text": "The State party further contends that the author’s allegations in the present communication are groundless[[fn:10]].",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "The State part mentions, in particular, (a) the author’s allegations on the unfounded nature of the conviction of D., and the statement that it was based on non established evidence; (b) her allegations that her father had disappeared in March 2000, after having left for a meeting of the Cabinet of Ministers; the allegedly unsubstantiated character of the charges of the initial investigation against her father and her brother, C. (under search); (c) her allegations on the absence of designation by the preliminary investigation and the court of economic expert examination to identify the reasons of deficiency, as well as the correctness or incorrectness of distribution of grain funds in the State reserve; (d) her allegations on the absence of any irregularities in the activity of the “NZI” company; (e) her allegations on the psychological and physical pressure constantly exerted on the A. family during the preliminary investigation, which caused several members of the family to leave Uzbekistan."
+      }
+    ]
   },
   {
     "ID": "4.12.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "According to the State party, during the preliminary investigation and in court, D. had stated that his term of office as Director of the company “Uch Qahramon non” was from 1995 to March 1999, that he had not registered the company illegally, had not committed misappropriation of someone else’s property, and had not taken funded flour from “Uzdonmahsulot”; he had also affirmed that the charges against him constituted slander. Notwithstanding, the court found him guilty on the basis of the exiting evidence which was dully assessed during the trial. A number of officials had confirmed in court that “Uzdonmahsulot” State Company had provided “Uch Qahramon non” with several hundred tons of flour. One of D.’s co-accused, had also confirmed the above-mentioned facts, and had explained that he had allocated the flour, due to insistent demands by his chief, B., to supply “Uch Qahramon non” with flour in any way."
+    "Text": "According to the State party, during the preliminary investigation and in court, D. had stated that his term of office as Director of the company “Uch Qahramon non” was from 1995 to March 1999, that he had not registered the company illegally, had not committed misappropriation of someone else’s property, and had not taken funded flour from “Uzdonmahsulot”; he had also affirmed that the charges against him constituted slander. Notwithstanding, the court found him guilty on the basis of the exiting evidence which was dully assessed during the trial. A number of officials had confirmed in court that “Uzdonmahsulot” State Company had provided “Uch Qahramon non” with several hundred tons of flour. One of D.’s co-accused, had also confirmed the above-mentioned facts, and had explained that he had allocated the flour, due to insistent demands by his chief, B., to supply “Uch Qahramon non” with flour in any way[[fn:11]].",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "According to the State party, the Chief of the Distribution section of « Uzdonmahsulot » had confirmed in court that, under the orders of one of the deputies of the author’s father, he had released 710 tons of flour to « Uch Qahramon non ltd » from a « non-reimbursable fund »."
+      }
+    ]
   },
   {
     "ID": "4.13.",
@@ -169,13 +217,13 @@
     "ID": "4.17.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "According to the State party, it was established that Uch Qahramon non” company had received inappropriately several hundreds tons of flour on the account of unused funded flour for other regions of in 1999/2000."
+    "Text": "According to the State party, it was established that Uch Qahramon non” company had received inappropriately several hundreds tons of flour on the account of unused funded flour for other regions of Uzbekistan in 1999/2000."
   },
   {
     "ID": "4.18.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "The State party also points out that by decision of 27 June 2000, the found null and void the decision of the governor of Yunusobod district of October 1997 on the establishment of “Uch Qahramon ltd”."
+    "Text": "The State party also points out that by decision of 27 June 2000, the Tashkent City Economic Court found null and void the decision of the governor of Yunusobod district of October 1997 on the establishment of “Uch Qahramon ltd”."
   },
   {
     "ID": "4.19.",
@@ -195,13 +243,19 @@
     "ID": "5.1.",
     "Section": "Author’s comments on the State party’s observations",
     "Labels": [],
-    "Text": "The author’s comments on the State party’s observations were received on 6 July 2009. First, the author affirms that the State party’s reply tend to present the case against her family as a purely economic one. According to her, however, her father was persecuted because he was not corrupt and had refused to obey illicit orders from his superiors. B. had served for 22 years on decision-making posts in the domain of the bread in and was a recognized professional. According to the author, the campaign against her father started only when he tried to warn the President about the irregularities and problems existing in the State’s bread industry."
+    "Text": "The author’s comments on the State party’s observations were received on 6 July 2009. First, the author affirms that the State party’s reply tend to present the case against her family as a purely economic one. According to her, however, her father was persecuted because he was not corrupt and had refused to obey illicit orders from his superiors[[fn:12]]. B. had served for 22 years on decision-making posts in the domain of the bread in Uzbekistan and was a recognized professional. According to the author, the campaign against her father started only when he tried to warn the President about the irregularities and problems existing in the State’s bread industry.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "The author claims, for example, that her father had refused to carry out requests by the Prime-Minister to falsify documents on the de facto available quantities of grain or to produce wrong data on the grain quality (humidity, etc)."
+      }
+    ]
   },
   {
     "ID": "5.2.",
     "Section": "Author’s comments on the State party’s observations",
     "Labels": [],
-    "Text": "The author explains that her family was obliged to leave the country for , where they’ve spent two and a half years. Subsequently, the family moved to a country in the European Union and was granted political asylum there."
+    "Text": "The author explains that her family was obliged to leave the country for Russia, where they’ve spent two and a half years. Subsequently, the family moved to a country in the European Union and was granted political asylum there."
   },
   {
     "ID": "5.3.",
@@ -209,7 +263,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author contends that her family is a victim of violations by of their rights under article 7 of the Covenant. The author’s mother was psychologically pressured by law-enforcement authorities to force her to provide information on the author’s and her father’s activities. Her grand-mother was humiliated by the police when searching her house, apparently trying to find the “millions” hidden by B. there. Her uncle was subjected to violence during the preliminary investigation but also subsequently to his conviction, according to the author, to force him to testify against her and her father."
+    "Text": "The author contends that her family is a victim of violations by Uzbekistan of their rights under article 7 of the Covenant. The author’s mother was psychologically pressured by law-enforcement authorities to force her to provide information on the author’s and her father’s activities. Her grand-mother was humiliated by the police when searching her house, apparently trying to find the “millions” hidden by B. there. Her uncle was subjected to violence during the preliminary investigation but also subsequently to his conviction, according to the author, to force him to testify against her and her father."
   },
   {
     "ID": "5.4.",
@@ -238,7 +292,7 @@
     "ID": "5.7.",
     "Section": "Author’s comments on the State party’s observations",
     "Labels": [],
-    "Text": "The author invokes article 19 of the Covenant, and emphasizes that the family’s repression started when her father wrote officially to high-ranked officials to inform them about the existing problems within the bread sector in ."
+    "Text": "The author invokes article 19 of the Covenant, and emphasizes that the family’s repression started when her father wrote officially to high-ranked officials to inform them about the existing problems within the bread sector in Uzbekistan."
   },
   {
     "ID": "5.8.",

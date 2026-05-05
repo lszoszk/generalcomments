@@ -61,13 +61,33 @@
     "ID": "3.1.",
     "Section": "Complaint",
     "Labels": [],
-    "Text": "The author claims that the National Identity Card Act, as amended, engages his rights under article 17 of the Covenant, given its involvement of the compulsory use and retention of sensitive personal data, whose production to State officials can be required. He submits that the Act fails to meet the requirements of legality, proportionality and necessity."
+    "Text": "The author claims that the National Identity Card Act, as amended, engages his rights under article 17 of the Covenant, given its involvement of the compulsory use and retention of sensitive personal data, whose production to State officials can be required. He submits that the Act fails to meet the requirements of legality, proportionality and necessity.[[fn:4]]",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The author also notes the absence of international consensus on the requirement for compulsory national identification schemes or the personal information that they should contain, as well as widespread privacy concerns regarding such schemes. He submits that a distinction should be drawn between the retention of basic information, such as names, addresses, dates of birth and gender, on the one hand, and of sensitive, personal information, such as fingerprints and DNA, on the other. See European Commission of Human Rights, Reyntjens v. Belgium (application No. 16810/90); and Friedl v. Austria (application No. 15225/89). He submits that measures interfering with the right to privacy must be lawful, necessary and proportionate. See European Court of Human Rights, S. and Marper v. United Kingdom (applications No. 30562/04 and No. 30566/04); and Supreme Court of India, Puttaswamy and Another v. Union of India and Others, judgment of 24 August 2017."
+      }
+    ]
   },
   {
     "ID": "3.2.",
     "Section": "Complaint",
     "Labels": [],
-    "Text": "The author acknowledges that the identity card scheme is provided for by domestic law, but submits that the domestic provisions are not concordant with the aims and objectives of the right protected under the Covenant. Certain provisions enable the minister to expand the requirements of the National Identity Card Act without further oversight. The author argues that the delegation to the executive of the prescription of what sensitive data is collected and recorded on the register and the identity card is arbitrary and far too open-ended and uncertain to comply with the aims and objectives of article 17 of the Covenant. The State party has been planning to enlarge the ambit of the identity card scheme without further legislative scrutiny, despite the importance of considering the risks to privacy. According to the author, the proposed expansion of the smart card system to cover health records is cause for particular concern."
+    "Text": "The author acknowledges that the identity card scheme is provided for by domestic law, but submits that the domestic provisions are not concordant with the aims and objectives of the right protected under the Covenant. Certain provisions enable the minister to expand the requirements of the National Identity Card Act without further oversight.[[fn:5]] The author argues that the delegation to the executive of the prescription of what sensitive data is collected and recorded on the register and the identity card is arbitrary and far too open-ended and uncertain to comply with the aims and objectives of article 17 of the Covenant. The State party has been planning to enlarge the ambit of the identity card scheme without further legislative scrutiny, despite the importance of considering the risks to privacy.[[fn:6]] According to the author, the proposed expansion of the smart card system to cover health records is cause for particular concern.[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The author refers to section 3 (2) (b) of the National Identity Card Act, which requires a register to be kept, including “such other reasonable or necessary information as may be prescribed”; section 5 (2) of the Act, which specifies what information shall be recorded on the identity card itself; section 5 (2) (h) (now f), which allows for “such other information as may be prescribed”; and section 10 of the Act, which provides for the minister to make such regulations “as he thinks fit for the purposes of this Act”."
+      },
+      {
+        "n": 6,
+        "text": "European Court of Human Rights, S. and Marper v. United Kingdom, paras. 71–75."
+      },
+      {
+        "n": 7,
+        "text": "See European Court of Human Rights, L.H. v. Latvia (application No. 52019/07)."
+      }
+    ]
   },
   {
     "ID": "3.3.",
@@ -85,7 +105,13 @@
     "ID": "3.5.",
     "Section": "Complaint",
     "Labels": [],
-    "Text": "The author contends that the public benefits of the scheme are not proportionate to the detrimental effects on the right to privacy. He argues that the sole justification by the State party for making the provision of fingerprint data compulsory, and for requiring citizens to produce the identity card to a State official, is public order. He accepts that the scheme has the legitimate aim of preventing identity fraud and, possibly, of assisting with the verification of identity. However, in justifying the effectiveness of the scheme, the State party’s authorities referred primarily to the ability to check applications against the database of biometric data, which is the very aspect that the Supreme Court found to be unlawful. The inclusion of biometric data on the identity card therefore does not prevent applications for multiple identity cards with the same fingerprints in any way. Inclusion of fingerprints on a fraudulently obtained identity card indeed lends it greater legitimacy. Even with the advantage of rendering it more difficult for stolen or lost identity cards to be used, a simple database of identity cards lost or stolen would achieve a similar objective without the intrusion of collecting and storing biometric data. Moreover, the carrying of an identity card and the assignation of the responsibility for storage of the biometric data to citizens has the security weaknesses identified by the State party’s authorities in their justification of the scheme itself, namely, the loss or theft of a significant number of identity cards. Expert evidence was submitted to the Court showing that fingerprint data could likely be copied onto falsified identity cards."
+    "Text": "The author contends that the public benefits of the scheme are not proportionate to the detrimental effects on the right to privacy. He argues that the sole justification by the State party for making the provision of fingerprint data compulsory, and for requiring citizens to produce the identity card to a State official, is public order. He accepts that the scheme has the legitimate aim of preventing identity fraud and, possibly, of assisting with the verification of identity. However, in justifying the effectiveness of the scheme, the State party’s authorities referred primarily to the ability to check applications against the database of biometric data, which is the very aspect that the Supreme Court found to be unlawful. The inclusion of biometric data on the identity card therefore does not prevent applications for multiple identity cards with the same fingerprints in any way.[[fn:8]] Inclusion of fingerprints on a fraudulently obtained identity card indeed lends it greater legitimacy. Even with the advantage of rendering it more difficult for stolen or lost identity cards to be used, a simple database of identity cards lost or stolen would achieve a similar objective without the intrusion of collecting and storing biometric data. Moreover, the carrying of an identity card and the assignation of the responsibility for storage of the biometric data to citizens has the security weaknesses identified by the State party’s authorities in their justification of the scheme itself, namely, the loss or theft of a significant number of identity cards. Expert evidence was submitted to the Court showing that fingerprint data could likely be copied onto falsified identity cards.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "The author refers to the following reasoning of the Judicial Committee of the Privy Council in its judgment of 31 October 2016: “The absence of the fingerprints and minutiae from the register after an identity card is issued may affect adversely the Government’s ability to prevent identity fraud, for example, if someone were to apply more than once for an identity card using different names and documentation. The extent to which an interference with a fundamental right can achieve a legitimate aim is a consideration in any assessment of its justification.”"
+      }
+    ]
   },
   {
     "ID": "4.1.",
@@ -103,13 +129,33 @@
     "ID": "4.3.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The State party observes that the right to the protection of personal data, including in the context of processing fingerprints, is not absolute and must be considered in relation to its function in society. It also observes that the Supreme Court held that the provisions on the processing of fingerprints disclosed an interference with the author’s rights under article 9 (1) of the Constitution. However, the Court considered that such provisions were permissible under article 9 (2) of the Constitution as being in the interest of public order. It also considered that the author had failed to show that the interference was not reasonably justifiable in a democratic society. The Court found that the taking of fingerprints was necessary and proportionate to the aims of establishing a secure identity protection system and of protecting against identity fraud. The Judicial Committee of the Privy Council, noting that it would be slow to interfere with an evaluation of the justification of an interference with a fundamental right by a local court which was more familiar with the circumstances in its society than it could be, upheld the Court’s reasoning."
+    "Text": "The State party observes that the right to the protection of personal data, including in the context of processing fingerprints, is not absolute and must be considered in relation to its function in society.[[fn:9]] It also observes that the Supreme Court held that the provisions on the processing of fingerprints disclosed an interference with the author’s rights under article 9 (1) of the Constitution. However, the Court considered that such provisions were permissible under article 9 (2) of the Constitution as being in the interest of public order. It also considered that the author had failed to show that the interference was not reasonably justifiable in a democratic society. The Court found that the taking of fingerprints was necessary and proportionate to the aims of establishing a secure identity protection system and of protecting against identity fraud.[[fn:10]] The Judicial Committee of the Privy Council, noting that it would be slow to interfere with an evaluation of the justification of an interference with a fundamental right by a local court which was more familiar with the circumstances in its society than it could be, upheld the Court’s reasoning.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "European Court of Justice, Schmidberger and others v. Austria (case No. C-112/00); Schwarz v. Stadt Bochum (case No. C-291/12), paras. 33, 45, 50–51, 62–64 and 66; and X v. Commission of the European Communities (case No. C-404/92 P), para. 18; European Court of Human Rights, S. and Marper v. United Kingdom, para. 101; United Kingdom of Great Britain and Northern Ireland, High Court of Justice, Queen’s Bench Division, Administrative Court sitting in Birmingham, R. (on application of R.) v. Chief of Constable, [2013] EWHC 2864, para. 37."
+      },
+      {
+        "n": 10,
+        "text": "The Court referred, inter alia, to European Court of Human Rights, S. and Marper v. United Kingdom; and Şahin v. Turkey (application No. 44774/98)."
+      }
+    ]
   },
   {
     "ID": "4.4.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The State party submits that the taking and storing of fingerprints is warranted to achieve the pressing social need of protecting against identity fraud, by assisting authorities in verifying citizens’ identities, eliminating fraudulent practices and maintaining law and order. The State party argues that the Supreme Court, in the light of the need to balance all interests involved when restricting rights, struck a fair balance between the public interest and the prejudicial effects on the author’s private life. It argues that the Court rightly held that the interference in the present case was motivated by a legitimate aim, was not disproportionate or intolerable interference on the author’s right to privacy and was therefore justified in the circumstances. The State party concludes that the interference is not manifestly without reasonable foundation."
+    "Text": "The State party submits that the taking and storing of fingerprints is warranted to achieve the pressing social need of protecting against identity fraud, by assisting authorities in verifying citizens’ identities, eliminating fraudulent practices and maintaining law and order. The State party argues that the Supreme Court, in the light of the need to balance all interests involved when restricting rights,[[fn:11]] struck a fair balance between the public interest and the prejudicial effects on the author’s private life. It argues that the Court rightly held that the interference in the present case was motivated by a legitimate aim, was not disproportionate or intolerable interference on the author’s right to privacy and was therefore justified in the circumstances. The State party concludes that the interference is not manifestly without reasonable foundation.[[fn:12]]",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "European Court of Justice, Schmidberger v. Republic of Austria (case No. C-112/00), paras. 79–81."
+      },
+      {
+        "n": 12,
+        "text": "United Kingdom, Supreme Court, R. (on application of S.G. and others (previously J.S. and others)) v. Secretary of State for Work and Pensions, [2015] UKSC 16, para. 37."
+      }
+    ]
   },
   {
     "ID": "4.5.",
@@ -127,7 +173,13 @@
     "ID": "5.2.",
     "Section": "Author’s comments on the State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The author argues that the State party confuses judicial oversight with access to courts to challenge the constitutionality of the National Identity Card Act. He notes that it was the Supreme Court that found that the lack of provision for judicial oversight to control access to data within the scheme was “objectionable”. He also notes that, in several of its concluding observations on the reports of States parties under the Covenant, the Committee has referred to the importance of safeguards in schemes in which interference with privacy may be permitted as proportionate to the legitimate aim pursued."
+    "Text": "The author argues that the State party confuses judicial oversight with access to courts to challenge the constitutionality of the National Identity Card Act. He notes that it was the Supreme Court that found that the lack of provision for judicial oversight to control access to data within the scheme was “objectionable”. He also notes that, in several of its concluding observations on the reports of States parties under the Covenant, the Committee has referred to the importance of safeguards in schemes in which interference with privacy may be permitted as proportionate to the legitimate aim pursued.[[fn:13]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "CCPR/C/79/Add.54, para. 19; and CCPR/C/79/Add.83, para. 20."
+      }
+    ]
   },
   {
     "ID": "5.3.",
@@ -181,13 +233,49 @@
     "ID": "7.3.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee recalls that interference authorized by States can only take place on the basis of law, which itself must comply with the provisions, aims and objectives of the Covenant. Likewise, the gathering and holding of personal information on computers, in data banks and on other devices, whether by public authorities or private individuals or bodies, must be regulated by law. The Committee recalls that an interference is not “unlawful”, within the meaning of article 17 (1) of the Covenant, if it complies with the relevant domestic law, as interpreted by the national courts. The Committee notes that the interference in the present complaint, i.e. the processing and recording of fingerprints, is provided for by section 4 (2) (c) of the National Identity Card Act. The Committee also notes that the Supreme Court found that “there is a law providing for the storage and retention of fingerprints and other biometric data regarding the identity of a person”. The Committee considers that the author’s argument concerning the scope of certain provisions of the Act does not allow it to conclude that the processing of his fingerprints is not provided for by law. The Committee therefore cannot conclude that the interference with the author’s privacy is unlawful."
+    "Text": "The Committee recalls that interference authorized by States can only take place on the basis of law, which itself must comply with the provisions, aims and objectives of the Covenant.[[fn:14]] Likewise, the gathering and holding of personal information on computers, in data banks and on other devices, whether by public authorities or private individuals or bodies, must be regulated by law.[[fn:15]] The Committee recalls that an interference is not “unlawful”, within the meaning of article 17 (1) of the Covenant, if it complies with the relevant domestic law, as interpreted by the national courts.[[fn:16]] The Committee notes that the interference in the present complaint, i.e. the processing and recording of fingerprints, is provided for by section 4 (2) (c) of the National Identity Card Act.[[fn:17]] The Committee also notes that the Supreme Court found that “there is a law providing for the storage and retention of fingerprints and other biometric data regarding the identity of a person”.[[fn:18]] The Committee considers that the author’s argument concerning the scope of certain provisions of the Act does not allow it to conclude that the processing of his fingerprints is not provided for by law. The Committee therefore cannot conclude that the interference with the author’s privacy is unlawful.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "Committee’s general comment No. 16 (1988) on the right to privacy, para. 3."
+      },
+      {
+        "n": 15,
+        "text": "Ibid., para. 10."
+      },
+      {
+        "n": 16,
+        "text": "Van Hulst v. Netherlands, communication No. 903/2000, para. 7.5."
+      },
+      {
+        "n": 17,
+        "text": "The section reads as follows: “Every person who applies for an identity card shall … (c) allow his fingerprints, and other biometric information about himself, to be taken and recorded.”"
+      },
+      {
+        "n": 18,
+        "text": "Mauritius, Supreme Court, Madhewoo v. State of Mauritius and another, 2015 SCJ 177, p. 29."
+      }
+    ]
   },
   {
     "ID": "7.4.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee recalls that the introduction of the concept of arbitrariness is intended to guarantee that even interference provided for by law “must comply with the provisions, aims and objectives of the Covenant, and should be, in any event, reasonable in the particular circumstances”. Accordingly, any interference with privacy and family life must be proportionate to the legitimate end sought and necessary in the circumstances of any given case. The Committee recalls that effective measures must be taken by States to ensure that information concerning a person’s private life does not reach the hands of persons who are not authorized by law to receive, process or use it and is never used for purposes incompatible with the Covenant."
+    "Text": "The Committee recalls that the introduction of the concept of arbitrariness is intended to guarantee that even interference provided for by law “must comply with the provisions, aims and objectives of the Covenant, and should be, in any event, reasonable in the particular circumstances”.[[fn:19]] Accordingly, any interference with privacy and family life must be proportionate to the legitimate end sought and necessary in the circumstances of any given case.[[fn:20]] The Committee recalls that effective measures must be taken by States to ensure that information concerning a person’s private life does not reach the hands of persons who are not authorized by law to receive, process or use it and is never used for purposes incompatible with the Covenant.[[fn:21]]",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "Committee’s general comment No. 16 (1988), para. 4."
+      },
+      {
+        "n": 20,
+        "text": "Toonen v. Australia, communication No. 488/1992, para. 8.3; and Vandom v. Republic of Korea (CCPR/C/123/D/2273/2013), para. 8.8."
+      },
+      {
+        "n": 21,
+        "text": "Ibid."
+      }
+    ]
   },
   {
     "ID": "7.5.",
@@ -199,7 +287,17 @@
     "ID": "7.6.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "Moreover, given the nature and scale of the interference arising out of the mandatory processing and recording of fingerprints, the Committee finds that it is essential to have clear, detailed rules governing the scope and application of measures, as well as minimum safeguards concerning, inter alia, the storage, including the duration thereof, usage, access for third parties and procedures for preserving the integrity and confidentiality of data and procedures for its destruction, thereby providing sufficient guarantees against the risk of abuse and arbitrariness. The Committee notes that the author refers, in that regard, to the Supreme Court’s finding that the indefinite storage and retention of fingerprint data in a central database was unconstitutional. As a result, the State party’s authorities have ceased storing and retaining fingerprint data in that particular way. Nevertheless, the State party has not responded to the author’s claim that the retention of fingerprint data on individual identity cards exacerbates the security lacunae identified by the Court. Specifically, the author has pointed out that the assignation of responsibility for such storage to card holders carries with it risks of loss and theft of fingerprint data, given the ease with which they could be copied onto falsified cards. Given the lack of information provided by the State party concerning the implementation of measures to protect the biometric data stored on identity cards, the Committee cannot conclude that there are sufficient guarantees against the risk of abuse and arbitrariness of the interference with the right to privacy following from potential access to such data on identity cards. In the light of the above-mentioned concerns about the ability of the scheme to help to prevent identity fraud, the Committee considers that the security concerns cannot be regarded as reasonable. Therefore, and notwithstanding the possibility of grounds and circumstances in which the processing of biometric data would not give rise to an arbitrary interference in the sense of article 17 of the Covenant, the Committee considers, in the particular circumstances of the present case, that the storage and retention of the author’s fingerprint data on an identity card, as prescribed by the National Identity Card Act, would constitute an arbitrary interference with his right to privacy, contrary to article 17 of the Covenant."
+    "Text": "Moreover, given the nature and scale of the interference arising out of the mandatory processing and recording of fingerprints, the Committee finds that it is essential to have clear, detailed rules governing the scope and application of measures, as well as minimum safeguards concerning, inter alia, the storage, including the duration thereof, usage, access for third parties and procedures for preserving the integrity and confidentiality of data and procedures for its destruction, thereby providing sufficient guarantees against the risk of abuse and arbitrariness.[[fn:22]] The Committee notes that the author refers, in that regard, to the Supreme Court’s finding that the indefinite storage and retention of fingerprint data in a central database was unconstitutional. As a result, the State party’s authorities have ceased storing and retaining fingerprint data in that particular way. Nevertheless, the State party has not responded to the author’s claim that the retention of fingerprint data on individual identity cards exacerbates the security lacunae identified by the Court. Specifically, the author has pointed out that the assignation of responsibility for such storage to card holders carries with it risks of loss and theft of fingerprint data, given the ease with which they could be copied onto falsified cards.[[fn:23]] Given the lack of information provided by the State party concerning the implementation of measures to protect the biometric data stored on identity cards, the Committee cannot conclude that there are sufficient guarantees against the risk of abuse and arbitrariness of the interference with the right to privacy following from potential access to such data on identity cards. In the light of the above-mentioned concerns about the ability of the scheme to help to prevent identity fraud, the Committee considers that the security concerns cannot be regarded as reasonable. Therefore, and notwithstanding the possibility of grounds and circumstances in which the processing of biometric data would not give rise to an arbitrary interference in the sense of article 17 of the Covenant, the Committee considers, in the particular circumstances of the present case, that the storage and retention of the author’s fingerprint data on an identity card, as prescribed by the National Identity Card Act, would constitute an arbitrary interference with his right to privacy, contrary to article 17 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 22,
+        "text": "European Court of Human Rights, S. and Marper v. United Kingdom, para. 99."
+      },
+      {
+        "n": 23,
+        "text": "The author refers to expert evidence submitted in the domestic proceedings concerning the radio frequency identification (RFID) technology with which the biometric data are stored. The expert explained that the biometric data could easily and without physical contact be copied, without the card holder’s knowledge, with RFID readers that could easily be bought online."
+      }
+    ]
   },
   {
     "ID": "8.",
@@ -233,7 +331,17 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "According to article 1 of the Optional Protocol, the Committee can receive and consider communications from individuals who claim to be victims of a violation of any of the rights set forth in the Covenant. In that respect, the Committee has settled its jurisprudence that a person can only claim to be a victim in the sense of article 1 of the Optional Protocol if he or she is actually affected. It is a matter of degree how concretely that requirement should be taken. However, no individual can in the abstract, by way of an actio popularis, challenge a law or practice claimed to be contrary to the Covenant. If the law or practice has not already been concretely applied to the detriment of that individual, it must in any event be applicable in such a way that the alleged victim’s risk of being affected is more than a theoretical possibility. Accordingly, any person claiming to be a victim of a violation of a right protected under the Covenant must demonstrate either that a State party has, by act or omission, already impaired the exercise of his or her right or that such impairment is imminent, basing his or her arguments for example on legislation in force or on a judicial or administrative decision or practice.",
+    "Text": "According to article 1 of the Optional Protocol, the Committee can receive and consider communications from individuals who claim to be victims of a violation of any of the rights set forth in the Covenant. In that respect, the Committee has settled its jurisprudence that a person can only claim to be a victim in the sense of article 1 of the Optional Protocol if he or she is actually affected. It is a matter of degree how concretely that requirement should be taken. However, no individual can in the abstract, by way of an actio popularis, challenge a law or practice claimed to be contrary to the Covenant. If the law or practice has not already been concretely applied to the detriment of that individual, it must in any event be applicable in such a way that the alleged victim’s risk of being affected is more than a theoretical possibility.[[fn:24]] Accordingly, any person claiming to be a victim of a violation of a right protected under the Covenant must demonstrate either that a State party has, by act or omission, already impaired the exercise of his or her right or that such impairment is imminent, basing his or her arguments for example on legislation in force or on a judicial or administrative decision or practice.[[fn:25]]",
+    "Footnotes": [
+      {
+        "n": 24,
+        "text": "Aumeeruddy-Cziffra et al. v. Mauritius, communication No. 35/1978, para. 9.2."
+      },
+      {
+        "n": 25,
+        "text": "Andersen v. Denmark (CCPR/C/99/D/1868/2009), para. 6.4; Beydon et al. v. France (CCPR/C/85/D/1400/2005), para. 4.3; Aalbersberg et al. v. Netherlands (CCPR/C/87/D/1440/2005); and Brun v. France (CCPR/C/88/D/1453/2006), para. 6.3."
+      }
+    ],
     "OriginalID": "2.",
     "Namespace": "OP1"
   },
@@ -243,7 +351,29 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "In applying that principle, the Committee has accepted the communication at the stage that the author’s rights have not yet actually been impaired, but are only at risk of being impaired by certain legislation. However, even in such cases, it has recognized that where an individual is in a category of persons whose activities are, by virtue of the relevant legislation, regarded as contrary to law, they may have a claim as victims. In fact, the Committee has acknowledged the victim status only for the defined category of persons, such as Muslims and non-Western migrants, sexual minorities, language minorities and women having foreign husbands, even if a piece of legislation in question may be in theory applied to all the nationals of the State party.",
+    "Text": "In applying that principle, the Committee has accepted the communication at the stage that the author’s rights have not yet actually been impaired, but are only at risk of being impaired by certain legislation. However, even in such cases, it has recognized that where an individual is in a category of persons whose activities are, by virtue of the relevant legislation, regarded as contrary to law, they may have a claim as victims.[[fn:26]] In fact, the Committee has acknowledged the victim status only for the defined category of persons, such as Muslims and non-Western migrants,[[fn:27]] sexual minorities,[[fn:28]] language minorities[[fn:29]] and women having foreign husbands,[[fn:30]] even if a piece of legislation in question may be in theory applied to all the nationals of the State party.",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "Ballantyne et al. v. Canada, communications No. 359/1989 and No. 385/1989/Rev.1, para. 10.4."
+      },
+      {
+        "n": 27,
+        "text": "Rabbae et al. v. Netherlands (CCPR/C/117/D/2124/2011), para. 9.6."
+      },
+      {
+        "n": 28,
+        "text": "G. v. Australia (CCPR/C/119/D/2172/2012), para. 6.5."
+      },
+      {
+        "n": 29,
+        "text": "Raihman v. Latvia (CCPR/C/100/D/1621/2007), para. 7.4."
+      },
+      {
+        "n": 30,
+        "text": "Aumeeruddy-Cziffra et al. v. Mauritius, para. 9.2 (b) (2)."
+      }
+    ],
     "OriginalID": "3.",
     "Namespace": "OP1"
   },
@@ -251,7 +381,17 @@
     "ID": "OP1-4.",
     "Section": "Individual opinion of Furuya Shuichi (dissenting)",
     "Labels": [],
-    "Text": "In addition, the Committee has requested authors to demonstrate the specific consequence of the legislation which would personally affect them. For instance, in Toonen v. Australia, the Committee found the communication admissible because the author had made reasonable efforts to demonstrate that the threat of enforcement and the pervasive impact of the continued existence of the provisions on administrative practices and public opinion had affected him and continued to affect him personally. On the other hand, in Andersen v. Denmark, it found the communication inadmissible in the light of the fact that the author had failed to establish that the statement made had specific consequence for her or that the specific consequences of the statements were imminent and would personally affect her.",
+    "Text": "In addition, the Committee has requested authors to demonstrate the specific consequence of the legislation which would personally affect them. For instance, in Toonen v. Australia, the Committee found the communication admissible because the author had made reasonable efforts to demonstrate that the threat of enforcement and the pervasive impact of the continued existence of the provisions on administrative practices and public opinion had affected him and continued to affect him personally.[[fn:31]] On the other hand, in Andersen v. Denmark, it found the communication inadmissible in the light of the fact that the author had failed to establish that the statement made had specific consequence for her or that the specific consequences of the statements were imminent and would personally affect her.[[fn:32]]",
+    "Footnotes": [
+      {
+        "n": 31,
+        "text": "Toonen v. Australia, para. 5.1."
+      },
+      {
+        "n": 32,
+        "text": "Andersen v. Denmark, para. 6.4."
+      }
+    ],
     "OriginalID": "4.",
     "Namespace": "OP1"
   },
@@ -291,7 +431,13 @@
     "ID": "OP2-3.",
     "Section": "Individual opinion of Gentian Zyberi (dissenting)",
     "Labels": [],
-    "Text": "The Committee does not explain why the storage and retention of the author’s fingerprint data on an identity card constitutes an arbitrary interference with his right to privacy, nor has it, in its brief analysis, referred to any good practices concerning the inclusion or exclusion of biometric data, including fingerprints, on national identity cards. Given the complexity of the matter, it would have been prudent for the Committee to ask for third party submissions, to elucidate the key issues put before it. Article 17 was drafted at a time when advanced biometric technology was not available and national identity documents did not include personal biometric digital data. In more recent years, many countries have been including biometric data, including fingerprints, in personal identity card programmes. That inclusion serves various purposes, including the prevention of identity fraud, countering terrorism and other public security purposes. At the same time, several challenges have arisen, which include issues of accountability, privacy, data management, enrolment, coverage, cost and harmonization with regard to such programmes.",
+    "Text": "The Committee does not explain why the storage and retention of the author’s fingerprint data on an identity card constitutes an arbitrary interference with his right to privacy, nor has it, in its brief analysis, referred to any good practices concerning the inclusion or exclusion of biometric data, including fingerprints, on national identity cards. Given the complexity of the matter, it would have been prudent for the Committee to ask for third party submissions, to elucidate the key issues put before it. Article 17 was drafted at a time when advanced biometric technology was not available and national identity documents did not include personal biometric digital data. In more recent years, many countries have been including biometric data, including fingerprints, in personal identity card programmes.[[fn:33]] That inclusion serves various purposes, including the prevention of identity fraud, countering terrorism and other public security purposes. At the same time, several challenges have arisen, which include issues of accountability, privacy, data management, enrolment, coverage, cost and harmonization with regard to such programmes.",
+    "Footnotes": [
+      {
+        "n": 33,
+        "text": "For European Union member States, see regulation (EU) 2019/1157 of 20 June 2019, article 3 (5). See also the decision of the Constitutional Court of Belgium of 14 January 2021. Available at https://www.const-court.be/public/n/2021/2021-002n.pdf (in Dutch). See also International Telecommunication Union, “Review of national identity programs”, May 2016, p. 8 (key findings) and pp. 14–16 (table 1, providing a list of States and whether the national identification schemes contain fingerprints); World Bank Group, “The State of identification systems in Africa” country brief, 2017; and Asian Development Bank, “Identity for development in Asia and the Pacific”, 2016."
+      }
+    ],
     "OriginalID": "3.",
     "Namespace": "OP2"
   },
@@ -301,7 +447,21 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "Although the new biometric identification technologies are increasingly being used by many States, there are no firm guarantees that such identity cards cannot be falsified or potentially misused. While acknowledging some of the problems, the State party’s authorities have emphasized the need to balance the protection of personal data included in identity cards with the pressing social need of preventing identity fraud and ensuring public security. Section 9, Offences, of the National Identity Card Act contains provisions to protect against abuse and arbitrariness following from potential access to biometric data on identity cards by making such offences punishable by a fine not exceeding 100,000 Mauritian rupees and imprisonment for a term not exceeding five years. That part of the law is intended to protect individuals, such as the author, from potential misuse by criminals of personal identity cards or the biometric data contained thereon. Cases that have been decided by the European Court of Human Rights concern the retention of personal data, such as fingerprints, DNA and photographs, in databases for an indefinite period of time, or after the discontinuation of criminal proceedings. To date, there have been no cases decided relating to the storage and retention of fingerprints in relation to identity cards, despite many States parties to the Convention for the Protection of Human Rights and Fundamental Freedoms having national identification systems that include fingerprints on such cards.",
+    "Text": "Although the new biometric identification technologies are increasingly being used by many States, there are no firm guarantees that such identity cards cannot be falsified or potentially misused. While acknowledging some of the problems, the State party’s authorities have emphasized the need to balance the protection of personal data included in identity cards with the pressing social need of preventing identity fraud and ensuring public security. Section 9, Offences, of the National Identity Card Act contains provisions to protect against abuse and arbitrariness following from potential access to biometric data on identity cards by making such offences punishable by a fine not exceeding 100,000 Mauritian rupees and imprisonment for a term not exceeding five years. That part of the law is intended to protect individuals, such as the author, from potential misuse by criminals of personal identity cards or the biometric data contained thereon. Cases that have been decided by the European Court of Human Rights concern the retention of personal data, such as fingerprints, DNA and photographs, in databases for an indefinite period of time,[[fn:34]] or after the discontinuation of criminal proceedings.[[fn:35]] To date, there have been no cases decided relating to the storage and retention of fingerprints in relation to identity cards, despite many States parties to the Convention for the Protection of Human Rights and Fundamental Freedoms having national identification systems that include fingerprints on such cards.[[fn:36]]",
+    "Footnotes": [
+      {
+        "n": 34,
+        "text": "European Court of Human Rights, S. and Marper v. United Kingdom (applications No. 30562/04 and No. 30566/04); and Gaughran v. United Kingdom (application No. 45245/15)."
+      },
+      {
+        "n": 35,
+        "text": "European Court of Human Rights, M.K. v. France (application No. 19522/09)."
+      },
+      {
+        "n": 36,
+        "text": "See Guide to the Case-Law of the European Court of Human Rights, Data Protection, 31 December 2020 (Council of Europe/European Court of Human Rights, 2021), on case-law concerning the storage and retention of fingerprints, including paras. 24, 29, 111, 192, 200."
+      }
+    ],
     "OriginalID": "4.",
     "Namespace": "OP2"
   },

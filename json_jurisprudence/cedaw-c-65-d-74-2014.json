@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.1.",
-    "Section": "",
+    "Section": "Annex",
     "Labels": [
       "Women/girls"
     ],
@@ -9,7 +9,7 @@
   },
   {
     "ID": "1.2.",
-    "Section": "",
+    "Section": "Annex",
     "Labels": [],
     "Text": "On 19 March 2015, the Working Group on Communications under the Optional Protocol decided, pursuant to rule 66 of its rules of procedure, to have the issue of admissibility examined separately from the merits."
   },
@@ -55,7 +55,13 @@
     "ID": "2.6.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "The author applied to the European Court of Human Rights on 8 September 2006. She asserts that no claim of direct or indirect sex discrimination or of equal pay for equal work was ever made before the Court. On 4 April 2008, the Court rejected her application as manifestly ill-founded. In letters dated 30 April, 7 May and 12 June 2008, claims of sex discrimination were, however, made before the Equal Opportunities Commissioner, who rejected the case on 30 August 2008. Consequently, the author brought the case before the Equal Opportunities Committee, which upheld the decision of the Commissioner."
+    "Text": "The author applied to the European Court of Human Rights on 8 September 2006. She asserts that no claim of direct or indirect sex discrimination or of equal pay for equal work was ever made before the Court.[[fn:1]] On 4 April 2008, the Court rejected her application as manifestly ill-founded. In letters dated 30 April, 7 May and 12 June 2008, claims of sex discrimination were, however, made before the Equal Opportunities Commissioner, who rejected the case on 30 August 2008. Consequently, the author brought the case before the Equal Opportunities Committee, which upheld the decision of the Commissioner.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "In fact, the complaint was based on Protocol 1 to the European Convention on Human Rights, taken together with article 14 of the European Convention on Human Rights, i.e., discrimination as to “other status”, namely: (a) age; (b) different treatment between two subclasses of divorced women, i.e., those for whom the ex-husband’s death was after 1993 and those whose ex-husbands died before 1993; and (c) between divorced and still-married women."
+      }
+    ]
   },
   {
     "ID": "2.7.",
@@ -105,7 +111,13 @@
     "ID": "4.3.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The State party submits that individual proceedings before the European Court of Human Rights have been accepted by the Committee as constituting proceedings of international investigation or settlement. The author’s complaint had been made to the Court under article 14 of the European Convention on Human Rights (prohibition against discrimination), in relation to article 1 of Protocol 1 to that instrument (protection of property). The State party asserts in this regard that the Committee should take note of the fact that the Supreme Court found that article 1 of Protocol 1 was applicable, but that the author had not been subjected to discrimination within the meaning of article 14 of the European Convention on Human Rights."
+    "Text": "The State party submits that individual proceedings before the European Court of Human Rights have been accepted by the Committee as constituting proceedings of international investigation or settlement.[[fn:2]] The author’s complaint had been made to the Court under article 14 of the European Convention on Human Rights (prohibition against discrimination), in relation to article 1 of Protocol 1 to that instrument (protection of property). The State party asserts in this regard that the Committee should take note of the fact that the Supreme Court found that article 1 of Protocol 1 was applicable, but that the author had not been subjected to discrimination within the meaning of article 14 of the European Convention on Human Rights.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "Communication No. 8/2005, Kayhan v. Turkey, decision of inadmissibility adopted on 27 January 2006, para. 7.3."
+      }
+    ]
   },
   {
     "ID": "4.4.",
@@ -125,7 +137,13 @@
     "ID": "4.6.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The State party supports its request for a finding of inadmissibility by citing the decision of the Human Rights Committee in Wallmann et al v. Austria, whereby that Committee found that, when the European Court of Human Rights went beyond an examination of purely procedural admissibility criteria, the matter could be accepted as having been examined under another procedure of international investigation or settlement within the meaning of equivalent admissibility criteria under the International Covenant on Civil and Political Rights."
+    "Text": "The State party supports its request for a finding of inadmissibility by citing the decision of the Human Rights Committee in Wallmann et al v. Austria,[[fn:3]] whereby that Committee found that, when the European Court of Human Rights went beyond an examination of purely procedural admissibility criteria, the matter could be accepted as having been examined under another procedure of international investigation or settlement within the meaning of equivalent admissibility criteria under the International Covenant on Civil and Political Rights.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Communication No. 1002/2011, Wallmann et al v. Austria, views adopted on 1 April 2004."
+      }
+    ]
   },
   {
     "ID": "4.7.",
@@ -239,7 +257,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The author cites the case of N.S.F. v. the United Kingdom of Great Britain and Northern Ireland, that of an asylum seeker, in which the issue of the same matter being brought before the European Court of Human Rights was raised. In that case, according to the author, the Committee had stated that it would not have dismissed the case under article 4 (2) (a) (had that ground been considered), given that its author had not invoked substantive rights covering sex discrimination before the Court, which was the matter before the Committee in that case."
+    "Text": "The author cites the case of N.S.F. v. the United Kingdom of Great Britain and Northern Ireland,[[fn:4]] that of an asylum seeker, in which the issue of the same matter being brought before the European Court of Human Rights was raised. In that case, according to the author, the Committee had stated that it would not have dismissed the case under article 4 (2) (a) (had that ground been considered), given that its author had not invoked substantive rights covering sex discrimination before the Court, which was the matter before the Committee in that case.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Communication No. 10/2005, decision of inadmissibility adopted on 30 May 2007."
+      }
+    ]
   },
   {
     "ID": "5.16.",
@@ -247,7 +271,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author also refers to an analogous case that had been before the Committee on the Elimination of Racial Discrimination, Koptova v. the Slovak Republic, in which she asserts that that Committee has shown that it might be prepared to examine the “same matter” as had been before the European Court of Human Rights because, as indicated in paragraph 5.7 of the Committee’s opinion, “the simultaneous filings of claims involving similar matters with the Committee and the European Court are founded on different legal bases and seek different legal remedies”. She states that the assessments reached by the two different bodies would be very different in her own case and again asserts that, should they be exactly the same, there would have been no reason for Norway to ratify the Convention on the Elimination of All Forms of Discrimination against Women."
+    "Text": "The author also refers to an analogous case that had been before the Committee on the Elimination of Racial Discrimination, Koptova v. the Slovak Republic,[[fn:5]] in which she asserts that that Committee has shown that it might be prepared to examine the “same matter” as had been before the European Court of Human Rights because, as indicated in paragraph 5.7 of the Committee’s opinion, “the simultaneous filings of claims involving similar matters with the Committee and the European Court are founded on different legal bases and seek different legal remedies”. She states that the assessments reached by the two different bodies would be very different in her own case and again asserts that, should they be exactly the same, there would have been no reason for Norway to ratify the Convention on the Elimination of All Forms of Discrimination against Women.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Communication No. 13/1998, opinion of 8 August 2000."
+      }
+    ]
   },
   {
     "ID": "5.17.",
@@ -261,7 +291,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author states that, in a written pleading of 16 May 1960 in “Case of State Pensioner” before the Supreme Court, it was asserted that the pensioner’s widow whose entitlement had crystallized had a constitutionally protected right to a pension on equal conditions with old-age pensioners, given that, she claims, it is explicitly stated in that case that “both come in the same position”. The Supreme Court endorsed this position for the main part, stating that there was only a difference in extent but no significant difference between pensioners and active civil servants who, by contribution and work, have accrued certain pension rights. The author therefore claims that the finding by the Supreme Court in her case was erroneous, given that it held that the judges in 1962 preserved the privilege for old- age pensioners only and described the pensioners’ widows as having a derived right, which is weaker than a right accrued in accordance with a contract. The author claims that the comments of the Attorney General, in a written pleading in a case in 2015 in which he states that the widow’s pension is “indirectly positive discrimination”, show that the pension is seen as a social benefit for needy widows, which is not covered by the term “possession” under article 1 of Protocol 1 to the European Convention on Human Rights. She states that this is not in keeping with comprehensive documentation from 1916 to 2006, the Convention, article 69 (1) of the Agreement on the European Economic Area or the judgment of the EFTA Court against Norway in Norway v. Public Service Pension Fund. The author therefore claims that this error of law on the part of the Supreme Court is a new fact that was not before the European Court of Human Rights in 2008."
+    "Text": "The author states that, in a written pleading of 16 May 1960 in “Case of State Pensioner” before the Supreme Court, it was asserted that the pensioner’s widow whose entitlement had crystallized had a constitutionally protected right to a pension on equal conditions with old-age pensioners, given that, she claims, it is explicitly stated in that case that “both come in the same position”. The Supreme Court endorsed this position for the main part, stating that there was only a difference in extent but no significant difference between pensioners and active civil servants who, by contribution and work, have accrued certain pension rights. The author therefore claims that the finding by the Supreme Court in her case was erroneous, given that it held that the judges in 1962 preserved the privilege for old- age pensioners only and described the pensioners’ widows as having a derived right, which is weaker than a right accrued in accordance with a contract. The author claims that the comments of the Attorney General, in a written pleading in a case in 2015 in which he states that the widow’s pension is “indirectly positive discrimination”, show that the pension is seen as a social benefit for needy widows, which is not covered by the term “possession” under article 1 of Protocol 1 to the European Convention on Human Rights. She states that this is not in keeping with comprehensive documentation from 1916 to 2006, the Convention, article 69 (1) of the Agreement on the European Economic Area or the judgment of the EFTA Court against Norway in Norway v. Public Service Pension Fund.[[fn:6]] The author therefore claims that this error of law on the part of the Supreme Court is a new fact that was not before the European Court of Human Rights in 2008.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "EFTA Surveillance Authority v. Kingdom of Norway, case No. E-2/07, judgment of 30 October 2007."
+      }
+    ]
   },
   {
     "ID": "5.19.",
@@ -275,7 +311,17 @@
     "ID": "5.20.",
     "Section": "Author’s comments on the State party’s submission on admissibility",
     "Labels": [],
-    "Text": "The author also refers to a case, Pauger v. Austria, in which the Human Rights Committee considered the matter of the right to a widower’s pension. It found in favour of the author, agreeing that he had been treated in a discriminatory manner. The author in that case reapplied to the Human Rights Committee when his circumstances changed and the Human Rights Committee found the second claim admissible, even though the second claim had been dismissed as inadmissible by the European Court of Human Rights, and considered the merits afresh. This, the present author claims, is supportive of her position that, when new facts come to light, by which she means the above-mentioned case law, in the time between one decision and another, the matter at hand cannot be held to be the same as that considered previously. She therefore asserts that the facts now before the Committee are new and have never been considered before."
+    "Text": "The author also refers to a case, Pauger v. Austria,[[fn:7]] in which the Human Rights Committee considered the matter of the right to a widower’s pension. It found in favour of the author, agreeing that he had been treated in a discriminatory manner. The author in that case reapplied to the Human Rights Committee when his circumstances changed and the Human Rights Committee found the second claim admissible, even though the second claim had been dismissed as inadmissible by the European Court of Human Rights, and considered the merits afresh.[[fn:8]] This, the present author claims, is supportive of her position that, when new facts come to light, by which she means the above-mentioned case law, in the time between one decision and another, the matter at hand cannot be held to be the same as that considered previously. She therefore asserts that the facts now before the Committee are new and have never been considered before.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Communication No. 415/1990, Pauger v. Austria, views adopted on 26 March 1992."
+      },
+      {
+        "n": 8,
+        "text": "Communication No. 716/1996, Pauger v. Austria, views adopted on 25 March 1999."
+      }
+    ]
   },
   {
     "ID": "5.21.",

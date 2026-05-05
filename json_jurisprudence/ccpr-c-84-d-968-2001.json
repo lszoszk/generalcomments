@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The author of the communication is Mr. Kim Jong-Cheol, a Korean national. He claims to be a victim of violations by the Republic of Korea of his rights under articles 19, paragraph 2, 25 (a) and (b), and 26 of the International Covenant on Civil on Civil and Political Rights. He is represented by counsel."
   },
@@ -9,7 +9,17 @@
     "ID": "2.1.",
     "Section": "Factual background",
     "Labels": [],
-    "Text": "On 11 December 1997, the author, a journalist, published an article in a national weekly publication, reporting on opinion polls, between 31 July and 11 December 1997, for the Presidential election of 18 December 1997. In February 1998, he was charged by the District Attorney for violating section 108 (1) of the Election for Public Office and Election Malpractice Prevention Act (hereinafter the “Election Act”), which prohibits publication of public opinion polls during the electoral campaign period. According to article 33 (1), the presidential campaign period is 23 days. The Election Act imposes criminal liability for the disclosure of political opinion polls for the 23 day period running up to and including election day. On 16 July 1998, the author was found guilty as charged by the Seoul Criminal District Court Collegiate Division and fined 1,000,000 won (approx. 445 USD)."
+    "Text": "On 11 December 1997, the author, a journalist, published an article in a national weekly publication, reporting on opinion polls, between 31 July and 11 December 1997, for the Presidential election of 18 December 1997. In February 1998, he was charged by the District Attorney for violating section 108 (1) of the Election for Public Office and Election Malpractice Prevention Act (hereinafter the “Election Act”), which prohibits publication of public opinion polls during the electoral campaign period[[fn:3]]. According to article 33 (1), the presidential campaign period is 23 days. The Election Act imposes criminal liability for the disclosure of political opinion polls for the 23 day period running up to and including election day.[[fn:4]] On 16 July 1998, the author was found guilty as charged by the Seoul Criminal District Court Collegiate Division and fined 1,000,000 won (approx. 445 USD).",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "It stipulates that “ No person may publish or quote in a report the details and result of a public opinion poll (including a mock voting or popularity poll) making a degree of support to a political party or a successful candidate anticipated, in connection with an election, from the day the election period commences to the time the voting is closed on the election day.”"
+      },
+      {
+        "n": 4,
+        "text": "According to article 256(1), as amended, “any person who discloses the details and result of a survey of public opinion, or makes a report citing them or makes another person do so, in contravention of the provisions of article 108(1)………with imprisonment for not more than two years, or a fine not exceeding four million won."
+      }
+    ]
   },
   {
     "ID": "2.2.",

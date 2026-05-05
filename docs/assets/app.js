@@ -30,6 +30,7 @@ const state = {
   resultSort: 'relevance',      // 'relevance' | 'date'
   resultGroup: 'paragraphs',    // 'paragraphs' | 'documents'
   searchInFootnotes: true,      // v19.12: include fnText field in FlexSearch query
+  searchInPreamble:  true,      // v19.43: include preamble paragraphs (isPreamble=true) in search
   collapsedDocGroups: new Set(),
   query: '',
   filters: {
@@ -44,6 +45,12 @@ const state = {
   },
   results: [],
   activeId: null,
+  // v19.43-fix7: dossier shows the active paragraph inside a context
+  // window (±2 paragraphs within the same section). When this flag is
+  // true the user has clicked "Show entire section" and the dossier
+  // expands to render the full section. Per-session, resets on
+  // setActive() so opening a different paragraph collapses again.
+  dossierExpanded: false,
   searchRun: 0,
   jur: {
     manifest: null,
@@ -76,6 +83,16 @@ function apiEnabled() {
     if (urlFlag === '1') return true;        // legacy explicit-opt-in still honored
     const lsFlag = localStorage.getItem('unhrdb_useApi');
     if (lsFlag === '0') return false;
+    if (lsFlag === '1') return true;
+    // v19.43-fix5: auto-disable on localhost / 127.0.0.1 / file:// dev
+    // origins. The production API at 150.254.115.204 doesn't include
+    // those origins in its CORS allow-list, so the boot ping fails
+    // noisily and clutters the console. GC + SP corpora are local
+    // anyway; the API only matters for JUR/all on the live deploy.
+    const host = location.hostname;
+    if (host === '127.0.0.1' || host === 'localhost' || host === '' || host === '0.0.0.0') {
+      return false;
+    }
     // No explicit signal → default ON.
   } catch {}
   return true;
@@ -354,7 +371,7 @@ const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard mat
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', fn: 'fn' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', fn: 'fn', pre: 'pre' };
 
 function encodeUrlState() {
   if (!state.facets) return;
@@ -370,14 +387,19 @@ function encodeUrlState() {
   if (state.filters.yearMax != null && state.filters.yearMax !== state.facets.years.max) {
     u.set(URL_KEYS.y2, state.filters.yearMax);
   }
-  if (state.resultSort !== 'relevance') u.set(URL_KEYS.sort, state.resultSort);
-  if (state.resultGroup !== 'paragraphs') u.set(URL_KEYS.group, state.resultGroup);
+  // v19.43-fix3: result-display preferences (sort, group) and the
+  // active-paragraph anchor (p) NO LONGER go in the URL by default.
+  // Sort/group are user-level preferences → localStorage. Active
+  // paragraph is a per-session interaction → not persisted at all.
+  // The URL stays neutral on a fresh page load. encodeUrlState now
+  // emits ONLY query + filter state, which IS the share-relevant part.
   if (state.filters.reportTypes.size) u.set(URL_KEYS.rt, [...state.filters.reportTypes].join('|'));
   if (state.filters.countries.size) u.set(URL_KEYS.cy, [...state.filters.countries].join('|'));
   if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
   // v19.12: only emit fn=0 when toggle is OFF (default ON keeps URLs short).
   if (state.searchInFootnotes === false) u.set(URL_KEYS.fn, '0');
-  if (state.activeId) u.set(URL_KEYS.p, state.activeId);
+  // v19.43: same convention for preamble search ('pre=0' when OFF).
+  if (state.searchInPreamble === false) u.set(URL_KEYS.pre, '0');
   const qs = u.toString();
   // v17: preserve the hash — the docs reader relies on "#documents/<docId>"
   // to remember which document is open. Earlier versions silently stripped
@@ -410,6 +432,9 @@ function decodeUrlState() {
     // v19.12: omitted/anything-but-'0' = ON (default). 'fn=0' = OFF.
     searchInFootnotes: u.get(URL_KEYS.fn) !== '0',
     searchInFootnotesUrl: u.has(URL_KEYS.fn),     // explicit URL signal
+    // v19.43: same semantics for preambles.
+    searchInPreamble: u.get(URL_KEYS.pre) !== '0',
+    searchInPreambleUrl: u.has(URL_KEYS.pre),
   };
 }
 
@@ -425,8 +450,13 @@ const loader = $('#loader');
 const loaderFill = $('#loader-fill');
 const loaderMsg = $('#loader-msg');
 function setProgress(pct, msg) {
-  loaderFill.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+  const w = `${Math.min(100, Math.max(0, pct))}%`;
+  loaderFill.style.width = w;
   if (msg) loaderMsg.textContent = msg;
+  // v19.43: mirror progress on the masthead folio's thin bar so the
+  // user sees forward motion even after the splash loader has faded.
+  const folioFill = document.getElementById('mast-folio-bar-fill');
+  if (folioFill) folioFill.style.width = w;
 }
 function hideLoader() {
   loader.classList.add('hidden');
@@ -453,34 +483,39 @@ async function boot() {
     state.manifest = manifest;
     paintMastFolio(manifest);
 
-    setProgress(15, `Loading ${manifest.counts.documents} documents…`);
-    const docs = await fetchJson(`${DATA_BASE}documents.json`);
+    // v19.43-fix14: only the small metadata files load on boot
+    // (manifest + documents.json + facets.json + JUR meta = ~1 MB).
+    // The 25 MB corpus.json + FlexSearch index build are deferred to
+    // ensureCorpusReady(), which runs in the background on desktop
+    // (kicked off after first paint) and lazily on mobile (on first
+    // user interaction). Stops mobile devices from OOM-crashing
+    // during initial JSON.parse and gives every device a fast paint.
+    setProgress(15, 'Loading metadata in parallel…');
+    const docsPromise   = fetchJson(`${DATA_BASE}documents.json`);
+    const facetsPromise = fetchJson(`${DATA_BASE}facets.json`);
+    const jurPromise    = loadJurMetadata();
+
+    const docs = await docsPromise;
     docs.forEach(d => state.documents.set(d.docId, d));
 
     setProgress(30, 'Loading facets…');
-    state.facets = await fetchJson(`${DATA_BASE}facets.json`);
+    state.facets = await facetsPromise;
     state.baseFacets = state.facets;
 
     setProgress(38, 'Checking jurisprudence preview…');
-    await loadJurMetadata();
+    await jurPromise;
     state.facets = mergeJurFacets(state.baseFacets);
     paintMastFolio(manifest);
 
-    setProgress(45, `Loading ${manifest.counts.paragraphs.toLocaleString()} paragraphs…`);
-    state.paragraphs = await fetchJson(`${DATA_BASE}corpus.json`);
-    _flushDfCache();
-    _avgDocLen = null;
-
-    // Hydrate id-lookup map for FlexSearch result resolution
-    for (const p of state.paragraphs) state.paragraphById.set(p.id, p);
-
-    setProgress(70, 'Building search index…');
-    await ensureSearchIndex();           // FlexSearch index — IndexedDB cached if available
-
-    setProgress(90, 'Wiring interface…');
+    setProgress(80, 'Wiring interface…');
     paintScopeCounts();
     initYearRange();
     applyUrlState(decodeUrlState());     // restore from ?q=…&scope=…&tb=… etc.
+    // v19.43-fix3: rewrite the address bar with the canonical URL so
+    // legacy params (?p=…&sort=…&group=…) drop off after they've been
+    // applied (or ignored). Keeps the URL neutral on a fresh load and
+    // clears stale per-session state from previous reloads.
+    encodeUrlState();
     paintCommitteeFilter(state.scope);
     paintLabelFilter();
     paintReportTypeFilter();
@@ -491,9 +526,13 @@ async function boot() {
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
     bindRouter();
+    bindTour();                          // v19.43: first-visit tour controller
     initDossierResizer();                // v15: drag handle + persisted width
     initDossierFontPref();               // v15: restore S/M/L preference
-    initCompactHeader();                 // v19.20: shrink header on scroll
+    // v19.43-fix3: app-shell layout — window never scrolls, so the
+    // mast can't and shouldn't shrink. initCompactHeader() is a no-op
+    // here; left intact in source for reference but no longer wired.
+    // initCompactHeader();
     state.apiPingPromise = pingApi();    // v19.11: stashed so the first JUR runSearch can await it briefly
     paintDiffTray();                     // restore pinned-tray on reload
     paintWorkspaceBadge();
@@ -502,7 +541,43 @@ async function boot() {
     setProgress(100, 'Ready.');
     setTimeout(hideLoader, 250);
 
-    runSearch();
+    // v19.43-fix13: initial GA4 pageview is fired by setView(...)
+    // above (which we just called to honor the URL hash). Subsequent
+    // navigations are tracked from setView + the hashchange listener.
+
+    // v19.43-fix14: kick off corpus + index load AFTER paint, on
+    // every platform. The post-loader timing is what saves mobile —
+    // the heavy 25 MB JSON.parse + index build happen when the
+    // browser has already composed the UI and memory pressure is at
+    // its lowest. On desktop this is barely perceptible; on mobile
+    // it shows a "Loading paragraphs…" status in the result lede
+    // instead of crashing the tab.
+    setTimeout(() => {
+      ensureCorpusReady().catch(e => console.warn('Background corpus load failed:', e));
+    }, 100);
+
+    runSearch();   // awaits ensureCorpusReady internally; renders lede status while waiting
+
+    // v19.43: auto-focus the search input on initial paint, but ONLY
+    // when the user is on the search view AND there's no query already
+    // (URL deep-link or restored from previous session).  Avoids
+    // hijacking focus from any deep-linked active paragraph.
+    if (state.view === 'search' && !state.query) {
+      setTimeout(() => {
+        const q = document.getElementById('q');
+        // Don't steal focus if the user has already started interacting
+        // with another control during the boot sequence.
+        if (q && document.activeElement === document.body) {
+          q.focus({ preventScroll: true });
+        }
+      }, 350);  // after the loader fades out
+    }
+
+    // v19.43: first-visit welcome card.  Only shown if the user hasn't
+    // seen it before and is on the search view.
+    if (state.view === 'search' && !state.query) {
+      maybeShowWelcomeCard();
+    }
   } catch (err) {
     loaderMsg.textContent = `Failed to load: ${err.message}`;
     loaderMsg.style.color = 'var(--garnet)';
@@ -679,8 +754,17 @@ function paintMastFolio(m) {
   const today = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
   const jurDocs = state.jur.manifest?.counts?.documents || 0;
   const jurParas = state.jur.manifest?.counts?.paragraphs || 0;
-  $('#mast-folio').textContent =
-    `VOL. I · NO. 1 · ${today} · ${(m.counts.paragraphs + jurParas).toLocaleString()} ¶ · ${m.counts.documents + jurDocs} DOCUMENTS`;
+  // v19.43: write into the inner #mast-folio-text span so the loading
+  // bar stays in the DOM (now invisible because progress reaches 100%).
+  const textNode = document.getElementById('mast-folio-text');
+  const newText = `VOL. I · NO. 1 · ${today} · ${(m.counts.paragraphs + jurParas).toLocaleString()} ¶ · ${m.counts.documents + jurDocs} DOCUMENTS`;
+  if (textNode) {
+    textNode.textContent = newText;
+  } else {
+    $('#mast-folio').textContent = newText;
+  }
+  // Once the manifest is here, we have at least 30% loaded data —
+  // collapse the bar quickly when boot reaches 100%.
   $('#foot-version').textContent = `Build ${m.version} · ${m.builtAt.split('T')[0]}`;
   paintFreshnessCard(m);
 }
@@ -790,10 +874,18 @@ function applyUrlState(parsed) {
   paintYearFill();
 
   // Results controls
-  state.resultSort = ['relevance', 'date'].includes(parsed.resultSort) ? parsed.resultSort : 'relevance';
-  if (['paragraphs', 'documents', 'bodies'].includes(parsed.resultGroup)) {
-    state.resultGroup = parsed.resultGroup;
-    state.resultGroupUserSet = true;     // explicit URL choice — keep on scope switch
+  // v19.43-fix3: precedence is URL > localStorage > default. URL was the
+  // old persistence channel; we keep reading it so existing share links
+  // still work, but new clicks write only to localStorage (see bindUI).
+  let lsSort = null, lsGroup = null;
+  try { lsSort = localStorage.getItem(_LS.resultSort); } catch {}
+  try { lsGroup = localStorage.getItem(_LS.resultGroup); } catch {}
+  const sortPick = parsed.resultSort || lsSort;
+  state.resultSort = ['relevance', 'date'].includes(sortPick) ? sortPick : 'relevance';
+  const groupPick = parsed.resultGroup || lsGroup;
+  if (['paragraphs', 'documents', 'bodies'].includes(groupPick)) {
+    state.resultGroup = groupPick;
+    state.resultGroupUserSet = true;     // explicit choice — keep on scope switch
   } else {
     // v19.10 introduced a JUR-specific default of "documents"; reverted in
     // v19.11.1 because the new shorter result-rendering already addresses
@@ -816,8 +908,21 @@ function applyUrlState(parsed) {
   }
   syncFnToggleControl();
 
+  // v19.43: same precedence chain for preamble-search preference.
+  if (parsed.searchInPreambleUrl) {
+    state.searchInPreamble = parsed.searchInPreamble;
+  } else {
+    let ls = null;
+    try { ls = localStorage.getItem(_LS.searchInPre); } catch {}
+    state.searchInPreamble = ls !== '0';
+  }
+  syncPreambleToggleControl();
+
   // Active paragraph
-  state.activeId = parsed.activeId;
+  // v19.43-fix3: per-session interaction — never auto-restored from
+  // URL on boot. The dossier should always start closed on a fresh
+  // page load. Old share links carrying ?p=… are silently ignored.
+  state.activeId = null;
 }
 
 // v19.12: keep the operators-row chip's visual state synchronized with
@@ -834,6 +939,20 @@ function syncFnToggleControl() {
   btn.title = on
     ? 'Footnote text is included in search. Click to toggle off and search paragraph bodies only.'
     : 'Search is restricted to paragraph bodies (footnotes excluded). Click to include footnotes.';
+}
+
+// v19.43: mirror of syncFnToggleControl for the preamble-search chip.
+function syncPreambleToggleControl() {
+  const btn = document.getElementById('pre-toggle');
+  if (!btn) return;
+  const on = state.searchInPreamble !== false;
+  btn.classList.toggle('is-on', on);
+  btn.setAttribute('aria-pressed', String(on));
+  const mark = btn.querySelector('.op-toggle-mark');
+  if (mark) mark.textContent = on ? '✓' : '✗';
+  btn.title = on
+    ? 'Preamble text is included in search. Click to exclude preambles (search numbered paragraphs only).'
+    : 'Preambles are excluded from search results. Click to include them again.';
 }
 
 // ─────────── Hash router (Search / Documents / About) ───────────
@@ -865,6 +984,276 @@ function setView(view) {
   // 'search' results are kept in DOM after boot, no need to repaint
 
   updateDocumentTitle();
+  // v19.43-fix13: GA4 SPA pageview on view switch. Fires only after
+  // boot completes (state.manifest is set) so we don't double-count
+  // the very first paint (handled by the initial trackPageView call).
+  if (state.manifest) trackPageView();
+}
+
+// v19.43-fix13: tiny GA4 wrapper. Sends page_view events on hash
+// route changes so the dashboard's SPA navigation shows up as
+// distinct subpages in GA, not just the single root URL.
+//   • #search                  → /search
+//   • #documents               → /documents
+//   • #documents/cedaw-c-gc-39 → /documents/cedaw-c-gc-39
+//   • #workspace, #about       → /workspace, /about
+// No-op if gtag isn't loaded (e.g., user blocks it / extension off).
+function trackPageView(extraPath = null, extraTitle = null) {
+  if (typeof window.gtag !== 'function') return;
+  const hash = window.location.hash || '#search';
+  const path = extraPath || ('/' + hash.replace(/^#/, ''));
+  const title = extraTitle || document.title || 'UN Human Rights Database';
+  try {
+    window.gtag('event', 'page_view', {
+      page_location: window.location.href,
+      page_path: path,
+      page_title: title,
+    });
+  } catch (e) { /* analytics failure is never fatal */ }
+}
+
+// ─────────── v19.43: First-visit tour ───────────
+//
+// Lightweight 6-step spotlight tour. Triggered by:
+//  • welcome-card "Start tour" button on first visit
+//  • #tour-launch button in the masthead nav at any time
+//
+// Each step targets a CSS selector, draws a backdrop overlay with a
+// transparent cutout around the element, and shows a popover next to
+// it. Esc / "Skip tour" closes; arrow keys step through.
+
+const TOUR_STEPS = [
+  {
+    selector: '#q',
+    view: 'search',
+    title: 'Type to search',
+    body: 'Type any keyword. Try phrases in "quotes", combine with AND / OR / NOT, or use * for prefix wildcards. The "?" button to the right shows full operator syntax.',
+  },
+  // v19.43-fix10: Source moved from a top horizontal bar into the
+  // left pane. Tour now points at the new vertical block.
+  {
+    selector: '.filter-block-source',
+    view: 'search',
+    title: 'Pick your source',
+    body: 'Switch between General Comments (the authoritative core), Jurisprudence (preview), Special Procedures (preview), or All sources. Each row shows the live count of available paragraphs.',
+  },
+  // Filters block — every filter except Source. We point at Years +
+  // Treaty bodies as the most-used pair; everything else (groups,
+  // state party, doc status) cascades from there.
+  {
+    selector: '#filter-block-bodies',
+    view: 'search',
+    title: 'Filter year, body, and group',
+    body: 'Years drag-to-range. Treaty bodies + Concerned groups (Children, Women/girls, etc.) narrow results further. State party and Document status are tucked behind disclosures below.',
+  },
+  {
+    selector: '#fn-toggle, #pre-toggle',
+    view: 'search',
+    title: 'Search options',
+    body: 'Toggle whether the search index includes footnote text and preamble paragraphs. Both default ON. Useful for excluding citation-heavy docs or focusing only on numbered substantive paragraphs.',
+  },
+  // v19.43-fix10: drawer step. The dossier only renders after a ¶ is
+  // clicked, so this step pre-clicks the first result so the user
+  // sees what they're being told about. beforeShow runs synchronously
+  // BEFORE the spotlight measures positions.
+  {
+    selector: '.dossier',
+    view: 'search',
+    title: 'Case-note drawer',
+    body: 'Click any paragraph (we just opened the first one for you) — a side panel shows the surrounding ±2 paragraphs, the section heading, document metadata, and a one-click Cite button in your preferred format. ⋯ hides Permalink, Open in reader, and Report a problem.',
+    beforeShow: () => {
+      // Open the first available result so the dossier is rendered.
+      // If something is already active, leave it as-is.
+      if (state.activeId) return;
+      const firstId = state.results?.[0]?.p?.id;
+      if (firstId) setActive(firstId);
+    },
+  },
+  {
+    selector: 'a[href="#documents"]',
+    view: 'search',
+    title: 'Read full documents',
+    body: 'The Documents tab opens any General Comment in a 3-pane reader: paragraph rail on the left, full text in the middle, section outline on the right. Click any paragraph to bookmark, cite, or copy it.',
+  },
+  {
+    selector: 'a[href="#about"]',
+    view: 'search',
+    title: 'Methodology + workspace',
+    body: 'About explains the corpus pipeline (PDF→JSON, label taxonomy, OCR provenance). Workspace holds your bookmarks, notes, and saved searches across sessions.',
+  },
+];
+
+let _tourState = { idx: 0, active: false };
+
+function startTour(fromStep = 0) {
+  _tourState = { idx: fromStep, active: true };
+  document.getElementById('welcome-card')?.setAttribute('hidden', '');
+  paintTourStep();
+}
+
+function endTour({ markSeen = true } = {}) {
+  _tourState.active = false;
+  const overlay = document.getElementById('tour-overlay');
+  if (overlay) {
+    overlay.hidden = true;
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+  if (markSeen) {
+    try { localStorage.setItem(_LS.tourSeen, '1'); } catch {}
+  }
+}
+
+function paintTourStep() {
+  const step = TOUR_STEPS[_tourState.idx];
+  if (!step) { endTour(); return; }
+  // Switch view if needed (some steps target elements that only exist in
+  // certain views — currently all are on the search view, but be safe).
+  if (step.view && state.view !== step.view) {
+    setView(step.view);
+  }
+  // v19.43-fix10: optional beforeShow hook — lets a step prepare DOM
+  // state (e.g. open the dossier by activating the first result) before
+  // the spotlight measures bounding rects. Runs synchronously.
+  if (typeof step.beforeShow === 'function') {
+    try { step.beforeShow(); } catch (e) { console.warn('[tour] beforeShow failed:', e); }
+  }
+  // v19.43: a step's selector may match MULTIPLE elements (e.g. both
+  // search-option toggles). Compute the union bounding box so the
+  // spotlight covers them all as one rectangle.
+  const targets = Array.from(document.querySelectorAll(step.selector));
+  if (!targets.length) {
+    _tourState.idx++;
+    paintTourStep();
+    return;
+  }
+  // Scroll the first target into view; the rest tend to be siblings.
+  targets[0].scrollIntoView({ block: 'center', behavior: 'instant' });
+
+  // Draw spotlight + popover
+  const overlay = document.getElementById('tour-overlay');
+  const spot    = document.getElementById('tour-spotlight');
+  const pop     = document.getElementById('tour-popover');
+  if (!overlay || !spot || !pop) return;
+
+  // Union the rects of all VISIBLE targets. Filter out elements with
+  // zero dimensions (hidden / display:none) so they don't poison the
+  // union with their (0,0,0,0) rect or with stale offscreen positions.
+  let top = Infinity, left = Infinity, right = -Infinity, bottom = -Infinity;
+  let visibleCount = 0;
+  for (const el of targets) {
+    const rr = el.getBoundingClientRect();
+    if (rr.width === 0 && rr.height === 0) continue;   // hidden element
+    if (!isFinite(rr.top) || !isFinite(rr.left)) continue;
+    visibleCount++;
+    top    = Math.min(top, rr.top);
+    left   = Math.min(left, rr.left);
+    right  = Math.max(right, rr.right);
+    bottom = Math.max(bottom, rr.bottom);
+  }
+  // v19.43-fix: defensive fallback. If union came up empty (all elements
+  // hidden, or selector matched something not in the layout), fall back
+  // to the first matched element directly. This prevents the spotlight
+  // from rendering a phantom rectangle (Infinity → NaN width) somewhere
+  // unexpected — the bug that caused step 4 to highlight the search
+  // input instead of the option toggles.
+  if (!visibleCount || !isFinite(top) || !isFinite(left)) {
+    const fb = targets[0].getBoundingClientRect();
+    top    = fb.top;
+    left   = fb.left;
+    right  = fb.right;
+    bottom = fb.bottom;
+  }
+  const r = { top, left, right, bottom, width: right - left, height: bottom - top };
+  const PAD = 8;
+  Object.assign(spot.style, {
+    top:    (r.top    - PAD) + 'px',
+    left:   (r.left   - PAD) + 'px',
+    width:  (r.width  + PAD * 2) + 'px',
+    height: (r.height + PAD * 2) + 'px',
+  });
+
+  document.getElementById('tour-step').textContent  = `${_tourState.idx + 1} / ${TOUR_STEPS.length}`;
+  document.getElementById('tour-title').textContent = step.title;
+  document.getElementById('tour-body').textContent  = step.body;
+  document.getElementById('tour-prev').toggleAttribute('disabled', _tourState.idx === 0);
+  const nextBtn = document.getElementById('tour-next');
+  nextBtn.textContent = _tourState.idx === TOUR_STEPS.length - 1 ? 'Done' : 'Next →';
+
+  // Position popover: prefer below the target; if no room, above; else right.
+  pop.style.visibility = 'hidden';
+  overlay.hidden = false;
+  overlay.setAttribute('aria-hidden', 'false');
+  // Force layout to read pop dimensions
+  pop.style.left = '0px'; pop.style.top = '0px';
+  const popR = pop.getBoundingClientRect();
+  const vw = window.innerWidth, vh = window.innerHeight;
+  // v19.43-fix: distinct locals (popTop/popLeft) to avoid colliding
+  // with the union-bounding-box `top`/`left` declared earlier in the
+  // same function — that collision was a SyntaxError that blocked boot.
+  let popTop = r.bottom + 12, popLeft = Math.max(12, r.left);
+  if (popTop + popR.height > vh - 12) {
+    popTop = Math.max(12, r.top - popR.height - 12);
+  }
+  if (popLeft + popR.width > vw - 12) {
+    popLeft = Math.max(12, vw - popR.width - 12);
+  }
+  pop.style.top  = popTop + 'px';
+  pop.style.left = popLeft + 'px';
+  pop.style.visibility = 'visible';
+}
+
+function bindTour() {
+  document.getElementById('tour-launch')?.addEventListener('click', () => startTour(0));
+  document.getElementById('welcome-card-start')?.addEventListener('click', () => {
+    try { localStorage.setItem(_LS.welcomeSeen, '1'); } catch {}
+    startTour(0);
+  });
+  const dismissWelcome = () => {
+    try { localStorage.setItem(_LS.welcomeSeen, '1'); } catch {}
+    document.getElementById('welcome-card')?.setAttribute('hidden', '');
+  };
+  document.getElementById('welcome-card-dismiss')?.addEventListener('click', dismissWelcome);
+  document.getElementById('welcome-card-skip')?.addEventListener('click', dismissWelcome);
+  document.getElementById('tour-skip')?.addEventListener('click', () => endTour());
+  document.getElementById('tour-prev')?.addEventListener('click', () => {
+    if (_tourState.idx > 0) { _tourState.idx--; paintTourStep(); }
+  });
+  document.getElementById('tour-next')?.addEventListener('click', () => {
+    if (_tourState.idx < TOUR_STEPS.length - 1) { _tourState.idx++; paintTourStep(); }
+    else endTour();
+  });
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!_tourState.active) return;
+    if (e.key === 'Escape')                      { endTour(); }
+    else if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      if (_tourState.idx < TOUR_STEPS.length - 1) { _tourState.idx++; paintTourStep(); }
+      else endTour();
+    }
+    else if (e.key === 'ArrowLeft') {
+      if (_tourState.idx > 0) { _tourState.idx--; paintTourStep(); }
+    }
+  });
+  // Re-position on window resize / scroll while tour is active
+  let _tourReposition = null;
+  ['resize', 'scroll'].forEach(ev =>
+    window.addEventListener(ev, () => {
+      if (!_tourState.active) return;
+      clearTimeout(_tourReposition);
+      _tourReposition = setTimeout(paintTourStep, 50);
+    }, { passive: true })
+  );
+}
+
+function maybeShowWelcomeCard() {
+  let seen = null;
+  try { seen = localStorage.getItem(_LS.welcomeSeen); } catch {}
+  if (seen === '1') return;
+  // Stagger after the loader fades + auto-focus completes
+  setTimeout(() => {
+    document.getElementById('welcome-card')?.removeAttribute('hidden');
+  }, 600);
 }
 
 function bindRouter() {
@@ -1022,7 +1411,28 @@ function renderRailCommittee(committee, list, type) {
 // seeds the right drawer.  Reusable: search-view code can also call this
 // when the user wants to "read the whole document".
 async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
-  const doc = state.documents.get(docId);
+  let doc = state.documents.get(docId);
+  // v19.43: stable-URL fallback — the joint-comment docId scheme was
+  // normalised in the May 2026 batch (e.g. "cmw-c-gc-7cerd-c-gc-38" →
+  // "cmw-c-gc-7-cerd-c-gc-38").  Old URLs are kept alive by looking up
+  // any doc that lists the requested id in its `alternativeIds`.
+  if (!doc) {
+    for (const d of state.documents.values()) {
+      if (Array.isArray(d.alternativeIds) && d.alternativeIds.includes(docId)) {
+        doc = d;
+        // Rewrite the URL silently to the new canonical id so subsequent
+        // shares use the current scheme.
+        if (!fromUrl) {
+          const url = new URL(window.location);
+          url.hash = `documents/${encodeURIComponent(d.docId)}`;
+          if (paraId) url.searchParams.set('p', paraId);
+          window.history.replaceState(null, '', url.toString());
+        }
+        docId = d.docId;
+        break;
+      }
+    }
+  }
   if (!doc) {
     console.warn('[openDocReader] unknown docId', docId);
     return;
@@ -1086,25 +1496,61 @@ function paintDocReaderBody(doc, paraId) {
       </div>
     </header>`;
 
+  // v19.43: emit only the section LEVELS that changed since the previous
+  // paragraph, each at its own depth. So a hop from
+  //   [V. Obligations, A. General, 4. Previous]
+  // to
+  //   [V. Obligations, A. General, 5. New]
+  // emits ONLY "5. New" (level-2 styling — the only thing that changed).
+  // A hop across a higher branch emits multiple lines, one per new
+  // level. The right-pane outline holds the full hierarchy so users can
+  // always recover where they are; the middle pane stays scannable.
+  let prevPath = [];
   const body = paragraphs.map(p => {
-    const marker = p.n != null ? `¶${escape(String(p.n))}` : `¶${p.idx}`;
+    const isPre = p.isPreamble === true || p.n === 0;
+    const marker = isPre
+      ? '<span class="docs-preamble-badge">PREAMBLE</span>'
+      : (p.n != null ? `¶${escape(String(p.n))}` : `¶${p.idx}`);
     const isActive = p.id === paraId;
     const isBm = bmHas(p.id);
     const isPin = pinHas(p.id);
     const hasNote = noteHas(p.id);
-    const sectionHead = p.section
-      ? `<h3 class="docs-reader-section">${escape(p.section)}</h3>`
-      : '';
+    let sectionHead = '';
+    let curSectionKey = '';
+    if (p.section) {
+      const path = Array.isArray(p.section) ? p.section : [String(p.section)];
+      curSectionKey = path.join(' › ');
+      // Find length of common prefix with prevPath.
+      let commonLen = 0;
+      while (commonLen < prevPath.length && commonLen < path.length
+             && prevPath[commonLen] === path[commonLen]) {
+        commonLen++;
+      }
+      // Emit one heading per level beyond the common prefix.  Each
+      // heading carries its own depth-N class for visual hierarchy.
+      if (commonLen < path.length) {
+        sectionHead = path.slice(commonLen).map((title, i) => {
+          const depth = commonLen + i;
+          const fullKey = path.slice(0, depth + 1).join(' › ');
+          return `<h3 class="docs-reader-section depth-${depth}" data-section-key="${escape(fullKey)}" title="${escape(curSectionKey)}">${escape(title)}</h3>`;
+        }).join('');
+      }
+      prevPath = path;
+    } else {
+      prevPath = [];
+    }
     return `
       ${sectionHead}
-      <div class="docs-reader-para ${isActive ? 'is-active' : ''}" id="reader-para-${escape(p.id)}" data-para-id="${escape(p.id)}">
+      <div class="docs-reader-para ${isActive ? 'is-active' : ''}" id="reader-para-${escape(p.id)}" data-para-id="${escape(p.id)}" data-section-key="${escape(curSectionKey)}">
         <div class="docs-reader-para-marker">
           <span class="mono">${marker}</span>
           <button class="docs-para-bm ${isBm ? 'on' : ''}" data-act="bm" title="${isBm ? 'Remove bookmark' : 'Bookmark this paragraph'}">${isBm ? '★' : '☆'}</button>
-          <button class="docs-para-pin ${isPin ? 'on' : ''}" data-act="pin" title="${isPin ? 'Unpin' : 'Pin for compare'}">📌</button>
-          <button class="docs-para-cite" data-act="cite" title="Cite this paragraph">”</button>
-          <button class="docs-para-link" data-act="link" title="Copy permalink to this paragraph">§</button>
-          <button class="docs-para-flag" data-act="flag" title="Report a problem with this paragraph">⚐</button>
+          <button class="docs-para-act docs-para-act-cite" data-act="cite" title="Cite this paragraph in your preferred format" aria-label="Cite this paragraph">
+            <span class="mono">cite</span>
+          </button>
+          <button class="docs-para-act docs-para-act-copy" data-act="copy" title="Copy paragraph text to clipboard" aria-label="Copy paragraph text">
+            <span class="mono">copy</span>
+          </button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">✎</span>' : ''}
         </div>
         <p class="docs-reader-para-text serif">${renderParagraphHtml(p.text, p.footnotes)}</p>
@@ -1130,7 +1576,6 @@ function paintDocReaderBody(doc, paraId) {
       if (btn) {
         e.stopPropagation();
         if (btn.dataset.act === 'bm')  { bmToggle(id); paintWorkspaceBadge(); }
-        if (btn.dataset.act === 'pin') { pinToggle(id); paintDiffTray(); }
         if (btn.dataset.act === 'cite') {
           // v19.16: one-click cite using the user's preferred format
           // (set via the docs-drawer <details> Cite menu). Mid-panels
@@ -1139,20 +1584,16 @@ function paintDocReaderBody(doc, paraId) {
           if (para) copyCiteWithPref(btn, para);
           return;                                  // skip the re-paint
         }
-        if (btn.dataset.act === 'flag') {
-          // v19.14: open the report modal pre-populated with this
-          // paragraph's context so a curator-level reader can flag
-          // issues without losing their place in the doc.
+        if (btn.dataset.act === 'copy') {
+          // v19.43: copy raw paragraph text to clipboard.  Strips inline
+          // [[fn:N]] markers + footnote-marker glyphs so the copied text
+          // reads cleanly without UI artifacts.
           const para = state.paragraphById.get(id);
-          openReportModal({ paraId: id, docId: para?.docId });
+          if (para) copyParagraphText(btn, para);
           return;
         }
-        if (btn.dataset.act === 'link') {
-          // v19.15: copy a permalink to clipboard.
-          const para = state.paragraphById.get(id);
-          if (para) copyPermalink(para);
-          return;
-        }
+        // pin/flag/link actions removed in v19.43 — moved to workspace
+        // dossier where they're more discoverable when actually needed.
         // Re-paint just this paragraph row + drawer.
         state.docsActiveParaId = id;
         paintDocReaderBody(doc, id);
@@ -1177,6 +1618,71 @@ function paintDocReaderBody(doc, paraId) {
       requestAnimationFrame(() => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
     }
   }
+
+  // v19.43: outline scroll-spy.  As the user scrolls through the
+  // middle pane, find the topmost-visible paragraph and highlight the
+  // matching `.docs-outline-link` in the right-pane outline. Because
+  // the middle pane only emits the changed level of each section
+  // header, the scroll-spy is what tells the user "you're in II › B"
+  // — without forcing the body to repeat the full path.
+  setupOutlineScrollSpy(host);
+}
+
+let _outlineScrollSpy = null;
+function setupOutlineScrollSpy(host) {
+  // Tear down any previous observer (re-painting the body re-creates
+  // paragraph elements, so the old observer would leak references).
+  if (_outlineScrollSpy) {
+    _outlineScrollSpy.disconnect();
+    _outlineScrollSpy = null;
+  }
+  if (!('IntersectionObserver' in window)) return;
+  const paras = host.querySelectorAll('.docs-reader-para[data-section-key]:not([data-section-key=""])');
+  if (!paras.length) return;
+  const visible = new Map();    // element → intersectionRatio
+  const observer = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) visible.set(e.target, e.intersectionRatio);
+      else                  visible.delete(e.target);
+    }
+    if (!visible.size) return;
+    // Pick the topmost visible para (smallest top boundingRect).
+    let topmost = null, topmostY = Infinity;
+    for (const el of visible.keys()) {
+      const r = el.getBoundingClientRect();
+      if (r.top < topmostY) { topmost = el; topmostY = r.top; }
+    }
+    if (!topmost) return;
+    const key = topmost.dataset.sectionKey || '';
+    if (!key) return;
+    // Find the outline link whose section is a PREFIX of (or equal to)
+    // the current paragraph's full section key — that's the leaf the
+    // paragraph belongs to.  Mark it active; clear all others.
+    const links = document.querySelectorAll('.docs-outline-link');
+    let bestLink = null, bestLen = -1;
+    links.forEach(a => {
+      const linkKey = a.dataset.sectionKey || '';
+      if (!linkKey) return;
+      if (key === linkKey || key.startsWith(linkKey + ' › ')) {
+        if (linkKey.length > bestLen) { bestLink = a; bestLen = linkKey.length; }
+      }
+    });
+    links.forEach(a => a.classList.toggle('is-active', a === bestLink));
+    // Auto-scroll the active link into view in the drawer if it's offscreen.
+    if (bestLink) {
+      const linkRect = bestLink.getBoundingClientRect();
+      const drawerRect = bestLink.closest('.docs-outline-list')?.getBoundingClientRect();
+      if (drawerRect && (linkRect.top < drawerRect.top || linkRect.bottom > drawerRect.bottom)) {
+        bestLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }
+  }, {
+    // Trigger when the paragraph passes the upper third of the viewport.
+    rootMargin: '-25% 0px -65% 0px',
+    threshold: [0, 0.1, 0.5, 1],
+  });
+  paras.forEach(p => observer.observe(p));
+  _outlineScrollSpy = observer;
 }
 
 function paintDocDrawer(doc) {
@@ -1195,18 +1701,53 @@ function paintDocDrawer(doc) {
   const para = paraId ? state.paragraphById.get(paraId) : null;
   const paragraphs = state.paragraphs.filter(p => p.docId === doc.docId);
 
-  // Outline: any paragraph with a section, or a numbered ¶ as fallback.
-  const outline = paragraphs.filter(p => p.section).map(p => ({
-    id: p.id, label: p.section, n: p.n,
-  }));
-
-  const outlineHtml = outline.length
+  // v19.43: outline shows each unique section ONCE, with the paragraph
+  // range that belongs to it. Previously every paragraph carrying the
+  // same section was duplicated, producing 15+ identical entries for
+  // long sections. Now we walk paragraphs in order, group by canonical
+  // section path, and emit one row per group with the leaf heading
+  // displayed prominently and the full ancestor chain as a tooltip.
+  const outlineGroups = [];
+  let prevKey = null;
+  for (const p of paragraphs) {
+    if (!p.section) continue;
+    const path = Array.isArray(p.section) ? p.section : [String(p.section)];
+    const key = path.join(' › ');     // ›
+    if (key !== prevKey) {
+      outlineGroups.push({
+        firstId: p.id,
+        firstN:  p.n ?? null,
+        lastN:   p.n ?? null,
+        path,
+        depth: path.length - 1,
+      });
+      prevKey = key;
+    } else {
+      const cur = outlineGroups[outlineGroups.length - 1];
+      cur.lastN = p.n ?? cur.lastN;
+    }
+  }
+  const formatRange = g => (
+    g.firstN != null && g.lastN != null && g.firstN !== g.lastN
+      ? `¶${g.firstN}–${g.lastN}`
+      : `¶${g.firstN ?? '—'}`
+  );
+  const outlineHtml = outlineGroups.length
     ? `<ol class="docs-outline-list">${
-        outline.map(o => `
-          <li><a class="docs-outline-link" href="#" data-jump="${escape(o.id)}">
-            <span class="mono">¶${escape(String(o.n ?? '—'))}</span>
-            <span>${escape(o.label)}</span>
-          </a></li>`).join('')
+        outlineGroups.map(g => {
+          const leaf = g.path[g.path.length - 1] || '';
+          const ancestors = g.path.slice(0, -1).join(' › ');
+          const tooltip = g.path.join(' › ');
+          const sectionKey = tooltip;   // same canonical key used on paragraphs
+          return `
+            <li class="docs-outline-item depth-${g.depth}">
+              <a class="docs-outline-link" href="#" data-jump="${escape(g.firstId)}" data-section-key="${escape(sectionKey)}" title="${escape(tooltip)}">
+                <span class="mono dim">${escape(formatRange(g))}</span>
+                <span class="docs-outline-leaf">${escape(leaf)}</span>
+                ${ancestors ? `<span class="docs-outline-ancestors dim">${escape(ancestors)}</span>` : ''}
+              </a>
+            </li>`;
+        }).join('')
       }</ol>`
     : '<p class="serif dim" style="font-size:12px">No headings detected — every paragraph is reachable from the body.</p>';
 
@@ -1602,9 +2143,22 @@ function bindUI() {
     runSearch();
   });
 
+  // v19.43: preamble-search toggle.  When OFF, paragraphs flagged
+  // `isPreamble: true` are filtered out of result sets even if their text
+  // matches the query.
+  document.getElementById('pre-toggle')?.addEventListener('click', () => {
+    state.searchInPreamble = !state.searchInPreamble;
+    try { localStorage.setItem(_LS.searchInPre, state.searchInPreamble ? '1' : '0'); } catch {}
+    syncPreambleToggleControl();
+    scheduleUrlUpdate();
+    runSearch();
+  });
+
   // Result sorting / grouping controls
+  // v19.43-fix3: persist preferences to localStorage instead of URL.
   $$('#result-sort .result-opt').forEach(b => b.addEventListener('click', () => {
     state.resultSort = b.dataset.sort;
+    try { localStorage.setItem(_LS.resultSort, state.resultSort); } catch {}
     sortResults();
     paintResults();
     updateDocumentTitle();
@@ -1614,10 +2168,15 @@ function bindUI() {
   $$('#result-group .result-opt').forEach(b => b.addEventListener('click', () => {
     state.resultGroup = b.dataset.group;
     state.resultGroupUserSet = true;     // freeze auto-switch on scope changes
+    try { localStorage.setItem(_LS.resultGroup, state.resultGroup); } catch {}
     syncResultsControls();
     paintResults();
     updateDocumentTitle();
     scheduleUrlUpdate();
+    // v19.43: close the "More views…" dropdown after a selection so it
+    // doesn't linger overlapping the result list.
+    const moreViews = document.getElementById('result-more-views');
+    if (moreViews) moreViews.open = false;
   }));
 
   $('#expand-groups').addEventListener('click', () => {
@@ -1814,6 +2373,30 @@ function bindUI() {
   $('#report-modal .report-cancel')?.addEventListener('click', closeReportModal);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !$('#report-modal')?.hidden) closeReportModal();
+    // v19.43-fix5: Esc also closes the dossier when nothing else is on
+    // top. Skip if a modal is open (report, tour, cite popover) so it
+    // doesn't fight existing escape handlers.
+    // v19.43-fix11 (bug): the previous "skip if input/textarea focused"
+    // guard fired for the SEARCH input too — which is the most common
+    // focus target after opening a result, so Esc never closed the
+    // drawer in normal use. Tightened: only skip when the focused
+    // input lives INSIDE the dossier (e.g., the note textarea), or is
+    // contenteditable. Search input clears its own value via its own
+    // keydown handler, which still fires before this one.
+    if (e.key === 'Escape'
+        && state.activeId
+        && $('#report-modal')?.hidden
+        && document.getElementById('tour-overlay')?.hidden !== false) {
+      const ae = document.activeElement;
+      const isInsideDrawer = ae && document.querySelector('.dossier')?.contains(ae)
+                              && ae.matches('input, textarea, [contenteditable="true"]');
+      const isCEdit = ae?.matches?.('[contenteditable="true"]');
+      if (!isInsideDrawer && !isCEdit) {
+        state.activeId = null;
+        paintDossier();
+        refreshResultMarks();
+      }
+    }
   });
   $('#report-form')?.addEventListener('submit', submitReport);
   $('#report-message')?.addEventListener('input', _updateReportCharcount);
@@ -1913,7 +2496,7 @@ function exportCsv(rows) {
   for (const r of rows) lines.push(headers.map(h => csvEscape(r[h])).join(','));
   // Prepend BOM so Excel detects UTF-8 correctly when opening directly.
   const blob = new Blob(['﻿', lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
-  downloadBlob(blob, `geneva-reporter-${timestampSlug()}.csv`);
+  downloadBlob(blob, `UNHRD-${timestampSlug()}.csv`);
 }
 
 function exportJson(rows) {
@@ -1933,7 +2516,7 @@ function exportJson(rows) {
     results: rows,
   };
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  downloadBlob(blob, `geneva-reporter-${timestampSlug()}.json`);
+  downloadBlob(blob, `UNHRD-${timestampSlug()}.json`);
 }
 
 // Document-level BibTeX (one entry per document, citing all matching paragraphs as a note).
@@ -1961,7 +2544,7 @@ function exportBibtex(rows) {
     ].join('\n');
   });
   const blob = new Blob([entries.join('\n\n') + '\n'], { type: 'application/x-bibtex' });
-  downloadBlob(blob, `geneva-reporter-${timestampSlug()}.bib`);
+  downloadBlob(blob, `UNHRD-${timestampSlug()}.bib`);
 }
 
 // SheetJS is large (~600 KB) — load on demand, only when user asks for XLSX.
@@ -1981,21 +2564,38 @@ function loadSheetJS() {
 
 async function exportXlsx(rows, busyButton) {
   const XLSX = await loadSheetJS();
+  // v19.43-fix12: refreshed Info sheet — UNHRD branding, human-readable
+  // export timestamp, citation suggestion, and the same query/scope/
+  // filter snapshot used to produce the Results sheet.
+  const exportedHuman = new Date().toLocaleString('en-GB', {
+    year: 'numeric', month: 'short', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', timeZoneName: 'short',
+  });
   const meta = [
-    ['UN Human Rights Database — search export'],
-    ['Generated', new Date().toISOString()],
-    ['Source', 'https://lszoszk.github.io/generalcomments/'],
-    ['Query', state.query || '(none)'],
-    ['Scope', state.scope],
-    ['Year range', `${state.filters.yearMin}–${state.filters.yearMax}`],
-    ['Committees', [...state.filters.committees].join(', ') || '(any)'],
-    ['Concerned groups', `${[...state.filters.labels].join(', ') || '(any)'}  [mode: ${state.filters.labelsMode.toUpperCase()}]`],
-    ['Total results', rows.length],
+    ['UNHRD — UN Human Rights Database'],
+    ['Paragraph-level export of UN Treaty Body General Comments + jurisprudence preview + Special Procedures.'],
+    [],
+    ['Exported',          exportedHuman],
+    ['Source URL',        'https://lszoszk.github.io/generalcomments/'],
+    ['Dataset licence',   'CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/'],
+    [],
+    ['Query',             state.query || '(none)'],
+    ['Scope',             state.scope],
+    ['Year range',        `${state.filters.yearMin}–${state.filters.yearMax}`],
+    ['Committees',        [...state.filters.committees].join(', ') || '(any)'],
+    ['Concerned groups',  `${[...state.filters.labels].join(', ') || '(any)'}  [mode: ${state.filters.labelsMode.toUpperCase()}]`],
+    ['Footnote search',   state.searchInFootnotes ? 'on' : 'off'],
+    ['Preamble search',   state.searchInPreamble  ? 'on' : 'off'],
+    ['Total results',     rows.length],
+    [],
+    ['Suggested citation:'],
+    ['Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRD — UN Human Rights Database (paragraph-level search interface for UN Treaty Body General Comments).'],
+    ['When citing individual paragraphs use the original UN document signature (e.g. CRC/C/GC/25 ¶12), not this database.'],
   ];
   const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(meta), 'Search');
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(meta), 'Info');
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), 'Results');
-  XLSX.writeFile(wb, `geneva-reporter-${timestampSlug()}.xlsx`);
+  XLSX.writeFile(wb, `UNHRD-${timestampSlug()}.xlsx`);
   if (busyButton) busyButton.classList.remove('is-busy');
 }
 
@@ -2526,6 +3126,57 @@ async function ensureScopeLoaded(scope) {
   return state.jur.loading;
 }
 
+// v19.43-fix14: lazy corpus + FlexSearch index loader. Boot only
+// loads metadata; the 25 MB corpus.json and index build happen here
+// on first interaction (or in the background on desktop). Idempotent
+// — second call returns the in-flight or completed promise.
+async function ensureCorpusReady() {
+  if (state.paragraphs.length && state.searchIndex) return;
+  if (state._corpusLoadPromise) return state._corpusLoadPromise;
+
+  state._corpusLoadPromise = (async () => {
+    // Step 1: corpus.json fetch + parse. Surfaces a tiny status row
+    // in the result lede so users on slow connections know it's still
+    // working. paintCorpusLoadingState handles the visual.
+    if (!state.paragraphs.length) {
+      paintCorpusLoadingState('fetch');
+      const arr = await fetchJson(`${DATA_BASE}corpus.json`);
+      state.paragraphs = arr;
+      _flushDfCache();
+      _avgDocLen = null;
+      for (const p of arr) state.paragraphById.set(p.id, p);
+    }
+    // Step 2: FlexSearch index. IndexedDB cache hit → instant; cold
+    // build → 3-5 s on desktop, 8-15 s on mobile. The latter is the
+    // step that historically OOM'd on first run; we now do it after
+    // paint so the browser has memory headroom.
+    if (!state.searchIndex) {
+      paintCorpusLoadingState('index');
+      await ensureSearchIndex();
+    }
+    paintCorpusLoadingState('ready');
+  })();
+  return state._corpusLoadPromise;
+}
+
+// Visual indicator while the lazy corpus loads. Shows a status pill
+// on the result count + a friendly note in the result lede; clears
+// itself on 'ready'.
+function paintCorpusLoadingState(phase) {
+  const count = document.getElementById('result-count');
+  const sub   = document.getElementById('results-sub');
+  if (!count || !sub) return;
+  if (phase === 'fetch') {
+    count.textContent = '…loading';
+    sub.textContent = `Loading the paragraph corpus (~25 MB). On a slower connection this may take 10-20 s.`;
+  } else if (phase === 'index') {
+    count.textContent = '…indexing';
+    sub.textContent = `Building the search index. First-time setup; subsequent visits are instant.`;
+  } else if (phase === 'ready') {
+    // runSearch will overwrite these; nothing to do here.
+  }
+}
+
 async function loadJurCorpus() {
   const files = state.jur.manifest?.files || {};
   const shardNames = Object.keys(files)
@@ -2665,10 +3316,15 @@ async function runSearch() {
   }
 
   try {
+    // v19.43-fix14: lazy corpus + index. First search after boot
+    // awaits the load (and shows a status while it runs); subsequent
+    // searches are instant.
+    await ensureCorpusReady();
+    if (runId !== state.searchRun) return;
     await ensureScopeLoaded(state.scope);
     if (runId !== state.searchRun) return;
   } catch (err) {
-    $('#results-title').textContent = 'Jurisprudence preview unavailable';
+    $('#results-title').textContent = 'Failed to load search index';
     $('#results-sub').textContent = err.message;
     console.error(err);
     return;
@@ -2710,6 +3366,13 @@ async function runSearch() {
 
   for (const p of iter) {
     if (!paragraphInScope(p, scope)) continue;
+
+    // v19.43: drop preamble entries when the user has toggled off
+    // "search in preambles". Preamble paragraphs are flagged
+    // `isPreamble: true` and carry the resolution-style "The Committee
+    // on…, Recalling…" text — useful by default but easily filtered out
+    // for users who only want to search numbered substantive paragraphs.
+    if (state.searchInPreamble === false && p.isPreamble) continue;
 
     if (p.year !== null) {
       if (f.yearMin && p.year < f.yearMin) continue;
@@ -2860,6 +3523,15 @@ function syncResultsControls() {
     b.classList.toggle('is-active', on);
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
+  // v19.43: when the active group is one of the disclosure-hidden
+  // options ("bodies"), mark the parent <details> with .has-active-child
+  // so the … chip turns garnet ✓ — gives the user feedback that their
+  // current selection is "in there".
+  const moreViews = document.getElementById('result-more-views');
+  if (moreViews) {
+    const activeChild = moreViews.querySelector('.result-opt.is-active');
+    moreViews.classList.toggle('has-active-child', !!activeChild);
+  }
 
   // Expand/collapse buttons work in grouped views AND (v19.19) in paragraph
   // view with a query — where they expand/collapse all truncated snippets.
@@ -2911,6 +3583,14 @@ function paintResults() {
   syncResultsControls();
 
   $('#result-count').textContent = `${total.toLocaleString()} ¶`;
+  // v19.43: hide post-search controls (Export, Copy link, Save search)
+  // until the user has *actively initiated a search* — not just on the
+  // basis of "results > 0", because runSearch() runs on initial boot
+  // and returns the full corpus by default. Tying to !!state.query
+  // means: nothing typed → controls hidden; user types → controls show.
+  // Pure progressive disclosure: declutters the first-paint searchbar.
+  const hasActiveQuery = !!(state.query && state.query.trim());
+  document.body.classList.toggle('has-results', hasActiveQuery && total > 0);
   $('#results-title').textContent = total
     ? (clippedToApi
         ? `${total.toLocaleString()} passages — showing first ${renderedTotal.toLocaleString()} from ${docCount} document${docCount === 1 ? '' : 's'}`
@@ -2963,15 +3643,16 @@ function paintResults() {
     _attachResultSentinel(list, allTerms);
   }
 
-  // Auto-show first result in dossier
-  const firstId = state.results[0]?.p.id;
-  if (firstId && !state.activeId) {
-    setActive(firstId);
-  } else if (state.activeId && !state.results.find(r => r.p.id === state.activeId)) {
-    setActive(firstId || null);
-  } else {
-    paintDossier();
+  // v19.43-fix4: do NOT auto-open the dossier on every paintResults.
+  // Drawer is a click-to-reveal panel now (see app-shell layout). If
+  // the user hasn't selected a paragraph, the dossier stays hidden.
+  // We still clear stale activeIds when their row drops out of the
+  // current result set, so the dossier doesn't show a paragraph that
+  // isn't visible in the list any more.
+  if (state.activeId && !state.results.find(r => r.p.id === state.activeId)) {
+    state.activeId = null;
   }
+  paintDossier();
 }
 
 // Build a tailored empty-state element. Reads `state.filters` to decide
@@ -3631,6 +4312,10 @@ function sourceBadge(type) {
 }
 
 function setActive(id) {
+  // v19.43-fix7: opening a new paragraph resets the section-expand
+  // toggle. The "Show entire section" disclosure is per-active-¶, not
+  // a global preference.
+  if (state.activeId !== id) state.dossierExpanded = false;
   state.activeId = id;
   $$('.result').forEach(el => {
     el.classList.toggle('is-active', el.dataset.paraId === id);
@@ -3638,6 +4323,96 @@ function setActive(id) {
   paintDossier();
   updateDocumentTitle();
   scheduleUrlUpdate();
+}
+
+// v19.43-fix7: resolve the dossier context window for the active
+// paragraph. Returns up to N preceding and N following paragraphs
+// within the SAME section in the same document. If the active ¶ is a
+// preamble or has no section info (JUR/SP, or older docs), the
+// context degrades gracefully — preamble shows alone, sectionless
+// docs use a doc-wide ±N window without claiming a section boundary.
+function getDossierContext(active, { window: WIN = 2, expanded = false } = {}) {
+  if (!active) return null;
+
+  // Preamble paragraphs are isolated by design — no "before/after"
+  // since they sit outside the numbered sequence.
+  if (active.isPreamble) {
+    return {
+      prev: [], active, next: [],
+      section: null, totalInSection: 1,
+      activeIdxInSection: 0, canExpand: false, expanded: false,
+      hasSection: false, isPreamble: true,
+    };
+  }
+
+  // Pull all paragraphs in this document. state.paragraphs covers GC
+  // entirely; for JUR/SP rows that came via API we also check the id
+  // map (which is hydrated by adaptApiHit). isPreamble entries are
+  // excluded so the context window doesn't spill into the preamble.
+  const docParas = [];
+  for (const p of state.paragraphs) {
+    if (p.docId === active.docId && !p.isPreamble) docParas.push(p);
+  }
+  if (!docParas.length) {
+    // Fallback for API-hydrated paragraphs not in state.paragraphs.
+    for (const p of state.paragraphById.values()) {
+      if (p.docId === active.docId && !p.isPreamble) docParas.push(p);
+    }
+  }
+  // Sort by paragraph index (idx > n > 0) for stable ordering.
+  docParas.sort((a, b) => (a.idx ?? a.n ?? 0) - (b.idx ?? b.n ?? 0));
+
+  const activeIdx = docParas.findIndex(p => p.id === active.id);
+  if (activeIdx === -1) {
+    return { prev: [], active, next: [], section: active.section || null,
+             totalInSection: 1, activeIdxInSection: 0, canExpand: false,
+             expanded: false, hasSection: !!active.section, isPreamble: false };
+  }
+
+  // Section identity: paragraphs share a section iff their section
+  // arrays/strings are identical. Empty/missing section is its own
+  // bucket — paragraphs without sections cluster together.
+  const sectionKey = (p) => Array.isArray(p.section)
+    ? p.section.join('§')
+    : (p.section || '');
+  const myKey = sectionKey(active);
+  const hasSection = myKey !== '';
+
+  // Find the section bounds by walking outward from active until the
+  // sectionKey changes.
+  let sectionStart = activeIdx;
+  while (sectionStart > 0 && sectionKey(docParas[sectionStart - 1]) === myKey) sectionStart--;
+  let sectionEnd = activeIdx;
+  while (sectionEnd < docParas.length - 1 && sectionKey(docParas[sectionEnd + 1]) === myKey) sectionEnd++;
+  const totalInSection = sectionEnd - sectionStart + 1;
+
+  // For sectionless docs (JUR/SP/legacy), don't claim a section
+  // boundary — fall back to a doc-wide window of ±WIN that doesn't
+  // expose "Show entire section" (which would mean "the whole doc").
+  const fromIdx = expanded
+    ? sectionStart
+    : Math.max(hasSection ? sectionStart : 0, activeIdx - WIN);
+  const toIdx = expanded
+    ? sectionEnd
+    : Math.min(hasSection ? sectionEnd : docParas.length - 1, activeIdx + WIN);
+
+  const prev = docParas.slice(fromIdx, activeIdx);
+  const next = docParas.slice(activeIdx + 1, toIdx + 1);
+
+  return {
+    prev, active, next,
+    section: active.section || null,
+    totalInSection,
+    activeIdxInSection: activeIdx - sectionStart,
+    // Only offer "Show entire section" when (a) there IS a real
+    // section, (b) it's not already fully shown, (c) we're not
+    // already expanded.
+    canExpand: hasSection && !expanded
+            && totalInSection > (prev.length + 1 + next.length),
+    expanded,
+    hasSection,
+    isPreamble: false,
+  };
 }
 
 // After a workspace toggle, repaint the per-result marks (☆/📌/✎)
@@ -3780,13 +4555,15 @@ async function postMetaVote(docId, vote, note) {
 
 function paintDossier() {
   const host = $('#dossier');
+  // v19.43: collapse dossier to a thin rail when there's no active
+  // paragraph. Reclaims ~30% of horizontal width on first paint so the
+  // result list can breathe. The rail keeps a small "case note"
+  // affordance so users know what'll appear when they click a result.
+  document.body.classList.toggle('dossier-collapsed', !state.activeId);
   if (!state.activeId) {
     host.innerHTML = `
-      <div class="dossier-empty">
-        <div class="folio garnet">CASE NOTE</div>
-        <p class="serif" style="font-style: italic; color: var(--ink-3);">
-          Click a paragraph to see its document context.
-        </p>
+      <div class="dossier-rail" title="Click any paragraph to see its document context here">
+        <span class="folio garnet">CASE NOTE</span>
       </div>`;
     return;
   }
@@ -3924,13 +4701,27 @@ function paintDossier() {
       `).join('')}
     </div>`;
 
+  // v19.43-fix8: app-shell drawer. The dossier is now a column flex
+  // container with a sticky header (× + folio + badges) and a sticky
+  // footer (primary cite CTA + secondary icons + more menu). The
+  // middle .dossier-body owns scroll. Replaces the old loose-toolbar
+  // layout where 7 equally-weighted icons crowded the bottom and ×
+  // collided with S/M/L in the top-right corner.
+  const prefFmtKey = getPrefCiteFmt();
+  const prefFmt    = CITE_FORMATS.find(f => f.key === prefFmtKey) || CITE_FORMATS[0];
+
   host.innerHTML = `
-    <div class="folio garnet dossier-folio-row">
-      <span>${dossierKind}</span>
-      ${outcomeBadge}
-      ${confidencePill}
+    <header class="dossier-header">
+      <div class="dossier-header-meta">
+        <span class="folio garnet dossier-kind">${dossierKind}</span>
+        ${outcomeBadge}
+        ${confidencePill}
+      </div>
       ${fontControls}
-    </div>
+      <button type="button" id="dossier-close" class="dossier-close"
+              title="Close dossier (Esc)" aria-label="Close dossier">×</button>
+    </header>
+    <div class="dossier-body">
     <h3 class="dossier-title">${escape(publicDocTitle(doc) || para.docId)}</h3>
     <div class="dossier-sig">${
       doc?.link
@@ -3967,80 +4758,128 @@ function paintDossier() {
           ${isSpDoc && doc?.presented ? `<div class="dossier-dp"><div class="folio">Presented</div><div class="v">${escape(doc.presented)}</div></div>` : ''}
         `}
     </div>
-    ${para.section ? `<div class="dossier-breadcrumb folio" aria-label="Section">${
-       String(para.section).split(/\s*[›>/]\s*/).filter(Boolean).map((seg, i, arr) =>
-         `<span class="dossier-bc-seg">${escape(seg)}</span>${
-           i < arr.length - 1 ? '<span class="dossier-bc-sep">›</span>' : ''
-         }`
-       ).join('')
-     }</div>` : ''}
-    <blockquote>
-      <span class="pn">¶ ${para.n ?? para.idx}</span>
-      <p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p>
-    </blockquote>
-    <div class="dossier-toolbar" role="toolbar" aria-label="Paragraph actions">
-      <button class="dossier-tool ${bmHas(para.id) ? 'on' : ''}" id="ws-bookmark" type="button"
-              title="${bmHas(para.id) ? 'Remove bookmark' : 'Bookmark this paragraph'}"
-              aria-label="${bmHas(para.id) ? 'Remove bookmark' : 'Bookmark'}">
-        <span class="dossier-tool-icon">${bmHas(para.id) ? '★' : '☆'}</span>
-        <span class="dossier-tool-label">${bmHas(para.id) ? 'Saved' : 'Save'}</span>
-      </button>
-      <button class="dossier-tool" id="ws-copy" type="button"
-              title="Copy paragraph text to clipboard"
-              aria-label="Copy paragraph text">
-        <span class="dossier-tool-icon">⎘</span>
-        <span class="dossier-tool-label">Copy</span>
-      </button>
-      <button class="dossier-tool ${noteHas(para.id) ? 'on' : ''}" id="ws-note-toggle" type="button"
-              title="${noteHas(para.id) ? 'Edit your private note' : 'Add a private note'}"
-              aria-label="${noteHas(para.id) ? 'Edit note' : 'Add note'}"
-              aria-expanded="${noteHas(para.id) ? 'true' : 'false'}">
-        <span class="dossier-tool-icon">✎</span>
-        <span class="dossier-tool-label">Note</span>
-      </button>
-      <div class="dossier-tool dossier-tool-cite" id="cite-menu">
-        <button class="dossier-tool-summary" id="cite-trigger" type="button"
-                title="Copy citation in your preferred format"
-                aria-haspopup="menu" aria-expanded="false">
-          <span class="dossier-tool-icon">”</span>
-          <span class="dossier-tool-label">Cite</span>
-        </button>
-        <div class="cite-pop" id="cite-pop" role="menu" hidden>
-          ${(() => { const pk = getPrefCiteFmt(); return CITE_FORMATS.map(c => `
-            <button type="button" class="cite-opt ${c.key === pk ? 'is-default' : ''}" data-cite-key="${c.key}" role="menuitem">
-              <span class="cite-fmt">${escape(c.fmt)}</span>
-              <span class="cite-name">${escape(c.name)}</span>
-            </button>`).join(''); })()}
-        </div>
-      </div>
-      <button class="dossier-tool" id="ws-flag" type="button"
-              title="Report a problem with this paragraph (typo, wrong footnote, missing label, etc.)"
-              aria-label="Report a problem">
-        <span class="dossier-tool-icon">⚐</span>
-        <span class="dossier-tool-label">Flag</span>
-      </button>
-      <button class="dossier-tool" id="ws-permalink" type="button"
-              title="Copy permalink to this paragraph"
-              aria-label="Copy permalink">
-        <span class="dossier-tool-icon">§</span>
-        <span class="dossier-tool-label">Link</span>
-      </button>
-      <button class="dossier-tool" id="ws-read" type="button"
-              title="Open this paragraph in the full document (R)"
-              aria-label="Open in document (R)">
-        <span class="dossier-tool-icon">▦</span>
-        <span class="dossier-tool-label">Read</span>
-      </button>
-    </div>
+    ${(() => {
+      // v19.43-fix7: context-aware blockquote. Shows the active
+      // paragraph plus up to ±2 surrounding paragraphs within the same
+      // section. Surrounding ¶s are dimmed and slightly smaller; the
+      // active ¶ keeps full size + a garnet left rule. A "Show entire
+      // section" disclosure expands to the full section when it has
+      // more paragraphs than the default window.
+      const ctx = getDossierContext(para, { expanded: state.dossierExpanded });
+      if (!ctx) {
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p></blockquote>`;
+      }
+
+      // Section heading row — only when this paragraph belongs to a
+      // named section. Replaces the breadcrumb we removed earlier but
+      // scoped to the context block, not the metadata grid.
+      const sectionPath = Array.isArray(ctx.section) ? ctx.section : (ctx.section ? [ctx.section] : []);
+      const sectionHeader = sectionPath.length
+        ? `<div class="dossier-context-section folio" aria-label="Section">${
+            sectionPath.map((seg, i, arr) =>
+              `<span class="dossier-bc-seg">${escape(seg)}</span>${
+                i < arr.length - 1 ? '<span class="dossier-bc-sep">›</span>' : ''
+              }`
+            ).join('')
+          }</div>`
+        : '';
+
+      // Context paragraphs render as plain prose — fn markers stripped
+      // so the surrounding text is quiet, no clickable [[fn:N]] noise
+      // competing with the active paragraph.
+      const renderContextPara = (p) => `
+        <div class="dossier-context-para" data-context-id="${escape(p.id)}">
+          <span class="dossier-context-num mono">¶ ${escape(String(p.n ?? p.idx ?? '—'))}</span>
+          <p class="dossier-context-prose">${escape(stripFnMarkers(p.text || ''))}</p>
+        </div>`;
+
+      // Active paragraph keeps the full <blockquote> treatment with
+      // rendered footnote markers and search-term highlighting.
+      const activeBlock = `
+        <div class="dossier-context-para dossier-context-active" data-context-id="${escape(para.id)}" id="dossier-active-anchor">
+          <blockquote>
+            <span class="pn">¶ ${para.n ?? para.idx}</span>
+            <p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p>
+          </blockquote>
+        </div>`;
+
+      const expandLink = ctx.canExpand
+        ? `<button type="button" id="dossier-expand-section" class="dossier-expand-section folio">
+             Show entire section (${ctx.totalInSection} ¶)
+           </button>`
+        : (ctx.expanded
+            ? `<button type="button" id="dossier-collapse-section" class="dossier-expand-section folio">
+                 Collapse to ±2
+               </button>`
+            : '');
+
+      return `
+        <div class="dossier-context">
+          ${sectionHeader}
+          ${ctx.prev.map(renderContextPara).join('')}
+          ${activeBlock}
+          ${ctx.next.map(renderContextPara).join('')}
+          ${expandLink}
+        </div>`;
+    })()}
     <div class="dossier-note-wrap" id="ws-note-wrap" ${noteHas(para.id) ? '' : 'hidden'}>
       <textarea class="dossier-note serif" id="ws-note"
                 placeholder="Private note — autosaved to this browser only."></textarea>
     </div>
-    ${'' /* v19.16: standalone .dossier-original block removed — the
-            same un.org link is now on the .dossier-sig line right under
-            the title (more discoverable, doesn't compete with the note
-            editor for vertical space). */}
     ${isJurDoc ? renderMetaFeedbackStrip(doc?.docId) : ''}
+    </div><!-- /.dossier-body -->
+    <footer class="dossier-footer" role="toolbar" aria-label="Paragraph actions">
+      <button class="dossier-cta" id="ws-cite-primary" type="button"
+              title="Copy citation in ${escape(prefFmt.name)} (your default format)"
+              aria-label="Copy citation in ${escape(prefFmt.name)}">
+        <span class="dossier-cta-icon">”</span>
+        <span class="dossier-cta-label">Cite</span>
+        <span class="dossier-cta-fmt mono">${escape(prefFmt.fmt)}</span>
+      </button>
+      <button class="dossier-icon-btn ${bmHas(para.id) ? 'on' : ''}" id="ws-bookmark" type="button"
+              title="${bmHas(para.id) ? 'Remove bookmark' : 'Save to bookmarks'}"
+              aria-label="${bmHas(para.id) ? 'Remove bookmark' : 'Save'}"
+              aria-pressed="${bmHas(para.id) ? 'true' : 'false'}">${bmHas(para.id) ? '★' : '☆'}</button>
+      <button class="dossier-icon-btn ${noteHas(para.id) ? 'on' : ''}" id="ws-note-toggle" type="button"
+              title="${noteHas(para.id) ? 'Edit your private note' : 'Add a private note'}"
+              aria-label="${noteHas(para.id) ? 'Edit note' : 'Add note'}"
+              aria-pressed="${noteHas(para.id) ? 'true' : 'false'}"
+              aria-expanded="${noteHas(para.id) ? 'true' : 'false'}">✎</button>
+      <button class="dossier-icon-btn" id="ws-copy" type="button"
+              title="Copy paragraph text to clipboard"
+              aria-label="Copy paragraph text">⎘</button>
+      <details class="dossier-more" id="dossier-more">
+        <summary class="dossier-icon-btn dossier-more-summary"
+                 title="More actions" aria-label="More actions" aria-haspopup="menu">⋯</summary>
+        <div class="dossier-more-pop" role="menu">
+          <button type="button" id="ws-permalink" class="dossier-more-opt" role="menuitem">
+            <span class="dossier-more-icon" aria-hidden="true">§</span>
+            <span>Copy permalink to this paragraph</span>
+          </button>
+          <button type="button" id="ws-read" class="dossier-more-opt" role="menuitem">
+            <span class="dossier-more-icon" aria-hidden="true">▦</span>
+            <span>Open in document reader</span>
+          </button>
+          <button type="button" id="cite-other-trigger" class="dossier-more-opt" role="menuitem"
+                  aria-haspopup="menu" aria-expanded="false">
+            <span class="dossier-more-icon" aria-hidden="true">”</span>
+            <span>Cite in another format…</span>
+          </button>
+          <hr class="dossier-more-rule" />
+          <button type="button" id="ws-flag" class="dossier-more-opt dossier-more-opt-quiet" role="menuitem">
+            <span class="dossier-more-icon" aria-hidden="true">⚐</span>
+            <span>Report a problem</span>
+          </button>
+        </div>
+      </details>
+      <div class="cite-pop" id="cite-pop" role="menu" hidden>
+        ${CITE_FORMATS.map(c => `
+          <button type="button" class="cite-opt ${c.key === prefFmtKey ? 'is-default' : ''}" data-cite-key="${c.key}" role="menuitem">
+            <span class="cite-fmt">${escape(c.fmt)}</span>
+            <span class="cite-name">${escape(c.name)}</span>
+          </button>`).join('')}
+      </div>
+    </footer>
   `;
 
   // v19.12: footnote-marker click → singleton popover (mirrors reader UX).
@@ -4057,18 +4896,82 @@ function paintDossier() {
   // pre-populated with this paragraph's full context.
   $('#ws-flag')?.addEventListener('click', () => openReportModal({ paraId: para.id, docId: para.docId }));
 
+  // v19.43-fix5: dossier close button. Sets activeId=null and repaints.
+  // The dossier-collapsed body class re-applies, hiding the panel and
+  // letting the results column reclaim the freed width.
+  $('#dossier-close')?.addEventListener('click', () => {
+    state.activeId = null;
+    paintDossier();
+    refreshResultMarks();
+  });
+
+  // v19.43-fix7: section expand/collapse disclosures inside the
+  // context block. Toggle state.dossierExpanded and repaint.
+  $('#dossier-expand-section')?.addEventListener('click', () => {
+    state.dossierExpanded = true;
+    paintDossier();
+  });
+  $('#dossier-collapse-section')?.addEventListener('click', () => {
+    state.dossierExpanded = false;
+    paintDossier();
+  });
+
+  // v19.43-fix7: clicking a context (non-active) paragraph promotes
+  // it to active. Acts like clicking a result row but inside the
+  // dossier — lets the user "walk" through neighbouring paragraphs
+  // without leaving the case-note panel.
+  $$('.dossier-context-para[data-context-id]:not(.dossier-context-active)').forEach(el => {
+    el.addEventListener('click', (e) => {
+      // Don't hijack clicks on inner interactive elements (links, fn
+      // markers etc. — though context paras render plain text these
+      // selectors are still good defence-in-depth).
+      if (e.target.closest('a, button')) return;
+      const id = el.dataset.contextId;
+      if (id) setActive(id);
+    });
+  });
+
+  // v19.43-fix7: scroll the active paragraph into view in the dossier
+  // after paint. Without this, opening a paragraph that has a long
+  // ¶N-1 above it lands the user mid-prev-paragraph rather than at
+  // the active blockquote — visually disorienting.
+  requestAnimationFrame(() => {
+    const anchor = document.getElementById('dossier-active-anchor');
+    if (anchor) {
+      const dossierEl = host;
+      const anchorRect = anchor.getBoundingClientRect();
+      const dossierRect = dossierEl.getBoundingClientRect();
+      // Only scroll if the anchor isn't roughly on screen already —
+      // avoids a jarring jump when the paragraph happens to be at top
+      // (no prev) or near top of the panel.
+      if (anchorRect.top < dossierRect.top
+          || anchorRect.top > dossierRect.bottom - 80) {
+        anchor.scrollIntoView({ block: 'start', behavior: 'instant' });
+      }
+    }
+  });
+
   // B1 Bookmark toggle
   $('#ws-bookmark')?.addEventListener('click', () => { bmToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
   // B3 Pin toggle
   // v19.15: ws-pin removed from dossier toolbar — the per-result-row 📌
   // handles this without making the dossier feel cluttered.
 
-  // v18: Copy paragraph text. Strips highlight markup, leaves a clean
-  // verbatim paragraph the user can paste into their draft.
-  $('#ws-copy')?.addEventListener('click', () => {
-    const txt = para.text || '';
-    try { navigator.clipboard?.writeText(txt); } catch {}
-    flashToolBtn('#ws-copy', '✓');
+  // v19.43-fix10: Copy paragraph text — visible icon button now (was
+   // moved up from the More menu). Uses the icon-btn flash pattern:
+   // is-flash class + textContent swap.
+  $('#ws-copy')?.addEventListener('click', (e) => {
+    const btn = e.currentTarget;
+    copyParagraphText(btn, para);   // strips fn markers, toasts confirmation
+    if (btn.tagName === 'BUTTON' && btn.classList.contains('dossier-icon-btn')) {
+      const orig = btn.textContent;
+      btn.textContent = '✓';
+      btn.classList.add('is-flash');
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.classList.remove('is-flash');
+      }, 900);
+    }
   });
 
   // v18: Note toggle — show/hide the textarea below the toolbar.
@@ -4135,29 +5038,38 @@ function paintDossier() {
     });
   }
 
-  // v18: Cite menu — popover toggled by the trigger button. We dropped
-  // <details> in favour of explicit aria-expanded so the button can sit
-  // inside a flex toolbar without summary's default styling fighting us.
-  const citeRoot = $('#cite-menu');
-  const citeTrigger = $('#cite-trigger');
+  // v19.43-fix8: primary Cite CTA — one click copies in user's
+  // preferred format (LS-stored), no popover. Smart default flow.
+  // The "Cite in another format…" item in the More menu opens the
+  // full popover for the rare case the user wants something else.
+  $('#ws-cite-primary')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const btn = e.currentTarget;
+    copyCiteWithPref(btn, para);
+  });
+
+  // v19.43-fix8: cite popover for "other formats". Triggered from
+  // the More menu's "Cite in another format…" item, NOT from a
+  // primary toolbar button — so the default flow is one-click cite.
   const citePop = $('#cite-pop');
+  const otherTrigger = $('#cite-other-trigger');
+  const moreDetails = $('#dossier-more');
   const closeCite = () => {
     citePop?.setAttribute('hidden', '');
-    citeTrigger?.setAttribute('aria-expanded', 'false');
-    citeRoot?.classList.remove('is-open');
+    otherTrigger?.setAttribute('aria-expanded', 'false');
   };
   const openCite = () => {
     citePop?.removeAttribute('hidden');
-    citeTrigger?.setAttribute('aria-expanded', 'true');
-    citeRoot?.classList.add('is-open');
+    otherTrigger?.setAttribute('aria-expanded', 'true');
+    if (moreDetails) moreDetails.open = false;   // close the more menu, popover takes over
   };
-  citeTrigger?.addEventListener('click', (e) => {
+  otherTrigger?.addEventListener('click', (e) => {
     e.stopPropagation();
     citePop?.hasAttribute('hidden') ? openCite() : closeCite();
   });
   // Click-outside / Esc to close.
   document.addEventListener('click', (e) => {
-    if (!citeRoot?.contains(e.target)) closeCite();
+    if (!citePop?.contains(e.target) && e.target !== otherTrigger) closeCite();
   }, { once: true });
   document.addEventListener('keydown', function escClose(e) {
     if (e.key === 'Escape' && !citePop?.hasAttribute('hidden')) {
@@ -4189,6 +5101,10 @@ function paintDossier() {
       setTimeout(() => {
         label.textContent = original;
         closeCite();
+        // v19.43-fix8: repaint so the primary CTA's format chip updates
+        // to the just-chosen format. User picked Bluebook → next time
+        // they see "Cite [BLUEBOOK]" on the primary button.
+        paintDossier();
       }, 900);
     });
   });
@@ -4199,6 +5115,19 @@ function paintDossier() {
   $('#ws-read')?.addEventListener('click', () => openInDocReader(para));
   // v19.15: Permalink button → copy a deep-link to clipboard.
   $('#ws-permalink')?.addEventListener('click', () => copyPermalink(para));
+
+  // v19.43-fix11 (bug): close the More menu after any of its items
+  // is clicked. <details> doesn't auto-close on inner click and the
+  // items don't bubble through summary, so we wire it explicitly.
+  // "Cite in another format…" is excluded — its click intentionally
+  // opens a different popover and the dropdown handles its own close.
+  document.querySelectorAll('.dossier-more-pop .dossier-more-opt').forEach(opt => {
+    if (opt.id === 'cite-other-trigger') return;   // popover-aware path
+    opt.addEventListener('click', () => {
+      const det = document.getElementById('dossier-more');
+      if (det) det.open = false;
+    });
+  });
 
   // v15: S/M/L font-size controls.
   $$('.dossier-font-controls button').forEach(btn => {
@@ -4419,6 +5348,21 @@ function setPrefCiteFmt(key) {
 // flash the anchor button, and toast the format name so the user sees
 // what just landed on the clipboard. Returns the format object on
 // success (handy for tests / keyboard handlers).
+// v19.43: copy raw paragraph text. Strips inline `[[fn:N]]` markers and
+// rendered footnote-marker glyphs; produces clean prose suitable for
+// pasting into a doc.
+function copyParagraphText(anchorEl, para) {
+  let text = (para.text || '').trim();
+  text = text.replace(/\[\[fn:\d+\]\]/g, '');         // inline marker tokens
+  text = text.replace(/\s{2,}/g, ' ').trim();
+  try { navigator.clipboard?.writeText(text); } catch {}
+  if (anchorEl) {
+    anchorEl.classList.add('is-flash');
+    setTimeout(() => anchorEl.classList.remove('is-flash'), 700);
+  }
+  showFeedbackToast({ ok: true, _msg: 'Paragraph text copied', _mark: '⎘' });
+}
+
 function copyCiteWithPref(anchorEl, para) {
   const doc = state.documents.get(para.docId);
   const key = getPrefCiteFmt();
@@ -4934,8 +5878,13 @@ const _LS = {
   theme:        'unhrdb_theme_v1',          // v19.6: 'light' | 'dark'
   metaVote:     'unhrdb_meta_vote_v1',      // v19.10: docId → 'ok' | 'bad'
   searchInFn:   'unhrdb_search_in_fn_v1',   // v19.12: '1' | '0' (default '1')
+  searchInPre:  'unhrdb_search_in_pre_v1',  // v19.43: '1' | '0' (default '1') — preamble inclusion
+  tourSeen:     'unhrdb_tour_seen_v1',      // v19.43: '1' once first-visit tour viewed/dismissed
+  welcomeSeen:  'unhrdb_welcome_seen_v1',   // v19.43: '1' once first-visit card dismissed
   feedbackDraft:'unhrdb_feedback_draft_v1', // v19.14: {paraId, kind, message, contact, ts}
   prefCiteFmt:  'unhrdb_pref_cite_fmt_v1',  // v19.16: cite-format key for one-click cite
+  resultSort:   'unhrdb_result_sort_v1',    // v19.43-fix3: 'relevance' | 'date'
+  resultGroup:  'unhrdb_result_group_v1',   // v19.43-fix3: 'paragraphs' | 'documents' | 'bodies'
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
@@ -5608,7 +6557,7 @@ function exportWorkspace(fmt) {
     const payload = {
       schemaVersion: 1,
       exportedAt: new Date().toISOString(),
-      source: 'UN Human Rights Database (Geneva Reporter)',
+      source: 'UN Human Rights Database',
       counts: { bookmarks: bms.length, notes: Object.keys(notes).length, pins: pins.length, savedSearches: ss.length },
       paragraphs: rows,
       savedSearches: ss,
@@ -5847,11 +6796,12 @@ function renderParagraphHtml(text, footnotes, opts = {}) {
     return terms ? highlight(bare, terms) : escape(bare);
   }
 
-  // Build a quick lookup: marker N → footnote text.
+  // Build a quick lookup: marker N → full footnote object so the popover
+  // can show resolvedText for Ibid / See-note / See-para references.
   const byN = new Map();
   if (Array.isArray(footnotes)) {
     for (const f of footnotes) {
-      if (f && f.n != null) byN.set(Number(f.n), String(f.text || ''));
+      if (f && f.n != null) byN.set(Number(f.n), f);
     }
   }
 
@@ -5865,10 +6815,18 @@ function renderParagraphHtml(text, footnotes, opts = {}) {
     const before = t.slice(last, m.index);
     html += terms ? highlight(before, terms) : escape(before);
     const n = Number(m[1]);
-    const fnText = byN.get(n) || '';
+    const fn = byN.get(n);
+    const fnText = (fn && fn.text) || '';
+    const resolved = (fn && fn.resolvedText) || '';
+    const flags = [];
+    if (fn?.isIbid)     flags.push('ibid');
+    if (fn?.isCrossRef) flags.push(`xref:${fn.referencesNote ?? ''}`);
+    if (fn?.isSelfRef)  flags.push(`selfref:${fn.referencesPara ?? ''}`);
     html += '<button type="button" class="fn-marker" '
           + `data-fn-n="${n}" `
           + `data-fn-text="${escape(fnText)}" `
+          + (resolved ? `data-fn-resolved="${escape(resolved)}" ` : '')
+          + (flags.length ? `data-fn-flags="${escape(flags.join(' '))}" ` : '')
           + `aria-label="Footnote ${n}: ${escape(fnText.slice(0, 80))}${fnText.length > 80 ? '…' : ''}" `
           + `aria-expanded="false">`
           + `<sup>${n}</sup>`
@@ -5927,9 +6885,35 @@ function openFnPopover(triggerBtn) {
   closeFnPopover();
   const n = triggerBtn.dataset.fnN || '';
   const text = triggerBtn.dataset.fnText || '';
+  const resolved = triggerBtn.dataset.fnResolved || '';
+  const flags = (triggerBtn.dataset.fnFlags || '').trim();
   const pop = _ensureFnPopover();
-  pop.querySelector('.fn-popover-n').textContent = '¹ '.replace('¹', '') + n;
-  pop.querySelector('.fn-popover-body').textContent = text;
+  pop.querySelector('.fn-popover-n').textContent = n;
+  // v19.43: when a footnote carries resolvedText (Ibid., See note N, bare
+  // Para. N.), show BOTH the literal text and the full citation it
+  // resolves to so readers don't have to chase the reference.
+  const bodyEl = pop.querySelector('.fn-popover-body');
+  bodyEl.textContent = '';
+  if (resolved && resolved !== text) {
+    let label = 'Cited source';
+    if (flags.startsWith('ibid'))    label = 'Ibid. resolves to';
+    else if (flags.startsWith('xref'))    label = 'Refers to';
+    else if (flags.startsWith('selfref')) label = 'Refers to paragraph';
+    const litLine = document.createElement('div');
+    litLine.className = 'fn-popover-literal';
+    litLine.textContent = text;
+    const sep = document.createElement('div');
+    sep.className = 'fn-popover-resolved-label folio dim';
+    sep.textContent = label;
+    const resLine = document.createElement('div');
+    resLine.className = 'fn-popover-resolved';
+    resLine.textContent = resolved;
+    bodyEl.appendChild(litLine);
+    bodyEl.appendChild(sep);
+    bodyEl.appendChild(resLine);
+  } else {
+    bodyEl.textContent = text;
+  }
   pop.hidden = false;
   triggerBtn.setAttribute('aria-expanded', 'true');
   _fnPopoverTrigger = triggerBtn;

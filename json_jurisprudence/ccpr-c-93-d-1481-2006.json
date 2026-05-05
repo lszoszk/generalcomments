@@ -1,13 +1,13 @@
 [
   {
     "ID": "1.1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The communication, initially dated 17 November 2005, is submitted by Grant Tadman and Jeff Prentice. They claim to be victims of violations by Canada of article 2, paragraphs 1, 2 and 3; article 26 and article 50 of the Covenant. They are represented by counsel, Mr. Renton Patterson and Mr. Brian Forbes."
   },
   {
     "ID": "1.2.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "On 29 September 2006, the Special Rapporteur on New Communications decided to separate consideration of the admissibility and merits of the case."
   },
@@ -15,13 +15,33 @@
     "ID": "2.1.",
     "Section": "The facts as presented",
     "Labels": [],
-    "Text": "The alleged victims are teachers in Ontario, Canada. In 1986, Bill 30 was passed by the province of Ontario, granting full public funding to the separate Roman Catholic elementary and high school system in Ontario. In June 1987, in Reference Re Bill 30, An Act to Amend the Education Act (Ontario), the Supreme Court of Canada held that in light of Canada’s constitutional structure, the amendment was permissible. The Ontario Education Act, as amended, also provided that for a ten-year period public school teachers who became surplus to public school requirements as a result of a movement of students to the newly-funded Catholic schools could be transferred, as “designated teachers”, to a substantially similar position in the new system. Thereafter, by provisions which were not before the Supreme Court on the occasion of the reference, the Act provided that in order to maintain the distinctiveness of the separate system, school boards could require as a condition of employment that teachers “agree to respect the philosophy and conditions of Roman Catholic Separate Schools in the performance of their duties”, although teachers employed by separate schools “will enjoy equal opportunity in respect of their employment, advancement and promotion”."
+    "Text": "The alleged victims are teachers in Ontario, Canada. In 1986, Bill 30 was passed by the province of Ontario, granting full public funding to the separate Roman Catholic elementary and high school system in Ontario. In June 1987, in Reference Re Bill 30, An Act to Amend the Education Act (Ontario), the Supreme Court of Canada held that in light of Canada’s constitutional structure, the amendment was permissible. The Ontario Education Act, as amended, also provided that for a ten-year period public school teachers who became surplus to public school requirements as a result of a movement of students to the newly-funded Catholic schools could be transferred, as “designated teachers”, to a substantially similar position in the new system.[[fn:3]] Thereafter, by provisions which were not before the Supreme Court on the occasion of the reference, the Act provided that in order to maintain the distinctiveness of the separate system, school boards could require as a condition of employment that teachers “agree to respect the philosophy and conditions of Roman Catholic Separate Schools in the performance of their duties”,[[fn:4]] although teachers employed by separate schools “will enjoy equal opportunity in respect of their employment, advancement and promotion”.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Section 135 of the Act."
+      },
+      {
+        "n": 4,
+        "text": "Section 136(1)."
+      },
+      {
+        "n": 5,
+        "text": "Section 136(2)."
+      }
+    ]
   },
   {
     "ID": "2.2.",
     "Section": "The facts as presented",
     "Labels": [],
-    "Text": "In December 1997, in Daly v Attorney-General, the General Division of the Ontario Court struck down the equal opportunity provision of section 136 of the Act on the ground that it infringed the right to self-determination guaranteed to denominational schools at the founding of the Union of Canada by section 93(1) of the Constitution Act 1867. As a result, separate school boards were permitted to prefer co-religionists in employment, advancement and promotion. On 27 April 1999, the Ontario Court of Appeal dismissed an appeal from the General Division’s decision, and in October 1999, the Supreme Court of Canada denied leave to appeal."
+    "Text": "In December 1997, in Daly v Attorney-General, the General Division of the Ontario Court struck down the equal opportunity provision of section 136 of the Act on the ground that it infringed the right to self-determination guaranteed to denominational schools at the founding of the Union of Canada by section 93(1) of the Constitution Act 1867.[[fn:6]] As a result, separate school boards were permitted to prefer co-religionists in employment, advancement and promotion. On 27 April 1999, the Ontario Court of Appeal dismissed an appeal from the General Division’s decision, and in October 1999, the Supreme Court of Canada denied leave to appeal.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "Section 93(1) provides: “Education : In and for each Province the Legislature may exclusively make Laws in relation to Education, subject and according to the following Provisions: (1) Nothing in any such Law shall prejudicially affect any Right or Privilege with respect to Denominational Schools which any Class of Persons have by Law in the Province at the Union”."
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -53,7 +73,17 @@
     "Labels": [
       "Children"
     ],
-    "Text": "On 29 October 1999, the Human Rights Committee declared inadmissible, on the basis that the authors could not claim to be victims of the alleged discrimination, a communication by Mr. Tadman and others, alleging violations of the same provisions of the Covenant as invoked here. The Committee noted that “the authors while claiming to be victims of discrimination, do not seek publicly funded religious schools for their children, but on the contrary seek the removal of the public funding to Roman Catholic separate schools. Thus, if this were to happen, the authors' personal situation in respect of funding for religious education would not be improved. The authors have not sufficiently substantiated how the public funding given to the Roman Catholic separate schools at present causes them any disadvantage or affects them adversely.”"
+    "Text": "On 29 October 1999, the Human Rights Committee declared inadmissible, on the basis that the authors could not claim to be victims of the alleged discrimination, a communication by Mr. Tadman and others, alleging violations of the same provisions of the Covenant as invoked here.[[fn:7]] The Committee noted that “the authors while claiming to be victims of discrimination, do not seek publicly funded religious schools for their children, but on the contrary seek the removal of the public funding to Roman Catholic separate schools. Thus, if this were to happen, the authors' personal situation in respect of funding for religious education would not be improved. The authors have not sufficiently substantiated how the public funding given to the Roman Catholic separate schools at present causes them any disadvantage or affects them adversely.”[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Communication No. 816/1998, Decision adopted on 29 October 1999."
+      },
+      {
+        "n": 8,
+        "text": "Ibid., at 6.2."
+      }
+    ]
   },
   {
     "ID": "2.8.",
@@ -65,7 +95,13 @@
     "ID": "3.1.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The authors allege that the facts disclose discrimination on the ground of religious belief, contrary to article 26 of the Covenant on three bases. Firstly, they claim to have suffered religious discrimination because of the hiring and promotion practices applicable in Ontario’s separate school system. Secondly, they contend that public funding of Roman Catholic schools is in breach of the provision in article 26. Thirdly, Mr. Tadman alleges that while he was a teacher in a Catholic secondary school, he was discriminated against for not being a Roman Catholic. The authors invoke the Committee’s Views in Waldman v Canada in support of these arguments."
+    "Text": "The authors allege that the facts disclose discrimination on the ground of religious belief, contrary to article 26 of the Covenant on three bases. Firstly, they claim to have suffered religious discrimination because of the hiring and promotion practices applicable in Ontario’s separate school system. Secondly, they contend that public funding of Roman Catholic schools is in breach of the provision in article 26. Thirdly, Mr. Tadman alleges that while he was a teacher in a Catholic secondary school, he was discriminated against for not being a Roman Catholic. The authors invoke the Committee’s Views in Waldman v Canada[[fn:9]] in support of these arguments.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Communication No. 694/1996, Views adopted on 3 November 1999."
+      }
+    ]
   },
   {
     "ID": "3.2.",
@@ -153,7 +189,13 @@
     "ID": "7.3.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "As to Mr. Tadman’s own circumstances, the Committee notes that in the civil proceedings instituted by him in the Ontario courts, he specifically disclaimed any challenge to the general issue of preferential treatment for co-religionists in denominational schools (sections 135 and 136 of the Act). Instead, he confined himself to raising his particular personal difficulties in his own workplace. The Court decided that these difficulties had not been raised in the earlier arbitration, and Mr. Tadman was therefore not entitled to raise them presently. Mr. Tadman did not appeal against this decision. It must therefore be concluded that Mr. Tadman’s communication is inadmissible under article 5, paragraph 2(b), of the Optional Protocol for failure to exhaust domestic remedies. The Committee also notes the earlier findings of fact reached by the Board of Arbitration and the Divisional Court (see para 2.4, supra) that Mr. Tadman did not in fact suffer any limitation of his freedom of conscience, thought, belief or religion. The Committee refers to its previous jurisprudence in Keshavjee v Canada, pursuant to which it defers to such findings of fact reached by the domestic authorities, unless manifestly arbitrary or amounting to a denial of justice. This part of Mr. Tadman’s communication is therefore inadmissible also under article 2 of the Optional Protocol, for insufficient substantiation."
+    "Text": "As to Mr. Tadman’s own circumstances, the Committee notes that in the civil proceedings instituted by him in the Ontario courts, he specifically disclaimed any challenge to the general issue of preferential treatment for co-religionists in denominational schools (sections 135 and 136 of the Act). Instead, he confined himself to raising his particular personal difficulties in his own workplace. The Court decided that these difficulties had not been raised in the earlier arbitration, and Mr. Tadman was therefore not entitled to raise them presently. Mr. Tadman did not appeal against this decision. It must therefore be concluded that Mr. Tadman’s communication is inadmissible under article 5, paragraph 2(b), of the Optional Protocol for failure to exhaust domestic remedies. The Committee also notes the earlier findings of fact reached by the Board of Arbitration and the Divisional Court (see para 2.4, supra) that Mr. Tadman did not in fact suffer any limitation of his freedom of conscience, thought, belief or religion. The Committee refers to its previous jurisprudence in Keshavjee v Canada,[[fn:10]] pursuant to which it defers to such findings of fact reached by the domestic authorities, unless manifestly arbitrary or amounting to a denial of justice. This part of Mr. Tadman’s communication is therefore inadmissible also under article 2 of the Optional Protocol, for insufficient substantiation.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "Communication No. 949/2000, Decision adopted on 2 November 2000."
+      }
+    ]
   },
   {
     "ID": "7.4.",

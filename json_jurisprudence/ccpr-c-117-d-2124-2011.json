@@ -15,13 +15,33 @@
     "ID": "2.2.",
     "Section": "The facts as submitted by the authors",
     "Labels": [],
-    "Text": "Under domestic law, citizens who consider themselves victims of a crime have no right to have the alleged perpetrator prosecuted. They depend on the decision of the public prosecutor. However, a citizen who has a direct interest in a prosecution can lodge a complaint with a court of appeal against a decision not to prosecute. That is what a number of victims and other interested parties did in the present case. As a result, the Amsterdam Court of Appeal, on 21 November 2009, ordered the prosecutor to prosecute Mr. Wilders before the Amsterdam District Court. Pursuant to that order, the prosecutor issued a summons in which Mr. Wilders was invited to defend himself on charges of insulting a group for reasons of race or religion, under section 137c of the Criminal Code, and for incitement to hatred and discrimination on grounds of religion or race, under section 137d."
+    "Text": "Under domestic law, citizens who consider themselves victims of a crime have no right to have the alleged perpetrator prosecuted. They depend on the decision of the public prosecutor. However, a citizen who has a direct interest in a prosecution can lodge a complaint with a court of appeal against a decision not to prosecute.[[fn:5]] That is what a number of victims and other interested parties did in the present case. As a result, the Amsterdam Court of Appeal, on 21 November 2009, ordered the prosecutor to prosecute Mr. Wilders before the Amsterdam District Court. Pursuant to that order, the prosecutor issued a summons in which Mr. Wilders was invited to defend himself on charges of insulting a group for reasons of race or religion, under section 137c of the Criminal Code,[[fn:6]] and for incitement to hatred and discrimination on grounds of religion or race, under section 137d.[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The Code of Criminal Procedure indicates that if a criminal offence is not prosecuted, the directly interested party may file a complaint against that decision with the Court of Appeal (sect. 12)."
+      },
+      {
+        "n": 6,
+        "text": "Sect. 137c indicates that any person who in public, either orally, in writing or through images, intentionally makes an insulting statement about a group of persons because of their race, religion or beliefs, their hetero or homosexual orientation or their physical, mental or intellectual disability, is liable to a term of imprisonment not exceeding one year or a fine of the third category; sect. 137c (2) provides that if the offence is committed by a person who makes a profession or habit of it or by two or more persons in concert, a term of imprisonment not exceeding two years or a fine of the fourth category shall be imposed."
+      },
+      {
+        "n": 7,
+        "text": "Sect. 137d provides that any person who publicly, either orally or in writing or through images, incites hatred of or discrimination against persons or violence against an individual or property because of their race, religion or beliefs, their gender, their heterosexual or homosexual orientation or their physical, mental or intellectual disability, is liable to a term of imprisonment not exceeding one year or a fine of the third category."
+      }
+    ]
   },
   {
     "ID": "2.3.",
     "Section": "The facts as submitted by the authors",
     "Labels": [],
-    "Text": "Under section 51 (a) and (f) of the Code of Criminal Procedure, anyone who has suffered direct damage as a result of a criminal offence may join the criminal proceedings as an aggrieved party and claim compensation. The injured party has a right to be informed about the proceedings and to access the case documents. Under article 334 of that Code, injured parties may submit evidence in support of their civil claim, but may not present witnesses or give their opinion on the merits of the criminal case."
+    "Text": "Under section 51 (a) and (f) of the Code of Criminal Procedure, anyone who has suffered direct damage as a result of a criminal offence may join the criminal proceedings as an aggrieved party and claim compensation. The injured party has a right to be informed about the proceedings and to access the case documents. Under article 334 of that Code, injured parties may submit evidence in support of their civil claim, but may not present witnesses or give their opinion on the merits of the criminal case.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Sect. 334 provides that at the court session, the injured party may submit documents as evidence of the damage or loss incurred as a result of the criminal offence, but may not present witnesses or expert witnesses. The injured party or the person who is assisting him may pose questions to the witnesses and expert witnesses, but only in regard of his claim for compensation. The injured party may explain and clarify or instruct a third party to explain and clarify his claim after the public prosecutor has addressed the court. He may again address the court each time the public prosecutor has addressed the court, or has been given the opportunity to address the court."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -49,7 +69,7 @@
   },
   {
     "ID": "2.8.",
-    "Section": "(iv)\t“I get sick of Islam in the Netherlands: no more Muslim migrants any more”",
+    "Section": "(iv) “I get sick of Islam in the Netherlands: no more Muslim migrants any more”",
     "Labels": [
       "Refugees & asylum-seekers"
     ],
@@ -57,13 +77,13 @@
   },
   {
     "ID": "2.9.",
-    "Section": "(iv)\t“I get sick of Islam in the Netherlands: no more Muslim migrants any more”",
+    "Section": "(iv) “I get sick of Islam in the Netherlands: no more Muslim migrants any more”",
     "Labels": [],
     "Text": "A.B.S. is the daughter of Moroccan immigrants. She gave evidence before the court and reported that in 2010, during the election campaign, while she was walking in the street she was driven into by a young man riding his bike who was screaming “Wilders is right, piss off from here!”"
   },
   {
     "ID": "2.10.",
-    "Section": "(iv)\t“I get sick of Islam in the Netherlands: no more Muslim migrants any more”",
+    "Section": "(iv) “I get sick of Islam in the Netherlands: no more Muslim migrants any more”",
     "Labels": [
       "Women/girls"
     ],
@@ -71,7 +91,7 @@
   },
   {
     "ID": "2.11.",
-    "Section": "(iv)\t“I get sick of Islam in the Netherlands: no more Muslim migrants any more”",
+    "Section": "(iv) “I get sick of Islam in the Netherlands: no more Muslim migrants any more”",
     "Labels": [],
     "Text": "As Moroccans and Muslims, the authors feel personally and directly affected by Mr. Wilders’ hate speech and suffer its effects in their daily lives. They have been either personally attacked or threatened and humiliated through the Internet. They are also affected by the State party’s failure to convict Mr. Wilders for hate speech and the signal given to the public that his conduct is not criminal. That signal makes the authors anxious about their future in the Netherlands."
   },
@@ -120,7 +140,13 @@
     "ID": "4.3.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "Article 20 of the Covenant is cast not in the form of a human right, but as an obligation on States to put in place legislation prohibiting the conduct described. Other articles use terms such as “all persons” and “everyone”. Reading article 20 in terms of a justiciable human right would, in essence, result in a human right to specific legislation, and no such right is recognized. Paragraph 2 has been duly implemented in the Netherlands through legislation that prohibits any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence. The Committee’s case law also suggests that article 20 (2) cannot be invoked under the Optional Protocol."
+    "Text": "Article 20 of the Covenant is cast not in the form of a human right, but as an obligation on States to put in place legislation prohibiting the conduct described. Other articles use terms such as “all persons” and “everyone”. Reading article 20 in terms of a justiciable human right would, in essence, result in a human right to specific legislation, and no such right is recognized. Paragraph 2 has been duly implemented in the Netherlands through legislation that prohibits any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence. The Committee’s case law also suggests that article 20 (2) cannot be invoked under the Optional Protocol.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "See communication No. 1570/2007, Vassilari et al. v. Greece, Views adopted on 19 March 2009, para. 6.5."
+      }
+    ]
   },
   {
     "ID": "4.4.",
@@ -128,7 +154,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "Joining the criminal proceedings against Mr. Wilders as aggrieved parties amounted to bringing a civil action in the context of a criminal case. Since Mr. Wilders was not convicted, the civil claim could not be examined. However, the authors could have brought a separate civil action against Mr. Wilders before a civil court pursuant to article 6:162 of the Civil Code. A person is liable under that article if an unlawful act was committed, the perpetrator is at fault, there is pecuniary or non-pecuniary damage and there is a causal link between the act and the damage done. An unlawful act or omission is committed if a right is violated, the act or omission is contrary to a statutory duty or the act or omission is contrary to a rule of unwritten law pertaining to proper social conduct. Statutory duties include treaty provisions with direct effect, including most provisions of the Covenant. A civil suit on the grounds of an unlawful act can be effective even after an acquittal in a criminal proceeding, and some cases to determine whether statements are lawful have been successful. Even if the authors do not seek compensation, a successful civil action could give them the opportunity to ask for a ban on future statements by Mr. Wilders or to request a declaratory judgment that Mr. Wilders’ statements were unlawful. A decision of a civil court is open to appeal. The authors still have the possibility of bringing a civil action against Mr. Wilders."
+    "Text": "Joining the criminal proceedings against Mr. Wilders as aggrieved parties amounted to bringing a civil action in the context of a criminal case. Since Mr. Wilders was not convicted, the civil claim could not be examined. However, the authors could have brought a separate civil action against Mr. Wilders before a civil court pursuant to article 6:162 of the Civil Code.[[fn:10]] A person is liable under that article if an unlawful act was committed, the perpetrator is at fault, there is pecuniary or non-pecuniary damage and there is a causal link between the act and the damage done. An unlawful act or omission is committed if a right is violated, the act or omission is contrary to a statutory duty or the act or omission is contrary to a rule of unwritten law pertaining to proper social conduct. Statutory duties include treaty provisions with direct effect, including most provisions of the Covenant. A civil suit on the grounds of an unlawful act can be effective even after an acquittal in a criminal proceeding, and some cases to determine whether statements are lawful have been successful. Even if the authors do not seek compensation, a successful civil action could give them the opportunity to ask for a ban on future statements by Mr. Wilders or to request a declaratory judgment that Mr. Wilders’ statements were unlawful. A decision of a civil court is open to appeal. The authors still have the possibility of bringing a civil action against Mr. Wilders.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "Article 6:162 provides that: (a) a person who commits an unlawful act that can be attributed to him against another person must repair the damage that the other person has suffered as a result thereof; (b) a tortious act is regarded as a violation of someone else’s right (entitlement) and an act or omission in violation of a duty imposed by law or of what according to unwritten law has to be regarded as proper social conduct, always as far as there was no justification for the behaviour; (c) a tortious act can be attributed to the person committing the tortious act if it results from his fault or from a cause for which he is accountable by virtue of law or generally accepted principles (common opinion)."
+      }
+    ]
   },
   {
     "ID": "4.5.",
@@ -136,13 +168,25 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "Mr. Rabbae has not shown that he is a victim of a violation of the Covenant. He simply states that he chairs a national consultative body of Moroccans and that he spoke at Mr. Wilders’ trial. The second and third authors claim that they have been deprived of their undisturbed lives as members of the Muslim community without any protection by the State party. Nevertheless, they have failed to establish that the statements in question had specific consequences for them, or that such consequences were imminent, would personally affect them and that they needed the State’s protection. Had they needed such protection, they could have lodged a criminal complaint. The understanding of a victim by the Committee on the Elimination of Racial Discrimination is not comparable to the definition of a victim by the Human Rights Committee, particularly since the authors of the communication that was brought before the Committee on the Elimination of Racial Discrimination, The Jewish Community of Oslo et al. v. Norway, were not permitted to join the criminal proceedings and had no remedy in that State party. The fact that the authors joined the criminal proceedings as aggrieved parties also cannot be equated with recognition of victim status by the domestic court. In that proceeding, their victim status would be assessed only after the defendant was convicted. The trial court thus did not have the opportunity to assess their victim status under domestic law."
+    "Text": "Mr. Rabbae has not shown that he is a victim of a violation of the Covenant. He simply states that he chairs a national consultative body of Moroccans and that he spoke at Mr. Wilders’ trial. The second and third authors claim that they have been deprived of their undisturbed lives as members of the Muslim community without any protection by the State party. Nevertheless, they have failed to establish that the statements in question had specific consequences for them, or that such consequences were imminent, would personally affect them and that they needed the State’s protection. Had they needed such protection, they could have lodged a criminal complaint. The understanding of a victim by the Committee on the Elimination of Racial Discrimination is not comparable to the definition of a victim by the Human Rights Committee, particularly since the authors of the communication that was brought before the Committee on the Elimination of Racial Discrimination, The Jewish Community of Oslo et al. v. Norway,[[fn:11]] were not permitted to join the criminal proceedings and had no remedy in that State party. The fact that the authors joined the criminal proceedings as aggrieved parties also cannot be equated with recognition of victim status by the domestic court. In that proceeding, their victim status would be assessed only after the defendant was convicted. The trial court thus did not have the opportunity to assess their victim status under domestic law.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "See Committee on the Elimination of Racial Discrimination, communication No. 30/2003, The Jewish Community of Oslo et al. v. Norway, Views adopted on 15 August 2005."
+      }
+    ]
   },
   {
     "ID": "4.6.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The communication is in essence an actio popularis, as the authors failed to establish that the statements would personally affect them. The authors sought only €1 each and sought a general declaratory statement rather than compensation for a specific violation. According to its jurisprudence, the Committee does not assess hypothetical or potential violations of the Covenant."
+    "Text": "The communication is in essence an actio popularis,[[fn:12]] as the authors failed to establish that the statements would personally affect them. The authors sought only €1 each and sought a general declaratory statement rather than compensation for a specific violation. According to its jurisprudence, the Committee does not assess hypothetical or potential violations of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "See communication No. 1868/2009, Andersen v. Denmark, decision of inadmissibility adopted on 26 July 2010, para. 6.4."
+      }
+    ]
   },
   {
     "ID": "4.7.",
@@ -398,7 +442,17 @@
     "ID": "9.4.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee recalls its jurisprudence that under article 5 (2) (b) of the Optional Protocol, the author must make use of all judicial or administrative avenues that offer him a reasonable prospect of redress. It observes that a civil action under article 6:162 of the Civil Code would have allowed the authors to seek pecuniary or non-pecuniary damages for a tort for unlawful acts committed by Mr. Wilders, as well as declaratory relief. However, the Committee also observes that the authors did not seek to obtain civil compensation for any tort committed by Mr. Wilders. What they sought, through their participation in the national judicial proceedings, was a judgment against him by a criminal court for the important and distinct public force of a verdict establishing guilt or innocence under section 137d of the Criminal Code, a provision intended to implement the State party’s obligation under article 20 (2) of the Covenant. Accordingly, the authors chose the remedy afforded by the State party that was most specifically tailored to their aim. The Committee considers that that determination could be obtained only in criminal proceedings. The Committee therefore considers that it is not prevented, under article 5 (2) (b), from examining the communication."
+    "Text": "The Committee recalls its jurisprudence that under article 5 (2) (b) of the Optional Protocol, the author must make use of all judicial or administrative avenues that offer him a reasonable prospect of redress.[[fn:13]] It observes that a civil action under article 6:162 of the Civil Code would have allowed the authors to seek pecuniary or non-pecuniary damages for a tort for unlawful acts committed by Mr. Wilders, as well as declaratory relief. However, the Committee also observes that the authors did not seek to obtain civil compensation for any tort committed by Mr. Wilders. What they sought, through their participation in the national judicial proceedings, was a judgment against him by a criminal court for the important and distinct public force of a verdict establishing guilt or innocence under section 137d of the Criminal Code, a provision intended to implement the State party’s obligation under article 20 (2) of the Covenant. Accordingly, the authors chose the remedy afforded by the State party that was most specifically tailored to their aim.[[fn:14]] The Committee considers that that determination could be obtained only in criminal proceedings. The Committee therefore considers that it is not prevented, under article 5 (2) (b), from examining the communication.",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "See communication No. 437/1990, Patiño v. Panama, decision of inadmissibility adopted on 21 October 1994, para. 5.2."
+      },
+      {
+        "n": 14,
+        "text": "See Andersen v. Denmark, para. 6.3."
+      }
+    ]
   },
   {
     "ID": "9.5.",
@@ -407,7 +461,25 @@
       "LGBTI+",
       "Persons with disabilities"
     ],
-    "Text": "The Committee notes the State party’s objection to admissibility on the grounds that the authors lack victim status and that the communication is in essence an actio popularis, as the authors failed to establish that Mr. Wilders’ statements would personally affect them. In this respect, the Committee recalls its jurisprudence that “a person can only claim to be a victim in the sense of article 1 of the Optional Protocol if he or she is actually affected. It is a matter of degree how concretely this requirement should be taken. However, no individual can, in the abstract, by way of an actio popularis, challenge a law or practice claimed to be contrary to the Covenant”. Accordingly, any person claiming to be a victim of a violation of a right protected under the Covenant must demonstrate either that a State party has, by act or omission, already impaired the exercise of his right or that such impairment is imminent, basing his arguments for example on legislation in force or on a judicial or administrative decision or practice. In applying this principle, the Committee has recognized that “where an individual is in a category of persons whose activities are, by virtue of the relevant legislation, regarded as contrary to law, they may have a claim as ‘victims’”. Moreover, in Toonen v. Australia, although the legislative provisions challenged by the author had not been enforced by the authorities for a number of years, the author pointed, inter alia, to derogatory and insulting remarks and a “campaign of official and unofficial hatred” directed at homosexual persons, and claimed that the mere existence of the legislation fuelled harassment of, and discrimination and violence against, the homosexual community. The Committee concluded that the author “had made reasonable efforts to demonstrate that the threat of enforcement and the pervasive impact of the continued existence of these provisions on administrative practices and public opinion had affected him and continued to affect him personally” to a sufficient degree to establish his status as a victim."
+    "Text": "The Committee notes the State party’s objection to admissibility on the grounds that the authors lack victim status and that the communication is in essence an actio popularis, as the authors failed to establish that Mr. Wilders’ statements would personally affect them. In this respect, the Committee recalls its jurisprudence that “a person can only claim to be a victim in the sense of article 1 of the Optional Protocol if he or she is actually affected. It is a matter of degree how concretely this requirement should be taken. However, no individual can, in the abstract, by way of an actio popularis, challenge a law or practice claimed to be contrary to the Covenant”.[[fn:15]] Accordingly, any person claiming to be a victim of a violation of a right protected under the Covenant must demonstrate either that a State party has, by act or omission, already impaired the exercise of his right or that such impairment is imminent, basing his arguments for example on legislation in force or on a judicial or administrative decision or practice.[[fn:16]] In applying this principle, the Committee has recognized that “where an individual is in a category of persons whose activities are, by virtue of the relevant legislation, regarded as contrary to law, they may have a claim as ‘victims’”.[[fn:17]] Moreover, in Toonen v. Australia, although the legislative provisions challenged by the author had not been enforced by the authorities for a number of years, the author pointed, inter alia, to derogatory and insulting remarks and a “campaign of official and unofficial hatred” directed at homosexual persons, and claimed that the mere existence of the legislation fuelled harassment of, and discrimination and violence against, the homosexual community. The Committee concluded that the author “had made reasonable efforts to demonstrate that the threat of enforcement and the pervasive impact of the continued existence of these provisions on administrative practices and public opinion had affected him and continued to affect him personally” to a sufficient degree to establish his status as a victim.[[fn:18]]",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "See communication No. 35/1978, Aumeeruddy-Cziffra et al. v. Mauritius, Views adopted on 9 April 1981, para. 9.1."
+      },
+      {
+        "n": 16,
+        "text": "See Andersen v Denmark, para. 6.4, and communication No. 1879/2009, A.W.P. v. Denmark, Views adopted on 1 November 2013, para. 6.4."
+      },
+      {
+        "n": 17,
+        "text": "See communication No. 359/1989, Ballantyne et al. v. Canada, Views adopted on 31 March 1993, para. 10.4."
+      },
+      {
+        "n": 18,
+        "text": "See communication No. 488/1992, Toonen v. Australia, Views adopted on 31 March 1994, paras. 2.5-2.6 and 5.1."
+      }
+    ]
   },
   {
     "ID": "9.6.",
@@ -419,7 +491,17 @@
     "ID": "9.7.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee notes the State party’s argument that article 20 of the Covenant is not cast in terms of a justiciable right. However, the Committee considers that in stating that “any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence shall be prohibited by law”, article 20 (2) provides protection for people as individuals and as members of groups against that type of discrimination. The article is designed to give specific recognition to the prohibition of discrimination set forth in article 26 of the Covenant, by identifying a limitation that States parties must impose on other enforceable Covenant rights, including the principle of freedom of expression under article 19. The Committee considers that article 20 (2) does not merely impose a formal obligation on States parties to adopt legislation prohibiting such conduct. Such a law would be ineffective without procedures for complaints and appropriate sanctions. The invocation of article 20 (2) by individuals who have been wronged therefore follows the logic of protection that underlies the entire Covenant."
+    "Text": "The Committee notes the State party’s argument that article 20 of the Covenant is not cast in terms of a justiciable right. However, the Committee considers that in stating that “any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence shall be prohibited by law”, article 20 (2) provides protection for people as individuals and as members of groups against that type of discrimination. The article is designed to give specific recognition to the prohibition of discrimination set forth in article 26 of the Covenant, by identifying a limitation that States parties must impose on other enforceable Covenant rights, including the principle of freedom of expression under article 19.[[fn:19]] The Committee considers that article 20 (2) does not merely impose a formal obligation on States parties to adopt legislation prohibiting such conduct. Such a law would be ineffective without procedures for complaints and appropriate sanctions. The invocation of article 20 (2) by individuals who have been wronged therefore follows the logic of protection that underlies the entire Covenant.[[fn:20]]",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "See the Committee’s general comment No. 34 (2011) on the freedoms of opinion and expression, paras. 51-52."
+      },
+      {
+        "n": 20,
+        "text": "See communication No. 1570/2007, Vassilari et al. v. Greece, Views adopted on 19 March 2009, appendix, para. 1."
+      }
+    ]
   },
   {
     "ID": "9.8.",
@@ -455,13 +537,57 @@
     "ID": "10.3.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee recalls its jurisprudence that article 14 does not provide individuals with a right to have other individuals prosecuted or punished. However, individuals can, under article 14 (1), claim their right to a fair hearing in the determination of their rights and obligations in a suit at law. In the present case, the authors’ claims as injured parties within the criminal proceedings are of a civil nature and therefore their rights and obligations regarding their civil claims for compensation in case the accused person is found guilty are to be protected. In this respect, the Committee notes that, before the Amsterdam District Court, the authors chose to exercise their rights by bringing a civil claim under section 51 of the Code of Criminal Procedure as injured parties, a mechanism that is not required by the Covenant but is available under domestic law. The Committee also notes that pursuant to this procedure, their lawyers were allowed to speak about whether the facts of the charge were liable to punishment and to plead that Mr. Wilders’ statements violated article 137d. The Committee further notes that the authors were allowed to submit documentation and testify before the court. Accordingly, the Committee considers that the facts before it do not reveal a violation of the authors’ rights under article 14 (1) in conjunction with the determination of their rights and obligations in a suit at law."
+    "Text": "The Committee recalls its jurisprudence that article 14 does not provide individuals with a right to have other individuals prosecuted or punished.[[fn:21]] However, individuals can, under article 14 (1), claim their right to a fair hearing in the determination of their rights and obligations in a suit at law. In the present case, the authors’ claims as injured parties within the criminal proceedings are of a civil nature and therefore their rights and obligations regarding their civil claims for compensation in case the accused person is found guilty are to be protected. In this respect, the Committee notes that, before the Amsterdam District Court, the authors chose to exercise their rights by bringing a civil claim under section 51 of the Code of Criminal Procedure as injured parties, a mechanism that is not required by the Covenant but is available under domestic law. The Committee also notes that pursuant to this procedure, their lawyers were allowed to speak about whether the facts of the charge were liable to punishment and to plead that Mr. Wilders’ statements violated article 137d. The Committee further notes that the authors were allowed to submit documentation and testify before the court. Accordingly, the Committee considers that the facts before it do not reveal a violation of the authors’ rights under article 14 (1) in conjunction with the determination of their rights and obligations in a suit at law.",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "See communication No. 213/1986, H.C.M.A. v. The Netherlands, decision of inadmissibility adopted on 30 March 1989, para. 11.6."
+      }
+    ]
   },
   {
     "ID": "10.4.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "Regarding the authors’ claims that Mr. Wilders’ acquittal breached their rights under articles 2 (3), 20 (2) and 26, the Committee notes that article 20 (2) secures the right of people as individuals and as members of groups to be free from hatred and discrimination under article 26 by requiring States to prohibit certain conduct and expression by law. It is only with regard to the specific forms of expression indicated in article 20 that States parties are obliged to have legal prohibitions. Article 20 (2) is crafted narrowly in order to ensure that other equally fundamental Covenant rights, including freedom of expression under article 19, are not infringed. The Committee recalls in this regard that freedom of expression embraces even expression that may be regarded as deeply offensive. Moreover, the free communication of information and ideas about public and political issues between citizens, candidates and elected representatives is essential to the promotion and protection of free expression. The Committee also recalls its jurisprudence that prohibitions of displays of lack of respect for a religion or other belief system, including blasphemy laws, are incompatible with the Covenant, except in the specific circumstances envisaged in article 20 (2). Similarly, such prohibitions may not be used to prevent or punish criticism of religious leaders or commentary on religious doctrine and tenets of faith. The Committee further recalls that articles 19 and 20 are compatible with and complement each other. A prohibition that is justified on the basis of article 20 must also comply with the strict requirements of article 19 (3). Thus, in every case, measures of prohibition under article 20 (2) must also be “provided by law”; they may only be imposed for one of the grounds set out in subparagraphs (a) and (b) of article 19 (3), and they must conform to the strict tests of necessity and proportionality. The Committee notes that article 20 (2) does not expressly require the imposition of criminal penalties, but instead requires that such advocacy be “prohibited by law”. Such prohibitions may include civil and administrative as well as criminal penalties."
+    "Text": "Regarding the authors’ claims that Mr. Wilders’ acquittal breached their rights under articles 2 (3), 20 (2) and 26, the Committee notes that article 20 (2) secures the right of people as individuals and as members of groups to be free from hatred and discrimination under article 26 by requiring States to prohibit certain conduct and expression by law.[[fn:22]] It is only with regard to the specific forms of expression indicated in article 20 that States parties are obliged to have legal prohibitions.[[fn:23]] Article 20 (2) is crafted narrowly in order to ensure that other equally fundamental Covenant rights, including freedom of expression under article 19, are not infringed. The Committee recalls in this regard that freedom of expression embraces even expression that may be regarded as deeply offensive.[[fn:24]] Moreover, the free communication of information and ideas about public and political issues between citizens, candidates and elected representatives is essential to the promotion and protection of free expression.[[fn:25]] The Committee also recalls its jurisprudence that prohibitions of displays of lack of respect for a religion or other belief system, including blasphemy laws, are incompatible with the Covenant, except in the specific circumstances envisaged in article 20 (2).[[fn:26]] Similarly, such prohibitions may not be used to prevent or punish criticism of religious leaders or commentary on religious doctrine and tenets of faith.[[fn:27]] The Committee further recalls that articles 19 and 20 are compatible with and complement each other.[[fn:28]] A prohibition that is justified on the basis of article 20 must also comply with the strict requirements of article 19 (3).[[fn:29]] Thus, in every case, measures of prohibition under article 20 (2) must also be “provided by law”; they may only be imposed for one of the grounds set out in subparagraphs (a) and (b) of article 19 (3), and they must conform to the strict tests of necessity and proportionality.[[fn:30]] The Committee notes that article 20 (2) does not expressly require the imposition of criminal penalties, but instead requires that such advocacy be “prohibited by law”. Such prohibitions may include civil and administrative as well as criminal penalties.",
+    "Footnotes": [
+      {
+        "n": 22,
+        "text": "See the Committee’s general comment No. 34, para. 51."
+      },
+      {
+        "n": 23,
+        "text": "Ibid., para. 52."
+      },
+      {
+        "n": 24,
+        "text": "Ibid., para. 11."
+      },
+      {
+        "n": 25,
+        "text": "Ibid., para. 20."
+      },
+      {
+        "n": 26,
+        "text": "Ibid., para. 48."
+      },
+      {
+        "n": 27,
+        "text": "Ibid., para. 48."
+      },
+      {
+        "n": 28,
+        "text": "Ibid., para. 50."
+      },
+      {
+        "n": 29,
+        "text": "Ibid., para. 48. See also paras. 50 and 52."
+      },
+      {
+        "n": 30,
+        "text": "Ibid., para. 22."
+      }
+    ]
   },
   {
     "ID": "10.5.",
@@ -481,7 +607,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The State party has chosen to establish a legislative framework through which statements contemplated by article 20 (2) of the Covenant are prohibited under criminal law, and which allows victims to trigger, and participate in, a prosecution. Such a prosecution was pursued in the present case, and the trial court issued a detailed judgment evaluating Mr. Wilders’ statements in the light of the applicable law. The Committee therefore considers, in the light of the arguments and the circumstances of the case, that the State party has taken the necessary and proportionate measures to “prohibit” statements made in violation of article 20 (2) and to guarantee the right of the authors to an effective remedy in order to protect them against the consequences of such statements. The obligation under article 20 (2), however, does not extend to an obligation for the State party to ensure that a person who is charged with incitment to discrimination, hostility or violence will invariably be convicted by an independent and impartial court of law. The Committee therefore cannot conclude that the State party violated article 2 (3), read in conjunction with articles 26 and 20 (2) of the Covenant."
+    "Text": "The State party has chosen to establish a legislative framework through which statements contemplated by article 20 (2) of the Covenant are prohibited under criminal law, and which allows victims to trigger, and participate in, a prosecution. Such a prosecution was pursued in the present case, and the trial court issued a detailed judgment evaluating Mr. Wilders’ statements in the light of the applicable law. The Committee therefore considers, in the light of the arguments and the circumstances of the case, that the State party has taken the necessary and proportionate measures to “prohibit” statements made in violation of article 20 (2) and to guarantee the right of the authors to an effective remedy in order to protect them against the consequences of such statements. The obligation under article 20 (2), however, does not extend to an obligation for the State party to ensure that a person who is charged with incitment to discrimination, hostility or violence will invariably be convicted by an independent and impartial court of law.[[fn:31]] The Committee therefore cannot conclude that the State party violated article 2 (3), read in conjunction with articles 26 and 20 (2) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 31,
+        "text": "See Vassilari v. Greece, para. 7.2."
+      }
+    ]
   },
   {
     "ID": "11.",
@@ -613,7 +745,13 @@
     "ID": "OP1-8.",
     "Section": "Opinión disidente del miembro del Comité Fabián Omar Salvioli",
     "Labels": [],
-    "Text": "Comparto el criterio del Comité respecto de que el Pacto no obliga a que toda persona acusada de apología del odio sea condenada penalmente, porque una acusación puede recaer sobre personas que resulten inocentes o culpables. Sin embargo, en caso de que efectivamente se haya incurrido en apología del odio la garantía no puede consistir en un mero enjuiciamiento, sino en la sanción efectiva de la conducta; ello es consistente con lo que ha señalado el Comité en diversas ocasiones.",
+    "Text": "Comparto el criterio del Comité respecto de que el Pacto no obliga a que toda persona acusada de apología del odio sea condenada penalmente, porque una acusación puede recaer sobre personas que resulten inocentes o culpables. Sin embargo, en caso de que efectivamente se haya incurrido en apología del odio la garantía no puede consistir en un mero enjuiciamiento, sino en la sanción efectiva de la conducta; ello es consistente con lo que ha señalado el Comité en diversas ocasiones[[fn:32]].",
+    "Footnotes": [
+      {
+        "n": 32,
+        "text": "Por ejemplo, Observaciones Finales del Comité sobre Austria (2007) párr. 20; Suecia (2009), párr. 19; y Armenia (2012) párr. 6."
+      }
+    ],
     "OriginalID": "8.",
     "Namespace": "OP1"
   },
@@ -629,7 +767,13 @@
     "ID": "OP1-10.",
     "Section": "Opinión disidente del miembro del Comité Fabián Omar Salvioli",
     "Labels": [],
-    "Text": "Ello no significa funcionar como una cuarta instancia; el Comité en muchas ocasiones considera que los tribunales internos no han tenido en cuenta debidamente todos los elementos a su disposición, lo que les ha conducido a una valoración inadecuada de los hechos.",
+    "Text": "Ello no significa funcionar como una cuarta instancia; el Comité en muchas ocasiones considera que los tribunales internos no han tenido en cuenta debidamente todos los elementos a su disposición, lo que les ha conducido a una valoración inadecuada de los hechos[[fn:33]].",
+    "Footnotes": [
+      {
+        "n": 33,
+        "text": "Fundamentalmente en casos de “no devolución”."
+      }
+    ],
     "OriginalID": "10.",
     "Namespace": "OP1"
   },
@@ -669,7 +813,13 @@
     "ID": "OP2-3.",
     "Section": "Individual opinion (partly concurring and partly dissenting( of Committee members Yuval Shany and Sir Nigel Rodley",
     "Labels": [],
-    "Text": "The majority of members took the position that the authors sought that Mr. Wilders’ conduct be evaluated and characterised as criminal within the definition contained in section 137d of the Criminal Code, and that “that determination could be obtained only in criminal proceedings” (para. 9.4). As a result, they were of the opinion that the initiation of separate civil proceedings by the authors would not have constituted an effective remedy. This position stands, however, in marked contrast to the holding by the Committee on the merits (para. 10.4) that article 20 of the Covenant does not expressly require criminal penalties to accompany the prohibition of incitement to discrimination, hostility of violence, and that a legal prohibition effectively enforceable by administrative or civil remedies may also meet the requirements of article 20.",
+    "Text": "The majority of members took the position that the authors sought that Mr. Wilders’ conduct be evaluated and characterised as criminal within the definition contained in section 137d of the Criminal Code, and that “that determination could be obtained only in criminal proceedings” (para. 9.4). As a result, they were of the opinion that the initiation of separate civil proceedings by the authors would not have constituted an effective remedy. This position stands, however, in marked contrast to the holding by the Committee on the merits (para. 10.4) that article 20 of the Covenant does not expressly require criminal penalties to accompany the prohibition of incitement to discrimination, hostility of violence, and that a legal prohibition effectively enforceable by administrative or civil remedies may also meet the requirements of article 20.[[fn:34]]",
+    "Footnotes": [
+      {
+        "n": 34,
+        "text": "For support in the travaux préparatoires, see Marc Bossuyt, Guide to the “Travaux Préparatoires” of the International Covenant on Civil and Political Rights (1987) 406 (“The view was expressed that states parties would be free to enact whatever legislation they deem appropriate to put the article into effect”)."
+      }
+    ],
     "OriginalID": "3.",
     "Namespace": "OP2"
   },
@@ -701,7 +851,13 @@
     "ID": "OP2-7.",
     "Section": "Individual opinion (partly concurring and partly dissenting( of Committee members Yuval Shany and Sir Nigel Rodley",
     "Labels": [],
-    "Text": "Like in the case of article 2(2) of the Covenant, which lays out a general duty to implement the Covenant through laws or other measures, we consider the obligation to pass implementing legislation protecting Covenant rights a ‘second-order obligation’ incapable of creating a right for individuals that is independent of the rights which the implementing legislation purports to protect. Thus, article 20(2) merely reinforces certain aspects of Covenant rights by requiring States parties to adopt specific legislative measures to prohibit their infringement. And it is only when these other rights have actually been put at risk of infringement or actually infringed – e.g., when hate speech had been in fact uttered – that the failure by the State party to pass prohibiting legislation may have contributed to a human rights violation occurring.",
+    "Text": "Like in the case of article 2(2) of the Covenant,[[fn:35]] which lays out a general duty to implement the Covenant through laws or other measures, we consider the obligation to pass implementing legislation protecting Covenant rights a ‘second-order obligation’ incapable of creating a right for individuals that is independent of the rights which the implementing legislation purports to protect. Thus, article 20(2) merely reinforces certain aspects of Covenant rights by requiring States parties to adopt specific legislative measures to prohibit their infringement. And it is only when these other rights have actually been put at risk of infringement or actually infringed – e.g., when hate speech had been in fact uttered – that the failure by the State party to pass prohibiting legislation may have contributed to a human rights violation occurring.",
+    "Footnotes": [
+      {
+        "n": 35,
+        "text": "See e.g., Comm. No. Poliakov v. Belarus, Views of the Committee of 17 July 2014, para. 7.4."
+      }
+    ],
     "OriginalID": "7.",
     "Namespace": "OP2"
   },
@@ -709,7 +865,13 @@
     "ID": "OP2-8.",
     "Section": "Individual opinion (partly concurring and partly dissenting( of Committee members Yuval Shany and Sir Nigel Rodley",
     "Labels": [],
-    "Text": "Consequently, we are of the view that victims of human rights violations should not be able to invoke article 20(2) separately, but only in conjunction with other Covenant rights, such as articles 6, 7, 9 and 26, which the prohibiting legislation was designed to protect.",
+    "Text": "Consequently, we are of the view that victims of human rights violations should not be able to invoke article 20(2) separately, but only in conjunction with other Covenant rights, such as articles 6, 7, 9 and 26, which the prohibiting legislation was designed to protect.[[fn:36]]",
+    "Footnotes": [
+      {
+        "n": 36,
+        "text": "For support in the travaux préparatoires, see supra note 1, at p. 407 [“[the article] contained no provision setting forth any particular right or freedom”]."
+      }
+    ],
     "OriginalID": "8.",
     "Namespace": "OP2"
   },
@@ -725,7 +887,17 @@
     "ID": "OP3-2.",
     "Section": "Individual opinion (concurring) of Committee members Sarah Cleveland and Mauro Politi",
     "Labels": [],
-    "Text": "Advocacy of hatred and incitement to violence, hostility and discrimination, including on grounds of race, ethnicity, religion, or nationality, has no place in a pluralistic and human rights respecting society, and should be vigorously countered. It is axiomatic, however, that a human rights protective society must also tolerate speech that deeply offends. In addition, societies have numerous positive and negative tools available to address hateful speech. To the extent that restrictions on speech are warranted, a State must employ the least restrictive means available to secure that legitimate end.",
+    "Text": "Advocacy of hatred and incitement to violence, hostility and discrimination, including on grounds of race, ethnicity, religion, or nationality, has no place in a pluralistic and human rights respecting society, and should be vigorously countered. It is axiomatic, however, that a human rights protective society must also tolerate speech that deeply offends.[[fn:37]] In addition, societies have numerous positive and negative tools available to address hateful speech. To the extent that restrictions on speech are warranted, a State must employ the least restrictive means available to secure that legitimate end.[[fn:38]]",
+    "Footnotes": [
+      {
+        "n": 37,
+        "text": "General Comment No. 34, Article 19: Freedoms of opinion and expression (2011), para. 11."
+      },
+      {
+        "n": 38,
+        "text": "Id., para. 34 (restrictions “must be the least intrusive instrument amongst those which might achieve their protective function”). Moreover, the State must demonstrate in specific fashion the precise nature of the threat to any of the enumerated grounds listed in article 19(3) that has caused it to restrict freedom of expression. Id., para. 36."
+      }
+    ],
     "OriginalID": "2.",
     "Namespace": "OP3"
   },
@@ -741,7 +913,21 @@
     "ID": "OP3-4.",
     "Section": "Individual opinion (concurring) of Committee members Sarah Cleveland and Mauro Politi",
     "Labels": [],
-    "Text": "For this reason, article 20(2) is narrowly circumscribed and sets a high bar for the expression that must be prohibited. On its face, Article 20(2) does not require legal prohibition of all “advocacy of national, racial or religious hatred,” but only of such advocacy that also “constitutes incitement to discrimination, hostility or violence.” In other words, advocacy of national, racial or religious hatred alone is not sufficient. It must also have the intention of inciting to discrimination, hostility or violence. Article 20(2) thus is distinctly more limited than article 4 of the International Convention on the Elimination of All Forms of Racial Discrimination (CERD), which obligates States parties, inter alia, to punish “dissemination of ideas based on racial superiority or hatred”. Moreover, as this Committee correctly notes, not all the conduct that falls within the scope of article 20(2) must be criminalized. The obligation is to “prohibit by law,” and civil or administrative sanctions can suffice (para. 10.4).",
+    "Text": "For this reason, article 20(2) is narrowly circumscribed and sets a high bar for the expression that must be prohibited. On its face, Article 20(2) does not require legal prohibition of all “advocacy of national, racial or religious hatred,” but only of such advocacy that also “constitutes incitement to discrimination, hostility or violence.”[[fn:39]] In other words, advocacy of national, racial or religious hatred alone is not sufficient. It must also have the intention of inciting to discrimination, hostility or violence.[[fn:40]] Article 20(2) thus is distinctly more limited than article 4 of the International Convention on the Elimination of All Forms of Racial Discrimination (CERD), which obligates States parties, inter alia, to punish “dissemination of ideas based on racial superiority or hatred”. Moreover, as this Committee correctly notes, not all the conduct that falls within the scope of article 20(2) must be criminalized. The obligation is to “prohibit by law,” and civil or administrative sanctions can suffice (para. 10.4).[[fn:41]]",
+    "Footnotes": [
+      {
+        "n": 39,
+        "text": "This limitation on scope of article 20(2) was intentional. The drafting history indicates that “[f]ears were expressed that an article prohibiting such advocacy might lead to abuse and would be detrimental to freedom of expression.” Thus a formulation limiting article 20(2) to “only such advocacy … as ‘constitutes incitement’” was adopted. UNGA, Draft International Covenants on Human Rights, Annotation, A/2929 (1955), pp. 185-86, paras. 190-192 (emphasis added)."
+      },
+      {
+        "n": 40,
+        "text": "Cf. Joint Statement on Racism and the Media by the UN Special Rapporteur on Freedom of Opinion and Expression, the OSCE Representative on Freedom of the Media and the OAS Special Rapporteur on Freedom of Expression (2001), at 2, http://www.article19.org/pdfs/igo-documents/three-mandates-statement-1999.pdf (“[N]o one should be penalized for the dissemination of ‘hate speech’ unless it has been shown that they did so with the intention of inciting discrimination, hostility or violence”) (emphasis added)."
+      },
+      {
+        "n": 41,
+        "text": "The negotiating history indicates that a proposal that incitement to racial hatred should constitute a crime (using the formulation “constitutes a crime and shall be punished under the law of the state”) was rejected in favor of an obligation to provide only for prohibition by law (“shall be prohibited by the law of the State”). UNGA, Draft International Covenants, supra, p. 186, para. 194."
+      }
+    ],
     "OriginalID": "4.",
     "Namespace": "OP3"
   },
@@ -749,7 +935,17 @@
     "ID": "OP3-5.",
     "Section": "Individual opinion (concurring) of Committee members Sarah Cleveland and Mauro Politi",
     "Labels": [],
-    "Text": "It is uncontested in this case that both civil and criminal sanctions were available to address Mr. Wilders’ conduct under Dutch law. Indeed, the State party had established three means for sanctioning Mr. Wilders’ statements: criminal prosecution under articles 137c and d of the Criminal Code, as well as two forms of a civil remedies – a civil claim under article 6:162 of the Civil Code, and an action civile appended to a criminal prosecution under section 51(a) and (f) of the Code of Criminal Procedure. The authors in this case chose to attempt to support a criminal judgment against Mr. Wilders by appending an action civile to the criminal prosecution – a form of domestic remedy that the Committee makes clear is not required by the Covenant (para. 10.3). In so doing, the authors pursued the most difficult path to a potential remedy. Under the domestic law of the Netherlands, pursuit of an action civile is dependent on the success of the underlying criminal prosecution, and the parties to an action civile are circumscribed in their ability to participate in the criminal proceedings, for reasons the State party explains. Moreover, securing a criminal conviction requires a higher standard of proof – beyond a reasonable doubt or its equivalent – and generally a more demanding mens rea, than a civil proceeding. Finally, it is well established under the Committee’s jurisprudence that no individual is entitled to secure the prosecution of a particular person as a remedy for a violation of the Covenant. The Committee has made equally clear, ipso facto, that no person is entitled to secure the criminal conviction of another person.",
+    "Text": "It is uncontested in this case that both civil and criminal sanctions were available to address Mr. Wilders’ conduct under Dutch law. Indeed, the State party had established three means for sanctioning Mr. Wilders’ statements: criminal prosecution under articles 137c and d of the Criminal Code, as well as two forms of a civil remedies – a civil claim under article 6:162 of the Civil Code, and an action civile appended to a criminal prosecution under section 51(a) and (f) of the Code of Criminal Procedure. The authors in this case chose to attempt to support a criminal judgment against Mr. Wilders by appending an action civile to the criminal prosecution – a form of domestic remedy that the Committee makes clear is not required by the Covenant (para. 10.3). In so doing, the authors pursued the most difficult path to a potential remedy. Under the domestic law of the Netherlands, pursuit of an action civile is dependent on the success of the underlying criminal prosecution, and the parties to an action civile are circumscribed in their ability to participate in the criminal proceedings, for reasons the State party explains. Moreover, securing a criminal conviction requires a higher standard of proof – beyond a reasonable doubt or its equivalent[[fn:42]] – and generally a more demanding mens rea, than a civil proceeding. Finally, it is well established under the Committee’s jurisprudence that no individual is entitled to secure the prosecution of a particular person as a remedy for a violation of the Covenant. The Committee has made equally clear, ipso facto, that no person is entitled to secure the criminal conviction of another person.[[fn:43]]",
+    "Footnotes": [
+      {
+        "n": 42,
+        "text": "Netherlands Code of Criminal Procedure, section 338; General Comment No. 32, Article 14: Right to equality before courts and tribunals and to a fair trial (2007), para. 30 (“[N]o guilt can be presumed until the charge has been proved beyond reasonable doubt”)."
+      },
+      {
+        "n": 43,
+        "text": "Communication No. 1570/2007, Vassilari et al. v. Greece (Views adopted 19 March 2009), para. 7.2 (“An acquittal in itself does not amount to a violation of article 26 and in this regard the Committee recalls that there is no right under the Covenant to see another person prosecuted”); Communication No. 563/1993, Bautista de Arellana v. Colombia (Views adopted 27 October 1995), para. 8.6; Communication No. 213/1986, H.C.M.A. v. The Netherlands (Inadmissibility decision adopted 30 March 1989), para. 11.6."
+      }
+    ],
     "OriginalID": "5.",
     "Namespace": "OP3"
   },
@@ -757,7 +953,13 @@
     "ID": "OP3-6.",
     "Section": "Individual opinion (concurring) of Committee members Sarah Cleveland and Mauro Politi",
     "Labels": [],
-    "Text": "The Committee has not defined what constitutes either “advocacy” of hatred or “incitement” to discrimination, hostility or violence. Nor has the Committee specifically addressed what conduct should be understood as potentially warranting criminal penalties under article 20(2). Dutch law, however, criminally implements the concept of “incitement” under article 20(2) by punishing “inflammatory behaviour that incites the commission of criminal offences or acts of violence” (para. 6.9). The authors do not contest this standard as a proper implementation of article 20(2).",
+    "Text": "The Committee has not defined what constitutes either “advocacy” of hatred or “incitement” to discrimination, hostility or violence. Nor has the Committee specifically addressed what conduct should be understood as potentially warranting criminal penalties under article 20(2).[[fn:44]] Dutch law, however, criminally implements the concept of “incitement” under article 20(2) by punishing “inflammatory behaviour that incites the commission of criminal offences or acts of violence” (para. 6.9). The authors do not contest this standard as a proper implementation of article 20(2).",
+    "Footnotes": [
+      {
+        "n": 44,
+        "text": "The inadmissibility decision in Communication No. 104/1981, J. R. T. and W. G. Party v. Canada (Indmissibility decision adopted 6 April 1983), para. 8(b), addressed civil proceedings restricting speech."
+      }
+    ],
     "OriginalID": "6.",
     "Namespace": "OP3"
   },
@@ -765,7 +967,17 @@
     "ID": "OP3-7.",
     "Section": "Individual opinion (concurring) of Committee members Sarah Cleveland and Mauro Politi",
     "Labels": [],
-    "Text": "Requiring incitement of “criminal offences or acts of violence” for imposition of criminal penalties under article 20(2) is consistent with the article 19 jurisprudence of this Committee, which urges great caution in the imposition of criminal penalties that punish speech. The Committee accordingly has called on states to decriminalize defamation, and has concluded that, without more, “laws that penalize the expression of opinions about historical facts are incompatible” with Covenant obligations regarding freedom of opinion and expression. Limiting criminal penalties to speech that incites the commission of criminal offences or acts of violence is also consistent with the positions of other human rights bodies.",
+    "Text": "Requiring incitement of “criminal offences or acts of violence” for imposition of criminal penalties under article 20(2) is consistent with the article 19 jurisprudence of this Committee, which urges great caution in the imposition of criminal penalties that punish speech. The Committee accordingly has called on states to decriminalize defamation, and has concluded that, without more, “laws that penalize the expression of opinions about historical facts are incompatible” with Covenant obligations regarding freedom of opinion and expression.[[fn:45]] Limiting criminal penalties to speech that incites the commission of criminal offences or acts of violence is also consistent with the positions of other human rights bodies.[[fn:46]]",
+    "Footnotes": [
+      {
+        "n": 45,
+        "text": "General Comment No. 34, para. 49 and note 116. Compare Communication No. 550/93, Faurisson v. France (Views adopted 1996), para. 9.7."
+      },
+      {
+        "n": 46,
+        "text": "See Parliamentary Assembly of the Council of Europe (PACE), Recommendation 1805 (2007), Blasphemy, religious insults and hate speech against persons on grounds of their religion, para. 15 (under Article 10 of the European Convention on Human Rights, “national law should only penalise expressions about religious matters which intentionally and severely disturb public order and call for public violence.”) (emphasis added); American Convention on Human Rights, art. 13(5) (“any advocacy of national, racial, or religious hatred that constitute incitement to lawless violence or to any other similar illegal action against any person or group of persons on any grounds including those of race, color, religion, language, or national origin shall be considered as offenses punishable by law”) (emphasis added). The CERD Committee has recognized that “the criminalization of forms of racist expression should be reserved for serious cases” under CERD Article 4, that “incitement characteristically seeks to influence others to engage in certain conduct, including the commission of crime….” and that States parties should take into account, inter alia, “the intention of the speaker, and the imminent risk or likelihood that the conduct intended by the speaker will result from the speech in question”. CERD Committee, General Recommendation No. 35, Combating racist speech (2013), paras. 12, 16."
+      }
+    ],
     "OriginalID": "7.",
     "Namespace": "OP3"
   },
@@ -773,7 +985,17 @@
     "ID": "OP3-8.",
     "Section": "Individual opinion (concurring) of Committee members Sarah Cleveland and Mauro Politi",
     "Labels": [],
-    "Text": "Such a restrictive standard for imposing criminal punishment is also appropriate. As the UN, OSCE, and OAS Special Rapporteurs have observed, “[i]n many countries, overbroad rules in this area are abused by the powerful to limit non-traditional, dissenting, critical, or minority voices, or discussion about challenging social issues”. Hate speech and similar laws ironically are often employed to suppress the very minorities they purportedly are designed to protect. Thus, while appropriately tailored laws addressing hate speech and hate crimes have an important role, around the world today, abuse of overbroad criminal provisions to suppress speech by journalists, human rights defenders, political opponents, and other social critics is a frequent concern of this Committee.",
+    "Text": "Such a restrictive standard for imposing criminal punishment is also appropriate. As the UN, OSCE, and OAS Special Rapporteurs have observed, “[i]n many countries, overbroad rules in this area are abused by the powerful to limit non-traditional, dissenting, critical, or minority voices, or discussion about challenging social issues”.[[fn:47]] Hate speech and similar laws ironically are often employed to suppress the very minorities they purportedly are designed to protect. Thus, while appropriately tailored laws addressing hate speech and hate crimes have an important role, around the world today, abuse of overbroad criminal provisions to suppress speech by journalists, human rights defenders, political opponents, and other social critics is a frequent concern of this Committee.[[fn:48]]",
+    "Footnotes": [
+      {
+        "n": 47,
+        "text": "Joint Declaration by UN Special Rapporteur on Freedom of Opinion and Expression, the OSCE Representative on Freedom of the Media the OAS Special Rapporteur on Freedom of Expression (2006), and the ACHPR Special Rapporteur on Freedom of Expression, https://www.article19.org/data/files/pdfs/standards/four-mandates-dec-2006.pdf."
+      },
+      {
+        "n": 48,
+        "text": "E.g., Concluding Observations on the second periodic report of Kazakhstan (2016), para. 49; Concluding Observations on the third periodic report of Kuwait (2016), para. 40; Concluding Observations on the sixth periodic report of Ecuador (2016), para. 27; Concluding Observations on the fourth periodic report of Rwanda (2016), paras. 39-40; Concluding Observations on the second periodic report of Cambodia (2015), paras. 21-22; Concluding Observations on the seventh periodic report of the Russian Federation (2015), paras. 10, 18-20."
+      }
+    ],
     "OriginalID": "8.",
     "Namespace": "OP3"
   },
@@ -797,7 +1019,13 @@
     "ID": "OP4-2.",
     "Section": "Individual opinion of Committee members Anja Seibert-Fohr, Yuji Iwasawa and Konstantine Vardzelashvili",
     "Labels": [],
-    "Text": "The authors of the Communication claim to be victims of a violation of their Covenant rights, inter alia because the authorities did not convict Mr. Wilders for hate speech. This claim is inadmissible rationae materiae. According to the long-established jurisprudence of the Committee, the Covenant does not provide a right for individuals to require that the State criminally prosecute and punish a third party. Neither does article 20 of the Covenant provide such a right nor can it be claimed under articles 14, 17, 26, 27 or 2 (3). This claim of the authors is therefore incompatible with the provisions of the Covenant and inadmissible under article 3 of the Optional Protocol.",
+    "Text": "The authors of the Communication claim to be victims of a violation of their Covenant rights, inter alia because the authorities did not convict Mr. Wilders for hate speech. This claim is inadmissible rationae materiae. According to the long-established jurisprudence of the Committee, the Covenant does not provide a right for individuals to require that the State criminally prosecute and punish a third party.[[fn:49]] Neither does article 20 of the Covenant provide such a right nor can it be claimed under articles 14, 17, 26, 27 or 2 (3). This claim of the authors is therefore incompatible with the provisions of the Covenant and inadmissible under article 3 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 49,
+        "text": "Communication No. 563/1993, Bautista de Arellana v. Colombia, Views adopted on 27 October 1995, paragraph 8.6; Communication No. 1885/2009, Horvath v. Australia, Views adopted on 27 March 2014, para. 8.2."
+      }
+    ],
     "OriginalID": "2.",
     "Namespace": "OP4"
   },
@@ -805,7 +1033,13 @@
     "ID": "OP4-3.",
     "Section": "Individual opinion of Committee members Anja Seibert-Fohr, Yuji Iwasawa and Konstantine Vardzelashvili",
     "Labels": [],
-    "Text": "The authors effectively claim also that the State party has insufficiently protected them from threats to their physical integrity, from discrimination or advocacy of hatred that constitutes incitement to discrimination, hostility or violence. However, we consider that they have not sufficiently substantiated that the State party did not provide them with adequate protection in the present case. According to Dutch legislation, the authors could have brought a civil action against Mr. Wilders pursuant to article 6:162 of the Civil Code. They have declined to take this path; instead, they decided to resort exclusively to criminal proceedings by joining criminal proceedings against Mr. Wilders as an aggrieved party and claiming compensation. According to the State party’s uncontested submission, a successful civil action before a civil court pursuant to article 6:162 of the Civil Code would have enabled the authors to ask for a ban of future abusive statements or to request a declaratory decision that Mr. Wilder’s statements were unlawful. This avenue is still available. There is no reason to assume that these proceedings would not offer them the protection required under the Covenant. Article 20 of the Covenant which requires States parties to prohibit by law any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence, does not strictly require the imposition of criminal penalties. Without having tried to seek protection in civil proceedings which were available to them, the authors cannot claim their inadequacy just on the basis that they are civil in nature. Thus, in the circumstances of the case, the authors have failed to demonstrate that the State party gave insufficient protection to the authors and that their right to protection under the Covenant was effectively impaired. For these reasons, this part of the author’s communication has been insufficiently substantiated for the purposes of admissibility and is inadmissible under article 2 of the Optional Protocol.",
+    "Text": "The authors effectively claim also that the State party has insufficiently protected them from threats to their physical integrity, from discrimination or advocacy of hatred that constitutes incitement to discrimination, hostility or violence. However, we consider that they have not sufficiently substantiated that the State party did not provide them with adequate protection in the present case. According to Dutch legislation, the authors could have brought a civil action against Mr. Wilders pursuant to article 6:162 of the Civil Code. They have declined to take this path; instead, they decided to resort exclusively to criminal proceedings by joining criminal proceedings against Mr. Wilders as an aggrieved party and claiming compensation. According to the State party’s uncontested submission, a successful civil action before a civil court pursuant to article 6:162 of the Civil Code would have enabled the authors to ask for a ban of future abusive statements or to request a declaratory decision that Mr. Wilder’s statements were unlawful. This avenue is still available. There is no reason to assume that these proceedings would not offer them the protection required under the Covenant.[[fn:50]] Article 20 of the Covenant which requires States parties to prohibit by law any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence, does not strictly require the imposition of criminal penalties. Without having tried to seek protection in civil proceedings which were available to them, the authors cannot claim their inadequacy just on the basis that they are civil in nature. Thus, in the circumstances of the case, the authors have failed to demonstrate that the State party gave insufficient protection to the authors and that their right to protection under the Covenant was effectively impaired. For these reasons, this part of the author’s communication has been insufficiently substantiated for the purposes of admissibility and is inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 50,
+        "text": "In order to determine the protection owed to the authors under the Covenant, it would be necessary to examine furthermore the victim status of the authors. But this issue can be left open here because the authors have declined to resort to the remedies available to them under domestic law in the first place."
+      }
+    ],
     "OriginalID": "3.",
     "Namespace": "OP4"
   },
@@ -869,7 +1103,17 @@
     "ID": "OP4-2.",
     "Section": "Sur la recevabilité",
     "Labels": [],
-    "Text": "Premièrement, j’appuie les motifs relatifs à l’invocabilité du paragraphe 2 de l’article 20. Sur ce point, le Comité reprend à son compte l’opinion dissidente de M. Abdelfattah Amor dans l’affaire Vassilari c. Grèce. Dans cette affaire, le Comité avait refusé sans beaucoup d’explications de se prononcer sur l’applicabilité du paragraphe 2 de l’article 20 aux cas individuels. Cette « esquive » avait laissé M. Amor « perplexe ». Il était en effet incompréhensible sur le plan juridique que cet article se retrouve ainsi neutralisé quant à ses effets. Reprenant les termes mêmes de M. Amor, le Comité observe que « l’invocation du paragraphe 2 de l’article 20 par des particuliers lésés s’inscrit donc dans la logique de protection qui sous-tend l’ensemble du Pacte. » (§ 9.7). Il reconnaît ainsi sa justiciabilité, y compris pris isolément. Aussi est-il étrange que le Comité estime nécessaire de déclarer la recevabilité des griefs des auteurs au titre du paragraphe 3 de l’article 2 « conjointement avec les articles 20 (par. 2) et 26. » Le paragraphe 2 de l’article 20 fonde à lui seul un droit d’être protégé contre « tout appel à la haine nationale, raciale ou religieuse qui constitue une incitation à la discrimination, à l’hostilité ou à la violence ». Comme le précise par ailleurs le Comité, cette disposition « n’impose pas seulement aux Etats parties une obligation formelle d’adopter une législation interdisant les comportements discriminatoires. Une telle loi serait sans effet si elle n’était pas assortie de procédures de plaintes et de sanctions appropriées » (§ 9.7.) Elle constitue par conséquent une lex specialis tant à l’égard de l’article 26, qui fonde un droit d’être protégé contre toute forme de discrimination, qu’à l’égard du paragraphe 3 de l’article 2 qui fonde le droit à un « recours utile » en cas de violation des droits reconnus dans le Pacte.",
+    "Text": "Premièrement, j’appuie les motifs relatifs à l’invocabilité du paragraphe 2 de l’article 20. Sur ce point, le Comité reprend à son compte l’opinion dissidente de M. Abdelfattah Amor dans l’affaire Vassilari c. Grèce. Dans cette affaire, le Comité avait refusé sans beaucoup d’explications de se prononcer sur l’applicabilité du paragraphe 2 de l’article 20 aux cas individuels. Cette « esquive » avait laissé M. Amor « perplexe ». Il était en effet incompréhensible sur le plan juridique que cet article se retrouve ainsi neutralisé quant à ses effets. Reprenant les termes mêmes de M. Amor, le Comité observe que « l’invocation du paragraphe 2 de l’article 20 par des particuliers lésés s’inscrit donc dans la logique de protection qui sous-tend l’ensemble du Pacte. » (§ 9.7). Il reconnaît ainsi sa justiciabilité, y compris pris isolément. Aussi est-il étrange que le Comité estime nécessaire de déclarer la recevabilité des griefs des auteurs au titre du paragraphe 3 de l’article 2 « conjointement avec les articles 20 (par. 2) et 26. » Le paragraphe 2 de l’article 20 fonde à lui seul un droit d’être protégé contre « tout appel à la haine nationale, raciale ou religieuse qui constitue une incitation à la discrimination, à l’hostilité ou à la violence ». Comme le précise par ailleurs le Comité, cette disposition « n’impose pas seulement aux Etats parties une obligation formelle d’adopter une législation interdisant les comportements discriminatoires. Une telle loi serait sans effet si elle n’était pas assortie de procédures de plaintes et de sanctions appropriées » (§ 9.7.) Elle constitue par conséquent une lex specialis tant à l’égard de l’article 26, qui fonde un droit d’être protégé contre toute forme de discrimination[[fn:51]], qu’à l’égard du paragraphe 3 de l’article 2 qui fonde le droit à un « recours utile » en cas de violation des droits reconnus dans le Pacte[[fn:52]].",
+    "Footnotes": [
+      {
+        "n": 51,
+        "text": "Observation générale no 18 du Comité : Non discrimination, 1989, § 1. L’article 7 de la Déclaration universelle des droits de l’Homme traduit bien le lien qui existe, dans le Pacte, entre l’article 20 et l’article 26 : « Tous ont droit à une protection égale contre toute discrimination qui violerait la présente Déclaration et contre toute provocation à une telle discrimination. »"
+      },
+      {
+        "n": 52,
+        "text": "Observation générale no 31: La nature de l’obligation juridique générale imposée aux Etats parties au Pacte, 2004, § 15."
+      }
+    ],
     "OriginalID": "2.",
     "Namespace": "OP4"
   },
@@ -877,7 +1121,13 @@
     "ID": "OP4-3.",
     "Section": "Sur la recevabilité",
     "Labels": [],
-    "Text": "Deuxièmement, je suis également en accord avec les conclusions du Comité relatifs à la reconnaissance de la qualité de victime des auteurs de la communication. Je suis en particulier en accord avec les motifs énoncés au paragraphe 9.6. à savoir « que les auteurs, en tant que membres du groupe expressément visé par les déclarations de M. Wilders, sont des personnes que le paragraphe 2 de l’article 20 a pour objectif de protéger, et que les déclarations de M. Wilders ont eu des conséquences spécifiques pour elles, notamment en suscitant dans la société des attitudes discriminatoires à l’égard de ce groupe et à l’égard des auteurs en tant que membres du groupe ».",
+    "Text": "Deuxièmement, je suis également en accord avec les conclusions du Comité relatifs à la reconnaissance de la qualité de victime des auteurs de la communication. Je suis en particulier en accord avec les motifs énoncés au paragraphe 9.6. à savoir « que les auteurs, en tant que membres du groupe expressément visé par les déclarations de M. Wilders, sont des personnes que le paragraphe 2 de l’article 20 a pour objectif de protéger, et que les déclarations de M. Wilders ont eu des conséquences spécifiques pour elles, notamment en suscitant dans la société des attitudes discriminatoires à l’égard de ce groupe et à l’égard des auteurs en tant que membres du groupe »[[fn:53]].",
+    "Footnotes": [
+      {
+        "n": 53,
+        "text": "V. aussi, mais avec une conclusion d’irrecevabilité, l’affaire Andersen c. Danemark, comm. no 1868/2009, 26 juillet 2010."
+      }
+    ],
     "OriginalID": "3.",
     "Namespace": "OP4"
   },
@@ -893,7 +1143,17 @@
     "ID": "OP4-5.",
     "Section": "Sur le fond",
     "Labels": [],
-    "Text": "Cette affaire présente une configuration inhabituelle. Le Comité, comme d’ailleurs les cours régionales de droits de l’Homme, ont généralement à traiter d’affaires dans lesquelles l’auteur d’un discours de haine se plaint d’une restriction à sa liberté d’expression, notamment sous la forme d’une sanction pénale. Ici, des auteurs se plaignent, à l’inverse, de ce que les recours existant dans le droit national contre les discours de haine ne sont pas effectifs et en tout cas que la décision du tribunal qui a appliqué en l’espèce la loi nationale viole les obligations de l’Etat partie découlant du Pacte, et en particulier celles qui découlent du paragraphe 2 de l’article 20 du Pacte. Autrement dit, est ici en cause non la restriction à l’exercice d’un droit, mais plutôt le manquement à une obligation positive de protection. De ce point de vue, la jurisprudence du Comité des Nations Unies pour l’élimination de la discrimination raciale au regard de l’article 4 de la Convention de 1965 est particulièrement pertinente et il est dommage que le Comité ne s’en soit pas davantage inspiré.",
+    "Text": "Cette affaire présente une configuration inhabituelle. Le Comité, comme d’ailleurs les cours régionales de droits de l’Homme, ont généralement à traiter d’affaires dans lesquelles l’auteur d’un discours de haine se plaint d’une restriction à sa liberté d’expression, notamment sous la forme d’une sanction pénale. Ici, des auteurs se plaignent, à l’inverse, de ce que les recours existant dans le droit national contre les discours de haine ne sont pas effectifs et en tout cas que la décision du tribunal qui a appliqué en l’espèce la loi nationale viole les obligations de l’Etat partie découlant du Pacte, et en particulier celles qui découlent du paragraphe 2 de l’article 20 du Pacte[[fn:54]]. Autrement dit, est ici en cause non la restriction à l’exercice d’un droit, mais plutôt le manquement à une obligation positive de protection. De ce point de vue, la jurisprudence du Comité des Nations Unies pour l’élimination de la discrimination raciale au regard de l’article 4 de la Convention de 1965 est particulièrement pertinente et il est dommage que le Comité ne s’en soit pas davantage inspiré[[fn:55]].",
+    "Footnotes": [
+      {
+        "n": 54,
+        "text": "V. par. 7.2 et 7.3. des constatations : « 7.2. (…) les auteurs contestent revendiquer un droit à la condamnation de M. Wilders. Ils dénoncent l’absence de poursuite effective. (…) 7.3. Les auteurs admettent que l’Etat partie a correctement transposé le paragraphe 2 de l’article 20 dans sa législation. Le problème réside dans l’application de la loi en l’espèce. »"
+      },
+      {
+        "n": 55,
+        "text": "V. notamment la Recommandation générale no 35 du CERD, Lutte contre les discours de haine raciale, 2013 et la Recommandation générale no 30, concernant la discrimination contre les non-ressortissants, 2005, en particulier les §§ 11 et 12 ; de même les affaires ; Quereschi c. Danemark, comm. no 33/2003, 11 décembre 2003 ; Gelle c. Danemark, comm. no 34/2004, 6 mars 2006 ; Ahmed Farah Jama c. Danemark, comm. no 41/2008, 21 août 2009 ; Saada Mohammad Adan c. Danemark, comm. no 43/2008, 13 août 2010."
+      }
+    ],
     "OriginalID": "5.",
     "Namespace": "OP4"
   },
@@ -901,7 +1161,17 @@
     "ID": "OP4-6.",
     "Section": "Sur le fond",
     "Labels": [],
-    "Text": "Tout d’abord, je dois dire que j’appuie un certain nombre des motifs développés par le Comité dans son raisonnement au fond. Le Comité rappelle avec justesse quelques points importants contenus dans son Observation générale no 34, relatifs non seulement à la place cardinale de la liberté d’expression dans une société démocratique et à l’articulation entre l’article 20 et l’article 19 (par. 10.4.) Il réaffirme avec force que la liberté d’expression s’applique aussi à des propos qui peuvent être considérés comme profondément offensants, y compris à l’égard des convictions religieuses ou politiques (id.) Le Comité aurait pu ajouter que si les bornes à la liberté d’expression doivent être encore plus largement entendues dans le débat public et politique, le fait qu’un propos soit tenu dans le contexte d’un tel débat ne lui confère pas une immunité totale et ne dispense en tout cas pas l’Etat partie de son obligation d’ouvrir une enquête pour déterminer si ces propos représentent un acte de discrimination raciale ou, en l’espèce, un propos tombant sous le coup du paragraphe 2 de l’article 20.",
+    "Text": "Tout d’abord, je dois dire que j’appuie un certain nombre des motifs développés par le Comité dans son raisonnement au fond. Le Comité rappelle avec justesse quelques points importants contenus dans son Observation générale no 34[[fn:56]], relatifs non seulement à la place cardinale de la liberté d’expression dans une société démocratique et à l’articulation entre l’article 20 et l’article 19 (par. 10.4.) Il réaffirme avec force que la liberté d’expression s’applique aussi à des propos qui peuvent être considérés comme profondément offensants, y compris à l’égard des convictions religieuses ou politiques (id.) Le Comité aurait pu ajouter que si les bornes à la liberté d’expression doivent être encore plus largement entendues dans le débat public et politique, le fait qu’un propos soit tenu dans le contexte d’un tel débat ne lui confère pas une immunité totale et ne dispense en tout cas pas l’Etat partie de son obligation d’ouvrir une enquête pour déterminer si ces propos représentent un acte de discrimination raciale ou, en l’espèce, un propos tombant sous le coup du paragraphe 2 de l’article 20[[fn:57]].",
+    "Footnotes": [
+      {
+        "n": 56,
+        "text": "Observation générale no 34, Art. 19 : Liberté d’opinion et liberté d’expression, 2011."
+      },
+      {
+        "n": 57,
+        "text": "V. CERD, Gelle c. Danemark, op. cit., § 7.5 ; Saada Mohammad Adan c. Danemark, op. cit., § 7.6. V. aussi CERD, Observation générale no 30, § 12. Sur le plan régional, v. aussi l’arrêt de la Cour européenne des droits de l’Homme dans l’affaire Feret c. Belgique (req. no 15615/07, arrêt du 16 juillet 2009), § 77. V. aussi le Rapport de l’ECRI sur les Pays-Bas (quatrième cycle de monitoring), publié le 15 octobre 2013, § 22 : « L’ECRI recommande aux autorités de veiller à ce que la législation en vigueur contre le racisme et la discriminatioin raciale ainsi que la jurisprudence de la Cour européenne des droits de l’Homme soient appliquées dans tous les cas, dans la sphère publique et privée, même lorsque les affirmations émanent de personnalités politiques. » ; les Principes de Camden sur la liberté d’expression et l’égalité, et notamment le Principe 10 : “Politicians and other leadership figures in society should avoid making statements that might promote discrimination or undermine equality, and should take advantage of their positions to promote intercultural understanding, including by contesting, where appropriate, discriminatory statements or behaviour.”; dans le même sens, v. le Rabat plan of action on the prohibition of advocacy of national, racial or religious hatred that constitutes incitement to discrimination hostility or violence, § 36, doc. en annexe du rapport du Haut Commissaire des Nations Unies aux droits de l’Homme sur les ateliers d’experts sur l’interdiction de l’incitation à la haine nationale, raciale ou religieuse, A/HRC/22/17/Add.4."
+      }
+    ],
     "OriginalID": "6.",
     "Namespace": "OP4"
   },
@@ -909,7 +1179,13 @@
     "ID": "OP4-7.",
     "Section": "Sur le fond",
     "Labels": [],
-    "Text": "Enfin, comme je l’ai dit plus haut, j’estime que le Comité a bien interprété le paragraphe 2 de l’article 20, en considérant que cette disposition n’exigeait pas seulement des Etats parties qu’ils adoptent une loi, mais aussi qu’ils mettent en place des procédures de plaintes et de sanctions appropriées, sans quoi une telle loi serait « sans effet » (par. 9.7.). Là encore, le Comité des droits de l’Homme aurait pu s’appuyer utilement sur la jurisprudence du CERD.",
+    "Text": "Enfin, comme je l’ai dit plus haut, j’estime que le Comité a bien interprété le paragraphe 2 de l’article 20, en considérant que cette disposition n’exigeait pas seulement des Etats parties qu’ils adoptent une loi, mais aussi qu’ils mettent en place des procédures de plaintes et de sanctions appropriées, sans quoi une telle loi serait « sans effet » (par. 9.7.). Là encore, le Comité des droits de l’Homme aurait pu s’appuyer utilement sur la jurisprudence du CERD[[fn:58]].",
+    "Footnotes": [
+      {
+        "n": 58,
+        "text": "Notamment Gelle c. Danemark, op. cit., par. 7.3. : « Le Comité observe qu’il ne suffit pas, aux fins de l’article 4 de la Convention, de déclarer simplement dans un texte de loi les actes de discrimination raciale punissables. La législation pénale et les autres dispositions légales interdisant la discrimination raciale doivent aussi être effectivement mises en œuvre par les tribunaux nationaux compétents et les autres institutions de l’Etat. »"
+      }
+    ],
     "OriginalID": "7.",
     "Namespace": "OP4"
   },
@@ -925,7 +1201,17 @@
     "ID": "OP4-9.",
     "Section": "Sur le fond",
     "Labels": [],
-    "Text": "Dans les affaires « classiques » de liberté d’expression, où sont en cause les restrictions apportées par l’Etat à l’exercice de cette liberté, le Comité ne se borne jamais à relever l’existence d’un cadre juridique interdisant les atteintes à la liberté d’expression et l’existence de recours utile, voire l’exercice par les auteurs de ces recours. Quand bien même les juridictions nationales auraient donné raison aux autorités qui ont en premier lieu adopté la mesure restrictive, le Comité ne s’interdit pas de livrer sa propre appréciation de la restriction au regard de la forme d’expression litigieuse ; et en fonction du résultat de cette appréciation, il est amené soit à valider l’interprétation des juridictions nationales et donc la restriction, soit à constater une violation de l’article 19 si cette restriction ne lui paraît finalement ni nécessaire ni proportionnée au regard du but légitime visé. Or dans la présente affaire, le Comité refuse d’exercer un contrôle de degré équivalent : il se borne à constater l’existence d’un recours et s’en remet totalement à l’appréciation du juge national.",
+    "Text": "Dans les affaires « classiques » de liberté d’expression, où sont en cause les restrictions apportées par l’Etat à l’exercice de cette liberté, le Comité ne se borne jamais à relever l’existence d’un cadre juridique interdisant les atteintes à la liberté d’expression et l’existence de recours utile, voire l’exercice par les auteurs de ces recours. Quand bien même les juridictions nationales auraient donné raison aux autorités qui ont en premier lieu adopté la mesure restrictive, le Comité ne s’interdit pas de livrer sa propre appréciation de la restriction au regard de la forme d’expression litigieuse ; et en fonction du résultat de cette appréciation, il est amené soit à valider l’interprétation des juridictions nationales et donc la restriction[[fn:59]], soit à constater une violation de l’article 19 si cette restriction ne lui paraît finalement ni nécessaire ni proportionnée au regard du but légitime visé[[fn:60]]. Or dans la présente affaire, le Comité refuse d’exercer un contrôle de degré équivalent : il se borne à constater l’existence d’un recours et s’en remet totalement à l’appréciation du juge national.",
+    "Footnotes": [
+      {
+        "n": 59,
+        "text": "V. par ex. l’affaire Robert Faurisson c. France, comm. no 500/1993, 8 novembre 1996, § 9.5. Le Comité examine dans ce paragraphe la question de savoir si la loi du 13 juillet 1990 (« la loi Gayssot ») qui a servi de fondement à la condamnation de l’auteur est compatible avec les dispositions du Pacte. Il cite les déclarations litigieuses de l’auteur et en déduit que la condamnation de l’auteur « n’a pas porté atteinte à son droit d’avoir une opinion et de l’exprimer, en général : le tribunal a condamné M. Faurisson pour avoir attenté aux droits et à la réputation d’autrui. » Et il en déduit que la « loi Gayssot », « telle qu’elle a été lue, interprétée et appliquée dans le cas de l’auteur par les tribunaux français, est compatible avec les dispositions du Pacte. » (nous soulignons.) Dans l’affaire J.R.T. et le W.G. Party c. Canada, comm. no 104/1981, 5 avril 1983, le Comité se place sur le plan de la recevabilité, en jugeant « incompatible » avec les dispositions du Pacte les griefs de l’auteur, car « les opinions que M.T. cherche à diffuser par téléphone constituent nettement une incitation à la haine raciale ou religieuse, que le Canada est tenu d’interdire en vertu du paragraphe 2 de l’article 20 du Pacte. » (par. 8.b) La jurisprudence de la Cour européenne offre évidemment de nombreux autres exemples, dans lesquels la Cour examine soigneusement la qualification des propos litigieux opérée par le juge national avant de conclure à l’absence de violation de l’article 10 de la Convention. V. par ex. parmi beaucoup d’autres la décision rendue dans l’affaire M’Bala M’Bala c. France, req. no 25239/13, 20 octobre 2015, dans laquelle la Cour examine minutieusement les motifs des juridictions internes et juge que leurs constats sont fondés « sur une appréciation des faits qu’elle peut partager » (§ 35) ; ou encore dans l’affaire Feret c. Belgique (op. cit.), particulièrement pertinente dans le cas d’espèce, puisqu’elle concernait les propos tenus par une personnalité politique : la Cour « a examiné les textes litigieux divulgués par le requérant et considère que les conclusions des juridictions internes concernant ces publications étaient pleinement justifiées. »"
+      },
+      {
+        "n": 60,
+        "text": "V. par ex. l’affaire Patrick Coleman c. Australie, comm. no 1157/2003, 17 juillet 2006 : la condamnation par une Magistrates Court de l’auteur pour avoir prononcé un discours dans un lieu public sans permission est confirmée par les juridictions supérieures, notamment la Cour d’appel qui a estimé que l’arrêté sur la base duquel l’auteur avait été condamné avait pour « objet légitime d’éviter aux usagers de la petite galerie piétonne de subir des discours publics et qu’il était raisonnablement approprié et adapté à cette fin étant donné qu’il s’appliquait à “un périmètre très restreint, ce qui laissait suffisamment d’autres espaces où tenir de tels discours. » (par. 2.3.) Ceci n’a pourtant pas empêché, à la suite d’un évaluation détaillée des propos de l’auteur et des circonstances dans lesquelles ceux-ci avaient été tenus, de considérer que « la réaction de l’Etat partie face au comportement de l’auteur a été disproportionné et a constitué une restriction à la liberté d’expression de celui-ci qui est incompatible avec le paragraphe 3 de l’article 19 du Pacte. » (par. 7.3.)"
+      }
+    ],
     "OriginalID": "9.",
     "Namespace": "OP4"
   },
@@ -933,7 +1219,17 @@
     "ID": "OP4-10.",
     "Section": "Sur le fond",
     "Labels": [],
-    "Text": "Rien ne vient pourtant justifier ce self-restraint. Certes, selon une jurisprudence constante du Comité, « il appartient généralement aux juridictions des Etats parties au Pacte d’examiner les faits et les éléments de preuve ou l’application de la législation nationale dans un cas d’espèce, sauf s’il peut être établi que l’appréciation des éléments de preuve ou l’application de la législation ont été de toute évidence arbitraires, manifestement entachées d’erreur ou ont représenté un déni de justice, ou que le tribunal a par ailleurs violé son obligation d’indépendance ou d’impartialité. » Mais un tel principe vaut dans les affaires où les faits sont controversés ou font à tout le moins l’objet d’interprétations divergentes. Or ce n’est nullement le cas ici. M. Geert Wilders ne conteste pas avoir prononcé les paroles qui sont dénoncées par les auteurs comme tombant sous le coup du paragraphe 2 de l’article 20, bien au contraire. On ne peut pas non plus invoquer une quelconque « marge d’appréciation » laissée à l’Etat partie en la matière : le Comité a explicitement rejeté cette doctrine s’agissant notamment de la liberté d’expression. Il incombait par conséquent au Comité de déterminer si la qualification opérée par les auteurs était exacte et, dans l’affirmative, de rechercher si l’Etat partie avait manqué à son obligation positive d’« interdire » par la loi « tout appel à la haine nationale, raciale ou religieuse qui constitue une incitation à la discrimination, à l’hostilité ou à la violence ».",
+    "Text": "Rien ne vient pourtant justifier ce self-restraint. Certes, selon une jurisprudence constante du Comité, « il appartient généralement aux juridictions des Etats parties au Pacte d’examiner les faits et les éléments de preuve ou l’application de la législation nationale dans un cas d’espèce, sauf s’il peut être établi que l’appréciation des éléments de preuve ou l’application de la législation ont été de toute évidence arbitraires, manifestement entachées d’erreur ou ont représenté un déni de justice, ou que le tribunal a par ailleurs violé son obligation d’indépendance ou d’impartialité[[fn:61]]. » Mais un tel principe vaut dans les affaires où les faits sont controversés ou font à tout le moins l’objet d’interprétations divergentes. Or ce n’est nullement le cas ici. M. Geert Wilders ne conteste pas avoir prononcé les paroles qui sont dénoncées par les auteurs comme tombant sous le coup du paragraphe 2 de l’article 20, bien au contraire. On ne peut pas non plus invoquer une quelconque « marge d’appréciation » laissée à l’Etat partie en la matière : le Comité a explicitement rejeté cette doctrine s’agissant notamment de la liberté d’expression[[fn:62]]. Il incombait par conséquent au Comité de déterminer si la qualification opérée par les auteurs était exacte et, dans l’affirmative, de rechercher si l’Etat partie avait manqué à son obligation positive d’« interdire » par la loi « tout appel à la haine nationale, raciale ou religieuse qui constitue une incitation à la discrimination, à l’hostilité ou à la violence ».",
+    "Footnotes": [
+      {
+        "n": 61,
+        "text": "Observation générale no 32, Article 14 : Droit à l’égalité devant les tribunaux et les cours de justice et à un procès équitable, § 26."
+      },
+      {
+        "n": 62,
+        "text": "Observation générale no 34, Art. 19 : Liberté d’opinion et liberté d’expression, 2011, § 36."
+      }
+    ],
     "OriginalID": "10.",
     "Namespace": "OP4"
   },
@@ -949,7 +1245,41 @@
     "ID": "OP4-12.",
     "Section": "Sur le fond",
     "Labels": [],
-    "Text": "Or en l’espèce, l’analyse des passages cités combinée à l’examen de la jurisprudence du Comité, du CERD ou encore de la Cour européenne des droits de l’Homme aurait dû conduire le Comité à la conclusion que ces propos relevaient effectivement du paragraphe 2 de l’article 20 et que le tribunal national avait fait sur ce point une évaluation erronée. L’Etat partie avait indiqué que selon l’interprétation donnée par les juridictions nationales, une critique ne constituait au sens du droit national une infraction pénale que si elle visait « de manière non équivoque les personnes elles-mêmes et non simplement leurs opinions, convictions et comportements. » Or les propos de l’auteur n’étaient pas dirigés uniquement contre l’Islam en tant que religion, mais aussi contre les Musulmans en tant que personnes, et plus généralement contre les « résidents non occidentaux ». Les auteurs ont raison de soutenir que le tribunal de district qui a eu à connaître de l’affaire a de ce point de vue accentué, dans son appréciation des propos litigieux, la distinction entre la critique de la religion et l’incitation à la haine contre des personnes en raison de leurs convictions ou de leur appartenance à un groupe. Par exemple, des déclarations du type : « Un jeune Marocain sur cinq a un casier judiciaire. Leur comportement découle de leur religion et de leur culture », ou encore « Ces Marocains sont vraiment violents » ne relèvent nullement d’une critique à l’égard de l’Islam, mais visent les Marocains et les Musulmans installés aux Pays-Bas dans leur ensemble. Ces déclarations procèdent par assimilations et glissements, en établissant des équivalences entre Marocains et délinquants, ou « islamique », Marocains et délinquants (« On ferme les frontières, on ne laisse plus entrer d’islamiques aux Pays-Bas, on renvoie beaucoup de musulmans des Pays-Bas, on dénaturalise les délinquants islamiques »), autant de réductions des personnes à des stéréotypes qui les réifient et en font par conséquent des objets à mépriser, voire à éliminer physiquement. On retrouve le même type de dynamique dans les discours génocidaires qui procèdent à la réification par assimilation à une identité elle-même décrite comme dangereuse, hostile, ou encore à un animal perçu comme invasif ou répugnant (« cafard », « vermine »…) Ces propos démontrent par conséquent une intention de la part de Geert Wilders de promouvoir publiquement la haine à l’encontre des « résidents non occidentaux ». Par ailleurs il est incontesté que ces propos ont eu une influence directe sur la conduite d’au moins une partie de la population aux Pays-Bas, conduisant à des manifestations discrimination ou d’hostilité ou même de violence à l’encontre des personnes appartenant à ces groupes. Ces deux éléments auraient dû, selon moi, conduire le Comité à conclure que les propos litigieux relevaient bien du paragraphe 2 de l’article 20.",
+    "Text": "Or en l’espèce, l’analyse des passages cités combinée à l’examen de la jurisprudence du Comité, du CERD ou encore de la Cour européenne des droits de l’Homme aurait dû conduire le Comité à la conclusion que ces propos relevaient effectivement du paragraphe 2 de l’article 20 et que le tribunal national avait fait sur ce point une évaluation erronée. L’Etat partie avait indiqué que selon l’interprétation donnée par les juridictions nationales, une critique ne constituait au sens du droit national une infraction pénale que si elle visait « de manière non équivoque les personnes elles-mêmes et non simplement leurs opinions, convictions et comportements. » Or les propos de l’auteur n’étaient pas dirigés uniquement contre l’Islam en tant que religion, mais aussi contre les Musulmans en tant que personnes, et plus généralement contre les « résidents non occidentaux ». Les auteurs ont raison de soutenir que le tribunal de district qui a eu à connaître de l’affaire a de ce point de vue accentué, dans son appréciation des propos litigieux, la distinction entre la critique de la religion et l’incitation à la haine contre des personnes en raison de leurs convictions ou de leur appartenance à un groupe[[fn:63]]. Par exemple, des déclarations du type : « Un jeune Marocain sur cinq a un casier judiciaire. Leur comportement découle de leur religion et de leur culture »[[fn:64]], ou encore « Ces Marocains sont vraiment violents »[[fn:65]] ne relèvent nullement d’une critique à l’égard de l’Islam, mais visent les Marocains et les Musulmans installés aux Pays-Bas dans leur ensemble. Ces déclarations procèdent par assimilations et glissements, en établissant des équivalences entre Marocains et délinquants, ou « islamique », Marocains et délinquants (« On ferme les frontières, on ne laisse plus entrer d’islamiques aux Pays-Bas, on renvoie beaucoup de musulmans des Pays-Bas, on dénaturalise les délinquants islamiques »)[[fn:66]], autant de réductions des personnes à des stéréotypes qui les réifient et en font par conséquent des objets à mépriser, voire à éliminer physiquement. On retrouve le même type de dynamique dans les discours génocidaires qui procèdent à la réification par assimilation à une identité elle-même décrite comme dangereuse, hostile, ou encore à un animal perçu comme invasif ou répugnant (« cafard », « vermine »…)[[fn:67]] Ces propos démontrent par conséquent une intention de la part de Geert Wilders de promouvoir publiquement la haine à l’encontre des « résidents non occidentaux »[[fn:68]]. Par ailleurs il est incontesté que ces propos ont eu une influence directe sur la conduite d’au moins une partie de la population aux Pays-Bas, conduisant à des manifestations discrimination ou d’hostilité ou même de violence à l’encontre des personnes appartenant à ces groupes[[fn:69]]. Ces deux éléments auraient dû, selon moi, conduire le Comité à conclure que les propos litigieux relevaient bien du paragraphe 2 de l’article 20[[fn:70]].",
+    "Footnotes": [
+      {
+        "n": 63,
+        "text": "Constatations, par. 3.1., b)."
+      },
+      {
+        "n": 64,
+        "text": "Id., par. 2.7., a)-4)."
+      },
+      {
+        "n": 65,
+        "text": "Ibid., par. 2.7., a)-7)."
+      },
+      {
+        "n": 66,
+        "text": "Ibid., par. 2.7., c)-11)."
+      },
+      {
+        "n": 67,
+        "text": "La chambre de première instance du Tribunal pénal international pour le Rwanda saisie de l’Affaire des Médias a bien saisi la nature de ce type de discours dans le passage suivant de son jugement : « Un discours de haine constitue une forme discriminatoire d’agression qui anéantit la dignité des membres du groupe visé. Il crée un statut inférieur, non seulement aux yeux des membres du groupe proprement dit mais également des autres qui les regardent et les traitent comme moins qu’humains. Envisagé en soi et en ses autres conséquences, le dénigrement de personnes en raison de leur identité ethnique ou de leur appartenance à tel autre groupe peut causer un tort irréversible. » Le Procureur c. Ferdinand Nahimana, Jean-Bosco Barayagwiza et Hassan Ngeze, affaire no ICTR-99-52-T, jugement et sentence, 3 décembre 2003, § 1072. Sur le discours de haine comme violation du droit à la dignité, v. notamment Wibke K. Timmermann, Incitement in International Law, Routledge, 2015, pp. 39-53."
+      },
+      {
+        "n": 68,
+        "text": "Ibid., par. 2.7., a)."
+      },
+      {
+        "n": 69,
+        "text": "V. notamment les observations finales du CERD sur les Pays-Bas (2015), § 11."
+      },
+      {
+        "n": 70,
+        "text": "La jurisprudence de la Cour européenne et la pratique de la plupart des pays d’Europe établit que « l’incitation à la haine ne requiert pas nécessairement l’appel à tel ou tel acte de violence ou à un autre acte délictueux. » (arrêt Feret c. Belgique, op. cit., par. 73). La Cour poursuit : « Les atteintes aux personnes commises en injuriant, en ridiculisant ou en diffamant certaines parties de la population et des groupes spécifiques de celle-ci ou l’incitation à la discrimination, comme cela a été le cas en l’espèce, suffisent pour que les autorités privilégient la lutte contre le discours raciste face à une liberté d’expression irresponsable et portant atteinte à la dignité, voire à la sécurité de ces parties ou de ces groupes de la population. Les discours politiques qui incitent à la haine fondée sur les préjugés religieux, ethniques ou culturels représentent un danger pour la paix sociale et la stabilité politique dans les Etats démocratiques. » Cette conception peut sans doute être opposée à celle qui prévaut aux Etats-Unis d’Amérique, telle qu’exprimée notamment par la Cour suprême dans l’affaire Virginia v. Black, 123 S. Ct. 1536 (2003) qui exige que « l’appel » à la haine soit accompagné d’une « incitation » à commettre des actes préjudiciables pour l’intégrité physique de la victime potentielle. Comme l’observe justement le professeur Patrick Wachsmann : « La différence radicale sur ce point entre les approches américaine et européenne tient sans doute au fait que les conséquences du discours raciste ont été tragiquement déployées sur le sol européen ; elles culminent dans la Shoah, l’extermination parachevant la stigmatisation, l’exclusion, l’humiliation et les sévices divers. L’argument qui tiendrait cette différence historique pour purement contingente, comme une donnée à éliminer du débat nous paraît inacceptable : on n’est jamais irrecevable, en matière de libertés publiques, à invoquer les données de l’expérience. » P. Wachsmann, « Faut-il incriminer les discours de haine ? Le cas français. », Revue générale du droit, avril 2015, http://www.revuegenerale dudroit.eu/blog/2015/04/21/faut-il-incriminer-les-discours-de-haine-le-cas-francais/."
+      }
+    ],
     "OriginalID": "12.",
     "Namespace": "OP4"
   },

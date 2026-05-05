@@ -17,7 +17,7 @@
     "Labels": [
       "Children"
     ],
-    "Text": "The father of the authors died in 1981. In a will drawn up in July 1974, he granted his wife a life usufruct of his estate and named his three children - Eugenia, María Teresa and José Antonio - as the heirs to his estate, to be divided equally."
+    "Text": "The father of the authors died in 1981. In a will drawn up in July 1974, he granted his wife a life usufruct of his estate and named his three children Eugenia, María Teresa and José Antonio as the heirs to his estate, to be divided equally."
   },
   {
     "ID": "2.2.",
@@ -31,7 +31,13 @@
     "ID": "2.3.",
     "Section": "The facts as submitted by the author",
     "Labels": [],
-    "Text": "The authors filed a claim against their sister before the Cieza District Court. In a ruling of 17 May 1999, the claim was rejected on the grounds that the time period of four years for filing a claim for damages under article 1074 of the Spanish Civil Code had been exceeded. The authors argue that the ruling does not constitute an interpretation of domestic legislation that is consistent with the will of the deceased."
+    "Text": "The authors filed a claim against their sister before the Cieza District Court. In a ruling of 17 May 1999, the claim was rejected on the grounds that the time period of four years for filing a claim for damages under article 1074 of the Spanish Civil Code had been exceeded.[[fn:4]] The authors argue that the ruling does not constitute an interpretation of domestic legislation that is consistent with the will of the deceased.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Spanish Civil Code, article 1074: distributions may also be rescinded for damages of more than one quarter, based on the value of the assets at the time of their adjudication."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -55,7 +61,7 @@
     "ID": "4.1.",
     "Section": "The State party’s observations on admissibility",
     "Labels": [],
-    "Text": "In its observations dated 19 January 2007, the State party argues that the authors’ complaint concerns a question that is strictly inheritance-related and has nothing to do with the privacy and family rights protected in article 17.4.2 In addition, at no time were the rights set out in the Covenant invoked before the domestic courts. Consequently, the State party maintains that the communication should be declared inadmissible due to non-exhaustion of domestic remedies and because it constitutes a clear abuse of the purpose of the Covenant under article 3 of the Optional Protocol. In the alternative, the State party requests that the matter be declared to lie outside the material scope of application of the Covenant."
+    "Text": "In its observations dated 19 January 2007, the State party argues that the authors’ complaint concerns a question that is strictly inheritancerelated and has nothing to do with the privacy and family rights protected in article 17. 4.2 In addition, at no time were the rights set out in the Covenant invoked before the domestic courts. Consequently, the State party maintains that the communication should be declared inadmissible due to nonexhaustion of domestic remedies and because it constitutes a clear abuse of the purpose of the Covenant under article 3 of the Optional Protocol. In the alternative, the State party requests that the matter be declared to lie outside the material scope of application of the Covenant."
   },
   {
     "ID": "5.1.",
@@ -69,7 +75,17 @@
     "ID": "5.2.",
     "Section": "The authors’ comments on the State party’s observations",
     "Labels": [],
-    "Text": "With regard to the non-exhaustion of domestic remedies, the authors argue that, given the Constitutional Court’s interpretation in case law of the right to privacy, no invocation of article 17 of the Covenant would have been successful. In that regard, the authors refer to the Committee’s case law, pursuant to which a remedy does not have to be exhausted if it has no chance of being successful."
+    "Text": "With regard to the nonexhaustion of domestic remedies, the authors argue that, given the Constitutional Court’s interpretation in case law[[fn:5]] of the right to privacy, no invocation of article 17 of the Covenant would have been successful. In that regard, the authors refer to the Committee’s case law, pursuant to which a remedy does not have to be exhausted if it has no chance of being successful.[[fn:6]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The authors are referring to Constitutional Court rulings 37 of 15 February 1989 and 206 of 24 September 2007."
+      },
+      {
+        "n": 6,
+        "text": "Communication No. 896/2001, Semey v. Spain, Views of 30 July 2003."
+      }
+    ]
   },
   {
     "ID": "6.1.",
@@ -81,7 +97,13 @@
     "ID": "6.2.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Committee takes note of the observations of both parties regarding the exhaustion of domestic remedies. The Committee observes that, although it has recognized in its case law that there is no obligation to exhaust domestic remedies if they have no chance of being successful, mere doubts as to the effectiveness of those remedies do not absolve the authors from the obligation to exhaust them. Moreover, the authors have not submitted to the Committee sufficient or relevant information on the case law of the Spanish Constitutional Court relating to the rights protected under article 17, paragraph 1, which might enable it to conclude that the remedies would have been ineffective."
+    "Text": "The Committee takes note of the observations of both parties regarding the exhaustion of domestic remedies. The Committee observes that, although it has recognized in its case law that there is no obligation to exhaust domestic remedies if they have no chance of being successful, mere doubts as to the effectiveness of those remedies do not absolve the authors from the obligation to exhaust them.[[fn:7]] Moreover, the authors have not submitted to the Committee sufficient or relevant information on the case law of the Spanish Constitutional Court relating to the rights protected under article 17, paragraph 1, which might enable it to conclude that the remedies would have been ineffective.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "See, inter alia, communication No. 674/1995, Kaaber v. Iceland, decision on admissibility of 5 November 1996, paragraph 6.2."
+      }
+    ]
   },
   {
     "ID": "6.3.",

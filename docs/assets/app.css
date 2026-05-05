@@ -2,35 +2,67 @@
    UN Human Rights Database · Component layer
    ========================================================= */
 
-/* ─────────────  MASTHEAD  ───────────── */
-/*
- * v19.20: sticky compact header.
- * On scroll past 60 px JS adds .mast--compact which collapses the folio
- * text and subtitle and shrinks the title, freeing viewport for results.
- * The --mast-h CSS variable (kept in sync by JS) lets the sticky filter
- * sidebar offset itself correctly so it never slides under the header.
- */
+/* ─────────────  APP SHELL (v19.43-fix3)  ─────────────
+   Single scroll-axis layout. The viewport is locked: <html> + <body>
+   fill 100vh and never scroll. Mast + searchbar + scope sit at the top
+   in normal flex flow (no sticky, no shrink). The 4-column .layout
+   below them takes all remaining vertical space; each of its three
+   visible children (.filters, .results, .dossier) gets its own
+   overflow:auto, so the user has exactly ONE scrollable region per
+   pane and zero ambiguity about which axis moves.
+   The --mast-h variable is preserved (other code reads it) but is no
+   longer used for sticky offsets — kept at a stable value. */
 :root {
-  --mast-h: 96px;   /* fallback overwritten by JS after first paint */
-  /* scroll-padding-top ensures that browser scroll-into-view (and
-     Playwright clicks) always lands below the sticky masthead, not
-     behind it.  Kept in sync with --mast-h. */
-  scroll-padding-top: var(--mast-h);
+  --mast-h: 0px;        /* legacy var; sticky offsets no longer needed */
+  --shell-pad: 40px;    /* horizontal page padding */
 }
+html, body {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;     /* lock the window — scroll lives inside panes */
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+/* The search view section is the flex child that holds the scope/search/main
+   stack. Document/Workspace/About views replace it via the router.
+   v19.43-fix5: flex: 1 1 0 (not 1 1 auto) so flex-basis ignores intrinsic
+   content size — otherwise Chrome resolves flex-basis: auto against the
+   children's natural height (huge), then growth never happens because the
+   column already "thinks" it's big enough. */
+section[data-view] {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+}
+section[data-view="search"],
+section[data-view="documents"] {
+  overflow: hidden;       /* nested panes scroll */
+}
+section[data-view="workspace"],
+section[data-view="about"] {
+  overflow-y: auto;       /* full-section scroll for content-only views */
+}
+section[data-view][hidden] { display: none; }
 
+/* ─────────────  MASTHEAD  ─────────────
+   No longer sticky and no longer shrinks. The whole mast block is
+   always visible at full size; the editorial title is part of the
+   permanent app frame, not a reactive element. */
 .mast {
   border-bottom: 1px solid var(--ink);
   background: var(--paper);
-  padding: 14px 40px 10px;
-  /* sticky so nav stays reachable while scrolling results */
-  position: sticky;
-  top: 0;
+  padding: 14px var(--shell-pad) 10px;
+  flex: 0 0 auto;
   z-index: 45;
-  transition: padding 0.18s ease, box-shadow 0.18s ease;
 }
 .mast--compact {
-  padding: 5px 40px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  /* Retained so any leftover toggle from old sessions or stray code
+     paths is a no-op rather than a layout shift. */
+  padding: 14px var(--shell-pad) 10px;
 }
 .mast-row {
   display: flex;
@@ -39,7 +71,10 @@
   gap: 32px;
   flex-wrap: wrap;
 }
-.mast--compact .mast-row { align-items: center; }
+/* v19.43-fix3: app-shell pattern. .mast--compact is intentionally a
+   no-op now — the masthead never shrinks because the page never
+   scrolls. The class is kept on the element so legacy code that
+   listens for it stays harmless. */
 .mast-brand { min-width: 0; }
 .mast-title {
   margin: 4px 0 0;
@@ -48,39 +83,41 @@
   letter-spacing: -0.01em;
   line-height: 1;
   color: var(--ink);
-  transition: font-size 0.18s ease, margin 0.18s ease;
-}
-.mast--compact .mast-title {
-  font-size: 19px;
-  margin: 0;
 }
 .mast-sub {
   font-style: italic;
   color: var(--ink-3);
   font-size: 13px;
   margin-top: 4px;
-  /* smooth collapse */
-  overflow: hidden;
-  max-height: 40px;
-  transition: max-height 0.18s ease, opacity 0.12s ease, margin 0.18s ease;
 }
-.mast--compact .mast-sub {
-  max-height: 0;
-  opacity: 0;
-  margin-top: 0;
-  pointer-events: none;
-}
-/* Collapse the "VOL. I · NO. 1 · …" folio line too */
 #mast-folio {
-  overflow: hidden;
-  max-height: 30px;
-  transition: max-height 0.18s ease, opacity 0.12s ease, margin 0.12s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.mast--compact #mast-folio {
-  max-height: 0;
+/* v19.43: thin progress bar inside the folio strip — replaces the
+   "LOADING…" string. Stays hidden once boot completes (width = 100%
+   reaches the end and the bar fades). */
+.mast-folio-bar {
+  flex: 1 1 auto;
+  max-width: 200px;
+  height: 1px;
+  background: var(--rule, #d4cdc1);
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.4s ease 0.5s;   /* fade out 0.5 s after width hits 100% */
+}
+.mast-folio-bar-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--garnet);
+  transition: width 0.25s ease;
+}
+/* Once 100% is reached, the inline style sets width:100%; we then
+   fade the bar away (transitioned). */
+.mast-folio-bar:has(.mast-folio-bar-fill[style*="100%"]) {
   opacity: 0;
-  margin-bottom: 0;
-  pointer-events: none;
 }
 .mast-nav {
   display: flex;
@@ -110,64 +147,94 @@
   padding: 4px 10px;
 }
 
-/* ─────────────  SCOPE BAR  ───────────── */
-.scope-bar {
+/* ─────────────  SCOPE / SOURCE  ─────────────
+   v19.43-fix9: scope buttons live in the left filter pane as a
+   vertical list. The .scope-bar (full-width horizontal strip above
+   the layout) is gone; .scope-opt class + data-scope attribute kept
+   so existing JS handlers in bindUI() still wire correctly. */
+.filter-block-source {
+  /* Visual delimiter from regular filters — Source is a top-level
+     dataset partition, not a filter on the active dataset. */
+  padding-bottom: 18px;
   border-bottom: 1px solid var(--rule);
-  background: var(--paper-2);
+  margin-bottom: 18px;
 }
-.scope-inner {
+.scope-list {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 10px 40px;
-  flex-wrap: wrap;
-}
-.scope-segmented {
-  display: inline-flex;
-  border: 1px solid var(--ink);
+  flex-direction: column;
+  border: 1px solid var(--rule);
   background: var(--paper);
 }
+/* Two-row grid per scope-opt: name on top (left col), count
+   detail on bottom (left col, dimmer + smaller), PREVIEW badge
+   on right spanning both rows. Avoids the squash that happens
+   when "3117 · 3 bodies" fights with "Jurisprudence" on one row. */
 .scope-opt {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 8px;
+  column-gap: 8px;
+  row-gap: 2px;
+  width: 100%;
   font-family: var(--display);
-  font-size: 14px;
+  font-size: 13px;
   background: transparent;
   color: var(--ink-2);
   border: 0;
-  border-right: 1px solid var(--ink);
-  padding: 8px 16px;
+  border-bottom: 1px solid var(--rule);
+  padding: 8px 12px;
   cursor: pointer;
   letter-spacing: 0.01em;
+  text-align: left;
   transition: background .12s, color .12s;
 }
-.scope-opt:last-child { border-right: 0; }
+.scope-opt:last-child { border-bottom: 0; }
+.scope-opt-name {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .scope-opt:hover { background: var(--paper-3); color: var(--ink); }
 .scope-opt.is-active {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--paper-3);
+  color: var(--ink);
+  box-shadow: inset 3px 0 0 var(--garnet);
 }
-.scope-opt.is-active .scope-count { color: var(--paper); opacity: 0.85; }
+.scope-opt.is-active .scope-count { color: var(--ink-3); }
 .scope-count {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10px;
   color: var(--ink-3);
   font-feature-settings: "tnum";
+  letter-spacing: 0.02em;
 }
-.scope-meta { margin-left: auto; }
+.scope-count:empty,
+.scope-count:not([id]):empty { display: none; }
+.scope-opt .badge {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  align-self: center;
+  font-size: 9px;
+  padding: 2px 5px;
+  flex: 0 0 auto;
+}
 
-/* Onboarding banner for SP scope — flows as a single paragraph
-   with absolute-positioned dismiss button (avoids flex-column trap). */
+/* Onboarding banner for SP scope — now inline below the source list,
+   constrained to the filter-block-source margin. */
 .scope-banner {
   position: relative;
-  margin: 8px 40px 14px;
-  padding: 12px 40px 12px 16px;
+  margin: 12px 0 0;
+  padding: 10px 26px 10px 12px;
   background: var(--preview-soft);
   border-left: 3px solid var(--preview);
   font-family: var(--body);
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 12px;
+  line-height: 1.5;
   color: var(--ink-2);
 }
 .scope-banner .folio {
@@ -206,6 +273,7 @@
   border-bottom: 1px solid var(--rule);
   padding: 18px 40px;
   background: var(--paper);
+  flex: 0 0 auto;
 }
 .searchbar-inner {
   display: flex;
@@ -424,6 +492,69 @@
   font-feature-settings: "tnum";
 }
 
+/* v19.43: progressive disclosure — Export, Copy link, and Save search
+   only show once there are results to operate on. On first paint with
+   no query / no results, the searchbar shrinks to: prompt + input +
+   clear + ? + count. Decluttered to ~6 elements (vs. 14). */
+body:not(.has-results) #export-menu,
+body:not(.has-results) #copy-link,
+body:not(.has-results) #save-search,
+body:not(.has-results) .result-breakdown {
+  display: none !important;
+}
+
+/* v19.43: "More views…" disclosure for the result-grouping segmented
+   control. Hides "By treaty body" (rare) behind a … chip; click to
+   reveal. Keeps the default Paragraphs/Documents segment clean. */
+.result-more-views {
+  display: inline-block;
+  position: relative;
+}
+.result-more-views > summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  /* inherits .result-opt styling for consistent look */
+}
+.result-more-views > summary::-webkit-details-marker { display: none; }
+.result-opt-more {
+  font-size: 14px !important;
+  letter-spacing: 0.05em;
+  padding: 4px 12px !important;
+}
+.result-more-views[open] > summary {
+  background: var(--paper-3);
+  color: var(--garnet);
+}
+.result-more-views-pop {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+}
+.result-more-views-pop .result-opt {
+  text-align: left;
+  white-space: nowrap;
+}
+/* When "By body" is the active group, replace the … chip with a
+   visible affordance so users can tell their selection is in there. */
+.result-more-views.has-active-child > summary {
+  background: var(--garnet);
+  color: var(--paper);
+}
+.result-more-views.has-active-child > summary::after {
+  content: " ✓";
+  font-size: 11px;
+}
+
 /* Copy link to current search */
 .copy-link-btn {
   flex-shrink: 0;
@@ -593,14 +724,227 @@
   padding: 2px 0;
 }
 
-/* ─────────────  LAYOUT  ───────────── */
+/* ─────────────  LAYOUT  ─────────────
+   v19.43-fix3: the layout is the flex-fill child of section[data-view].
+   It takes all remaining viewport height below mast/searchbar/scope,
+   and each of its three visible columns gets its own overflow:auto.
+   No sticky any more — sticky was a workaround for window-scroll, which
+   no longer exists in this app-shell.
+   v19.43-fix4: explicit grid-template-rows: minmax(0, 1fr). Without it
+   grid creates an implicit auto row whose height = max content height
+   (7,000+ result rows), defeating the bounded flex container and
+   breaking nested scroll. The single 1fr row consumes all available
+   parent height; minmax(0, …) allows it to shrink below content. */
 .layout {
   display: grid;
   /* 4-column grid (v15): filters · results · resize-gutter · dossier.
      The 6 px gutter holds a draggable separator that lets the user resize
      the dossier; the variable --col-dossier is updated live during drag. */
   grid-template-columns: var(--col-filters) minmax(0, 1fr) 6px var(--col-dossier);
-  min-height: calc(100vh - 360px);
+  grid-template-rows: minmax(0, 1fr);
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;       /* children handle their own scroll */
+}
+/* v19.43-fix5: explicit height + min-height on grid items so each
+   visible column is a definite-height scroll container in every
+   engine. Without this Chrome has been letting overflow:auto resolve
+   against an indefinite height in column scenarios. */
+.layout > .filters,
+.layout > .results,
+.layout > .dossier {
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+}
+/* v19.43-fix2: when no paragraph is selected, hide the dossier
+   ENTIRELY (column collapses to 0). The result list reclaims the full
+   freed horizontal space. The dossier and resize handle reappear the
+   moment a paragraph is clicked (state.activeId set → body class
+   removed). Keeps the first-paint reading view focused on results. */
+body.dossier-collapsed .layout {
+  grid-template-columns: var(--col-filters) minmax(0, 1fr) 0 0;
+}
+body.dossier-collapsed .dossier-resizer,
+body.dossier-collapsed .dossier {
+  display: none !important;
+}
+.dossier-rail {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+}
+.dossier-rail .folio.garnet {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  letter-spacing: 0.18em;
+  font-size: 9px;
+  color: var(--garnet);
+  white-space: nowrap;
+  margin-top: 12px;
+  user-select: none;
+}
+
+/* ─────────  v19.43: Welcome card + Tour overlay ───────── */
+
+/* "First visit?" card — appears bottom-right, dismissible.
+   v19.43-fix1: stronger visual presence — bigger card, larger garnet
+   accent, glowing pulse-shadow that calls attention without screaming.
+   The pulse fades after 6 seconds so it doesn't pulse forever. */
+.welcome-card {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  padding: 22px 24px 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-top: 6px solid var(--garnet);
+  border-radius: 4px;
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 0 0 1px var(--rule);
+  font-family: var(--display);
+  animation:
+    welcomeFadeIn 0.45s ease-out,
+    welcomePulse  2s ease-out 0.5s 3;
+}
+@keyframes welcomeFadeIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)     scale(1);    }
+}
+@keyframes welcomePulse {
+  0%   { box-shadow:
+           0 14px 40px rgba(0, 0, 0, 0.18),
+           0 2px 8px rgba(0, 0, 0, 0.08),
+           0 0 0 1px var(--rule),
+           0 0 0 0   rgba(139, 26, 26, 0.45); }
+  60%  { box-shadow:
+           0 14px 40px rgba(0, 0, 0, 0.18),
+           0 2px 8px rgba(0, 0, 0, 0.08),
+           0 0 0 1px var(--rule),
+           0 0 0 14px rgba(139, 26, 26, 0); }
+  100% { box-shadow:
+           0 14px 40px rgba(0, 0, 0, 0.18),
+           0 2px 8px rgba(0, 0, 0, 0.08),
+           0 0 0 1px var(--rule),
+           0 0 0 0   rgba(139, 26, 26, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-card { animation: welcomeFadeIn 0.2s ease-out; }
+}
+.welcome-card .folio.garnet {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+.welcome-card-lede {
+  margin: 10px 0 16px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.welcome-card-actions { display: flex; flex-direction: column; gap: 6px; }
+.welcome-card-start,
+.welcome-card-skip {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.welcome-card-start {
+  background: var(--garnet);
+  color: var(--paper);
+  border-color: var(--garnet);
+}
+.welcome-card-start:hover { background: var(--garnet-2, #6e1414); }
+.welcome-card-dismiss {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  font-size: 18px;
+  color: var(--ink-3);
+  cursor: pointer;
+  line-height: 1;
+}
+.welcome-card-dismiss:hover { color: var(--garnet); }
+
+/* Tour overlay — backdrop with a transparent cutout (spotlight) and
+   a popover positioned next to the highlighted element. */
+.tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: auto;
+}
+/* The dimmed backdrop is implemented via a giant box-shadow on the
+   spotlight div — the cutout is the spotlight rectangle itself, and
+   the box-shadow extends outward to cover the whole viewport. */
+.tour-spotlight {
+  position: absolute;
+  border-radius: 4px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  transition: top 0.2s ease, left 0.2s ease, width 0.2s ease, height 0.2s ease;
+  outline: 2px solid var(--garnet);
+  outline-offset: 2px;
+}
+.tour-popover {
+  position: absolute;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  padding: 18px 20px 14px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  font-family: var(--display);
+}
+.tour-popover .folio.garnet { font-size: 10px; letter-spacing: 0.1em; }
+.tour-popover h3 {
+  margin: 6px 0 8px;
+  font-size: 18px;
+  line-height: 1.25;
+}
+.tour-popover p {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.tour-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tour-spacer { flex: 1 1 auto; }
+.tour-actions .btn { font-size: 13px; padding: 6px 12px; }
+.tour-actions .btn:not(.btn-ghost) {
+  background: var(--garnet);
+  color: var(--paper);
+  border-color: var(--garnet);
+}
+.tour-actions .btn:not(.btn-ghost):hover { background: var(--garnet-2, #6e1414); }
+.tour-actions .btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+/* "Tour" button in the masthead nav — small, ghost-style, a touch
+   smaller than the regular nav links. */
+.mast-tour-btn {
+  font-size: 12px;
+  padding: 4px 10px;
+  margin-left: 6px;
 }
 
 /* Resize handle between results and dossier. Invisible by default, shows
@@ -629,15 +973,15 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   .dossier-resizer { display: none; }
 }
 
-/* ─────────────  FILTERS  ───────────── */
+/* ─────────────  FILTERS  ─────────────
+   v19.43-fix3: not sticky any more — the .layout grid cell already has
+   bounded height (it's a flex-fill child of section[data-view]), so
+   overflow-y:auto naturally produces a scoped scroll context. */
 .filters {
   border-right: 1px solid var(--rule);
   padding: 24px;
   overflow-y: auto;
-  /* v19.20: offset below the sticky mast; --mast-h is kept in sync by JS */
-  max-height: calc(100vh - var(--mast-h, 96px) - 24px);
-  position: sticky;
-  top: var(--mast-h, 96px);
+  min-height: 0;
 }
 .filter-block {
   margin-bottom: 24px;
@@ -898,10 +1242,14 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
 }
 
 /* ─────────────  RESULTS  ───────────── */
+/* v19.43-fix3: results pane is the primary scroll region of the
+   app-shell. It fills the centre grid cell vertically; the parent
+   .layout has bounded height, so overflow:auto here scopes the
+   scroll to this column only. */
 .results {
   padding: 28px 40px 80px;
   overflow-y: auto;
-  max-height: calc(100vh - 200px);
+  min-height: 0;
 }
 .results-lede .folio { display: block; }
 .results-title {
@@ -932,26 +1280,36 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   align-items: center;
   gap: 8px;
 }
+/* v19.43-fix2: lightened result-segmented controls. The previous
+   "ink-fill" active state was visually too heavy — solid black blocks
+   competing with the editorial mast typography. Replaced with a subtle
+   paper-3 wash + ink underline rule, matching the rest of the site's
+   "newsprint folio" treatment. Border around the cluster is also
+   demoted to --rule so the segmented control reads as one cohesive
+   sub-toolbar, not a hard frame. */
 .result-segmented {
   display: inline-flex;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--rule);
   background: var(--paper);
 }
 .result-opt {
   font-family: var(--display);
   font-size: 12px;
+  letter-spacing: 0.01em;
   background: transparent;
-  color: var(--ink-2);
+  color: var(--ink-3);
   border: 0;
-  border-right: 1px solid var(--ink);
+  border-right: 1px solid var(--rule);
   padding: 5px 11px;
   cursor: pointer;
+  transition: color 120ms ease, background 120ms ease;
 }
 .result-opt:last-child { border-right: 0; }
 .result-opt:hover { background: var(--paper-3); color: var(--ink); }
 .result-opt.is-active {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--paper-3);
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--garnet);
 }
 .result-opt:disabled {
   opacity: 0.45;
@@ -1408,16 +1766,252 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   font-size: 14px;
 }
 
-/* ─────────────  DOSSIER (right panel)  ───────────── */
+/* ─────────────  DOSSIER (right panel)  ─────────────
+   v19.43-fix3: not sticky any more (see .filters comment).
+   v19.43-fix8: app-shell drawer pattern. .dossier itself is a flex
+   column with header (top) + body (scrollable middle) + footer
+   (bottom). Replaces the old single-scroll panel where the close
+   button collided with S/M/L and the 7-button toolbar lived at the
+   end of the scroll (so it disappeared the moment users scrolled). */
 .dossier {
   border-left: 1px solid var(--rule);
   background: var(--paper-2);
-  padding: 24px 24px 60px;
+  padding: 0;
+  overflow: hidden;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dossier-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-2);
+}
+.dossier-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.dossier-kind {
+  letter-spacing: 0.06em;
+}
+.dossier-body {
+  flex: 1 1 0;
+  min-height: 0;
   overflow-y: auto;
-  /* v19.20: offset below sticky mast, same as .filters */
-  max-height: calc(100vh - var(--mast-h, 96px) - 24px);
-  position: sticky;
-  top: var(--mast-h, 96px);
+  padding: 20px 24px 28px;
+}
+.dossier-footer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--rule);
+  background: var(--paper);
+  position: relative;     /* anchor for cite-pop / more-pop */
+}
+
+/* v19.43-fix8: × close button — quiet ghost glyph, no border, sits
+   on the right of the header. Replaces the old absolute-positioned
+   bordered button that collided with S/M/L. */
+.dossier-close {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .12s, color .12s;
+}
+.dossier-close:hover,
+.dossier-close:focus-visible {
+  background: var(--paper-3);
+  color: var(--garnet);
+  outline: none;
+}
+
+/* v19.43-fix10: subtler Cite CTA. Outline-garnet by default (no
+   solid fill); slimmer padding and smaller font. Hover fills with
+   garnet so the action remains discoverable. Visually quieter than
+   the original solid CTA but still reads as primary because of the
+   accent colour and the format chip. */
+.dossier-cta {
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: transparent;
+  border: 1px solid var(--garnet);
+  color: var(--garnet);
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.dossier-cta:hover,
+.dossier-cta:focus-visible {
+  background: var(--garnet);
+  color: var(--paper);
+  outline: none;
+}
+.dossier-cta-icon { font-style: italic; font-size: 14px; line-height: 1; }
+.dossier-cta-label { font-weight: 500; }
+.dossier-cta-fmt {
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 2px 5px;
+  background: var(--garnet-soft, #f5e9e9);
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+  color: var(--garnet);
+  transition: background .12s, color .12s;
+}
+.dossier-cta:hover .dossier-cta-fmt,
+.dossier-cta:focus-visible .dossier-cta-fmt {
+  background: rgba(255,255,255,0.18);
+  color: var(--paper);
+}
+.dossier-cta.is-flash {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.dossier-cta.is-flash .dossier-cta-fmt {
+  background: rgba(255,255,255,0.2);
+  color: var(--paper);
+}
+
+/* v19.43-fix8: secondary icon buttons (Save / Note / Permalink) +
+   the More menu summary. Square 36x36, ghost style, no label. */
+.dossier-icon-btn {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .12s, color .12s, border-color .12s;
+  list-style: none;
+  user-select: none;
+}
+.dossier-icon-btn::-webkit-details-marker { display: none; }
+.dossier-icon-btn:hover {
+  background: var(--paper-3);
+  color: var(--garnet);
+  border-color: var(--ink-3);
+}
+.dossier-icon-btn.on {
+  background: var(--paper-3);
+  color: var(--garnet);
+  border-color: var(--garnet);
+}
+.dossier-icon-btn.is-flash {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* More menu popover — anchored above the toolbar, opens upward so
+   it doesn't get clipped by the bounded drawer footer. */
+.dossier-more {
+  position: relative;
+}
+.dossier-more-summary {
+  cursor: pointer;
+}
+.dossier-more[open] .dossier-more-summary {
+  background: var(--paper-3);
+  color: var(--ink);
+  border-color: var(--ink-3);
+}
+.dossier-more-pop {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  min-width: 240px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding: 6px 0;
+  z-index: 30;
+}
+.dossier-more-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 9px 16px;
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background .1s;
+}
+.dossier-more-opt:hover { background: var(--paper-3); }
+.dossier-more-opt-quiet { color: var(--ink-3); }
+.dossier-more-icon {
+  font-family: var(--mono);
+  font-size: 14px;
+  width: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-3);
+}
+.dossier-more-rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 6px 0;
+}
+.dossier-more-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+}
+.dossier-more-display .folio { font-size: 10px; color: var(--ink-3); flex: 0 0 auto; }
+.dossier-more-display .dossier-font-controls {
+  margin: 0;
+}
+
+/* v19.43-fix8: cite popover repositioned to anchor on the footer's
+   "More" trigger. Opens upward (bottom-positioned) so it doesn't
+   get clipped at the bottom of the drawer. */
+.dossier-footer .cite-pop {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 14px;
+  min-width: 280px;
+  z-index: 31;
 }
 .dossier-empty {
   color: var(--ink-3);
@@ -1492,12 +2086,8 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   color: var(--ink);
   background: var(--paper-3, #f0e9e1);
 }
-.dossier-folio-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+/* v19.43-fix8: .dossier-folio-row + the absolute-positioned close
+   button were superseded by .dossier-header. Old rules removed. */
 .dossier-country {
   color: var(--ink-2);
   font-style: italic;
@@ -1653,6 +2243,91 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   color: var(--garnet);
 }
 
+/* v19.43-fix7: context-aware quote block.
+   Surrounding paragraphs (.dossier-context-para, no -active) are
+   dimmed prose without any bar; the active paragraph keeps the
+   garnet rule + italic display face it always had. Click on a
+   context paragraph promotes it to active (handled in JS). */
+.dossier-context {
+  margin: 16px 0 0;
+}
+.dossier-context-section {
+  font-size: 10px;
+  color: var(--ink-3);
+  margin-bottom: 10px;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+.dossier-context-section .dossier-bc-seg { color: var(--garnet); }
+.dossier-context-section .dossier-bc-sep {
+  color: var(--ink-4);
+  margin: 0 6px;
+}
+.dossier-context-para {
+  display: block;
+  padding: 10px 0 10px 14px;
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  transition: background .12s ease, border-color .12s ease;
+}
+.dossier-context-para:hover {
+  background: var(--paper-3);
+  border-left-color: var(--rule);
+}
+.dossier-context-para .dossier-context-num {
+  font-size: 10px;
+  color: var(--ink-4);
+  display: block;
+  margin-bottom: 3px;
+}
+.dossier-context-prose {
+  font-family: var(--body);
+  font-size: calc(13px * var(--dossier-font, 1));
+  color: var(--ink-3);
+  line-height: 1.55;
+  margin: 0;
+}
+/* The active paragraph: garnet rule, italic display face, full
+   weight. Inherits the original .dossier blockquote styling. */
+.dossier-context-active {
+  padding: 0;
+  cursor: default;
+  border-left: 0;
+  background: transparent;
+}
+.dossier-context-active:hover {
+  background: transparent;
+  border-left-color: transparent;
+}
+.dossier-context-active blockquote {
+  margin: 6px 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--garnet);
+  color: var(--ink-2);
+  background: var(--paper-3);
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 12px;
+}
+.dossier-expand-section {
+  display: inline-block;
+  margin: 14px 0 0;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink-3);
+  font-family: var(--display);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.dossier-expand-section:hover {
+  background: var(--paper-3);
+  color: var(--garnet);
+  border-color: var(--garnet-edge);
+}
+
 .dossier blockquote {
   margin: 16px 0 0;
   padding-left: 14px;
@@ -1678,33 +2353,37 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
 .dossier blockquote .pn { font-size: calc(11px * var(--dossier-font, 1)); }
 .dossier-dp .v          { font-size: calc(13px * var(--dossier-font, 1)); }
 
-/* v15: tiny S/M/L cluster sitting in the dossier header. Mirrors the
-   reading-mode toggle button visually. */
+/* v15: tiny S/M/L cluster.
+   v19.43-fix10: lives in the .dossier-header now (between the kind
+   folio and ×). Even smaller: 10 px font, 2 px vertical padding, so
+   it doesn't compete visually with × or the GENERAL COMMENT folio. */
 .dossier-font-controls {
   display: inline-flex;
   align-items: center;
   gap: 0;
-  margin-left: auto;
+  flex: 0 0 auto;
   border: 1px solid var(--rule);
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
 }
 .dossier-font-controls button {
   border: 0;
   background: transparent;
-  padding: 3px 8px;
+  padding: 2px 7px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10px;
+  line-height: 1.4;
   cursor: pointer;
   color: var(--ink-3);
+  letter-spacing: 0.04em;
 }
 .dossier-font-controls button + button { border-left: 1px solid var(--rule); }
 .dossier-font-controls button:hover { background: var(--paper-3); color: var(--ink); }
 .dossier-font-controls button.is-active {
-  background: var(--garnet);
+  background: var(--ink);
   color: var(--paper);
 }
-.dossier-folio-row { align-items: center; }
+/* v19.43-fix8: .dossier-folio-row removed (replaced by .dossier-header). */
 
 /* v18: unified dossier toolbar — replaces the old two-row layout
    (dossier-workspace + dossier-actions) with one flex strip of equal-
@@ -1778,7 +2457,7 @@ body.is-reading-mode .dossier-empty {
   text-align: center;
   padding: 80px 20px;
 }
-body.is-reading-mode .dossier-folio-row,
+body.is-reading-mode .dossier-header-meta,
 body.is-reading-mode .dossier-title,
 body.is-reading-mode .dossier-sig {
   text-align: left;
@@ -1884,21 +2563,30 @@ body.is-reading-mode .reading-mode-btn {
 /* Push the dossier down so the bar doesn't cover the title. */
 body.is-reading-mode .dossier { padding-top: 64px; }
 
-/* ─────────────  FOOTER  ───────────── */
+/* ─────────────  FOOTER  ─────────────
+   v19.43-fix6: drop margin-top:40px. In the old window-scroll layout
+   that gave the foot room to breathe after long pages of results;
+   in app-shell the page never scrolls, so this margin is just 40 px
+   of dead viewport space below the bounded results pane. */
 .foot {
   border-top: 1px solid var(--ink);
   background: var(--paper-2);
-  margin-top: 40px;
+  flex: 0 0 auto;
 }
+/* v19.43-fix9: tighter footer. 16→6 px vertical padding, body font
+   from 13→11 px, link font from 13→11 px. Recovers ~26 px of
+   viewport for the results pane. The folio "BUILD …" + colophon
+   line remains readable but stops eating premium real estate. */
 .foot-inner {
-  padding: 16px 40px;
+  padding: 6px 40px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
+  font-size: 11px;
 }
 .foot-link {
-  font-size: 13px;
+  font-size: 11px;
   font-style: italic;
   color: var(--garnet);
   text-decoration: none;
@@ -1913,6 +2601,7 @@ body.is-reading-mode .dossier { padding-top: 64px; }
   border-bottom: 0.5px solid var(--garnet-edge);
   cursor: pointer;
   font-family: var(--display);
+  font-size: 11px;
   padding: 0;
 }
 
@@ -1956,10 +2645,16 @@ body.is-reading-mode .dossier { padding-top: 64px; }
   color: var(--ink-3);
 }
 
-/* ─────────────  VIEW ROUTING  ───────────── */
+/* ─────────────  VIEW ROUTING  ─────────────
+   v19.43-fix6: the active view is shown as `display: flex` (was
+   `display: block`). The app-shell layout up top defines section
+   [data-view] as a flex column container; the previous block override
+   here was higher-specificity and silently neutered the whole flex
+   chain — section.height collapsed to content (6000+ px) and main.layout
+   never got bounded, so nothing inside scrolled. */
 section[data-view] { display: none; }
-body[data-active-view="search"]    section[data-view="search"]    { display: block; }
-body[data-active-view="documents"] section[data-view="documents"] { display: block; }
+body[data-active-view="search"]    section[data-view="search"]    { display: flex; }
+body[data-active-view="documents"] section[data-view="documents"] { display: flex; }
 body[data-active-view="workspace"] section[data-view="workspace"] { display: block; }
 body[data-active-view="about"]     section[data-view="about"]     { display: block; }
 
@@ -1967,6 +2662,7 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .docs-mast {
   border-bottom: 1px solid var(--rule);
   background: var(--paper);
+  flex: 0 0 auto;
 }
 .docs-mast-inner {
   max-width: 1280px;
@@ -2157,13 +2853,29 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 /* ─────────────  DOCUMENTS VIEW · 3-PANE READER (v17)  ─────────────
    Layout:  rail (260px)  ·  centre (1fr)  ·  drawer (320px / collapsed 32px)
    On <980px viewports the rail moves above the body and the drawer hides. */
+/* v19.43-fix3: docs-reader is the flex-fill child of section[data-view="documents"].
+   Its grid children each scroll internally; the docs-mast above it stays
+   at the top of the section in normal flow.
+   v19.43-fix4: explicit single-row track (minmax(0, 1fr)) so the grid
+   row consumes parent height instead of expanding to content. */
 .docs-reader {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr) 320px;
+  grid-template-rows: minmax(0, 1fr);
   gap: 0;
   max-width: 1600px;
   margin: 0 auto;
-  min-height: calc(100vh - 240px);
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.docs-reader > .docs-rail,
+.docs-reader > .docs-reader-body,
+.docs-reader > .docs-drawer {
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
 }
 .docs-reader > .docs-rail        { border-right: 1px solid var(--rule); background: var(--paper-2); }
 .docs-reader > .docs-reader-body { background: var(--paper); }
@@ -2179,13 +2891,13 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   .docs-reader > .docs-rail { border-right: 0; border-bottom: 1px solid var(--rule); max-height: 220px; overflow-y: auto; }
 }
 
-/* RAIL ─────────────────────────────────────────────────────── */
+/* RAIL ───────────────────────────────────────────────────────
+   v19.43-fix3: not sticky — docs-reader has bounded height and the
+   rail is a grid column with overflow:auto. */
 .docs-rail {
-  position: sticky;
-  top: var(--mast-h, 96px);
-  max-height: calc(100vh - var(--mast-h, 96px));
   overflow-y: auto;
   padding: 0;
+  min-height: 0;
 }
 .docs-rail-tools {
   position: sticky;
@@ -2274,7 +2986,7 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .docs-reader-body {
   padding: 24px 56px 80px;
   overflow-y: auto;
-  max-height: calc(100vh - 0px);
+  min-height: 0;
   scroll-padding-top: 80px;
 }
 .docs-reader-empty {
@@ -2317,12 +3029,60 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .docs-reader-stream {
   max-width: 720px;
 }
+/* v19.43: depth-based section hierarchy in the document reader.
+   Each <h3.docs-reader-section> carries a depth-N class. Only the
+   levels that CHANGED since the previous paragraph are emitted; the
+   right-pane outline keeps the full hierarchy + scroll-spy
+   highlighting so users always know where they are. */
 .docs-reader-section {
   font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--garnet);
+}
+/* Top-level (Roman): full editorial mast, separator rule, ALL CAPS */
+.docs-reader-section.depth-0 {
+  font-size: 11px;
+  text-transform: uppercase;
+  margin: 36px 0 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-soft);
+}
+/* Sub-level (Letter): smaller, no rule, slight indent */
+.docs-reader-section.depth-1 {
+  font-size: 11px;
+  text-transform: none;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-2, #333);
+  margin: 22px 0 8px 16px;
+  padding-top: 0;
+  border-top: 0;
+}
+/* Sub-sub-level (Arabic): smallest, italic, more indent */
+.docs-reader-section.depth-2 {
+  font-size: 10px;
+  text-transform: none;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: var(--ink-3, #555);
+  margin: 14px 0 6px 32px;
+  padding-top: 0;
+  border-top: 0;
+}
+/* Deepest level (rarely used): even more dim */
+.docs-reader-section.depth-3 {
+  font-size: 9.5px;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: var(--ink-4, #777);
+  margin: 10px 0 4px 48px;
+  padding-top: 0;
+  border-top: 0;
+}
+/* Fallback for legacy section headers without depth class */
+.docs-reader-section:not([class*="depth-"]) {
+  font-size: 11px;
+  text-transform: uppercase;
   margin: 36px 0 12px;
   padding-top: 14px;
   border-top: 1px solid var(--rule-soft);
@@ -2352,6 +3112,99 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   font-size: 10px;
 }
 .docs-reader-para-marker .mono { color: var(--ink-4); font-size: 11px; }
+/* v19.43: preamble-entry badge — replaces "¶0" on isPreamble paragraphs */
+.docs-reader-para-marker .docs-preamble-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  font-family: var(--mono-stack, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--garnet, #8b1a1a);
+  background: var(--garnet-bg, rgba(139, 26, 26, 0.08));
+  border: 1px solid var(--garnet-border, rgba(139, 26, 26, 0.25));
+  border-radius: 3px;
+  white-space: nowrap;
+}
+/* v19.43: Cite + Copy actions — progressive-disclosure pattern.
+   At rest, only the ¶N marker and ☆ bookmark are visible. The cite +
+   copy actions reveal on hover, keyboard focus (:focus-within from any
+   descendant), or when the paragraph is the active one (set by click /
+   touch / URL deep-link).  Mirrors Notion/Linear/GitHub paragraph-
+   handle UX: clean reading mode, contextual actions on demand. */
+.docs-reader-para-marker .docs-para-act {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 1px 0;
+  margin: 0;
+  font-family: var(--mono-stack, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--ink-3, #555);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease, color 120ms ease;
+}
+/* Reveal triggers — hover, keyboard focus inside the para, or active state */
+.docs-reader-para:hover .docs-para-act,
+.docs-reader-para:focus-within .docs-para-act,
+.docs-reader-para.is-active .docs-para-act {
+  opacity: 1;
+  pointer-events: auto;
+}
+.docs-reader-para-marker .docs-para-act .mono {
+  border-bottom: 1px dotted transparent;
+  padding-bottom: 1px;
+}
+.docs-reader-para-marker .docs-para-act:hover {
+  color: var(--garnet);
+}
+.docs-reader-para-marker .docs-para-act:hover .mono {
+  border-bottom-color: var(--garnet);
+}
+.docs-reader-para-marker .docs-para-act-cite { color: var(--garnet); }
+.docs-reader-para-marker .docs-para-act-cite .mono { font-weight: 600; }
+.docs-reader-para-marker .docs-para-act.is-flash {
+  color: var(--paper) !important;
+  background: var(--garnet);
+  padding: 1px 4px;
+  border-radius: 2px;
+  opacity: 1;        /* keep visible during the flash even on mouse-out */
+}
+.docs-reader-para-marker .docs-para-act.is-flash .mono { border-bottom-color: transparent; }
+/* Slim vertical spacing between marker number, bookmark, and acts */
+.docs-reader-para-marker .docs-para-act-cite { margin-top: 6px; }
+.docs-reader-para-marker .docs-para-act-copy { margin-top: 1px; }
+/* Touch-device polish: ensure actions are reachable when the paragraph
+   is active, since :hover doesn't really exist on touch. */
+@media (hover: none) {
+  .docs-reader-para .docs-para-act { transition: opacity 0ms; }
+}
+
+/* v19.43: footnote popover now shows resolvedText for Ibid./See-note./
+   See-para. references. The literal text appears at the top, then a
+   small label, then the resolved citation in italics. */
+.fn-popover-literal {
+  font-style: italic;
+  color: var(--ink-3, #555);
+  margin-bottom: 6px;
+}
+.fn-popover-resolved-label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  margin-top: 8px;
+  margin-bottom: 3px;
+  color: var(--garnet);
+}
+.fn-popover-resolved {
+  color: var(--ink);
+}
 .docs-reader-para-marker .docs-para-bm,
 .docs-reader-para-marker .docs-para-pin,
 .docs-reader-para-marker .docs-para-cite {
@@ -2384,13 +3237,12 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   margin: 0;
 }
 
-/* DRAWER ─────────────────────────────────────────────────────── */
+/* DRAWER ───────────────────────────────────────────────────────
+   v19.43-fix3: not sticky — bounded by docs-reader grid cell. */
 .docs-drawer {
-  position: sticky;
-  top: var(--mast-h, 96px);
-  max-height: calc(100vh - var(--mast-h, 96px));
   overflow-y: auto;
   padding: 0;
+  min-height: 0;
 }
 .docs-drawer-collapse {
   position: absolute;
@@ -2427,7 +3279,7 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 }
 .docs-outline-link {
   display: grid;
-  grid-template-columns: 36px 1fr;
+  grid-template-columns: 56px 1fr;
   gap: 8px;
   align-items: baseline;
   padding: 5px 8px;
@@ -2443,7 +3295,46 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   color: var(--ink);
   border-left-color: var(--garnet);
 }
+/* v19.43: scroll-spy highlight — the outline entry that the topmost
+   visible paragraph belongs to gets a garnet bar + paper-3 wash, so
+   the user always knows their location in the hierarchy without the
+   middle pane having to repeat the full path on every section break. */
+.docs-outline-link.is-active {
+  background: var(--paper-3);
+  color: var(--ink);
+  border-left-color: var(--garnet);
+  border-left-width: 3px;
+}
+.docs-outline-link.is-active .docs-outline-leaf {
+  color: var(--garnet);
+  font-weight: 600;
+}
+.docs-outline-link.is-active .docs-outline-ancestors {
+  color: var(--ink-3, #555);
+}
 .docs-outline-link .mono { color: var(--ink-4); font-size: 10px; }
+/* v19.43: each unique section appears ONCE in the outline, with its
+   paragraph range, the leaf heading prominent and any ancestor chain
+   shown faintly underneath.  Indent by depth so nested sub-sections
+   read as a tree. */
+.docs-outline-item.depth-1 { padding-left: 8px; }
+.docs-outline-item.depth-2 { padding-left: 16px; }
+.docs-outline-item.depth-3 { padding-left: 24px; }
+.docs-outline-leaf {
+  display: block;
+  font-weight: 500;
+  color: var(--ink);
+}
+.docs-outline-ancestors {
+  display: block;
+  font-size: 10px;
+  font-style: italic;
+  margin-top: 1px;
+  color: var(--ink-4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .docs-drawer-active {
   font-size: 11px;
@@ -3361,22 +4252,197 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   border: 1px solid var(--rule);
 }
 
+/* v19.43: methodology block — full-width grid cell so the intro
+   paragraph + accordion sub-topics get a comfortable reading column. */
+.about-block-methodology { grid-column: 1 / -1; }
+.about-block-methodology p { max-width: 78ch; }
+
+/* In-page TOC strip — chip-style links to each accordion section.
+   Sits between the always-visible intro and the collapsible details. */
+.about-method-toc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+  margin: 16px 0 12px;
+  padding: 10px 12px;
+  background: var(--paper-3);
+  border-left: 3px solid var(--garnet);
+  border-radius: 2px;
+  font-family: var(--display);
+  font-size: 13px;
+}
+.about-method-toc .folio.dim {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+.about-method-toc-link {
+  color: var(--ink);
+  border-bottom: 1px dotted var(--ink-4);
+  text-decoration: none;
+  padding-bottom: 1px;
+  transition: color 100ms, border-color 100ms;
+}
+.about-method-toc-link:hover {
+  color: var(--garnet);
+  border-bottom-color: var(--garnet);
+}
+
+/* Accordion details */
+.about-method-detail {
+  border-top: 1px solid var(--rule);
+  padding: 10px 0;
+}
+.about-method-detail:first-of-type { border-top: 1px solid var(--rule); }
+.about-method-detail[open] {
+  background: linear-gradient(to bottom,
+              rgba(139, 26, 26, 0.025), rgba(139, 26, 26, 0));
+}
+.about-method-summary {
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  cursor: pointer;
+  padding: 4px 0;
+  outline: none;
+  user-select: none;
+}
+.about-method-summary::-webkit-details-marker { display: none; }
+.about-method-summary::before {
+  content: "›";
+  display: inline-block;
+  font-family: var(--mono-stack, ui-monospace, "SF Mono", Menlo, monospace);
+  color: var(--garnet);
+  font-size: 16px;
+  width: 14px;
+  text-align: center;
+  transition: transform 150ms ease;
+  transform-origin: center;
+}
+.about-method-detail[open] .about-method-summary::before {
+  transform: rotate(90deg);
+}
+.about-method-summary-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  letter-spacing: 0.005em;
+}
+.about-method-summary-hint {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.about-method-summary:hover .about-method-summary-title { color: var(--garnet); }
+.about-method-summary:focus-visible {
+  outline: 2px solid var(--garnet);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.about-method-body {
+  padding: 4px 0 8px 26px;       /* indent under the chevron */
+}
+.about-method-body p { margin-top: 0; }
+
 /* ─────────────  RESPONSIVE  ───────────── */
 @media (max-width: 1100px) {
   :root { --col-filters: 220px; --col-dossier: 300px; }
   .results { padding: 24px 24px 60px; }
 }
+/* v19.43-fix14: at narrow widths the app-shell (locked 100vh,
+   nested overflow chain) is the wrong pattern — it fights iOS Safari
+   viewport quirks and squeezes the 4-column layout into unusable
+   slivers. Below 900 px we revert to natural document flow: body
+   scrolls, panes stack, dossier becomes a fullscreen overlay. */
 @media (max-width: 900px) {
-  .layout { grid-template-columns: 1fr; }
-  .filters, .dossier {
-    position: static;
+  html, body {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+  body { display: block; }
+  section[data-view] {
+    display: block;
+    flex: none;
+    overflow: visible;
+  }
+  section[data-view="search"],
+  section[data-view="documents"] {
+    overflow: visible;
+  }
+  .layout {
+    display: block;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    flex: none;
+    overflow: visible;
+  }
+  .layout > .filters,
+  .layout > .results,
+  .layout > .dossier {
+    height: auto;
     max-height: none;
+    overflow: visible;
+  }
+  .filters {
     border-right: 0;
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 20px;
+  }
+  .results { padding: 20px 20px 60px; }
+  /* Drawer becomes a fullscreen overlay on narrow viewports — slides
+     in over the results, dismissed via × or Esc as on desktop. */
+  body:not(.dossier-collapsed) .dossier {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
     border-left: 0;
+    background: var(--paper);
+    overflow: hidden;       /* internal flex column owns scroll */
+  }
+  .dossier-resizer { display: none; }
+  /* Documents view: stack rail above body, drop right drawer. */
+  .docs-reader {
+    display: block;
+    grid-template-columns: 1fr;
+    flex: none;
+    overflow: visible;
+  }
+  .docs-reader > .docs-rail {
+    height: auto;
+    max-height: 240px;
+    border-right: 0;
     border-bottom: 1px solid var(--rule);
   }
-  .mast, .scope-inner, .searchbar, .foot-inner { padding-left: 20px; padding-right: 20px; }
-  .results { padding: 20px; }
+  .docs-reader > .docs-reader-body {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+  .docs-reader > .docs-drawer { display: none; }
+  /* Mast collapses subtitle on phones to save vertical real estate. */
+  .mast { padding: 10px 20px 8px; }
+  .mast-title { font-size: 24px; }
+  .mast-sub { display: none; }
+  #mast-folio { font-size: 9px; }
+  .mast-row { gap: 12px; }
+  .mast-nav { gap: 12px; font-size: 13px; }
+  .mast-tour-btn { display: none; }       /* save space; tour still reachable from welcome card */
+  .searchbar { padding: 12px 20px; }
+  .searchbar-inner { gap: 8px; flex-wrap: wrap; }
+  .foot-inner { padding: 8px 20px; font-size: 10px; }
+}
+@media (max-width: 600px) {
+  /* Phone-only: tighter spacing, bigger touch targets. */
+  .filter-block { margin-bottom: 16px; }
+  .scope-opt { padding: 10px 12px; }
+  .result { padding: 14px 0; }
+  .dossier-cta { padding: 8px 14px; font-size: 13px; }
+  .dossier-icon-btn { width: 40px; height: 40px; font-size: 18px; }
 }
 @media (max-width: 700px) {
   .results-tools { align-items: flex-start; }

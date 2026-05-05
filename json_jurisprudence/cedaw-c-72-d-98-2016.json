@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [],
     "Text": "The author is K.K., a Russian national born in 1983. She claims a violation of her rights guaranteed by articles 2 (b), (d) and (e), 5 (a) and 7 (c) of the Convention. The Russian Federation ratified the Convention and the Optional Protocol thereto on 23 January 1981 and 28 July 2004, respectively."
   },
@@ -24,7 +24,13 @@
     "ID": "2.3.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "On 9 November 2013, the author filed a civil lawsuit against Mr. Milonov with the Oktyabrsky District Court of Saint Petersburg asking the court to protect her honour and dignity and to recognize a violation of her moral rights. The case was transferred to the Kirovsky District Court, due to its jurisdiction. On 29 April 2014, the lawsuit was rejected, in a decision stating that there was no evidence proving that the defendant had made offensive statements."
+    "Text": "On 9 November 2013, the author filed a civil lawsuit against Mr. Milonov with the Oktyabrsky District Court of Saint Petersburg asking the court to protect her honour and dignity and to recognize a violation of her moral rights.[[fn:1]] The case was transferred to the Kirovsky District Court, due to its jurisdiction. On 29 April 2014, the lawsuit was rejected, in a decision stating that there was no evidence proving that the defendant had made offensive statements.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "In addition, the filings contained requests to prohibit the defendant from using offensive words and expressions in reference to the author and to recover compensation and moral harm in the amount of 100,000 roubles."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -73,7 +79,13 @@
     "ID": "4.1.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "On 6 May 2016, the State party submitted its observations on the admissibility of the communication. According to it, the communication is inadmissible, because the author has not exhausted all available domestic remedies, given that she has not appealed the decision of the Kirovsky District Court to the Supreme Court of the Russian Federation under the cassation procedure. The State party notes that, in accordance with the Civil Procedure Code, a cassation appeal may be submitted within six months from the date on which a court decision enters into force, and that, if the deadline is missed, an appellant may petition the court to extend the deadline. The State party refers to the case concerning Abramyan v. Russian Federation, in which the European Court of Human Rights ruled that, before submitting a complaint to the Court, an appellant must exhaust cassation appeals, which in that case applied to a regional cassation court and to the Supreme Court of the Russian Federation."
+    "Text": "On 6 May 2016, the State party submitted its observations on the admissibility of the communication. According to it, the communication is inadmissible, because the author has not exhausted all available domestic remedies, given that she has not appealed the decision of the Kirovsky District Court to the Supreme Court of the Russian Federation under the cassation procedure. The State party notes that, in accordance with the Civil Procedure Code, a cassation appeal may be submitted within six months from the date on which a court decision enters into force, and that, if the deadline is missed, an appellant may petition the court to extend the deadline. The State party refers to the case concerning Abramyan v. Russian Federation,[[fn:2]] in which the European Court of Human Rights ruled that, before submitting a complaint to the Court, an appellant must exhaust cassation appeals, which in that case applied to a regional cassation court and to the Supreme Court of the Russian Federation.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "See European Court of Human Rights, Abramyan et al. v. Russian Federation (applications Nos. 38951/13 and 59611/13), judgment of 12 May 2015."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -105,13 +117,29 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author further submits that, in her case, the deadline for a cassation appeal expired on 15 April 2015 (six months from the issuance of the appellate court decision), and the decision of the European Court of Human Rights in Abramyan v. Russian Federation was adopted on 15 May 2015. Before that case, the European Court of Human Rights and the United Nations treaty bodies had recognized first and second instance courts as effective legal remedies within the civil procedure of the Russian Federation, whereas the courts of higher authority, and the related supervisory review procedure, were not recognized as such. The author asserts that, after the ruling in the Abramyan case, the State amended the domestic civil procedure law by renaming the cassation instance as appellate, and the supervisory review instance as cassation. At the time in which the initial submission in the present communication was submitted, the author relied on the existing approach that only the appellate court constituted an effective legal remedy. The author notes that the Committee on the Elimination of Discrimination against Women has already recognized the ineffectiveness of the cassation and supervisory appeal processes within the framework of the amended Civil Procedure Code of the Russian Federation."
+    "Text": "The author further submits that, in her case, the deadline for a cassation appeal expired on 15 April 2015 (six months from the issuance of the appellate court decision), and the decision of the European Court of Human Rights in Abramyan v. Russian Federation was adopted on 15 May 2015. Before that case, the European Court of Human Rights and the United Nations treaty bodies had recognized first and second instance courts as effective legal remedies within the civil procedure of the Russian Federation, whereas the courts of higher authority, and the related supervisory review procedure, were not recognized as such.[[fn:3]] The author asserts that, after the ruling in the Abramyan case, the State amended the domestic civil procedure law by renaming the cassation instance as appellate, and the supervisory review instance as cassation. At the time in which the initial submission in the present communication was submitted, the author relied on the existing approach that only the appellate court constituted an effective legal remedy. The author notes that the Committee on the Elimination of Discrimination against Women has already recognized the ineffectiveness of the cassation and supervisory appeal processes within the framework of the amended Civil Procedure Code of the Russian Federation.[[fn:4]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Nikolai Alekseev v. Russian Federation (CCPR/C/109/D/1873/2009), para. 8.4."
+      },
+      {
+        "n": 4,
+        "text": "Medvedeva v. Russian Federation (CEDAW/C/63/D/60/2013), paras. 10.3–10.5."
+      }
+    ]
   },
   {
     "ID": "5.4.",
     "Section": "Author’s comments on the State party’s observations on admissibility",
     "Labels": [],
-    "Text": "With regard to the appeal to the Ombudsperson of the Russian Federation, the author submits that such an appeal does not constitute and is not recognized by a single international body as an effective domestic remedy. In accordance with article 27 of the Federal Constitutional Law on the Human Rights Ombudsperson in the Russian Federation, the Ombudsperson is required, on the basis of the outcome of submitted complaints, to forward conclusions with recommendations to those authorities whose actions violate citizens’ rights and freedoms. Such findings do not reinstate the violated rights and do not serve as a recognition of a violation on the part of the State, insofar as those powers are given only to courts and administrative bodies. The author notes that the European Court of Human Rights has found that recourse to an ombudsperson does not constitute an effective domestic remedy within the meaning of article 35 of the European Convention on Human Rights."
+    "Text": "With regard to the appeal to the Ombudsperson of the Russian Federation, the author submits that such an appeal does not constitute and is not recognized by a single international body as an effective domestic remedy. In accordance with article 27 of the Federal Constitutional Law on the Human Rights Ombudsperson in the Russian Federation, the Ombudsperson is required, on the basis of the outcome of submitted complaints, to forward conclusions with recommendations to those authorities whose actions violate citizens’ rights and freedoms. Such findings do not reinstate the violated rights and do not serve as a recognition of a violation on the part of the State, insofar as those powers are given only to courts and administrative bodies. The author notes that the European Court of Human Rights has found that recourse to an ombudsperson does not constitute an effective domestic remedy within the meaning of article 35 of the European Convention on Human Rights.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "European Court of Human Rights, Makarov v. Russian Federation (application No. 15217/07), judgment of 12 March 2009, para. 83."
+      }
+    ]
   },
   {
     "ID": "5.5.",
@@ -151,7 +179,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The State party notes that, in accordance with article 1 of the Convention, discrimination against women means any distinction, exclusion or restriction made on the basis of sex which has the effect or purpose of impairing or nullifying the recognition, enjoyment or exercise by women, irrespective of their marital status, on a basis of equality of men and women, of human rights and fundamental freedoms in the political, economic, social, cultural, civil or any other field. The national courts came to the conclusion that there had been no violation of the author’s personal, non-pecuniary rights, including the right not to be subjected to a discrimination. The State party also notes that the evaluation of evidence and application of national law is within the competence of national authorities, including courts. Therefore, it considers that there has been no violation of the Convention in the present case."
+    "Text": "The State party notes that, in accordance with article 1 of the Convention, discrimination against women means any distinction, exclusion or restriction made on the basis of sex which has the effect or purpose of impairing or nullifying the recognition, enjoyment or exercise by women, irrespective of their marital status, on a basis of equality of men and women, of human rights and fundamental freedoms in the political, economic, social, cultural, civil or any other field. The national courts came to the conclusion that there had been no violation of the author’s personal, nonpecuniary rights, including the right not to be subjected to a discrimination. The State party also notes that the evaluation of evidence and application of national law is within the competence of national authorities, including courts. Therefore, it considers that there has been no violation of the Convention in the present case."
   },
   {
     "ID": "7.1.",
@@ -169,7 +197,13 @@
       "LGBTI+",
       "Women/girls"
     ],
-    "Text": "The author submits that, even though she appealed to the national authorities for the protection of her rights to equality and non-discrimination, respect for private life, honour and dignity, the authorities dismissed her claims, failing to provide her with effective legal remedy. The author also submits that the principles of non-discrimination and equality require the establishment of substantive equality, not just legal or formal equality. Substantive equality requires an individual approach to the specific needs of certain vulnerable groups and the elimination of any obstacles that they may encounter. The author notes that she is especially vulnerable to discrimination prohibited under the Convention, given that she is a member of a lesbian, bisexual and transgender women’s group and a human rights defender. According to the author, discrimination against women on the basis of their sex and gender identity is closely linked with other factors affecting women, such as their social status and sexual orientation. Therefore, the State party must legally recognize and prohibit such intersecting forms of discrimination and their cumulative negative effects on women. The author notes that the Human Rights Committee has ruled that the reference to “sex” in articles 2 (1) and 26 of the International Covenant on Civil and Political Rights includes sexual orientation. In the light of the foregoing, the author contents that she has been a victim of discrimination within the meaning of article 1 of the Convention on the Elimination of All Forms of Discrimination against Women."
+    "Text": "The author submits that, even though she appealed to the national authorities for the protection of her rights to equality and non-discrimination, respect for private life, honour and dignity, the authorities dismissed her claims, failing to provide her with effective legal remedy. The author also submits that the principles of nondiscrimination and equality require the establishment of substantive equality, not just legal or formal equality. Substantive equality requires an individual approach to the specific needs of certain vulnerable groups and the elimination of any obstacles that they may encounter. The author notes that she is especially vulnerable to discrimination prohibited under the Convention, given that she is a member of a lesbian, bisexual and transgender women’s group and a human rights defender. According to the author, discrimination against women on the basis of their sex and gender identity is closely linked with other factors affecting women, such as their social status and sexual orientation. Therefore, the State party must legally recognize and prohibit such intersecting forms of discrimination and their cumulative negative effects on women. The author notes that the Human Rights Committee has ruled that the reference to “sex” in articles 2 (1) and 26 of the International Covenant on Civil and Political Rights includes sexual orientation.[[fn:6]] In the light of the foregoing, the author contents that she has been a victim of discrimination within the meaning of article 1 of the Convention on the Elimination of All Forms of Discrimination against Women.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "See Toonen v. Australia (CCPR/C/50/D/488/1992), para. 8.7."
+      }
+    ]
   },
   {
     "ID": "7.3.",
@@ -178,7 +212,17 @@
       "LGBTI+",
       "Women/girls"
     ],
-    "Text": "The author submits that international bodies regularly express their concern about reports of cases of discrimination and use of hate speech, including against lesbian, bisexual and transgender women. She refers to the concluding observations of the Committee on the eighth periodic report of the Russian Federation (CEDAW/C/RUS/CO/8), in which the Committee expressed its concern about reports of discrimination, harassment and hate speech, based on negative stereotyping, against lesbian, bisexual and transgender women and intersex persons and urged the State party to provide the necessary protection from discrimination for such women (ibid., paras. 41–42). The author notes that her particular vulnerability to various forms of discrimination imposes an obligation on the State party not just to refrain from such actions but to carefully investigate reports of discrimination against her as a member of a vulnerable group. The author also makes note of the recommendation of the Committee of Ministers of the Council of Europe on measures to combat discrimination on grounds of sexual orientation or gender identity and the jurisprudence of the European Court of Human Rights as steps taken by other international bodies to combat discrimination on the basis of sexual orientation or gender identity. The author is of the view that the State party failed to provide her with effective legal remedies to account for the fact that the discrimination against her was perpetrated by a person acting as a State official and failed to provide recognition and denouncement of the violation of her rights or compensation or application of any other procedures aimed at restoring her violated rights. The author also notes that Mr. Milonov is currently serving as a member of the State Duma, the lower house of the federal parliament of the Russian Federation."
+    "Text": "The author submits that international bodies regularly express their concern about reports of cases of discrimination and use of hate speech, including against lesbian, bisexual and transgender women. She refers to the concluding observations of the Committee on the eighth periodic report of the Russian Federation (CEDAW/C/RUS/CO/8), in which the Committee expressed its concern about reports of discrimination, harassment and hate speech, based on negative stereotyping, against lesbian, bisexual and transgender women and intersex persons and urged the State party to provide the necessary protection from discrimination for such women (ibid., paras. 41–42). The author notes that her particular vulnerability to various forms of discrimination imposes an obligation on the State party not just to refrain from such actions but to carefully investigate reports of discrimination against her as a member of a vulnerable group. The author also makes note of the recommendation of the Committee of Ministers of the Council of Europe on measures to combat discrimination on grounds of sexual orientation or gender identity[[fn:7]] and the jurisprudence of the European Court of Human Rights[[fn:8]] as steps taken by other international bodies to combat discrimination on the basis of sexual orientation or gender identity. The author is of the view that the State party failed to provide her with effective legal remedies to account for the fact that the discrimination against her was perpetrated by a person acting as a State official and failed to provide recognition and denouncement of the violation of her rights or compensation or application of any other procedures aimed at restoring her violated rights. The author also notes that Mr. Milonov is currently serving as a member of the State Duma, the lower house of the federal parliament of the Russian Federation.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Recommendation of the Committee of Ministers of the Council of Europe to its member States of 31 March 2010 on measures to combat discrimination on grounds of sexual orientation or gender identity. Available from www.coe.int/en/web/sogi/rec-2010-5."
+      },
+      {
+        "n": 8,
+        "text": "European Court of Human Rights, Vejdeland and others v. Sweden (application No. 1813/07), judgment of 9 February 2012, paras. 45–46."
+      }
+    ]
   },
   {
     "ID": "8.1.",
@@ -190,7 +234,17 @@
     "ID": "8.2.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Committee recalls that, under article 4 (1) of the Optional Protocol, it is precluded from considering a communication unless it has ascertained that all available domestic remedies have been exhausted or that the application of such remedies is unreasonably prolonged or unlikely to bring effective relief. In that connection, the Committee notes the State party’s argument that the communication should be declared inadmissible under that provision, because the author has failed to lodge a cassation appeal with the Supreme Court against the decision of the lower court of 29 April 2014 and the decision of the appellate court of 14 October 2014. The Committee also notes the State party’s reference to Abramyan v. Russian Federation, in which the European Court of Human Rights ruled that, prior to submitting a complaint under the European Convention on Human Rights, one must exhaust cassation appeals. In addition, the State party submits that the author could have submitted a complaint to the regional or federal ombudsperson."
+    "Text": "The Committee recalls that, under article 4 (1) of the Optional Protocol, it is precluded from considering a communication unless it has ascertained that all available domestic remedies have been exhausted or that the application of such remedies is unreasonably prolonged or unlikely to bring effective relief.[[fn:9]] In that connection, the Committee notes the State party’s argument that the communication should be declared inadmissible under that provision, because the author has failed to lodge a cassation appeal with the Supreme Court against the decision of the lower court of 29 April 2014 and the decision of the appellate court of 14 October 2014. The Committee also notes the State party’s reference to Abramyan v. Russian Federation,[[fn:10]] in which the European Court of Human Rights ruled that, prior to submitting a complaint under the European Convention on Human Rights, one must exhaust cassation appeals. In addition, the State party submits that the author could have submitted a complaint to the regional or federal ombudsperson.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "E.S. and S.C. v. United Republic of Tanzania (CEDAW/C/60/D/48/2013), para. 6.3; and L.R. v. Republic of Moldova (CEDAW/C/66/D/58/2013), para. 12.2."
+      },
+      {
+        "n": 10,
+        "text": "European Court of Human Rights, Abramyan v. Russian Federation."
+      }
+    ]
   },
   {
     "ID": "8.3.",
@@ -202,7 +256,21 @@
     "ID": "8.4.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Committee recalls its jurisprudence, in which it established that the cassation procedure was the review primarily of the legality of lower court decisions. Given that, in the present case, the author has petitioned the higher courts to re-evaluate the provided evidence and facts, the Committee considers that a further appeal in cassation would not constitute an effective remedy for the author. With regard to the State party’s claim that the author could have submitted complaints to the regional or federal ombudsperson, the Committee refers to the jurisprudence of the Human Rights Committee and the European Court of Human Rights, according to which an ombudsperson institution does not constitute an effective remedy. The Committee sees no reason to reach a different conclusion on the issue in the present case."
+    "Text": "The Committee recalls its jurisprudence,[[fn:11]] in which it established that the cassation procedure was the review primarily of the legality of lower court decisions. Given that, in the present case, the author has petitioned the higher courts to reevaluate the provided evidence and facts, the Committee considers that a further appeal in cassation would not constitute an effective remedy for the author. With regard to the State party’s claim that the author could have submitted complaints to the regional or federal ombudsperson, the Committee refers to the jurisprudence of the Human Rights Committee[[fn:12]] and the European Court of Human Rights,[[fn:13]] according to which an ombudsperson institution does not constitute an effective remedy. The Committee sees no reason to reach a different conclusion on the issue in the present case.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "Medvedeva v. Russian Federation, para. 10.4."
+      },
+      {
+        "n": 12,
+        "text": "Salikh v. Uzbekistan CCPR/C/95/D/1382/2005, para. 6.3."
+      },
+      {
+        "n": 13,
+        "text": "European Court of Human Rights, Makarov v. Russian Federation, para. 83."
+      }
+    ]
   },
   {
     "ID": "8.5.",
@@ -219,7 +287,13 @@
       "LGBTI+",
       "Women/girls"
     ],
-    "Text": "The Committee notes that, in substance, the author’s claims aim at challenging the manner in which the national courts assessed the circumstances of her case and applied national law. The Committee emphasizes that it does not replace the national authorities in the assessment of the facts, nor does it decide on the alleged perpetrator’s criminal responsibility. The Committee considers that it is generally for the courts of the States parties to the Convention to evaluate the facts and evidence and the application of national law in a particular case, unless it can be established that such evaluation was biased or based on harmful gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice. In that connection, the Committee notes that nothing in the material before it suggests elements likely to demonstrate that the examination by the courts of the author’s case, whether regarding her claims of insult or discrimination, suffered from any such defects. The Committee observes that both sides of the lawsuit were able to put forward their specialists’ opinions on the meaning of the words used towards the author, some of which had several meanings, including offensive, and that the courts determined that the author’s claims of discrimination and humiliation due to her sexual orientation were not corroborated by sufficient evidence. In the light of the foregoing, and in the absence of any other pertinent information on file, the Committee considers that the communication is insufficiently substantiated for the purposes of admissibility and that it is therefore inadmissible under article 4 (2) (c) of the Optional Protocol."
+    "Text": "The Committee notes that, in substance, the author’s claims aim at challenging the manner in which the national courts assessed the circumstances of her case and applied national law. The Committee emphasizes that it does not replace the national authorities in the assessment of the facts, nor does it decide on the alleged perpetrator’s criminal responsibility.[[fn:14]] The Committee considers that it is generally for the courts of the States parties to the Convention to evaluate the facts and evidence and the application of national law in a particular case, unless it can be established that such evaluation was biased or based on harmful gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice. In that connection, the Committee notes that nothing in the material before it suggests elements likely to demonstrate that the examination by the courts of the author’s case, whether regarding her claims of insult or discrimination, suffered from any such defects. The Committee observes that both sides of the lawsuit were able to put forward their specialists’ opinions on the meaning of the words used towards the author, some of which had several meanings, including offensive, and that the courts determined that the author’s claims of discrimination and humiliation due to her sexual orientation were not corroborated by sufficient evidence. In the light of the foregoing, and in the absence of any other pertinent information on file, the Committee considers that the communication is insufficiently substantiated for the purposes of admissibility and that it is therefore inadmissible under article 4 (2) (c) of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "R. P. B. v. Philippines (CEDAW/C/57/D/34/2011), para. 7.5."
+      }
+    ]
   },
   {
     "ID": "9.",

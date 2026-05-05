@@ -3,7 +3,7 @@
     "ID": "1.1.",
     "Section": "Annex",
     "Labels": [],
-    "Text": "The author of the communication is Rafael Rodríguez Castañeda, a Mexican national, born on 11 June 1944. The author claims that he is the victim of violations by of his rights under article 19 (para. 2) and article 2 (paras. 2 and 3 (a) and (b)), read in conjunction with article 14 (para. 1) and article 2 (para. 1), of the Covenant. The author is represented by Ms. Graciela Rodríguez Manzo."
+    "Text": "The author of the communication is Rafael Rodríguez Castañeda, a Mexican national, born on 11 June 1944. The author claims that he is the victim of violations by Mexico of his rights under article 19 (para. 2) and article 2 (paras. 2 and 3 (a) and (b)), read in conjunction with article 14 (para. 1) and article 2 (para. 1), of the Covenant. The author is represented by Ms. Graciela Rodríguez Manzo."
   },
   {
     "ID": "1.2.",
@@ -27,7 +27,13 @@
     "ID": "2.2.",
     "Section": "The facts as submitted by the author",
     "Labels": [],
-    "Text": "It was against this background that, on 28 July 2006, immediately after the Electoral Tribunal had ruled on the validity of the presidential election, the author, who works as a journalist for the magazine Proceso, contacted the Liaison Office for Transparency and Access to Information of the Federal Electoral Institute to request access under the Federal Act on Transparency and Access to Public Government Information to all the used, unused and spoilt ballot papers from the polling stations set up for the election of 2 July 2006. He accordingly requested access to the offices of the country’s 300 electoral districts so that the ballots cast in the presidential election could be counted again."
+    "Text": "It was against this background that, on 28 July 2006, immediately after the Electoral Tribunal had ruled on the validity of the presidential election, the author, who works as a journalist for the magazine Proceso, contacted the Liaison Office for Transparency and Access to Information of the Federal Electoral Institute to request access under the Federal Act on Transparency and Access to Public Government Information to all the used, unused and spoilt ballot papers from the polling stations set up for the election of 2 July 2006. He accordingly requested access to the offices of the country’s 300 electoral districts so that the ballots cast in the presidential election could be counted again.[[fn:3]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The Committee notes that, according to the copy of the request submitted to the Federal Electoral Institute and the author’s application for amparo, of 18 September 2006, attached by the author to his communication of 28 July 2006, the author filed two additional petitions with the Liaison Office of the Federal Electoral Institute requesting copies of the election-day records and of the final ballot paper accounts issued by the 130,477 polling stations set up around the country for the presidential election, as well as the detailed records of the ballot paper dispatches, the detailed records of the vote-counting sessions, and the records of the vote counts of the country’s 300 electoral districts."
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -51,7 +57,7 @@
     "ID": "2.6.",
     "Section": "The facts as submitted by the author",
     "Labels": [],
-    "Text": "On 21 September 2006, the rejected the author’s application for amparo on the grounds that he was using it to challenge actions that could not be called into question through amparo proceedings but through the procedures for contesting election results established in the electoral laws."
+    "Text": "On 21 September 2006, the Fourth Court rejected the author’s application for amparo on the grounds that he was using it to challenge actions that could not be called into question through amparo proceedings but through the procedures for contesting election results established in the electoral laws."
   },
   {
     "ID": "2.7.",
@@ -69,7 +75,7 @@
     "ID": "2.9.",
     "Section": "The facts as submitted by the author",
     "Labels": [],
-    "Text": "On 11 March 2008, the Supreme Court rejected the author’s amparo application and confirmed the ’s decision that it was inadmissible. The Supreme Court ruled that article 254 of the Federal Code of Electoral Institutions and Procedures, on which the Federal Electoral Institute’s decision to deny the author’s request to access the ballot papers was based, was an electoral regulation since its purpose was to regulate an aspect of electoral procedure. Specifically, the article established what was to be done with the envelopes containing the used, unused and spoilt ballot papers, namely that they should be destroyed after the corresponding election. The application of the regulation that denied access to the envelopes containing the ballot papers was, by the same measure, an electoral matter. The author’s request was therefore inadmissible, since regulations, acts and resolutions that were essentially electoral in nature could not be subject to amparo procedures."
+    "Text": "On 11 March 2008, the Supreme Court rejected the author’s amparo application and confirmed the Fourth Court’s decision that it was inadmissible. The Supreme Court ruled that article 254 of the Federal Code of Electoral Institutions and Procedures, on which the Federal Electoral Institute’s decision to deny the author’s request to access the ballot papers was based, was an electoral regulation since its purpose was to regulate an aspect of electoral procedure. Specifically, the article established what was to be done with the envelopes containing the used, unused and spoilt ballot papers, namely that they should be destroyed after the corresponding election. The application of the regulation that denied access to the envelopes containing the ballot papers was, by the same measure, an electoral matter. The author’s request was therefore inadmissible, since regulations, acts and resolutions that were essentially electoral in nature could not be subject to amparo procedures."
   },
   {
     "ID": "2.10.",
@@ -147,13 +153,25 @@
     "ID": "4.3.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "Although the Committee has acknowledged the existence of discrepancies between the English, French and Spanish versions of article 5, paragraph 2 (a), of the Optional Protocol, the Protocol does not establish any hierarchy, preference or priorities among the versions since, according to article 14, paragraph 1, all the texts are equally authentic. Pursuant to the 1969 Vienna Convention on the Law of Treaties, a text must be interpreted in good faith in accordance with the ordinary meaning to be given to the terms of the treaty in their context and in the light of its object and purpose. Furthermore, according to article 33, paragraph 3, of the Convention, the authentic Spanish version and its contents are presumed to have the same meaning as the other language versions. In this context, since Spanish is the official language of the State party, the State party’s accession to the Protocol was based on the Spanish text and the State party assumed its obligations under the Protocol in accordance with the wording of that text. The State party is therefore in no way bound by the authentic texts of the Protocol that exist in other languages."
+    "Text": "Although the Committee has acknowledged the existence of discrepancies between the English, French and Spanish versions of article 5, paragraph 2 (a), of the Optional Protocol,[[fn:4]] the Protocol does not establish any hierarchy, preference or priorities among the versions since, according to article 14, paragraph 1, all the texts are equally authentic. Pursuant to the 1969 Vienna Convention on the Law of Treaties, a text must be interpreted in good faith in accordance with the ordinary meaning to be given to the terms of the treaty in their context and in the light of its object and purpose. Furthermore, according to article 33, paragraph 3, of the Convention, the authentic Spanish version and its contents are presumed to have the same meaning as the other language versions. In this context, since Spanish is the official language of the State party, the State party’s accession to the Protocol was based on the Spanish text and the State party assumed its obligations under the Protocol in accordance with the wording of that text. The State party is therefore in no way bound by the authentic texts of the Protocol that exist in other languages.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The author refers to communication No. 986/2001, Semey v. Spain, Views adopted on 30 July 2003."
+      }
+    ]
   },
   {
     "ID": "4.4.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The author’s claim that the Spanish version of the Protocol has been aligned with the English version has no legal basis in the law of treaties. The State party submits that, moreover, the interpretation given by the Committee to the Spanish text of article 5, paragraph 2 (a), of the Optional Protocol during its fourth session, when it decided that the term “sometido” in the Spanish version should be interpreted in the light of the other versions, i.e. that it should be understood as meaning “is being examined” by another procedure of international investigation or settlement, was a unilateral decision that was in no way binding on the States parties to the Optional Protocol. Furthermore, this matter has not been addressed in the meetings of the State parties or on any other occasion in such a way that would make it possible to suppose or infer that the States parties, directly or indirectly, agree with or assent to the interpretation decided on by the Committee. Therefore, the authentic Spanish text is the valid version of the Optional Protocol for the State party and for all the States that ratified it in Spanish."
+    "Text": "The author’s claim that the Spanish version of the Protocol has been aligned with the English version has no legal basis in the law of treaties. The State party submits that, moreover, the interpretation given by the Committee to the Spanish text of article 5, paragraph 2 (a), of the Optional Protocol during its fourth session, when it decided that the term “sometido” in the Spanish version should be interpreted in the light of the other versions, i.e. that it should be understood as meaning “is being examined” by another procedure of international investigation or settlement,[[fn:5]] was a unilateral decision that was in no way binding on the States parties to the Optional Protocol. Furthermore, this matter has not been addressed in the meetings of the State parties or on any other occasion in such a way that would make it possible to suppose or infer that the States parties, directly or indirectly, agree with or assent to the interpretation decided on by the Committee. Therefore, the authentic Spanish text is the valid version of the Optional Protocol for the State party and for all the States that ratified it in Spanish.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Official Records of the General Assembly, Thirty-fourth Session, Supplement No. 40 (A/34/40), 1979, para. 584 (see CCPR/C/SR.88 of 24 July 1978)."
+      }
+    ]
   },
   {
     "ID": "4.5.",
@@ -285,7 +303,17 @@
     "ID": "6.3.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee considers that the Spanish version of article 5, paragraph 2 (a), of the Optional Protocol, which states that the Committee shall not consider any communication from an individual unless it has ascertained that the same matter “has not been examined already” (“no ha sido sometido ya” in the Spanish) under another procedure of international investigation or settlement, can result in the Spanish version of this paragraph being interpreted differently from the other language versions. The Committee considers that this difference must be resolved in accordance with article 33, paragraph 4, of the 1969 Vienna Convention on the Law of Treaties by adopting the meaning which best reconciles the authentic texts, having regard to the object and purpose of the treaty. The Committee recalls its jurisprudence, which states that the phrase ha sido sometido in the Spanish version must be interpreted in the light of the other versions, i.e. understood as meaning “is being examined” under another procedure of international investigation or settlement. The Committee considers that this interpretation reconciles the meaning of article 5, paragraph 2 (a), of the authentic texts referred to in article 14, paragraph 1, of the Optional Protocol. The Committee therefore finds that there is no obstacle to the admissibility of the communication under article 5, paragraph 2 (a), of the Optional Protocol."
+    "Text": "The Committee considers that the Spanish version of article 5, paragraph 2 (a), of the Optional Protocol, which states that the Committee shall not consider any communication from an individual unless it has ascertained that the same matter “has not been examined already” (“no ha sido sometido ya” in the Spanish) under another procedure of international investigation or settlement, can result in the Spanish version of this paragraph being interpreted differently from the other language versions.[[fn:6]] The Committee considers that this difference must be resolved in accordance with article 33, paragraph 4, of the 1969 Vienna Convention on the Law of Treaties by adopting the meaning which best reconciles the authentic texts, having regard to the object and purpose of the treaty. The Committee recalls its jurisprudence, which states that the phrase ha sido sometido in the Spanish version must be interpreted in the light of the other versions, i.e. understood as meaning “is being examined” under another procedure of international investigation or settlement.[[fn:7]] The Committee considers that this interpretation reconciles the meaning of article 5, paragraph 2 (a), of the authentic texts referred to in article 14, paragraph 1, of the Optional Protocol. The Committee therefore finds that there is no obstacle to the admissibility of the communication under article 5, paragraph 2 (a), of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The authentic English text states: “The same matter is not being examined under another procedure of international investigation or settlement”; the authentic French text states: “La même question n’est pas déjà en cours d’examen devant une autre instance internationale d’enquête ou de règlement”; and the authentic Russian text states: “этот же вопрос не рассматривается в соответствии с другой процедурой международного разбирательства или урегулирования”."
+      },
+      {
+        "n": 7,
+        "text": "Communication No. 986/2001, Semey v. Spain, Views adopted on 30 July 2003, para. 8.3."
+      }
+    ]
   },
   {
     "ID": "6.4.",
@@ -315,7 +343,13 @@
     "ID": "6.8.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee also takes note of the author’s allegation under article 2, paragraph 2, that the State party failed to adopt timely measures to bring its national legislation concerning the destruction of ballots papers once an election is over instead of ordering that they be preserved in archives that are accessible to all interested persons to protect the right of access to public information. The Committee recalls its jurisprudence in this connection, which indicates that the provisions of article 2 of the Covenant, which lay down general obligations for States parties, cannot, in and of themselves, give rise to a claim in a communication under the Optional Protocol. The Committee therefore considers that the author’s contentions in this regard are inadmissible under article 2 of the Optional Protocol."
+    "Text": "The Committee also takes note of the author’s allegation under article 2, paragraph 2, that the State party failed to adopt timely measures to bring its national legislation concerning the destruction of ballots papers once an election is over instead of ordering that they be preserved in archives that are accessible to all interested persons to protect the right of access to public information. The Committee recalls its jurisprudence in this connection, which indicates that the provisions of article 2 of the Covenant, which lay down general obligations for States parties, cannot, in and of themselves, give rise to a claim in a communication under the Optional Protocol.[[fn:8]] The Committee therefore considers that the author’s contentions in this regard are inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "See communications No. 1834/2008, A.P. v. Ukraine, decision adopted on 23 July 2012, para. 8.5, and No. 1887/2009, Juan Peirano Basso v. Uruguay, Views adopted on 19 October 2010, para. 9.4."
+      }
+    ]
   },
   {
     "ID": "7.1.",
@@ -345,7 +379,13 @@
     "ID": "7.5.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee refers to its jurisprudence that any restriction on the right to freedom of expression must cumulatively meet the following conditions set out in article 19, paragraph 3, of the Covenant: it must be provided for by law, it must serve one of the aims enumerated in article 19, paragraph 3 (a) and (b), and it must be necessary to achieve one of these purposes."
+    "Text": "The Committee refers to its jurisprudence that any restriction on the right to freedom of expression must cumulatively meet the following conditions set out in article 19, paragraph 3, of the Covenant: it must be provided for by law, it must serve one of the aims enumerated in article 19, paragraph 3 (a) and (b), and it must be necessary to achieve one of these purposes.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Communication No. 1128/2002, Marques de Morais v. Angola, Views adopted on 29 March 2005, para. 6.8."
+      }
+    ]
   },
   {
     "ID": "7.6.",
@@ -367,7 +407,7 @@
   },
   {
     "ID": "OP1-1.",
-    "Section": "II.\tIndividual opinion by Committee member Mr. Yuval Shany (concurring)",
+    "Section": "II. Individual opinion by Committee member Mr. Yuval Shany (concurring)",
     "Labels": [],
     "Text": "I concur with the Committee that, under the circumstances of the case, denial by the State party of the author’s request to access all of the election ballot papers did not violate the Covenant in view of the exceptionally broad nature of the request, on the one hand, and I share the real concerns that accommodating such a request might impose an excessively heavy burden on the State and complicate its ability to finalizing the election results.",
     "OriginalID": "1.",
@@ -375,7 +415,7 @@
   },
   {
     "ID": "OP1-2.",
-    "Section": "II.\tIndividual opinion by Committee member Mr. Yuval Shany (concurring)",
+    "Section": "II. Individual opinion by Committee member Mr. Yuval Shany (concurring)",
     "Labels": [],
     "Text": "I am concerned, however, about the language used in paragraph 7.7 of the Committee’s Views, which appears to attribute weight to “the existence of a legal mechanism for verifying the vote count, which was used in the election in question” in reaching the conclusion that no violation of the Covenant has occurred. This may suggest, erroneously to my mind, that the freedom to seek and receive publicly available information generally depends on an individual’s ability to prove the social benefits of his exercise of freedom, or that this freedom does not apply to election-related information held by public authorities if other election-monitoring mechanisms are available.",
     "OriginalID": "2.",
@@ -383,7 +423,7 @@
   },
   {
     "ID": "OP1-3.",
-    "Section": "II.\tIndividual opinion by Committee member Mr. Yuval Shany (concurring)",
+    "Section": "II. Individual opinion by Committee member Mr. Yuval Shany (concurring)",
     "Labels": [],
     "Text": "Article 19, paragraph 2, of the Covenant protects the “freedom to seek, receive and impart information and ideas of all kinds”. According to the Committee’s general comment No. 34 on freedoms of opinion and expression (article 19 of the Covenant), such information comprises “records held by a public body, regardless of the form in which the information is stored” (CCPR/C/GC/34, para. 18). There is no reason to doubt that ballot papers are generally covered by article 19, paragraph 2. Ballot papers constitute a particular form of record held by a public body, which contains important information on the voting preferences of the electorate. In conjunction with the ballot paper accounts and the results returned from the polling stations, access to the information derived from the ballot papers would have allowed the author to evaluate the actions of the Mexican federal election bodies (whose operation supports the implementation of article 25 of the Covenant).",
     "OriginalID": "3.",
@@ -391,7 +431,7 @@
   },
   {
     "ID": "OP1-4.",
-    "Section": "II.\tIndividual opinion by Committee member Mr. Yuval Shany (concurring)",
+    "Section": "II. Individual opinion by Committee member Mr. Yuval Shany (concurring)",
     "Labels": [],
     "Text": "The author’s request to obtain the ballot papers is thus consistent with his freedom to seek and receive information under article 19, paragraph 2, of the Covenant and, like other ways of exercising freedom of expression, it does not need to be prima facie justified or motivated in order to be exercised (subject to possible limitations under article 19, paragraph 3). Furthermore, it appears that in the circumstances of the case, the information sought by the author could have provided him with socially valuable information about the actions of the federal election authorities and of the various guarantees of impartiality they offered. Thus, freedom to seek and impart information about election results is generally protected under article 19 of the Covenant; moreover, given the importance of fostering an informed public debate about the mechanisms through which elections are conducted and monitored, the author’s freedom to access the ballot papers should have received a high degree of protection from the State party.",
     "OriginalID": "4.",
@@ -399,15 +439,21 @@
   },
   {
     "ID": "OP1-5.",
-    "Section": "II.\tIndividual opinion by Committee member Mr. Yuval Shany (concurring)",
+    "Section": "II. Individual opinion by Committee member Mr. Yuval Shany (concurring)",
     "Labels": [],
-    "Text": "Nevertheless, like other Covenant rights, the freedom to seek and receive information pursuant to article 19, paragraph 2, is not absolute, even when it seeks to promote important public interests. Indeed, it may be subject, pursuant to article 19, paragraph 3, to restrictions provided by law and necessary: (a) for respect of the rights or reputation of others; (b) for the protection of national security, public order (ordre public), or public health or morals. Such restrictions may include the imposition of fees, which do not constitute an unreasonable impediment to access to information (see CCPR/C/GC/34, in particular paragraph 19), and must always be necessary and proportionate in nature.",
+    "Text": "Nevertheless, like other Covenant rights, the freedom to seek and receive information pursuant to article 19, paragraph 2, is not absolute, even when it seeks to promote important public interests. Indeed, it may be subject, pursuant to article 19, paragraph 3, to restrictions provided by law and necessary: (a) for respect of the rights or reputation of others; (b) for the protection of national security, public order (ordre public), or public health or morals. Such restrictions may include the imposition of fees, which do not constitute an unreasonable impediment to access to information (see CCPR/C/GC/34, in particular paragraph 19), and must always be necessary and proportionate in nature.[[fn:11]]",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "See communication No. 633/95, Gauthier v. Canada, para. 13.6."
+      }
+    ],
     "OriginalID": "5.",
     "Namespace": "OP1"
   },
   {
     "ID": "OP1-6.",
-    "Section": "II.\tIndividual opinion by Committee member Mr. Yuval Shany (concurring)",
+    "Section": "II. Individual opinion by Committee member Mr. Yuval Shany (concurring)",
     "Labels": [],
     "Text": "In the circumstances of the case, I agree with the rest of the Committee that the sweeping nature of the author’s request to review all the ballot papers makes it exceptionally difficult for the State party to accommodate it in a logistically feasible way that would protect the confidentiality of the election. The serious practical problems associated with the need to provide access to ballot papers in a way that would not harm the integrity of the process (e.g. under State supervision) and the legitimate interest of the State party in finalizing the election results within a relatively short period of time after the election, render the restriction of the author’s freedom to access all of the ballot papers reasonable and proportionate, and thus compatible with the public order exception specified in article 19, paragraph 3. As a result, I am also of the view that no violation of article 19 of the Covenant has occurred in the circumstances of the present case. [Done in English, French and Spanish, the English text being the original version. Subsequently to be issued also in Arabic, Chinese and Russian as part of the Committee’s annual report to the General Assembly.]",
     "OriginalID": "6.",

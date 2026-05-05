@@ -1,13 +1,13 @@
 [
   {
     "ID": "1.1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [],
     "Text": "The author is the Polish Society of Anti-Discrimination Law, a non-governmental organization submitting the communication in its own name. The author claims that Poland violated its rights under articles 2 (c), (e) and (f), 5 (a) and 10 (c) of the Convention when its courts ruled that the author did not have standing to submit a “notification of crime” regarding a book that contained language expressing approval of the crime of rape. The Optional Protocol to the Convention entered into force for Poland on 22 March 2004. The author is represented by counsel, its President, Krzysztof Smiszek, and its Deputy President, Karolina Kędziora."
   },
   {
     "ID": "1.2.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [],
     "Text": "On 27 November 2018, the communication was registered. On 5 April 2019, the Committee, acting through its Working Group on Communications under the Optional Protocol, granted the State party’s request to split the consideration of the admissibility and merits of the communication."
   },
@@ -39,7 +39,13 @@
     "ID": "2.5.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "On 14 December, the Third Criminal Division of the District Court for Warsaw issued a decision revoking the prosecutor’s decision and forwarding the case for re-examination."
+    "Text": "On 14 December, the Third Criminal Division of the District Court for Warsaw issued a decision revoking the prosecutor’s decision and forwarding the case for reexamination.[[fn:1]]",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "The court indicated that article 255 (3) of the Penal Code provided for the protection of public order and that, therefore, any content encouraging people to neglect the norms that ensured protection of specific interests under criminal law should be eliminated from the public sphere. Meanwhile, the content contained in the course book did not explain grammatical rules in an impartial manner but, rather, expressed approval of forcing people to engage in certain sexual acts and of non-prevention of rape. Moreover, the widespread availability of the course book and of the views expressed in it could contribute to shaping negative social attitudes and to reinforcing harmful stereotypes about sexual violence, such as the victim as the person who provoked the act and rape as a source of sexual satisfaction for the victim."
+      }
+    ]
   },
   {
     "ID": "2.6.",
@@ -193,7 +199,7 @@
     "ID": "5.5.",
     "Section": "Author’s comments on the State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The author asserts that it has exhausted all domestic remedies. It cannot be known what would have happened if the individual victims had submitted complaints to domestic bodies in their own names. Had they done so, they would have been thwarted by the burden of having to prove that their personal rights had been violated. The author notes that personal rights in their civil law sense were not raised during domestic proceedings. Rather, the author raised the issue of public order and the State’s obligation to fulfil and implement international and national standards of anti-discrimination."
+    "Text": "The author asserts that it has exhausted all domestic remedies. It cannot be known what would have happened if the individual victims had submitted complaints to domestic bodies in their own names. Had they done so, they would have been thwarted by the burden of having to prove that their personal rights had been violated. The author notes that personal rights in their civil law sense were not raised during domestic proceedings. Rather, the author raised the issue of public order and the State’s obligation to fulfil and implement international and national standards of antidiscrimination."
   },
   {
     "ID": "6.1.",
@@ -213,19 +219,41 @@
     "ID": "6.3.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Committee notes the State party’s argument that the communication is inadmissible under article 2 of the Optional Protocol because, inter alia, the author’s members, who are not named, did not provide authorization forms indicating their consent to be represented by the author. The Committee also notes the author’s assertion that such consent statements are not necessary. It further notes that, under article 2 of the Optional Protocol, communications may be submitted by or on behalf of individuals or groups of individuals, under the jurisdiction of a State party. The Committee considers that the sole fact that the author is an organization does not constitute an obstacle to admissibility. However, the Committee recalls its jurisprudence, in which it noted that the Optional Protocol excluded communications on behalf of groups of individuals without the individuals’ prior consent, unless the absence of consent could be justified. In the present case, the Committee notes that the author’s individual members, who are alleged to be affected parties, are not named in the communication and did not provide authorization forms indicating their consent to be represented by the author. To the extent that the communication is submitted on behalf of the author’s members, the communication is therefore inadmissible because the requirements of article 2 of the Optional Protocol have not been met."
+    "Text": "The Committee notes the State party’s argument that the communication is inadmissible under article 2 of the Optional Protocol because, inter alia, the author’s members, who are not named, did not provide authorization forms indicating their consent to be represented by the author. The Committee also notes the author’s assertion that such consent statements are not necessary. It further notes that, under article 2 of the Optional Protocol, communications may be submitted by or on behalf of individuals or groups of individuals, under the jurisdiction of a State party. The Committee considers that the sole fact that the author is an organization does not constitute an obstacle to admissibility. However, the Committee recalls its jurisprudence, in which it noted that the Optional Protocol excluded communications on behalf of groups of individuals without the individuals’ prior consent, unless the absence of consent could be justified.[[fn:2]] In the present case, the Committee notes that the author’s individual members, who are alleged to be affected parties, are not named in the communication and did not provide authorization forms indicating their consent to be represented by the author. To the extent that the communication is submitted on behalf of the author’s members, the communication is therefore inadmissible because the requirements of article 2 of the Optional Protocol have not been met.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "M.K.D.A.-A. v. Denmark (CEDAW/C/56/D/44/2012, para. 6.5)."
+      }
+    ]
   },
   {
     "ID": "6.4.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Committee recalls that, under article 4 (1) of the Optional Protocol, it is precluded from considering a communication unless it has ascertained that all available domestic remedies have been exhausted or that the application of such remedies is unreasonably prolonged or unlikely to bring effective relief. The Committee recalls its jurisprudence to the effect that authors must avail themselves of all available domestic remedies and must have raised in substance at the domestic level the claim before the Committee, so as to provide the domestic authorities and/or courts with an opportunity to address the claim."
+    "Text": "The Committee recalls that, under article 4 (1) of the Optional Protocol, it is precluded from considering a communication unless it has ascertained that all available domestic remedies have been exhausted or that the application of such remedies is unreasonably prolonged or unlikely to bring effective relief.[[fn:3]] The Committee recalls its jurisprudence to the effect that authors must avail themselves of all available domestic remedies and must have raised in substance at the domestic level the claim before the Committee, so as to provide the domestic authorities and/or courts with an opportunity to address the claim.[[fn:4]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "E.S. and S.C. v. United Republic of Tanzania (CEDAW/C/60/D/48/2013, para. 6.3) and L.R. v. Republic of Moldova (CEDAW/C/66/D/58/2013, para. 12.2)."
+      },
+      {
+        "n": 4,
+        "text": "N. v. Netherlands (CEDAW/C/57/D/39/2012, para. 6.3)."
+      }
+    ]
   },
   {
     "ID": "6.5.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "To the extent that the communication is submitted in the author’s own name, as an organization combating discrimination, the Committee notes the author’s report that, during domestic proceedings, it did not act in its own name but on behalf of the public interest and did not allege that it had been a victim of a violation of the Convention. Rather, the issue that the author raised during domestic proceedings was the protection of public order and the State party’s obligation to fulfil its obligations under the Convention. The Committee recalls its jurisprudence establishing that the Optional Protocol excludes actio popularis claims and that an author of a communication is a victim within the meaning of article 2 of the Optional Protocol, if the author is personally and adversely affected by an act or omission of the State party. Because the author did not act in its own name, as a legal person, before the domestic authorities, the Committee considers that it did not exhaust all domestic remedies and that that aspect of the communication also renders it inadmissible under articles 2 and 4 (1) of the Optional Protocol."
+    "Text": "To the extent that the communication is submitted in the author’s own name, as an organization combating discrimination, the Committee notes the author’s report that, during domestic proceedings, it did not act in its own name but on behalf of the public interest and did not allege that it had been a victim of a violation of the Convention. Rather, the issue that the author raised during domestic proceedings was the protection of public order and the State party’s obligation to fulfil its obligations under the Convention. The Committee recalls its jurisprudence establishing that the Optional Protocol excludes actio popularis claims and that an author of a communication is a victim within the meaning of article 2 of the Optional Protocol, if the author is personally and adversely affected by an act or omission of the State party.[[fn:5]] Because the author did not act in its own name, as a legal person, before the domestic authorities, the Committee considers that it did not exhaust all domestic remedies and that that aspect of the communication also renders it inadmissible under articles 2 and 4 (1) of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "M.K.D.A.-A. v. Denmark, para. 6.5."
+      }
+    ]
   },
   {
     "ID": "7.",

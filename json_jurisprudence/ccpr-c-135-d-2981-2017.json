@@ -15,7 +15,13 @@
     "ID": "2.1.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "The author was born in the United Kingdom on 1 August 1960 to British parents, neither of whom were Australian citizens. The family migrated to Australia on 5 October 1965. The author was immediately granted a visa of permanent residence and lived in Australia until his removal to the United Kingdom in December 2017. He claims to hold dual Australian/British nationality, having become an Australian citizen in 1981 in a ceremony at which he swore an oath of allegiance. He also voted in, and stood for, elections in the State party. He did not renounce his United Kingdom citizenship."
+    "Text": "The author was born in the United Kingdom on 1 August 1960 to British parents, neither of whom were Australian citizens. The family migrated to Australia on 5 October 1965. The author was immediately granted a visa of permanent residence and lived in Australia until his removal to the United Kingdom in December 2017. He claims to hold dual Australian/British nationality, having become an Australian citizen in 1981 in a ceremony at which he swore an oath of allegiance.[[fn:4]] He also voted in, and stood for, elections in the State party. He did not renounce his United Kingdom citizenship.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "No further information on the ceremony is provided."
+      }
+    ]
   },
   {
     "ID": "2.2.",
@@ -29,7 +35,17 @@
     "ID": "2.3.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "On 27 October 2014, the Minister for Immigration decided to cancel the author’s Transitional (Permanent) Visa, under section 501 (2) of the Migration Act (1958), as he was found to have failed the “character test”. On 29 October 2014, the author was informed by the immigration authorities that he must report to their offices by 9 a.m. on 31 October 2014. He was also told that if he failed to report by the deadline, the authorities would seek the assistance of the police in locating and detaining him."
+    "Text": "On 27 October 2014, the Minister for Immigration decided to cancel the author’s Transitional (Permanent) Visa, under section 501 (2) of the Migration Act (1958),[[fn:5]] as he was found to have failed the “character test”.[[fn:6]] On 29 October 2014, the author was informed by the immigration authorities that he must report to their offices by 9 a.m. on 31 October 2014. He was also told that if he failed to report by the deadline, the authorities would seek the assistance of the police in locating and detaining him.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "According to section 501 (2) of the Migration Act: “ (2) The Minister may cancel a visa that has been granted to a person if: “(a) the Minister reasonably suspects that the person does not pass the character test; and “(b) the person does not satisfy the Minister that the person passes the character test.”"
+      },
+      {
+        "n": 6,
+        "text": "According to section 501 (6) (a) of the Migration Act: “(6) For the purposes of this section, a person does not pass the character test if: “(a) the person has a substantial criminal record (as defined by subsection (7)).” According to section 501 (7) (c): “(7): “For the purposes of the character test, a person has a substantial criminal record if: “ (c) the person has been sentenced to a term of imprisonment of 12 months or more.”"
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -37,13 +53,29 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On 30 October 2014, the author made an urgent, ex parte (without notice) application for an injunction to prevent the State party from placing him in immigration detention while his citizenship status was being determined. The Federal Administrative Court granted the author’s injunction. Under the decision, it was considered that, as the author was on parole at the time, as part of his original sentence, until November 2015, any failure to meet reporting conditions would lead to his arrest and imprisonment. It was therefore held that the risk of flight, while impossible to discount entirely, was slight and not sufficient to alter the balance of convenience favouring the status quo, under which the author was not detained at that time. However, in its decision taken on 31 October 2014, the Federal Administrative Court granted leave to the State party to appeal to have the injunction set aside. On 12 November 2014, the Minister applied to have the injunction preventing the author’s detention set aside. The Minister’s application to have the injunction set aside was granted by the Federal Administrative Court on 21 November 2014."
+    "Text": "On 30 October 2014, the author made an urgent, ex parte (without notice) application for an injunction to prevent the State party from placing him in immigration detention while his citizenship status was being determined. The Federal Administrative Court granted the author’s injunction.[[fn:7]] Under the decision, it was considered that, as the author was on parole at the time, as part of his original sentence, until November 2015, any failure to meet reporting conditions would lead to his arrest and imprisonment. It was therefore held that the risk of flight, while impossible to discount entirely, was slight and not sufficient to alter the balance of convenience favouring the status quo, under which the author was not detained at that time. However, in its decision taken on 31 October 2014, the Federal Administrative Court granted leave to the State party to appeal to have the injunction set aside. On 12 November 2014, the Minister applied to have the injunction preventing the author’s detention set aside. The Minister’s application to have the injunction set aside was granted by the Federal Administrative Court on 21 November 2014.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Cayzer v. Minister for Immigration and Border Protection [2014] FCA 1166."
+      },
+      {
+        "n": 8,
+        "text": "Cayzer v. Minister for Immigration and Border Protection (No. 3) [2016] FCA 806."
+      }
+    ]
   },
   {
     "ID": "2.5.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "Meanwhile, on 13 November 2014, the author also filed an application with the Federal Administrative Court, in which he requested a judicial review of the Minister’s decision to cancel his residence visa on the grounds that he had claimed to have been granted citizenship, in 1981 and therefore did not meet the definition of an alien against whom the visa cancellation power, under section 501 (2) of the Migration Act, was applicable. He contested his detention on the same basis. In his application he contended that he was not an alien at the time of his entry into Australia because he was a British subject and therefore a “person of the Commonwealth”. He also submitted that, since his arrival in the State party and by virtue of his entitlement to vote (having also stood for election), he had become one of the people of the Commonwealth benefiting from protected status under section 41 of the Constitution of Australia."
+    "Text": "Meanwhile, on 13 November 2014, the author also filed an application with the Federal Administrative Court, in which he requested a judicial review of the Minister’s decision to cancel his residence visa on the grounds that he had claimed to have been granted citizenship, in 1981 and therefore did not meet the definition of an alien against whom the visa cancellation power, under section 501 (2) of the Migration Act, was applicable. He contested his detention on the same basis. In his application he contended that he was not an alien at the time of his entry into Australia because he was a British subject and therefore a “person of the Commonwealth”. He also submitted that, since his arrival in the State party and by virtue of his entitlement to vote (having also stood for election), he had become one of the people of the Commonwealth benefiting from protected status under section 41 of the Constitution of Australia.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "No adult person who has or acquires a right to vote at elections for the more numerous House of the Parliament of a State shall, while the right continues, be prevented by any law of the Commonwealth from voting at elections for either House of the Parliament of the Commonwealth. See https://www.ausconstitution.org/home/chapter-1-the-parliament/part-iv-both-houses-of-the-parliament/section-41."
+      }
+    ]
   },
   {
     "ID": "2.6.",
@@ -63,25 +95,57 @@
     "ID": "2.8.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "On 13 July 2016, the Federal Administrative Court reviewed the Minister’s decision to cancel the author’s visa, finding that, on the balance of probabilities, the author had not demonstrated that he had obtained Australian citizenship in 1981 nor did he meet the definition of a person of the Commonwealth, and was therefore an alien, to whom section 502 of the Migration Act applied. This being the case, the author did not possess any right to vote but rather had benefited from a legislative privilege afforded to certain permanent residents. It therefore found no violation of the author’s rights. The author appealed this decision to the Full Federal Court of Australia. On 18 August 2016, he was transferred to Christmas Island."
+    "Text": "On 13 July 2016,[[fn:10]] the Federal Administrative Court reviewed the Minister’s decision to cancel the author’s visa, finding that, on the balance of probabilities, the author had not demonstrated that he had obtained Australian citizenship in 1981 nor did he meet the definition of a person of the Commonwealth, and was therefore an alien, to whom section 502 of the Migration Act applied. This being the case, the author did not possess any right to vote but rather had benefited from a legislative privilege afforded to certain permanent residents. It therefore found no violation of the author’s rights. The author appealed this decision to the Full Federal Court of Australia. On 18 August 2016, he was transferred to Christmas Island.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "Cayzer v. Minister for Immigration and Border Protection (No 3) [2016] FCA 806."
+      }
+    ]
   },
   {
     "ID": "2.9.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "On 14 December 2016, the Full Federal Court denied the author’s appeal, upholding the decision of the Federal Administrative Court. The author filed an application for special leave to appeal the decision of the Full Federal Court to the High Court of Australia. The request for leave to appeal was denied by the High Court of Australia on 11 May 2017 on the grounds that the appeal did not enjoy a reasonable prospect of success, inasmuch as the grounds advanced by the author were contrary to binding precedent."
+    "Text": "On 14 December 2016, the Full Federal Court denied the author’s appeal,[[fn:11]] upholding the decision of the Federal Administrative Court. The author filed an application for special leave to appeal the decision of the Full Federal Court to the High Court of Australia. The request for leave to appeal was denied by the High Court of Australia on 11 May 2017 on the grounds that the appeal did not enjoy a reasonable prospect of success, inasmuch as the grounds advanced by the author were contrary to binding precedent.[[fn:12]]",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "Cayzer v. Minister for Immigration and Border Protection [2016] FCAFC 176."
+      },
+      {
+        "n": 12,
+        "text": "Central to the appeal was the willingness of the High Court to reconsider the precedent-setting Sipka case, as well as the related case of Shaw v. Minister for Immigration and Multicultural Affairs [2003] HCA 72; 218 CLR 28."
+      }
+    ]
   },
   {
     "ID": "2.10.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "The author refers to the Committee’s jurisprudence, in which it affirmed that “transportation”, that is to say, the forcible removal of a person from one country to another, constitutes a violation of the right to liberty and security and that his arrest, detention and removal cumulatively constitute a “single transaction”, akin to abduction from one country and removal to another."
+    "Text": "The author refers to the Committee’s jurisprudence,[[fn:13]] in which it affirmed that “transportation”, that is to say, the forcible removal of a person from one country to another, constitutes a violation of the right to liberty and security and that his arrest, detention and removal cumulatively constitute a “single transaction”, akin to abduction from one country and removal to another.",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "See Burgos v. Uruguay (CCPR/C/13/D/52/1979)."
+      }
+    ]
   },
   {
     "ID": "2.11.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "The author also refers to the Committee’s decision in the case of Tillman v. Australia in which the further detention of a person who had already served out the entirety of his criminal sentence amounted to arbitrary detention, within the meaning of article 9 of the Covenant. The author notes that the Committee in its Views confirmed that, to avoid a characterization of arbitrariness, the detention must be shown to be reasonable, necessary in all the circumstances of the case and proportionate to achieve the legitimate aims of the State party. If those legitimate ends can be achieved by less invasive means, then such detention will be rendered arbitrary. The author claims that his “prognosis for full rehabilitation is very good” and that he “is currently assessed as being at minimal risk of reoffending”. The author also claims that he completed all required rehabilitation courses during his time in prison."
+    "Text": "The author also refers to the Committee’s decision in the case of Tillman v. Australia[[fn:14]] in which the further detention of a person who had already served out the entirety of his criminal sentence amounted to arbitrary detention, within the meaning of article 9 of the Covenant. The author notes that the Committee in its Views confirmed that, to avoid a characterization of arbitrariness, the detention must be shown to be reasonable, necessary in all the circumstances of the case and proportionate to achieve the legitimate aims of the State party. If those legitimate ends can be achieved by less invasive means, then such detention will be rendered arbitrary. The author claims that his “prognosis for full rehabilitation is very good” and that he “is currently assessed as being at minimal risk of reoffending”.[[fn:15]] The author also claims that he completed all required rehabilitation courses during his time in prison.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "Tillman v. Australia (CCPR/C/98/D/1635/2007)."
+      },
+      {
+        "n": 15,
+        "text": "The author refers to a report by a psychologist, Dr Northey."
+      }
+    ]
   },
   {
     "ID": "2.12.",
@@ -93,7 +157,21 @@
     "ID": "2.13.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "The author refers to the Committee’s jurisprudence in A. v Australia and in other Views, in which it confirmed that prolonged and indefinite detention, as provided for and as permissible under section 189 of the Migration Act, constituted arbitrary detention. The author also cites European Court of Human Rights jurisprudence, in which the European Court affirmed the principle that retroactive preventive detention is incompatible with article 7 (1) of the European Convention on Human Rights regarding arbitrary detention."
+    "Text": "The author refers to the Committee’s jurisprudence in A. v Australia[[fn:16]] and in other Views,[[fn:17]] in which it confirmed that prolonged and indefinite detention, as provided for and as permissible under section 189 of the Migration Act, constituted arbitrary detention. The author also cites European Court of Human Rights jurisprudence, in which the European Court affirmed the principle that retroactive preventive detention is incompatible with article 7 (1) of the European Convention on Human Rights regarding arbitrary detention.[[fn:18]]",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "A. v. Australia (CCPR/C/59/D/560/1993)."
+      },
+      {
+        "n": 17,
+        "text": "The author cites D and E, and their two children v. Australia (CCPR/C/87/D/1050/2002); and Baktiyari v. Australia (CCPR/C/79/D/1069/2002)."
+      },
+      {
+        "n": 18,
+        "text": "In the case of M. v. Germany, of 17 December 2009, the European Court of Human Rights found that the retroactive extension under a German law of a period of preventive detention was a breach of articles 5 (1) (a) and 7 (1) of the European Convention. Three judgments, delivered on 13 January 2011, affirmed the principle in M. v. Germany. These were the cases of Kallweit, Mautes and Schummer. Essentially, the right to liberty and security of person requires that, for imprisonment to be legitimate, it must involve “the lawful detention of a person after conviction by a competent court”. The initial period of 10 years of preventive detention was thus acceptable, as it had been ordered by a court."
+      }
+    ]
   },
   {
     "ID": "2.14.",
@@ -114,7 +192,13 @@
     "ID": "2.16.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "The author submits that he considers the State party his “own country” for the purposes of article 12 (4) of the Covenant, as, whether or not his formal citizenship status is accepted by the State party, the Committee’s jurisprudence has established that the rights to freedom of movement and choice of residence extend to persons who reside permanently in a country, even where they remain nationals of a different country. The author, distinguishing the Committee’s Views in Stewart v. Canada, claims that he had demonstrated his intention to reside permanently in the State party through having applied for citizenship, even if a certificate was never issued."
+    "Text": "The author submits that he considers the State party his “own country” for the purposes of article 12 (4) of the Covenant, as, whether or not his formal citizenship status is accepted by the State party, the Committee’s jurisprudence has established that the rights to freedom of movement and choice of residence extend to persons who reside permanently in a country, even where they remain nationals of a different country. The author, distinguishing the Committee’s Views in Stewart v. Canada,[[fn:19]] claims that he had demonstrated his intention to reside permanently in the State party through having applied for citizenship, even if a certificate was never issued.",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "Stewart v. Canada (CCPR/C/58/D/538/1993)."
+      }
+    ]
   },
   {
     "ID": "2.17.",
@@ -123,7 +207,13 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "The author claims that, in addition to the other issues raised, the State party’s representatives had taken actions from which his son should have been protected and he refers in this regard to the report of a doctor, who states that the author’s children and his mother had started to be affected by the author’s departure."
+    "Text": "The author claims that, in addition to the other issues raised, the State party’s representatives had taken actions from which his son should have been protected and he refers in this regard to the report of a doctor, who states that the author’s children and his mother had started to be affected by the author’s departure.[[fn:20]]",
+    "Footnotes": [
+      {
+        "n": 20,
+        "text": "The author refers to a report submitted in domestic proceedings by Dr Hilary Bower, in which it is stated that “[the author’s son] has been seeing a psychologist for trauma after the police broke into his house looking for his father”. Furthermore, the author asserts that his deportation means that his children will effectively grow up without a father. In the report it is also stated that, according to the author, the separation is particularly difficult for his son because of the events leading up to and including his arrest. Furthermore, he submits that, as his daughter has only one kidney, he has been deprived of the opportunity to donate his kidney to her should she need it."
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -143,7 +233,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author claims a violation by the State party of his rights under article 14 (7), as the cancellation of his visa and consequent arrest, detention and deportation amount to his being punished again for an offence. The author notes in reference to the character test, that the State party used “civil proceedings” under the Migration Act to subsequently impose an additional term of imprisonment on him for the same crime, which he claims amounts to double jeopardy, in violation of article 15 of the Covenant."
+    "Text": "The author claims a violation by the State party of his rights under article 14 (7), as the cancellation of his visa and consequent arrest, detention and deportation amount to his being punished again for an offence. The author notes in reference to the character test,[[fn:21]] that the State party used “civil proceedings” under the Migration Act to subsequently impose an additional term of imprisonment on him for the same crime, which he claims amounts to double jeopardy, in violation of article 15 of the Covenant.[[fn:22]]",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "As applied under section 501 of the Migration Act (1958) read in conjunction with section 189 thereof."
+      },
+      {
+        "n": 22,
+        "text": "The author notes the Committee’s jurisprudence in Tillman v. Australia (CCPR/C/98/D/1635/2007), which confirmed that preventive detention imposed as part of the original sentencing scheme may be permissible in some cases."
+      }
+    ]
   },
   {
     "ID": "3.4.",
@@ -158,7 +258,13 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "The author claims that the State party violated his son’s rights under article 24 (1) of the Covenant by failing to adequately protect him from the actions of the police at the time that the author was arrested and placed in immigration detention. He also claims that his daughter is medically vulnerable. The author avers that in separating him from two such vulnerable children, the State party is in breach of its obligation to take such special measures as are required to protect children. He also indicates that the deportation continues to cause significant distress to his mother, who remains in the State party, and therefore that his mother’s rights have been similarly violated."
+    "Text": "The author claims that the State party violated his son’s rights under article 24 (1) of the Covenant by failing to adequately protect him from the actions of the police at the time that the author was arrested and placed in immigration detention. He also claims that his daughter is medically vulnerable.[[fn:23]] The author avers that in separating him from two such vulnerable children, the State party is in breach of its obligation to take such special measures as are required to protect children. He also indicates that the deportation continues to cause significant distress to his mother, who remains in the State party, and therefore that his mother’s rights have been similarly violated.",
+    "Footnotes": [
+      {
+        "n": 23,
+        "text": "Referencing the medical report of Dr. Northey."
+      }
+    ]
   },
   {
     "ID": "3.6.",
@@ -179,7 +285,13 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "The State party challenges the admissibility of the author’s claims on the following bases: (a) with respect to article 14 of the Covenant, the author’s claims are not sufficiently substantiated; (b) further and additional to being inadmissible as insufficiently substantiated, the author’s claims under articles 14 (7), 15 (1) and 24 (1) of the Covenant (the last-mentioned with respect to the author’s mother) are incompatible with the provisions of the Covenant and therefore should be found inadmissible, ratione materiae, in accordance with article 3 of the Optional Protocol and rule 96 (d) of the Committee’s rules of procedure; and (c) the author’s claim under article 24 (1) of the Covenant is wholly inadmissible, as the author lacks authority to bring the claim on behalf of his children, having made no submissions with regard to his authority or standing, and should therefore be dismissed, ratione personae, in accordance with the Committee’s jurisprudence."
+    "Text": "The State party challenges the admissibility of the author’s claims on the following bases: (a) with respect to article 14 of the Covenant, the author’s claims are not sufficiently substantiated; (b) further and additional to being inadmissible as insufficiently substantiated, the author’s claims under articles 14 (7), 15 (1) and 24 (1) of the Covenant (the last-mentioned with respect to the author’s mother) are incompatible with the provisions of the Covenant and therefore should be found inadmissible, ratione materiae, in accordance with article 3 of the Optional Protocol and rule 96 (d) of the Committee’s rules of procedure; and (c) the author’s claim under article 24 (1) of the Covenant is wholly inadmissible, as the author lacks authority to bring the claim on behalf of his children, having made no submissions with regard to his authority or standing, and should therefore be dismissed, ratione personae, in accordance with the Committee’s jurisprudence.[[fn:24]]",
+    "Footnotes": [
+      {
+        "n": 24,
+        "text": "Fei v. Colombia (CCPR/C/53/D/514/1992)."
+      }
+    ]
   },
   {
     "ID": "4.3.",
@@ -191,7 +303,13 @@
     "ID": "4.4.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "Furthermore, the author’s claims under article 14 of the Covenant, with regard to his immigration status, fall outside the scope of the Covenant and should be dismissed, ratione materiae. The State party notes that the cancellation of the visa was based on an administrative process. The State party also notes the Committee’s general comment No. 32 (2007) on the right to equality before courts and tribunals and to a fair trial, in which it clarified that a suit of law “does not apply to extradition, expulsion and deportation procedures”."
+    "Text": "Furthermore, the author’s claims under article 14 of the Covenant, with regard to his immigration status, fall outside the scope of the Covenant and should be dismissed, ratione materiae. The State party notes that the cancellation of the visa was based on an administrative process. The State party also notes the Committee’s general comment No. 32 (2007) on the right to equality before courts and tribunals and to a fair trial, in which it clarified that a suit of law “does not apply to extradition, expulsion and deportation procedures”.[[fn:25]]",
+    "Footnotes": [
+      {
+        "n": 25,
+        "text": "The State party refers to Zundel v. Canada (CCPR/C/89/D/1341/2005), where the Committee confirmed that “proceedings relating to an alien’s expulsion” do not fall under article 14 (1) of the Covenant."
+      }
+    ]
   },
   {
     "ID": "4.5.",
@@ -205,7 +323,17 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "With regard to the author’s immigration detention, the State party claims that the author was detained following the lawful cancellation of his visa on character grounds, under section 501 (2) of the Migration Act, which obliges immigration officers to detain individuals who are without valid visas. Section 196 of the same Act provides that an unlawful non-citizen shall be detained until “he or she is removed from Australia” under section 198 or 199. It is therefore asserted that the immigration detention of the author was lawful and in accordance with domestic law. Noting that the Committee has found that detention of non-citizens who do not hold a valid visa, including asylum-seekers, is not arbitrary per se, the State party submits that the rationale for its immigration laws must be considered to assess arbitrariness in order to demonstrate that such detention does not breach article 9 (1) of the Covenant."
+    "Text": "With regard to the author’s immigration detention, the State party claims that the author was detained following the lawful cancellation of his visa on character grounds, under section 501 (2) of the Migration Act, which obliges immigration officers to detain individuals who are without valid visas.[[fn:26]] Section 196 of the same Act provides that an unlawful non-citizen shall be detained until “he or she is removed from Australia” under section 198 or 199. It is therefore asserted that the immigration detention of the author was lawful and in accordance with domestic law. Noting that the Committee has found that detention of non-citizens who do not hold a valid visa, including asylum-seekers, is not arbitrary per se,[[fn:27]] the State party submits that the rationale for its immigration laws must be considered to assess arbitrariness in order to demonstrate that such detention does not breach article 9 (1) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "Section 189 of the Migration Act."
+      },
+      {
+        "n": 27,
+        "text": "A v. Australia (CCPR/C/59/D/560/1993), para. 9.3."
+      }
+    ]
   },
   {
     "ID": "4.7.",
@@ -225,13 +353,25 @@
     "ID": "4.9.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The State party clarifies that prior to the Minister’s decision to cancel his visa, the author had been provided with a Notice of Intention to Consider Cancellation, which allowed him to provide evidence regarding why his visa should not be cancelled. The Minister considered all the factors presented by the author, as can be seen from the Statement of Reasons by the Minister, but decided that as “there remains a risk, albeit a low one, that [the author] will re-offend”, the physical and psychological harm which would result to vulnerable members of the Australian community if the author were to reoffend justified the cancellation. As a result, the author was no longer in possession of a valid visa and was therefore no longer lawfully within the State party’s territory. He was therefore administratively detained, pending removal. This decision was upheld by the Federal Court of Australia and the Full Court of the Federal Court of Australia upon judicial review. Special leave to appeal to the High Court was denied. The author’s detention was thus reasonable and necessary in all the circumstances and proportionate to the legitimate aim."
+    "Text": "The State party clarifies that prior to the Minister’s decision to cancel his visa, the author had been provided with a Notice of Intention to Consider Cancellation, which allowed him to provide evidence regarding why his visa should not be cancelled. The Minister considered all the factors presented by the author, as can be seen from the Statement of Reasons by the Minister,[[fn:28]] but decided that as “there remains a risk, albeit a low one, that [the author] will re-offend”, the physical and psychological harm which would result to vulnerable members of the Australian community if the author were to reoffend justified the cancellation. As a result, the author was no longer in possession of a valid visa and was therefore no longer lawfully within the State party’s territory. He was therefore administratively detained, pending removal. This decision was upheld by the Federal Court of Australia and the Full Court of the Federal Court of Australia upon judicial review. Special leave to appeal to the High Court was denied. The author’s detention was thus reasonable and necessary in all the circumstances and proportionate to the legitimate aim.",
+    "Footnotes": [
+      {
+        "n": 28,
+        "text": "Statement of Reasons for Cancellation of Visa under Subsection 501 (2) of the Migration Act 1958, the Hon Scott Morrison MP, Minister for Immigration and Border Protection, 27 October 2014, 7."
+      }
+    ]
   },
   {
     "ID": "4.10.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The State Party notes that the author’s detention was prolonged only for the length of time required to resolve his domestic proceedings to affect his removal. He was removed from Australia on 10 December 2017 after he had exhausted all domestic remedies in relation to his visa cancellation. While detention in a place outside an immigration detention centre is, in some cases, available, this was not considered appropriate owing to the risk to the community."
+    "Text": "The State Party notes that the author’s detention was prolonged only for the length of time required to resolve his domestic proceedings to affect his removal. He was removed from Australia on 10 December 2017 after he had exhausted all domestic remedies in relation to his visa cancellation. While detention in a place outside an immigration detention centre is, in some cases,[[fn:29]] available, this was not considered appropriate owing to the risk to the community.",
+    "Footnotes": [
+      {
+        "n": 29,
+        "text": "Public interest test under section 197AB (1) of the Migration Act."
+      }
+    ]
   },
   {
     "ID": "4.11.",
@@ -247,19 +387,49 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The State party submits that, even if the author’s broad interpretation of article 9 of the Covenant (which the State party disputes) is adopted, the author’s removal was not arbitrary. It was lawful; in accordance with the provisions, aims and objectives of the Covenant; and reasonable in the circumstances. The State party distinguishes the Burgos, case, which concerned the unlawful and clandestine abduction of Mr. Burgos from Argentina and his removal to Uruguay, where he was detained incommunicado and subjected to torture, from the author’s case, which relates to an administrative procedure to remove an unlawful non-citizen in accordance with both domestic law and international obligations."
+    "Text": "The State party submits that, even if the author’s broad interpretation of article 9 of the Covenant (which the State party disputes) is adopted, the author’s removal was not arbitrary. It was lawful; in accordance with the provisions, aims and objectives of the Covenant; and reasonable in the circumstances. The State party distinguishes the Burgos,[[fn:30]] case, which concerned the unlawful and clandestine abduction of Mr. Burgos from Argentina and his removal to Uruguay, where he was detained incommunicado and subjected to torture, from the author’s case, which relates to an administrative procedure to remove an unlawful non-citizen in accordance with both domestic law and international obligations.",
+    "Footnotes": [
+      {
+        "n": 30,
+        "text": "Sergio Euben Lopez Burgos v. Uruguay (CCPR/C/13/D/52/1979)."
+      }
+    ]
   },
   {
     "ID": "4.13.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "As to the author’s claim under article 12 of the Covenant, the State party quotes the Committee’s general comment No. 27 (1999) on freedom of movement, in which it is stated that “the question whether an alien is ‘lawfully’ within the territory of a State is a matter governed by domestic law, which may subject the entry of an alien to the territory of a State to restrictions, provided they are in compliance with the State’s international obligations”. The State party argues that it does not accept that the author was an Australian citizen, as confirmed by the Federal Circuit Court. In relation to the author’s claim under article 12, the State party notes that in Stewart v. Canada, Canepa v. Canada and Madafferi v. Australia, the Committee held that a person who enters a State under a State’s immigration laws cannot regard the State as his own country when he has not acquired the nationality of that country and continues to retain the nationality of his country of origin. The State party also notes the Committee’s finding that the denial of nationality based on a criminal record is not an unreasonable impediment to acquiring citizenship."
+    "Text": "As to the author’s claim under article 12 of the Covenant, the State party quotes the Committee’s general comment No. 27 (1999) on freedom of movement, in which it is stated that “the question whether an alien is ‘lawfully’ within the territory of a State is a matter governed by domestic law, which may subject the entry of an alien to the territory of a State to restrictions, provided they are in compliance with the State’s international obligations”. The State party argues that it does not accept that the author was an Australian citizen, as confirmed by the Federal Circuit Court. In relation to the author’s claim under article 12, the State party notes that in Stewart v. Canada,[[fn:31]] Canepa v. Canada[[fn:32]] and Madafferi v. Australia,[[fn:33]] the Committee held that a person who enters a State under a State’s immigration laws cannot regard the State as his own country when he has not acquired the nationality of that country and continues to retain the nationality of his country of origin. The State party also notes the Committee’s finding that the denial of nationality based on a criminal record is not an unreasonable impediment to acquiring citizenship.[[fn:34]]",
+    "Footnotes": [
+      {
+        "n": 31,
+        "text": "Stewart v. Canada (CCPR/C/58/D/538/1993)."
+      },
+      {
+        "n": 32,
+        "text": "Canepa v. Canada (CCPR/C/52/D/558/1993)."
+      },
+      {
+        "n": 33,
+        "text": "Madafferi v. Australia (CCPR/C/81/D/1011/2001)."
+      },
+      {
+        "n": 34,
+        "text": "In Stewart v. Australia (CCPR/C/58/D/538/1993), it was held that “[e]ven had he [Mr. Stewart] applied and been denied nationality because of his criminal record, this disability was of his own making. It cannot be said that Canada’s immigration legislation is arbitrary or unreasonable in denying Canadian nationality to individuals who have criminal records."
+      }
+    ]
   },
   {
     "ID": "4.14.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The State party notes that the Committee has interpreted this provision more broadly, specifically with reference to Nystrom v. Australia, in which it held that a State could be a person’s “own country” for the purposes of article 12 (4) of the Covenant in circumstances where he or she was not a national but could nonetheless establish “close and enduring connections” with that State. In the Committee’s view, relevant factors to be considered included long-standing residence, close family ties and the lack of a connection with any other State. However, in dissenting opinions, two Committee members disagreed with this overly broad approach, stating that only in limited and exceptional circumstances can an alien establish close and enduring connections to a State, such that it can be that person’s own country for the purposes of article 12 (4) of the Covenant."
+    "Text": "The State party notes that the Committee has interpreted this provision more broadly, specifically with reference to Nystrom v. Australia,[[fn:35]] in which it held that a State could be a person’s “own country” for the purposes of article 12 (4) of the Covenant in circumstances where he or she was not a national but could nonetheless establish “close and enduring connections” with that State. In the Committee’s view, relevant factors to be considered included long-standing residence, close family ties and the lack of a connection with any other State. However, in dissenting opinions, two Committee members disagreed with this overly broad approach, stating that only in limited and exceptional circumstances can an alien establish close and enduring connections to a State, such that it can be that person’s own country for the purposes of article 12 (4) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 35,
+        "text": "Nystrom v. Australia (CCPR/C/102/D/1557/2007)."
+      }
+    ]
   },
   {
     "ID": "4.15.",
@@ -291,13 +461,29 @@
     "ID": "4.19.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "As for article 14 (7) of the Covenant, it applies to criminal offences only and not to disciplinary measures that do not amount to a sanction for a criminal offence within the meaning of article 14 of the Covenant. In J.G. v. New Zealand, the Committee found the decision to remove the author to be administrative and not a double punishment for a prior drug conviction."
+    "Text": "As for article 14 (7) of the Covenant, it applies to criminal offences only and not to disciplinary measures that do not amount to a sanction for a criminal offence within the meaning of article 14 of the Covenant.[[fn:36]] In J.G. v. New Zealand,[[fn:37]] the Committee found the decision to remove the author to be administrative and not a double punishment for a prior drug conviction.",
+    "Footnotes": [
+      {
+        "n": 36,
+        "text": "The State party refers to the Committee’s general comment No. 32 (2007) on the right to equality before courts and tribunals and to a fair trial."
+      },
+      {
+        "n": 37,
+        "text": "J.G. v. New Zealand (CCPR/C/115/D/2631/2015)."
+      }
+    ]
   },
   {
     "ID": "4.20.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "In Uner v. Netherlands, the European Court of Human Rights decided that “an expulsion ordered in administrative proceedings following a criminal conviction did not constitute a double punishment, either for the purposes of article 4 of Protocol No. 7 or in the humane sense of the term”. The author’s period of immigration detention and his subsequent removal did not represent a criminal penalty nor did it constitute double punishment within the meaning of article 14 (7) of the Covenant."
+    "Text": "In Uner v. Netherlands,[[fn:38]] the European Court of Human Rights decided that “an expulsion ordered in administrative proceedings following a criminal conviction did not constitute a double punishment, either for the purposes of article 4 of Protocol No. 7 or in the humane sense of the term”. The author’s period of immigration detention and his subsequent removal did not represent a criminal penalty nor did it constitute double punishment within the meaning of article 14 (7) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 38,
+        "text": "European Court of Human Rights, Uner v. Netherlands, Application No. 46410/99 (16 June 2005)."
+      }
+    ]
   },
   {
     "ID": "4.21.",
@@ -333,13 +519,29 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The assessment that the original visa cancellation decision was a denial of justice is supported through reference to a recent mental health report, dated 1 May 2019. Most relevant are conclusions derived from this report that there were “no safeguarding concerns” or “no risk of harm to others” identified. The report does, however, set out the mental health challenges that the author is confronting, which have been exacerbated by his stay in immigration detention and his deportation. Those challenges would be mitigated by allowing him to repatriate to Australia. The report details abuse suffered by the author while in the detention centre and his current struggles with low mood and anxiety, with some reported biological features of depression."
+    "Text": "The assessment that the original visa cancellation decision was a denial of justice is supported through reference to a recent mental health report, dated 1 May 2019.[[fn:39]] Most relevant are conclusions derived from this report that there were “no safeguarding concerns” or “no risk of harm to others” identified. The report does, however, set out the mental health challenges that the author is confronting, which have been exacerbated by his stay in immigration detention and his deportation. Those challenges would be mitigated by allowing him to repatriate to Australia. The report details abuse suffered by the author[[fn:40]] while in the detention centre and his current struggles with low mood and anxiety, with some reported biological features of depression.",
+    "Footnotes": [
+      {
+        "n": 39,
+        "text": "The author refers to and provides a copy of the report of Hartlepool Integrated Mental Health Services."
+      },
+      {
+        "n": 40,
+        "text": "No further information is provided by the author."
+      }
+    ]
   },
   {
     "ID": "6.",
     "Section": "State party’s additional observations",
     "Labels": [],
-    "Text": "On 11 November 2019, the State party responded to the author’s comments, noting that the author had not identified any irregularity in the decision of the Minister, which was subject to five separate instances of judicial review. It refers to the Minister’s Statement of Reasons where all the factors mentioned are considered but not found to outweigh the risk of harm to the public. With reference to the doctor’s report, the State party notes that as it was produced in the context not of reoffending but rather of an assessment for depression, the report is therefore of limited relevance. The State party submits, however, that a psychological report was part of the evidence considered by the Minister."
+    "Text": "On 11 November 2019, the State party responded to the author’s comments, noting that the author had not identified any irregularity in the decision of the Minister, which was subject to five separate instances of judicial review. It refers to the Minister’s Statement of Reasons where all the factors mentioned are considered but not found to outweigh the risk of harm to the public. With reference to the doctor’s report,[[fn:41]] the State party notes that as it was produced in the context not of reoffending but rather of an assessment for depression, the report is therefore of limited relevance. The State party submits, however, that a psychological report was part of the evidence considered by the Minister.",
+    "Footnotes": [
+      {
+        "n": 41,
+        "text": "The State party refers to the report in para. 2.17 and footnote 19."
+      }
+    ]
   },
   {
     "ID": "7.1.",
@@ -363,7 +565,17 @@
     "ID": "7.4.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee notes the State party’s submission that the author’s claim under article 14 (7) of the Covenant, characterizing his arrest, detention and deportation as a new punishment for served convictions, is insufficiently substantiated. The Committee also notes the author’s claims that the State party’s actions were criminal penalties imposed for crimes for which he had already served his sentence and that since no new proceedings had been instituted, there was no justification for new criminal sanctions. He therefore claims that his treatment during removal proceedings, being penal in nature, fall under and violate articles 14 and 15 of the Covenant, which prevent double jeopardy and retroactive punishment. The Committee further notes the State party’s argument that the removal proceedings were purely administrative and although the character test under the Migration Act takes past convictions into account, the aim is not to repunish the individual but to ensure public safety. The Committee recalls its jurisprudence in which it was confirmed that article 14 of the Covenant is applicable to criminal matters and not to proceedings in relation to deportation and removal and that administrative proceedings, consequent to a criminal conviction, do not equate to double punishment under article 14 (7) of the Covenant. Accordingly, the Committee concludes that the author’s claims under articles 14 and 15 are inadmissible, ratione materiae, under article 3 of the Optional Protocol."
+    "Text": "The Committee notes the State party’s submission that the author’s claim under article 14 (7) of the Covenant, characterizing his arrest, detention and deportation as a new punishment for served convictions, is insufficiently substantiated. The Committee also notes the author’s claims that the State party’s actions were criminal penalties imposed for crimes for which he had already served his sentence and that since no new proceedings had been instituted, there was no justification for new criminal sanctions. He therefore claims that his treatment during removal proceedings, being penal in nature, fall under and violate articles 14 and 15 of the Covenant, which prevent double jeopardy and retroactive punishment. The Committee further notes the State party’s argument that the removal proceedings were purely administrative and although the character test under the Migration Act takes past convictions into account, the aim is not to repunish the individual but to ensure public safety. The Committee recalls its jurisprudence in which it was confirmed that article 14 of the Covenant is applicable to criminal matters and not to proceedings in relation to deportation and removal[[fn:42]] and that administrative proceedings, consequent to a criminal conviction, do not equate to double punishment under article 14 (7) of the Covenant.[[fn:43]] Accordingly, the Committee concludes that the author’s claims under articles 14 and 15 are inadmissible, ratione materiae, under article 3 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 42,
+        "text": "J.G. v. New Zealand (CCPR/C/115/D/2631/2015). The Committee notes, first, that the ne bis in idem principle as protected by article 14 (7) of the Covenant prohibits States from trying someone for the same offence for which that person has already been tried and sentenced. The Committee observes that, in the circumstances of the present case, the decision to proceed with the deportation of the author is a measure of administrative nature that is independent of his conviction and sentence under criminal law for drug-related crimes. It therefore cannot be seen as constituting an additional punishment for the criminal offences committed by the author. Accordingly, the Committee considers that the author’s claims do not raise any issues under article 14 (7) of the Covenant."
+      },
+      {
+        "n": 43,
+        "text": "J.G. v. New Zealand (CCPR/C/115/D/2631/2015)."
+      }
+    ]
   },
   {
     "ID": "7.5.",
@@ -410,7 +622,13 @@
     "ID": "8.3.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee notes that limitations on the right to liberty of movement and choice of residence, protected by article 12 (1) and (2) of the Covenant, are relative to the author’s status, either as a citizen or as a lawfully present alien, and the right mentioned in article 12 (4) of the Covenant applies to those individuals whose connections to the State party are such that it could be considered “their own country”. The Committee also notes that the issue of the author’s citizenship was heard before all available domestic instances and that the author raises no question of procedural irregularity. The Committee therefore does not find it necessary to interfere with the State party’s determination that the author was not, in fact, its citizen."
+    "Text": "The Committee notes that limitations on the right to liberty of movement and choice of residence, protected by article 12 (1) and (2) of the Covenant, are relative to the author’s status, either as a citizen or as a lawfully present alien, and the right mentioned in article 12 (4) of the Covenant applies to those individuals whose connections to the State party are such that it could be considered “their own country”.[[fn:44]] The Committee also notes that the issue of the author’s citizenship was heard before all available domestic instances and that the author raises no question of procedural irregularity. The Committee therefore does not find it necessary to interfere with the State party’s determination that the author was not, in fact, its citizen.",
+    "Footnotes": [
+      {
+        "n": 44,
+        "text": "See paragraph 20 of general comment No. 27 (1999) on freedom of movement, in which it is stated that: “[t]he wording of article 12, paragraph 4, does not distinguish between nationals and aliens (‘no one’). The scope of ‘his own country’ is broader than the concept of ‘country of his nationality’. It is not limited to nationality in a formal sense, that is, nationality acquired at birth or by conferral; it embraces, at the very least, an individual who, because of his or her special ties to or claims in relation to a given country, cannot be considered to be a mere alien.”"
+      }
+    ]
   },
   {
     "ID": "8.4.",
@@ -418,7 +636,21 @@
     "Labels": [
       "Migrants"
     ],
-    "Text": "The Committee recalls its jurisprudence, on the question of whether a person who enters a given State, under and subject to the conditions of its immigration law, can regard that State as his own country when he has not acquired its nationality and continues to retain the nationality of his country of origin. The answer could possibly be positive in a case where the country of immigration places unreasonable impediments on the acquiring of nationality by new immigrants; when, however, as in the present case, the country of immigration facilitates acquiring its nationality and the immigrant refrains from doing so, either by choice or by committing acts that will disqualify him from acquiring that nationality, the country of immigration does not become “his own country” within the meaning of article 12 (4) of the Covenant. It is to be noted in this regard that, while in the drafting of article 12 (4) of the Covenant the term “country of nationality” was rejected, the suggestion to refer to the country of one’s permanent home was rejected as well. The Committee also recalls its jurisprudence in Nystrom and Warsame in which the failure to acquire citizenship, in the absence of unreasonable impediments imposed by the State party, was not determinative of the application of article 12 (4) where individual and highly specific circumstances made such an interpretation too restrictive."
+    "Text": "The Committee recalls its jurisprudence,[[fn:45]] on the question of whether a person who enters a given State, under and subject to the conditions of its immigration law, can regard that State as his own country when he has not acquired its nationality and continues to retain the nationality of his country of origin. The answer could possibly be positive in a case where the country of immigration places unreasonable impediments on the acquiring of nationality by new immigrants; when, however, as in the present case, the country of immigration facilitates acquiring its nationality and the immigrant refrains from doing so, either by choice or by committing acts that will disqualify him from acquiring that nationality, the country of immigration does not become “his own country” within the meaning of article 12 (4) of the Covenant. It is to be noted in this regard that, while in the drafting of article 12 (4) of the Covenant the term “country of nationality” was rejected, the suggestion to refer to the country of one’s permanent home was rejected as well. The Committee also recalls its jurisprudence in Nystrom[[fn:46]] and Warsame[[fn:47]] in which the failure to acquire citizenship, in the absence of unreasonable impediments imposed by the State party, was not determinative of the application of article 12 (4) where individual and highly specific circumstances made such an interpretation too restrictive.",
+    "Footnotes": [
+      {
+        "n": 45,
+        "text": "Stewart v. Canada (CCPR/C/58/D/538/1993)."
+      },
+      {
+        "n": 46,
+        "text": "Nystrom v. Australia (CCPR/C/102/D/1557/2007)."
+      },
+      {
+        "n": 47,
+        "text": "Warsame v. Canada (CCPR/C/102/D/1959/2010)."
+      }
+    ]
   },
   {
     "ID": "8.5.",
@@ -454,7 +686,25 @@
     "ID": "8.10.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee recalls that the Covenant in its article 9 (1) recognizes that everyone has the right to liberty and security of person and that no one may be subjected to arbitrary arrest or detention. In that article, the Committee does provide, however, for certain permissible limitations on this right, by way of detention, where the grounds and the procedures in that regard are established by law. Such limitations are indeed permissible and exist in most countries, being incorporated in laws which have as their object, for example, immigration control or other purposes related to conditions under which individuals are deemed harmful to themselves or society. The Committee recalls its jurisprudence, in which it is stated that the right to liberty of person is not absolute. While it is recognized in article 9 of the Covenant that deprivation of liberty is sometimes justified, for example, in the enforcement of criminal laws, arrest or detention may be authorized by domestic law and nonetheless be arbitrary. The notion of “arbitrariness” is not to be equated with being “against the law” but must be interpreted more broadly to include elements of inappropriateness, injustice, lack of predictability and due process of law, as well as elements of reasonableness, necessity and proportionality. The grounds and procedures prescribed by law must not be destructive of the right to liberty of person nor can the regime of detention amount to an evasion of the limits imposed on the criminal justice system by providing the equivalent of criminal punishment without the applicable protections."
+    "Text": "The Committee recalls that the Covenant in its article 9 (1) recognizes that everyone has the right to liberty and security of person and that no one may be subjected to arbitrary arrest or detention. In that article, the Committee does provide, however, for certain permissible limitations on this right, by way of detention, where the grounds and the procedures in that regard are established by law. Such limitations are indeed permissible and exist in most countries, being incorporated in laws which have as their object, for example, immigration control or other purposes related to conditions under which individuals are deemed harmful to themselves or society. The Committee recalls its jurisprudence,[[fn:48]] in which it is stated that the right to liberty of person is not absolute. While it is recognized in article 9 of the Covenant that deprivation of liberty is sometimes justified, for example, in the enforcement of criminal laws, arrest or detention may be authorized by domestic law and nonetheless be arbitrary. The notion of “arbitrariness” is not to be equated with being “against the law” but must be interpreted more broadly to include elements of inappropriateness, injustice, lack of predictability and due process of law,[[fn:49]] as well as elements of reasonableness, necessity and proportionality. The grounds and procedures prescribed by law must not be destructive of the right to liberty of person[[fn:50]] nor can the regime of detention amount to an evasion of the limits imposed on the criminal justice system by providing the equivalent of criminal punishment without the applicable protections.[[fn:51]]",
+    "Footnotes": [
+      {
+        "n": 48,
+        "text": "See general comment No. 35 (2014) on liberty and security of person."
+      },
+      {
+        "n": 49,
+        "text": "Gorji-Dinka v. Cameroon (CCPR/C/83/D/1134/2002), para. 5.1; and 305/1988, Van Alphen v. Netherlands (CCPR/C/39/D/305/1988), para. 5.8."
+      },
+      {
+        "n": 50,
+        "text": "Fardon v. Australia (CCPR/C/98/D/1629/2007), para. 7.3."
+      },
+      {
+        "n": 51,
+        "text": "Ibid., para. 7.4 (a)–7.4 (c). See concluding observations: United States of America (CCPR/C/USA/CO/3/Rev.1, 2006), para. 19; and general comment No. 32 (2007) on the right to equality before courts and tribunals and to a fair trial, paras. 15 and 18."
+      }
+    ]
   },
   {
     "ID": "8.11.",
@@ -462,7 +712,29 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The Committee recalls its jurisprudence in which it confirmed that detention in the course of proceedings for the control of immigration is not arbitrary per se but stated that the detention must be justified as reasonable, necessary and proportionate in the light of the circumstances and reassessed as it extends in time. States parties should also prevent and redress unjustifiable use of force in law enforcement. In relation to continued detention after the completion of a criminal sentence for the purpose of protecting the community or “preventive detention” which, although not directly applicable in the author’s case, is perhaps analogous to detention prior to removal where protection of the public is at issue, the Committee has confirmed in previous Views that such detention must be justified by compelling reasons arising from the gravity of the crimes committed and the likelihood of the detainee committing similar crimes in the future. Furthermore, States should use such detention only as a last resort and regular periodic reviews by an independent body to decide whether continued detention is justified must be assured. States parties must exercise caution and provide appropriate guarantees in evaluating future dangers posed by the individual. If a prisoner has fully served the sentence imposed at the time of conviction, under articles 9 and 15 of the Covenant a retroactive increase in the sentence is prohibited and a State party may not circumvent that prohibition by imposing a detention that is equivalent to penal imprisonment under the label of civil detention. To avoid arbitrariness, in these circumstances, the State party must demonstrate that the legitimate aim of protecting the public could not be achieved through any other, less intrusive, means than arrest and indeterminate detention until all domestic remedies had been exhausted."
+    "Text": "The Committee recalls its jurisprudence in which it confirmed that detention in the course of proceedings for the control of immigration is not arbitrary per se but stated that the detention must be justified as reasonable, necessary and proportionate in the light of the circumstances and reassessed as it extends in time.[[fn:52]] States parties should also prevent and redress unjustifiable use of force in law enforcement.[[fn:53]] In relation to continued detention after the completion of a criminal sentence for the purpose of protecting the community or “preventive detention” which, although not directly applicable in the author’s case, is perhaps analogous to detention prior to removal where protection of the public is at issue, the Committee has confirmed in previous Views that such detention must be justified by compelling reasons arising from the gravity of the crimes committed and the likelihood of the detainee committing similar crimes in the future. Furthermore, States should use such detention only as a last resort and regular periodic reviews by an independent body to decide whether continued detention is justified must be assured. States parties must exercise caution and provide appropriate guarantees in evaluating future dangers posed by the individual.[[fn:54]] If a prisoner has fully served the sentence imposed at the time of conviction, under articles 9 and 15 of the Covenant a retroactive increase in the sentence is prohibited and a State party may not circumvent that prohibition by imposing a detention that is equivalent to penal imprisonment under the label of civil detention.[[fn:55]] To avoid arbitrariness, in these circumstances, the State party must demonstrate that the legitimate aim of protecting the public could not be achieved through any other, less intrusive, means than arrest and indeterminate detention until all domestic remedies had been exhausted.[[fn:56]]",
+    "Footnotes": [
+      {
+        "n": 52,
+        "text": "Shafiq v. Australia (CCPR/C/88/D/1324/2004), para. 7.2."
+      },
+      {
+        "n": 53,
+        "text": "Leehong v. Jamaica (CCPR/C/66/D/613/1995), para. 9.3; see also Basic Principles on the Use of Force and Firearms by Law Enforcement Officials (1990)."
+      },
+      {
+        "n": 54,
+        "text": "See concluding observations: Germany (CCPR/C/DEU/CO/6, 2012), para. 14."
+      },
+      {
+        "n": 55,
+        "text": "Fardon v. Australia (CCPR/C/98/D/1629/2007), para. 7.4."
+      },
+      {
+        "n": 56,
+        "text": "Danyal Shafiq v. Australia (CCPR/C/88/D/1324/2004)."
+      }
+    ]
   },
   {
     "ID": "8.12.",
@@ -482,7 +754,13 @@
     "ID": "8.14.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "As to the author’s detention, the Committee notes that it does not have the benefit of detailed submissions from either party specifically concerning review of the necessity of the author’s detention, having before it the records of only certain of the proceedings. Having regard to the fact that the Committee does not have the transcript of proceedings of 18 December 2015 on the Order to dismiss the author’s interlocutory application in relation to home detention, the Committee, while noting that the Order was made by consent and that no further application to restrain detention was made by the author, finds that there is not sufficient information before it to indicate that the decision to impose detention was taken arbitrarily."
+    "Text": "As to the author’s detention, the Committee notes that it does not have the benefit of detailed submissions from either party specifically concerning review of the necessity of the author’s detention, having before it the records of only certain of the proceedings.[[fn:57]] Having regard to the fact that the Committee does not have the transcript of proceedings of 18 December 2015 on the Order to dismiss the author’s interlocutory application in relation to home detention, the Committee, while noting that the Order was made by consent and that no further application to restrain detention was made by the author, finds that there is not sufficient information before it to indicate that the decision to impose detention was taken arbitrarily.",
+    "Footnotes": [
+      {
+        "n": 57,
+        "text": "Including the visa cancellation decision; the author’s application for an urgent ex parte injunction to suspend his detention, heard on 30 and 31 October 2014; the hearing on the Minister’s application to set aside the injunction, which was granted on 21 November 2014; the hearing on the author’s application for declaratory relief regarding his visa cancellation, which was rejected on 13 July 2016; his application to remove his appeal to the High Court, which was rejected on 13 November 2015; the substantive appeal hearing, which was rejected by the Full Federal Court on 14 December 2016; and the hearing by the High Court on the author’s application for special leave to appeal the decision of the Full Federal Court."
+      }
+    ]
   },
   {
     "ID": "8.15.",
@@ -640,7 +918,13 @@
     "ID": "OP1-3.",
     "Section": "Individual opinion of Committee member Arif Bulkan (dissenting)",
     "Labels": [],
-    "Text": "Despite some initial resistance, this broader interpretation is now firmly incorporated in the meaning of article 12 (4). In its general comment 27 (1999) on freedom of movement, the Human Rights Committee affirms that the scope of this provision extends beyond the formal category of nationality. In a passage worth quoting in full, the Committee notes that article 12 (4) is capable of a “broader interpretation that might embrace other categories of long-term residents”, since “[i]t is not limited to nationality in a formal sense, that is, nationality acquired at birth or by conferral; it embraces, at the very least, an individual who, because of his or her special ties to or claims in relation to a given country, cannot be considered to be a mere alien”.",
+    "Text": "Despite some initial resistance, this broader interpretation is now firmly incorporated in the meaning of article 12 (4). In its general comment 27 (1999) on freedom of movement, the Human Rights Committee affirms that the scope of this provision extends beyond the formal category of nationality. In a passage worth quoting in full, the Committee notes that article 12 (4) is capable of a “broader interpretation that might embrace other categories of long-term residents”, since “[i]t is not limited to nationality in a formal sense, that is, nationality acquired at birth or by conferral; it embraces, at the very least, an individual who, because of his or her special ties to or claims in relation to a given country, cannot be considered to be a mere alien”.[[fn:58]]",
+    "Footnotes": [
+      {
+        "n": 58,
+        "text": "General comment No. 27 1999) on freedom of movement."
+      }
+    ],
     "OriginalID": "3.",
     "Namespace": "OP1"
   },
@@ -650,7 +934,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "This broader approach has been embraced in several recent cases. In Nystrom v. Australia, for example, this Committee found that “there are factors other than nationality which may establish close and enduring connections between a person and a country, connections which may be stronger than those of nationality. The words ‘his own country’ invite consideration of such matters as long standing residence, close personal and family ties and intentions to remain, as well as to the absence of such ties elsewhere”. Applying that test, the Committee concluded that Australia was the author’s own country, notwithstanding his lack of citizenship, since he was taken there from Sweden by his mother when he was only 27 days old and lived there all his life; further, the author had no ties to Sweden, did not speak the language and had always considered Australia to be his home. A similar approach was taken in Warsame v. Canada, where the Committee echoed that there may be “close and enduring connections between a person and a country” which may be stronger than nationality, thereby attracting the protection of article 12 (4). In the case of Warsame, the author had arrived in Canada at age 4, lived there continuously thereafter with his nuclear family and received his entire education in that country. Before that, he had resided in Saudi Arabia and had never lived in Somalia nor could he speak the language properly. Given these factors, which the Committee described as indicating “strong ties” connecting him to Canada, it concluded that the author had established that Canada was the author’s “own country” for the purposes of article 12 (4).",
+    "Text": "This broader approach has been embraced in several recent cases. In Nystrom v. Australia, for example, this Committee found that “there are factors other than nationality which may establish close and enduring connections between a person and a country, connections which may be stronger than those of nationality. The words ‘his own country’ invite consideration of such matters as long standing residence, close personal and family ties and intentions to remain, as well as to the absence of such ties elsewhere”.[[fn:59]] Applying that test, the Committee concluded that Australia was the author’s own country, notwithstanding his lack of citizenship, since he was taken there from Sweden by his mother when he was only 27 days old and lived there all his life; further, the author had no ties to Sweden, did not speak the language and had always considered Australia to be his home. A similar approach was taken in Warsame v. Canada, where the Committee echoed that there may be “close and enduring connections between a person and a country” which may be stronger than nationality, thereby attracting the protection of article 12 (4). In the case of Warsame, the author had arrived in Canada at age 4, lived there continuously thereafter with his nuclear family and received his entire education in that country. Before that, he had resided in Saudi Arabia and had never lived in Somalia nor could he speak the language properly. Given these factors, which the Committee described as indicating “strong ties” connecting him to Canada, it concluded that the author had established that Canada was the author’s “own country” for the purposes of article 12 (4).[[fn:60]]",
+    "Footnotes": [
+      {
+        "n": 59,
+        "text": "Communication No. 1557/2007, Nystrom v. Australia, adopted on 18 July 2011, para. 7.4."
+      },
+      {
+        "n": 60,
+        "text": "Communication No. 1959/2010, Warsame v. Canada, adopted on 21 July 2011, paras. 8.4–8.5."
+      }
+    ],
     "OriginalID": "4.",
     "Namespace": "OP1"
   },
@@ -669,7 +963,17 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "Of considerable relevance is that the provision being interpreted forms part of a human rights treaty, not a deed or some other commercial transaction, which necessarily requires greater flexibility in the quest to discern meaning. Nowhere has this been more commandingly explained than in Minister of Home Affairs v. Fisher, a case involving the Privy Council of the United Kingdom, where the word “child” in section 11 (5) (d) of the Constitution of Bermuda was under consideration. Coincidentally, Fisher was also a case concerned with citizenship and the right of remaining in a country and equally in respect of conferring protection, the term used in the provision under consideration was the wider one of “belonging”, not citizenship or nationality. In seeking to deny the children of a Jamaican woman the right to remain in Bermuda, the Government argued, however, that they were illegitimate (sic) and thus could not qualify as “children” according to the traditional interpretation of the term. Rejecting this crabbed interpretation, the Privy Council traced the origins of the Constitution of Bermuda to both the Convention for the Protection of Human Rights and Fundamental Freedoms and the Universal Declaration of Human Rights, magisterially asserting that such antecedents “call for a generous interpretation avoiding …‘the austerity of tabulated legalism’, suitable to give to individuals the full measure of the fundamental rights and freedoms referred to”. On this note, I should hasten to add that calling for a generous interpretation of human rights provisions is not to privilege a particular ideological bent at all costs; rather, it simply reflects a recognition that where the language of a human rights document permits, the more generous interpretation should be adopted. Nowhere would that be more possible than in this case, where the language of the provision is not one of “citizenship” or “nationality”, but rather of “own country”.",
+    "Text": "Of considerable relevance is that the provision being interpreted forms part of a human rights treaty, not a deed or some other commercial transaction, which necessarily requires greater flexibility in the quest to discern meaning. Nowhere has this been more commandingly explained than in Minister of Home Affairs v. Fisher,[[fn:61]] a case involving the Privy Council of the United Kingdom, where the word “child” in section 11 (5) (d) of the Constitution of Bermuda was under consideration. Coincidentally, Fisher was also a case concerned with citizenship and the right of remaining in a country and equally in respect of conferring protection, the term used in the provision under consideration was the wider one of “belonging”, not citizenship or nationality. In seeking to deny the children of a Jamaican woman the right to remain in Bermuda, the Government argued, however, that they were illegitimate (sic) and thus could not qualify as “children” according to the traditional interpretation of the term. Rejecting this crabbed interpretation, the Privy Council traced the origins of the Constitution of Bermuda to both the Convention for the Protection of Human Rights and Fundamental Freedoms and the Universal Declaration of Human Rights, magisterially asserting that such antecedents “call for a generous interpretation avoiding …‘the austerity of tabulated legalism’, suitable to give to individuals the full measure of the fundamental rights and freedoms referred to”.[[fn:62]] On this note, I should hasten to add that calling for a generous interpretation of human rights provisions is not to privilege a particular ideological bent at all costs; rather, it simply reflects a recognition that where the language of a human rights document permits, the more generous interpretation should be adopted. Nowhere would that be more possible than in this case, where the language of the provision is not one of “citizenship” or “nationality”, but rather of “own country”.",
+    "Footnotes": [
+      {
+        "n": 61,
+        "text": "[1979] 3 All ER 21."
+      },
+      {
+        "n": 62,
+        "text": "Ibid. p. 5."
+      }
+    ],
     "OriginalID": "6.",
     "Namespace": "OP1"
   },
@@ -698,7 +1002,17 @@
     "ID": "OP1-9.",
     "Section": "Individual opinion of Committee member Arif Bulkan (dissenting)",
     "Labels": [],
-    "Text": "Once it is accepted that for the purposes of article 12 (4) of the Covenant, Australia does qualify as the author’s own country, then it is at the same time difficult to resist the conclusion that the State party arbitrarily deprived him of the right to enter, which necessarily includes the right to remain therein. As pointed out by this Committee, there are “few, if any, circumstances in which deprivation of the right to enter one’s own country could be reasonable”. In this case, the factors that would strictly engage migration rules fall far short of contributing to a compelling case for deporting the author when measured against not only his lifelong attachment to the country, as discussed, but also the specific circumstances of the case. No evidence was presented portraying the author as a recidivist; rather, a psychologist’s report described the prognosis for his full rehabilitation as being very good (see para. 2.11); further, any risk that the author would reoffend was conceded by the Minister to be a low one (para. 4.9). In such circumstances, deportation constituted a nuclear option, completely at odds with the author’s lifelong attachment and profound familial ties to the country.",
+    "Text": "Once it is accepted that for the purposes of article 12 (4) of the Covenant, Australia does qualify as the author’s own country, then it is at the same time difficult to resist the conclusion that the State party arbitrarily deprived him of the right to enter, which necessarily includes the right to remain therein.[[fn:63]] As pointed out by this Committee, there are “few, if any, circumstances in which deprivation of the right to enter one’s own country could be reasonable”.[[fn:64]] In this case, the factors that would strictly engage migration rules fall far short of contributing to a compelling case for deporting the author when measured against not only his lifelong attachment to the country, as discussed, but also the specific circumstances of the case. No evidence was presented portraying the author as a recidivist; rather, a psychologist’s report described the prognosis for his full rehabilitation as being very good (see para. 2.11); further, any risk that the author would reoffend was conceded by the Minister to be a low one (para. 4.9). In such circumstances, deportation constituted a nuclear option, completely at odds with the author’s lifelong attachment and profound familial ties to the country.",
+    "Footnotes": [
+      {
+        "n": 63,
+        "text": "General comment No. 27 (1999) on freedom of movement, para. 19."
+      },
+      {
+        "n": 64,
+        "text": "Warsame v. Canada (CCPR/C/102/D/1959/2010), adopted 21 July 2011, at paragraph 8.6."
+      }
+    ],
     "OriginalID": "9.",
     "Namespace": "OP1"
   },

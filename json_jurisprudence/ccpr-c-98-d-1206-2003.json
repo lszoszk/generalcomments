@@ -1,13 +1,13 @@
 [
   {
     "ID": "1.1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
-    "Text": "The authors of the communication are T. M. and Z. I., both citizens of . They submit the communication on behalf of their sons, respectively, R. M. and S. I., also Uzbek citizens, both born in 1979, who at the time of submission of the communication were detained on death row in . They claim that their sons are victims of violations by Uzbekistan of article 6, paragraphs 1 and 4; article 7; article 9; article 10; article 14, paragraphs 1, 2 and 3; and article 16 of the International Covenant on Civil and Political Rights. The Optional Protocol entered into force for the State party on 28 September 1995. The authors are unrepresented."
+    "Text": "The authors of the communication are T. M. and Z. I., both citizens of Uzbekistan. They submit the communication on behalf of their sons, respectively, R. M. and S. I., also Uzbek citizens, both born in 1979, who at the time of submission of the communication were detained on death row in Tashkent. They claim that their sons are victims of violations by Uzbekistan of article 6, paragraphs 1 and 4; article 7; article 9; article 10; article 14, paragraphs 1, 2 and 3; and article 16 of the International Covenant on Civil and Political Rights. The Optional Protocol entered into force for the State party on 28 September 1995. The authors are unrepresented."
   },
   {
     "ID": "1.2.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [
       "Persons deprived of their liberty"
     ],
@@ -75,7 +75,13 @@
     "ID": "5.5.",
     "Section": "Authors’ comments on the State party’s observations",
     "Labels": [],
-    "Text": "The authors added that their sons’ presumption of innocence was violated because their guilt was not proven according to law. Moreover, contrary to article 56 the Criminal Code, aggravating circumstances were taken into account twice – as elements of the crime and in determining the punishment, while mitigating circumstances were altogether ignored by the courts."
+    "Text": "The authors added that their sons’ presumption of innocence was violated because their guilt was not proven according to law. Moreover, contrary to article 56 the Criminal Code[[fn:4]], aggravating circumstances were taken into account twice – as elements of the crime and in determining the punishment, while mitigating circumstances were altogether ignored by the courts.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Article 56 of the Criminal Code (Aggravated Circumstances): […] Aggravated circumstance stipulated in a relevant article of the Special Part of the Criminal Code as an element of that crime cannot be taken into account in determining the punishment."
+      }
+    ]
   },
   {
     "ID": "5.6.",
@@ -89,7 +95,7 @@
     "ID": "5.7.",
     "Section": "Authors’ comments on the State party’s observations",
     "Labels": [],
-    "Text": "Appeals for Presidential pardon were submitted by T. M. on behalf of R. M. on 28 October 2003 and by Z. I. on behalf of on an unspecified date. Negative replies to the requests for reconsideration of ’s death sentence were received from the Supreme Court on 27 December 2003, 16 January, 31 March and 2 August 2004 and on 30 June 2005. No further information on the outcome of the appeal on behalf of R. M. has been provided by T. M.."
+    "Text": "Appeals for Presidential pardon were submitted by T. M. on behalf of R. M. on 28 October 2003 and by Z. I. on behalf of S. I. on an unspecified date. Negative replies to the requests for reconsideration of S. I.’s death sentence were received from the Supreme Court on 27 December 2003, 16 January, 31 March and 2 August 2004 and on 30 June 2005. No further information on the outcome of the appeal on behalf of R. M. has been provided by T. M.."
   },
   {
     "ID": "6.1.",
@@ -121,13 +127,13 @@
     "ID": "7.1.",
     "Section": "State party’s observations on the merits",
     "Labels": [],
-    "Text": "On 12 October 2006, the State party submitted its observations on the merits, without however providing any of the court documents requested of it in the Committee’s decision on admissibility. The State party stated that the Committee’s decision on admissibility was examined by the Supreme Court of Uzbekistan, which concluded that no violations of the criminal or criminal procedure law had taken place during the investigation and court examination of R. M. and ’s criminal case."
+    "Text": "On 12 October 2006, the State party submitted its observations on the merits, without however providing any of the court documents requested of it in the Committee’s decision on admissibility. The State party stated that the Committee’s decision on admissibility was examined by the Supreme Court of Uzbekistan, which concluded that no violations of the criminal or criminal procedure law had taken place during the investigation and court examination of R. M. and S. I.’s criminal case."
   },
   {
     "ID": "7.2.",
     "Section": "State party’s observations on the merits",
     "Labels": [],
-    "Text": "The allegations about the “use of unlawful methods” to extract confessions on all charges from R. M. and , and information from witnesses in the course of pre-trial investigation and trial were not confirmed by the Supreme Court. Both alleged victims were “provided with a right to defence from the outset of their detention”, all interrogations, legal proceedings and court hearings were conducted in the presence of their lawyers."
+    "Text": "The allegations about the “use of unlawful methods” to extract confessions on all charges from R. M. and S. I., and information from witnesses in the course of pre-trial investigation and trial were not confirmed by the Supreme Court. Both alleged victims were “provided with a right to defence from the outset of their detention”, all interrogations, legal proceedings and court hearings were conducted in the presence of their lawyers."
   },
   {
     "ID": "7.3.",
@@ -139,7 +145,7 @@
     "ID": "7.4.",
     "Section": "State party’s observations on the merits",
     "Labels": [],
-    "Text": "Finally, the State party reiterated that the domestic courts correctly assessed the legal qualification of the crimes committed by R. M. and , and that the punishment was proportionate to the crime committed."
+    "Text": "Finally, the State party reiterated that the domestic courts correctly assessed the legal qualification of the crimes committed by R. M. and S. I., and that the punishment was proportionate to the crime committed."
   },
   {
     "ID": "7.5.",
@@ -163,7 +169,13 @@
     "ID": "9.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee notes the authors’ allegations, raising issues under article 14, paragraphs 1, 2 and 3, of the Covenant, that their sons’ trial was unfair, their right to be presumed innocent was violated and that the court failed to establish the character and degree of participation of each of the accused in the murders. It observes that these allegations relate primarily to the evaluation of facts and evidence by the State party’s courts. It recalls that it is generally for the courts of States parties to the Covenant to evaluate facts and evidence in a particular case, unless it can be ascertained that the evaluation was clearly arbitrary or amounted to a denial of justice. The Committee further notes the State party’s contention that article 475 of its Criminal Procedure Code prevents it from supplying court documents as requested in the Committee’s admissibility decision. While the Committee regrets the State party’s failure to provide this information and reiterates its obligation under article 4, paragraph 2, of the Optional Protocol, to provide the Committee with all relevant information at its disposal, it notes, at the same time, that the authors themselves have not provided the information requested from them despite four reminders sent in 2006 and 2009. Indeed, the authors have provided no response at all to the Committee’s admissibility decision or to the State party’s observations. Accordingly, and in absence of any further pertinent information which would enable it to verify whether the trial in fact suffered from the defects alleged, the Committee can find no basis for a conclusion of a violation of article 14, paragraphs 1, 2 and 3, of the Covenant."
+    "Text": "The Committee notes the authors’ allegations, raising issues under article 14, paragraphs 1, 2 and 3, of the Covenant, that their sons’ trial was unfair, their right to be presumed innocent was violated and that the court failed to establish the character and degree of participation of each of the accused in the murders. It observes that these allegations relate primarily to the evaluation of facts and evidence by the State party’s courts. It recalls[[fn:5]] that it is generally for the courts of States parties to the Covenant to evaluate facts and evidence in a particular case, unless it can be ascertained that the evaluation was clearly arbitrary or amounted to a denial of justice. The Committee further notes the State party’s contention that article 475 of its Criminal Procedure Code prevents it from supplying court documents as requested in the Committee’s admissibility decision. While the Committee regrets the State party’s failure to provide this information and reiterates its obligation under article 4, paragraph 2, of the Optional Protocol, to provide the Committee with all relevant information at its disposal, it notes, at the same time, that the authors themselves have not provided the information requested from them despite four reminders sent in 2006 and 2009. Indeed, the authors have provided no response at all to the Committee’s admissibility decision or to the State party’s observations. Accordingly, and in absence of any further pertinent information which would enable it to verify whether the trial in fact suffered from the defects alleged, the Committee can find no basis for a conclusion of a violation of article 14, paragraphs 1, 2 and 3, of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "See, inter alia, Communication No. 541/1993, Errol Simms v. Jamaica, Inadmissibility decision adopted on 3 April 1995, paragraph 6.2."
+      }
+    ]
   },
   {
     "ID": "9.3.",

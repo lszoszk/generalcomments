@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "",
     "Labels": [],
     "Text": "The author of the communication, initially dated 12 January 1998, is Mr. Rabindranath Gangadin, of unknown citizenship and date of birth, currently living in the Netherlands. The author claims to be a victim of violations of articles 14 and 26 of the Covenant by The Netherlands. He is represented by counsel, Mr. E. Hummels."
   },
@@ -55,7 +55,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The Committee notes, with respect to the author’s claims of equality before the courts and the law, that the Covenant does not require parties to proceedings to be placed in an identical formal position, but rather that such distinctions as may be made are based upon reasonable and objective grounds. The author has not shown that the decisions of the Court of Appeal not to accede to the author’s motions that the opposing parties in the suits in question be prosecuted was motivated by anything other than the assessment of the facts made by the Court and that the distinction made between the author, who was convicted, and the other parties was not based upon reasonable and objective grounds, consistent with the requirements of the Covenant. The Committee accordingly finds that the claims of violations of articles 14 and 26 of the Covenant have been insufficiently substantiated, for purposes of admissibility, and are thus inadmissible under article 2 of the Optional Protocol."
+    "Text": "The Committee notes, with respect to the author’s claims of equality before the courts and the law, that the Covenant does not require parties to proceedings to be placed in an identical formal position, but rather that such distinctions as may be made are based upon reasonable and objective grounds.[[fn:3]] The author has not shown that the decisions of the Court of Appeal not to accede to the author’s motions that the opposing parties in the suits in question be prosecuted was motivated by anything other than the assessment of the facts made by the Court and that the distinction made between the author, who was convicted, and the other parties was not based upon reasonable and objective grounds, consistent with the requirements of the Covenant. The Committee accordingly finds that the claims of violations of articles 14 and 26 of the Covenant have been insufficiently substantiated, for purposes of admissibility, and are thus inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "See, for example, Kavanagh v Ireland, Case No 819/1998, Views adopted on 4 April 2001."
+      }
+    ]
   },
   {
     "ID": "4.3.",

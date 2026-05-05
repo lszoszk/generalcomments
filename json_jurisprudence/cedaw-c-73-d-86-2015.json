@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [
       "Refugees & asylum-seekers"
     ],
@@ -9,7 +9,7 @@
   },
   {
     "ID": "1.2.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [
       "Refugees & asylum-seekers"
     ],
@@ -17,7 +17,7 @@
   },
   {
     "ID": "1.3.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [
       "Children",
       "Refugees & asylum-seekers"
@@ -26,7 +26,7 @@
   },
   {
     "ID": "1.4.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [],
     "Text": "On 4 February 2016 and 15 December 2016, the Committee denied the State party’s requests to lift the interim measures."
   },
@@ -52,7 +52,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Subsequently, at the beginning of August 2012, an older man asked to marry the couple’s middle daughter, who was 15 years old at the time. The man was about 35 years old. The author pretended to consent to the marriage but decided to flee to Denmark with her daughters, lying to her husband that they were only traveling there to visit with the author’s purportedly sick mother."
+    "Text": "Subsequently, at the beginning of August 2012, an older man asked to marry the couple’s middle daughter, who was 15[[fn:1]] years old at the time. The man was about 35 years old. The author pretended to consent to the marriage but decided to flee to Denmark with her daughters, lying to her husband that they were only traveling there to visit with the author’s purportedly sick mother.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "As submitted by the author. Refers to S.A., who was 14 years old in August 2012."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -127,7 +133,13 @@
       "Refugees & asylum-seekers",
       "Women/girls"
     ],
-    "Text": "The author also notes that, upon her return, she would not be able to seek protection from the Jordanian authorities, owing to legislation, legal practices and cultural norms that are discriminatory against women in the country. She adds that, even though she holds a Jordanian passport, she is a stateless Palestinian refugee and her status renders her even more defenceless before the Jordanian authorities."
+    "Text": "The author also notes that, upon her return, she would not be able to seek protection from the Jordanian authorities, owing to legislation, legal practices and cultural norms that are discriminatory against women in the country.[[fn:2]] She adds that, even though she holds a Jordanian passport, she is a stateless Palestinian refugee and her status renders her even more defenceless before the Jordanian authorities.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "In that regard, she refers to various background materials, such as the concluding observations of the Committee against Torture on the second periodic report of Jordan (CAT/C/JOR/CO/2); the report of the Special Rapporteur on violence against women, its causes and consequences, on her mission to Jordan (A/HRC/20/16/Add.1); and the study of women’s rights in the Middle East and North Africa conducted by Freedom House in 2010. Available from https://freedomhouse.org/ report/women039s-rights-middle-east-and-north-africa/womens-rights-middle-east-and-north-africa-2010."
+      }
+    ]
   },
   {
     "ID": "3.4.",
@@ -147,7 +159,13 @@
     "ID": "3.6.",
     "Section": "Complaint",
     "Labels": [],
-    "Text": "The author further submits that having been required to seek permission from her spouse to leave Jordan with her daughters, in accordance with the existing practice of the Jordanian authorities, amounts to a violation of her rights under article 15 (4) of the Convention."
+    "Text": "The author further submits that having been required to seek permission from her spouse to leave Jordan with her daughters, in accordance with the existing practice of the Jordanian authorities, amounts to a violation of her rights under article 15 (4) of the Convention.[[fn:3]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Under the Provisional Passport Law of Jordan, women are no longer required to seek their husband’s permission before obtaining or renewing their travel documents, however, social norms continue to play a major role in that regard and, in practice, women and their children are barred from traveling by their husbands."
+      }
+    ]
   },
   {
     "ID": "4.1.",
@@ -161,7 +179,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The State party recalls the facts of the case, and provides a comprehensive description of the organization, composition, duties, prerogatives and jurisdiction of the Refugee Appeals Board. It also takes into account the guarantees safeguarding the fairness of asylum proceedings, including legal representation, the presence of an interpreter and the right to appeal. It notes that the Board has a comprehensive collection of general background materials on the human rights records of the countries of origin of asylum seekers, which is regularly updated and duly considered in decision-making processes."
+    "Text": "The State party recalls the facts of the case,[[fn:4]] and provides a comprehensive description of the organization, composition, duties, prerogatives and jurisdiction of the Refugee Appeals Board. It also takes into account the guarantees safeguarding the fairness of asylum proceedings, including legal representation, the presence of an interpreter and the right to appeal. It notes that the Board has a comprehensive collection of general background materials on the human rights records of the countries of origin of asylum seekers, which is regularly updated and duly considered in decision-making processes.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The State party submits that the author entered Denmark with her two minor children on 17 November 2012 with a valid Schengen visa for Denmark issued by the Norwegian Embassy in Amman. The State party notes that, according to the facts as presented before the Danish authorities, the author, after having stayed in Denmark for about one month, then travelled on to Sweden, where she applied for asylum on 7 April 2013. On 4 July 2013, Sweden requested that Denmark take back the author, in compliance with the relevant provisions of the Dublin Regulation. On 10 July 2013, Denmark agreed to that request. The author entered Denmark on 16 August 2013 and applied for asylum on the same date."
+      }
+    ]
   },
   {
     "ID": "4.3.",
@@ -169,7 +193,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The State party submits that, insofar as the author relies on the Convention having extraterritorial effect, the Convention has such an effect only when the woman to be returned will be exposed to a real, personal and foreseeable risk of serious forms of gender-based violence. Given that the author has failed to substantiate that she faces such a risk should she be forcibly returned to Jordan, the communication should be declared inadmissible as manifestly ill-founded, under article 4 (2) (c) of the Optional Protocol."
+    "Text": "The State party submits that, insofar as the author relies on the Convention having extraterritorial effect, the Convention has such an effect only when the woman to be returned will be exposed to a real, personal and foreseeable risk of serious forms of gender-based violence.[[fn:5]] Given that the author has failed to substantiate that she faces such a risk should she be forcibly returned to Jordan, the communication should be declared inadmissible as manifestly ill-founded, under article 4 (2) (c) of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The State party refers to the decision of the Committee in M.N.N. v. Denmark (CEDAW/C/55/D/ 33/2011), in that regard."
+      }
+    ]
   },
   {
     "ID": "4.4.",
@@ -201,7 +231,17 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "In addition, the State party questions the author’s statement in which she claimed that she had convinced her husband to allow her to travel to Denmark by voluntarily assisting him in his illegal activities. The State party also doubts the author’s statement about the killing of her cousin by her spouse. In that respect, the State party notes that the author mentioned that information for the first time at her meeting with counsel on 11 December 2013, and repeated it at the hearing before the Refugee Appeals Board on 21 January 2014, but had failed to mention any of it previously, despite its importance and her numerous opportunities to do so either in the application itself or subsequently, during the interview process. The State party does not find the author’s excuse in that regard, that she could not reveal the information because she was afraid of retaliation by her family, to be credible. The State party submits that the author must have realized the importance of the information from the perspective of the assessment of her asylum request, and that the author was duly informed of the Danish authorities’ duty of confidentiality with regard to all information revealed by the author in the context of the proceedings. The State party observes that the Refugee Appeals Board also attached importance to several other inconsistent statements."
+    "Text": "In addition, the State party questions the author’s statement in which she claimed that she had convinced her husband to allow her to travel to Denmark by voluntarily assisting him in his illegal activities. The State party also doubts the author’s statement about the killing of her cousin by her spouse. In that respect, the State party notes that the author mentioned that information for the first time at her meeting with counsel on 11 December 2013, and repeated it at the hearing before the Refugee Appeals Board on 21 January 2014, but had failed to mention any of it previously, despite its importance and her numerous opportunities to do so either in the application itself or subsequently, during the interview process.[[fn:6]] The State party does not find the author’s excuse in that regard, that she could not reveal the information because she was afraid of retaliation by her family, to be credible. The State party submits that the author must have realized the importance of the information from the perspective of the assessment of her asylum request, and that the author was duly informed of the Danish authorities’ duty of confidentiality with regard to all information revealed by the author in the context of the proceedings. The State party observes that the Refugee Appeals Board also attached importance to several other inconsistent statements.[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The information at issue was not mentioned by the author in her initial submission to the Committee either."
+      },
+      {
+        "n": 7,
+        "text": "At the hearings on 12 and 23 September 2013 before the asylum authorities and at the meeting with counsel on 11 December 2013, the author stated that she could not report the ill-treatment inflicted by her husband to the police because she was not allowed to leave the house unaccompanied and due to the powerful status of her husband’s family, which had good connections with the authorities. However, at the hearing before the Refugee Appeals Board on 21 January 2014, the author asserted that she had contacted the local authorities on one occasion. In addition, the author has also submitted conflicting information about whether it was her son or her daughter who had accompanied her to the Embassy of Denmark to Jordan, in Amman, and had knowledge of her real plan of not returning to Jordan. Other inconsistencies in the author’s statements have also been detected: on one occasion, she claimed not to have had any contact with her husband since her departure, whereas on other occasions she alleged that it was her husband who had threatened to kill her cousin on the phone and who eventually informed her about the killing of her cousin."
+      }
+    ]
   },
   {
     "ID": "4.8.",
@@ -210,7 +250,13 @@
       "Children",
       "Refugees & asylum-seekers"
     ],
-    "Text": "With regard to the author’s request to reopen the asylum proceedings, the State party observes that the author’s general credibility is weakened by the fact that the Refugee Appeals Board could not accept as facts the author’s statements concerning her original grounds for asylum. In addition, the Board found the author’s statement that her children had gained knowledge about the arrest warrant by coincidence, when they happened to overhear the author’s spouse talking about it in May 2014, to be unconvincing, in particular given that she failed to provide a reasonable explanation for how the document had come into her children’s possession. The State party submits that it agrees with the finding of the Board that the arrest warrant was fabricated for the occasion. The State party notes in that respect that, given the assessment of the author’s credibility, there was no reason to request verification of the authenticity of the document. It also observes that the author has produced no further documentation evidencing the action brought against her in Jordan for kidnapping her daughters."
+    "Text": "With regard to the author’s request to reopen the asylum proceedings, the State party observes that the author’s general credibility is weakened by the fact that the Refugee Appeals Board could not accept as facts the author’s statements concerning her original grounds for asylum. In addition, the Board found the author’s statement that her children had gained knowledge about the arrest warrant by coincidence, when they happened to overhear the author’s spouse talking about it in May 2014, to be unconvincing, in particular given that she failed to provide a reasonable explanation for how the document had come into her children’s possession. The State party submits that it agrees with the finding of the Board that the arrest warrant was fabricated for the occasion. The State party notes in that respect that, given the assessment of the author’s credibility, there was no reason to request verification of the authenticity of the document.[[fn:8]] It also observes that the author has produced no further documentation evidencing the action brought against her in Jordan for kidnapping her daughters.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "When determining whether to request verification of the authenticity of documents produced by asylum seekers, the Refugee Appeals Board makes an overall assessment of, inter alia, the nature and contents of the documents. It also considers whether such verification could lead to a different assessment of evidence, the timing and circumstances of the production of the documents and the credibility of the asylum seeker’s statement in the light of the general background information available on the particular country. In order to substantiate that the Board is under no obligation to request verification of authenticity of the documents in all cases, the State party refers to the decision of 23 August 2016 of the European Court of Human Rights in J.K. and others v. Sweden (application no. 59166/12)."
+      }
+    ]
   },
   {
     "ID": "4.9.",
@@ -233,7 +279,13 @@
     "ID": "4.11.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The State party observes that due weight was accorded to the fact that the author did not apply for asylum until five months after her departure from her country of origin and that she decided to destroy her passport and provided no other documents to substantiate her statements."
+    "Text": "The State party observes that due weight was accorded to the fact that the author did not apply for asylum[[fn:9]] until five months after her departure from her country of origin and that she decided to destroy her passport and provided no other documents to substantiate her statements.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "She applied for asylum in Sweden first, in April 2013."
+      }
+    ]
   },
   {
     "ID": "4.12.",
@@ -241,7 +293,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The State party considers that the overall situation in Jordan cannot independently justify the granting of asylum. The State party has taken into account the background information available on Jordan, which could not provide justification for the author’s asylum request in terms of the alleged risk of persecution."
+    "Text": "The State party considers that the overall situation in Jordan cannot independently justify the granting of asylum. The State party has taken into account the background information available on Jordan,[[fn:10]] which could not provide justification for the author’s asylum request in terms of the alleged risk of persecution.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "In addition to the background materials cited in her initial complaint, she refers to the country reports on human rights practices issued by the Department of State of the United States of America in 2014."
+      }
+    ]
   },
   {
     "ID": "4.13.",
@@ -266,7 +324,17 @@
       "Internally displaced persons",
       "Refugees & asylum-seekers"
     ],
-    "Text": "With regard to the author’s credibility, she claims that the threshold for accepting asylum applications should be measured not against the probability, but against the reasonable likelihood, that the claimant has a well-founded fear of persecution or that she would be exposed to persecution upon return. She argues that, in the assessment of her credibility, the State party failed to adopt a gender-sensitive approach and gender-sensitive procedural safeguards. She asserts that the background material submitted in her initial complaint should have been taken into account irrespective of the State party’s assessment of her credibility. She submits that the State party failed to consider the cumulative effects of the presented facts and to address significant issues such as: (a) her grievances experienced throughout her marriage in the past; (b) her fear for her daughters, especially her middle daughter, who faces forced marriage upon her return; (c) the author’s fear of being returned to Jordan; (d) the fact that she left behind her other children; (e) her Palestinian refugee status that may force her to seek refuge in a settlement for internally displaced persons or a refugee camp upon her return, owing to her lack of family ties or social network in Jordan."
+    "Text": "With regard to the author’s credibility, she claims that the threshold for accepting asylum applications should be measured not against the probability, but against the reasonable likelihood, that the claimant has a well-founded fear of persecution or that she would be exposed to persecution upon return.[[fn:11]] She argues that, in the assessment of her credibility, the State party failed to adopt a gender-sensitive approach and gender-sensitive procedural safeguards. She asserts that the background material submitted in her initial complaint should have been taken into account irrespective of the State party’s assessment of her credibility. She submits that the State party failed to consider the cumulative effects of the presented facts and to address significant issues such as: (a) her grievances experienced throughout her marriage in the past; (b) her fear for her daughters, especially her middle daughter, who faces forced marriage upon her return;[[fn:12]] (c) the author’s fear of being returned to Jordan; (d) the fact that she left behind her other children; (e) her Palestinian refugee status that may force her to seek refuge in a settlement for internally displaced persons or a refugee camp upon her return, owing to her lack of family ties or social network in Jordan.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "In that regard, the author refers to the Committee’s general recommendation No. 32 and its views in A. v. Denmark (CEDAW/C/62/D/53/2013)."
+      },
+      {
+        "n": 12,
+        "text": "The author contends that the State party failed to adopt a gender-sensitive approach not only with regard to her claims but with regard to her children’s claims as well and, in that regard, invokes articles 3 and 22 of the Convention of the Rights of the Child, in conjunction with article 5 (a) of the Convention on the Elimination of All Forms of Discrimination against Women."
+      }
+    ]
   },
   {
     "ID": "5.3.",
@@ -362,17 +430,32 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee reiterates that, according to its jurisprudence, the Convention has extraterritorial effect only when the woman to be returned will be exposed to a real, personal and foreseeable risk of serious forms of gender-based violence."
+    "Text": "The Committee reiterates that, according to its jurisprudence, the Convention has extraterritorial effect only when the woman to be returned will be exposed to a real, personal and foreseeable risk of serious forms of gender-based violence.[[fn:13]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "See, for example, M.N.N. v. Denmark, para. 8.10."
+      }
+    ]
   },
   {
     "ID": "7.8.",
     "Section": "Consideration of admissibility",
     "Labels": [
       "Non-citizens and stateless",
-      "Refugees & asylum-seekers",
       "Women/girls"
     ],
-    "Text": "The Committee recalls that, under article 2 (d) of the Convention, States parties undertake to refrain from engaging in any act or practice of discrimination against women and to ensure that public authorities and institutions act in conformity with that obligation. The Committee refers to its general recommendation No. 32, in paragraph 21 of which it noted that, under international human rights law, the non-refoulement principle imposed a duty on States to refrain from returning a person to a jurisdiction in which he or she might face serious violations of human rights, notably arbitrary deprivation of life or torture or other cruel, inhuman or degrading treatment or punishment. Furthermore, the Committee notes that State parties must prevent statelessness through legislative provisions making the loss or renunciation of nationality contingent upon possession or acquisition of another nationality and allow the reacquisition of nationality for women left stateless owing to the absence of such safeguards. The Committee also refers to its general recommendation No. 19, in paragraph 7 of which it noted that gender-based violence, which impairs or nullifies the enjoyment by women of human rights and fundamental freedoms under general international law or under human rights conventions, was discrimination within the meaning of article 1 of the Convention, and that such rights included the right to life and the right not to be subjected to torture. The Committee further developed its interpretation of violence against women as a form of gender-based discrimination in its general recommendation No. 35 (2017) on gender-based violence against women, updating general recommendation No. 19. In paragraph 21 thereof, it reaffirmed the obligation of States parties to eliminate discrimination against women, including gender-based violence against women, stating that the obligation comprised two aspects of State responsibility for such violence, that which resulted from the acts or omissions of both the State party or its actors, on the one hand, and non-State actors, on the other. A State party would therefore violate the Convention if it returned a person to another State where it was foreseeable that serious gender-based violence would occur. Such a violation would also occur when no protection against the identified gender-based violence can be expected from the authorities of the State to which the person is to be returned. What amounts to serious forms of gender-based violence depends upon the circumstances of each case and must be determined by the Committee on a case-by-case basis at the stage of consideration of the merits, provided that the author has made a prima facie case by sufficiently substantiating her allegations."
+    "Text": "The Committee recalls that, under article 2 (d) of the Convention, States parties undertake to refrain from engaging in any act or practice of discrimination against women and to ensure that public authorities and institutions act in conformity with that obligation. The Committee refers to its general recommendation No. 32, in paragraph 21 of which it noted that, under international human rights law, the nonrefoulement principle imposed a duty on States to refrain from returning a person to a jurisdiction in which he or she might face serious violations of human rights, notably arbitrary deprivation of life or torture or other cruel, inhuman or degrading treatment or punishment. Furthermore, the Committee notes that State parties must prevent statelessness through legislative provisions making the loss or renunciation of nationality contingent upon possession or acquisition of another nationality and allow the reacquisition of nationality for women left stateless owing to the absence of such safeguards.[[fn:14]] The Committee also refers to its general recommendation No. 19, in paragraph 7 of which it noted that gender-based violence, which impairs or nullifies the enjoyment by women of human rights and fundamental freedoms under general international law or under human rights conventions, was discrimination within the meaning of article 1 of the Convention, and that such rights included the right to life and the right not to be subjected to torture. The Committee further developed its interpretation of violence against women as a form of gender-based discrimination in its general recommendation No. 35 (2017) on gender-based violence against women, updating general recommendation No. 19. In paragraph 21 thereof, it reaffirmed the obligation of States parties to eliminate discrimination against women, including gender-based violence against women, stating that the obligation comprised two aspects of State responsibility for such violence, that which resulted from the acts or omissions of both the State party or its actors, on the one hand, and non-State actors, on the other. A State party would therefore violate the Convention if it returned a person to another State where it was foreseeable that serious gender-based violence would occur. Such a violation would also occur when no protection against the identified gender-based violence can be expected from the authorities of the State to which the person is to be returned. What amounts to serious forms of gender-based violence depends upon the circumstances of each case and must be determined by the Committee on a case-by-case basis at the stage of consideration of the merits, provided that the author has made a prima facie case by sufficiently substantiating her allegations.[[fn:15]]",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "General recommendation No. 32, para. 63 (e)."
+      },
+      {
+        "n": 15,
+        "text": "See A. v. Denmark, para. 8.6."
+      }
+    ]
   },
   {
     "ID": "7.9.",
@@ -403,7 +486,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The Committee recalls the State party’s contention that all of the author’s allegations were thoroughly examined by the State party immigration authorities. It observes that they were dismissed in their entirety, because the authorities found that the author’s account lacked credibility, owing to a number of factual inconsistencies and on the basis of lack of substantiation. Apart from the author’s contentions, the Refugee Appeals Board also found the arrest warrant against the author, on which grounds she requested the reopening of her case, to be fabricated for the occasion, given the circumstances of how the author came into possession of the document. The Committee notes in that respect that, on the basis of the assessment of the author’s credibility, the Board did not find it necessary to request verification of the authenticity of the document."
+    "Text": "The Committee recalls the State party’s contention that all of the author’s allegations were thoroughly examined by the State party immigration authorities. It observes that they were dismissed in their entirety, because the authorities found that the author’s account lacked credibility, owing to a number of factual inconsistencies and on the basis of lack of substantiation.[[fn:16]] Apart from the author’s contentions, the Refugee Appeals Board also found the arrest warrant against the author, on which grounds she requested the reopening of her case, to be fabricated for the occasion, given the circumstances of how the author came into possession of the document. The Committee notes in that respect that, on the basis of the assessment of the author’s credibility, the Board did not find it necessary to request verification of the authenticity of the document.",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "In considering the author’s statement that she was being kept under permanent surveillance in Jordan, the asylum authorities found it to be unlikely that, had that been the case, the author’s spouse would have allowed her to travel unaccompanied to another country with their daughters, especially given that one of them was about to be married. Taking into account that the author, according to her own statement, had lived together with her husband’s family in Jordan, the asylum authorities also found it implausible that she had only managed to gain the consent of her husband by telling him that their children were too young to take care of themselves and that no one else could look after them. Furthermore, the State party found the author’s statements regarding her husband’s illegal activities and her alleged involvement in such activities, as well as the killing of her cousin, to be non-credible. The author’s explanation for not bringing that important information to the knowledge of the asylum authorities in her initial complaint or during the subsequent interviews was also deemed to be non-credible."
+      }
+    ]
   },
   {
     "ID": "8.4.",
@@ -411,7 +500,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "In that connection, the Committee recalls that it is generally for the authorities of States parties to the Convention to evaluate the facts and evidence and the application of national law in a particular case, unless it can be established that the evaluation was biased or based on gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice. The issue before the Committee is therefore whether there was any irregularity and arbitrariness in the decision-making process regarding the author’s asylum application to the extent that the State party authorities failed to properly assess the risk of serious gender-based violence in the event of the return of the author and her daughters to Jordan. The Committee reiterates that, in carrying out their assessment, States parties should give sufficient weight to the real and personal risk that a person might face if deported."
+    "Text": "In that connection, the Committee recalls that it is generally for the authorities of States parties to the Convention to evaluate the facts and evidence and the application of national law in a particular case,[[fn:17]] unless it can be established that the evaluation was biased or based on gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice. The issue before the Committee is therefore whether there was any irregularity and arbitrariness in the decision-making process regarding the author’s asylum application to the extent that the State party authorities failed to properly assess the risk of serious gender-based violence in the event of the return of the author and her daughters to Jordan. The Committee reiterates that, in carrying out their assessment, States parties should give sufficient weight to the real and personal risk that a person might face if deported.",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "See, for example, R.P.B. v. Philippines (CEDAW/C/57/D/34/2011), para. 7.5."
+      }
+    ]
   },
   {
     "ID": "8.5.",
@@ -473,7 +568,7 @@
   },
   {
     "ID": "11.",
-    "Section": "(b)\tGeneral:",
+    "Section": "(b) General:",
     "Labels": [],
     "Text": "In accordance with article 7 (4) of the Optional Protocol, the State party shall give due consideration to the views of the Committee, together with its recommendations, and shall submit to the Committee, within six months, a written response, including information on any action taken in the light of the views and recommendations of the Committee. The State party is also requested to publish the Committee’s views and recommendations and to have them widely disseminated in order to reach all relevant sectors of society."
   }

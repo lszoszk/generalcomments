@@ -7,7 +7,7 @@
   },
   {
     "ID": "2.1.",
-    "Section": "Factual background",
+    "Section": "Factual background[[fn:3]]",
     "Labels": [
       "Persons deprived of their liberty"
     ],
@@ -15,15 +15,21 @@
   },
   {
     "ID": "2.2.",
-    "Section": "Factual background",
+    "Section": "Factual background[[fn:3]]",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On 6 July 2013, at 2 p.m., a hearing was held in the Oslo District Court. The Court ruled that the author was to be remanded in custody until otherwise decided by the prosecuting authority or the Court, but for no longer than until 3 August 2013. The author was subjected to a ban on correspondence and visits throughout that period and to full isolation until 20 July 2013. The Court considered that the investigation was still in its initial phase and that it was important that the author was not given an opportunity to communicate with other individuals potentially involved in the case. On 8 July 2013, the author was transferred to Oslo Prison, after having been detained in an isolation cell for four days."
+    "Text": "On 6 July 2013, at 2 p.m., a hearing was held in the Oslo District Court. The Court ruled that the author was to be remanded in custody until otherwise decided by the prosecuting authority or the Court, but for no longer than until 3 August 2013. The author was subjected to a ban on correspondence and visits throughout that period and to full isolation until 20 July 2013. The Court considered that the investigation was still in its initial phase and that it was important that the author was not given an opportunity to communicate with other individuals potentially involved in the case.[[fn:4]] On 8 July 2013, the author was transferred to Oslo Prison, after having been detained in an isolation cell for four days.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The Court took its decision pursuant to section 186 of the Criminal Procedure Act."
+      }
+    ]
   },
   {
     "ID": "2.3.",
-    "Section": "Factual background",
+    "Section": "Factual background[[fn:3]]",
     "Labels": [
       "Persons deprived of their liberty"
     ],
@@ -31,9 +37,15 @@
   },
   {
     "ID": "2.4.",
-    "Section": "Factual background",
+    "Section": "Factual background[[fn:3]]",
     "Labels": [],
-    "Text": "The author filed an appeal to the Supreme Court against the sentence, arguing that it was too strict, that there was no legal authority for the four days he had spent in full isolation and that he had not been brought before a judge by the 48-hour deadline, in contravention of international human rights conventions. On 21 October 2015, the Court rejected the author’s claims and confirmed his sentence."
+    "Text": "The author filed an appeal to the Supreme Court against the sentence, arguing that it was too strict, that there was no legal authority for the four days he had spent in full isolation and that he had not been brought before a judge by the 48-hour deadline, in contravention of international human rights conventions. On 21 October 2015, the Court rejected the author’s claims and confirmed his sentence.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "With regard to the time that had elapsed before the author was brought before a judge, the Court assessed that the author had been transported from the custody facility to the courthouse only 35 minutes after the deadline, and that the delay had to do with the District Court’s scheduling practice."
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -45,7 +57,13 @@
     "ID": "3.2.",
     "Section": "Complaint",
     "Labels": [],
-    "Text": "The author refers to Kovsh v. Belarus, arguing that, according to the Committee, the time limit should be determined based on the individual case and that detention that goes beyond 48 hours requires special justification. The author also refers to Human Rights Committee general comment No. 35 (2014), paragraph 33, and recalls that “any delay longer than 48 hours must remain absolutely exceptional and be justified under the circumstances”. According to the author, there was no sufficient reason to justify bringing him before a judge about 52 hours and 15 minutes after his arrest. He states that a country such as Norway in particular must fulfil its international obligations and not use arguments about convenience to circumvent important political rights as set out in the general comments of the Committee."
+    "Text": "The author refers to Kovsh v. Belarus,[[fn:6]] arguing that, according to the Committee, the time limit should be determined based on the individual case and that detention that goes beyond 48 hours requires special justification. The author also refers to Human Rights Committee general comment No. 35 (2014), paragraph 33, and recalls that “any delay longer than 48 hours must remain absolutely exceptional and be justified under the circumstances”. According to the author, there was no sufficient reason to justify bringing him before a judge about 52 hours and 15 minutes after his arrest. He states that a country such as Norway in particular must fulfil its international obligations and not use arguments about convenience to circumvent important political rights as set out in the general comments of the Committee.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "CCPR/C/107/D/1787/2008."
+      }
+    ]
   },
   {
     "ID": "4.1.",
@@ -73,7 +91,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The State party refers to its domestic law, section 183 of the Criminal Procedure Act, which states that the time limit for bringing an arrested person whom the prosecuting authority wishes to detain before a judge is as soon as possible and not later than on the third day following the arrest. This wording was amended by the Act of 28 June 2002 No. 55, on the basis of a wish to introduce an absolute time limit and on the assumption that, by being able to keep suspects in custody for up to three days, the total use of custody during the investigation would decrease. Several factors could contribute to this: for instance, the police would have sufficient time to investigate and therefore there would be no need for custody (e.g. the risk of interference with evidence would diminish) or a more thorough investigation would entail a better factual basis for the district courts to evaluate the conditions for custody, thereby leading to shorter custody periods granted or more persons being released. This rationale should be understood in the light of the strict conditions for the use of custody under Norwegian law, where two minimum conditions apply: (a) the person is, with just cause (i.e. more than 50 per cent probability), suspected of a crime that is punishable by imprisonment for a term exceeding six months; and (b) there is sufficient reason to use custody and it would not be a disproportionate response in view of the nature of the case and other circumstances. Further, at least one of the following additional conditions must be fulfilled: (a) there is reason to believe that the person will evade justice; (b) there is an imminent risk that the person will interfere with evidence in the case, e.g. by removing evidence or influencing witnesses or accomplices; and (c) it is deemed necessary in order to prevent the person from committing a criminal act punishable by imprisonment for a term exceeding six months."
+    "Text": "The State party refers to its domestic law, section 183 of the Criminal Procedure Act, which states that the time limit for bringing an arrested person whom the prosecuting authority wishes to detain before a judge is as soon as possible and not later than on the third day following the arrest. This wording was amended by the Act of 28 June 2002 No. 55, on the basis of a wish to introduce an absolute time limit and on the assumption that, by being able to keep suspects in custody for up to three days, the total use of custody during the investigation would decrease. Several factors could contribute to this: for instance, the police would have sufficient time to investigate and therefore there would be no need for custody (e.g. the risk of interference with evidence would diminish) or a more thorough investigation would entail a better factual basis for the district courts to evaluate the conditions for custody, thereby leading to shorter custody periods granted or more persons being released.[[fn:7]] This rationale should be understood in the light of the strict conditions for the use of custody under Norwegian law, where two minimum conditions apply: (a) the person is, with just cause (i.e. more than 50 per cent probability), suspected of a crime that is punishable by imprisonment for a term exceeding six months; and (b) there is sufficient reason to use custody and it would not be a disproportionate response in view of the nature of the case and other circumstances. Further, at least one of the following additional conditions must be fulfilled: (a) there is reason to believe that the person will evade justice; (b) there is an imminent risk that the person will interfere with evidence in the case, e.g. by removing evidence or influencing witnesses or accomplices; and (c) it is deemed necessary in order to prevent the person from committing a criminal act punishable by imprisonment for a term exceeding six months.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "The State party refers to proposition No. 66 (2001–2002), appendix 3, sect. 4.1.7, pp. 21–22, and points out that it is an ongoing discussion as to whether this assumption has been met. The State party also points out that, in this document, there were arguments against the prolongation of the time limit, for instance the risk that some persons are held longer than necessary and that the wording does not fully reflect the requirements under international sources. Consultations regarding the question of amending the time limit were held in 2010 and 2017."
+      },
+      {
+        "n": 8,
+        "text": "The State party refers to chapters 13 and 14 of the Criminal Procedure Act, sections 170a, 171–173 and 184."
+      }
+    ]
   },
   {
     "ID": "4.5.",
@@ -81,19 +109,73 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "With regard to article 9 (3) of the Covenant, the State party recalls that the Covenant, and other international human rights treaties, shall have force as Norwegian law insofar as they are binding for Norway and shall take precedence over any other legislative provisions that conflict with them. Thus, it is well established that the time limit that follows from section 183 of the Criminal Procedure Act must be construed in accordance with article 9 (3) of the Covenant and that the obligations under the Covenant will take precedence over the Criminal Procedure Act in the event of conflict of norms. As to the interpretation of article 9 (3), the Supreme Court has held that views from the Committee shall carry “considerable weight” as sources of law when interpreting not only the Covenant but also domestic legal provisions. Thus, the Supreme Court held in its judgment regarding the author that “the time that lapses should only exceptionally exceed 48 hours and only if this is justified under the circumstances”. The deadline is based on the Committee’s consideration that 48 hours is normally sufficient to transport the apprehended person and prepare the remand hearing. The Supreme Court’s view entails that the general rule for the time limit to bring an arrested person before a judge under Norwegian law is aligned with general comment No. 35 (2014), i.e. 48 hours. The State party is aware of the possible tension in the wording of section 183 of the Criminal Procedure Act, but points out that several factors mitigate the effect of this possible tension: (a) the term “as soon as possible” entails that it is not always necessary to wait until the end of the absolute limit; (b) legal players are familiar with the need to read traditional Norwegian legal sources in the light of rules set forth in international sources; (c) the legislator has emphasized the need for the courts to ensure compliance with international sources, including the Covenant; and (d) developments under the Covenant have been continuously monitored by the Director General of Public Prosecutions."
+    "Text": "With regard to article 9 (3) of the Covenant, the State party recalls that the Covenant, and other international human rights treaties, shall have force as Norwegian law insofar as they are binding for Norway and shall take precedence over any other legislative provisions that conflict with them.[[fn:9]] Thus, it is well established that the time limit that follows from section 183 of the Criminal Procedure Act must be construed in accordance with article 9 (3) of the Covenant and that the obligations under the Covenant will take precedence over the Criminal Procedure Act in the event of conflict of norms. As to the interpretation of article 9 (3), the Supreme Court has held that views from the Committee shall carry “considerable weight” as sources of law when interpreting not only the Covenant but also domestic legal provisions. Thus, the Supreme Court held in its judgment regarding the author that “the time that lapses should only exceptionally exceed 48 hours and only if this is justified under the circumstances”. The deadline is based on the Committee’s consideration that 48 hours is normally sufficient to transport the apprehended person and prepare the remand hearing. The Supreme Court’s view entails that the general rule for the time limit to bring an arrested person before a judge under Norwegian law is aligned with general comment No. 35 (2014), i.e. 48 hours. The State party is aware of the possible tension in the wording of section 183 of the Criminal Procedure Act, but points out that several factors mitigate the effect of this possible tension: (a) the term “as soon as possible” entails that it is not always necessary to wait until the end of the absolute limit;[[fn:10]] (b) legal players are familiar with the need to read traditional Norwegian legal sources in the light of rules set forth in international sources; (c) the legislator has emphasized the need for the courts to ensure compliance with international sources, including the Covenant; and (d) developments under the Covenant have been continuously monitored by the Director General of Public Prosecutions.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Act relating to the strengthening of the status of human rights in Norwegian law (Human Rights Act) of 21 May 1999."
+      },
+      {
+        "n": 10,
+        "text": "Proposition No. 66 (2001–2002), sect. 4.1.7.1."
+      }
+    ]
   },
   {
     "ID": "4.6.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The State party recalls that the Committee has, on numerous occasions, expressed its views on the interpretation of the “promptly” criterion that stems from article 9 (3). According to the Committee’s jurisprudence, detention of 50 hours and 73 hours were not considered as a violation of article 9 (3). Gradually, the Committee added to the “not exceed a few days” doctrine a recommendation that the period should not exceed 48 hours, which was later included in general comment No. 35 (2014). Firstly, the State party argues that the question arises as to whether the wording “absolutely exceptional” is a qualitative measure in each case, or rather a quantitative measure addressed to States parties as such, i.e. that: (a) the number of delayed judicial hearings in that State must be relatively few; and (b) each case must be justified under the circumstances. The State party also points out that the facts of the present communication occurred in 2013, prior to the adoption of general comment No. 35 (2014) in December 2014. Secondly, the State party argues that the Committee has not elaborated upon the application of the exception to the 48-hour rule in a case similar to the present communication: either the time in detention exceeded the 48-hour rule by a significant margin, the person was never brought before a judge prior to the trial and/or the State party in question did not provide any or provided clearly unsatisfactory reasons for the delay."
+    "Text": "The State party recalls that the Committee has, on numerous occasions, expressed its views on the interpretation of the “promptly” criterion that stems from article 9 (3). According to the Committee’s jurisprudence, detention of 50 hours[[fn:11]] and 73 hours[[fn:12]] were not considered as a violation of article 9 (3). Gradually, the Committee added to the “not exceed a few days” doctrine a recommendation that the period should not exceed 48 hours,[[fn:13]] which was later included in general comment No. 35 (2014).[[fn:14]] Firstly, the State party argues that the question arises as to whether the wording “absolutely exceptional” is a qualitative measure in each case, or rather a quantitative measure addressed to States parties as such, i.e. that: (a) the number of delayed judicial hearings in that State must be relatively few; and (b) each case must be justified under the circumstances. The State party also points out that the facts of the present communication occurred in 2013, prior to the adoption of general comment No. 35 (2014) in December 2014. Secondly, the State party argues that the Committee has not elaborated upon the application of the exception to the 48-hour rule in a case similar to the present communication: either the time in detention exceeded the 48-hour rule by a significant margin,[[fn:15]] the person was never brought before a judge prior to the trial[[fn:16]] and/or the State party in question did not provide any[[fn:17]] or provided clearly unsatisfactory[[fn:18]] reasons for the delay.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "Human Rights Committee, Portorreal v. Dominican Republic, communication No. 188/1984, para. 10.2."
+      },
+      {
+        "n": 12,
+        "text": "Van der Houwen v. Netherlands (CCPR/C/54/D/583/1994), para. 4.3."
+      },
+      {
+        "n": 13,
+        "text": "Pichugina v. Belarus (CCPR/C/108/D/1592/2007), para. 7.4; Kovsh v. Belarus, paras. 7.4–7.5; Zhuk v. Belarus (CCPR/C/109/D/1910/2009), para. 8.3; and Yuzepchuk v. Belarus (CCPR/C/112/D/1906/2009), para. 8.3."
+      },
+      {
+        "n": 14,
+        "text": "“Any delay longer than 48 hours must remain absolutely exceptional and be justified under the circumstances” (para. 33)."
+      },
+      {
+        "n": 15,
+        "text": "McLawrence v. Jamaica (CCPR/C/60/D/702/1996), para. 5.6; Pichugina v. Belarus, para. 7.4; and Kozulina v. Belarus (CCPR/C/112/D/1773/2008)."
+      },
+      {
+        "n": 16,
+        "text": "See, inter alia, Grishkovtsov v. Belarus (CCPR/C/113/D/2013/2010), in which the author was arrested on 14 October 2009, placed in pretrial detention by a decision of a prosecutor on 21 October 2009 and not brought before a judge until the beginning of the court trial, on 30 March 2010. Similar facts and findings were found in Burdyko v. Belarus (CCPR/C/114/D/2017/2010)."
+      },
+      {
+        "n": 17,
+        "text": "See, inter alia, Kovaleva and Kozyar v. Belarus (CCPR/C/106/D/2120/2011), in which a period of five months constituted a violation as the State had failed to address those allegations. Similar conclusions are found in Kozulina v. Belarus and in McLawrence v. Jamaica."
+      },
+      {
+        "n": 18,
+        "text": "In Kovsh v. Belarus, the Committee held that detaining the author for 61 and 72 hours without bringing her before a judge constituted a violation of article 9 (3) of the Covenant. Although somewhat similar in terms of time between the arrest and the judicial hearing, that case does not shed any light on the assessment in the present communication, as the only explanation provided by Belarus was that the person had not initiated a complaint."
+      }
+    ]
   },
   {
     "ID": "4.7.",
     "Section": "State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "In the State party’s view, the Supreme Court of Norway took the correct starting point for that assessment of the 48-hour rule. The State party notes that the risk of ill-treatment by law enforcement officials while a person is held in police custody is a significant motive underlying the 48-hour rule. According to the State party, it may be relevant, at least in borderline cases, to consider whether the arrested person had access to counsel while in custody. The time that the person is taken out of police custody and brought to the courthouse may be a factor, as the risk of ill-treatment by law enforcement officials in the courthouse is significantly lower, and even more so if the person meets his or her counsel at the courthouse. The State party suggests that the Committee may build upon European Court of Human Rights case law that has held that the initial review by a judge must take place within a maximum of four days after the arrest. The State party does not argue that the Committee should align the general rule under the Covenant with that of the European Court of Human Rights, but suggests that the Committee, when operationalizing the exception from the 48-hour rule under the Covenant, take into consideration and build upon the extensive case law of the Court regarding the promptness criteria."
+    "Text": "In the State party’s view, the Supreme Court of Norway took the correct starting point for that assessment of the 48-hour rule.[[fn:19]] The State party notes that the risk of ill-treatment by law enforcement officials while a person is held in police custody is a significant motive underlying the 48-hour rule. According to the State party, it may be relevant, at least in borderline cases, to consider whether the arrested person had access to counsel while in custody. The time that the person is taken out of police custody and brought to the courthouse may be a factor, as the risk of ill-treatment by law enforcement officials in the courthouse is significantly lower, and even more so if the person meets his or her counsel at the courthouse. The State party suggests that the Committee may build upon European Court of Human Rights case law that has held that the initial review by a judge must take place within a maximum of four days after the arrest.[[fn:20]] The State party does not argue that the Committee should align the general rule under the Covenant with that of the European Court of Human Rights, but suggests that the Committee, when operationalizing the exception from the 48-hour rule under the Covenant, take into consideration and build upon the extensive case law of the Court regarding the promptness criteria.",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "Paragraph 33 of the judgment states that grounds for exceeding the deadline will vary according to, among other things, the amount of time by which it is exceeded, the gravity of the suspected offence and the time required to clarify the grounds for remand in custody."
+      },
+      {
+        "n": 20,
+        "text": "See European Court of Human Rights, Döner and others v. Turkey, Application No. 29994/02, sect. 53, Judgment, 7 March 2017."
+      }
+    ]
   },
   {
     "ID": "4.8.",
@@ -127,13 +209,25 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author points out that, according to the Supreme Court’s ruling, one of the reasons that the delay was so great was the fact that Oslo District Court schedules initial remand hearings after lunch, meaning that it was not possible to bring him before the court much earlier on the same day. According to the author, that is not a reason that could be qualified as absolutely exceptional and justified under the circumstances. If the trivialities of the scheduling of lunch breaks are made to take precedence and to justify breaches of the 48-hour rule, the 48-hour rule would be rendered entirely nugatory. The author refers to the Committee’s case law in Fillastre and Bizouarn v. Bolivia, in which the serious budgetary constraints of a country in a rather different economic situation than that of Norway were not held to justify a breach of the rule."
+    "Text": "The author points out that, according to the Supreme Court’s ruling, one of the reasons that the delay was so great was the fact that Oslo District Court schedules initial remand hearings after lunch, meaning that it was not possible to bring him before the court much earlier on the same day. According to the author, that is not a reason that could be qualified as absolutely exceptional and justified under the circumstances. If the trivialities of the scheduling of lunch breaks are made to take precedence and to justify breaches of the 48-hour rule, the 48-hour rule would be rendered entirely nugatory. The author refers to the Committee’s case law in Fillastre and Bizouarn v. Bolivia, in which the serious budgetary constraints of a country in a rather different economic situation than that of Norway were not held to justify a breach of the rule.[[fn:21]]",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "Human Rights Committee, communication No. 336/1988, para. 6.4."
+      }
+    ]
   },
   {
     "ID": "5.4.",
     "Section": "Author’s comments on the State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The author submits that the State party cannot argue that, in spite of the 48-hour rule having been breached in principle, there was no physical ill-treatment, so therefore there is no breach after all. The author argues that the State party undermines the fact that “longer detention in the custody of law enforcement officials without judicial control unnecessarily increases the risk of ill-treatment”. The author refers to the communication relating to Kovsh v. Belarus, in which the Committee clarified that a time limit must not be exceeded."
+    "Text": "The author submits that the State party cannot argue that, in spite of the 48-hour rule having been breached in principle, there was no physical ill-treatment, so therefore there is no breach after all. The author argues that the State party undermines the fact that “longer detention in the custody of law enforcement officials without judicial control unnecessarily increases the risk of ill-treatment”.[[fn:22]] The author refers to the communication relating to Kovsh v. Belarus, in which the Committee clarified that a time limit must not be exceeded.",
+    "Footnotes": [
+      {
+        "n": 22,
+        "text": "General comment No. 35 (2014), para. 33."
+      }
+    ]
   },
   {
     "ID": "5.5.",
@@ -163,7 +257,13 @@
     "ID": "5.9.",
     "Section": "Author’s comments on the State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "As to the State party’s argument that the facts occurred after the adoption of general comment No. 35 (2014), the author points out that the Supreme Court judgment of 2015 does not raise this point. Moreover, the case law of the Committee was well established long before the facts or court decisions of the complaint."
+    "Text": "As to the State party’s argument that the facts occurred after the adoption of general comment No. 35 (2014), the author points out that the Supreme Court judgment of 2015 does not raise this point. Moreover, the case law of the Committee was well established long before the facts or court decisions of the complaint.[[fn:23]]",
+    "Footnotes": [
+      {
+        "n": 23,
+        "text": "Kovsh v. Belarus."
+      }
+    ]
   },
   {
     "ID": "5.10.",
@@ -195,7 +295,13 @@
     "ID": "6.4.",
     "Section": "State party’s additional observations",
     "Labels": [],
-    "Text": "The State party disagrees with the counsel’s comment that the exact wording of general comment No. 35 (2014) stemmed from the view of the Committee that was established long before the facts or court decisions of the complaint. In Kovsh v. Belarus, the wording used is “any longer period of delay would require special justification” and there is no reference to the fact that such delays must remain “absolutely exceptional”, which is the term used in general comment No. 35 (2014). In any case, in the State party’s view, the criteria in general comment No. 35 (2014) do not imply a stricter threshold for exceptions from the 48-hour rule than the threshold set forth by the Committee prior to the adoption of general comment No. 35 (2014). The State party reiterates its argument that the “absolutely exceptional” criterion cannot be understood as a qualitative requirement pertaining to the circumstances of a particular case that may or may not justify an exception to the 48-hour rule, but rather as a quantitative measure that sets a strict limit for how often a State party may be exempt from the 48-hour rule. In the State party’s view, it is not required that the circumstances in any particular case are inherently “exceptional” in themselves. It is sufficient that the circumstances are such that the time exceeding 48 hours is justified, a question that will vary with the length of the time exceeding 48 hours. If absolutely exceptional circumstances were required in every case of detention exceeding 48 hours, no matter how long or how short, the meaning of the term “promptly” would no longer be determined on a case-by-case basis."
+    "Text": "The State party disagrees with the counsel’s comment that the exact wording of general comment No. 35 (2014) stemmed from the view of the Committee that was established long before the facts or court decisions of the complaint. In Kovsh v. Belarus, the wording used is “any longer period of delay would require special justification”[[fn:24]] and there is no reference to the fact that such delays must remain “absolutely exceptional”, which is the term used in general comment No. 35 (2014). In any case, in the State party’s view, the criteria in general comment No. 35 (2014) do not imply a stricter threshold for exceptions from the 48-hour rule than the threshold set forth by the Committee prior to the adoption of general comment No. 35 (2014). The State party reiterates its argument that the “absolutely exceptional” criterion cannot be understood as a qualitative requirement pertaining to the circumstances of a particular case that may or may not justify an exception to the 48-hour rule, but rather as a quantitative measure that sets a strict limit for how often a State party may be exempt from the 48-hour rule. In the State party’s view, it is not required that the circumstances in any particular case are inherently “exceptional” in themselves. It is sufficient that the circumstances are such that the time exceeding 48 hours is justified, a question that will vary with the length of the time exceeding 48 hours. If absolutely exceptional circumstances were required in every case of detention exceeding 48 hours, no matter how long or how short, the meaning of the term “promptly” would no longer be determined on a case-by-case basis.",
+    "Footnotes": [
+      {
+        "n": 24,
+        "text": "Ibid., para. 7.4."
+      }
+    ]
   },
   {
     "ID": "6.5.",
@@ -231,7 +337,13 @@
     "ID": "7.5.",
     "Section": "Author’s comments on the State party’s additional observations",
     "Labels": [],
-    "Text": "With regard to the ongoing consultation on the 2002 amendment, the author recalls that the Norwegian Bar Association has requested that an express 48-hour rule be included in the Criminal Procedure Act and that a higher threshold for further delay than required is necessary in order to comply with article 9 and general comment No. 35 (2014). The author supports these requests."
+    "Text": "With regard to the ongoing consultation on the 2002 amendment,[[fn:25]] the author recalls that the Norwegian Bar Association has requested that an express 48-hour rule be included in the Criminal Procedure Act and that a higher threshold for further delay than required is necessary in order to comply with article 9 and general comment No. 35 (2014). The author supports these requests.",
+    "Footnotes": [
+      {
+        "n": 25,
+        "text": "Proposition No. 66 (2001–2002), sect. 4.1.7.1."
+      }
+    ]
   },
   {
     "ID": "7.6.",
@@ -287,7 +399,29 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "In this regard, the Committee recalls that any person arrested or detained on a criminal charge shall be brought promptly before a judge and that 48 hours is ordinarily sufficient to transport the individual and to prepare for the judicial hearing; any longer delay must remain absolutely exceptional and be justified under the circumstances. Prompt initiation of judicial oversight also constitutes an important safeguard against the risk of ill-treatment of the detained person. The period for evaluating promptness begins at the time of arrest and not at the time when the person arrives in a place of detention. The meaning of the term “promptly” in article 9 (3) of the Covenant must be determined on a case-by-case basis and any period of delay longer than 48 hours would require special justification to be compatible with article 9 (3) of the Covenant."
+    "Text": "In this regard, the Committee recalls that any person arrested or detained on a criminal charge shall be brought promptly before a judge and that 48 hours is ordinarily sufficient to transport the individual and to prepare for the judicial hearing; any longer delay must remain absolutely exceptional and be justified under the circumstances.[[fn:26]] Prompt initiation of judicial oversight also constitutes an important safeguard against the risk of ill-treatment of the detained person.[[fn:27]] The period for evaluating promptness begins at the time of arrest and not at the time when the person arrives in a place of detention.[[fn:28]] The meaning of the term “promptly” in article 9 (3) of the Covenant must be determined on a case-by-case basis[[fn:29]] and any period of delay longer than 48 hours would require special justification to be compatible with article 9 (3) of the Covenant.[[fn:30]]",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "General comment No. 35 (2014), para. 33; and Kovsh v. Belarus , para. 7.4."
+      },
+      {
+        "n": 27,
+        "text": "Kovsh v. Belarus, para. 7.3."
+      },
+      {
+        "n": 28,
+        "text": "For example, Kovsh v. Belarus, para. 7.3; and Leehong v. Jamaica, CCPR/C/66/D/613/1995, para. 9.5."
+      },
+      {
+        "n": 29,
+        "text": "For example, McLawrence v. Jamaica, para. 5.6."
+      },
+      {
+        "n": 30,
+        "text": "Borisenko v. Hungary (CCPR/C/76/D/852/1999), para. 7.4."
+      }
+    ]
   },
   {
     "ID": "8.9.",

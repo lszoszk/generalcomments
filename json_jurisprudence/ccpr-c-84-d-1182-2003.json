@@ -1,9 +1,15 @@
 [
   {
     "ID": "1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
-    "Text": "The author of the communication is Mr. Savvas Karatsis, a Cypriot national, born on 23 December 1952. He claims to be a victim of a violation by Cyprus of article 14, paragraph 1, read alone and in conjunction with article 2, paragraph 3, of the Covenant. In a subsequent submission (see para. 5.1), he also claims a violation of his rights under article 25 (c) of the Covenant. The author is represented by counsel, Mr. Achilleas Demetriades."
+    "Text": "The author of the communication is Mr. Savvas Karatsis, a Cypriot national, born on 23 December 1952. He claims to be a victim of a violation by Cyprus[[fn:3]] of article 14, paragraph 1, read alone and in conjunction with article 2, paragraph 3, of the Covenant. In a subsequent submission (see para. 5.1), he also claims a violation of his rights under article 25 (c) of the Covenant. The author is represented by counsel, Mr. Achilleas Demetriades.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The Covenant and the Optional Protocol thereto entered into force for Cyprus respectively on 23 March 1976 and 15 July 1992."
+      }
+    ]
   },
   {
     "ID": "2.1.",
@@ -33,13 +39,29 @@
     "ID": "2.5.",
     "Section": "Factual background",
     "Labels": [],
-    "Text": "On the same day, the Chief Registrar informed the author that his appointment had been revoked, as he did not accept the conditions of such appointment. On 4 December 2000, the author filed a complaint with the Supreme Court, challenging the Supreme Council’s notification of 26 September 2000 on the basis that it purported unilaterally to change the terms of his employment contract. The author also challenged the Council’s decision of 2 October 2000 revoking his appointment. The case was first referred to a single judge of the Court but later assigned to the full Supreme Court by the Chief Registrar. On 23 January 2001, the author, by reference to Article 153(9) of the Constitution of Cyprus, applied for his case to be heard by a different bench, arguing that the 13 judges of the Supreme Court were the very authors of the impugned decisions, which they had taken in their capacity as members of the Supreme Council."
+    "Text": "On the same day, the Chief Registrar informed the author that his appointment had been revoked, as he did not accept the conditions of such appointment. On 4 December 2000, the author filed a complaint with the Supreme Court, challenging the Supreme Council’s notification of 26 September 2000 on the basis that it purported unilaterally to change the terms of his employment contract. The author also challenged the Council’s decision of 2 October 2000 revoking his appointment. The case was first referred to a single judge of the Court but later assigned to the full Supreme Court by the Chief Registrar. On 23 January 2001, the author, by reference to Article 153(9)[[fn:4]] of the Constitution of Cyprus, applied for his case to be heard by a different bench, arguing that the 13 judges of the Supreme Court were the very authors of the impugned decisions, which they had taken in their capacity as members of the Supreme Council.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Article 153(9) of the Constitution of Cyprus reads: “In the case of temporary absence or incapacity of the President of the High Court or of one of the Greek judges or of the Turkish judge thereof, the President of the Supreme Constitutional Court or the Greek judge of the Turkish judge thereof, respectively, shall act in his place during such temporary absence of incapacity. Provided that it is impracticable or inconvenient for the Greek or the Turkish judge of the Supreme Constitutional Court to act, the senior in office Greek or Turkish judge in the judicial service of the Republic shall so act respectively.”"
+      }
+    ]
   },
   {
     "ID": "2.6.",
     "Section": "Factual background",
     "Labels": [],
-    "Text": "By judgment of 15 March 2001, the Supreme Court dismissed the case for want of jurisdiction without addressing the issue of impartiality. It held that the appointment of judges is an exercise of the judicial rather than the executive or administrative power, thus falling within the exclusive competence of the Supreme Council and outside the Supreme Court’s jurisdiction under Article 146 of the Constitution of Cyprus."
+    "Text": "By judgment of 15 March 2001, the Supreme Court dismissed the case for want of jurisdiction without addressing the issue of impartiality.[[fn:5]] It held that the appointment of judges is an exercise of the judicial rather than the executive or administrative power, thus falling within the exclusive competence of the Supreme Council and outside the Supreme Court’s jurisdiction under Article 146 of the Constitution of Cyprus.[[fn:6]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The Court recalled that “[i]t is up to the court, which is legally competent under the law, to decide whether the subject matter of an application comes under its jurisdiction. This matter takes precedence over any other. Once it is considered that the court has jurisdiction to deal with the subject matter of an application, then the question of excluding judges who will exercise the court’s jurisdiction is examined.” Supreme Court of Cyprus, case No. 1547/2000, Savvas Karatsis v. The Republic, Judgment of 15 March 2001."
+      },
+      {
+        "n": 6,
+        "text": "The Supreme Court referred to its previous judgment in Antonios Kourris v. The Supreme Council of Judicature (1972) 3 CLR, 390."
+      }
+    ]
   },
   {
     "ID": "2.7.",
@@ -75,7 +97,13 @@
     "ID": "3.2.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "On impartiality, the author recalls the Committee’s jurisprudence that judges must not harbour any preconceptions about the matter placed before them. The fact that neither the Attorney General, who usually represents the State in court proceedings, nor the Supreme Council as respondent filed an appearance before the Supreme Court illustrated that the 13 judges on the Supreme Court were judges in their own cause."
+    "Text": "On impartiality, the author recalls the Committee’s jurisprudence[[fn:7]] that judges must not harbour any preconceptions about the matter placed before them. The fact that neither the Attorney General, who usually represents the State in court proceedings, nor the Supreme Council as respondent filed an appearance before the Supreme Court illustrated that the 13 judges on the Supreme Court were judges in their own cause.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Communication No. 387/1989, Karttunen v. Finland, Views adopted on 5 November 1992, at para. 7.2."
+      }
+    ]
   },
   {
     "ID": "3.3.",
@@ -105,7 +133,21 @@
     "ID": "4.2.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "The State party recalls the Committee’s jurisprudence that the procedure of appointing judges does not come within the purview of a determination of rights and obligations in a suit of law within the meaning of article 14, paragraph 1, of the Covenant. In relation to the largely congruent provision of article 6, paragraph 1, of the European Convention, the European Commission has decided that disputes concerning the judiciary, despite their independence from the executive branch, fall outside the scope of article 6. The European Court, since Pellegrin v. France, has applied a “functional criterion” to exclude from the scope of article 6, paragraph 1, any disputes concerning the appointment, promotion or dismissal to or from posts involving participation in the exercise of powers conferred by public law."
+    "Text": "The State party recalls the Committee’s jurisprudence[[fn:8]] that the procedure of appointing judges does not come within the purview of a determination of rights and obligations in a suit of law within the meaning of article 14, paragraph 1, of the Covenant. In relation to the largely congruent provision of article 6, paragraph 1, of the European Convention, the European Commission[[fn:9]] has decided that disputes concerning the judiciary, despite their independence from the executive branch, fall outside the scope of article 6. The European Court, since Pellegrin v. France,[[fn:10]] has applied a “functional criterion” to exclude from the scope of article 6, paragraph 1, any disputes concerning the appointment, promotion or dismissal to or from posts involving participation in the exercise of powers conferred by public law.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "See Communication No. 972/2001, George Kazantzis v. Cyprus, decisions on admissibility adopted on 7 August 2003, at para. 6.5."
+      },
+      {
+        "n": 9,
+        "text": "X v. Portugal (1983) 32 DR, at p. 258."
+      },
+      {
+        "n": 10,
+        "text": "Application No. 28541/95, Judgment of 8 December 1999."
+      }
+    ]
   },
   {
     "ID": "4.3.",
@@ -117,7 +159,13 @@
     "ID": "4.4.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "On the merits, the State party argues that the author’s allegations about the lack of impartiality of the Supreme Court judges and the denial of a fair hearing are merely conjectural, given that the Supreme Court (in whatever composition) was bound by its previous judgment in Kourris v. The Supreme Council of Judicature to dismiss his complaint for want of jurisdiction under Article 146 of the Constitution. The author’s rights under articles 2 and 14, paragraph 1, of the Covenant had therefore not been violated in any event."
+    "Text": "On the merits, the State party argues that the author’s allegations about the lack of impartiality of the Supreme Court judges and the denial of a fair hearing are merely conjectural, given that the Supreme Court (in whatever composition) was bound by its previous judgment in Kourris v. The Supreme Council of Judicature[[fn:11]] to dismiss his complaint for want of jurisdiction under Article 146 of the Constitution. The author’s rights under articles 2 and 14, paragraph 1, of the Covenant had therefore not been violated in any event.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "See above, at footnote 4."
+      }
+    ]
   },
   {
     "ID": "5.1.",
@@ -129,7 +177,17 @@
     "ID": "5.2.",
     "Section": "Author’s comments",
     "Labels": [],
-    "Text": "The author considers that his case is similar to Casanovas v. France and Chira Vangas v. Peru, as it concerns the terms of his employment within the judiciary, conveying more favourable career prospects, salary and pension benefits in the event of his appointment to the post of District Court judge. He recalls that the concept of “suit at law” under article 14, paragraph 1, is based on the nature of the right in question rather than the status of one of the parties, and concludes that his claim under that article is admissible ratione materiae."
+    "Text": "The author considers that his case is similar to Casanovas v. France[[fn:12]] and Chira Vangas v. Peru,[[fn:13]] as it concerns the terms of his employment within the judiciary, conveying more favourable career prospects, salary and pension benefits in the event of his appointment to the post of District Court judge. He recalls that the concept of “suit at law” under article 14, paragraph 1, is based on the nature of the right in question rather than the status of one of the parties, and concludes that his claim under that article is admissible ratione materiae.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "Communication No. 441/1990, Views adopted on 19 July 1994."
+      },
+      {
+        "n": 13,
+        "text": "Communication No. 906/2000, Views adopted on 22 July 2002."
+      }
+    ]
   },
   {
     "ID": "5.3.",
@@ -171,19 +229,37 @@
     "ID": "6.3.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "As to the author’s claim under article 14, paragraph 1, the Committee observes that, in contrast to Casanovas v. France and Chira Vargas v. Peru, the present case concerns the revocation of an appointment to another post within the judiciary rather than the dismissal from public service. The Committee recalls that the concept of “suit at law” under article 14, paragraph 1, is based on the nature of the rights in question rather than the status of one of the parties. It also recalls that that the procedure of appointing judges, albeit subject to the right in article 25(c) to access to public service on general terms of equality, as well as the right in article 2, paragraph 3, to an effective remedy, does not as such come within the purview of a determination of rights and obligations in a suit at law within the meaning of article 14, paragraph 1."
+    "Text": "As to the author’s claim under article 14, paragraph 1, the Committee observes that, in contrast to Casanovas v. France and Chira Vargas v. Peru, the present case concerns the revocation of an appointment to another post within the judiciary rather than the dismissal from public service. The Committee recalls that the concept of “suit at law” under article 14, paragraph 1, is based on the nature of the rights in question rather than the status of one of the parties.[[fn:14]] It also recalls that that the procedure of appointing judges, albeit subject to the right in article 25(c) to access to public service on general terms of equality, as well as the right in article 2, paragraph 3, to an effective remedy, does not as such come within the purview of a determination of rights and obligations in a suit at law within the meaning of article 14, paragraph 1.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "Communication No. 112/1981, Y.L. v. Canada, decision on admissibility adopted on 8 April 1986, at para. 9.2; Communication No. 441/1990, Casanovas v. France, at para. 5.2."
+      }
+    ]
   },
   {
     "ID": "6.4.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The issue before the Committee is therefore whether the proceedings initiated by the author to challenge the revocation of his appointment to the post of District Court judge constituted a determination of his rights and obligations in a suit at law. The Committee recalls that the author chose not to resign from his post as Family Court judge to prevent a substantial reduction in his annual salary, exclusion of his years of service at the Family Court from the calculation of his pension benefits, as well as uncertainty of tenure. It notes that the author entirely preserved these acquired rights and considers that his claim concerning the loss of career prospects and possible increases in salary and pension benefits caused by the revocation of his appointment is merely hypothetical. Similarly, he has failed to substantiate any violation of his right under article 25(c) to equal access to public service. The author has therefore not substantiated that the proceedings initiated by him constituted a determination of his rights and obligations in a suit at law within the meaning of article 14, paragraph 1."
+    "Text": "The issue before the Committee is therefore whether the proceedings initiated by the author to challenge the revocation of his appointment to the post of District Court judge constituted a determination of his rights and obligations in a suit at law. The Committee recalls that the author chose not to resign from his post as Family Court judge to prevent a substantial reduction in his annual salary, exclusion of his years of service at the Family Court from the calculation of his pension benefits, as well as uncertainty of tenure. It notes that the author entirely preserved these acquired rights and considers that his claim concerning the loss of career prospects and possible increases in salary and pension benefits caused by the revocation of his appointment is merely hypothetical. Similarly, he has failed to substantiate any violation of his right under article 25(c) to equal access to public service.[[fn:15]] The author has therefore not substantiated that the proceedings initiated by him constituted a determination of his rights and obligations in a suit at law within the meaning of article 14, paragraph 1.",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "See above, at para. 6.2."
+      }
+    ]
   },
   {
     "ID": "6.5.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "While the revocation of appointments within the judiciary must not necessarily be determined by a court or tribunal, the Committee recalls that whenever a judicial body is entrusted under national law with the task of deciding on such matters, it must respect the guarantee of equality of all persons before the courts and tribunals as enshrined in article 14, paragraph 1, and the principles of impartiality, fairness and equality of arms implicit in this guarantee. However, the author has not rebutted the State party’s argument that the Supreme Court’s judgment in Kourris v. The Supreme Council of Judicature was a binding precedent to the effect that the Supreme Council’s exercise of powers is not subject to judicial review and falls outside the Supreme Court’s jurisdiction under Article 146 of the Constitution. Accordingly, the Committee considers that the Supreme Court did not violate the guarantees of article 14, paragraph 1, when it declared itself incompetent to deal with the author’s case, given that Cypriot law explicitly excluded the Court’s jurisdiction to adjudicate the matter. The initiation of proceedings before a judicial body that manifestly lacks jurisdiction to deal with a matter cannot trigger the guarantees of Article 14, paragraph 1. The Committee concludes that this part of the communication is therefore inadmissible ratione materiae under article 3 of the Optional Protocol."
+    "Text": "While the revocation of appointments within the judiciary must not necessarily be determined by a court or tribunal, the Committee recalls that whenever a judicial body is entrusted under national law with the task of deciding on such matters, it must respect the guarantee of equality of all persons before the courts and tribunals as enshrined in article 14, paragraph 1, and the principles of impartiality, fairness and equality of arms implicit in this guarantee.[[fn:16]] However, the author has not rebutted the State party’s argument that the Supreme Court’s judgment in Kourris v. The Supreme Council of Judicature was a binding precedent to the effect that the Supreme Council’s exercise of powers is not subject to judicial review and falls outside the Supreme Court’s jurisdiction under Article 146 of the Constitution. Accordingly, the Committee considers that the Supreme Court did not violate the guarantees of article 14, paragraph 1, when it declared itself incompetent to deal with the author’s case, given that Cypriot law explicitly excluded the Court’s jurisdiction to adjudicate the matter. The initiation of proceedings before a judicial body that manifestly lacks jurisdiction to deal with a matter cannot trigger the guarantees of Article 14, paragraph 1. The Committee concludes that this part of the communication is therefore inadmissible ratione materiae under article 3 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "Cf. Communication No. 1015/2001, Perterer v. Austria, Views adopted on 20 July 2004, at para. 9.2."
+      }
+    ]
   },
   {
     "ID": "7.",

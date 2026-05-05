@@ -11,7 +11,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "On 28 March 1977, the author, a farmer, signed a rural lease to run the Saint-Génies estate in the commune of Carcassonne. On 7 September 1993 and 16 November 1993, the Carcassonne tribunal de grande instance (court of major jurisdiction) ordered receivership and liquidation proceedings respectively against the author. On 13 December 2000 and 28 February 2002, the court rejected his requests to close the liquidation proceedings, stating that the closure of the proceedings would require the prior sale of the jointly owned family property. On 14 January 2003, the court terminated the author’s rural lease, resulting in an eviction order. Given his bankruptcy status, the author was unable to defend himself, having lost his civil rights to the administrator appointed by the court. On 11 March 2008, the court ordered the sale of the jointly owned family estate of the author’s mother by public auction. On 13 October 2009, the Montpellier court of appeal upheld the decision of the Carcassonne court. The author did not appeal against this decision, considering that such an appeal had no chance of success. In a ruling dated 24 November 2015, the Carcassonne court declared the bankruptcy proceedings closed due to insufficient assets."
+    "Text": "On 28 March 1977, the author, a farmer, signed a rural lease to run the Saint-Génies estate in the commune of Carcassonne. On 7 September 1993 and 16 November 1993, the Carcassonne tribunal de grande instance (court of major jurisdiction) ordered receivership and liquidation proceedings respectively against the author. On 13 December 2000 and 28 February 2002, the court rejected his requests to close the liquidation proceedings, stating that the closure of the proceedings would require the prior sale of the jointly owned family property. On 14 January 2003, the court terminated the author’s rural lease, resulting in an eviction order. Given his bankruptcy status, the author was unable to defend himself, having lost his civil rights to the administrator appointed by the court.[[fn:3]] On 11 March 2008, the court ordered the sale of the jointly owned family estate of the author’s mother by public auction. On 13 October 2009, the Montpellier court of appeal upheld the decision of the Carcassonne court. The author did not appeal against this decision, considering that such an appeal had no chance of success. In a ruling dated 24 November 2015, the Carcassonne court declared the bankruptcy proceedings closed due to insufficient assets.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The author refers to the former article L622-0 of the Commercial Code."
+      }
+    ]
   },
   {
     "ID": "2.2.",
@@ -19,7 +25,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The author alleges that this lengthy liquidation procedure has affected his health to the point of making him disabled. The author has a medical certificate that demonstrates, in his words, “the link between anguish and the feeling of inferiority and humiliation derived from the impossibility of acting owing to the loss of his property rights and, consequently, of real ‘civil death’”. On 13 May 2004, the Technical Commission for Vocational Guidance and Rehabilitation declared the author to be 80 per cent “disabled” and issued him with a disability card for persons less able to stand, followed by another one stating that he was in need of support, valid from 2010 to 2020. His health has deteriorated. According to a medical certificate dated 8 January 2014, the author was no longer able to express himself or walk following a series of strokes."
+    "Text": "The author alleges that this lengthy liquidation procedure has affected his health to the point of making him disabled. The author has a medical certificate that demonstrates, in his words, “the link between anguish and the feeling of inferiority and humiliation derived from the impossibility of acting owing to the loss of his property rights and, consequently, of real ‘civil death’”.[[fn:4]] On 13 May 2004, the Technical Commission for Vocational Guidance and Rehabilitation declared the author to be 80 per cent “disabled” and issued him with a disability card for persons less able to stand, followed by another one stating that he was in need of support, valid from 2010 to 2020. His health has deteriorated. According to a medical certificate dated 8 January 2014, the author was no longer able to express himself or walk following a series of strokes.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The author refers to a medical certificate dated 13 December 2002, which states that he “has never had any other neurological problems …. A state of chronic stress linked to his environment over several years is likely to have been an aggravating and contributory cause of these strokes.”"
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -79,13 +91,33 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The author alleges that he was unable to have access to the Court of Cassation on the same basis as any other claimant because of his disability. He maintains that, by declaring his appeal inadmissible, the Court has made him accept the registrar’s negligence. He considers that the Court should have protected him, since his disability called for special attention to redress the balance with persons without disabilities. The author refers to the jurisprudence of the European Court of Human Rights, which states that the registrar’s negligence entails the responsibility of the courts and which recognizes an obligation to verify documents filed with the registry. According to the author, he could therefore legitimately hope that the Court of Cassation would accept his statement of claim even though he had not signed it."
+    "Text": "The author alleges that he was unable to have access to the Court of Cassation on the same basis as any other claimant because of his disability. He maintains that, by declaring his appeal inadmissible, the Court has made him accept the registrar’s negligence. He considers that the Court should have protected him, since his disability called for special attention to redress the balance with persons without disabilities. The author refers to the jurisprudence of the European Court of Human Rights, which states that the registrar’s negligence entails the responsibility of the courts[[fn:5]] and which recognizes an obligation to verify documents filed with the registry.[[fn:6]] According to the author, he could therefore legitimately hope that the Court of Cassation would accept his statement of claim even though he had not signed it.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "European Court of Human Rights, Samoilă v. Romania, application No. 19994/04, judgment, 16 July 2015; and Gankin and Others v. Russia, application No. 2430/06, judgment, 31 May 2016."
+      },
+      {
+        "n": 6,
+        "text": "European Court of Human Rights, Walchli v. France, application No. 35787/03, judgment, 26 July 2007."
+      }
+    ]
   },
   {
     "ID": "4.1.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "In its observations of 25 June 2018, the State party challenges the admissibility of the communication on the grounds that the author has not exhausted domestic remedies, contrary to the requirement under article 2 (d) of the Optional Protocol. Firstly, the State party considers that the author should have brought the action provided for in article L141-1 of the Code of Judicial Organization, under which “the State is required to remedy any damage caused by the improper functioning of the public administration of justice. Unless otherwise specified, such liability is incurred only in the event of gross negligence or a miscarriage of justice.” The State party cites examples of cases where the domestic courts have recognized the existence of gross negligence. These examples demonstrate the “very common” practice of this procedure, which frequently results in convictions of the State party, in line with the “very broad acceptance” of the facts giving rise to responsibility. The State party notes that the European Court of Human Rights has recognized that the remedy arising from the action provided for in article L141-1 of the Judicial Code “has acquired a degree of legal certainty so that it may and must be used for the purposes of article 35 (1) of the Convention [for the Protection of Human Rights and Fundamental Freedoms (European Convention on Human Rights)].” The Court also noted that the domestic courts have given an increasingly broad interpretation of the concept of “gross negligence”. The State party notes that the European Court of Human Rights declared the author’s application inadmissible on the grounds that he had failed to exhaust domestic remedies (see para. 2.6 above). Moreover, the author’s appeal on points of law was intended to obtain another decision on whether to prosecute the liquidator (criminal component) and not to allow the domestic courts to consider the merits of the complaints raised by the author before the Committee (State party responsibility component). Moreover, the fact that the author brought this action in 2017 on account of the length of the liquidation proceedings demonstrates his knowledge of the effectiveness of this remedy."
+    "Text": "In its observations of 25 June 2018, the State party challenges the admissibility of the communication on the grounds that the author has not exhausted domestic remedies, contrary to the requirement under article 2 (d) of the Optional Protocol. Firstly, the State party considers that the author should have brought the action provided for in article L141-1 of the Code of Judicial Organization, under which “the State is required to remedy any damage caused by the improper functioning of the public administration of justice. Unless otherwise specified, such liability is incurred only in the event of gross negligence or a miscarriage of justice.” The State party cites examples of cases where the domestic courts have recognized the existence of gross negligence. These examples demonstrate the “very common” practice of this procedure, which frequently results in convictions of the State party, in line with the “very broad acceptance” of the facts giving rise to responsibility. The State party notes that the European Court of Human Rights has recognized that the remedy arising from the action provided for in article L141-1 of the Judicial Code “has acquired a degree of legal certainty so that it may and must be used for the purposes of article 35 (1) of the Convention [for the Protection of Human Rights and Fundamental Freedoms (European Convention on Human Rights)].”[[fn:7]] The Court also noted that the domestic courts have given an increasingly broad interpretation of the concept of “gross negligence”.[[fn:8]] The State party notes that the European Court of Human Rights declared the author’s application inadmissible on the grounds that he had failed to exhaust domestic remedies (see para. 2.6 above). Moreover, the author’s appeal on points of law was intended to obtain another decision on whether to prosecute the liquidator (criminal component) and not to allow the domestic courts to consider the merits of the complaints raised by the author before the Committee (State party responsibility component). Moreover, the fact that the author brought this action in 2017 on account of the length of the liquidation proceedings demonstrates his knowledge of the effectiveness of this remedy.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "European Court of Human Rights, Benmouna and Others v. France, application No. 51097/13, decision, 15 September 2015, para. 52."
+      },
+      {
+        "n": 8,
+        "text": "Ibid., para. 49."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -97,7 +129,17 @@
     "ID": "5.1.",
     "Section": "Author’s comments on the State party’s observations",
     "Labels": [],
-    "Text": "In his comments of 26 October 2018, the author states that the European Court of Human Rights held in its decision of 23 May 2017 that, following a judgment of the Court of Cassation of 16 December 2014 which, according to the author, created the principle of compensation, article L141-1 of the Judicial Code constitutes an effective remedy and has done so since January 2015, with reference to the Court’s decision in Poulain v. France of 21 March 2017. However, according to the author, the time limit between a reversal of case law and knowledge of the appeal is six months, which the Court failed to observe given the time that had elapsed between its decisions in Poulain v. France and in the author’s case."
+    "Text": "In his comments of 26 October 2018, the author states that the European Court of Human Rights held in its decision of 23 May 2017 that, following a judgment of the Court of Cassation of 16 December 2014 which, according to the author, created the principle of compensation, article L141-1 of the Judicial Code constitutes an effective remedy and has done so since January 2015, with reference to the Court’s decision in Poulain v. France of 21 March 2017.[[fn:9]] However, according to the author, the time limit between a reversal of case law and knowledge of the appeal is six months,[[fn:10]] which the Court failed to observe given the time that had elapsed between its decisions in Poulain v. France and in the author’s case.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Application No. 16470/15."
+      },
+      {
+        "n": 10,
+        "text": "European Court of Human Rights, Mifsud v. France, application No. 57220/00, decision, 11 September 2002; and Valada Matos Das Neves v. Portugal, application No. 73798/13, judgment, 29 October 2015, para. 106."
+      }
+    ]
   },
   {
     "ID": "5.2.",
@@ -105,7 +147,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The author notes that, in his response to the opinion of the reporting judge and the advocate general before the Court of Cassation, he said that the fact of setting the negligence of the registry of the Montpellier court of appeal against him constituted a violation of the State party’s international obligations, including article 6 (1) of the European Convention on Human Rights. He also referred to his disability in his response. In addition, in his statement of claim, he set out his complaints concerning the lack of investigation by the investigating judge and the causal link between the length of the liquidation proceedings and his disability. The author claims that he thus raised the substance of article 13 of the Convention."
+    "Text": "The author notes that, in his response to the opinion of the reporting judge and the advocate general before the Court of Cassation, he said that the fact of setting the negligence of the registry of the Montpellier court of appeal against him constituted a violation of the State party’s international obligations, including article 6 (1) of the European Convention on Human Rights. He also referred to his disability in his response.[[fn:11]] In addition, in his statement of claim, he set out his complaints concerning the lack of investigation by the investigating judge and the causal link between the length of the liquidation proceedings and his disability. The author claims that he thus raised the substance of article 13 of the Convention.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "The author notes that he contested the requirement for him to travel from Carcassonne to the Montpellier court of appeal, even though he was 80 per cent disabled and the criminal proceedings had shown that his condition was serious."
+      }
+    ]
   },
   {
     "ID": "5.3.",
@@ -113,13 +161,37 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The author disputes the State party’s observation that he should have availed himself of the procedure provided for in article L141-1 of the Judicial Code. The author cites the jurisprudence of the Human Rights Committee, namely that any further appeal would be futile since the highest courts have made a final decision on the merits of a legal issue. He notes that, in its decision of 29 March 2017, the Court of Cassation acknowledged that it had read his submissions, in which he had invoked article 13 in substance and, explicitly, articles 15 and 16 of the Convention. The author asserts that he should be able to seek a criminal remedy to claim compensation against the person who caused his disability. He therefore resorted to the necessary remedy. Furthermore, according to the author, it is unthinkable that a court of first instance would review the faults of the Court of Cassation, and the State party has not provided any examples of such cases. The author notes that, in a judgment of 12 June 2017, the Paris tribunal de grande instance ruled that it could not assess the merits of court decisions. Moreover, according to domestic case law, resort to the remedy provided for in article L141-1 of the Judicial Code requires that all other remedies have been exhausted."
+    "Text": "The author disputes the State party’s observation that he should have availed himself of the procedure provided for in article L141-1 of the Judicial Code. The author cites the jurisprudence of the Human Rights Committee, namely that any further appeal would be futile since the highest courts have made a final decision on the merits of a legal issue.[[fn:12]] He notes that, in its decision of 29 March 2017, the Court of Cassation acknowledged that it had read his submissions, in which he had invoked article 13 in substance and, explicitly, articles 15 and 16 of the Convention. The author asserts that he should be able to seek a criminal remedy to claim compensation against the person who caused his disability. He therefore resorted to the necessary remedy. Furthermore, according to the author, it is unthinkable that a court of first instance would review the faults of the Court of Cassation, and the State party has not provided any examples of such cases. The author notes that, in a judgment of 12 June 2017, the Paris tribunal de grande instance ruled that it could not assess the merits of court decisions.[[fn:13]] Moreover, according to domestic case law, resort to the remedy provided for in article L141-1 of the Judicial Code requires that all other remedies have been exhausted.[[fn:14]]",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "Jong-nam Kim et al. v. Republic of Korea (CCPR/C/106/D/1786/2008), para. 6.3;"
+      },
+      {
+        "n": 13,
+        "text": "Paris tribunal de grande instance, S.A.R.L. MEM v. Agent judiciaire de l’État, No. RG: 15/03249, judgment, 12 June 2017."
+      },
+      {
+        "n": 14,
+        "text": "Court of Cassation, First Civil Division, appeal No. 14-50074, judgment, 24 February 2016."
+      }
+    ]
   },
   {
     "ID": "5.4.",
     "Section": "Author’s comments on the State party’s observations",
     "Labels": [],
-    "Text": "According to the author, the judgments cited by the State party show that the procedure set out in article L141-1 of the Judicial Code can only be used to remedy the following three complaints: unreasonable delay in proceedings, police misconduct and death in custody. The author submits that the European Court of Human Rights has recognized the effectiveness of the procedure provided for in article L141-1 of the Judicial Code only to remedy an unreasonable delay and death in custody, but not for failure to investigate. The author notes that, in Benmouna and Others v. France, the Court ruled that the rejection by the Court of Cassation of the applicants’ arguments based on article 2 of the European Convention on Human Rights concerning the inadequacy of the investigations undertaken meant that they had exhausted domestic remedies. He argues that the Court consequently considers that article L141-1 of the Judicial Code does not constitute an effective remedy for complaints concerning the inadequacy of investigations."
+    "Text": "According to the author, the judgments cited by the State party show that the procedure set out in article L141-1 of the Judicial Code can only be used to remedy the following three complaints: unreasonable delay in proceedings, police misconduct and death in custody. The author submits that the European Court of Human Rights has recognized the effectiveness of the procedure provided for in article L141-1 of the Judicial Code only to remedy an unreasonable delay and death in custody, but not for failure to investigate.[[fn:15]] The author notes that, in Benmouna and Others v. France, the Court ruled that the rejection by the Court of Cassation of the applicants’ arguments based on article 2 of the European Convention on Human Rights concerning the inadequacy of the investigations undertaken meant that they had exhausted domestic remedies.[[fn:16]] He argues that the Court consequently considers that article L141-1 of the Judicial Code does not constitute an effective remedy for complaints concerning the inadequacy of investigations.",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "European Court of Human Rights, Benmouna and Others v. France; and Sabadie v. France, application No. 7115/15, decision, 23 May 2017."
+      },
+      {
+        "n": 16,
+        "text": "European Court of Human Rights, Benmouna and Others v. France, para. 54."
+      }
+    ]
   },
   {
     "ID": "5.5.",
@@ -159,7 +231,7 @@
     "ID": "6.5.",
     "Section": "State party’s observations on the merits",
     "Labels": [],
-    "Text": "The State party disputes the assertion that the failure of the registrar of the Montpellier court of appeal to check the author’s signature on his statement of claim led to the non-acceptance of his appeal on points of law by the Court of Cassation or to a violation of article 13 of the Convention. According to the State party, the registrar acted in compliance with the rules of procedure. It follows from articles 576 and 584 of the Code of Criminal Procedure that the role of the registry is only to issue a receipt for the record of the filing of a statement of claim in the registry and not to check that the applicant has signed the statement. As the Court of Cassation is the sole judge of the admissibility of an appeal, it is up to the applicant to ensure that his or her appeal is admissible. In the present case, the registrar of the Montpellier court of appeal issued the record of registration of the statement to the author, in accordance with her obligations, and was therefore not at fault in failing to check the author’s signature. The Court of Cassation declared the appeal inadmissible in accordance with its case law in this respect."
+    "Text": "The State party disputes the assertion that the failure of the registrar of the Montpellier court of appeal to check the author’s signature on his statement of claim led to the nonacceptance of his appeal on points of law by the Court of Cassation or to a violation of article 13 of the Convention. According to the State party, the registrar acted in compliance with the rules of procedure. It follows from articles 576 and 584 of the Code of Criminal Procedure that the role of the registry is only to issue a receipt for the record of the filing of a statement of claim in the registry and not to check that the applicant has signed the statement. As the Court of Cassation is the sole judge of the admissibility of an appeal, it is up to the applicant to ensure that his or her appeal is admissible. In the present case, the registrar of the Montpellier court of appeal issued the record of registration of the statement to the author, in accordance with her obligations, and was therefore not at fault in failing to check the author’s signature. The Court of Cassation declared the appeal inadmissible in accordance with its case law in this respect."
   },
   {
     "ID": "6.6.",
@@ -175,7 +247,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "In his comments of 23 January 2019, the author reaffirms that his disability was caused by the “connivance” of the liquidator and the bankruptcy judge at the Carcassonne tribunal de grande instance. He refers to the bankruptcy judge’s letter of 13 December 2000, in which he informs the author that the only solution provided for is the sale of the jointly owned family property, which the author disputes. The author claims to have suffered a psychological shock on reading this letter. This psychological pressure, which lasted for many years, disabled him."
+    "Text": "In his comments of 23 January 2019, the author reaffirms that his disability was caused by the “connivance” of the liquidator and the bankruptcy judge at the Carcassonne tribunal de grande instance. He refers to the bankruptcy judge’s letter of 13 December 2000, in which he informs the author that the only solution provided for is the sale of the jointly owned family property, which the author disputes. The author claims to have suffered a psychological shock on reading this letter. This psychological pressure, which lasted for many years, disabled him.[[fn:17]]",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "The author refers to the contents of several medical certificates."
+      }
+    ]
   },
   {
     "ID": "7.2.",
@@ -183,13 +261,25 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The author reaffirms that the investigating judge at the Carcassonne tribunal de grande instance received him “very badly” and declared that, in view of his condition, there was no need for an expert opinion on his state of health. However, the investigating judge and the investigation division of the Montpellier court of appeal took advantage of the author’s disability to put up “a real barrier” to the investigation of his complaint against the liquidator. It was because of the investigating judge’s conduct that the author’s lawyer did not file his submissions under article 175 of the Code of Criminal Procedure. The dismissal order was therefore foreseeable. On appeal, the investigation division preferred to deflect attention from the investigation’s shortcomings rather than uphold the author’s rights, contrary to the provisions of article 13 of the Convention."
+    "Text": "The author reaffirms that the investigating judge at the Carcassonne tribunal de grande instance received him “very badly” and declared that, in view of his condition, there was no need for an expert opinion on his state of health.[[fn:18]] However, the investigating judge and the investigation division of the Montpellier court of appeal took advantage of the author’s disability to put up “a real barrier” to the investigation of his complaint against the liquidator. It was because of the investigating judge’s conduct that the author’s lawyer did not file his submissions under article 175 of the Code of Criminal Procedure. The dismissal order was therefore foreseeable. On appeal, the investigation division preferred to deflect attention from the investigation’s shortcomings rather than uphold the author’s rights, contrary to the provisions of article 13 of the Convention.",
+    "Footnotes": [
+      {
+        "n": 18,
+        "text": "The author notes that, in his affidavit, his counsel noted that he “was not received with the respect due to him. Real contempt was shown for him. His state of health and his weakness were visible and palpable, but this did not prevent the judge from displaying a rather disconcerting contempt for him.”"
+      }
+    ]
   },
   {
     "ID": "7.3.",
     "Section": "Author’s comments on the State party’s observations",
     "Labels": [],
-    "Text": "According to the author, it was up to the investigating judge to determine whether the classification of the facts of his complaint as a criminal offence could have been different from the one that he himself had made. The investigating judge failed to do this, with the result that the author did not have access to a court, contrary to the provisions of article 13 of the Convention. Furthermore, having lost his rights to administer his property, he was unable to initiate other proceedings. The author argues that it is obvious that the liquidator had not pressured him to commit an injurious act since she held his rights."
+    "Text": "According to the author, it was up to the investigating judge to determine whether the classification of the facts of his complaint as a criminal offence could have been different from the one that he himself had made.[[fn:19]] The investigating judge failed to do this, with the result that the author did not have access to a court, contrary to the provisions of article 13 of the Convention. Furthermore, having lost his rights to administer his property, he was unable to initiate other proceedings. The author argues that it is obvious that the liquidator had not pressured him to commit an injurious act since she held his rights.",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "European Court of Human Rights, Baka v. Greece, application No. 24891/10, judgment of 18 February 2016, para. 29, and B.V. v. Belgium, application No. 61030/08, judgment of 2 May 2017, para. 57. See also Court of Cassation, Criminal Division, appeal No. 1281676, judgment of 19 March 2013."
+      }
+    ]
   },
   {
     "ID": "7.4.",
@@ -211,7 +301,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The author argues that, in view of the State party’s appeal against the judgment of 29 October 2018 of the Paris tribunal de grande instance, the delay in these proceedings is unreasonable and constitutes a violation of his rights under article 13 of the Convention. The author notes that he has not yet been paid, despite the order making the judgment immediately enforceable. Thus, the author remains a victim of the unreasonable delay in the liquidation process. He maintains that these proceedings are not fast enough and are therefore ineffective given: his age of 71 and his severe disability; his claim for compensation for liquidation proceedings that lasted 22 years; the illegal collusion between the bankruptcy judge of the Carcassonne tribunal de grande instance and the liquidator to sell the estate, when the sale of her jointly-owned share would have enabled the liquidation to be completed quickly; and the compensation procedure, which has been pending for 18 months as a result of the State party’s appeal. For the same reason, the decision of the European Court of Human Rights (see para. 2.7 above) does not constitute an obstacle to the admissibility of this claim."
+    "Text": "The author argues that, in view of the State party’s appeal against the judgment of 29 October 2018 of the Paris tribunal de grande instance, the delay in these proceedings is unreasonable and constitutes a violation of his rights under article 13 of the Convention. The author notes that he has not yet been paid, despite the order making the judgment immediately enforceable. Thus, the author remains a victim of the unreasonable delay in the liquidation process. He maintains that these proceedings are not fast enough and are therefore ineffective given: his age of 71 and his severe disability; his claim for compensation for liquidation proceedings that lasted 22 years; the illegal collusion between the bankruptcy judge of the Carcassonne tribunal de grande instance and the liquidator to sell the estate, when the sale of her jointly-owned share would have enabled the liquidation to be completed quickly; and the compensation procedure, which has been pending for 18 months as a result of the State party’s appeal.[[fn:20]] For the same reason, the decision of the European Court of Human Rights (see para. 2.7 above) does not constitute an obstacle to the admissibility of this claim.",
+    "Footnotes": [
+      {
+        "n": 20,
+        "text": "European Court of Human Rights, Veriter v. France, application No. 31508/07, judgment of 14 October 2010, paras. 57–60."
+      }
+    ]
   },
   {
     "ID": "7.7.",
@@ -220,7 +316,13 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "The author argues that the 22-year duration of the liquidation procedure shows that it is unreasonable. According to the author, the European Court of Human Rights has found that the overall length of proceedings alone is sufficient to determine a breach of the reasonable time requirement. He maintains that, in this case, the delay was caused by the judicial authorities. The liquidator and the Carcassonne tribunal de grande instance decided to wait for his mother’s death. After her death, they chose, in an abuse of authority, to take over the entire estate. The author could do nothing in this respect, as he had lost his right to manage his personal property. Consequently, it was imperative for him to obtain an end to the proceedings in order to save the family estate for his children. However, the case was not complex, and the proceedings would have lasted only two years if the liquidator and the bankruptcy judge had not sought to sell the estate."
+    "Text": "The author argues that the 22-year duration of the liquidation procedure shows that it is unreasonable. According to the author, the European Court of Human Rights has found that the overall length of proceedings alone is sufficient to determine a breach of the reasonable time requirement.[[fn:21]] He maintains that, in this case, the delay was caused by the judicial authorities. The liquidator and the Carcassonne tribunal de grande instance decided to wait for his mother’s death. After her death, they chose, in an abuse of authority, to take over the entire estate. The author could do nothing in this respect, as he had lost his right to manage his personal property. Consequently, it was imperative for him to obtain an end to the proceedings in order to save the family estate for his children. However, the case was not complex, and the proceedings would have lasted only two years if the liquidator and the bankruptcy judge had not sought to sell the estate.",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "European Court of Human Rights, Basa v. Turkey applications No. 18740/05 and No. 19507/05, judgment of 15 January 2019, paras. 112–4."
+      }
+    ]
   },
   {
     "ID": "8.1.",
@@ -252,7 +354,13 @@
     "ID": "9.1.",
     "Section": "Author’s comments on the State party’s additional observations",
     "Labels": [],
-    "Text": "In his comments of 13 June 2019, the author maintains that article L641-7 of the Commercial Code implies that the judicial authorities must supervise the liquidator appointed by the court. He argues that a liquidator must be personally liable under article 1240 of the Civil Code. However, according to the author, the judicial authorities do not hold the liquidators responsible."
+    "Text": "In his comments of 13 June 2019, the author maintains that article L641-7 of the Commercial Code implies that the judicial authorities must supervise the liquidator appointed by the court.[[fn:22]] He argues that a liquidator must be personally liable under article 1240 of the Civil Code. However, according to the author, the judicial authorities do not hold the liquidators responsible.",
+    "Footnotes": [
+      {
+        "n": 22,
+        "text": "See Court of Cassation, Mixed Division, judgment of 4 November 2002 (appeal No. 00-13.610); and Court of Cassation, Civil Division, judgment of 30 January 2013 (appeal No. 11-26.056)."
+      }
+    ]
   },
   {
     "ID": "9.2.",
@@ -280,7 +388,13 @@
     "ID": "9.5.",
     "Section": "Author’s comments on the State party’s additional observations",
     "Labels": [],
-    "Text": "The author disputes the assertion that he has not exhausted domestic remedies concerning the length of the procedure provided for in article L141-1 of the Judicial Code. He maintains that the appeal proceedings have no timetable because they are not considered urgent, even though their purpose is to remedy the unreasonable 22-year delay in the liquidation. The proceedings therefore exceed reasonable time limits within the meaning of article 2 (d) of the Optional Protocol. According to the author, the European Court of Human Rights has recognized that a compensation procedure to remedy an unreasonable delay must be swift. According to the author, the Paris tribunal de grande instance only introduced the timetable at his insistence (see para. 8.4 above)."
+    "Text": "The author disputes the assertion that he has not exhausted domestic remedies concerning the length of the procedure provided for in article L141-1 of the Judicial Code. He maintains that the appeal proceedings have no timetable because they are not considered urgent, even though their purpose is to remedy the unreasonable 22-year delay in the liquidation. The proceedings therefore exceed reasonable time limits within the meaning of article 2 (d) of the Optional Protocol. According to the author, the European Court of Human Rights has recognized that a compensation procedure to remedy an unreasonable delay must be swift.[[fn:23]] According to the author, the Paris tribunal de grande instance only introduced the timetable at his insistence (see para. 8.4 above).",
+    "Footnotes": [
+      {
+        "n": 23,
+        "text": "European Court of Human Rights, Veriter v. France, paras. 57–60; and Palmero v. France, application No. 77362/11, judgment, 30 October 2014, para. 21."
+      }
+    ]
   },
   {
     "ID": "10.1.",
@@ -292,7 +406,13 @@
     "ID": "10.2.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee notes the State party’s argument that the communication is inadmissible on the grounds that the author has not exhausted domestic remedies within the meaning of article 2 (d) of the Optional Protocol, having neither pursued the action available under article L141-1 of the Judicial Code, nor invoked the substance of the rights protected by article 13 of the Convention before the domestic courts. The Committee recalls that only remedies that have a reasonable prospect of success for the purposes of article 2 (d) of the Optional Protocol should be exhausted. The Committee notes that article L141-1 of the Judicial Code provides that the State is only liable for gross negligence or a denial of justice. The Committee notes that, while the State party maintains that the domestic courts have broadened the scope of the notion of “gross negligence”, it nevertheless asserts that the registrar of the Montpellier court of appeal did not commit any fault, having acted in compliance with articles 576 and 584 of the Code of Criminal Procedure. Similarly, the Committee takes note of the State party’s observations that the judicial authorities have refused the author’s requests for investigative measures to be taken under domestic law. The Committee also notes that the European Court of Human Rights declared the author’s application inadmissible on the basis of its case law to the effect that the procedure under article L141-1 of the Judicial Code is effective for challenging the duration of a liquidation, which is not the subject of the present communication. In the light of the above, the Committee considers that it cannot conclude that the use of the procedure under article L141-1 of the Code would constitute an effective remedy in this case. The Committee therefore considers that the failure to use this procedure does not prevent it from examining the communication under article 2 (d) of the Optional Protocol."
+    "Text": "The Committee notes the State party’s argument that the communication is inadmissible on the grounds that the author has not exhausted domestic remedies within the meaning of article 2 (d) of the Optional Protocol, having neither pursued the action available under article L141-1 of the Judicial Code, nor invoked the substance of the rights protected by article 13 of the Convention before the domestic courts. The Committee recalls that only remedies that have a reasonable prospect of success for the purposes of article 2 (d) of the Optional Protocol should be exhausted.[[fn:24]] The Committee notes that article L141-1 of the Judicial Code provides that the State is only liable for gross negligence or a denial of justice. The Committee notes that, while the State party maintains that the domestic courts have broadened the scope of the notion of “gross negligence”, it nevertheless asserts that the registrar of the Montpellier court of appeal did not commit any fault, having acted in compliance with articles 576 and 584 of the Code of Criminal Procedure. Similarly, the Committee takes note of the State party’s observations that the judicial authorities have refused the author’s requests for investigative measures to be taken under domestic law. The Committee also notes that the European Court of Human Rights declared the author’s application inadmissible on the basis of its case law to the effect that the procedure under article L141-1 of the Judicial Code is effective for challenging the duration of a liquidation, which is not the subject of the present communication. In the light of the above, the Committee considers that it cannot conclude that the use of the procedure under article L1411 of the Code would constitute an effective remedy in this case. The Committee therefore considers that the failure to use this procedure does not prevent it from examining the communication under article 2 (d) of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 24,
+        "text": "Beasley v. Australia (CRPD/C/15/D/11/2013), para. 7.4; Lockrey v. Australia (CRPD/C/15/D/13/2013), para. 7.4; Noble v. Australia (CRPD/C/16/D/7/2012), para. 7.7; Bacher v. Austria (CRPD/C/19/D/26/2014), para. 8.8; V.F.C. v. Spain (CRPD/C/21/D/34/2015), para. 7.3; T.M. v. Greece (CRPD/C/21/D/42/2017), para. 6.4; Doolan v. Australia (CRPD/C/22/D/18/2013), para. 7.5; and Henley v. Australia (CRPD/C/27/D/56/2018), para. 9.4."
+      }
+    ]
   },
   {
     "ID": "10.3.",
@@ -308,7 +428,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The Committee must then determine whether the allegations that it has received have been sufficiently substantiated for the purposes of admissibility. The Committee notes the author’s complaints regarding the behaviour of the liquidator, the alleged causal relationship between his disability and the liquidation proceedings and the refusal of the judicial authorities to conduct an investigation in this regard. The Committee also notes that the investigating judge refused the author’s requests for investigative measures to be taken on the grounds that they had not been submitted in the form required by domestic law, the provisions of which the author and his lawyer had been reminded of on several occasions. The Committee further notes that the national judicial authorities have found no evidence of the existence of an offence as claimed by the author, despite numerous hearings. The Committee notes that the author has not established that the investigation division of the Montpellier court of appeal treated him in a manner contrary to article 13 of the Convention. The Committee considers that the aforementioned allegations essentially relate to the assessment of facts and evidence by the domestic courts. The Committee recalls that it is not a final instance competent to re-evaluate findings of fact or the application of domestic legislation, unless it can be ascertained that the proceedings before the domestic courts were arbitrary or amounted to a denial of justice. The Committee considers that the information in the file does not allow it to conclude that the work of the court-appointed liquidator or the refusal of the judicial authorities to carry out an investigation were flawed in this way. Accordingly, the Committee declares this part of the communication inadmissible under article 2 (e) of the Optional Protocol."
+    "Text": "The Committee must then determine whether the allegations that it has received have been sufficiently substantiated for the purposes of admissibility. The Committee notes the author’s complaints regarding the behaviour of the liquidator, the alleged causal relationship between his disability and the liquidation proceedings and the refusal of the judicial authorities to conduct an investigation in this regard. The Committee also notes that the investigating judge refused the author’s requests for investigative measures to be taken on the grounds that they had not been submitted in the form required by domestic law, the provisions of which the author and his lawyer had been reminded of on several occasions. The Committee further notes that the national judicial authorities have found no evidence of the existence of an offence as claimed by the author, despite numerous hearings. The Committee notes that the author has not established that the investigation division of the Montpellier court of appeal treated him in a manner contrary to article 13 of the Convention. The Committee considers that the aforementioned allegations essentially relate to the assessment of facts and evidence by the domestic courts. The Committee recalls that it is not a final instance competent to re-evaluate findings of fact or the application of domestic legislation, unless it can be ascertained that the proceedings before the domestic courts were arbitrary or amounted to a denial of justice.[[fn:25]] The Committee considers that the information in the file does not allow it to conclude that the work of the court-appointed liquidator or the refusal of the judicial authorities to carry out an investigation were flawed in this way. Accordingly, the Committee declares this part of the communication inadmissible under article 2 (e) of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 25,
+        "text": "L.M.L. v. United Kingdom (CRPD/C/17/D/27/2015), para. 6.3; F.O.F. v. Brazil (CRPD/C/23/D/40/2017), para. 8.7; and M.Y. v. Sweden (CRPD/C/24/D/49/2018), para. 6.6."
+      }
+    ]
   },
   {
     "ID": "10.5.",
@@ -336,7 +462,21 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The Committee notes the author’s argument that the registrar of the Montpellier court of appeal failed to check whether he had signed his statement of claim and that, given his disability, the Court of Cassation should not have declared his appeal inadmissible on the grounds that he had not signed the statement of claim, in violation of article 13 of the Convention. The Committee notes that, under article 584 of the Code of Criminal Procedure, the appellant must sign his statement of claim and file it with the registry of the court that handed down the decision under appeal. The Committee also notes the State party’s observation that it follows from articles 576 and 584 of the Code of Criminal Procedure that the role of the registry is only to issue a receipt for the record of the filing of a statement of claim in the registry, and not to check that the applicant has signed the statement. The Committee further notes that, in the Walchli v. France judgment, the European Court of Human Rights held that, when applying procedural rules, the courts must avoid both excessive formalism that would infringe the fairness of the proceedings and excessive flexibility that would result in the elimination of procedural requirements laid down by law. The Court also noted that, although the registry of the investigation division of the Riom court of appeal had “properly received the application submitted by the applicant’s counsel, it could reasonably be expected to provide the lawyer with the form of the statement in question to be completed or, at the very least, to remind him, where appropriate, of the necessary formalities to be completed, it being emphasized that the registrar before the courts of the judicial system is an officer of the court who is the guarantor of the proceedings and participant in the proper administration of justice”. The Committee notes that the role of the registrar as an officer of the court also stems from other Court case law."
+    "Text": "The Committee notes the author’s argument that the registrar of the Montpellier court of appeal failed to check whether he had signed his statement of claim and that, given his disability, the Court of Cassation should not have declared his appeal inadmissible on the grounds that he had not signed the statement of claim, in violation of article 13 of the Convention. The Committee notes that, under article 584 of the Code of Criminal Procedure, the appellant must sign his statement of claim and file it with the registry of the court that handed down the decision under appeal. The Committee also notes the State party’s observation that it follows from articles 576 and 584 of the Code of Criminal Procedure that the role of the registry is only to issue a receipt for the record of the filing of a statement of claim in the registry, and not to check that the applicant has signed the statement. The Committee further notes that, in the Walchli v. France judgment, the European Court of Human Rights held that, when applying procedural rules, the courts must avoid both excessive formalism that would infringe the fairness of the proceedings and excessive flexibility that would result in the elimination of procedural requirements laid down by law.[[fn:26]] The Court also noted that, although the registry of the investigation division of the Riom court of appeal had “properly received the application submitted by the applicant’s counsel, it could reasonably be expected to provide the lawyer with the form of the statement in question to be completed or, at the very least, to remind him, where appropriate, of the necessary formalities to be completed, it being emphasized that the registrar before the courts of the judicial system is an officer of the court who is the guarantor of the proceedings and participant in the proper administration of justice”.[[fn:27]] The Committee notes that the role of the registrar as an officer of the court also stems from other Court case law.[[fn:28]]",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "Walchli v. France, para. 29."
+      },
+      {
+        "n": 27,
+        "text": "Ibid., para. 35."
+      },
+      {
+        "n": 28,
+        "text": "European Court of Human Rights, Shuli v. Greece, application No. 71891/10, judgment, 13 July 2017, para. 32."
+      }
+    ]
   },
   {
     "ID": "11.3.",
@@ -348,7 +488,7 @@
   },
   {
     "ID": "12.",
-    "Section": "C.\tConclusions and recommendations",
+    "Section": "C. Conclusions and recommendations",
     "Labels": [
       "Persons with disabilities"
     ],

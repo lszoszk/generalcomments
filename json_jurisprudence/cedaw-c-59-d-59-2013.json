@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.1.",
-    "Section": "",
+    "Section": "Annex",
     "Labels": [
       "Women/girls"
     ],
@@ -9,13 +9,13 @@
   },
   {
     "ID": "1.2.",
-    "Section": "",
+    "Section": "Annex",
     "Labels": [],
     "Text": "When registering the case, the Committee, acting through the Working Group on Communications under the Optional Protocol, decided not to accede to the author’s request for interim measures of protection in accordance with article 5 (1) of the Optional Protocol (i.e. to stay her deportation pending consideration of her communication by the Committee)."
   },
   {
     "ID": "1.3.",
-    "Section": "",
+    "Section": "Annex",
     "Labels": [],
     "Text": "On 20 June 2014, the Committee, acting through the Working Group, decided, pursuant to rule 66 of its rules of procedure, to examine the admissibility of the communication separately from its merits."
   },
@@ -219,7 +219,13 @@
     "ID": "4.19.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "With reference to the jurisprudence of the Committee against Torture, the State party notes that positive duties under article 2 (d) do not encompass an obligation for States parties to refrain from expelling a person who might risk pain or suffering inflicted by a private person, without the consent or acquiescence of the State authorities. The case law of the European Court of Human Rights on article 3 of the European Convention on Human Rights shows also that, when returning an alien, a State party can become responsible for acts committed against the alien in his or her country of origin only if the alien is able to show that the authorities of the receiving State are unable to obviate the risk by providing appropriate protection."
+    "Text": "With reference to the jurisprudence of the Committee against Torture, the State party notes that positive duties under article 2 (d) do not encompass an obligation for States parties to refrain from expelling a person who might risk pain or suffering inflicted by a private person, without the consent or acquiescence of the State authorities. The case law of the European Court of Human Rights on article 3 of the European Convention on Human Rights shows also that, when returning an alien, a State party can become responsible for acts committed against the alien in his or her country of origin only if the alien is able to show that the authorities of the receiving State are unable to obviate the risk by providing appropriate protection.[[fn:1]]",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "See, for example, H.L.R. v. France, application No. 24573/94, para. 40, Salah Sheekh v. the Netherlands, application No. 1948/04, para. 137, and NA v. the United Kingdom, application No. 25904/07, para. 110."
+      }
+    ]
   },
   {
     "ID": "4.20.",

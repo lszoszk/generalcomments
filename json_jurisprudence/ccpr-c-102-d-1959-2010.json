@@ -1,19 +1,19 @@
 [
   {
     "ID": "1.1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "Annex",
     "Labels": [],
-    "Text": "The author of the communication, dated 26 July 2010, is Jama Warsame, born on 7 February 1984, Somali national, awaiting deportation from to . He claims that the State party would violate articles 2, paragraph 3, 6, paragraph 1, 7, 12, paragraph 4, 17, 18 and 23 of the International Covenant for Civil and Political Rights if it were to deport him. He is represented by counsel, Ms. Carole Simone Dahan."
+    "Text": "The author of the communication, dated 26 July 2010, is Jama Warsame, born on 7 February 1984, Somali national, awaiting deportation from Canada to Somalia. He claims that the State party would violate articles 2, paragraph 3, 6, paragraph 1, 7, 12, paragraph 4, 17, 18 and 23 of the International Covenant for Civil and Political Rights if it were to deport him. He is represented by counsel, Ms. Carole Simone Dahan."
   },
   {
     "ID": "1.2.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "Annex",
     "Labels": [],
     "Text": "On 27 July 2010, pursuant to rule 92 of the Committee’s Rules of Procedure, the Committee, acting through its Special Rapporteur on New Communications and Interim Measures, requested the State party not to deport the author while his case is under consideration by the Committee. On 29 December 2010 and on 21 April 2011, the Committee, acting through its Special Rapporteur on New Communications and Interim Measures, decided to deny the State party’s request of lifting the interim measures."
   },
   {
     "ID": "1.3.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "Annex",
     "Labels": [],
     "Text": "On 29 December 2010, pursuant to rule 97, paragraph 3, of its Rules of Procedure, the Committee, acting through its Special Rapporteur on New Communications and Interim Measures, decided that the Committee should examine the admissibility together with the merits of the communication."
   },
@@ -21,7 +21,7 @@
     "ID": "2.1.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "The author was born on 7 February 1984 in , but he never obtained Saudi Arabian citizenship. He is of Somali descent, however he has never resided in or visited ."
+    "Text": "The author was born on 7 February 1984 in Riyadh, Saudi Arabia, but he never obtained Saudi Arabian citizenship. He is of Somali descent, however he has never resided in or visited Somalia."
   },
   {
     "ID": "2.2.",
@@ -30,7 +30,7 @@
       "Refugees & asylum-seekers",
       "Women/girls"
     ],
-    "Text": "The author came to on 26 September 1988, at the age of four. On 4 March 1992, he was granted permanent resident status as a dependent of his mother under the Refugee Claims Backlog Regulations, but he was not accorded Convention Refugee status."
+    "Text": "The author came to Canada on 26 September 1988, at the age of four. On 4 March 1992, he was granted permanent resident status as a dependent of his mother under the Refugee Claims Backlog Regulations, but he was not accorded Convention Refugee status."
   },
   {
     "ID": "2.3.",
@@ -40,7 +40,7 @@
       "Refugees & asylum-seekers",
       "Women/girls"
     ],
-    "Text": "On 2 November 2004, the author was convicted of robbery and sentenced to nine months imprisonment. On 23 January 2006, the author was convicted for possession of a scheduled substance for the purposes of trafficking and sentenced to two years imprisonment. As a result of these convictions, on 22 June 2006, the author received an order of deportation from for “serious criminality” as defined in the Immigration and Refugee Protection Act 2001 (IRPA)."
+    "Text": "On 2 November 2004, the author was convicted of robbery and sentenced to nine months imprisonment. On 23 January 2006, the author was convicted for possession of a scheduled substance for the purposes of trafficking and sentenced to two years imprisonment. As a result of these convictions, on 22 June 2006, the author received an order of deportation from Canada for “serious criminality” as defined in the Immigration and Refugee Protection Act 2001 (IRPA)."
   },
   {
     "ID": "2.4.",
@@ -48,13 +48,19 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On 25 October 2006, the author appealed his deportation to the Immigration Appeal Division, but his appeal was rejected on the grounds of lack of jurisdiction under section 64 of the IRPA, which provides that a person sentenced to two years of imprisonment or more has no right to appeal."
+    "Text": "On 25 October 2006, the author appealed his deportation to the Immigration Appeal Division, but his appeal was rejected on the grounds of lack of jurisdiction under section 64 of the IRPA, which provides that a person sentenced to two years of imprisonment or more has no right to appeal.[[fn:4]]",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "See section 64, of the Immigration and Refugee Protection Act: 64 (1) No appeal may be made to the Immigration Appeal Division by a foreign national or their sponsor or by a permanent resident if the foreign national or permanent resident has been found to be inadmissible on grounds of security, violating human or international rights, serious criminality or organized criminality. (2) For the purpose of subsection (1), serious criminality must be with respect to a crime that was punished in Canada by a term of imprisonment of at least two years."
+      }
+    ]
   },
   {
     "ID": "2.5.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "On 19 January 2007, the author submitted an application for a Pre-Removal Risk Assessment (PRRA). On 9 February 2007, the PRRA Officer found that the author would face a risk to life and a risk of cruel and unusual treatment or punishment if returned to . The PRRA Officer based this conclusion inter alia on the author’s age, gender, lack of family or clan support, lack of previous residence in and lack of language skills, as well as on documentary evidence. The author’s case was then referred to the Minister’s Delegate at National Headquarters of the Ministry of Public Safety, who determined, on 23 February 2009, that he would not be at personal risk if returned to Somalia and that he represented a danger to the public in Canada and that humanitarian and compassionate hardships did not outweigh the danger to the public."
+    "Text": "On 19 January 2007, the author submitted an application for a Pre-Removal Risk Assessment (PRRA). On 9 February 2007, the PRRA Officer found that the author would face a risk to life and a risk of cruel and unusual treatment or punishment if returned to Somalia. The PRRA Officer based this conclusion inter alia on the author’s age, gender, lack of family or clan support, lack of previous residence in Somalia and lack of language skills, as well as on documentary evidence. The author’s case was then referred to the Minister’s Delegate at National Headquarters of the Ministry of Public Safety, who determined, on 23 February 2009, that he would not be at personal risk if returned to Somalia and that he represented a danger to the public in Canada and that humanitarian and compassionate hardships did not outweigh the danger to the public."
   },
   {
     "ID": "2.6.",
@@ -66,7 +72,7 @@
     "ID": "2.7.",
     "Section": "Facts as presented by the author",
     "Labels": [],
-    "Text": "On 21 July 2010, the author was notified by the Canada Border Services Agency that, on 30 July 2010, he would be deported to Bossasso in ."
+    "Text": "On 21 July 2010, the author was notified by the Canada Border Services Agency that, on 30 July 2010, he would be deported to Bossasso in Somalia."
   },
   {
     "ID": "3.1.",
@@ -74,13 +80,23 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The author contends that if deported to he would face a risk of being arbitrarily deprived of his life, in violation of article 6, paragraph 1, of the Covenant and of being subjected to torture and other cruel, inhuman or degrading treatment or punishment in violation of article 7, of the Covenant. The author refers to the concluding observations of the Committee against Torture of July 2005 and of the Human Rights Committee of November 2005, in which the State party has been criticized for failing to recognize the absolute nature of the non-refoulement principle."
+    "Text": "The author contends that if deported to Somalia he would face a risk of being arbitrarily deprived of his life, in violation of article 6, paragraph 1, of the Covenant and of being subjected to torture and other cruel, inhuman or degrading treatment or punishment in violation of article 7, of the Covenant. The author refers to the concluding observations of the Committee against Torture of July 2005[[fn:5]] and of the Human Rights Committee of November 2005[[fn:6]], in which the State party has been criticized for failing to recognize the absolute nature of the non-refoulement principle.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "CAT/C/CR/34/CAN, paras. 4 and 5."
+      },
+      {
+        "n": 6,
+        "text": "CCPR/C/CAN/CO/5, para. 15."
+      }
+    ]
   },
   {
     "ID": "3.2.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author submits that he was born outside of and has never resided in or visited the country. He has no way of identifying himself as a member of a clan originating in the Puntland, because he has very limited language skills, no family in the area, and is not familiar with clan practices or culture. Both of his parents were born in and have no extended family in Bossasso, where he is being returned."
+    "Text": "The author submits that he was born outside of Somalia and has never resided in or visited the country. He has no way of identifying himself as a member of a clan originating in the Puntland, because he has very limited language skills, no family in the area, and is not familiar with clan practices or culture. Both of his parents were born in Mogadishu and have no extended family in Bossasso, where he is being returned."
   },
   {
     "ID": "3.3.",
@@ -88,13 +104,33 @@
     "Labels": [
       "Persons in street situations"
     ],
-    "Text": "The author fears that he will be unable to protect himself or survive in Bossasso, or elsewhere in without family or clan support, that he will be rendered homeless and vulnerable to a wide array of human rights abuses. Moreover in the absence of any way to establish that he originates from Puntland, the author may be subject to detention and/or deportation to southern or central , where the risk to his life is even greater. The author refers to documentary evidence on the situation in , indicating that it is one of the most dangerous places in the world and that all its residents face a serious risk to their lives and of cruel and unusual treatment or punishment."
+    "Text": "The author fears that he will be unable to protect himself or survive in Bossasso, or elsewhere in Somalia without family or clan support, that he will be rendered homeless and vulnerable to a wide array of human rights abuses.[[fn:7]] Moreover in the absence of any way to establish that he originates from Puntland, the author may be subject to detention and/or deportation to southern or central Somalia, where the risk to his life is even greater. The author refers to documentary evidence on the situation in Somalia, indicating that it is one of the most dangerous places in the world and that all its residents face a serious risk to their lives and of cruel and unusual treatment or punishment.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "UNHCR Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, 5 May 2010, HCR/EG/SOM/10/1, p. 9, according to which in the absence of clan protection and support, an individual in the Puntland would face the general fate of internally displaced persons, including “lack of protection, limited access to education and health services, vulnerability to sexual exploitation or rape, forced labor, perpetual threat of eviction, and destruction or confiscation of assets.”"
+      },
+      {
+        "n": 8,
+        "text": "See Canadian Council of Refugees “Call for suspension of Removals to Somalia”, 16 July 2010, p 2; Report of the UN Human Rights Council Independent Expert on Somalia, Shamsul Bari, 8 March 2010, para 77."
+      }
+    ]
   },
   {
     "ID": "3.4.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author also submits that these risks are amplified for a person who has no experience in , very limited language skills and lacking clan and/or family support. He also submits that, as a healthy 26-year-old he would be at a heightened risk of forced recruitment by groups such as Al-Shabaab and Hizbul Islam and even the Transitional Federal Government (TFG) and their allied forces. He also submits that, if he is deported to , he would become a victim of the country’s severe humanitarian situation. Furthermore, the author submits that he will be personally targeted upon arrival in because he is a convert to Christianity."
+    "Text": "The author also submits that these risks are amplified for a person who has no experience in Somalia, very limited language skills and lacking clan and/or family support. He also submits that, as a healthy 26-year-old he would be at a heightened risk of forced recruitment by groups such as Al-Shabaab and Hizbul Islam and even the Transitional Federal Government (TFG) and their allied forces.[[fn:9]] He also submits that, if he is deported to Somalia, he would become a victim of the country’s severe humanitarian situation.[[fn:10]] Furthermore, the author submits that he will be personally targeted upon arrival in Somalia because he is a convert to Christianity.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "UNHCR Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, op.cit pp. 9 and 16; Children and Armed Conflict, Report of the Secretary General, A/64/742, 13 April 1010, pp.27-28."
+      },
+      {
+        "n": 10,
+        "text": "See Human Rights Watch World Report 2010 on Somalia, para. 3; OCHA Consolidated appeal for Somalia 2010, dated 30 November 2009."
+      }
+    ]
   },
   {
     "ID": "3.5.",
@@ -102,7 +138,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author submits that his deportation to is equivalent to a death sentence. He maintains that his most serious crime was possession of a scheduled substance for the purposes of trafficking and that a deportation to a real and imminent risk of death is a disproportionate punishment for such an offence and in accordingly contrary to article 6, paragraph 1, of the Covenant."
+    "Text": "The author submits that his deportation to Somalia is equivalent to a death sentence. He maintains that his most serious crime was possession of a scheduled substance for the purposes of trafficking and that a deportation to a real and imminent risk of death is a disproportionate punishment for such an offence and in accordingly contrary to article 6, paragraph 1, of the Covenant."
   },
   {
     "ID": "3.6.",
@@ -110,7 +146,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author also submits that his deportation would constitute an arbitrary or unlawful interference with his family and a violation of articles 17 and 23, paragraph 1, of the Covenant, as he never resided in and all his family live in . He has a very close relationship to his mother and sisters, who regularly travel several hours to visit him at the Central East Correctional Centre. The author submits that his deportation to Somaila is disproportionate to the State party’s goal of preventing the commission of criminal offences. The author’s convictions arose as a result of a drug addiction."
+    "Text": "The author also submits that his deportation would constitute an arbitrary or unlawful interference with his family and a violation of articles 17 and 23, paragraph 1, of the Covenant, as he never resided in Somalia and all his family live in Canada. He has a very close relationship to his mother and sisters, who regularly travel several hours to visit him at the Central East Correctional Centre.[[fn:11]] The author submits that his deportation to Somaila is disproportionate to the State party’s goal of preventing the commission of criminal offences. The author’s convictions arose as a result of a drug addiction.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "See communication No. 1792/2008, Dauphin v. Canada, Views of 28 July 2009, paras. 8.3 and 8.4."
+      }
+    ]
   },
   {
     "ID": "3.7.",
@@ -118,19 +160,25 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The author further submits that if removed to his freedom of religion under article 18, of the Covenant would be violated, because religions other than Islam are strictly prohibited in . He would therefore be facing persecution and serious harm if he does not change his religion. This claim was subsequently withdrawn (see para. 5.1)."
+    "Text": "The author further submits that if removed to Somalia his freedom of religion under article 18, of the Covenant would be violated, because religions other than Islam are strictly prohibited in Somalia. He would therefore be facing persecution and serious harm if he does not change his religion.[[fn:12]] This claim was subsequently withdrawn (see para. 5.1).",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "UNHCR Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, op.cit , pp. 11, 18, 23."
+      }
+    ]
   },
   {
     "ID": "3.8.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "On 30 November 2010, the author amended his complaint and claimed that his rights under article 12, paragraph 4 would be violated if he was deported to (see para. 5.11)."
+    "Text": "On 30 November 2010, the author amended his complaint and claimed that his rights under article 12, paragraph 4 would be violated if he was deported to Somalia (see para. 5.11)."
   },
   {
     "ID": "4.1.",
     "Section": "State party’s observations on the admissibility and the merits",
     "Labels": [],
-    "Text": "On 24 September 2010, the State party submits its observations on the admissibility and the merits. The State party submits that the author has a history of violence and, if released, he would pose a serious threat to the Canadian public. It further submits that the author’s removal to would not result in irreparable harm and that he failed to present a prima facie case. The State party emphasizes that it has a right to control the entry, residence and expulsion of aliens and to remove individuals, who have been determined not to be in need of protection, where such individuals pose a significant risk to the safety and security of its citizens."
+    "Text": "On 24 September 2010, the State party submits its observations on the admissibility and the merits. The State party submits that the author has a history of violence and, if released, he would pose a serious threat to the Canadian public. It further submits that the author’s removal to Somalia would not result in irreparable harm and that he failed to present a prima facie case. The State party emphasizes that it has a right to control the entry, residence and expulsion of aliens and to remove individuals, who have been determined not to be in need of protection, where such individuals pose a significant risk to the safety and security of its citizens."
   },
   {
     "ID": "4.2.",
@@ -138,7 +186,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The State party adds to the facts as presented by the author and submits that the author’s parents are citizens of and that the author is therefore entitled to Somali citizenship. It further submits that the two criminal convictions mentioned by the author constitute only a small portion of his pattern of criminality, which includes an unprovoked assault of a 60-year old woman and the repeated stabbing with a stubby screwdriver of a store clerk in the context of a robbery."
+    "Text": "The State party adds to the facts as presented by the author and submits that the author’s parents are citizens of Somalia and that the author is therefore entitled to Somali citizenship. It further submits that the two criminal convictions mentioned by the author constitute only a small portion of his pattern of criminality, which includes an unprovoked assault of a 60-year old woman and the repeated stabbing with a stubby screwdriver of a store clerk in the context of a robbery."
   },
   {
     "ID": "4.3.",
@@ -156,25 +204,47 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "The State party clarifies the reasons, for which, on 23 February 2009, the Minister’s Delegate found that the author did not face a personal or individualized risk of serious harm in and that the author posed a danger to the Canadian public. With regard to the alleged clan affiliation, the Minister’s Delegate noted that the Somali society is characterized by membership of clan-families and that the author’s allegation of absence of such affiliation of his parents was unsupported. He further held that statutory requirements for Somali citizenship did not suggest that there would be an impediment for the author to access Somali citizenship through that of his parents. He also noted that the author’s assertions that he did not speak the local language and has not lived in were of negligible relevance, as he did not belong to any vulnerable category, such as women and children. With regard to the ongoing violence and humanitarian concerns, the Minister’s Delegate noted that these conditions applied indiscriminately to all citizens of . Concerning the danger the author poses to the public in , the Minister’s Delegate noted the author’s extensive criminal record, as well as the nature and severity of his offences and the absence of prospect for rehabilitation."
+    "Text": "The State party clarifies the reasons, for which, on 23 February 2009, the Minister’s Delegate found that the author did not face a personal or individualized risk of serious harm in Somalia and that the author posed a danger to the Canadian public. With regard to the alleged clan affiliation, the Minister’s Delegate noted that the Somali society is characterized by membership of clan-families and that the author’s allegation of absence of such affiliation of his parents was unsupported. He further held that statutory requirements for Somali citizenship did not suggest that there would be an impediment for the author to access Somali citizenship through that of his parents. He also noted that the author’s assertions that he did not speak the local language and has not lived in Somalia were of negligible relevance, as he did not belong to any vulnerable category, such as women and children. With regard to the ongoing violence and humanitarian concerns, the Minister’s Delegate noted that these conditions applied indiscriminately to all citizens of Somalia. Concerning the danger the author poses to the public in Canada, the Minister’s Delegate noted the author’s extensive criminal record, as well as the nature and severity of his offences and the absence of prospect for rehabilitation."
   },
   {
     "ID": "4.5.",
     "Section": "State party’s observations on the admissibility and the merits",
     "Labels": [],
-    "Text": "On admissibility, the State party submits that the communication should be declared inadmissible for failure to exhaust all available domestic remedies. Recalling the Committee’s jurisprudence, the State party submits that this Committee and the Committee against Torture have held that an application for humanitarian and compassionate grounds is an available and effective remedy, which the author failed to exhaust. The State party further submits that the author failed to appeal to the Federal Court the negative decision by the Immigration Appeal Division of 25 October 2006, and therefore failed to exhaust an effective remedy. With regard to the dismissal by the Federal Court on 15 July 2009 of the author’s appeal against the Minister Delegate’s decision, due to the author’s failure to file an application record, allegedly owing to a denial of legal aid assistance, the State party notes that the author was represented by counsel in several previous and subsequent proceedings and that he therefore failed to pursue available domestic remedies with the necessary diligence."
+    "Text": "On admissibility, the State party submits that the communication should be declared inadmissible for failure to exhaust all available domestic remedies. Recalling the Committee’s jurisprudence[[fn:13]], the State party submits that this Committee and the Committee against Torture have held that an application for humanitarian and compassionate grounds is an available and effective remedy, which the author failed to exhaust. The State party further submits that the author failed to appeal to the Federal Court the negative decision by the Immigration Appeal Division of 25 October 2006, and therefore failed to exhaust an effective remedy.[[fn:14]] With regard to the dismissal by the Federal Court on 15 July 2009 of the author’s appeal against the Minister Delegate’s decision, due to the author’s failure to file an application record, allegedly owing to a denial of legal aid assistance, the State party notes that the author was represented by counsel in several previous and subsequent proceedings and that he therefore failed to pursue available domestic remedies with the necessary diligence.",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "See communication No. 1578/2007, Javed Dastgir v. Canada, Inadmissibility decision of 30 October 2008, para. 4.4; communication No. 939/2000, Dupuy v. Canada, Inadmissibility decision of 18 March 2003, para. 7.3."
+      },
+      {
+        "n": 14,
+        "text": "See communication No. 1580/2007, F.M. v. Canada, Inadmissibility decision of 30 October 2008, para. 6.2; communication No. 1578/2007, Javed Dastgir v. Canada, Inadmissibility decision of 30 October 2008, para.6.2, communication No. 939/2000, Dupuy v. Canada, Inadmissibility decision of 18 March 2003, para. 7.3."
+      }
+    ]
   },
   {
     "ID": "4.6.",
     "Section": "State party’s observations on the admissibility and the merits",
     "Labels": [],
-    "Text": "With regard to the author’s claims of an independent violation of article 2, paragraph 3 and provisions of the 1951 Convention relating to the Status of Refugees, the State party submits that these should be declared incompatible with the provisions of the Covenant pursuant to article 3, of the Optional Protocol. In addition to that, it submits that the author has not substantiated, on a prima facie basis, a violation of article 2, paragraph 3, as the State party offers many remedies of protection against the return to a country where there might be a risk of torture or cruel, inhuman or degrading treatment or punishment."
+    "Text": "With regard to the author’s claims of an independent violation of article 2, paragraph 3[[fn:15]] and provisions of the 1951 Convention relating to the Status of Refugees, the State party submits that these should be declared incompatible with the provisions of the Covenant pursuant to article 3, of the Optional Protocol. In addition to that, it submits that the author has not substantiated, on a prima facie basis, a violation of article 2, paragraph 3, as the State party offers many remedies of protection against the return to a country where there might be a risk of torture or cruel, inhuman or degrading treatment or punishment.",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "See communication No. 1341/2005, Zundel v. Canada, Inadmissibility decision of 20 March 2007, para. 7.6; communication No. 275/1988, S.E. v. Argentina, Inadmissibility decision of 26 March 1990, para. 5.3; communication No. 343, 344, 345/1988, R.A.V.N. v. Argentina, Inadmissibility decision of 26 March 1990, para. 5.3."
+      }
+    ]
   },
   {
     "ID": "4.7.",
     "Section": "State party’s observations on the admissibility and the merits",
     "Labels": [],
-    "Text": "With regard to the author’s claim under article 18, the State party observes that the author does not allege that it violates this provision, but that once he is in Somalia, he would be unable to practice his beliefs and/or would receive ill-treatment owing to these beliefs. The State party submits that unlike articles 6, paragraph 1 and 7, article 18 does not have extraterritorial application. The State party, therefore, submits that this part of the communication should be declared inadmissible ratione materiae pursuant to article 3, of the Optional Protocol. It also submits that the author’s allegations invoking a violation of article 18 should be deemed inadmissible, as they are based on the exactly same facts as those presented to the Minister’s Delegate, and national proceedings did not disclose any manifest error or unreasonableness and were not tainted by abuse of process, bad faith, manifest bias or serious irregularities."
+    "Text": "With regard to the author’s claim under article 18, the State party observes that the author does not allege that it violates this provision, but that once he is in Somalia, he would be unable to practice his beliefs and/or would receive ill-treatment owing to these beliefs. The State party submits that unlike articles 6, paragraph 1 and 7, article 18 does not have extraterritorial application.[[fn:16]] The State party, therefore, submits that this part of the communication should be declared inadmissible ratione materiae pursuant to article 3, of the Optional Protocol. It also submits that the author’s allegations invoking a violation of article 18 should be deemed inadmissible, as they are based on the exactly same facts as those presented to the Minister’s Delegate, and national proceedings did not disclose any manifest error or unreasonableness and were not tainted by abuse of process, bad faith, manifest bias or serious irregularities.",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "General Comment No. 31, The Nature of the General Legal Obligation Imposed on States Parties to the Covenant, CCPR/C/74/CRP.4/Rev. 6, para. 3"
+      }
+    ]
   },
   {
     "ID": "4.8.",
@@ -182,7 +252,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "With regard to the author’s allegations under articles 6, paragraph 1 and 7, the State party submits that the author has not sufficiently substantiated his claims for purposes of admissibility, and that it is not sufficient for the author to show that there continue to exist human rights abuses in Somalia without providing prima facie basis for believing that the author himself faces a personal risk of death, torture or cruel, inhuman or degrading treatment or punishment. The author’s allegation of a complete lack of clan membership or affiliation has been evaluated as unsupported and unconvincing. It submits that, on 9 April 2010, the author had indicated that his mother’s tribe was Darod and the clan Marjertain. It further notes that on 9 June 2010, the author had indicated that he wished to return to Bossasso or Galkayo in the northern part of . The State party further submits that the author’s alleged conversion to Christianity is unsubstantiated, as no supporting evidence has been submitted. Upon admission to different penitentiary institutions, the author had indicated to be a practising Muslim and observing Ramadan. With regard to the humanitarian situation in , the State party submits that this is a generalized risk faced by all citizens of . It further notes that the documentary evidence provided by the author indicates an improvement of the situation in the Puntland and that according to UNHCR an individual in Puntland or was not at risk of serious harm."
+    "Text": "With regard to the author’s allegations under articles 6, paragraph 1 and 7, the State party submits that the author has not sufficiently substantiated his claims for purposes of admissibility, and that it is not sufficient for the author to show that there continue to exist human rights abuses in Somalia without providing prima facie basis for believing that the author himself faces a personal risk of death, torture or cruel, inhuman or degrading treatment or punishment. The author’s allegation of a complete lack of clan membership or affiliation has been evaluated as unsupported and unconvincing. It submits that, on 9 April 2010, the author had indicated that his mother’s tribe was Darod and the clan Marjertain. It further notes that on 9 June 2010, the author had indicated that he wished to return to Bossasso or Galkayo in the northern part of Somalia. The State party further submits that the author’s alleged conversion to Christianity is unsubstantiated, as no supporting evidence has been submitted. Upon admission to different penitentiary institutions, the author had indicated to be a practising Muslim and observing Ramadan. With regard to the humanitarian situation in Somalia, the State party submits that this is a generalized risk faced by all citizens of Somalia. It further notes that the documentary evidence provided by the author indicates an improvement of the situation in the Puntland[[fn:17]] and that according to UNHCR an individual in Puntland or Somaliland was not at risk of serious harm.[[fn:18]]",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "UNHCR, Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, op.cit , p. 8."
+      },
+      {
+        "n": 18,
+        "text": "UNHCR, Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, op.cit , p. 42."
+      }
+    ]
   },
   {
     "ID": "4.9.",
@@ -191,7 +271,17 @@
       "Children",
       "Persons deprived of their liberty"
     ],
-    "Text": "Referring to the Committee’s General Comments No. 16 and 19 and its jurisprudence, the State party submits that it enjoys wide discretion when expelling aliens from its territory and that articles 17 and 23 do not guarantee that a person will never be removed from the territory of a State party if that would affect that person’s family life. The State party submits that in the present case, its authorities neither acted unlawfully nor arbitrary. It further notes that the author does not have any children, dependents, spouse or common-law partner in . The author’s removal would represent a minimal disruption to his family life and is outweighed by the gravity of his crimes and the danger he poses to public security in . With regard to the Committee’s Views in communication No. 1792/2008, Dauphin v. Canada, the State party submits that it departs from the Committee’s longstanding jurisprudence and that in the present case, the State’s interests are more compelling, considering that the author was repeatedly convicted and on numerous occasions failed to comply with the conditions of undertakings or probation orders. The State party submits that the author has failed to substantiate, for purposes of admissibility, his claims under articles 17 and 23."
+    "Text": "Referring to the Committee’s General Comments No. 16 and 19 and its jurisprudence[[fn:19]], the State party submits that it enjoys wide discretion when expelling aliens from its territory and that articles 17 and 23 do not guarantee that a person will never be removed from the territory of a State party if that would affect that person’s family life. The State party submits that in the present case, its authorities neither acted unlawfully nor arbitrary. It further notes that the author does not have any children, dependents, spouse or common-law partner in Canada. The author’s removal would represent a minimal disruption to his family life and is outweighed by the gravity of his crimes and the danger he poses to public security in Canada. With regard to the Committee’s Views in communication No. 1792/2008, Dauphin v. Canada, the State party submits that it departs from the Committee’s longstanding jurisprudence[[fn:20]] and that in the present case, the State’s interests are more compelling, considering that the author was repeatedly convicted and on numerous occasions failed to comply with the conditions of undertakings or probation orders. The State party submits that the author has failed to substantiate, for purposes of admissibility, his claims under articles 17 and 23.",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "General Comment No. 16: The right to respect of privacy, family, home and correspondence, and protection of honour and reputation (Art. 17): 08/04/1988; General Comment No. 19: Protection of the family, the right to marriage and equality of the spouses (Art. 23): 27/07/1990; communication No. 583/1993, Stewart v. Canada, Views of 1 November 1996; and communication No. 558/1993, Canepa v. Canada, Views of 3 April 1997."
+      },
+      {
+        "n": 20,
+        "text": "See communication No. 1222/2003, Byahuranga v. Denmark, Views of 1 November 2004, para. 11.9."
+      }
+    ]
   },
   {
     "ID": "5.1.",
@@ -203,7 +293,17 @@
     "ID": "5.2.",
     "Section": "The author’s comments",
     "Labels": [],
-    "Text": "The author reiterates that it is widely acknowledged in the international community that the human rights and humanitarian situation throughout is extremely severe. He maintains that the security and human rights situation in Puntland is extremely serious and has deteriorated substantially in recent months. In September 2010, the UN Secretary General assessed the situation in Puntland as becoming more volatile with fierce clashes between government forces and militia linked to Islamist insurgents."
+    "Text": "The author reiterates that it is widely acknowledged in the international community that the human rights and humanitarian situation throughout Somalia is extremely severe. He maintains that the security and human rights situation in Puntland is extremely serious and has deteriorated substantially in recent months.[[fn:21]] In September 2010, the UN Secretary General assessed the situation in Puntland as becoming more volatile with fierce clashes between government forces and militia linked to Islamist insurgents.[[fn:22]]",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "See UNHCR, Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, op.cit , p. 41."
+      },
+      {
+        "n": 22,
+        "text": "See UN Security Council, Report of the UN Secretary General on Somalia, 9 September 2010, S/2010/447, para. 15."
+      }
+    ]
   },
   {
     "ID": "5.3.",
@@ -218,25 +318,61 @@
       "Persons deprived of their liberty",
       "Women/girls"
     ],
-    "Text": "The author recalls the Committee’s jurisprudence, according to which article 5, paragraph 2 (b), of Optional Protocol does not require resort to remedies which objectively have no prospect of success. He submits that he had no objective prospect of success in applying for leave to judicially review the Immigration Appeal’s Divisions decision (IAD) of 25 October 2006, which lacked jurisdiction to hear the author’s appeal and, therefore, this was not an effective remedy. The author explains that the IAD lacked jurisdiction to hear the author’s appeal on the basis of section 64 of the IRPA, finding inadmissibility on grounds of serious criminality. Judicial review offered the author no objective prospect of success and was therefore not an effective remedy he should be required to pursue. Domestic jurisprudence interpreting section 64 of the IRPA confirms that an application for leave offered the author no objective prospect of success, as he could not have met the standard of a “fairly arguable case” or “raise a serious question to be determined”, and he could not have proven that the IAD made an error in law or jurisdiction by applying section 64 of the IRPA. Moreover, even if a judicial review of the IAD decision had been successful, this would have not provided the author with an effective remedy because there was a second inadmissibility report against the author that arose from a January 2006 conviction for possession of scheduled substance for the purpose of trafficking and for which a sentence of two years imprisonment was imposed."
+    "Text": "The author recalls the Committee’s jurisprudence, according to which article 5, paragraph 2 (b), of Optional Protocol does not require resort to remedies which objectively have no prospect of success.[[fn:23]] He submits that he had no objective prospect of success in applying for leave to judicially review the Immigration Appeal’s Divisions decision (IAD) of 25 October 2006, which lacked jurisdiction to hear the author’s appeal and, therefore, this was not an effective remedy. The author explains that the IAD lacked jurisdiction to hear the author’s appeal on the basis of section 64 of the IRPA[[fn:24]], finding inadmissibility on grounds of serious criminality. Judicial review offered the author no objective prospect of success and was therefore not an effective remedy he should be required to pursue. Domestic jurisprudence interpreting section 64 of the IRPA confirms that an application for leave offered the author no objective prospect of success, as he could not have met the standard of a “fairly arguable case” or “raise a serious question to be determined”, and he could not have proven that the IAD made an error in law or jurisdiction by applying section 64 of the IRPA. Moreover, even if a judicial review of the IAD decision had been successful, this would have not provided the author with an effective remedy because there was a second inadmissibility report against the author that arose from a January 2006 conviction for possession of scheduled substance for the purpose of trafficking and for which a sentence of two years imprisonment was imposed.[[fn:25]]",
+    "Footnotes": [
+      {
+        "n": 23,
+        "text": "See communication No. 210/1986 and 225/1987, Pratt and Morgan v. Jamaica, Views of 6 April 1989, para. 12.3, and communication No. 1134/2002, Gorji-Dinka v. Cameroon, Views of 17 March 2005, para. 12.3."
+      },
+      {
+        "n": 24,
+        "text": "See footnote 1."
+      },
+      {
+        "n": 25,
+        "text": "The issue of how to count the length of the sentence would have not been at stake regarding this inadmissibility decision."
+      }
+    ]
   },
   {
     "ID": "5.5.",
     "Section": "The author’s comments",
     "Labels": [],
-    "Text": "The author recalls the Committee’s jurisprudence, according to which a remedy may not be considered de facto available if the author with financial needs attempts to exhaust it but is unable to obtain legal aid. The author had requested legal aid to challenge the negative Pre-Removal Risk Assessment decision of 23 February 2009, which was however denied. His appeal against the negative legal aid decision was rejected by the Director of Appeals, Legal Aid . The author rejects the State party’s assertion that, in the past, he would have found means to retain counsel or would have found counsel acting on a pro bono basis; on the contrary, the author has been repeatedly represented through legal aid. In the present communication, the author is represented by counsel who works for a staff office funded by Legal Aid which operates a limited duty counsel program for persons in detention. Through his efforts to seek judicial review of the Minister Delegate’s decision, the author claims to have demonstrated the requisite diligence that is required of complainants in their pursuit of domestic remedies."
+    "Text": "The author recalls the Committee’s jurisprudence, according to which a remedy may not be considered de facto available if the author with financial needs attempts to exhaust it but is unable to obtain legal aid.[[fn:26]] The author had requested legal aid to challenge the negative Pre-Removal Risk Assessment decision of 23 February 2009, which was however denied. His appeal against the negative legal aid decision was rejected by the Director of Appeals, Legal Aid Ontario. The author rejects the State party’s assertion that, in the past, he would have found means to retain counsel or would have found counsel acting on a pro bono basis; on the contrary, the author has been repeatedly represented through legal aid. In the present communication, the author is represented by counsel who works for a staff office funded by Legal Aid Ontario which operates a limited duty counsel program for persons in detention. Through his efforts to seek judicial review of the Minister Delegate’s decision, the author claims to have demonstrated the requisite diligence that is required of complainants in their pursuit of domestic remedies.[[fn:27]]",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "See communication No. 461/1991, Graham and Morrison v. Jamaica, Views adopted in 1996; communication No. 377/1989, Currie v. Jamaica, Views adopted in 1994; communication No. 321/1988, Thomas v. Jamaica, Views adopted in 1993; communication No. 1003/2001, P.L. v. Germany, Inadmissibility decision of 22 October 2003, para. 6.5."
+      },
+      {
+        "n": 27,
+        "text": "See communication No. 433/1989, A.P.A. v. Spain, Inadmissibility decision of 25 March 1994, para. 6.2- 6.3; communication No. 420/1990, G.T. v. Canada, Inadmissibility decision of 23 October 1992, para. 6.3"
+      }
+    ]
   },
   {
     "ID": "5.6.",
     "Section": "The author’s comments",
     "Labels": [],
-    "Text": "With regard to the humanitarian and compassionate ground procedure, the author submits that this did not constitute an effective remedy within the meaning of article 5, paragraph 2 (b), of the Optional Protocol, as it would have not stayed or prevented his deportation to Somalia, it would have been evaluated by the same office which had already assessed humanitarian and compassionate grounds in the PRRA assessment and found these insufficiently compelling, and it would have been an entirely discretionary remedy to obtain the privilege of expediting a permanent residency application and not to vindicate a right."
+    "Text": "With regard to the humanitarian and compassionate ground procedure, the author submits that this did not constitute an effective remedy within the meaning of article 5, paragraph 2 (b), of the Optional Protocol, as it would have not stayed or prevented his deportation to Somalia, it would have been evaluated by the same office which had already assessed humanitarian and compassionate grounds in the PRRA assessment and found these insufficiently compelling, and it would have been an entirely discretionary remedy to obtain the privilege of expediting a permanent residency application and not to vindicate a right.[[fn:28]]",
+    "Footnotes": [
+      {
+        "n": 28,
+        "text": "See communication CAT No. 133/1999, Falcon Rios v. Canada, Views of 23 November 2004, para. 7.3; communication CAT No. 166/2000, B.S. v. Canada, Views of 14 November 2001, para. 6.2 and 6.4; communication CAT No. 304/2006, L.Z.B. et al. v. Canada, Inadmissibility decision of 8 November 2007."
+      }
+    ]
   },
   {
     "ID": "5.7.",
     "Section": "The author’s comments",
     "Labels": [],
-    "Text": "On the merits, the author reiterates that he presented a prima facie case. He maintains that his risk of irreparable harm under articles 6, paragraph 1 and 7 is personalized and distinct of that faced by the general population in Somalia, in particular due to his lack of clan protection, his Western identity and appearance, his lack of local knowledge, experience and support networks and the fact that as a young man of Western appearance he would be a target for forced recruitment by pirate or militia groups. He further claims that each of these personal characteristics creates a high probability that, if deported to Puntland, he would subsequently be removed to central or southern , as Puntland authorities have deported large numbers of persons considered not originating from Puntland. He therefore notes that the evaluation of risk should not be limited to those faced in Puntland, but account also for those in central and southern ."
+    "Text": "On the merits, the author reiterates that he presented a prima facie case. He maintains that his risk of irreparable harm under articles 6, paragraph 1 and 7 is personalized and distinct of that faced by the general population in Somalia, in particular due to his lack of clan protection, his Western identity and appearance, his lack of local knowledge, experience and support networks and the fact that as a young man of Western appearance he would be a target for forced recruitment by pirate or militia groups. He further claims that each of these personal characteristics creates a high probability that, if deported to Puntland, he would subsequently be removed to central or southern Somalia, as Puntland authorities have deported large numbers of persons considered not originating from Puntland. [[fn:29]] He therefore notes that the evaluation of risk should not be limited to those faced in Puntland, but account also for those in central and southern Somalia.",
+    "Footnotes": [
+      {
+        "n": 29,
+        "text": "UNHCR Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, op.cit , p. 35; Secretary General’s Report on Somalia, September 2010, para. 24."
+      }
+    ]
   },
   {
     "ID": "5.8.",
@@ -245,13 +381,29 @@
       "Adolescents",
       "Children"
     ],
-    "Text": "With regard to the absence of clan protection, the author argues that the State party has overlooked the essential role of genealogical patrilineal ancestry knowledge in proving clan affiliation and obtaining clan protection, as well as the fact that the author was born outside of and has never lived in . The author’s parents never taught him about his family ancestry. His parents separated when the author was a teenager and the author’s turbulent relationship to his father ended in his father disowning him. The absence of any contact to his father would therefore make it impossible for the author to prove his patrilineal ancestry and claim clan affiliation and protection if removed to . The author cites the UNHCR Eligibility Guidelines for , which state that the absence of clan protection in Puntland entails limited access to basic services, physical and legal protection. He further notes that as a child of the Somali Diaspora raised in , he would be unmistakeably recognizable as a Westerner, due to his appearance, education, values and mannerisms. His language is English and his Somali is limited and spoken with an English accent."
+    "Text": "With regard to the absence of clan protection, the author argues that the State party has overlooked the essential role of genealogical patrilineal ancestry knowledge in proving clan affiliation and obtaining clan protection, as well as the fact that the author was born outside of Somalia and has never lived in Somalia. The author’s parents never taught him about his family ancestry. His parents separated when the author was a teenager and the author’s turbulent relationship to his father ended in his father disowning him. The absence of any contact to his father would therefore make it impossible for the author to prove his patrilineal ancestry and claim clan affiliation and protection if removed to Somalia. The author cites the UNHCR Eligibility Guidelines for Somalia, which state that the absence of clan protection in Puntland entails limited access to basic services, physical and legal protection.[[fn:30]] He further notes that as a child of the Somali Diaspora raised in Canada, he would be unmistakeably recognizable as a Westerner, due to his appearance, education, values and mannerisms. His language is English and his Somali is limited and spoken with an English accent.",
+    "Footnotes": [
+      {
+        "n": 30,
+        "text": "UNHCR Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, op.cit , p. 48, and UNHCR, “Position on the Return of Rejected Asylum-Seekers to Somalia”, January 2004, p. 4."
+      }
+    ]
   },
   {
     "ID": "5.9.",
     "Section": "The author’s comments",
     "Labels": [],
-    "Text": "The author further notes that the threats posed by al-Shaab and other Islamist insurgent groups operating out of Puntland has substantially increased in 2010. The lack of local knowledge or experience to recognize when situations may be dangerous will put him at risk. He further notes that pirates and insurgent groups systematically target young men without family connections or social networks."
+    "Text": "The author further notes that the threats posed by al-Shaab and other Islamist insurgent groups operating out of Puntland has substantially increased in 2010.[[fn:31]] The lack of local knowledge or experience to recognize when situations may be dangerous will put him at risk. He further notes that pirates and insurgent groups systematically target young men without family connections or social networks. [[fn:32]]",
+    "Footnotes": [
+      {
+        "n": 31,
+        "text": "Secretary General’s Report on Somalia, September 2010, para. 15."
+      },
+      {
+        "n": 32,
+        "text": "UN Security Council, Report of the Secretary General pursuant to Security Council resolution 1897 (2009), 27 October 2010, S/2010/556, para. 4; UNHCR Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, 5 May 2010, HCR/EG/SOM/10/1, p. 16; Secretary General’s Report on Somalia, September 2010, para. 24."
+      }
+    ]
   },
   {
     "ID": "5.10.",
@@ -262,19 +414,31 @@
       "Persons with disabilities",
       "Women/girls"
     ],
-    "Text": "With regard to the violations of articles 17 and 23, paragraph 1, the author argues that his deportation would result in severe disruption of his family life, considering his close ties to , the fact that he has never lived in nor possesses any other link with than his nationality. He reiterates that he is very close to his mother and sisters who visit him once a month in prison. They have offered unconditional support throughout the detention process. He explains that due to his mother’s severe mental illness and his father’s decision to abandon the family, the siblings have, in effect, raised themselves. The author submits that he has been sober for the past three years and continues to work towards rehabilitation. He also explains that he seeks to support his family, in particular his mother who suffers from mental illness. He submits that his deportation to would be disproportionate to the State party’s goal of preventing the commission of criminal offences. He states that his criminal offences arose from drug addiction, which he has meanwhile overcome. He further submits that other than the two-year sentence imposed for possession of a substance for the purpose of trafficking and nine months with time served for assault, he received minor sentences. With regard to the assaults for which the author was convicted during detention in 2009, he explains that he was involved in an oral dispute between inmates that resulted in an assault between two inmates. He had pled guilty but the court held that he had not inflicted physical injury on anyone. The author submits that, other than this minor offence in 2009, his last offence took place at the age of 21. Moreover, he notes that his deportation to would lead to a complete disruption of his family ties, as they could not be maintained by visits to , considering the Canadian travel advisory."
+    "Text": "With regard to the violations of articles 17 and 23, paragraph 1, the author argues that his deportation would result in severe disruption of his family life, considering his close ties to Canada, the fact that he has never lived in Somalia nor possesses any other link with Somalia than his nationality. He reiterates that he is very close to his mother and sisters who visit him once a month in prison. They have offered unconditional support throughout the detention process. He explains that due to his mother’s severe mental illness and his father’s decision to abandon the family, the siblings have, in effect, raised themselves. The author submits that he has been sober for the past three years and continues to work towards rehabilitation. He also explains that he seeks to support his family, in particular his mother who suffers from mental illness. He submits that his deportation to Somalia would be disproportionate to the State party’s goal of preventing the commission of criminal offences. He states that his criminal offences arose from drug addiction, which he has meanwhile overcome. He further submits that other than the two-year sentence imposed for possession of a substance for the purpose of trafficking and nine months with time served for assault, he received minor sentences. With regard to the assaults for which the author was convicted during detention in 2009, he explains that he was involved in an oral dispute between inmates that resulted in an assault between two inmates. He had pled guilty but the court held that he had not inflicted physical injury on anyone. The author submits that, other than this minor offence in 2009, his last offence took place at the age of 21. Moreover, he notes that his deportation to Somalia would lead to a complete disruption of his family ties, as they could not be maintained by visits to Somalia, considering the Canadian travel advisory.[[fn:33]]",
+    "Footnotes": [
+      {
+        "n": 33,
+        "text": "See a contrario, communication No. 583/1993, Stewart v. Canada (Deportation to the United Kingdom (country of origin, where his brother resided)), Views of 1 November 1996; and communication No. 558/1993, Canepa v. Canada (Deportation to Italy (country of origin, where relatives resided)), Views of 3 April 1997."
+      }
+    ]
   },
   {
     "ID": "5.11.",
     "Section": "The author’s comments",
     "Labels": [],
-    "Text": "Finally, the author submits that for purposes of article 12, is his “own country”, as he remained in since the age of 4 and he received his entire education in . He submits, in particular, that his case is to be distinguished from other communications considered by the Committee, as he was neither born nor ever lived in . Furthermore, he submits that his citizenship status in is tenuous, as he does not possess any proof of Somali citizenship and he would be sent there on a temporary Canadian travel documentwithout a guarantee that he would be granted citizenship upon arrival."
+    "Text": "Finally, the author submits that for purposes of article 12, Canada is his “own country”[[fn:34]], as he remained in Canada since the age of 4 and he received his entire education in Canada. He submits, in particular, that his case is to be distinguished from other communications considered by the Committee, as he was neither born nor ever lived in Somalia. Furthermore, he submits that his citizenship status in Somalia is tenuous, as he does not possess any proof of Somali citizenship and he would be sent there on a temporary Canadian travel documentwithout a guarantee that he would be granted citizenship upon arrival.",
+    "Footnotes": [
+      {
+        "n": 34,
+        "text": "See General Comment No. 27: Article 12, 2 November 1999, CCPR/C/21/Rev. 1/Add.9, para. 20."
+      }
+    ]
   },
   {
     "ID": "6.1.",
     "Section": "Additional observations by the State party on the admissibility and the merits",
     "Labels": [],
-    "Text": "On 4 February 2011, the State party submits additional observations on the admissibility and the merits, as well as a second request to lift the interim measures (see para. 1.2). It submits that the author remains in in immigration detention awaiting removal. It reiterates the author’s history of violence and the serious danger he would pose to the public if released. It also reiterates that the deportation of the author would not result in irreparable harm, as the author failed to present a prima facie case."
+    "Text": "On 4 February 2011, the State party submits additional observations on the admissibility and the merits, as well as a second request to lift the interim measures (see para. 1.2). It submits that the author remains in Canada in immigration detention awaiting removal. It reiterates the author’s history of violence and the serious danger he would pose to the public if released. It also reiterates that the deportation of the author would not result in irreparable harm, as the author failed to present a prima facie case."
   },
   {
     "ID": "6.2.",
@@ -286,7 +450,13 @@
     "ID": "6.3.",
     "Section": "Additional observations by the State party on the admissibility and the merits",
     "Labels": [],
-    "Text": "With regard to the author’s failure to make an application on humanitarian and compassionate grounds (H & C application), the State party clarifies that, while it is true that an application on humanitarian and compassionate grounds does not stay removal, in the event of a negative decision, the author could have made an application for judicial review and requested that his removal be suspended. The State party further notes that an H & C decision is guided by defined standards and procedures and is only technically discretionary. It notes that it is an effective remedy. It also notes that changes in family circumstances could have been raised in the humanitarian and compassionate application, which the author failed to pursue."
+    "Text": "With regard to the author’s failure to make an application on humanitarian and compassionate grounds (H & C application), the State party clarifies that, while it is true that an application on humanitarian and compassionate grounds does not stay removal, in the event of a negative decision, the author could have made an application for judicial review and requested that his removal be suspended. The State party further notes that an H & C decision is guided by defined standards and procedures and is only technically discretionary. It notes that it is an effective remedy. [[fn:35]] It also notes that changes in family circumstances could have been raised in the humanitarian and compassionate application, which the author failed to pursue.",
+    "Footnotes": [
+      {
+        "n": 35,
+        "text": "See communication No. 169/2000, G.S.B. v. Canada, examination discontinued by the Committee against Torture, after the H & C application had been granted; Inter-American Commission on Human Rights, Report No. 81/05, Petition 11.862, Inadmissibility, Andrew Harte & Family, Canada (24 October 2005), paras. 86-87."
+      }
+    ]
   },
   {
     "ID": "6.4.",
@@ -300,13 +470,29 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "With respect to articles 6, paragraph 1 and 7, the State party reiterates that the author failed to establish an individualized or personalized risk faced upon removal to , as he would be removed to an area, controlled by his own Majertain clan. It notes that the extent of the author’s knowledge in relation to his clan affiliation remains unclear. Until April 2010, the author denied having any knowledge of his clan affiliation but then advised that his mother is from the Darod clan or Majertain sub-clan. He had also indicated that he wished to be removed to northern Somalia, Bossasso or Galkayo, which are areas controlled by the Majertain sub-clan. The State party therefore concludes that the author would be able to access clan protection. The State party further notes that the author, an ethnic Somali national, not engaged in aid work, journalism or religious activities would not fit the profile of a “Westerner” at risk. With regard to the author’s allegation that he could be deported from Puntland to central or southern , the State party maintains that these expulsion happened due to security concerns, such as affiliation with Islamic extremist groups or due to the absence of tribal affiliation in Puntland. The State party further reiterates that the hardship resulting from ’s humanitarian crisis is not a personal risk and that the general situation in Puntland does not pose a risk of serious harm."
+    "Text": "With respect to articles 6, paragraph 1 and 7, the State party reiterates that the author failed to establish an individualized or personalized risk faced upon removal to Somalia, as he would be removed to an area, controlled by his own Majertain clan. It notes that the extent of the author’s knowledge in relation to his clan affiliation remains unclear. Until April 2010, the author denied having any knowledge of his clan affiliation but then advised that his mother is from the Darod clan or Majertain sub-clan. He had also indicated that he wished to be removed to northern Somalia, Bossasso or Galkayo, which are areas controlled by the Majertain sub-clan. The State party therefore concludes that the author would be able to access clan protection. The State party further notes that the author, an ethnic Somali national, not engaged in aid work, journalism or religious activities would not fit the profile of a “Westerner” at risk. With regard to the author’s allegation that he could be deported from Puntland to central or southern Somalia, the State party maintains that these expulsion happened due to security concerns, such as affiliation with Islamic extremist groups or due to the absence of tribal affiliation in Puntland. [[fn:36]] The State party further reiterates that the hardship resulting from Somalia’s humanitarian crisis is not a personal risk and that the general situation in Puntland does not pose a risk of serious harm. [[fn:37]]",
+    "Footnotes": [
+      {
+        "n": 36,
+        "text": "UNHCR Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, op.cit , pp.9-10, 34-35,"
+      },
+      {
+        "n": 37,
+        "text": "UNHCR Eligibility Guidelines for Assessing the International Protection Needs of Asylum-Seekers from Somalia, op.cit , p 39."
+      }
+    ]
   },
   {
     "ID": "6.6.",
     "Section": "Additional observations by the State party on the admissibility and the merits",
     "Labels": [],
-    "Text": "Regarding the author’s claim of a violation of article 12, paragraph 4, the State party submits that the provision is not applicable in the case of the author, as is not the author’s own country, because of his insufficient link to . It submits that no exceptional circumstances exist establishing a relation of the author to and that no unreasonable impediments were placed on his acquisition of Canadian citizenship. It further notes that, even if could be held to constitute the author’s own country, his removal cannot be characterized as arbitrary, since the decision was made in accordance with the law, the author benefited from due process and the gravity of the author’s crimes result in a clear and present danger to the public safety. The State party submits that the author therefore failed to establish a prima facie violation of article 12, paragraph 4."
+    "Text": "Regarding the author’s claim of a violation of article 12, paragraph 4, the State party submits that the provision is not applicable in the case of the author, as Canada is not the author’s own country, because of his insufficient link to Canada. It submits that no exceptional circumstances exist establishing a relation of the author to Canada and that no unreasonable impediments were placed on his acquisition of Canadian citizenship.[[fn:38]] It further notes that, even if Canada could be held to constitute the author’s own country, his removal cannot be characterized as arbitrary, since the decision was made in accordance with the law, the author benefited from due process and the gravity of the author’s crimes result in a clear and present danger to the public safety. The State party submits that the author therefore failed to establish a prima facie violation of article 12, paragraph 4.",
+    "Footnotes": [
+      {
+        "n": 38,
+        "text": "See communication No. 583/1993, Stewart v. Canada, Views of 1 November 1996, para. 12.6."
+      }
+    ]
   },
   {
     "ID": "6.7.",
@@ -344,7 +530,13 @@
     "ID": "7.4.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee recalls its jurisprudence to the effect that authors must avail themselves of all judicial remedies in order to fulfil the requirement of article 5, paragraph 2 (b), of the Optional Protocol, insofar as such remedies appear to be effective in the given case and are de facto available to the author. With regard to the author’s failure to make an application on humanitarian and compassionate grounds, the Committee notes the State party’s argument that the remedy is only “technically” discretionary, as clear standards and procedures guide the Minister’s decision. It also notes the author’s argument that an application on humanitarian and compassionate grounds would not have stayed or prevented his deportation to and that it would have been evaluated by the same office which had already assessed humanitarian and compassionate grounds in the PRRA assessment. It also notes that according to the author, the remedy is discretionary to obtain the privilege of expediting a permanent residency application and not to vindicate a right. The Committee observes that, as acknowledged by the State party, an application on humanitarian and compassionate grounds does not operate to stay removal. The Committee considers that the possibility of the author’s removal to , a country in which the human rights and humanitarian situation is particularly precarious, while his application on humanitarian and compassionate grounds is under review would render the remedy ineffective and does therefore not dispose of the real risk of a threat to life or torture that is of concern to the Committee. It therefore concludes that, for purposes of admissibility, the author did not need to make an application on humanitarian and compassionate grounds."
+    "Text": "The Committee recalls its jurisprudence to the effect that authors must avail themselves of all judicial remedies in order to fulfil the requirement of article 5, paragraph 2 (b), of the Optional Protocol, insofar as such remedies appear to be effective in the given case and are de facto available to the author.[[fn:39]] With regard to the author’s failure to make an application on humanitarian and compassionate grounds, the Committee notes the State party’s argument that the remedy is only “technically” discretionary, as clear standards and procedures guide the Minister’s decision. It also notes the author’s argument that an application on humanitarian and compassionate grounds would not have stayed or prevented his deportation to Somalia and that it would have been evaluated by the same office which had already assessed humanitarian and compassionate grounds in the PRRA assessment. It also notes that according to the author, the remedy is discretionary to obtain the privilege of expediting a permanent residency application and not to vindicate a right. The Committee observes that, as acknowledged by the State party, an application on humanitarian and compassionate grounds does not operate to stay removal. The Committee considers that the possibility of the author’s removal to Somalia, a country in which the human rights and humanitarian situation is particularly precarious, while his application on humanitarian and compassionate grounds is under review would render the remedy ineffective and does therefore not dispose of the real risk of a threat to life or torture that is of concern to the Committee. It therefore concludes that, for purposes of admissibility, the author did not need to make an application on humanitarian and compassionate grounds.",
+    "Footnotes": [
+      {
+        "n": 39,
+        "text": "See Communication No. 1003/2001, P.L. v. Germany, Inadmissibility decision of 22 October 2003, para. 6.5; communication No. 433/1990, A.P.A. v. Spain, Inadmissibility decision of 25 March 1994, para. 6.2."
+      }
+    ]
   },
   {
     "ID": "7.5.",
@@ -358,7 +550,13 @@
     "ID": "7.6.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee observes that the author failed to seek review of the negative pre-removal risk assessment decision by the Minister’s Delegate of 23 February 2009 and that, on 9 April 2009, the refusal to grant legal aid to seek judicial review before the Federal Court was upheld by the director of appeals of the Ontario Legal Aid. It notes the author’s argument that in judicial proceedings, he has been repeatedly represented through legal aid, which has been refuted by the State party, without however adducing any evidence to the effect. Although the Committee has consistently held that financial considerations and doubts about the effectiveness of domestic remedies do not absolve authors from exhausting them, it notes that the author appears to have been represented through legal aid in his domestic and international proceedings and that he, in vain, tried to obtain legal aid to pursue judicial review of the negative PRRA decision. It therefore concludes that the author has pursued domestic remedies with the necessary diligence and that article 5, paragraph 2 (b), of the Optional Protocol does not preclude the examination of the present communication."
+    "Text": "The Committee observes that the author failed to seek review of the negative pre-removal risk assessment decision by the Minister’s Delegate of 23 February 2009 and that, on 9 April 2009, the refusal to grant legal aid to seek judicial review before the Federal Court was upheld by the director of appeals of the Ontario Legal Aid. It notes the author’s argument that in judicial proceedings, he has been repeatedly represented through legal aid, which has been refuted by the State party, without however adducing any evidence to the effect. Although the Committee has consistently held that financial considerations and doubts about the effectiveness of domestic remedies do not absolve authors from exhausting them[[fn:40]], it notes that the author appears to have been represented through legal aid in his domestic and international proceedings and that he, in vain, tried to obtain legal aid to pursue judicial review of the negative PRRA decision. It therefore concludes that the author has pursued domestic remedies with the necessary diligence and that article 5, paragraph 2 (b), of the Optional Protocol does not preclude the examination of the present communication.",
+    "Footnotes": [
+      {
+        "n": 40,
+        "text": "See communications No. 397/1990, P.S. v. Denmark, Inadmissibility decision of 22 July 1992, para. 5.4; No. 420/1990, G.T. v. Canada, Inadmissibility decision of 23 October 1992, para. 6.3; No. 550/1993, Faurisson v. France, Views of 8 November 1996, para. 6.1;"
+      }
+    ]
   },
   {
     "ID": "7.7.",
@@ -370,7 +568,7 @@
     "ID": "7.8.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "With respect to the author’s claims of a violation of articles 6, paragraph 1 and 7, of the Covenant, the Committee notes that on 9 February 2007, the Pre-removal risk assessment officer found that the author would face a risk to life and of cruel and unusual treatment if returned to . It also notes that, on 23 February 2009, this decision was revised by the Minister’s Delegate finding that the author did not face an individualized risk of serious harm and that he posed a danger to the Canadian public. It also notes that the author has explained the reasons why he fears to be returned to , giving details about the absence of clan protection, his Western identity and appearance, his lack of local knowledge, experience and support networks and becoming a possible target for recruitment by pirate and Islamist militia groups. The Committee considers that such claims are sufficiently substantiated for purposes of admissibility and that they should be considered on their merits."
+    "Text": "With respect to the author’s claims of a violation of articles 6, paragraph 1 and 7, of the Covenant, the Committee notes that on 9 February 2007, the Pre-removal risk assessment officer found that the author would face a risk to life and of cruel and unusual treatment if returned to Somalia. It also notes that, on 23 February 2009, this decision was revised by the Minister’s Delegate finding that the author did not face an individualized risk of serious harm and that he posed a danger to the Canadian public. It also notes that the author has explained the reasons why he fears to be returned to Somalia, giving details about the absence of clan protection, his Western identity and appearance, his lack of local knowledge, experience and support networks and becoming a possible target for recruitment by pirate and Islamist militia groups. The Committee considers that such claims are sufficiently substantiated for purposes of admissibility and that they should be considered on their merits."
   },
   {
     "ID": "7.9.",
@@ -402,37 +600,73 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee notes the author’s claim that his removal from to would expose him to a risk of irreparable harm in violation of articles 6, paragraph 1 and 7, of the Covenant. It also notes his arguments that his risk is personalized and distinct of that faced by the general population in Somalia, in light of the fact that he was born outside of Somalia and never resided there, he has limited language skills, he doesn’t have any family in the area of Puntland, he lacks clan support, he is at risk of forced recruitment by pirate or Islamist militia groups and he would be exposed to generalized violence. The Committee also notes the observations of the State party, according to which the author has not provided prima facie basis for believing that he himself faces a personal risk of death, torture, or cruel, inhuman or degrading treatment and that his alleged complete lack of clan membership is unsupported, as he had indicated that his mother’s tribe is Darod and his clan Majertain and that he wished to be removed to Bossasso or Galkayo in Puntland. It also notes that on 9 February 2007, the PRRA Officer found that the author would face a risk to life and cruel and inhuman treatment or punishment if removed to Somalia and that, on 23 February 2009, the Minister’s Delegate found that the author did not face a personal or individualized risk of serious harm in Somalia and that he posed a danger to the public in Canada."
+    "Text": "The Committee notes the author’s claim that his removal from Canada to Somalia would expose him to a risk of irreparable harm in violation of articles 6, paragraph 1 and 7, of the Covenant. It also notes his arguments that his risk is personalized and distinct of that faced by the general population in Somalia, in light of the fact that he was born outside of Somalia and never resided there, he has limited language skills, he doesn’t have any family in the area of Puntland, he lacks clan support, he is at risk of forced recruitment by pirate or Islamist militia groups and he would be exposed to generalized violence. The Committee also notes the observations of the State party, according to which the author has not provided prima facie basis for believing that he himself faces a personal risk of death, torture, or cruel, inhuman or degrading treatment and that his alleged complete lack of clan membership is unsupported, as he had indicated that his mother’s tribe is Darod and his clan Majertain and that he wished to be removed to Bossasso or Galkayo in Puntland. It also notes that on 9 February 2007, the PRRA Officer found that the author would face a risk to life and cruel and inhuman treatment or punishment if removed to Somalia and that, on 23 February 2009, the Minister’s Delegate found that the author did not face a personal or individualized risk of serious harm in Somalia and that he posed a danger to the public in Canada."
   },
   {
     "ID": "8.3.",
     "Section": "Articles 6, paragraph 1 and 7",
     "Labels": [],
-    "Text": "The Committee recalls its General Comment No. 31, in which it refers to the obligation of States parties not to extradite, deport, expel or otherwise remove a person from their territory where there are substantial grounds for believing that there is a real risk of irreparable harm. The Committee must therefore determine whether the author’s removal to would expose him to a real risk of irreparable harm. The Committee observes that the author, who has never lived in , does not speak the language, has limited or no clan support, doesn’t have any family in Puntland would face a real risk of harm under articles 6, paragraph 1 and 7, of the Covenant. The Committee therefore concludes that the author’s deportation to would, if implemented, constitute a violation of articles 6, paragraph 1 and 7, of the Covenant."
+    "Text": "The Committee recalls its General Comment No. 31, in which it refers to the obligation of States parties not to extradite, deport, expel or otherwise remove a person from their territory where there are substantial grounds for believing that there is a real risk of irreparable harm.[[fn:41]] The Committee must therefore determine whether the author’s removal to Somalia would expose him to a real risk of irreparable harm. The Committee observes that the author, who has never lived in Somalia, does not speak the language, has limited or no clan support, doesn’t have any family in Puntland would face a real risk of harm under articles 6, paragraph 1 and 7, of the Covenant. The Committee therefore concludes that the author’s deportation to Somalia would, if implemented, constitute a violation of articles 6, paragraph 1 and 7, of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 41,
+        "text": "See General Comment No. 31, the Nature of the General Legal Obligation Imposed on States Parties to the Covenant, CCPR/C/21/Rev. 1/Add. 13, 29 March 2004, para. 12."
+      }
+    ]
   },
   {
     "ID": "8.4.",
     "Section": "Article 12, paragraph 4",
     "Labels": [],
-    "Text": "With regard to the author's claim under article 12, paragraph 4, of the Covenant, the Committee must first consider whether Canada is indeed the author’s “own country” for purposes of this provision and then decide whether his deprivation of the right to enter that country would be arbitrary. On the first issue, the Committee recalls its General Comment No. 27 on freedom of movement where it has considered that the scope of “his own country” is broader than the concept “country of his nationality”. It is not limited to nationality in a formal sense, that is, nationality acquired at birth or by conferral; it embraces, at the very least, an individual who, because of his or her special ties to or claims in relation to a given country, cannot be considered to be a mere alien. In this regard, it finds that there are factors other than nationality which may establish close and enduring connections between a person and a country, connections which may be stronger than those of nationality. The words “his own country” invite consideration of such matters as long standing residence, close personal and family ties and intentions to remain, as well as to the absence of such ties elsewhere."
+    "Text": "With regard to the author's claim under article 12, paragraph 4, of the Covenant, the Committee must first consider whether Canada is indeed the author’s “own country” for purposes of this provision and then decide whether his deprivation of the right to enter that country would be arbitrary. On the first issue, the Committee recalls its General Comment No. 27 on freedom of movement where it has considered that the scope of “his own country” is broader than the concept “country of his nationality”. It is not limited to nationality in a formal sense, that is, nationality acquired at birth or by conferral; it embraces, at the very least, an individual who, because of his or her special ties to or claims in relation to a given country, cannot be considered to be a mere alien.[[fn:42]] In this regard, it finds that there are factors other than nationality which may establish close and enduring connections between a person and a country, connections which may be stronger than those of nationality.[[fn:43]] The words “his own country” invite consideration of such matters as long standing residence, close personal and family ties and intentions to remain, as well as to the absence of such ties elsewhere.",
+    "Footnotes": [
+      {
+        "n": 42,
+        "text": "General Comment No. 27 on freedom of movement, CCPR/C/21/Rev.1/Add.9, 2 November 1999, para. 20."
+      },
+      {
+        "n": 43,
+        "text": "Communication No. 538/1993, Stewart v. Canada, Views of 1 November 1996, para. 6"
+      }
+    ]
   },
   {
     "ID": "8.5.",
     "Section": "Article 12, paragraph 4",
     "Labels": [],
-    "Text": "In the present case, the author arrived in when he was four years old, his nuclear family lives in , he has no ties to and has never lived there and has difficulties speaking the language. The Committee observes that it is not disputed that the author has lived almost all his conscious life in , that he received his entire education in and that before coming to he lived in and not in . It also notes the author’s claim that he does not have any proof of Somali citizenship. In the particular circumstances of the case, the Committee considers that the author has established that Canada was his own country within the meaning of article 12, paragraph 4, of the Covenant, in the light of the strong ties connecting him to Canada, the presence of his family in Canada, the language he speaks, the duration of his stay in the country and the lack of any other ties than at best formal nationality with Somalia."
+    "Text": "In the present case, the author arrived in Canada when he was four years old, his nuclear family lives in Canada, he has no ties to Somalia and has never lived there and has difficulties speaking the language. The Committee observes that it is not disputed that the author has lived almost all his conscious life in Canada, that he received his entire education in Canada and that before coming to Canada he lived in Saudi Arabia and not in Somalia. It also notes the author’s claim that he does not have any proof of Somali citizenship. In the particular circumstances of the case, the Committee considers that the author has established that Canada was his own country within the meaning of article 12, paragraph 4, of the Covenant, in the light of the strong ties connecting him to Canada, the presence of his family in Canada, the language he speaks, the duration of his stay in the country and the lack of any other ties than at best formal nationality with Somalia."
   },
   {
     "ID": "8.6.",
     "Section": "Article 12, paragraph 4",
     "Labels": [],
-    "Text": "As to the alleged arbitrariness of the author’s deportation, the Committee recalls its General Comment No. 27 on freedom of movement where it has stated that even interference provided for by law should be in accordance with the provisions, aims and objectives of the Covenant and should be, in any event, reasonable in the particular circumstances. The Committee considers that there are few, if any, circumstances in which deprivation of the right to enter one's own country could be reasonable. A State party must not, by stripping a person of nationality or by expelling an individual to a third country, arbitrarily prevent this person from returning to his or her own country. In the present case, a deportation of the author to would render his return to de facto impossible due to Canadian immigration regulations. The Committee therefore considers that the author’s deportation to impeding his return to his own country would be disproportionate to the legitimate aim of preventing the commission of further crimes and therefore arbitrary. The Committee concludes that, the author’s deportation, if implemented would constitute a violation of article 12, paragraph 4, of the Covenant."
+    "Text": "As to the alleged arbitrariness of the author’s deportation, the Committee recalls its General Comment No. 27 on freedom of movement where it has stated that even interference provided for by law should be in accordance with the provisions, aims and objectives of the Covenant and should be, in any event, reasonable in the particular circumstances. The Committee considers that there are few, if any, circumstances in which deprivation of the right to enter one's own country could be reasonable. [[fn:44]] A State party must not, by stripping a person of nationality or by expelling an individual to a third country, arbitrarily prevent this person from returning to his or her own country. In the present case, a deportation of the author to Somalia would render his return to Canada de facto impossible due to Canadian immigration regulations. The Committee therefore considers that the author’s deportation to Somalia impeding his return to his own country would be disproportionate to the legitimate aim of preventing the commission of further crimes and therefore arbitrary. The Committee concludes that, the author’s deportation, if implemented would constitute a violation of article 12, paragraph 4, of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 44,
+        "text": "General Comment No. 27 on freedom of movement, CCPR/C/21/Rev.1/Add.9, 2 November 1999, para. 21."
+      }
+    ]
   },
   {
     "ID": "8.7.",
     "Section": "Articles 17 and 23, paragraph 1",
     "Labels": [],
-    "Text": "As to the alleged violation under articles 17 and 23, paragraph 1 alone and in conjunction with article 2, paragraph 3, the Committee reiterates its jurisprudence that there may be cases in which a State party's refusal to allow one member of a family to remain on its territory would involve interference in that person's family life. However, the mere fact that certain members of the family are entitled to remain on the territory of a State party does not necessarily mean that requiring other members of the family to leave involves such interference. The Committee recalls its General Comments Nos. 16 and 19, whereby the concept of the family is to be interpreted broadly. It also recalls that the separation of a person from his family by means of expulsion could be regarded as an arbitrary interference with the family and a violation of article 17 if, in the circumstances of the case, the separation of the author from his family and its effects on him were disproportionate to the objectives of the removal."
+    "Text": "As to the alleged violation under articles 17 and 23, paragraph 1 alone and in conjunction with article 2, paragraph 3, the Committee reiterates its jurisprudence that there may be cases in which a State party's refusal to allow one member of a family to remain on its territory would involve interference in that person's family life. However, the mere fact that certain members of the family are entitled to remain on the territory of a State party does not necessarily mean that requiring other members of the family to leave involves such interference.[[fn:45]] The Committee recalls its General Comments Nos. 16 and 19, whereby the concept of the family is to be interpreted broadly. [[fn:46]] It also recalls that the separation of a person from his family by means of expulsion could be regarded as an arbitrary interference with the family and a violation of article 17 if, in the circumstances of the case, the separation of the author from his family and its effects on him were disproportionate to the objectives of the removal.[[fn:47]]",
+    "Footnotes": [
+      {
+        "n": 45,
+        "text": "See, for example, communications No. 930/2000, Winata v. Australia, Views adopted on 26 July 2001, paragraph 7.1; No. 1011/2001, Madafferi v. Australia, Views adopted on 26 July 2004, paragraph 9.7; and No. 1222/2003, Byahuranga v. Denmark, Views adopted on 1 November 2004, paragraph 11.5; No. 1792/2008, Dauphin v. Canada, Views of 28 July 2009, para. 8.1."
+      },
+      {
+        "n": 46,
+        "text": "See General Comment No. 16, the right to respect of privacy, family, home and correspondence, and protection of honour and reputation (Art. 17), 8 April 1988; General Comment No. 19, Protection of the family, the right to marriage and equality of the spouses (Art. 23), 27 July 1990."
+      },
+      {
+        "n": 47,
+        "text": "See communication No. 558/1993, Canepa v. Canada, Views of 3 April 1997, para. 11.4."
+      }
+    ]
   },
   {
     "ID": "8.8.",
@@ -442,7 +676,13 @@
       "Persons deprived of their liberty",
       "Refugees & asylum-seekers"
     ],
-    "Text": "The Committee observes that the author’s deportation to will interfere with his family relations in . However, it must examine if the said interference could be considered either arbitrary or unlawful. The State party’s Immigration and Refugee Protection Act expressly provides that the permanent residency status of a non-national may be revoked, if the person is convicted of a serious offence carrying a term of imprisonment of at least two years. The Committee notes the State party’s observation that the authorities acted neither unlawfully nor arbitrary and that the minimal disruption to the author’s family life was outweighed by the gravity of his crimes. The Committee observes that the concept of arbitrariness is not to be confined to procedural arbitrariness but extends to the reasonableness of the interference with the person’s rights under article 17 and its compatibility with the purposes, aims and objectives of the Covenant."
+    "Text": "The Committee observes that the author’s deportation to Somalia will interfere with his family relations in Canada. However, it must examine if the said interference could be considered either arbitrary or unlawful. The State party’s Immigration and Refugee Protection Act expressly provides that the permanent residency status of a non-national may be revoked, if the person is convicted of a serious offence carrying a term of imprisonment of at least two years. The Committee notes the State party’s observation that the authorities acted neither unlawfully nor arbitrary and that the minimal disruption to the author’s family life was outweighed by the gravity of his crimes. The Committee observes that the concept of arbitrariness is not to be confined to procedural arbitrariness but extends to the reasonableness of the interference with the person’s rights under article 17 and its compatibility with the purposes, aims and objectives of the Covenant.[[fn:48]]",
+    "Footnotes": [
+      {
+        "n": 48,
+        "text": "See communication No. 558/1993, Canepa v. Canada, Views of 3 April 1997, para. 11.4."
+      }
+    ]
   },
   {
     "ID": "8.9.",
@@ -460,7 +700,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee observes that the author was neither born nor has resided in , that he has lived in since the age of four years, that his mother and sisters live in and that he does not have any family in . The Committee notes that the intensity of the author’s family ties with his mother and sisters remains disputed between the parties. Nevertheless, the Committee observes that the author’s family ties would be irreparably severed if he were to be deported to Somalia, as his family could not visit him there and the means to keep up a regular correspondence between the author and his family in Canada are limited. In addition to that, for a significant lapse of time, it would be impossible for the author to apply for a visitor’s visa to to visit his family. The Committee also notes that due to the de facto unavailability of judicial remedies, the author could not raise his claims before the domestic courts. The Committee, therefore, concludes that the interference with the author’s family life, which would lead to irreparably severing his ties with his mother and sisters in would be disproportionate to the legitimate aim of preventing the commission of further crimes. It therefore concludes that, the author’s deportation to , if implemented, would constitute a violation of articles 17 and 23, paragraph 1 alone and in conjunction with article 2, paragraph 3, of the Covenant."
+    "Text": "The Committee observes that the author was neither born nor has resided in Somalia, that he has lived in Canada since the age of four years, that his mother and sisters live in Canada and that he does not have any family in Somalia. The Committee notes that the intensity of the author’s family ties with his mother and sisters remains disputed between the parties. Nevertheless, the Committee observes that the author’s family ties would be irreparably severed if he were to be deported to Somalia, as his family could not visit him there and the means to keep up a regular correspondence between the author and his family in Canada are limited. In addition to that, for a significant lapse of time, it would be impossible for the author to apply for a visitor’s visa to Canada to visit his family. The Committee also notes that due to the de facto unavailability of judicial remedies, the author could not raise his claims before the domestic courts. The Committee, therefore, concludes that the interference with the author’s family life, which would lead to irreparably severing his ties with his mother and sisters in Canada would be disproportionate to the legitimate aim of preventing the commission of further crimes. It therefore concludes that, the author’s deportation to Somalia, if implemented, would constitute a violation of articles 17 and 23, paragraph 1 alone and in conjunction with article 2, paragraph 3, of the Covenant."
   },
   {
     "ID": "9.",
@@ -472,7 +712,7 @@
     "ID": "10.",
     "Section": "Articles 17 and 23, paragraph 1",
     "Labels": [],
-    "Text": "In accordance with article 2, paragraph 3 (a), of the Covenant, the State party is under an obligation to provide the author with an effective remedy, including by refraining from deporting him to ."
+    "Text": "In accordance with article 2, paragraph 3 (a), of the Covenant, the State party is under an obligation to provide the author with an effective remedy, including by refraining from deporting him to Somalia."
   },
   {
     "ID": "11.",

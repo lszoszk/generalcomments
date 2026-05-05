@@ -1,13 +1,13 @@
 [
   {
     "ID": "1.1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The author of the communication is Mr. Teun Sanders, a Dutch citizen. He claims to be a victim of a violation by the Netherlands under article 14 of the International Covenant on Civil and Political Rights. He is represented by counsel; Mr. B. W. M. Zegers."
   },
   {
     "ID": "1.2.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "On 28 August 2003, pursuant to the State party’s submission on admissibility, the Special Rapporteur on New Communications, acting on behalf of the Committee, decided that the admissibility of this communication should be considered separately from the merits."
   },
@@ -21,7 +21,13 @@
     "ID": "2.2.",
     "Section": "Factual background",
     "Labels": [],
-    "Text": "On 10 February 1997, at the beginning of the court hearing, the author asked the “trial judge” to refer the case to another court, claiming that The Hague Regional Court could not be considered an independent and impartial tribunal. He argued that “a number of lawyers” working at the same law firm as the lawyers representing ANWB and TNO also served as substitute judges on the Hague Regional Court and on the Court of Appeal. The judge rejected his request."
+    "Text": "On 10 February 1997, at the beginning of the court hearing, the author asked the “trial judge” to refer the case to another court, claiming that The Hague Regional Court could not be considered an independent and impartial tribunal. He argued that “a number of lawyers” working at the same law firm[[fn:3]] as the lawyers representing ANWB and TNO also served as substitute judges on the Hague Regional Court and on the Court of Appeal. The judge rejected his request.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "De Brauw Blackstone Westbroek Linklaters & Alliance (DBB)"
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -81,7 +87,13 @@
     "ID": "6.2.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee notes that this matter was already considered by the European Court of Human Rights on 29 May 2002. However, it recalls its jurisprudence that it is only where the same matter is being examined under another procedure of international investigation or settlement that the Committee has no competence to deal with a communication under article 5, paragraph 2 (a), of the Optional Protocol. Thus, article 5, paragraph 2(a), does not bar the Committee from considering the present communication."
+    "Text": "The Committee notes that this matter was already considered by the European Court of Human Rights on 29 May 2002. However, it recalls its jurisprudence[[fn:4]] that it is only where the same matter is being examined under another procedure of international investigation or settlement that the Committee has no competence to deal with a communication under article 5, paragraph 2 (a), of the Optional Protocol. Thus, article 5, paragraph 2(a), does not bar the Committee from considering the present communication.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "See Communication, No. 824/1998, N.M. Nicolov v. Bulgaria, decision adopted on 24 March 2000."
+      }
+    ]
   },
   {
     "ID": "6.3.",

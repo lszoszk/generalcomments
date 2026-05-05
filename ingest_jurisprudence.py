@@ -61,6 +61,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import re
 import shutil
@@ -68,8 +69,11 @@ import subprocess
 import sys
 import tempfile
 from datetime import date
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Iterator
+from xml.etree import ElementTree as ET
+from zipfile import ZipFile
 
 import fitz  # PyMuPDF — for PDF cases (≈18% of files)
 
@@ -79,6 +83,10 @@ except ImportError:
     print('ERROR: python-docx is required. Install with: pip install python-docx',
           file=sys.stderr)
     sys.exit(1)
+
+
+W_NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
+W = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
 
 
 # ---------------------------------------------------------------------------
@@ -355,7 +363,7 @@ def label_paragraph(text: str) -> list[str]:
 # ---------------------------------------------------------------------------
 # DOCX extractor
 # ---------------------------------------------------------------------------
-PARA_NUM = re.compile(r'^(\d+(?:\.\d+)*)\.?\s+(.*)', re.DOTALL)
+PARA_NUM = re.compile(r'^((?:\d+\.\d+(?:\.\d+)*|\d+\.))\s+(.*)', re.DOTALL)
 HEADER_KEYWORDS = (
     'committee on the', 'human rights committee', 'committee against torture',
     'views adopted', 'decision adopted', 'communication submitted by:',
@@ -382,6 +390,112 @@ def _is_english_annex_marker(text: str) -> bool:
     return bool(re.search(r'\bOriginal\s*:\s*English\b', t, re.IGNORECASE))
 
 
+def _clean_para_id(value: str) -> str:
+    return value.rstrip('.') + '.'
+
+
+def _docx_text_from_el(el: ET.Element) -> str:
+    """Extract visible text from a WordprocessingML paragraph/run subtree."""
+    parts: list[str] = []
+    for node in el.iter():
+        if node.tag == f'{W}t' and node.text:
+            parts.append(node.text)
+        elif node.tag == f'{W}tab':
+            parts.append(' ')
+        elif node.tag in (f'{W}br', f'{W}cr'):
+            parts.append('\n')
+    return ''.join(parts)
+
+
+def _extract_docx_footnote_map(path: Path) -> dict[int, str]:
+    """Return DOCX footnotes as {visible_number: text}.
+
+    Word stores true footnotes in ``word/footnotes.xml`` and references them
+    from body paragraphs by ``w:footnoteReference/@w:id``. Separator records
+    have negative ids and are ignored. For UN jurisprudence files the id is
+    the visible footnote number, which matches the website's existing
+    ``[[fn:N]]`` marker contract.
+    """
+    try:
+        with ZipFile(path) as z:
+            if 'word/footnotes.xml' not in z.namelist():
+                return {}
+            root = ET.fromstring(z.read('word/footnotes.xml'))
+    except Exception:
+        return {}
+
+    footnotes: dict[int, str] = {}
+    for fn in root.findall('w:footnote', W_NS):
+        raw_id = fn.attrib.get(f'{W}id')
+        try:
+            n = int(raw_id)
+        except (TypeError, ValueError):
+            continue
+        if n < 1:
+            continue
+        chunks = []
+        for p in fn.findall('w:p', W_NS):
+            text = re.sub(r'\s+', ' ', _docx_text_from_el(p)).strip()
+            if text:
+                chunks.append(text)
+        text = re.sub(r'\s+', ' ', ' '.join(chunks)).strip()
+        if text:
+            footnotes[n] = text
+    return footnotes
+
+
+def _iter_docx_body_paragraphs_with_footnote_markers(path: Path) -> list[tuple[str, list[int]]]:
+    """Return body paragraph text with ``[[fn:N]]`` tokens in reference order."""
+    try:
+        with ZipFile(path) as z:
+            root = ET.fromstring(z.read('word/document.xml'))
+    except Exception:
+        doc = DocxDocument(path)
+        return [(p.text, []) for p in doc.paragraphs]
+
+    out: list[tuple[str, list[int]]] = []
+    body = root.find('w:body', W_NS)
+    if body is None:
+        return out
+
+    for p in body.findall('w:p', W_NS):
+        parts: list[str] = []
+        refs: list[int] = []
+        for node in p.iter():
+            if node.tag == f'{W}t' and node.text:
+                parts.append(node.text)
+            elif node.tag == f'{W}tab':
+                parts.append(' ')
+            elif node.tag in (f'{W}br', f'{W}cr'):
+                parts.append('\n')
+            elif node.tag == f'{W}footnoteReference':
+                raw_id = node.attrib.get(f'{W}id')
+                try:
+                    n = int(raw_id)
+                except (TypeError, ValueError):
+                    continue
+                if n >= 1:
+                    parts.append(f'[[fn:{n}]]')
+                    refs.append(n)
+        out.append((''.join(parts), refs))
+    return out
+
+
+def _footnotes_for_refs(refs: list[int], footnote_map: dict[int, str]) -> list[dict]:
+    """Build stable paragraph-local footnote objects from referenced ids."""
+    seen: set[int] = set()
+    items = []
+    for n in refs:
+        if n in seen:
+            continue
+        text = footnote_map.get(n, '').strip()
+        if not text:
+            continue
+        seen.add(n)
+        items.append({'n': n, 'text': text})
+    return items
+
+
 def extract_docx_paragraphs(path: Path) -> list[dict]:
     """Walk a jurisprudence DOCX and produce {ID, Section, Labels, Text} records.
 
@@ -391,30 +505,42 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
                     inter-paragraph plain text
     """
     doc = DocxDocument(path)
+    footnote_map = _extract_docx_footnote_map(path)
+    body_paragraphs = _iter_docx_body_paragraphs_with_footnote_markers(path)
     state = 'PRE_BODY'
     current_section = None
     paragraphs: list[dict] = []
     pending_text: list[str] = []
+    pending_refs: list[int] = []
     pending_id: str | None = None
     pre_body_intro: list[str] = []
 
     def _flush():
+        nonlocal pending_refs
         if pending_id and pending_text:
             text = ' '.join(t.strip() for t in pending_text if t.strip())
             text = re.sub(r'\s+', ' ', text).strip()
             if len(text) >= 20:
-                paragraphs.append({
+                row = {
                     'ID': pending_id,
                     'Section': current_section or '',
                     'Labels': [],
                     'Text': text,
-                })
+                }
+                footnotes = _footnotes_for_refs(pending_refs, footnote_map)
+                if footnotes:
+                    row['Footnotes'] = footnotes
+                paragraphs.append(row)
+        pending_refs = []
 
-    for p in doc.paragraphs:
-        t = p.text.strip()
+    para_source = body_paragraphs if body_paragraphs else [(p.text, []) for p in doc.paragraphs]
+    for raw_text, refs in para_source:
+        t = raw_text.strip()
         if not t:
             continue
         if _is_non_english_annex_marker(t):
+            if state == 'PRE_BODY':
+                continue
             _flush()
             break
 
@@ -426,7 +552,7 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
 
         # Switch to BODY mode the first time we see a "1." or "1.1" leading
         if state == 'PRE_BODY':
-            if m:
+            if m and m.group(1).split('.')[0] == '1':
                 state = 'BODY'
                 if pre_body_intro and not m.group(1).startswith('1'):
                     text = re.sub(r'\s+', ' ', ' '.join(pre_body_intro)).strip()
@@ -437,8 +563,9 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
                             'Labels': [],
                             'Text': text,
                         })
-                pending_id = m.group(1) + '.'
+                pending_id = _clean_para_id(m.group(1))
                 pending_text = [m.group(2)]
+                pending_refs = list(refs)
             elif _is_docx_intro_paragraph(t):
                 pre_body_intro.append(t)
             elif _is_docx_section_heading(t):
@@ -450,8 +577,9 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
         if m:
             # New numbered paragraph — flush previous, start new
             _flush()
-            pending_id = m.group(1) + '.'
+            pending_id = _clean_para_id(m.group(1))
             pending_text = [m.group(2)]
+            pending_refs = list(refs)
         else:
             # Non-numbered line in body. Two cases:
             #  (a) Section heading — short line, capitalised, NOT a continuation
@@ -467,27 +595,126 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
                 _flush()
                 pending_id = None
                 pending_text = []
+                pending_refs = []
                 current_section = t.rstrip('.')
             else:
                 pending_text.append(t)
+                pending_refs.extend(refs)
     _flush()
+    if len(paragraphs) >= 5:
+        return apply_paragraph_namespaces(paragraphs)
+    mixed_fallback = extract_docx_mixed_unnumbered_decision(doc)
+    if len(mixed_fallback) > len(paragraphs):
+        return apply_paragraph_namespaces(mixed_fallback)
     if paragraphs:
         return apply_paragraph_namespaces(paragraphs)
     return apply_paragraph_namespaces(extract_docx_unnumbered_decision(doc))
 
 
+def extract_docx_mixed_unnumbered_decision(doc: DocxDocument) -> list[dict]:
+    """Fallback for legacy DOCX where Word lost early paragraph numbering.
+
+    Some older HRC files keep the body text but drop the automatic list numbers
+    until a later section. We preserve official explicit markers when present
+    and generate cautious section-local IDs for long unnumbered body paragraphs.
+    """
+    paragraphs = []
+    current_section = ''
+    started = False
+    intro_count = 0
+    facts_count = 0
+    generated_count = 0
+
+    def add(pid: str, section: str, text: str, generated: bool = False) -> None:
+        row = {
+            'ID': pid,
+            'Section': section,
+            'Labels': [],
+            'Text': re.sub(r'\s+', ' ', text).strip(),
+        }
+        if generated:
+            row['GeneratedParagraphID'] = True
+            row['GeneratedIDReason'] = 'legacy_docx_missing_numbering'
+        paragraphs.append(row)
+
+    for p in doc.paragraphs:
+        t = re.sub(r'\s+', ' ', p.text.strip())
+        if not t:
+            continue
+        low = t.lower().strip(' .')
+        if _is_non_english_annex_marker(t):
+            if started:
+                break
+            continue
+        if not started:
+            if (
+                low.startswith(('views under article', 'decision under article'))
+                or low.startswith(('the first author is', 'the author of the communication is', 'the authors of the communication are'))
+            ):
+                started = True
+                if low.startswith(('views under article', 'decision under article')):
+                    current_section = t.rstrip('.')
+                    continue
+            else:
+                continue
+
+        m = PARA_NUM.match(t)
+        if m:
+            add(_clean_para_id(m.group(1)), current_section, m.group(2))
+            continue
+
+        if _is_docx_section_heading(t) or re.match(r'^(?:the case of|the facts as submitted by the authors)\b', t, re.IGNORECASE):
+            current_section = t.rstrip('.')
+            continue
+
+        if len(t) < 80:
+            continue
+        if ':' in t[:45] and not low.startswith(('the committee', 'the author', 'the first author', 'the second author')):
+            continue
+        if low.startswith((
+            'the human rights committee, established',
+            'having concluded',
+            'having taken into account',
+            'meeting on ',
+            'adopts the following',
+        )):
+            continue
+
+        section_low = current_section.lower()
+        if not paragraphs or section_low.startswith(('views under article', 'decision under article')):
+            intro_count += 1
+            add(f'1.{intro_count}.', current_section, t, generated=True)
+        elif 'facts' in section_low or section_low.startswith(('factual', 'background', 'the case of')):
+            facts_count += 1
+            add(f'2.{facts_count}.', current_section, t, generated=True)
+        else:
+            generated_count += 1
+            add(f'G{generated_count}.', current_section, t, generated=True)
+    return paragraphs
+
+
 def extract_docx_unnumbered_decision(doc: DocxDocument) -> list[dict]:
     """Fallback for very short discontinuance decisions with no numbered body."""
     paragraphs = []
-    for p in doc.paragraphs:
-        text = re.sub(r'\s+', ' ', p.text.strip())
+    source_paragraphs = [re.sub(r'\s+', ' ', p.text.strip()) for p in doc.paragraphs]
+    non_empty = [p for p in source_paragraphs if p]
+    legacy_short = len(non_empty) <= 12
+    for text in source_paragraphs:
         if len(text) < 80:
-            continue
+            if not (legacy_short and text.lower().startswith('the communication is inadmissible')):
+                continue
         low = text.lower()
         # Header metadata can be long too ("Substantive issues: ...").
         if ':' in text[:45] and not low.startswith(('at its meeting', 'the committee')):
             continue
-        if not (
+        if legacy_short and (
+            low.startswith('the author of the communication')
+            or low.startswith('article 2 ')
+            or low.startswith('being unable to find')
+            or low.startswith('the communication is inadmissible')
+        ):
+            pass
+        elif not (
             low.startswith('at its meeting')
             or low.startswith('the committee')
             or low.startswith('decides to discontinue')
@@ -501,7 +728,177 @@ def extract_docx_unnumbered_decision(doc: DocxDocument) -> list[dict]:
             'Section': 'Decision',
             'Labels': [],
             'Text': text,
+            'GeneratedParagraphID': legacy_short,
+            'GeneratedIDReason': 'legacy_unnumbered_decision' if legacy_short else '',
         })
+    return paragraphs
+
+
+# ---------------------------------------------------------------------------
+# HTML extractors
+# ---------------------------------------------------------------------------
+
+class _JurisHtmlParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.items: list[tuple[str, dict, str]] = []
+        self._tag: str | None = None
+        self._attrs: dict = {}
+        self._buf: list[str] = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag.lower() in ('p', 'h1', 'h2', 'h3', 'h4'):
+            self._tag = tag.lower()
+            self._attrs = dict(attrs)
+            self._buf = []
+
+    def handle_data(self, data):
+        if self._tag:
+            self._buf.append(data)
+
+    def handle_endtag(self, tag):
+        if self._tag and tag.lower() == self._tag:
+            text = html.unescape(''.join(self._buf))
+            text = _clean_html_text(text)
+            if text:
+                self.items.append((self._tag, self._attrs, text))
+            self._tag = None
+            self._attrs = {}
+            self._buf = []
+
+
+def _clean_html_text(text: str) -> str:
+    replacements = {
+        '\x13': '-',
+        '\x14': '-',
+        '\x18': "'",
+        '\x19': "'",
+        '\x1c': '"',
+        '\x1d': '"',
+        '\uf02a': '',
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    text = text.replace('\xa0', ' ')
+    return re.sub(r'\s+', ' ', text).strip()
+
+
+def _read_html_text(path: Path) -> str:
+    raw = path.read_bytes()
+    for encoding in ('utf-16', 'utf-8-sig', 'utf-8', 'latin-1'):
+        try:
+            return raw.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+    return raw.decode('utf-8', errors='replace')
+
+
+def _is_html_heading(tag: str, attrs: dict, text: str) -> bool:
+    style = (attrs.get('style') or '').lower().replace(' ', '')
+    return tag.startswith('h') or 'font-weight:bold' in style or _is_docx_section_heading(text)
+
+
+def extract_html_paragraphs(path: Path) -> list[dict]:
+    """Extract jurisprudence paragraphs from OHCHR DocStore HTML exports."""
+    parser = _JurisHtmlParser()
+    parser.feed(_read_html_text(path))
+    paragraphs: list[dict] = []
+    current_section = ''
+    started = False
+    intro_count = 0
+    facts_count = 0
+    generated_count = 0
+
+    def add(pid: str, section: str, text: str, generated_reason: str = '') -> None:
+        row = {
+            'ID': pid,
+            'Section': section,
+            'Labels': [],
+            'Text': _clean_extracted_text(text),
+        }
+        if generated_reason:
+            row['GeneratedParagraphID'] = True
+            row['GeneratedIDReason'] = generated_reason
+        if len(row['Text']) >= 20:
+            paragraphs.append(row)
+
+    for tag, attrs, text in parser.items:
+        low = text.lower().strip(' .')
+        if not started:
+            if low.startswith(('views under article', 'decision under article', 'decision on admissibility')):
+                started = True
+                current_section = text.rstrip('.')
+            continue
+        if low.startswith(('[done in', '[adopted in', 'home || treaties')):
+            break
+        if _is_signature_line(text):
+            continue
+
+        m = PARA_NUM.match(text) or re.match(r'^(\d+(?:\.\d+)*\.)\s*(.+)', text)
+        if m:
+            add(_clean_para_id(m.group(1)), current_section, m.group(2))
+            continue
+
+        if _is_html_heading(tag, attrs, text):
+            if not low.startswith(('adopts the following', 'views under article', 'decision under article')):
+                current_section = text.rstrip('.')
+            continue
+
+        if len(text) < 40:
+            continue
+        if low.startswith((
+            'the human rights committee, established',
+            'meeting on ',
+            'having concluded',
+            'having taken into account',
+            'adopts the following',
+        )):
+            continue
+        if ':' in text[:45] and not low.startswith(('the author', 'the first author', 'the second author', 'the committee')):
+            continue
+
+        section_low = current_section.lower()
+        if not paragraphs or section_low.startswith(('views under article', 'decision under article')):
+            intro_count += 1
+            add(f'1.{intro_count}.', current_section, text, 'html_missing_numbering')
+        elif 'facts' in section_low or section_low.startswith(('factual', 'background', 'the case of')):
+            facts_count += 1
+            add(f'2.{facts_count}.', current_section, text, 'html_missing_numbering')
+        else:
+            generated_count += 1
+            add(f'G{generated_count}.', current_section, text, 'html_missing_numbering')
+    return apply_paragraph_namespaces(_repair_html_generated_ids(paragraphs))
+
+
+def _repair_html_generated_ids(paragraphs: list[dict]) -> list[dict]:
+    """Turn generated section IDs into official-looking sequence IDs when clear.
+
+    OHCHR HTML exports sometimes drop the visible numbers for a run of
+    paragraphs but resume with e.g. `6.6` or `7.3`. If the generated paragraphs
+    immediately precede that explicit ID in the same section, recover `6.1`...
+    """
+    by_section: dict[str, list[int]] = {}
+    for idx, para in enumerate(paragraphs):
+        by_section.setdefault(para.get('Section') or '', []).append(idx)
+    for indexes in by_section.values():
+        pending: list[int] = []
+        for idx in indexes:
+            para = paragraphs[idx]
+            pid = para.get('ID') or ''
+            if para.get('GeneratedIDReason') == 'html_missing_numbering' and pid.startswith('G'):
+                pending.append(idx)
+                continue
+            explicit = para_id_tuple(pid)
+            if pending and explicit and len(explicit) == 2 and explicit[1] == len(pending) + 1:
+                parent = explicit[0]
+                for offset, pending_idx in enumerate(pending, start=1):
+                    generated = paragraphs[pending_idx]
+                    generated['OriginalID'] = generated.get('ID')
+                    generated['ID'] = f'{parent}.{offset}.'
+                    generated['IdCorrection'] = 'html_sequence_recovered'
+                pending = []
+            elif explicit:
+                pending = []
     return paragraphs
 
 
@@ -564,7 +961,7 @@ PDF_SECTION_LETTER = re.compile(r'^[A-Z]\.$')
 PDF_HEADING_RE = re.compile(
     r'^(?:'
     r'background|'
-    r'(?:the\s+)?facts(?:\s+as\s+(?:submitted|presented)\s+by\s+the\s+author)?|'
+    r'(?:the\s+)?facts(?:\s+as\s+(?:submitted|presented)\s+by\s+the\s+authors?)?|'
     r'factual\s+background|'
     r'complaints?|'
     r'(?:the\s+)?state\s+party[’\']?s\s+(?:observations|submissions?)|'
@@ -573,6 +970,7 @@ PDF_HEADING_RE = re.compile(
     r'consideration\s+of\s+(?:admissibility|the\s+merits)|'
     r'(?:the\s+)?committee[’\']?s\s+consideration|'
     r'admissibility|merits|conclusions?|'
+    r'decision\s+on\s+admissibility|'
     r'individual\s+opinion(?:\s+.*)?|separate\s+opinion(?:\s+.*)?|dissenting\s+opinion(?:\s+.*)?|concurring\s+opinion(?:\s+.*)?|annex'
     r')$',
     re.IGNORECASE,
@@ -642,7 +1040,9 @@ def _pdf_marker_action(raw_id: str, rest: str, current_id: str | None) -> str:
 
 def _is_front_matter_date_marker(raw_id: str, rest: str, has_paragraphs: bool, current_section: str) -> bool:
     """Skip OCR front-matter dates that look like top-level paragraphs."""
-    if has_paragraphs or current_section:
+    if has_paragraphs:
+        return False
+    if current_section and current_section.strip().lower() != 'annex':
         return False
     candidate = para_id_tuple(raw_id)
     if not candidate or len(candidate) != 1 or candidate[0] <= 1:
@@ -915,6 +1315,8 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
             if _is_pdf_noise_line(line):
                 continue
             if _is_non_english_annex_marker(line):
+                if not paragraphs and not current_id and not current_section:
+                    continue
                 flush_unnumbered()
                 flush()
                 skip_non_english = True

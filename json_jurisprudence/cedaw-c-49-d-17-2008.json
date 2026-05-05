@@ -1,11 +1,17 @@
 [
   {
     "ID": "1.",
-    "Section": "",
+    "Section": "Annex",
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author of the communication, dated 30 November 2007, is Maria de Lourdes da Silva Pimentel, mother of Alyne da Silva Pimentel Teixeira (deceased), acting in her own name and on behalf of the family of the deceased. They are represented by the Center for Reproductive Rights and Advocacia Cidadã pelos Direitos Humanos. They claim that Alyne da Silva Pimentel Teixeira is a victim of a violation by the State party of her right to life and health under articles 2 and 12 of the Convention on the Elimination of All Forms of Discrimination against Women. The Convention and the Optional Protocol thereto entered into force for the State party on 2 March 1984 and 28 September 2002, respectively."
+    "Text": "The author of the communication, dated 30 November 2007, is Maria de Lourdes da Silva Pimentel, mother of Alyne da Silva Pimentel Teixeira (deceased), acting in her own name and on behalf of the family of the deceased. They are represented by the Center for Reproductive Rights and Advocacia Cidadã pelos Direitos Humanos.[[fn:1]] They claim that Alyne da Silva Pimentel Teixeira is a victim of a violation by the State party of her right to life and health under articles 2 and 12 of the Convention on the Elimination of All Forms of Discrimination against Women. The Convention and the Optional Protocol thereto entered into force for the State party on 2 March 1984 and 28 September 2002, respectively.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "* The following members of the Committee participated in the examination of the present communication: Ms. Ayse Feride Acar, Ms. Nicole Ameline, Ms. Magalys Arocha Dominguez, Ms. Violet Tsisiga Awori, Ms. Barbara Evelyn Bailey, Ms. Olinda Bareiro-Bobadilla, Ms. Meriem Belmihoub-Zerdani, Mr. Niklas Bruun, Ms. Naela Mohamed Gabr, Ms. Ruth Halperin-Kaddari, Ms. Yoko Hayashi, Ms. Ismat Jahan, Ms. Soledad Murillo de la Vega, Ms. Violeta Neubauer, Ms. Pramila Patten, Ms. Maria Helena Lopes de Jesus Pires, Ms. Victoria Popescu, Ms. Zohra Rasekh, Ms. Patricia Schulz, Ms. Dubravka Šimonović and Ms. Zou Xiaoqiao. In accordance with rule 60 of the Committee’s rules of procedure, Committee member Ms. Silvia Pimentel did not participate in the examination of the present communication. The Committee received amicus curiae briefs from the Latin American and Caribbean Committee for the Defence of Women’s Rights, the International Commission of Jurists and Amnesty International, providing general information with regard to the right to health and maternal mortality in Brazil and drawing attention to the international obligations of States."
+      }
+    ]
   },
   {
     "ID": "2.1.",
@@ -105,7 +111,13 @@
     "ID": "2.14.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 11 February 2003, Ms. da Silva Pimentel Teixeira’s husband filed a claim against the health-care system for material and moral damages."
+    "Text": "On 11 February 2003, Ms. da Silva Pimentel Teixeira’s husband[[fn:2]] filed a claim against the health-care system for material and moral damages.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "The case file has contradictory information as to who exactly filed the civil claim on 11 February 2003. In some places it mentions the mother of the deceased, while in other places it mentions her husband."
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -135,7 +147,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that failed to ensure access to quality medical treatment during delivery, thereby violating its duties under articles 2 and 12 of the Convention. Given that the main reason pregnant women die is because of avoidable delays in obtaining proper emergency care during a complicated pregnancy — as was the case for Ms. da Silva Pimentel Teixeira — skilled assistance at pregnancy, including assistance that provides for obstetric emergencies, is a vital factor in preventing maternal death."
+    "Text": "The author claims that Brazil failed to ensure access to quality medical treatment during delivery, thereby violating its duties under articles 2 and 12 of the Convention.[[fn:3]] Given that the main reason pregnant women die is because of avoidable delays in obtaining proper emergency care during a complicated pregnancy — as was the case for Ms. da Silva Pimentel Teixeira — skilled assistance at pregnancy, including assistance that provides for obstetric emergencies, is a vital factor in preventing maternal death.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "In this connection, the author makes reference to general recommendation No. 24 (1999) of the Committee on the Elimination of Discrimination against Women on article 12 of the Convention (women and health) and to general comment No. 14 (2000) of the Committee on Economic, Social and Cultural Rights on the right to the highest attainable standard of health (art. 12)."
+      }
+    ]
   },
   {
     "ID": "3.5.",
@@ -157,7 +175,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author maintains that the lack of access to quality medical care during delivery is emblematic of systemic problems in the way human resources are managed in the Brazilian health system more generally. The provision of skilled care during pregnancy is critically dependent on a functioning health system, and this requires an adequate number of skilled attendants deployed where they are needed; satisfactory pay scales and career advancement opportunities; supportive supervision mechanisms; functioning mechanisms for quality improvement; and a working transport and referral system to ensure timely access to high-level care, especially in an emergency. Studies by United Nations agencies reveal that ’s national health system has considerable weaknesses in each of these areas. Problems relating to low staff qualifications, an excess of poorly qualified staff and a shortage of well-qualified staff are said to be greater at the municipal level, for example, in health centres such as the Casa de Saúde Nossa Senhora da Glória de Belford Roxo, than at the state or federal level."
+    "Text": "The author maintains that the lack of access to quality medical care during delivery is emblematic of systemic problems in the way human resources are managed in the Brazilian health system more generally. The provision of skilled care during pregnancy is critically dependent on a functioning health system,[[fn:4]] and this requires an adequate number of skilled attendants deployed where they are needed; satisfactory pay scales and career advancement opportunities; supportive supervision mechanisms; functioning mechanisms for quality improvement; and a working transport and referral system to ensure timely access to high-level care, especially in an emergency. Studies by United Nations agencies reveal that Brazil’s national health system has considerable weaknesses in each of these areas. Problems relating to low staff qualifications, an excess of poorly qualified staff and a shortage of well-qualified staff are said to be greater at the municipal level, for example, in health centres such as the Casa de Saúde Nossa Senhora da Glória de Belford Roxo, than at the state or federal level.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "See “Making pregnancy safer: the critical role of the skilled attendant”, a joint statement by the World Health Organization (WHO), the International Confederation of Midwives and the International Federation of Gynaecology and Obstetrics (2004)."
+      }
+    ]
   },
   {
     "ID": "3.8.",
@@ -166,7 +190,7 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "The author maintains that has failed to ensure timely access to emergency obstetric care in violation of articles 2 and 12 of the Convention. At least three indicators relating to accessibility and the quality of emergency obstetric care are particularly relevant, given the specific failures in this case and the more systemic failures of the State party in eliminating preventable maternal deaths. The indicators to which the author refers are included in the guidelines for monitoring the availability and use of obstetric services (October 1997) of the United Nations Children’s Fund (UNICEF), the World Health Organization (WHO) and the United Nations Population Fund (UNFPA), as follows: (a) Equitable geographic distribution of emergency obstetric care facilities (four basic emergency obstetric care facilities and one comprehensive emergency obstetric care facility for every 500,000 persons in the population); (b) Women’s need for emergency obstetric care met (at a minimum, most women who need emergency obstetric care should be receiving services); (c) The proportion of women with obstetric complications who are admitted to a facility with emergency obstetric care services and die should be no more than 1 per cent. The author argues that a negative result in any of the three categories suggests that a State is not complying with its obligation to provide maternity care."
+    "Text": "The author maintains that Brazil has failed to ensure timely access to emergency obstetric care in violation of articles 2 and 12 of the Convention. At least three indicators relating to accessibility and the quality of emergency obstetric care are particularly relevant, given the specific failures in this case and the more systemic failures of the State party in eliminating preventable maternal deaths. The indicators to which the author refers are included in the guidelines for monitoring the availability and use of obstetric services (October 1997) of the United Nations Children’s Fund (UNICEF), the World Health Organization (WHO) and the United Nations Population Fund (UNFPA), as follows: (a) Equitable geographic distribution of emergency obstetric care facilities (four basic emergency obstetric care facilities and one comprehensive emergency obstetric care facility for every 500,000 persons in the population); (b) Women’s need for emergency obstetric care met (at a minimum, most women who need emergency obstetric care should be receiving services); (c) The proportion of women with obstetric complications who are admitted to a facility with emergency obstetric care services and die should be no more than 1 per cent. The author argues that a negative result in any of the three categories suggests that a State is not complying with its obligation to provide maternity care."
   },
   {
     "ID": "3.9.",
@@ -174,7 +198,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that the facts of the present case and data from studies on maternal mortality in demonstrate non-compliance with the obligation to provide maternity care. Evidence shows that emergency obstetric care facilities are inequitably distributed geographically (indicator 1), that women have higher than acceptable levels of unmet need (indicator 2) and that obstetric deaths in facilities occur at higher than acceptable rates (indicator 3), thereby demonstrating the failure of the State party to ensure accessibility and quality of emergency obstetric care as per its obligations on the right to health under article 12 of the Convention."
+    "Text": "The author claims that the facts of the present case and data from studies on maternal mortality in Brazil demonstrate non-compliance with the obligation to provide maternity care. Evidence shows that emergency obstetric care facilities are inequitably distributed geographically (indicator 1), that women have higher than acceptable levels of unmet need (indicator 2) and that obstetric deaths in facilities occur at higher than acceptable rates (indicator 3), thereby demonstrating the failure of the State party to ensure accessibility and quality of emergency obstetric care as per its obligations on the right to health under article 12 of the Convention."
   },
   {
     "ID": "3.10.",
@@ -212,7 +236,13 @@
     "ID": "3.14.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "As to the exhaustion of domestic remedies, the author maintains that access to justice is illusory. The husband of the deceased, on his own behalf and on behalf of their 5-year-old daughter, filed a civil claim for material and moral damages on 11 February 2003, three months after her death, and asked for tutela antecipada twice. The first request by the family of the deceased, made on 11 February 2003, was ignored. The judge also denied the second request, filed on 16 September 2003. However, over four and a half years later, there has been negligible judicial activity on the civil case and it is likely that it will take several more years for the courts to reach a decision. Specifically, there has been no hearing to date and the Court took three years and 10 months to appoint a medical expert, although court rules require that this be done within 10 days."
+    "Text": "As to the exhaustion of domestic remedies, the author maintains that access to justice is illusory. The husband of the deceased, on his own behalf and on behalf of their 5-year-old daughter, filed a civil claim for material and moral damages on 11 February 2003, three months after her death, and asked for tutela antecipada twice.[[fn:5]] The first request by the family of the deceased, made on 11 February 2003, was ignored. The judge also denied the second request, filed on 16 September 2003. However, over four and a half years later, there has been negligible judicial activity on the civil case and it is likely that it will take several more years for the courts to reach a decision. Specifically, there has been no hearing to date and the Court took three years and 10 months to appoint a medical expert, although court rules require that this be done within 10 days.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Tutela antecipada is a judicial mechanism that requests the judge to anticipate the protective effects of a decision. It may be used to avoid unwarranted delays in the judicial decision that may otherwise lead to irreparable or serious damages."
+      }
+    ]
   },
   {
     "ID": "3.15.",
@@ -260,7 +290,13 @@
     "ID": "4.3.",
     "Section": "Observations of the State party on admissibility and merits",
     "Labels": [],
-    "Text": "The Federal Constitution mandates that the private sector may only provide health assistance. It is not authorized to execute the health-care actions prescribed in article 200 of the Constitution, which bear no connection to health care. Private institutions may participate in the health system in accordance with its guidelines by means of a public law contract or agreement. As regards the distribution of responsibilities among the political spheres, section VII of article 30 of the Constitution mandates that the municipal governments provide health services to the population with the technical and financial cooperation of the federal and state governments."
+    "Text": "The Federal Constitution mandates that the private sector may only provide health assistance. It is not authorized to execute the health-care actions prescribed in article 200 of the Constitution,[[fn:6]] which bear no connection to health care. Private institutions may participate in the health system in accordance with its guidelines by means of a public law contract or agreement. As regards the distribution of responsibilities among the political spheres, section VII of article 30 of the Constitution mandates that the municipal governments provide health services to the population with the technical and financial cooperation of the federal and state governments.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "According to this provision, it is incumbent upon the unified health system, in addition to other duties, as set forth by the law: to supervise and control proceedings, products and substances of interest to health and to participate in the production of drugs, equipment, immuno-biological products, blood products and other inputs; to carry out actions of sanitary and epidemiological surveillance, as well as those relating to the health of workers; to organize the training of personnel in the area of health; to participate in the definition of the policy and in the implementation of basic sanitation actions; to foster, within its scope of action, scientific and technological development; to supervise and control foodstuffs, including their nutritional contents, as well as drinks and water for human consumption; to participate in the supervision and control of the production, transportation, storage and use of psychoactive, toxic and radioactive substances and products; and to cooperate in the preservation of the environment, including that of the workplace."
+      }
+    ]
   },
   {
     "ID": "4.4.",
@@ -272,7 +308,7 @@
     "ID": "4.5.",
     "Section": "Observations of the State party on admissibility and merits",
     "Labels": [],
-    "Text": "The State party further explains its duty to regulate, enforce and control health actions and services. The Ministry of Health establishes the national audit system (Sistema Nacional de Auditoria) and coordinates the technical and financial evaluation of the health system throughout the national territory with the technical cooperation of the states, municipalities and the . The national audit system undertakes technical and scientific evaluation, accounting, financial and asset audits of the health system through a decentralized process. Decentralization is ensured through state and municipal bodies and branch offices of the Ministry of Health in each Brazilian state and the ."
+    "Text": "The State party further explains its duty to regulate, enforce and control health actions and services. The Ministry of Health establishes the national audit system (Sistema Nacional de Auditoria) and coordinates the technical and financial evaluation of the health system throughout the national territory with the technical cooperation of the states, municipalities and the Federal District. The national audit system undertakes technical and scientific evaluation, accounting, financial and asset audits of the health system through a decentralized process. Decentralization is ensured through state and municipal bodies and branch offices of the Ministry of Health in each Brazilian state and the Federal District."
   },
   {
     "ID": "4.6.",
@@ -348,7 +384,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "In the submission of 19 January 2009, the author recalls that the obligation to reduce maternal mortality is one of the key obligations that the right to health entails. The author points out that the State party has recognized that preventable deaths are a serious problem in and that the failure to address these deaths constitutes a serious human rights violation. However, despite its rhetorical recognition of the problem of maternal mortality, the State party has failed to meet its obligation to guarantee women’s right to life and health. The author quotes statistics, including statistics from WHO, according to which over 4,000 maternal deaths occur each year in , representing one third of all maternal deaths in . The submission also refers to a United Nations assessment, according to which maternal mortality rates are “considerably higher than those of countries with lesser levels of economic development, and are generally conceded to be unacceptable”. The continued high rates of maternal mortality in the State party constitute a systematic failure to prioritize and protect women’s basic human rights. The preventable maternal death of Ms. da Silva Pimentel Teixeira clearly exemplifies this failure."
+    "Text": "In the submission of 19 January 2009, the author recalls that the obligation to reduce maternal mortality is one of the key obligations that the right to health entails. The author points out that the State party has recognized that preventable deaths are a serious problem in Brazil and that the failure to address these deaths constitutes a serious human rights violation. However, despite its rhetorical recognition of the problem of maternal mortality, the State party has failed to meet its obligation to guarantee women’s right to life and health. The author quotes statistics, including statistics from WHO, according to which over 4,000 maternal deaths occur each year in Brazil, representing one third of all maternal deaths in Latin America. The submission also refers to a United Nations assessment, according to which maternal mortality rates are “considerably higher than those of countries with lesser levels of economic development, and are generally conceded to be unacceptable”.[[fn:7]] The continued high rates of maternal mortality in the State party constitute a systematic failure to prioritize and protect women’s basic human rights. The preventable maternal death of Ms. da Silva Pimentel Teixeira clearly exemplifies this failure.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "United Nations country team, A UN Reading of Brazil’s Challenges and Potential (2005), para. 40 (available from http://www.unodc.org/pdf/brazil/Final%20CCA%20Brazil%20(eng).pdf)."
+      }
+    ]
   },
   {
     "ID": "5.2.",
@@ -364,7 +406,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author challenges the State party’s assertion that the case has not extended beyond the normal time frame for legal actions of this nature, implicitly arguing that the case thereby does not fall within the “unreasonably prolonged” exception to the requirement of the exhaustion of domestic remedies. This argument ignores the significant delays imposed by the State party that have effectively barred the petitioner from resolving her case in a domestic court. The family originally filed a petition for material and moral damages on 11 February 2003, just three months after the death. Almost eight years have elapsed since this petition was filed, but judicial activity on the case has been minimal and it is not clear when the court will reach a decision. The State party does not adequately address the unreasonably prolonged delay in its comments, stating only that the case is currently in the judgement phase following oral arguments by both parties and that “unjustified delays in concluding the case” are unlikely. However, it is uncontested that the legal action was filed on 11 February 2003 and that the expert’s work was not completed until August 2007, over four years later. Furthermore, contrary to the statement by the State party that a judgement on the merits would be issued in July 2008, such a judgement has yet to occur. The author argues therefore that the failure to reach a conclusion on the merits of the domestic case can no longer be considered reasonable and refers to, inter alia, the case of A.T. v. Hungary, where the Committee found that a three-year delay in a domestic violence case amounted to an unreasonably prolonged delay within the meaning of article 4, paragraph 1, of the Optional Protocol. The author further refers to the Committee’s statement in the same case that domestic violence cases in the State in question do not enjoy priority in judicial proceedings and argues that this finding is analogous to the situation in the State party, where proceedings involving violence against women and women’s health, especially with regard to women from vulnerable groups, including women from low socio-economic backgrounds and of African descent, are not prioritized in the court system. Moreover, the State party did not clarify why appointing one medical expert should make the case an exceedingly complex one. The family did not act to protract the lengthy judicial proceedings and the conduct of state and judicial authorities has been the primary reason for the unreasonable prolongation of the case. First, it took the domestic court almost four years to appoint a final medical expert, even though court rules require such an appointment within a period of 10 days. Secondly, even after the eventual completion of the expert work and statements by both parties, more than one year has elapsed and has not met its own deadline for declaring a judgement on the merits. Thirdly, does not address the significant judicial delays in the family’s use of the provisional remedy of tutela antecipada."
+    "Text": "The author challenges the State party’s assertion that the case has not extended beyond the normal time frame for legal actions of this nature, implicitly arguing that the case thereby does not fall within the “unreasonably prolonged” exception to the requirement of the exhaustion of domestic remedies. This argument ignores the significant delays imposed by the State party that have effectively barred the petitioner from resolving her case in a domestic court. The family originally filed a petition for material and moral damages on 11 February 2003, just three months after the death. Almost eight years have elapsed since this petition was filed, but judicial activity on the case has been minimal and it is not clear when the court will reach a decision. The State party does not adequately address the unreasonably prolonged delay in its comments, stating only that the case is currently in the judgement phase following oral arguments by both parties and that “unjustified delays in concluding the case” are unlikely. However, it is uncontested that the legal action was filed on 11 February 2003 and that the expert’s work was not completed until August 2007, over four years later. Furthermore, contrary to the statement by the State party that a judgement on the merits would be issued in July 2008, such a judgement has yet to occur. The author argues therefore that the failure to reach a conclusion on the merits of the domestic case can no longer be considered reasonable and refers to, inter alia, the case of A.T. v. Hungary, where the Committee found that a three-year delay in a domestic violence case amounted to an unreasonably prolonged delay within the meaning of article 4, paragraph 1, of the Optional Protocol.[[fn:8]] The author further refers to the Committee’s statement in the same case that domestic violence cases in the State in question do not enjoy priority in judicial proceedings and argues that this finding is analogous to the situation in the State party, where proceedings involving violence against women and women’s health, especially with regard to women from vulnerable groups, including women from low socio-economic backgrounds and of African descent, are not prioritized in the court system.[[fn:9]] Moreover, the State party did not clarify why appointing one medical expert should make the case an exceedingly complex one. The family did not act to protract the lengthy judicial proceedings and the conduct of state and judicial authorities has been the primary reason for the unreasonable prolongation of the case. First, it took the domestic court almost four years to appoint a final medical expert, even though court rules require such an appointment within a period of 10 days. Secondly, even after the eventual completion of the expert work and statements by both parties, more than one year has elapsed and Brazil has not met its own deadline for declaring a judgement on the merits. Thirdly, Brazil does not address the significant judicial delays in the family’s use of the provisional remedy of tutela antecipada.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Communication No. 2/2003, A.T. v. Hungary, views adopted on 26 January 2005, para. 8.4."
+      },
+      {
+        "n": 9,
+        "text": "See Inter-American Commission on Human Rights, Access to Justice for Women Victims of Violence in the Americas, paras. 208, 212, 213, 215 and 216 (2007)."
+      }
+    ]
   },
   {
     "ID": "5.4.",
@@ -374,7 +426,7 @@
       "Persons with disabilities",
       "Women/girls"
     ],
-    "Text": "The author states that unreasonable delay has compounded the already devastating effects of the death for the family. Since the filing of the Communication with the Committee in 2007, the family’s already precarious economic situation has worsened. The author, who was the family’s caregiver and sole source of income, was forced to stop working as a housekeeper as a result of ill health. She receives no unemployment benefits. The family of five is forced to subsist on the little money that A.S.P.’s great-grandfather gives to them. Despite the psychological trauma of losing her mother at the age of 5, A.S.P. has not received the necessary medical and psychological treatment owing to financial reasons. She has also developed a speaking disability, and she is having difficulties with her education. The author submits that A.S.P.’s current tragic living situation presents an ongoing violation of ’s obligations under the Convention, as well as of its own domestic legal system and the Convention on the Rights of the Child."
+    "Text": "The author states that unreasonable delay has compounded the already devastating effects of the death for the family. Since the filing of the Communication with the Committee in 2007, the family’s already precarious economic situation has worsened. The author, who was the family’s caregiver and sole source of income, was forced to stop working as a housekeeper as a result of ill health. She receives no unemployment benefits. The family of five is forced to subsist on the little money that A.S.P.’s great-grandfather gives to them. Despite the psychological trauma of losing her mother at the age of 5, A.S.P. has not received the necessary medical and psychological treatment owing to financial reasons. She has also developed a speaking disability, and she is having difficulties with her education. The author submits that A.S.P.’s current tragic living situation presents an ongoing violation of Brazil’s obligations under the Convention, as well as of its own domestic legal system and the Convention on the Rights of the Child."
   },
   {
     "ID": "5.5.",
@@ -383,7 +435,21 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "Beyond the framework of admissibility, the author argues that the State party does not address the problem of systemic delays within its judicial system which violate the right to effective protection under article 2, paragraph (c), of the Convention on the Elimination of All Forms of Discrimination against Women. The State party has routinely failed to provide adequate judicial remedies for women from vulnerable groups, such as Ms. da Silva Pimentel Teixeira and her family. Judicial delays are compounded for some of the most vulnerable segments of society; women from lower socio-economic backgrounds and women of African descent face widespread difficulties “in availing themselves of judicial remedies to redress acts of violence and discrimination committed against them”. For the victim’s daughter, these delays mean that her day-to-day life has become yet more precarious. Children who have lost their mothers face an increased risk of dying, are less likely to attend school and may receive less health care in their lifetime. For this reason, children like A.S.P. are legally entitled to special measures of protection under ’s domestic law. Instead, the continued inaction of the domestic courts means that A.S.P.’s rights are being endangered, risking irreparable harm."
+    "Text": "Beyond the framework of admissibility, the author argues that the State party does not address the problem of systemic delays within its judicial system which violate the right to effective protection under article 2, paragraph (c), of the Convention on the Elimination of All Forms of Discrimination against Women. The State party has routinely failed to provide adequate judicial remedies for women from vulnerable groups,[[fn:10]] such as Ms. da Silva Pimentel Teixeira and her family. Judicial delays are compounded for some of the most vulnerable segments of society; women from lower socio-economic backgrounds and women of African descent face widespread difficulties “in availing themselves of judicial remedies to redress acts of violence and discrimination committed against them”.[[fn:11]] For the victim’s daughter, these delays mean that her day-to-day life has become yet more precarious. Children who have lost their mothers face an increased risk of dying, are less likely to attend school and may receive less health care in their lifetime. For this reason, children like A.S.P. are legally entitled to special measures of protection under Brazil’s domestic law.[[fn:12]] Instead, the continued inaction of the domestic courts means that A.S.P.’s rights are being endangered, risking irreparable harm.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See Access to Justice for Women Victims of Violence in the Americas, paras. 88 and 89."
+      },
+      {
+        "n": 11,
+        "text": "Ibid., para. 213."
+      },
+      {
+        "n": 12,
+        "text": "Estatuto da Criança e do Adolescente, arts. 4, 11 and 53."
+      }
+    ]
   },
   {
     "ID": "5.6.",
@@ -391,7 +457,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "With regard to the obligations of the State party under the Convention, the author argues that the implementation of the right to health entails certain obligations of immediate effect, including eliminating discrimination and taking steps towards full realization of the right. The requirement that health facilities be available on a non-discriminatory basis is therefore an obligation of immediate effect. The right to health entails specific legal obligations for States parties, which must respect, protect and fulfil the right. Simply adopting a national health strategy does not suffice to meet the obligations of the State party. That strategy must also be implemented and periodically reviewed, on the basis of a participatory and transparent process. The author refers to the Committee’s concluding observations in which it made clear that ’s implementation of its national health policies remains insufficient for full compliance with the Convention in the field of maternal health. The Committee noted in particular that was experiencing problems in implementing the provisions of the Convention at all levels of the in a consistent manner, which were linked to the different degree of political will and commitment of state and municipal authorities. The need for impact assessments of policies through indicators and benchmarks had been discussed by the Committee in reference to , but had not addressed any effort to such results-based monitoring."
+    "Text": "With regard to the obligations of the State party under the Convention, the author argues that the implementation of the right to health entails certain obligations of immediate effect, including eliminating discrimination and taking steps towards full realization of the right. The requirement that health facilities be available on a non-discriminatory basis is therefore an obligation of immediate effect. The right to health entails specific legal obligations for States parties, which must respect, protect and fulfil the right. Simply adopting a national health strategy does not suffice to meet the obligations of the State party. That strategy must also be implemented and periodically reviewed, on the basis of a participatory and transparent process.[[fn:13]] The author refers to the Committee’s concluding observations in which it made clear that Brazil’s implementation of its national health policies remains insufficient for full compliance with the Convention in the field of maternal health. The Committee noted in particular that Brazil was experiencing problems in implementing the provisions of the Convention at all levels of the Federal Republic in a consistent manner, which were linked to the different degree of political will and commitment of state and municipal authorities. The need for impact assessments of policies through indicators and benchmarks had been discussed by the Committee in reference to Brazil, but Brazil had not addressed any effort to such results-based monitoring.[[fn:14]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "The author refers in this respect to general comment No. 14 of the Committee on Economic, Social and Cultural Rights."
+      },
+      {
+        "n": 14,
+        "text": "See CEDAW/C/BRA/CO/6."
+      }
+    ]
   },
   {
     "ID": "5.7.",
@@ -405,7 +481,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author argues that the programmes of the State party have not demonstrated the concrete measures and outcomes as required by the Convention. Although the National Pact to Reduce Maternal and Neonatal Death establishes laudable goals for the reduction of maternal mortality, the high levels of maternal mortality have not meaningfully changed. This is due to at least three factors. First, there are a variety of coordination problems. Secondly, ’s health policies need to be backed up by adequate funding which is equitably allocated: although 10 per cent of Government spending is dedicated to health, spending on maternal health is minimal in comparison with other programmes. spent only $96 per capita on health in 2003, a distressingly low figure. Thirdly, policies are not linked to the achievement of results through health indicators and benchmarks. For example, financing of the health system is not linked to results, which in turn are not sufficiently evaluated."
+    "Text": "The author argues that the programmes of the State party have not demonstrated the concrete measures and outcomes as required by the Convention. Although the National Pact to Reduce Maternal and Neonatal Death establishes laudable goals for the reduction of maternal mortality, the high levels of maternal mortality have not meaningfully changed. This is due to at least three factors. First, there are a variety of coordination problems. Secondly, Brazil’s health policies need to be backed up by adequate funding which is equitably allocated: although 10 per cent of Government spending is dedicated to health, spending on maternal health is minimal in comparison with other programmes. Brazil spent only $96 per capita on health in 2003, a distressingly low figure. Thirdly, policies are not linked to the achievement of results through health indicators and benchmarks. For example, financing of the health system is not linked to results, which in turn are not sufficiently evaluated."
   },
   {
     "ID": "5.9.",
@@ -413,7 +489,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author challenges the reasoning of the State party, according to which the communication does not offer a single link between Ms. da Silva Pimentel Teixeira’s gender and the possible medical errors committed and therefore they do not fall within the definition of discrimination set out in the Convention. The author argues that this reasoning overlooks the definition of discrimination described in the Convention and other international human rights treaties. Discrimination includes State actions which have the effect of creating a barrier to the enjoyment of human rights, including the right to the highest attainable standard of health. Under article 1 of the Convention, discrimination against women is defined as “any distinction, exclusion or restriction made on the basis of sex which has the effect or purpose of impairing or nullifying the recognition, enjoyment or exercise by women … of human rights”. Article 2, paragraph (d), of the Convention requires that States “refrain from engaging in any act or practice of discrimination against women and to ensure that public authorities and institutions shall act in conformity with this obligation”. To ensure the realization of the right to health, States must provide access to maternal health services in a non-discriminatory manner. This requirement is not formalistic, but rather requires States to address the “distinctive features and factors which differ for women in comparison to men”, including the biological factors associated with reproductive health. The denial or neglect of health-care interventions that only women need is a form of discrimination against women."
+    "Text": "The author challenges the reasoning of the State party, according to which the communication does not offer a single link between Ms. da Silva Pimentel Teixeira’s gender and the possible medical errors committed and therefore they do not fall within the definition of discrimination set out in the Convention. The author argues that this reasoning overlooks the definition of discrimination described in the Convention and other international human rights treaties. Discrimination includes State actions which have the effect of creating a barrier to the enjoyment of human rights, including the right to the highest attainable standard of health. Under article 1 of the Convention, discrimination against women is defined as “any distinction, exclusion or restriction made on the basis of sex which has the effect or purpose of impairing or nullifying the recognition, enjoyment or exercise by women … of human rights”. Article 2, paragraph (d), of the Convention requires that States “refrain from engaging in any act or practice of discrimination against women and to ensure that public authorities and institutions shall act in conformity with this obligation”. To ensure the realization of the right to health, States must provide access to maternal health services in a non-discriminatory manner. This requirement is not formalistic, but rather requires States to address the “distinctive features and factors which differ for women in comparison to men”, including the biological factors associated with reproductive health.[[fn:15]] The denial or neglect of health-care interventions that only women need is a form of discrimination against women.",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "See the Committee’s general recommendation No. 24, paras. 11 and 12, and general recommendation No. 25 (2004) on article 4, para. 1, of the Convention (temporary special measures), para. 8."
+      }
+    ]
   },
   {
     "ID": "5.10.",
@@ -427,7 +509,7 @@
     "ID": "5.11.",
     "Section": "Author’s comments on the observations of the State party on admissibility \nand merits",
     "Labels": [],
-    "Text": "The State party definition of discrimination is overly narrow because it fails to recognize the distinction between de jure and de facto discrimination. The Committee has addressed this problem in its concluding observations regarding ."
+    "Text": "The State party definition of discrimination is overly narrow because it fails to recognize the distinction between de jure and de facto discrimination. The Committee has addressed this problem in its concluding observations regarding Brazil."
   },
   {
     "ID": "5.12.",
@@ -436,7 +518,21 @@
       "Persons with disabilities",
       "Women/girls"
     ],
-    "Text": "With regard to the responsibility of the State party at the international level, the author refers to article 2 (e) of the Convention, according to which States parties must “take all appropriate measures to eliminate discrimination against women by any person, organization or enterprise”. This obligation is further explained in the Committee’s general recommendation No. 24 (1999) on article 12 of the Convention (women and health), which, in its paragraph 15, requires States parties to “take action to prevent and impose sanctions for violations of rights by private persons and organizations”. The State party has acknowledged that States parties cannot absolve themselves of responsibility in these areas by delegating or transferring these powers to private-sector agencies. Jurisprudence from the Committee on the Elimination of Discrimination against Women and the Inter-American Court of Human Rights establish State liability for medical malpractice committed in private health institutions. Significantly, in Ximenes Lopes v. Brazil, the Inter-American Commission on Human Rights noted that the petitioner had received mental health care from “a private entity licensed by the Federal Government’s Single Health System”, although had not contested liability on these grounds. In the ultimate decision of the , this public/private distinction was no longer a central issue; the liability of the for human rights violations at the publicly licensed private health facility was assumed. Additionally, in A.S. v. Hungary, the Committee stated that was required to monitor both public and private institutions for violations of human rights under the Convention."
+    "Text": "With regard to the responsibility of the State party at the international level, the author refers to article 2 (e) of the Convention, according to which States parties must “take all appropriate measures to eliminate discrimination against women by any person, organization or enterprise”. This obligation is further explained in the Committee’s general recommendation No. 24 (1999) on article 12 of the Convention (women and health), which, in its paragraph 15, requires States parties to “take action to prevent and impose sanctions for violations of rights by private persons and organizations”. The State party has acknowledged that States parties cannot absolve themselves of responsibility in these areas by delegating or transferring these powers to private-sector agencies. Jurisprudence from the Committee on the Elimination of Discrimination against Women and the Inter-American Court of Human Rights establish State liability for medical malpractice committed in private health institutions. Significantly, in Ximenes Lopes v. Brazil, the Inter-American Commission on Human Rights noted that the petitioner had received mental health care from “a private entity licensed by the Federal Government’s Single Health System”, although Brazil had not contested liability on these grounds.[[fn:16]] In the ultimate decision of the Inter-American Court, this public/private distinction was no longer a central issue; the liability of the Brazilian State for human rights violations at the publicly licensed private health facility was assumed.[[fn:17]] Additionally, in A.S. v. Hungary, the Committee stated that Hungary was required to monitor both public and private institutions for violations of human rights under the Convention.[[fn:18]]",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "Inter-American Commission on Human Rights, Damião Ximenes Lopes v. Brazil, petition 12.237, report No. 38/02, para. 19."
+      },
+      {
+        "n": 17,
+        "text": "Ximenes Lopes v. Brazil, Inter-American Court of Human Rights, series C, No. 149 (4 July 2006)."
+      },
+      {
+        "n": 18,
+        "text": "Communication No. 4/2004, A.S. v. Hungary, views adopted on 14 August 2006, para. 11.5."
+      }
+    ]
   },
   {
     "ID": "5.13.",
@@ -452,7 +548,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "WHO defines a maternal death as “the death of a woman while pregnant or within 42 days of termination of pregnancy, irrespective of the duration and site of the pregnancy, from any cause related to or aggravated by the pregnancy or its management but not from accidental or incidental causes”. The author notes that officially claims to use these official WHO classifications for maternal death, but that they have been improperly applied to the case."
+    "Text": "WHO defines a maternal death as “the death of a woman while pregnant or within 42 days of termination of pregnancy, irrespective of the duration and site of the pregnancy, from any cause related to or aggravated by the pregnancy or its management but not from accidental or incidental causes”.[[fn:19]] The author notes that Brazil officially claims to use these official WHO classifications for maternal death,[[fn:20]] but that they have been improperly applied to the case.",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "WHO, Maternal Mortality in 2005: Estimates Developed by WHO, UNICEF, UNFPA, and the World Bank, p. 4."
+      },
+      {
+        "n": 20,
+        "text": "Ministério da Saúde, Manual dos Comites de Mortalidade Materna (3rd ed., 2007), p. 12."
+      }
+    ]
   },
   {
     "ID": "5.15.",
@@ -468,7 +574,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author argues that the classification of Ms. da Silva Pimentel Teixeira’s death as non-maternal exemplifies the widespread underreporting and misclassification of maternal deaths in the State party. The State party faces recurring problems with respect to the official death certificates designed to document maternal deaths. The information on death certificates tends to be of poor quality or is simply incorrect. There are two specific informational problems related to death certificates, both of which are likely factors leading to ’s misclassification of Ms. da Silva Pimentel Teixeira’s death as non-maternal. First, doctors commonly fail to record on the death certificate the fact that the patient was pregnant or had recently delivered, leading to the misclassification of many deaths as non-maternal. In Ms. da Silva Pimentel Teixeira’s case, there is no mention of pregnancy on the official death certificate. Second, doctors in often fail to relate the immediate or final cause of death to the patient’s pregnancy, further leading many deaths to be classified as non-maternal. The Ministry of Health has recognized the difficulties of monitoring maternal mortality when doctors do not relate deaths to the patient’s pregnancy. Physicians often declare the cause of death to be a “terminal complication”, or use other medical terms, such as “haemorrhage”, that are not specifically connected to pregnancy. Ms. da Silva Pimentel Teixeira’s pregnancy is not explicitly mentioned on her death certificate, and the phrase “digestive haemorrhage” does not link her pregnancy to her death. In fact, this cause of death statement is incomplete and insufficient according to both international and Brazilian medical standards. The autopsy process did not meet basic medical standards in regard to its thoroughness and its determination of the cause of death. This brief description of the cause of death closely parallels ’s common reporting problems, raising concerns about its reliability. Furthermore, there is scant information to subsequently review in these official documents that would clarify the nature of Ms. da Silva Pimentel Teixeira’s death."
+    "Text": "The author argues that the classification of Ms. da Silva Pimentel Teixeira’s death as non-maternal exemplifies the widespread underreporting and misclassification of maternal deaths in the State party. The State party faces recurring problems with respect to the official death certificates designed to document maternal deaths. The information on death certificates tends to be of poor quality or is simply incorrect. There are two specific informational problems related to death certificates, both of which are likely factors leading to Brazil’s misclassification of Ms. da Silva Pimentel Teixeira’s death as non-maternal. First, doctors commonly fail to record on the death certificate the fact that the patient was pregnant or had recently delivered, leading to the misclassification of many deaths as non-maternal. In Ms. da Silva Pimentel Teixeira’s case, there is no mention of pregnancy on the official death certificate. Second, doctors in Brazil often fail to relate the immediate or final cause of death to the patient’s pregnancy, further leading many deaths to be classified as non-maternal. The Ministry of Health has recognized the difficulties of monitoring maternal mortality when doctors do not relate deaths to the patient’s pregnancy. Physicians often declare the cause of death to be a “terminal complication”, or use other medical terms, such as “haemorrhage”, that are not specifically connected to pregnancy. Ms. da Silva Pimentel Teixeira’s pregnancy is not explicitly mentioned on her death certificate, and the phrase “digestive haemorrhage” does not link her pregnancy to her death. In fact, this cause of death statement is incomplete and insufficient according to both international and Brazilian medical standards. The autopsy process did not meet basic medical standards in regard to its thoroughness and its determination of the cause of death. This brief description of the cause of death closely parallels Brazil’s common reporting problems, raising concerns about its reliability. Furthermore, there is scant information to subsequently review in these official documents that would clarify the nature of Ms. da Silva Pimentel Teixeira’s death."
   },
   {
     "ID": "5.17.",
@@ -476,7 +582,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Lastly, the author claims that although most states in have maternal mortality committees, which are designed to investigate suspected maternal deaths on both a state and local level, there is no such committee in the city of , where Ms. da Silva Pimentel Teixeira lived. Her death was investigated by an outside committee, the health system Mortality Committee, which only examined her medical records and did not conduct any further investigation, even though such an investigation is required by the Ministry of Health. Furthermore, the reliance of the State party on the decision of the Mortality Committee raises concerns because the State has refused to submit this decision to the Committee on the Elimination of Discrimination against Women."
+    "Text": "Lastly, the author claims that although most states in Brazil have maternal mortality committees, which are designed to investigate suspected maternal deaths on both a state and local level, there is no such committee in the city of Belford Roxo, where Ms. da Silva Pimentel Teixeira lived. Her death was investigated by an outside committee, the health system Mortality Committee, which only examined her medical records and did not conduct any further investigation, even though such an investigation is required by the Ministry of Health. Furthermore, the reliance of the State party on the decision of the Mortality Committee raises concerns because the State has refused to submit this decision to the Committee on the Elimination of Discrimination against Women."
   },
   {
     "ID": "6.1.",
@@ -516,7 +622,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Although the State party argued that Ms. da Silva Pimentel Teixeira’s death was non-maternal and that the probable cause of her death was digestive haemorrhage, the Committee notes that the sequence of events described by the author and not contested by the State party, as well as expert opinion provided by the author, indicate that her death was indeed linked to obstetric complications related to pregnancy. Her complaints of severe nausea and abdominal pain during her sixth month of pregnancy were ignored by the health centre, which failed to perform an urgent blood and urine test to ascertain whether the foetus had died. The tests were done two days later, which led to a deterioration of Ms. da Silva Pimentel Teixeira’s condition. The Committee recalls its general recommendation No. 24, in which it states that it is the duty of States parties to ensure women’s right to safe motherhood and emergency obstetric services, and to allocate to these services the maximum extent of available resources. It also states that measures to eliminate discrimination against women are considered to be inappropriate in a health-care system which lacks services to prevent, detect and treat illnesses specific to women. In the light of these observations, the Committee also rejects the argument of the State party that the communication did not contain a causal link between Ms. da Silva Pimentel Teixeira’s gender and the possible medical errors committed, but that the claims concerned a lack of access to medical care related to pregnancy. The Committee therefore is of the view that the death of Ms. da Silva Pimentel Teixeira must be regarded as maternal."
+    "Text": "Although the State party argued that Ms. da Silva Pimentel Teixeira’s death was non-maternal and that the probable cause of her death was digestive haemorrhage, the Committee notes that the sequence of events described by the author and not contested by the State party, as well as expert opinion provided by the author, indicate that her death was indeed linked to obstetric complications related to pregnancy. Her complaints of severe nausea and abdominal pain during her sixth month of pregnancy were ignored by the health centre, which failed to perform an urgent blood and urine test to ascertain whether the foetus had died. The tests were done two days later, which led to a deterioration of Ms. da Silva Pimentel Teixeira’s condition. The Committee recalls its general recommendation No. 24, in which it states that it is the duty of States parties to ensure women’s right to safe motherhood and emergency obstetric services, and to allocate to these services the maximum extent of available resources.[[fn:21]] It also states that measures to eliminate discrimination against women are considered to be inappropriate in a health-care system which lacks services to prevent, detect and treat illnesses specific to women.[[fn:22]] In the light of these observations, the Committee also rejects the argument of the State party that the communication did not contain a causal link between Ms. da Silva Pimentel Teixeira’s gender and the possible medical errors committed, but that the claims concerned a lack of access to medical care related to pregnancy. The Committee therefore is of the view that the death of Ms. da Silva Pimentel Teixeira must be regarded as maternal.",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "Para. 27."
+      },
+      {
+        "n": 22,
+        "text": "Para. 11."
+      }
+    ]
   },
   {
     "ID": "7.4.",
@@ -538,7 +654,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee notes that the author claims that the lack of access to quality medical care during delivery is a systematic problem in , especially with regard to the way human resources are managed in the Brazilian health system. The Committee also takes note of the argument of the State party that specific medical care was not denied because of an absence of public policies and measures within the State party, as there are a number of policies in place to address the specific needs of women. The Committee refers to its general recommendation No. 28 (2010) on the core obligations of States parties under article 2 of the Convention and notes that the policies of the State party must be action- and results-oriented as well as adequately funded. Furthermore, the policy must ensure that there are strong and focused bodies within the executive branch to implement such policies. The lack of appropriate maternal health services in the State party that clearly fails to meet the specific, distinctive health needs and interests of women not only constitutes a violation of article 12, paragraph 2, of the Convention, but also discrimination against women under article 12, paragraph 1, and article 2 of the Convention. Furthermore, the lack of appropriate maternal health services has a differential impact on the right to life of women."
+    "Text": "The Committee notes that the author claims that the lack of access to quality medical care during delivery is a systematic problem in Brazil, especially with regard to the way human resources are managed in the Brazilian health system. The Committee also takes note of the argument of the State party that specific medical care was not denied because of an absence of public policies and measures within the State party, as there are a number of policies in place to address the specific needs of women. The Committee refers to its general recommendation No. 28 (2010) on the core obligations of States parties under article 2 of the Convention and notes that the policies of the State party must be action- and results-oriented as well as adequately funded.[[fn:23]] Furthermore, the policy must ensure that there are strong and focused bodies within the executive branch to implement such policies. The lack of appropriate maternal health services in the State party that clearly fails to meet the specific, distinctive health needs and interests of women not only constitutes a violation of article 12, paragraph 2, of the Convention, but also discrimination against women under article 12, paragraph 1, and article 2 of the Convention. Furthermore, the lack of appropriate maternal health services has a differential impact on the right to life of women.",
+    "Footnotes": [
+      {
+        "n": 23,
+        "text": "Para. 28."
+      }
+    ]
   },
   {
     "ID": "7.7.",
@@ -547,7 +669,7 @@
       "LGBTI+",
       "Women/girls"
     ],
-    "Text": "The Committee notes the author’s claim that Ms. da Silva Pimentel Teixeira suffered from multiple discrimination, being a woman of African descent and on the basis of her socio-economic background. In this regard, the Committee recalls its concluding observations on , adopted on 15 August 2007, where it noted the existence of de facto discrimination against women, especially women from the most vulnerable sectors of society such as women of African descent. It also noted that such discrimination was exacerbated by regional, economic and social disparities. The Committee also recalls its general recommendation No. 28 (2010) on the core obligations of States parties under article 2 of the Convention, recognizing that discrimination against women based on sex and gender is inextricably linked to other factors that affect women, such as race, ethnicity, religion or belief, health, status, age, class, caste, and sexual orientation and gender identity. The Committee notes that the State party did not rule out that discrimination might have contributed to some extent, but not decisively, to the death of the author’s daughter. The State party also acknowledged that the convergence or association of the different elements described by the author may have contributed to the failure to provide necessary and emergency care to her daughter, resulting in her death. In such circumstances, the Committee concludes that Ms. da Silva Pimentel Teixeira was discriminated against, not only on the basis of her sex, but also on the basis of her status as a woman of African descent and her socio-economic background."
+    "Text": "The Committee notes the author’s claim that Ms. da Silva Pimentel Teixeira suffered from multiple discrimination, being a woman of African descent and on the basis of her socio-economic background. In this regard, the Committee recalls its concluding observations on Brazil, adopted on 15 August 2007, where it noted the existence of de facto discrimination against women, especially women from the most vulnerable sectors of society such as women of African descent. It also noted that such discrimination was exacerbated by regional, economic and social disparities. The Committee also recalls its general recommendation No. 28 (2010) on the core obligations of States parties under article 2 of the Convention, recognizing that discrimination against women based on sex and gender is inextricably linked to other factors that affect women, such as race, ethnicity, religion or belief, health, status, age, class, caste, and sexual orientation and gender identity. The Committee notes that the State party did not rule out that discrimination might have contributed to some extent, but not decisively, to the death of the author’s daughter. The State party also acknowledged that the convergence or association of the different elements described by the author may have contributed to the failure to provide necessary and emergency care to her daughter, resulting in her death. In such circumstances, the Committee concludes that Ms. da Silva Pimentel Teixeira was discriminated against, not only on the basis of her sex, but also on the basis of her status as a woman of African descent and her socio-economic background."
   },
   {
     "ID": "7.8.",
@@ -581,7 +703,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "General: (a) Ensure women’s right to safe motherhood and affordable access for all women to adequate emergency obstetric care, in line with general recommendation No. 24 (1999) on women and health; (b) Provide adequate professional training for health workers, especially on women’s reproductive health rights, including quality medical treatment during pregnancy and delivery, as well as timely emergency obstetric care; (c) Ensure access to effective remedies in cases where women’s reproductive health rights have been violated and provide training for the judiciary and for law enforcement personnel; (d) Ensure that private health-care facilities comply with relevant national and international standards on reproductive health care; (e) Ensure that adequate sanctions are imposed on health professionals who violate women’s reproductive health rights; (f) Reduce preventable maternal deaths through the implementation of the National Pact for the Reduction of Maternal Mortality at state and municipal levels, including by establishing maternal mortality committees where they still do not exist, in line with the recommendations in its concluding observations for , adopted on 15 August 2007 (CEDAW/C/BRA/CO/6)."
+    "Text": "General: (a) Ensure women’s right to safe motherhood and affordable access for all women to adequate emergency obstetric care, in line with general recommendation No. 24 (1999) on women and health; (b) Provide adequate professional training for health workers, especially on women’s reproductive health rights, including quality medical treatment during pregnancy and delivery, as well as timely emergency obstetric care; (c) Ensure access to effective remedies in cases where women’s reproductive health rights have been violated and provide training for the judiciary and for law enforcement personnel; (d) Ensure that private health-care facilities comply with relevant national and international standards on reproductive health care; (e) Ensure that adequate sanctions are imposed on health professionals who violate women’s reproductive health rights; (f) Reduce preventable maternal deaths through the implementation of the National Pact for the Reduction of Maternal Mortality at state and municipal levels, including by establishing maternal mortality committees where they still do not exist, in line with the recommendations in its concluding observations for Brazil, adopted on 15 August 2007 (CEDAW/C/BRA/CO/6)."
   },
   {
     "ID": "9.",

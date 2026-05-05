@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [
       "Women/girls"
     ],
@@ -9,7 +9,7 @@
   },
   {
     "ID": "1.2.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [],
     "Text": "On 1 December 2017, the Committee, acting under article 5 (1) of the Optional Protocol to the Convention and rule 63 of its rules of procedure, through its Working Group on Communications under the Optional Protocol, requested the State party to refrain from returning the author to Italy pending consideration of her communication. On 7 December 2017, the State party informed the Committee that the State Secretariat for Migration had requested the competent authority not to take any steps to transfer the author to Italy."
   },
@@ -32,7 +32,13 @@
     "ID": "2.3.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "The Swiss authorities asked Italy to readmit the author under the Dublin III Regulation, and Italy agreed to her readmission on 26 January 2016. On 1 March 2016, the State Secretariat for Migration decided not to consider the author’s asylum application and ordered her return to Italy. On 14 July 2016, the Swiss authorities took the author to the Italian border by car. The author was not directed to the competent Italian authorities and her medical file was not transmitted to Italy. The author was not informed that she had to go to the questura in Florence, the competent authority for her integration in Italy. With just 30 Swiss francs in her possession, she wandered the parks of Como with other migrants for 12 days. In August 2016, the author finally made her way back to Switzerland and settled with her customary husband in Sankt Gallen with a view to starting a family."
+    "Text": "The Swiss authorities asked Italy to readmit the author under the Dublin III Regulation,[[fn:1]] and Italy agreed to her readmission on 26 January 2016. On 1 March 2016, the State Secretariat for Migration decided not to consider the author’s asylum application and ordered her return to Italy. On 14 July 2016, the Swiss authorities took the author to the Italian border by car. The author was not directed to the competent Italian authorities and her medical file was not transmitted to Italy. The author was not informed that she had to go to the questura in Florence, the competent authority for her integration in Italy. With just 30 Swiss francs in her possession, she wandered the parks of Como with other migrants for 12 days. In August 2016, the author finally made her way back to Switzerland and settled with her customary husband in Sankt Gallen with a view to starting a family.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "Regulation (EU) No. 604/2013 of the European Parliament and of the Council of 26 June 2013 establishing the criteria and mechanisms for determining the Member State responsible for examining an application for international protection lodged in one of the Member States by a third-country national or a stateless person."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -47,7 +53,7 @@
     "ID": "2.5.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "On 12 August 2016, the author filed a new asylum application in Switzerland through her lawyer, as well as a request to move to another canton. On 10 October 2016, the State Secretariat for Migration issued a second decision of non-consideration and ordered the author’s return to Italy. On 20 October 2016, it denied the author’s request to move to another canton. On 5 December 2016, the Federal Administrative Court annulled the decision of the State Secretariat on appeal and ordered a further investigation into the case. On 25 January 2017, the State Secretariat for Migration issued another decision of non-consideration and ordered the applicant’s return to Italy. On 19 July 2017, the Court rejected the author’s appeal."
+    "Text": "On 12 August 2016, the author filed a new asylum application in Switzerland through her lawyer, as well as a request to move to another canton. On 10 October 2016, the State Secretariat for Migration issued a second decision of nonconsideration and ordered the author’s return to Italy. On 20 October 2016, it denied the author’s request to move to another canton. On 5 December 2016, the Federal Administrative Court annulled the decision of the State Secretariat on appeal and ordered a further investigation into the case. On 25 January 2017, the State Secretariat for Migration issued another decision of non-consideration and ordered the applicant’s return to Italy. On 19 July 2017, the Court rejected the author’s appeal."
   },
   {
     "ID": "2.6.",
@@ -71,7 +77,21 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author makes reference to numerous reports on the context in Italy in the face of the Mediterranean migration crisis and on vulnerable asylum seekers, in particular women victims of trafficking and prostitution. The author stresses that, while it is possible, in principle, to get access to health care in Italy, only partial financial coverage by the State is possible during the first two months, and access would be limited for the author because of social exclusion. Furthermore, Italy does not have a system to identify trafficked persons and its primary reception centres for asylum seekers do not have a service offering psychological support."
+    "Text": "The author makes reference to numerous reports on the context in Italy in the face of the Mediterranean migration crisis[[fn:2]] and on vulnerable asylum seekers, in particular women victims of trafficking and prostitution. The author stresses that, while it is possible, in principle, to get access to health care in Italy, only partial financial coverage by the State is possible during the first two months, and access would be limited for the author because of social exclusion.[[fn:3]] Furthermore, Italy does not have a system to identify trafficked persons and its primary reception centres for asylum seekers do not have a service offering psychological support.[[fn:4]]",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "The author cites statistics of the Office of the United Nations High Commissioner for Refugees, available at https://data2.unhcr.org/en/situations/mediterranean."
+      },
+      {
+        "n": 3,
+        "text": "Médecins sans frontières, “Fuori campo – Richiedenti asilo e rifugiati in Italia: insediamenti informali e marginalità sociale”, March 2016."
+      },
+      {
+        "n": 4,
+        "text": "Médecins sans frontières, “Neglected trauma – Asylum seekers in Italy: an analysis of mental health distress and access to healthcare”, 15 July 2016."
+      }
+    ]
   },
   {
     "ID": "2.9.",
@@ -79,7 +99,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author cites the conclusions in a report by the Group of Experts on Action against Trafficking in Human Beings of the Council of Europe, in which the Group of Experts states that it is aware of the extreme difficulties that Italy is experiencing owing to the unprecedented influx of migrants and refugees and praises the significant efforts that the country has made to confront that challenge with the help of international organizations and civil society. In the report, which was prepared following a visit made in September 2016, the Group of Experts revealed shortcomings in the detection of trafficked persons among the migrants. It paid particular attention to the situation of Nigerian women and girls, who had been coming to Italy in increasing numbers, and of whom many were likely to have been trafficked for purposes of exploitation in Europe. The Group of Experts expressed its concern about the lack of early identification of such trafficked persons and about the manner in which forced removals of trafficked persons to their countries of origin were conducted. The Group of Experts urged the Italian authorities to improve the identification of victims of trafficking among migrants and asylum seekers by setting up clear, binding procedures and providing systematic training to immigration police officers and staff working in primary assistance and reception centres."
+    "Text": "The author cites the conclusions in a report by the Group of Experts on Action against Trafficking in Human Beings of the Council of Europe,[[fn:5]] in which the Group of Experts states that it is aware of the extreme difficulties that Italy is experiencing owing to the unprecedented influx of migrants and refugees and praises the significant efforts that the country has made to confront that challenge with the help of international organizations and civil society. In the report, which was prepared following a visit made in September 2016, the Group of Experts revealed shortcomings in the detection of trafficked persons among the migrants. It paid particular attention to the situation of Nigerian women and girls, who had been coming to Italy in increasing numbers, and of whom many were likely to have been trafficked for purposes of exploitation in Europe. The Group of Experts expressed its concern about the lack of early identification of such trafficked persons and about the manner in which forced removals of trafficked persons to their countries of origin were conducted. The Group of Experts urged the Italian authorities to improve the identification of victims of trafficking among migrants and asylum seekers by setting up clear, binding procedures and providing systematic training to immigration police officers and staff working in primary assistance and reception centres.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Group of Experts on Action against Trafficking in Human Beings, “Report on Italy under rule 7 of the Rules of Procedure for evaluating implementation of the Council of Europe Convention on Action against Trafficking in Human Beings”, 30 January 2017, GRETA(2016)29."
+      }
+    ]
   },
   {
     "ID": "2.10.",
@@ -87,7 +113,17 @@
     "Labels": [
       "Migrants"
     ],
-    "Text": "The author also describes the situation in migrant shelters in Italy. Despite the addition of extra spaces, a total breakdown of the reception system could be avoided over the past two years only because large numbers of arriving migrants left the State’s primary reception centres voluntarily, to evade the identification procedures and the application of the Dublin III Regulation. Moreover, although there are intake procedures for asylum seekers, migrants have to wait weeks or even months before they can submit their asylum applications and, during that time, they have no access to accommodation. In addition, those who have been granted international protection or humanitarian status must leave the reception centres. Investigations have confirmed that even vulnerable persons, such as victims of torture, have no guarantee of being housed in one of the centres for asylum seekers operated by the State and do not have access to adequate support services."
+    "Text": "The author also describes the situation in migrant shelters in Italy. Despite the addition of extra spaces, a total breakdown of the reception system could be avoided over the past two years only because large numbers of arriving migrants left the State’s primary reception centres voluntarily, to evade the identification procedures and the application of the Dublin III Regulation.[[fn:6]] Moreover, although there are intake procedures for asylum seekers, migrants have to wait weeks or even months before they can submit their asylum applications and, during that time, they have no access to accommodation. In addition, those who have been granted international protection or humanitarian status must leave the reception centres. Investigations have confirmed that even vulnerable persons, such as victims of torture, have no guarantee of being housed in one of the centres for asylum seekers operated by the State and do not have access to adequate support services.[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The author again cites the report by Médecins sans frontières, “Fuori campo”."
+      },
+      {
+        "n": 7,
+        "text": "See International Rehabilitation Council for Torture Victims, “Falling through the cracks: asylum procedures and reception conditions for torture victims in the European Union – IRCT Regional Report 2016”, p. 30."
+      }
+    ]
   },
   {
     "ID": "2.11.",
@@ -95,7 +131,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The author also refers to a joint report by the Danish Refugee Council and the Swiss Refugee Council on vulnerable persons transferred to Italy under the Dublin III Regulation. Through six case studies, it is clearly demonstrated that persons transferred to Italy face considerable difficulties, that they are at risk of having their rights violated and that the manner in which families and vulnerable persons are received by the Italian authorities is very arbitrary."
+    "Text": "The author also refers to a joint report by the Danish Refugee Council and the Swiss Refugee Council on vulnerable persons transferred to Italy under the Dublin III Regulation. Through six case studies, it is clearly demonstrated that persons transferred to Italy face considerable difficulties, that they are at risk of having their rights violated and that the manner in which families and vulnerable persons are received by the Italian authorities is very arbitrary.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Danish Refugee Council and Swiss Refugee Council, “Is mutual trust enough? The situation of persons with special reception needs upon return to Italy”, 9 February 2017."
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -111,7 +153,17 @@
       "Refugees & asylum-seekers",
       "Women/girls"
     ],
-    "Text": "The author argues that, under article 2 (d) of the Convention, the State Secretariat for Migration, the Federal Administrative Court and the cantonal authorities responsible for returning her to Italy are obliged to refrain from any act of discrimination against women. The author refers to the Committee’s general recommendation No. 32 (2014) on the gender-related dimensions of refugee status, asylum, nationality and statelessness of women, according to which States parties may not take a decision concerning a person within their jurisdiction that has as a necessary and foreseeable consequence that the person’s basic rights under the Convention will be seriously at risk in another jurisdiction. She adds that States parties have an obligation to ensure that no woman will be expelled or returned to another State where her life, physical integrity, liberty and security of person would be threatened, or where she would risk suffering serious forms of gender-based persecution or gender-based violence. The author holds that sending her back to Italy would expose her to a “real, personal and foreseeable risk” of becoming a victim of serious forms of discrimination against women, in particular gender-based violence. That serious form of discrimination would be a “necessary and foreseeable” consequence of her being sent back to Italy."
+    "Text": "The author argues that, under article 2 (d) of the Convention, the State Secretariat for Migration, the Federal Administrative Court and the cantonal authorities responsible for returning her to Italy are obliged to refrain from any act of discrimination against women. The author refers to the Committee’s general recommendation No. 32 (2014) on the gender-related dimensions of refugee status, asylum, nationality and statelessness of women, according to which States parties may not take a decision concerning a person within their jurisdiction that has as a necessary and foreseeable consequence that the person’s basic rights under the Convention will be seriously at risk in another jurisdiction.[[fn:9]] She adds that States parties have an obligation to ensure that no woman will be expelled or returned to another State where her life, physical integrity, liberty and security of person would be threatened, or where she would risk suffering serious forms of gender-based persecution or gender-based violence.[[fn:10]] The author holds that sending her back to Italy would expose her to a “real, personal and foreseeable risk” of becoming a victim of serious forms of discrimination against women, in particular gender-based violence. That serious form of discrimination would be a “necessary and foreseeable” consequence of her being sent back to Italy.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "CEDAW/C/GC/32, para. 22."
+      },
+      {
+        "n": 10,
+        "text": "Ibid., para. 23, and M.E.N. v. Denmark (CEDAW/C/55/D/35/2011), para. 8.9."
+      }
+    ]
   },
   {
     "ID": "3.3.",
@@ -120,7 +172,13 @@
       "Persons in street situations",
       "Women/girls"
     ],
-    "Text": "With regard to article 6, the author argues that, in view of the facts documented above, she would be at great risk of ending up on the street, homeless and exposed to prostitution, if she were removed to Italy again. She claims that this risk has already materialized during her two earlier stays in Italy, which is confirmed by the conclusions of the above-mentioned reports. The author adds that the individual assessment that the State party made of her case was insufficient, and that the State party therefore failed to recognize the exceptional circumstances she was facing and the imperative need to protect her as a victim of forced marriage and serious sexual abuse. The author refers to the Committee’s general recommendation No. 35 (2017) on gender-based violence against women, updating general recommendation No. 19, in which the Committee states that rape and sexual slavery may amount to torture or cruel, inhuman or degrading treatment, and recommends that States parties provide appropriate and accessible protective mechanisms to prevent further violence against women."
+    "Text": "With regard to article 6, the author argues that, in view of the facts documented above, she would be at great risk of ending up on the street, homeless and exposed to prostitution, if she were removed to Italy again. She claims that this risk has already materialized during her two earlier stays in Italy, which is confirmed by the conclusions of the above-mentioned reports. The author adds that the individual assessment that the State party made of her case was insufficient, and that the State party therefore failed to recognize the exceptional circumstances she was facing and the imperative need to protect her as a victim of forced marriage and serious sexual abuse. The author refers to the Committee’s general recommendation No. 35 (2017) on gender-based violence against women, updating general recommendation No. 19, in which the Committee states that rape and sexual slavery may amount to torture or cruel, inhuman or degrading treatment, and recommends that States parties provide appropriate and accessible protective mechanisms to prevent further violence against women.[[fn:11]]",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "CEDAW/C/GC/35, paras. 16 and 31."
+      }
+    ]
   },
   {
     "ID": "3.4.",
@@ -134,7 +192,13 @@
     "ID": "3.5.",
     "Section": "Complaint",
     "Labels": [],
-    "Text": "According to the author, the Swiss authorities have not taken proper account of all the information relating to the sexual offences she reported. The State party has merely stated that there was no reason to believe that Italy would be unable to offer her an appropriate setting in which she could be treated for the trauma resulting from the violence and the inhuman and degrading treatment to which she was subjected in Somalia. The Swiss authorities have also called into question the author’s statements about the sexual violence to which she was subjected in Italy without examining the matter in depth. Furthermore, the author finds it regrettable that the State party has merely pointed to the guarantee contained in Directive 2011/95/EU of the European Parliament and of the Council, that asylum seekers should have non-discriminatory access to housing and health care. It has not examined whether Italy is implementing that provision in practice, despite information suggesting the contrary, namely, the author’s statements and reports by non-governmental organizations, the media and international organizations."
+    "Text": "According to the author, the Swiss authorities have not taken proper account of all the information relating to the sexual offences she reported. The State party has merely stated that there was no reason to believe that Italy would be unable to offer her an appropriate setting in which she could be treated for the trauma resulting from the violence and the inhuman and degrading treatment to which she was subjected in Somalia. The Swiss authorities have also called into question the author’s statements about the sexual violence to which she was subjected in Italy without examining the matter in depth. Furthermore, the author finds it regrettable that the State party has merely pointed to the guarantee contained in Directive 2011/95/EU of the European Parliament and of the Council,[[fn:12]] that asylum seekers should have non-discriminatory access to housing and health care. It has not examined whether Italy is implementing that provision in practice, despite information suggesting the contrary, namely, the author’s statements and reports by non-governmental organizations, the media and international organizations.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "Directive 2011/95/EU of the European Parliament and of the Council of 13 December 2011 on standards for the qualification of third-country nationals or stateless persons as beneficiaries of international protection, for a uniform status for refugees or for persons eligible for subsidiary protection, and for the content of the protection granted."
+      }
+    ]
   },
   {
     "ID": "3.6.",
@@ -143,7 +207,13 @@
       "Children",
       "Women/girls"
     ],
-    "Text": "The author maintains that it was not reasonable to expect a woman suffering from psychological trauma caused by sex slavery to leave her husband while pregnant in order to resettle in another country, where she would be left alone with the child she was expecting. In view of these considerations, the State party’s attitude can only be described as discriminatory towards the author."
+    "Text": "The author maintains that it was not reasonable to expect a woman suffering from psychological trauma caused by sex slavery to leave her husband while pregnant in order to resettle in another country, where she would be left alone with the child she was expecting.[[fn:13]] In view of these considerations, the State party’s attitude can only be described as discriminatory towards the author.",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "The author was pregnant at the time of the initial communication and gave birth to a daughter in February 2018."
+      }
+    ]
   },
   {
     "ID": "3.7.",
@@ -227,7 +297,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The State party recalls that it is for the authorities of States parties to evaluate the evidence or the application of national law in a particular case, unless it can be established that the evaluation was biased or based on gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice."
+    "Text": "The State party recalls that it is for the authorities of States parties to evaluate the evidence or the application of national law in a particular case, unless it can be established that the evaluation was biased or based on gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice.[[fn:14]]",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "The State party refers to S.J.A. v. Denmark (CEDAW/C/68/D/79/2014), decision of inadmissibility of 6 November 2017, para. 7.8 and references."
+      }
+    ]
   },
   {
     "ID": "4.12.",
@@ -260,7 +336,17 @@
       "Refugees & asylum-seekers",
       "Women/girls"
     ],
-    "Text": "With regard to article 2 of the Convention, the State party recalls that the Committee has found violations of this article in cases other than those involving non-refoulement. Furthermore, in two recent communications concerning Denmark and involving non-refoulement – specifically, the return of the authors to Somalia – the Committee, while not underestimating the concerns that might legitimately be expressed with regard to the general human rights situation in Somalia, in particular concerning women’s rights, held that the authorities of the State party had given sufficient consideration to the authors’ asylum claims. The Committee therefore found that the authorities of the State party had conducted the examination of those claims in a manner respecting its obligations under the Convention. The State party maintains that, in the present case, the Swiss authorities have examined the author’s asylum application in a manner respecting the State party’s obligations under the Convention."
+    "Text": "With regard to article 2 of the Convention, the State party recalls that the Committee has found violations of this article in cases other than those involving nonrefoulement.[[fn:15]] Furthermore, in two recent communications concerning Denmark and involving non-refoulement – specifically, the return of the authors to Somalia – the Committee, while not underestimating the concerns that might legitimately be expressed with regard to the general human rights situation in Somalia, in particular concerning women’s rights, held that the authorities of the State party had given sufficient consideration to the authors’ asylum claims. The Committee therefore found that the authorities of the State party had conducted the examination of those claims in a manner respecting its obligations under the Convention.[[fn:16]] The State party maintains that, in the present case, the Swiss authorities have examined the author’s asylum application in a manner respecting the State party’s obligations under the Convention.",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "The State party cites, among others, Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Goekce et al. v. Austria (CEDAW/C/39/D/5/2005), L.R. v. Republic of Moldova (CEDAW/C/66/D/58/2013) and Medvedeva v. Russian Federation (CEDAW/C/63/D/60/2013)."
+      },
+      {
+        "n": 16,
+        "text": "F.F.M. v. Denmark (CEDAW/C/67/D/70/2014), para. 8.8, and A.M. v. Denmark (CEDAW/C/67/D/77/2014), para. 8.6."
+      }
+    ]
   },
   {
     "ID": "4.17.",
@@ -286,7 +372,13 @@
       "Persons with disabilities",
       "Women/girls"
     ],
-    "Text": "The State party then notes the author’s claims that, as a victim of forced marriage and domestic violence, her rights under article 3 of the Convention would be violated if Switzerland returned her to a country in which she would not have access to the specialized treatment she needs, while separating her from her husband and father of her child. The author has already raised these claims at the national level, and they have been carefully examined. The State party stresses that the author would be able to obtain the required treatment in Italy, including mental health care if necessary, and could undertake therapy there. According to the State party, the author’s state of health, though not to be downplayed, has not changed since the Federal Administrative Court judgment of 29 September 2017, and Italy has undertaken to provide specialized care for vulnerable persons granted international protection. Thus, there is no evidence that Italy would be unable to offer the author an appropriate setting for treatment of the trauma she has suffered. It will be for the Swiss authorities to inform their Italian counterparts of the author’s medical situation when her removal is carried out, as they did on the occasion of her earlier transfer."
+    "Text": "The State party then notes the author’s claims that, as a victim of forced marriage and domestic violence, her rights under article 3 of the Convention would be violated if Switzerland returned her to a country in which she would not have access to the specialized treatment she needs, while separating her from her husband and father of her child. The author has already raised these claims at the national level, and they have been carefully examined. The State party stresses that the author would be able to obtain the required treatment in Italy, including mental health care if necessary, and could undertake therapy there. According to the State party, the author’s state of health, though not to be downplayed, has not changed since the Federal Administrative Court judgment of 29 September 2017, and Italy has undertaken to provide specialized care for vulnerable persons granted international protection.[[fn:17]] Thus, there is no evidence that Italy would be unable to offer the author an appropriate setting for treatment of the trauma she has suffered. It will be for the Swiss authorities to inform their Italian counterparts of the author’s medical situation when her removal is carried out, as they did on the occasion of her earlier transfer.",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "The State party refers to the adoption of the Decree of 3 April 2017 concerning the guidelines for assistance, rehabilitation and mental health treatment for persons granted refugee status or subsidiary protection who have been victims of torture, rape and other serious forms of psychological, physical or sexual violence, which was published in the Gazzetta Ufficiale della Repubblica Italiana of 24 April 2017."
+      }
+    ]
   },
   {
     "ID": "4.20.",
@@ -302,7 +394,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Lastly, the State party argues that there has been no violation of article 6 of the Convention. The national authorities carefully examined that claim and found that the author had never reported having been a victim of sexual violence between being transferred on 14 July 2016 and coming back to Switzerland. As for the author’s allegations that she was subjected to sexual violence during her first stay in Italy, the Swiss authorities noted that it was up to the author to report any such violence to the Italian authorities and request their aid. The Swiss authorities also noted that the judicial system and the police in Italy were functioning, and that there was no evidence that the author had not been afforded protection in the past. Moreover, the author never raised trafficking in persons before the Swiss authorities during the asylum procedure."
+    "Text": "Lastly, the State party argues that there has been no violation of article 6 of the Convention. The national authorities carefully examined that claim and found that the author had never reported having been a victim of sexual violence between being transferred on 14 July 2016 and coming back to Switzerland. As for the author’s allegations that she was subjected to sexual violence during her first stay in Italy, the Swiss authorities noted that it was up to the author to report any such violence to the Italian authorities and request their aid.[[fn:18]] The Swiss authorities also noted that the judicial system and the police in Italy were functioning, and that there was no evidence that the author had not been afforded protection in the past. Moreover, the author never raised trafficking in persons before the Swiss authorities during the asylum procedure.",
+    "Footnotes": [
+      {
+        "n": 18,
+        "text": "The State party refers to D.G. v. Netherlands (CEDAW/C/61/D/52/2013)."
+      }
+    ]
   },
   {
     "ID": "5.1.",
@@ -316,7 +414,21 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author observes that the Committee has noted with concern the lack of clarity regarding the direct applicability of the provisions of the Convention in Switzerland and has urged the State party to further clarify the issue of direct applicability within the national legal order. Furthermore, the Committee has expressed concern that, in accordance with the principle of monism, the decision to directly apply provisions of the Convention is at the discretion of the Federal Court and other judicial authorities at the federal and cantonal levels. The Committee recommended that the State party ensure effective enforcement of the rights enshrined in the Convention and provide women with appropriate remedies in the courts for violations of the rights protected by the Convention."
+    "Text": "The author observes that the Committee has noted with concern the lack of clarity regarding the direct applicability of the provisions of the Convention in Switzerland and has urged the State party to further clarify the issue of direct applicability within the national legal order.[[fn:19]] Furthermore, the Committee has expressed concern that, in accordance with the principle of monism, the decision to directly apply provisions of the Convention is at the discretion of the Federal Court and other judicial authorities at the federal and cantonal levels.[[fn:20]] The Committee recommended that the State party ensure effective enforcement of the rights enshrined in the Convention and provide women with appropriate remedies in the courts for violations of the rights protected by the Convention.[[fn:21]]",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "CEDAW/C/CHE/CO/4-5, paras. 12 and 13."
+      },
+      {
+        "n": 20,
+        "text": "Ibid., para. 12."
+      },
+      {
+        "n": 21,
+        "text": "See Swiss Confederation, “Guide to the Convention on the Elimination of All Forms of Discrimination against Women for the Legal Profession”, part 3."
+      }
+    ]
   },
   {
     "ID": "5.3.",
@@ -325,7 +437,13 @@
       "Persons in street situations",
       "Refugees & asylum-seekers"
     ],
-    "Text": "The author rejects the State party’s argument that the communication is not sufficiently substantiated and reiterates her claims under articles 2 (d) and 6 of the Convention. She points out that she is a vulnerable rejected asylum seeker with a baby in her charge, a former victim of sexual abuse, and emphasizes that she would run a real and foreseeable risk of ending up on the street, homeless and exposed to prostitution, if sent back to Italy. She asserts that the Swiss authorities disregarded these claims because she was a beneficiary of subsidiary protection in Italy. She reaffirms that she was sent back to Italy without the Italian authorities being informed of her medical situation. It is explicitly stated on the fax of 6 July 2016 submitted by the State party that the document did not reach the Italian authorities; the author adds that, whether or not the Italian authorities received the document, the State party had an obligation to ensure the proper receipt of this information."
+    "Text": "The author rejects the State party’s argument that the communication is not sufficiently substantiated and reiterates her claims under articles 2 (d) and 6 of the Convention. She points out that she is a vulnerable rejected asylum seeker with a baby in her charge, a former victim of sexual abuse, and emphasizes that she would run a real and foreseeable risk of ending up on the street, homeless and exposed to prostitution, if sent back to Italy. She asserts that the Swiss authorities disregarded these claims because she was a beneficiary of subsidiary protection in Italy. She reaffirms that she was sent back to Italy without the Italian authorities being informed of her medical situation. It is explicitly stated on the fax of 6 July 2016 submitted by the State party that the document did not reach the Italian authorities;[[fn:22]] the author adds that, whether or not the Italian authorities received the document, the State party had an obligation to ensure the proper receipt of this information.",
+    "Footnotes": [
+      {
+        "n": 22,
+        "text": "The author notes that it is stated on the fax in German “Ubertragungsfehler, besetzt, keine antwort, kein faxverbidund”, which means “Sending error, busy, no response, no fax connection”."
+      }
+    ]
   },
   {
     "ID": "5.4.",
@@ -333,7 +451,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The author refers to the jurisprudence of the Committee against Torture, which concluded in 2018 that the current system in Italy does not afford adequate access to specialized treatment for asylum seekers suffering from trauma and other mental health conditions. According to the author, living conditions for asylum seekers in Italy, particularly vulnerable persons with mental health problems such as the author, should be characterized as intolerable. These poor reception conditions are confirmed by numerous sources, cited in the initial communication. On reading these reports, it is clear that the author will not be provided in Italy with effective rehabilitation as a victim of sexual violence and ill-treatment. Failure to provide such rehabilitation would create a situation of anxiety and would have especially traumatic consequences for her mental and physical health. Given her fragility and her current state, the living conditions to which she would be exposed in Italy in the event of her removal would evidence a lack of respect for her dignity and would constitute cruel, inhuman and degrading treatment."
+    "Text": "The author refers to the jurisprudence of the Committee against Torture, which concluded in 2018 that the current system in Italy does not afford adequate access to specialized treatment for asylum seekers suffering from trauma and other mental health conditions.[[fn:23]] According to the author, living conditions for asylum seekers in Italy, particularly vulnerable persons with mental health problems such as the author, should be characterized as intolerable. These poor reception conditions are confirmed by numerous sources, cited in the initial communication. On reading these reports, it is clear that the author will not be provided in Italy with effective rehabilitation as a victim of sexual violence and ill-treatment. Failure to provide such rehabilitation would create a situation of anxiety and would have especially traumatic consequences for her mental and physical health. Given her fragility and her current state, the living conditions to which she would be exposed in Italy in the event of her removal would evidence a lack of respect for her dignity and would constitute cruel, inhuman and degrading treatment.",
+    "Footnotes": [
+      {
+        "n": 23,
+        "text": "The author refers to A.N. v. Switzerland (CAT/C/64/D/742/2016)."
+      }
+    ]
   },
   {
     "ID": "5.5.",
@@ -353,7 +477,13 @@
     "Labels": [
       "Children"
     ],
-    "Text": "The author notes that it is imperative for her to be in a stable environment, which will be the case in Switzerland, where her husband, with whom she has a child and an effective family life, resides. The author again refers to the jurisprudence of the Committee against Torture, which has held that separating a vulnerable person from the family support that he or she enjoys and depriving that person of specialized treatment constitutes a violation of the Convention against Torture. As for the State party’s argument that the author could settle in Italy with her husband and child, the author contends that no facility is available in which they could be accommodated in Italy and that she will receive no assistance from the State, despite enjoying subsidiary protection. She adds that the couple is integrated in Switzerland, where her husband is gainfully employed. She maintains that it is inconceivable to require a couple to settle with a small child in Italy, a country of which, moreover, she has bitter memories and which she associates with trauma similar to that which she experienced in Somalia."
+    "Text": "The author notes that it is imperative for her to be in a stable environment, which will be the case in Switzerland, where her husband, with whom she has a child and an effective family life, resides. The author again refers to the jurisprudence of the Committee against Torture, which has held that separating a vulnerable person from the family support that he or she enjoys and depriving that person of specialized treatment constitutes a violation of the Convention against Torture.[[fn:24]] As for the State party’s argument that the author could settle in Italy with her husband and child, the author contends that no facility is available in which they could be accommodated in Italy and that she will receive no assistance from the State, despite enjoying subsidiary protection. She adds that the couple is integrated in Switzerland, where her husband is gainfully employed. She maintains that it is inconceivable to require a couple to settle with a small child in Italy, a country of which, moreover, she has bitter memories and which she associates with trauma similar to that which she experienced in Somalia.",
+    "Footnotes": [
+      {
+        "n": 24,
+        "text": "The author refers to A.N. v. Switzerland."
+      }
+    ]
   },
   {
     "ID": "5.8.",
@@ -361,7 +491,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that she has sufficiently substantiated the trauma she suffered, again citing the content of her medical certificates, including the risk of suicide in the event of removal referred to therein. Citing the concluding observations on the seventh periodic report of Italy, in which the Committee found that there was a lack of services for refugees, particularly women with specific needs and vulnerabilities, the author concludes that the State party has not taken the necessary measures to prevent her from falling victim once again to trauma and trafficking in persons and that there is a real risk that she would be subjected to acts of discrimination under the Convention in the event of her return, which would constitute a violation of articles 2 (d) and 6 of the Convention."
+    "Text": "The author claims that she has sufficiently substantiated the trauma she suffered, again citing the content of her medical certificates, including the risk of suicide in the event of removal referred to therein. Citing the concluding observations on the seventh periodic report of Italy, in which the Committee found that there was a lack of services for refugees, particularly women with specific needs and vulnerabilities,[[fn:25]] the author concludes that the State party has not taken the necessary measures to prevent her from falling victim once again to trauma and trafficking in persons and that there is a real risk that she would be subjected to acts of discrimination under the Convention in the event of her return, which would constitute a violation of articles 2 (d) and 6 of the Convention.",
+    "Footnotes": [
+      {
+        "n": 25,
+        "text": "CEDAW/C/ITA/CO/7, para. 15."
+      }
+    ]
   },
   {
     "ID": "5.9.",
@@ -369,7 +505,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Concerning the application of article 2 (d) of the Convention, the author repeats that, contrary to its assertions, the State party is placing her at risk of being discriminated against on the basis that the entire population is similarly affected. The author recalls, however, that it is incumbent on the State party to take all necessary measures to avoid discrimination of any kind against her. The Committee has already noted with concern: the lack in Italy of a comprehensive and harmonized framework, including clear procedures, guidelines and standards, for the identification of and provision of assistance to individuals with specific needs and vulnerabilities, especially refugees and asylum seekers who are women and girls. It also noted with concern: the insufficient number of reception centres and the overcrowding and substandard conditions in existing centres owing to the increasing number of refugees and asylum seekers entering the country; the lack of services provided to refugees and asylum seekers placed in administrative detention, in particular to women with specific needs and vulnerabilities; and the insufficient financial support given to civil society organizations working with women refugees and asylum seekers."
+    "Text": "Concerning the application of article 2 (d) of the Convention, the author repeats that, contrary to its assertions, the State party is placing her at risk of being discriminated against on the basis that the entire population is similarly affected. The author recalls, however, that it is incumbent on the State party to take all necessary measures to avoid discrimination of any kind against her. The Committee has already noted with concern: the lack in Italy of a comprehensive and harmonized framework, including clear procedures, guidelines and standards, for the identification of and provision of assistance to individuals with specific needs and vulnerabilities, especially refugees and asylum seekers who are women and girls. It also noted with concern: the insufficient number of reception centres and the overcrowding and substandard conditions in existing centres owing to the increasing number of refugees and asylum seekers entering the country; the lack of services provided to refugees and asylum seekers placed in administrative detention, in particular to women with specific needs and vulnerabilities; and the insufficient financial support given to civil society organizations working with women refugees and asylum seekers.[[fn:26]]",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "Ibid."
+      }
+    ]
   },
   {
     "ID": "5.10.",
@@ -377,7 +519,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "On the issue of gender-based violence, the Committee expressed concern about: the high prevalence of gender-based violence against women and girls in Italy; the underreporting of gender-based violence against women and the low prosecution and conviction rates, resulting in impunity for the perpetrators; the cumulative impact and intersection of racist, xenophobic and sexist acts against women; and the regional and local disparities in the availability and quality of assistance and protection services, including shelters, for women who are victims of violence, as well as the intersecting forms of discrimination against women from minority groups who are victims of violence."
+    "Text": "On the issue of gender-based violence, the Committee expressed concern about: the high prevalence of gender-based violence against women and girls in Italy; the underreporting of gender-based violence against women and the low prosecution and conviction rates, resulting in impunity for the perpetrators; the cumulative impact and intersection of racist, xenophobic and sexist acts against women; and the regional and local disparities in the availability and quality of assistance and protection services, including shelters, for women who are victims of violence, as well as the intersecting forms of discrimination against women from minority groups who are victims of violence.[[fn:27]]",
+    "Footnotes": [
+      {
+        "n": 27,
+        "text": "Ibid., para. 27."
+      }
+    ]
   },
   {
     "ID": "5.11.",
@@ -385,7 +533,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "With regard to trafficking in persons, the Committee noted with concern: the absence of a comprehensive gender-sensitive law on trafficking in persons; the low prosecution and conviction rates; the lack of adequate mechanisms to identify and refer victims of trafficking in need of protection; the lack of adequate resources to allow for the effective implementation of the existing protection system, in particular for women migrants, refugees and asylum seekers who are victims or at risk of being victims of trafficking; and the lack of systematic rehabilitation and reintegration measures."
+    "Text": "With regard to trafficking in persons, the Committee noted with concern: the absence of a comprehensive gender-sensitive law on trafficking in persons; the low prosecution and conviction rates; the lack of adequate mechanisms to identify and refer victims of trafficking in need of protection; the lack of adequate resources to allow for the effective implementation of the existing protection system, in particular for women migrants, refugees and asylum seekers who are victims or at risk of being victims of trafficking; and the lack of systematic rehabilitation and reintegration measures.[[fn:28]]",
+    "Footnotes": [
+      {
+        "n": 28,
+        "text": "Ibid., para. 29."
+      }
+    ]
   },
   {
     "ID": "5.12.",
@@ -399,7 +553,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "With regard to article 3 of the Convention, the author rejects the State party’s arguments concerning the capacity of Italy to provide assistance to asylum seekers who are victims of torture, noting that, according to reports from non-governmental organizations, access to treatment for victims of trauma is virtually non-existent, and that the Committee, in its concluding observations on the seventh periodic report of Italy, expressed concern about the reduction in public funds allocated to health care, which was having a detrimental impact on the health of women, in particular those belonging to disadvantaged and marginalized groups."
+    "Text": "With regard to article 3 of the Convention, the author rejects the State party’s arguments concerning the capacity of Italy to provide assistance to asylum seekers who are victims of torture, noting that, according to reports from non-governmental organizations, access to treatment for victims of trauma is virtually non-existent, and that the Committee, in its concluding observations on the seventh periodic report of Italy, expressed concern about the reduction in public funds allocated to health care, which was having a detrimental impact on the health of women, in particular those belonging to disadvantaged and marginalized groups.[[fn:29]]",
+    "Footnotes": [
+      {
+        "n": 29,
+        "text": "Ibid., para. 41."
+      }
+    ]
   },
   {
     "ID": "5.14.",
@@ -407,7 +567,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "As for article 6 of the Convention, the author rejects the State party’s argument that it was up to her to report the sexual violence to which she had been subjected and request the aid of the Italian authorities. In fact, the possibility of so doing is not guaranteed in Italy. The Committee, in its concluding observations on the seventh periodic report of Italy, expressed concern about the difficulties faced by women in claiming their rights owing to legal illiteracy, the costs and length of procedures, insufficient legal aid, gender bias within the judiciary and the lack of reparation."
+    "Text": "As for article 6 of the Convention, the author rejects the State party’s argument that it was up to her to report the sexual violence to which she had been subjected and request the aid of the Italian authorities. In fact, the possibility of so doing is not guaranteed in Italy. The Committee, in its concluding observations on the seventh periodic report of Italy, expressed concern about the difficulties faced by women in claiming their rights owing to legal illiteracy, the costs and length of procedures, insufficient legal aid, gender bias within the judiciary and the lack of reparation.[[fn:30]]",
+    "Footnotes": [
+      {
+        "n": 30,
+        "text": "Ibid., para. 17."
+      }
+    ]
   },
   {
     "ID": "5.15.",
@@ -439,7 +605,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee reiterates that, according to its jurisprudence, the Convention has extraterritorial effect only when the woman to be returned will be exposed to a real, personal and foreseeable risk of serious forms of gender-based violence."
+    "Text": "The Committee reiterates that, according to its jurisprudence, the Convention has extraterritorial effect only when the woman to be returned will be exposed to a real, personal and foreseeable risk of serious forms of gender-based violence.[[fn:31]]",
+    "Footnotes": [
+      {
+        "n": 31,
+        "text": "See, for example, M.N.N. v. Denmark (CEDAW/C/55/D/33/2011), para. 8.10."
+      }
+    ]
   },
   {
     "ID": "6.5.",
@@ -494,7 +666,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee notes that, in substance, the author’s claims are aimed at challenging the manner in which the State party’s authorities assessed the circumstances of her case, applied the provisions of national law and reached their conclusions. The Committee recalls that it is generally for the courts of the States parties to the Convention to evaluate the facts and evidence or the application of national law in a particular case, unless it can be established that the evaluation was biased or based on gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice. The Committee notes that nothing on file demonstrates that the examination by the authorities of the author’s claims regarding her fears as to the risks she would face upon her return to Italy suffered from any such defects. The Committee notes that, despite generalized statements made by the author regarding perceived inefficiencies in the asylum procedures of the State party, they are not alleged to have amounted to, or provoked, discrimination or rendered decisions made by authorities arbitrary in the author’s case. Moreover, it is for each sovereign State party to determine the nature, structure and procedures of its own asylum system, as long as basic procedural guarantees set down in international law are provided."
+    "Text": "The Committee notes that, in substance, the author’s claims are aimed at challenging the manner in which the State party’s authorities assessed the circumstances of her case, applied the provisions of national law and reached their conclusions. The Committee recalls that it is generally for the courts of the States parties to the Convention to evaluate the facts and evidence or the application of national law in a particular case,[[fn:32]] unless it can be established that the evaluation was biased or based on gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice.[[fn:33]] The Committee notes that nothing on file demonstrates that the examination by the authorities of the author’s claims regarding her fears as to the risks she would face upon her return to Italy suffered from any such defects. The Committee notes that, despite generalized statements made by the author regarding perceived inefficiencies in the asylum procedures of the State party, they are not alleged to have amounted to, or provoked, discrimination or rendered decisions made by authorities arbitrary in the author’s case. Moreover, it is for each sovereign State party to determine the nature, structure and procedures of its own asylum system, as long as basic procedural guarantees set down in international law are provided.",
+    "Footnotes": [
+      {
+        "n": 32,
+        "text": "See, for example, R.P.B. v. Philippines (CEDAW/C/57/D/34/2011), para. 7.5."
+      },
+      {
+        "n": 33,
+        "text": "See, for example, N.Q. and S.A. v. United Kingdom of Great Britain and Northern Ireland (CEDAW/C/63/D/62/2013), para. 6.6."
+      }
+    ]
   },
   {
     "ID": "7.5.",

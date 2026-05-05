@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [
       "Children"
     ],
@@ -63,13 +63,25 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "As to the exhaustion of domestic remedies, the author argues that his wife has not been able to use any official instances, due to his situation, though her attempts as described to pursue such avenues as have been available to her have been without success. With reference to the material of a variety of international non-governmental organisations, the author contends that, in any event, there are no effective remedies in Libya for human rights violations that are politically motivated. In further support of this proposition, the author cites the Committee’s concluding observations in 1998 seriously doubting the independence of the judiciary and freedom of action of lawyers, and argues that the situation has not significantly changed. Instances of politically motivated arrest and trial, as well as harassment of victims’ family members, are still routinely reported, and in cases of political persecution, the judiciary will not contradict decisions of the executive."
+    "Text": "As to the exhaustion of domestic remedies, the author argues that his wife has not been able to use any official instances, due to his situation, though her attempts as described to pursue such avenues as have been available to her have been without success. With reference to the material of a variety of international non-governmental organisations, the author contends that, in any event, there are no effective remedies in Libya for human rights violations that are politically motivated. In further support of this proposition, the author cites the Committee’s concluding observations in 1998 seriously doubting the independence of the judiciary and freedom of action of lawyers,[[fn:3]] and argues that the situation has not significantly changed. Instances of politically motivated arrest and trial, as well as harassment of victims’ family members, are still routinely reported, and in cases of political persecution, the judiciary will not contradict decisions of the executive.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "CCPR/C/79/Add.101, at para 14."
+      }
+    ]
   },
   {
     "ID": "4.",
     "Section": "Absence of State party’s cooperation",
     "Labels": [],
-    "Text": "By Notes Verbale of 16 December 2002, 26 January 2006 and 23 April 2007, the State party was requested to submit to the Committee information on the question of admissibility and the merits of the communication. The Committee notes that this information has still not been received. It regrets the State party's failure to provide any information with regard to the author's claims, and recalls that it is implicit in the Optional Protocol that States parties make available to the Committee all information at their disposal. In the absence of any observations from the State party, due weight must be given to the author's allegations, to the extent that these have been sufficiently substantiated."
+    "Text": "By Notes Verbale of 16 December 2002, 26 January 2006 and 23 April 2007, the State party was requested to submit to the Committee information on the question of admissibility and the merits of the communication. The Committee notes that this information has still not been received. It regrets the State party's failure to provide any information with regard to the author's claims, and recalls that it is implicit in the Optional Protocol that States parties make available to the Committee all information at their disposal.[[fn:4]] In the absence of any observations from the State party, due weight must be given to the author's allegations, to the extent that these have been sufficiently substantiated.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "See, inter alia, Khomidova v. Tajikistan, Communication No.1117/2002, Views adopted on 29 July 2004; Khalilova v. Tajikistan, Communication No.973/2001, Views adopted on 30 March 2005; and Aliboeva v. Tajikistan, Communication No.985/2001, Views adopted on 18 October 2005."
+      }
+    ]
   },
   {
     "ID": "5.1.",
@@ -107,7 +119,13 @@
     "Labels": [
       "Children"
     ],
-    "Text": "In terms of the claim under article 12, the Committee recalls its jurisprudence that a passport provides a national with the means practicably to exercise the right to freedom of movement, including the right to leave one’s own State, conferred by that article. The confiscation of the passport of the author’s wife, also covering her three youngest children, as well as the failure to restore the document to her, accordingly amount to an interference with the right to freedom of movement which must be justified in terms of the permissible limitations set out in article 12, paragraph 3, concerning national security, public order/ordre public, public health or morals or the rights and freedoms of others. The State party has not sought to advance any such justification, nor is any such basis apparent to the Committee on the basis of the material before it. The Committee accordingly concludes that there has been a violation of article 12, paragraph 2, in respect of the author’s wife and three youngest children whom the wife’s passport also covered."
+    "Text": "In terms of the claim under article 12, the Committee recalls its jurisprudence that a passport provides a national with the means practicably to exercise the right to freedom of movement, including the right to leave one’s own State, conferred by that article.[[fn:5]] The confiscation of the passport of the author’s wife, also covering her three youngest children, as well as the failure to restore the document to her, accordingly amount to an interference with the right to freedom of movement which must be justified in terms of the permissible limitations set out in article 12, paragraph 3, concerning national security, public order/ordre public, public health or morals or the rights and freedoms of others. The State party has not sought to advance any such justification, nor is any such basis apparent to the Committee on the basis of the material before it. The Committee accordingly concludes that there has been a violation of article 12, paragraph 2, in respect of the author’s wife and three youngest children whom the wife’s passport also covered.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "El Ghar v Libyan Arab Jamahiriya, Communication No. 1107/2002, Views adopted on 29 March 2004."
+      }
+    ]
   },
   {
     "ID": "6.3.",

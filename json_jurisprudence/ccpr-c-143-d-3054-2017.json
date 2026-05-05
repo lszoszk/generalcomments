@@ -69,7 +69,7 @@
     "ID": "4.4.",
     "Section": "State Party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "As to the author’s allegations concerning unlawful interference in his private life owing to the wiretapping, the State Party submits that, in 2012 and 2013, the Counter-Terrorism Centre of the Ministry of Internal Affairs of Mari El conducted an inquiry into information about the author’s possible involvement in several crimes. On 4 April and 11 September 2012, the Supreme Court of Mari El authorized the wiretapping of the author’s telephone. The State Party notes that domestic law permits the wiretapping of individuals suspected of committing crimes of medium gravity, as well as grave and especially grave crimes, when such wiretapping has been authorized by the courts. In the case of the author, he was suspected of making public calls to commit terrorist activities and of publicly justifying terrorism or its propaganda, which constitute crimes of medium gravity under article 205.2 (2) of the Criminal Code."
+    "Text": "As to the author’s allegations concerning unlawful interference in his private life owing to the wiretapping, the State Party submits that, in 2012 and 2013, the CounterTerrorism Centre of the Ministry of Internal Affairs of Mari El conducted an inquiry into information about the author’s possible involvement in several crimes. On 4 April and 11 September 2012, the Supreme Court of Mari El authorized the wiretapping of the author’s telephone. The State Party notes that domestic law permits the wiretapping of individuals suspected of committing crimes of medium gravity, as well as grave and especially grave crimes, when such wiretapping has been authorized by the courts. In the case of the author, he was suspected of making public calls to commit terrorist activities and of publicly justifying terrorism or its propaganda, which constitute crimes of medium gravity under article 205.2 (2) of the Criminal Code."
   },
   {
     "ID": "5.1.",
@@ -81,13 +81,19 @@
     "ID": "5.2.",
     "Section": "Author’s comments on the State Party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "With regard to the State Party’s submission that an appeal can be lodged with the courts of cassation against court decisions that have entered into force, the author argues that the cassation appeal cannot be considered an effective domestic remedy. The author notes that the cassation review procedure does not provide for a direct examination of the merits of the case and concerns the review, on points of law only, of court decisions that have entered into force. Moreover, in order for the cassation court, in its full composition, to review the case, one of the judges of the cassation court must first agree with the arguments submitted in the cassation appeal and allow for it to be examined by the full court. Therefore, cassation appeals are, in practice, subject to the discretionary power of a single judge. The author notes that, on 27 September 2013, he submitted a cassation appeal to the Supreme Court of Mari El; however, on 3 October 2013, his appeal was returned without examination by Ioshkar-Ola City Court."
+    "Text": "With regard to the State Party’s submission that an appeal can be lodged with the courts of cassation against court decisions that have entered into force, the author argues that the cassation appeal cannot be considered an effective domestic remedy. The author notes that the cassation review procedure does not provide for a direct examination of the merits of the case and concerns the review, on points of law only, of court decisions that have entered into force. Moreover, in order for the cassation court, in its full composition, to review the case, one of the judges of the cassation court must first agree with the arguments submitted in the cassation appeal and allow for it to be examined by the full court. Therefore, cassation appeals are, in practice, subject to the discretionary power of a single judge. The author notes that, on 27 September 2013, he submitted a cassation appeal to the Supreme Court of Mari El; however, on 3 October 2013, his appeal was returned without examination by IoshkarOla City Court."
   },
   {
     "ID": "5.3.",
     "Section": "Author’s comments on the State Party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The author further notes that, in Kashlan v. Russia, the European Court of Human Rights came to the conclusion that the new cassation review procedure under the Russian Code of Criminal Procedure, as amended in 2014, did not constitute an ordinary remedy within the meaning of article 35, paragraph 1, of the Convention for the Protection of Human Rights and Fundamental Freedoms (European Convention on Human Rights) and therefore did not have to be exhausted by the applicants before lodging a complaint with the European Court of Human Rights."
+    "Text": "The author further notes that, in Kashlan v. Russia, the European Court of Human Rights came to the conclusion that the new cassation review procedure under the Russian Code of Criminal Procedure, as amended in 2014, did not constitute an ordinary remedy within the meaning of article 35, paragraph 1, of the Convention for the Protection of Human Rights and Fundamental Freedoms (European Convention on Human Rights) and therefore did not have to be exhausted by the applicants before lodging a complaint with the European Court of Human Rights.[[fn:3]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The author refers to European Court of Human Rights, Kashlan v. Russia, Application No. 60189/15, Decision, 19 April 2016, para. 29."
+      }
+    ]
   },
   {
     "ID": "5.4.",
@@ -111,7 +117,13 @@
     "ID": "6.3.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "In accordance with article 5 (2) (b) of the Optional Protocol, the Committee shall not consider any communication from an individual unless it has ascertained that the individual has exhausted all available domestic remedies. The Committee notes the State Party’s submission that, with regard to his claim under article 17 of the Covenant, the author has not exhausted all available domestic remedies, as he did not lodge an appeal against the decision authorizing the wiretapping of his telephone with a higher investigative authority, prosecutor or court in accordance with article 125 of the Code of Criminal Procedure. The Committee also notes the author’s submission that the Deputy Chairman of the Supreme Court of Mari El informed the author that the Supreme Court did not have any information about the wiretapping and that a decision by the court authorizing surveillance is considered confidential and is issued in a single copy, which is provided only to the authority requesting the wiretapping. According to the author, since he learned about the wiretapping only after the trial court had already handed down a verdict in his case, he was not able to submit a complaint about its illegality to the prosecutor’s office or the trial court, as suggested by the State Party. In this regard, the Committee has consistently held that the State Party must describe in detail which legal remedies would have been available to an author in the specific case and provide evidence that there would be a reasonable prospect that such remedies would be effective. The Committee notes that, in respect of the author’s claim in the present case, the State Party has failed to explain which judicial and administrative avenues could have provided redress when the author was refused access to the court decision that he wanted to appeal, owing to the decision’s alleged confidentiality. In view of the above, the Committee concludes that there were no effective remedies that the author could have pursued concerning his claim under article 17 of the Covenant."
+    "Text": "In accordance with article 5 (2) (b) of the Optional Protocol, the Committee shall not consider any communication from an individual unless it has ascertained that the individual has exhausted all available domestic remedies. The Committee notes the State Party’s submission that, with regard to his claim under article 17 of the Covenant, the author has not exhausted all available domestic remedies, as he did not lodge an appeal against the decision authorizing the wiretapping of his telephone with a higher investigative authority, prosecutor or court in accordance with article 125 of the Code of Criminal Procedure. The Committee also notes the author’s submission that the Deputy Chairman of the Supreme Court of Mari El informed the author that the Supreme Court did not have any information about the wiretapping and that a decision by the court authorizing surveillance is considered confidential and is issued in a single copy, which is provided only to the authority requesting the wiretapping. According to the author, since he learned about the wiretapping only after the trial court had already handed down a verdict in his case, he was not able to submit a complaint about its illegality to the prosecutor’s office or the trial court, as suggested by the State Party. In this regard, the Committee has consistently held that the State Party must describe in detail which legal remedies would have been available to an author in the specific case and provide evidence that there would be a reasonable prospect that such remedies would be effective.[[fn:4]] The Committee notes that, in respect of the author’s claim in the present case, the State Party has failed to explain which judicial and administrative avenues could have provided redress when the author was refused access to the court decision that he wanted to appeal, owing to the decision’s alleged confidentiality. In view of the above, the Committee concludes that there were no effective remedies that the author could have pursued concerning his claim under article 17 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "For example, Bratsylo v. Russian Federation (CCPR/C/140/D/3022/2017), para. 7.6."
+      }
+    ]
   },
   {
     "ID": "6.4.",
@@ -123,7 +135,13 @@
     "ID": "6.5.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "As to the claim raised by the author under article 19 of the Covenant, the Committee notes the State Party’s submission that the author has not exhausted all available domestic remedies, as he did not lodge an appeal against the decision of the Justice of the Peace of Ioshkar-Ola judicial district No. 2 dated 24 July 2013 or against the appellate decision of Ioshkar-Ola City Court dated 17 September 2013 with the presidium of the Supreme Court of Mari El in accordance with the cassation appeal procedure. The Committee also notes the author’s argument that the cassation appeal procedure is not an effective legal remedy because it does not provide for a direct examination of the merits of the case and concerns the review, on points of law only, of court decisions that have entered into force. Moreover, for the cassation court to review the case, a judge of the cassation court must first agree with the arguments in the cassation appeal and allow for it to be examined by the full court; thus, the entire procedure is subject to the discretionary power of a single judge. These characteristics lead the Committee to believe that the cassation review contains elements of an extraordinary remedy. The State Party must therefore show that there is a reasonable prospect that such a procedure would provide an effective remedy in the circumstances of the case. However, the Committee notes that, in the present case, the State Party has not provided any information on the effectiveness of the cassation review procedure in cases similar to the present one. In these circumstances and in the absence of any further relevant information, the Committee finds that it is not precluded by article 5 (2) (b) of the Optional Protocol from examining the claim under article 19 of the Covenant."
+    "Text": "As to the claim raised by the author under article 19 of the Covenant, the Committee notes the State Party’s submission that the author has not exhausted all available domestic remedies, as he did not lodge an appeal against the decision of the Justice of the Peace of Ioshkar-Ola judicial district No. 2 dated 24 July 2013 or against the appellate decision of Ioshkar-Ola City Court dated 17 September 2013 with the presidium of the Supreme Court of Mari El in accordance with the cassation appeal procedure. The Committee also notes the author’s argument that the cassation appeal procedure is not an effective legal remedy because it does not provide for a direct examination of the merits of the case and concerns the review, on points of law only, of court decisions that have entered into force. Moreover, for the cassation court to review the case, a judge of the cassation court must first agree with the arguments in the cassation appeal and allow for it to be examined by the full court; thus, the entire procedure is subject to the discretionary power of a single judge. These characteristics lead the Committee to believe that the cassation review contains elements of an extraordinary remedy. The State Party must therefore show that there is a reasonable prospect that such a procedure would provide an effective remedy in the circumstances of the case.[[fn:5]] However, the Committee notes that, in the present case, the State Party has not provided any information on the effectiveness of the cassation review procedure in cases similar to the present one. In these circumstances and in the absence of any further relevant information, the Committee finds that it is not precluded by article 5 (2) (b) of the Optional Protocol from examining the claim under article 19 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Voronkov v. Russian Federation (CCPR/C/136/D/2951/2017), para. 9.3."
+      }
+    ]
   },
   {
     "ID": "6.6.",
@@ -147,7 +165,17 @@
     "ID": "7.3.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee refers to its general comment No. 34 (2011), according to which freedom of opinion and freedom of expression are essential for any society and constitute the foundation stone for every free and democratic society. According to article 19 (3) of the Covenant, the right to freedom of expression can be subject to certain restrictions, but only such as are provided by law and are necessary: (a) for respect for the rights or reputations of others; or (b) for the protection of national security or public order, or of public health or morals. All restrictions imposed on freedom of expression must be provided by law. They may only be imposed on the grounds set out in subparagraphs (a) and (b) of article 19 (3) and they must conform to the strict tests of necessity and proportionality."
+    "Text": "The Committee refers to its general comment No. 34 (2011), according to which freedom of opinion and freedom of expression are essential for any society and constitute the foundation stone for every free and democratic society.[[fn:6]] According to article 19 (3) of the Covenant, the right to freedom of expression can be subject to certain restrictions, but only such as are provided by law and are necessary: (a) for respect for the rights or reputations of others; or (b) for the protection of national security or public order, or of public health or morals.[[fn:7]] All restrictions imposed on freedom of expression must be provided by law. They may only be imposed on the grounds set out in subparagraphs (a) and (b) of article 19 (3) and they must conform to the strict tests of necessity and proportionality.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "General comment No. 34 (2011), para. 2."
+      },
+      {
+        "n": 7,
+        "text": "Ibid., para. 21."
+      }
+    ]
   },
   {
     "ID": "7.4.",
@@ -159,13 +187,37 @@
     "ID": "7.5.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee notes the author’s argument that he was subjected to criminal prosecution and sanctioned solely on the basis of L.M.’s position as the head of the government of Mari El and not as an ordinary citizen. The Committee recalls that in circumstances of public and political debate concerning public figures and public institutions, the value placed by the Covenant upon uninhibited expression is particularly high. The mere fact that forms of expression are considered to be insulting to a public figure is not sufficient to justify the imposition of penalties, albeit public figures may also benefit from the provisions of the Covenant. The Committee considers that defamation laws must be crafted with care to ensure that they comply with article 19 (3) of the Covenant and that they do not serve, in practice, to stifle freedom of expression. With regard to comments about public figures, States Parties should give consideration to avoiding penalizing or otherwise rendering unlawful untrue statements that have been published in error but without malice. In this regard, the Committee notes the author’s submission that his remarks were based on the information he had read in the mass media and had heard from third persons, and that he publicly apologized to L.M. for his remarks and notified the latter’s press service."
+    "Text": "The Committee notes the author’s argument that he was subjected to criminal prosecution and sanctioned solely on the basis of L.M.’s position as the head of the government of Mari El and not as an ordinary citizen. The Committee recalls that in circumstances of public and political debate concerning public figures and public institutions, the value placed by the Covenant upon uninhibited expression is particularly high.[[fn:8]] The mere fact that forms of expression are considered to be insulting to a public figure is not sufficient to justify the imposition of penalties, albeit public figures may also benefit from the provisions of the Covenant.[[fn:9]] The Committee considers that defamation laws must be crafted with care to ensure that they comply with article 19 (3) of the Covenant and that they do not serve, in practice, to stifle freedom of expression.[[fn:10]] With regard to comments about public figures, States Parties should give consideration to avoiding penalizing or otherwise rendering unlawful untrue statements that have been published in error but without malice.[[fn:11]] In this regard, the Committee notes the author’s submission that his remarks were based on the information he had read in the mass media and had heard from third persons, and that he publicly apologized to L.M. for his remarks and notified the latter’s press service.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Ibid., para. 38."
+      },
+      {
+        "n": 9,
+        "text": "Ibid. See also Akhmedyarov v. Kazakhstan (CCPR/C/129/D/2535/2015), para. 9.8."
+      },
+      {
+        "n": 10,
+        "text": "General comment No. 34 (2011), para. 47."
+      },
+      {
+        "n": 11,
+        "text": "Ibid. See also Akhmedyarov v. Kazakhstan, para. 9.8."
+      }
+    ]
   },
   {
     "ID": "7.6.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee further observes that, as the author made his contested speech during a public event attended by fewer than 30 people, any damage to L.M.’s reputation was of only a limited nature. The Committee further observes that the State Party has advanced no justification that, under those circumstances, bringing criminal charges against the author for slander and sentencing him to perform compulsory work was necessary. In addition, the State Party has not explained why no other means were available to protect L.M.’s reputation. Taking into account the nature of the penalty imposed on the author in the present case and considering the impact and the context of the remarks made by the author, the restriction of his right to freedom of expression has not been shown to be a necessary and proportionate measure to protect the honour and the reputation of others. Accordingly, the Committee concludes that the facts before it disclose a violation of the author’s rights under article 19 (2) of the Covenant."
+    "Text": "The Committee further observes that, as the author made his contested speech during a public event attended by fewer than 30 people, any damage to L.M.’s reputation was of only a limited nature. The Committee further observes that the State Party has advanced no justification that, under those circumstances, bringing criminal charges against the author for slander and sentencing him to perform compulsory work was necessary. In addition, the State Party has not explained why no other means were available to protect L.M.’s reputation. Taking into account the nature of the penalty imposed on the author in the present case and considering the impact and the context of the remarks made by the author, the restriction of his right to freedom of expression has not been shown to be a necessary and proportionate measure to protect the honour and the reputation of others.[[fn:12]] Accordingly, the Committee concludes that the facts before it disclose a violation of the author’s rights under article 19 (2) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "Kozlov v. Belarus (CCPR/C/111/D/1986/2010), para. 7.6."
+      }
+    ]
   },
   {
     "ID": "8.",

@@ -1,9 +1,15 @@
 [
   {
     "ID": "1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [],
-    "Text": "The author of the communication is the association Promo-LEX acting with the consent of P., the executor of the will of V.C. It claims that the Republic of Moldova has violated the rights of V.C., a deceased Moldovan national born in 1961, under article 2 (a), (c), (e) and (f), read in conjunction with article 1, of the Convention. The Convention and the Optional Protocol thereto entered into force for the Republic of Moldova on 31 July 1994 and 28 May 2006, respectively."
+    "Text": "The author of the communication is the association Promo-LEX acting with the consent of P., the executor of the will of V.C.[[fn:1]] It claims that the Republic of Moldova has violated the rights of V.C., a deceased Moldovan national born in 1961, under article 2 (a), (c), (e) and (f), read in conjunction with article 1, of the Convention. The Convention and the Optional Protocol thereto entered into force for the Republic of Moldova on 31 July 1994 and 28 May 2006, respectively.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "Promo-LEX is a non-governmental organization whose objective is to advance democracy in the Republic of Moldova by promoting and defending human rights and monitoring democratic processes."
+      }
+    ]
   },
   {
     "ID": "2.1.",
@@ -13,7 +19,17 @@
       "Persons with disabilities",
       "Women/girls"
     ],
-    "Text": "In 2008, V.C. married C. They had no children and lived in Chisinau, in a small apartment belonging to V.C., who had no close family or relatives and, as woman with a disability, was highly dependent on her husband."
+    "Text": "In 2008, V.C. married C. They had no children and lived in Chisinau, in a small apartment belonging to V.C., who had no close family or relatives[[fn:2]] and, as woman with a disability,[[fn:3]] was highly dependent on her husband.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "V.C. was adopted and did not know her birth parents; her adoptive parents were deceased, and she had no siblings or other close relatives."
+      },
+      {
+        "n": 3,
+        "text": "No further information is provided."
+      }
+    ]
   },
   {
     "ID": "2.2.",
@@ -41,7 +57,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "On 9 January 2014, V.C. called the police to report the physical and psychological violence inflicted by her husband, combined with his continued alcohol abuse. Officers were sent to the apartment, and C. was charged with disorderly conduct under article 354 of the Contravention Code of the Republic of Moldova. He pleaded guilty and received a fine of 200 lei (equivalent to around $15). However, the charge did not capture the full gravity of the complaint or the abuse that V.C. suffered. No consideration appears to have been given to whether C. could or should have been prosecuted under the provisions of the Criminal Code dealing specifically with offences of domestic violence. Following the attack of 9 January 2014, V.C. moved in with a neighbour, P., because she was afraid to stay in her own apartment, owing to threats made by her husband."
+    "Text": "On 9 January 2014, V.C. called the police to report the physical and psychological violence inflicted by her husband, combined with his continued alcohol abuse. Officers were sent to the apartment, and C. was charged with disorderly conduct under article 354 of the Contravention Code of the Republic of Moldova. He pleaded guilty and received a fine of 200 lei (equivalent to around $15).[[fn:4]] However, the charge did not capture the full gravity of the complaint or the abuse that V.C. suffered.[[fn:5]] No consideration appears to have been given to whether C. could or should have been prosecuted under the provisions of the Criminal Code dealing specifically with offences of domestic violence. Following the attack of 9 January 2014, V.C. moved in with a neighbour, P., because she was afraid to stay in her own apartment, owing to threats made by her husband.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The police report stated that C. had committed the offence after consuming excessive amounts of alcohol."
+      },
+      {
+        "n": 5,
+        "text": "The author refers to European Court of Human Rights, C.N. v. United Kingdom, application No. 4239/08, judgment of 13 November 2012, paras. 70 and 76–77, and M.C. v. Bulgaria, application No. 39272/98, judgment of 4 December 2003, para. 179."
+      }
+    ]
   },
   {
     "ID": "2.6.",
@@ -61,7 +87,13 @@
     "ID": "2.8.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "On 19 January 2014, V.C. returned to the couple’s apartment and told her husband that she intended to divorce him and asked him to move out. That same day, following an argument, C. attacked V.C. with a kitchen axe, hitting her many times in the head. She lost consciousness immediately. After hearing loud noises coming from the apartment, P. called the police. Upon their arrival, they found the door open and V.C. lying on the ground in a pool of blood. Because of the attack, V.C. became paralysed and had difficulty speaking. On 20 January 2014, C. was detained. On 16 September 2014, V.C. died from complications stemming from her injuries."
+    "Text": "On 19 January 2014, V.C. returned to the couple’s apartment and told her husband that she intended to divorce him and asked him to move out. That same day, following an argument, C. attacked V.C. with a kitchen axe, hitting her many times in the head. She lost consciousness immediately. After hearing loud noises coming from the apartment, P. called the police. Upon their arrival, they found the door open and V.C. lying on the ground in a pool of blood. Because of the attack, V.C. became paralysed and had difficulty speaking. On 20 January 2014, C. was detained. On 16 September 2014, V.C. died from complications stemming from her injuries.[[fn:6]]",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The author provides the death certificate."
+      }
+    ]
   },
   {
     "ID": "2.9.",
@@ -70,7 +102,13 @@
       "Persons deprived of their liberty",
       "Women/girls"
     ],
-    "Text": "On 30 December 2015, C. was convicted of his wife’s murder by the Court of the Centru sector of Chisinau. He is currently serving an eight-year sentence of imprisonment. That sentence was upheld by the Chisinau Court of Appeal. The author claims that C.’s conviction is not sufficient to preclude liability on the part of the State party for acts or omissions occurring before V.C.’s death, including the infliction of repeated and serious gender-based violence in a domestic setting."
+    "Text": "On 30 December 2015, C. was convicted of his wife’s murder by the Court of the Centru sector of Chisinau. He is currently serving an eight-year sentence of imprisonment. That sentence was upheld by the Chisinau Court of Appeal. The author claims that C.’s conviction is not sufficient to preclude liability on the part of the State party for acts or omissions occurring before V.C.’s death, including the infliction of repeated and serious gender-based violence in a domestic setting.[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "The author refers to Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Goekce et al. v. Austria (CEDAW/C/39/D/5/2005), para. 12.1.6, and Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Akbak et al. v. Austria (CEDAW/C/39/D/6/2005), para. 12.1.6."
+      }
+    ]
   },
   {
     "ID": "2.10.",
@@ -99,7 +137,13 @@
     "ID": "2.13.",
     "Section": "Exhaustion of domestic remedies",
     "Labels": [],
-    "Text": "The author states that V.C. did not apply for a “victim protection order” under the law because she was not aware, and was never informed by the authorities, of the availability of that measure. Although she had made numerous complaints to the police regarding her husband’s violent behaviour, she never received effective protection. As she is now deceased, there are no further remedies available that could afford effective relief."
+    "Text": "The author states that V.C. did not apply for a “victim protection order” under the law[[fn:8]] because she was not aware, and was never informed by the authorities, of the availability of that measure. Although she had made numerous complaints to the police regarding her husband’s violent behaviour, she never received effective protection. As she is now deceased, there are no further remedies available that could afford effective relief.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Act No. 45-XVI of 1 March 2007 on preventing and combating domestic violence (the Domestic Violence Act)."
+      }
+    ]
   },
   {
     "ID": "2.14.",
@@ -107,7 +151,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Accordingly, the author claims that requiring a victim to exhaust domestic remedies of which she was unaware owing to failures of the authorities of the State party, in particular in circumstances in which those failures form part of the victim’s complaint, would undermine the purposes of the Optional Protocol. In that respect, the author points out that cases of domestic violence have particular characteristics and that perpetrators often exercise physical and psychological coercive power over victims. As a result, it is often the case that remedies that are dependent upon action to be taken by victims cannot be relied upon to provide effective relief."
+    "Text": "Accordingly, the author claims that requiring a victim to exhaust domestic remedies of which she was unaware owing to failures of the authorities of the State party, in particular in circumstances in which those failures form part of the victim’s complaint, would undermine the purposes of the Optional Protocol. In that respect, the author points out that cases of domestic violence have particular characteristics and that perpetrators often exercise physical and psychological coercive power over victims.[[fn:9]] As a result, it is often the case that remedies that are dependent upon action to be taken by victims cannot be relied upon to provide effective relief.[[fn:10]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "The author refers to European Court of Human Rights, T.M. and C.M. v. Republic of Moldova, application No. 26608/11, judgment of 28 January 2014."
+      },
+      {
+        "n": 10,
+        "text": "The author refers to Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Goekce et al. v. Austria and Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Akbak et al. v. Austria."
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -115,13 +169,25 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that, by failing to exercise due diligence in protecting V.C. from a known threat of domestic violence, the State party has violated her rights under article 2 (a), (c), (e) and (f), read in conjunction with article 1, of the Convention."
+    "Text": "The author claims that, by failing to exercise due diligence[[fn:11]] in protecting V.C. from a known threat of domestic violence, the State party has violated her rights under article 2 (a), (c), (e) and (f), read in conjunction with article 1, of the Convention.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "The author refers to Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Goekce et al. v. Austria, paras. 12.1.4 and 12.1.6, and Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Akbak et al. v. Austria, paras. 12.1.5 and 12.1.6."
+      }
+    ]
   },
   {
     "ID": "3.2.",
     "Section": "Failure to implement",
     "Labels": [],
-    "Text": "The author submits that, in the present case, the breaches of the Convention result primarily from deficiencies in the State party’s implementation of its existing legal framework. Those deficiencies were apparent both in relation to the ongoing violence suffered by V.C. in 2013 and in relation to the authorities’ response to the incident of 9 January 2014."
+    "Text": "The author submits that, in the present case, the breaches of the Convention result primarily from deficiencies in the State party’s implementation of its existing legal framework.[[fn:12]] Those deficiencies were apparent both in relation to the ongoing violence suffered by V.C. in 2013 and in relation to the authorities’ response to the incident of 9 January 2014.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "The author refers, inter alia, to V.K. v. Bulgaria (CEDAW/C/49/D/20/2008), para. 9.4."
+      }
+    ]
   },
   {
     "ID": "3.3.",
@@ -129,7 +195,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that the situation in the Republic of Moldova reflects the following: (a) a consistent failure by the authorities to treat domestic violence as a serious criminal matter; and (b) a lack of awareness on the part of the State authorities, in particular police officers, of their obligations in situations of domestic violence. In particular, the author refers to Eremia and others v. Republic of Moldova, in which the European Court of Human Rights decided that the authorities’ actions in response to the repeated acts of domestic violence against the applicant “were not a simple failure”, but “amounted to repeatedly condoning such violence and reflected a discriminatory attitude” towards the applicant as a woman."
+    "Text": "The author claims that the situation in the Republic of Moldova reflects the following: (a) a consistent failure by the authorities to treat domestic violence as a serious criminal matter;[[fn:13]] and (b) a lack of awareness on the part of the State authorities, in particular police officers, of their obligations in situations of domestic violence. In particular, the author refers to Eremia and others v. Republic of Moldova, in which the European Court of Human Rights decided that the authorities’ actions in response to the repeated acts of domestic violence against the applicant “were not a simple failure”, but “amounted to repeatedly condoning such violence and reflected a discriminatory attitude” towards the applicant as a woman.[[fn:14]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "The author refers to the fact that this situation was pointed out in documents A/HRC/11/6/Add.4 and CEDAW/C/MDA/CO/4-5."
+      },
+      {
+        "n": 14,
+        "text": "Application No. 3564/11, judgment of 28 May 2013, para. 89."
+      }
+    ]
   },
   {
     "ID": "3.4.",
@@ -137,7 +213,29 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that none of the complaints made by V.C. and her neighbours were followed by a formal investigation and that the only action taken by the authorities was limited to informal “warnings” and to “discussions” with C., despite the complete absence of change in his behaviour. The author adds that that failure to investigate occurred notwithstanding the following provisions of national law: (a) article 28 of the Criminal Procedure Code of the Republic of Moldova; and (b) article 8 (6) of Act No. 45-XVI of 1 March 2007 on preventing and combating domestic violence (the Domestic Violence Act). Drawing upon the case law of the European Court of Human Rights, the author claims that, in the present case, as the authorities were aware of V.C.’s allegations of domestic violence, they had an obligation to investigate of their own motion the need for action in order to prevent such violence. The author claims in particular that failure to follow up on the allegations with a timely and suitable investigation amounts to a violation of article 2, read in conjunction with article 1, of the Convention. Failure to provide information on protection and support services and/or make the arrangements necessary to have such services provided"
+    "Text": "The author claims that none of the complaints made by V.C. and her neighbours were followed by a formal investigation[[fn:15]] and that the only action taken by the authorities was limited to informal “warnings” and to “discussions” with C., despite the complete absence of change in his behaviour. The author adds that that failure to investigate occurred notwithstanding the following provisions of national law: (a) article 28 of the Criminal Procedure Code of the Republic of Moldova;[[fn:16]] and (b) article 8 (6) of Act No. 45-XVI of 1 March 2007 on preventing and combating domestic violence (the Domestic Violence Act).[[fn:17]] Drawing upon the case law of the European Court of Human Rights, the author claims that, in the present case, as the authorities were aware of V.C.’s allegations of domestic violence, they had an obligation to investigate of their own motion the need for action in order to prevent such violence.[[fn:18]] The author claims in particular that failure to follow up on the allegations with a timely and suitable investigation amounts to a violation of article 2, read in conjunction with article 1, of the Convention.[[fn:19]] Failure to provide information on protection and support services and/or make the arrangements necessary to have such services provided",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "The author refers to document A/HRC/11/6/Add.4, para. 21, in which it was noted that, unless it resulted in serious injury, domestic violence in the Republic of Moldova was not perceived as a problem warranting legal intervention. As a result, it was experienced in silence and received little recognition among officials."
+      },
+      {
+        "n": 16,
+        "text": "The author explains that, under article 28, State authorities are obliged to take positive action, including criminal investigations, in any case where there is a reasonable suspicion that a crime, including in the context of domestic violence, has been committed."
+      },
+      {
+        "n": 17,
+        "text": "The author explains that, under article 8 (6), the administrative bodies of the interior, including the regional and local police, are required to record and report cases of domestic violence, examine notifications submitted by citizens in relation to conflicts within families and acts of violence and perform activities aimed at preventing repeated acts of domestic violence."
+      },
+      {
+        "n": 18,
+        "text": "European Court of Human Rights, T.M. and C.M. v. Republic of Moldova, para. 46."
+      },
+      {
+        "n": 19,
+        "text": "The author refers to Jallow v. Bulgaria (CEDAW/C/52/D/32/2011), para. 8.4."
+      }
+    ]
   },
   {
     "ID": "3.5.",
@@ -177,7 +275,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The State party submitted its observations on admissibility and the merits by a note verbale dated 6 April 2017. It submits that, during the period 2012–2014, the police intervened in resolving three complaints from V.C. regarding acts of domestic violence. Those acts were registered in the “records of other information regarding offences and incidents” of the Central Police Inspectorate of the Police Department of Chisinau and examined within the limits of police competence, and V.C. was informed about the results of those examinations. One of the cases was examined under article 274 of the Criminal Procedure Code, leading to the opening of a criminal case against C., which was brought to court on 31 March 2014."
+    "Text": "The State party submitted its observations on admissibility and the merits by a note verbale dated 6 April 2017. It submits that, during the period 2012–2014, the police intervened in resolving three complaints from V.C. regarding acts of domestic violence. Those acts were registered in the “records of other information regarding offences and incidents” of the Central Police Inspectorate of the Police Department of Chisinau and examined within the limits of police competence, and V.C. was informed about the results of those examinations. One of the cases was examined under article 274 of the Criminal Procedure Code,[[fn:20]] leading to the opening of a criminal case against C., which was brought to court on 31 March 2014.",
+    "Footnotes": [
+      {
+        "n": 20,
+        "text": "Article 274 (1) of the Criminal Procedure Code of the Republic of Moldova reads as follows: A criminal investigative body notified in the manner provided for in articles 262 and 273 shall decide, in an order, to initiate the criminal investigation, provided that a reasonable suspicion that a crime has been committed, and an absence of circumstances excluding the criminal investigation, result from the notification or from the establishing acts. The person who made the notification or the respective body shall be informed thereof."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -205,7 +309,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Furthermore, on 31 January 2014, the Court of the Centru sector of Chisinau issued a protection order for the victim, V.C., applying certain restrictions provided by law to her aggressor, C. In accordance with the Domestic Violence Act, police officers executed the order, informing C. about the restrictions applied to him by the Court and warning him, under signature, about the legal liability for non-compliance with the order. At the same time, a police officer initiated the procedure for supervising the enforcement of the restrictions imposed by the Court. The State party adds that, during the period for which the order was enacted, the officer did not report any violations of the measures. It also states that the Central Police Inspectorate reported that it was taking all measures necessary to prevent conflict situations and acts of domestic violence from occurring."
+    "Text": "Furthermore, on 31 January 2014, the Court of the Centru sector of Chisinau issued a protection order[[fn:21]] for the victim, V.C., applying certain restrictions provided by law to her aggressor, C. In accordance with the Domestic Violence Act, police officers executed the order, informing C. about the restrictions applied to him by the Court and warning him, under signature, about the legal liability for non-compliance with the order. At the same time, a police officer initiated the procedure for supervising the enforcement of the restrictions imposed by the Court. The State party adds that, during the period for which the order was enacted, the officer did not report any violations of the measures. It also states that the Central Police Inspectorate reported that it was taking all measures necessary to prevent conflict situations and acts of domestic violence from occurring.",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "The State party does not provide a copy of the protection order."
+      }
+    ]
   },
   {
     "ID": "4.6.",
@@ -287,7 +397,17 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The Committee is aware of the approach taken in similar cases by the European Court of Human Rights. For instance, in the case of Centre for Legal Resources on behalf of Valentin Câmpeanu v. Romania, the application was lodged by a non-governmental organization on behalf of the deceased complainant more than four years after his death. In its judgment, the Court referred, inter alia, to the case law of the United Nations Human Rights Committee established pursuant to the International Covenant on Civil and Political Rights, according to which, in exceptional cases, a third party may submit a communication on behalf of a victim. Such a communication may be examined only if the third party can justify acting on the victim’s behalf. The victim may authorize a representative to submit a communication on her or his behalf. According to the Committee’s rules of procedure, a communication submitted on behalf of a victim may also be accepted when it appears that the individual in question is unable to submit the communication personally. The Court noted that typical examples of such situations include cases of enforced disappearance, when it is alleged that the victim has been abducted, when the victim has disappeared, when it is impossible to known the victim’s whereabouts or when the victim is in detention or in a psychiatric facility. A third party (usually a close relative) may submit a communication on behalf of a deceased person."
+    "Text": "The Committee is aware of the approach taken in similar cases by the European Court of Human Rights. For instance, in the case of Centre for Legal Resources on behalf of Valentin Câmpeanu v. Romania,[[fn:22]] the application was lodged by a nongovernmental organization on behalf of the deceased complainant more than four years after his death. In its judgment, the Court referred, inter alia, to the case law of the United Nations Human Rights Committee established pursuant to the International Covenant on Civil and Political Rights, according to which, in exceptional cases, a third party may submit a communication on behalf of a victim. Such a communication may be examined only if the third party can justify acting on the victim’s behalf. The victim may authorize a representative to submit a communication on her or his behalf. According to the Committee’s rules of procedure, a communication submitted on behalf of a victim may also be accepted when it appears that the individual in question is unable to submit the communication personally. The Court noted that typical examples of such situations include cases of enforced disappearance, when it is alleged that the victim has been abducted, when the victim has disappeared, when it is impossible to known the victim’s whereabouts or when the victim is in detention or in a psychiatric facility. A third party (usually a close relative) may submit a communication on behalf of a deceased person.[[fn:23]]",
+    "Footnotes": [
+      {
+        "n": 22,
+        "text": "Application No. 47848/08, judgment of 17 July 2014."
+      },
+      {
+        "n": 23,
+        "text": "See, for example, Bazarov and Bazarov v. Uzbekistan (CCPR/C/87/D/959/2000); Celal v. Greece (CCPR/C/82/D/1235/2003); Telitsina v. Russian Federation (CCPR/C/80/D/888/1999); Coronel et al. v. Colombia (CCPR/C/76/D/778/1997); and Miango v. Zaire (CCPR/C/31/D/194/1985)."
+      }
+    ]
   },
   {
     "ID": "6.5.",
@@ -340,7 +460,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author asserts that the State party has violated V.C.’s rights under article 2 (a), (c), (e) and (f), read in conjunction with article 1, of the Convention. The issue before the Committee is, therefore, to determine whether the State party, through its entire structure, including its authorities, officials, institutions, practices and legislation, exercised due diligence, adequately addressed and investigated V.C.’s repeated complaints of domestic violence and provided her with effective legal protection, counselling and rehabilitation services. The Committee must determine whether the State party met its positive obligations under the Convention to protect V.C. from discrimination, understanding domestic violence as a flagrant and clear manifestation of discrimination against women."
+    "Text": "The author asserts that the State party has violated V.C.’s rights under article 2 (a), (c), (e) and (f), read in conjunction with article 1, of the Convention. The issue before the Committee is, therefore, to determine whether the State party, through its entire structure, including its authorities, officials, institutions, practices and legislation, exercised due diligence, adequately addressed and investigated V.C.’s repeated complaints of domestic violence and provided her with effective legal protection, counselling and rehabilitation services. The Committee must determine whether the State party met its positive obligations under the Convention to protect V.C. from discrimination, understanding domestic violence as a flagrant and clear manifestation of discrimination against women.[[fn:24]]",
+    "Footnotes": [
+      {
+        "n": 24,
+        "text": "See the Committee’s general recommendations No. 19 (1992) on violence against women and No. 35 (2017) on gender-based violence against women, updating general recommendation No. 19."
+      }
+    ]
   },
   {
     "ID": "7.3.",
@@ -348,7 +474,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee recalls that, under article 2 (a), (c), (e) and (f) of the Convention, the State party has an obligation to respect the principle of the equality of men and women, to effectively and legally protect women and to take all appropriate measures to eliminate discrimination against them, including by modifying or abolishing, not only existing laws and regulations, but also customs and practices that constitute discrimination against women. The Committee reaffirms that those obligations fall on all State organs, including law enforcement officials."
+    "Text": "The Committee recalls that, under article 2 (a), (c), (e) and (f) of the Convention, the State party has an obligation to respect the principle of the equality of men and women, to effectively and legally protect women and to take all appropriate measures to eliminate discrimination against them, including by modifying or abolishing, not only existing laws and regulations, but also customs and practices that constitute discrimination against women. The Committee reaffirms that those obligations fall on all State organs,[[fn:25]] including law enforcement officials.",
+    "Footnotes": [
+      {
+        "n": 25,
+        "text": "See, for example, L.R. v. Republic of Moldova (CEDAW/C/66/D/58/2013), para. 13.6."
+      }
+    ]
   },
   {
     "ID": "7.4.",
@@ -415,7 +547,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee further considers that the fact that C. was merely punished for disorderly conduct after the incident of 9 January 2014 and that the incident was not examined under the existing relevant legislation for preventing and combating domestic violence reveals that the police lacked the capacity to understand the scope and gravity of domestic violence against women and to act accordingly, by providing V.C. with support and rehabilitation services and information on the possibility of obtaining a protection order. The Committee recalls that the unavailability of immediate protection, in particular in the form of temporary shelters, can constitute a violation of the State party’s obligations under article 2 (c) and (e) of the Convention."
+    "Text": "The Committee further considers that the fact that C. was merely punished for disorderly conduct after the incident of 9 January 2014 and that the incident was not examined under the existing relevant legislation for preventing and combating domestic violence reveals that the police lacked the capacity to understand the scope and gravity of domestic violence against women and to act accordingly, by providing V.C. with support and rehabilitation services and information on the possibility of obtaining a protection order. The Committee recalls that the unavailability of immediate protection, in particular in the form of temporary shelters, can constitute a violation of the State party’s obligations under article 2 (c) and (e) of the Convention.[[fn:26]]",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "V.K. v. Bulgaria, para. 9.13."
+      }
+    ]
   },
   {
     "ID": "7.13.",
@@ -437,7 +575,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee recalls that gender-based violence, which impairs or nullifies the enjoyment by women of human rights and fundamental freedoms under general international law or under human rights conventions, is discrimination within the meaning of article 1 of the Convention. Under the obligation of due diligence, States parties must adopt and implement diverse measures to tackle gender-based violence against women committed by non-State actors, including having laws, institutions and a system in place to address such violence and ensuring that they function effectively in practice and are supported by all State agents and bodies, which diligently enforce the laws. The failure of a State party to take all appropriate measures to prevent acts of gender-based violence against women in cases in which its authorities are aware or should be aware of the risk of such violence, or the failure to investigate, to prosecute and punish perpetrators and to provide reparations to victims and survivors of such acts, provides tacit permission or encouragement to perpetrate acts of gender-based violence against women. Such failures or omissions constitute human rights violations."
+    "Text": "The Committee recalls that gender-based violence, which impairs or nullifies the enjoyment by women of human rights and fundamental freedoms under general international law or under human rights conventions, is discrimination within the meaning of article 1 of the Convention.[[fn:27]] Under the obligation of due diligence, States parties must adopt and implement diverse measures to tackle gender-based violence against women committed by non-State actors, including having laws, institutions and a system in place to address such violence and ensuring that they function effectively in practice and are supported by all State agents and bodies, which diligently enforce the laws. The failure of a State party to take all appropriate measures to prevent acts of gender-based violence against women in cases in which its authorities are aware or should be aware of the risk of such violence, or the failure to investigate, to prosecute and punish perpetrators and to provide reparations to victims and survivors of such acts, provides tacit permission or encouragement to perpetrate acts of gender-based violence against women. Such failures or omissions constitute human rights violations.[[fn:28]]",
+    "Footnotes": [
+      {
+        "n": 27,
+        "text": "General recommendations No. 19 and No. 35 (2017) on gender-based violence against women, updating general recommendation No. 19."
+      },
+      {
+        "n": 28,
+        "text": "General recommendation No. 35, para. 24 (2) (b)."
+      }
+    ]
   },
   {
     "ID": "7.16.",
@@ -445,7 +593,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "While appreciating the adoption of a new law by the State party against domestic violence in 2018 and the efforts made to address the problem of domestic violence, the Committee considers that those measures had not been sufficiently put into practice in the circumstances of the present case. The reaction of the police throughout the handling of V.C.’s case was not conducive to preventing, or protecting her from, domestic violence. Moreover, the Committee considers that the State party’s specific legislation should have been implemented by all State actors, including law enforcement officials, who are bound by the obligations of the State party."
+    "Text": "While appreciating the adoption of a new law by the State party against domestic violence in 2018 and the efforts made to address the problem of domestic violence, the Committee considers that those measures had not been sufficiently put into practice in the circumstances of the present case.[[fn:29]] The reaction of the police throughout the handling of V.C.’s case was not conducive to preventing, or protecting her from, domestic violence. Moreover, the Committee considers that the State party’s specific legislation should have been implemented by all State actors, including law enforcement officials, who are bound by the obligations of the State party.",
+    "Footnotes": [
+      {
+        "n": 29,
+        "text": "See Inter-American Commission on Human Rights, Maria Da Penha Maia Fernandes v. Brazil, case No. 12.051, report No. 54/01, 16 April 2001, para. 57, and Jessica Lenahan (Gonzales) et al. v. United States, case No. 12.626, report No. 80/11, 21 July 2011, para. 161."
+      }
+    ]
   },
   {
     "ID": "7.17.",
@@ -469,7 +623,7 @@
   },
   {
     "ID": "10.",
-    "Section": "(b)\tGeneral:",
+    "Section": "(b) General:",
     "Labels": [],
     "Text": "In accordance with article 7 (4) of the Optional Protocol, the State party shall give due consideration to the views of the Committee, together with its recommendations, and submit to the Committee, within six months, a written response, including information on any action taken in the light of those views and recommendations. The State party is also requested to publish the present views and recommendations and to have them widely disseminated in order to reach all relevant sectors of society."
   },
@@ -503,7 +657,7 @@
     "ID": "5.",
     "Section": "Annex",
     "Labels": [],
-    "Text": "In the present case, the communication purports to have been made by Promo-LEX, a non-governmental organization (“the author”), on behalf of V.C., a deceased person (“the victim”). The victim is not survived by any next of kin or heir who could have submitted the communication on her behalf under article 4 of the Optional Protocol or authorized the author to act on behalf of the victim."
+    "Text": "In the present case, the communication purports to have been made by PromoLEX, a non-governmental organization (“the author”), on behalf of V.C., a deceased person (“the victim”). The victim is not survived by any next of kin or heir who could have submitted the communication on her behalf under article 4 of the Optional Protocol or authorized the author to act on behalf of the victim."
   },
   {
     "ID": "6.",

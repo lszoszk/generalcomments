@@ -1,13 +1,13 @@
 [
   {
     "ID": "1.1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [],
     "Text": "The communication is brought by D.N.S., a national of Somalia born in 1987. She sought asylum in Denmark, and her request was rejected. She claims that her deportation would amount to a violation by the State party of her rights under articles 2, 3 and 12 of the Convention. The Optional Protocol entered into force for Denmark on 22 December 2000. The author is represented by counsel."
   },
   {
     "ID": "1.2.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [],
     "Text": "On 20 March 2018, the Danish Immigration Service withdrew the author’s residence permit and set 12 June 2019 as the deadline for her to leave Denmark. On 26 June 2019, the Committee, acting through the Working Group on Communications under the Optional Protocol, requested the State party to refrain from deporting the author to Somalia pending the consideration of her case by the Committee, pursuant to article 5 (1) of the Optional Protocol and rule 63 of the Committee’s rules of procedure."
   },
@@ -25,7 +25,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author was raised by her father and mother in Somalia, and she has one brother. Her father worked with herbs used for medical purposes. However, when Al-Shabaab took control over the author’s hometown, the militia threatened her father on several occasions, demanding that he quit his activities because medicines could not heal people, according to the Qur’an. Given that the author’s father feared for himself and his family, he stopped working with herbal medications for a period. He later decided to continue his business because it was his only means of livelihood. One day following that decision, the author’s father was shot dead by Al-Shabaab for not having followed the militant group’s orders. The author, who was present at the time, fainted because of what she had seen. She woke up alone in a room in a camp controlled by Al-Shabaab. She had flashbacks of her father’s killing. After being detained for five days, she was forced to marry a man belonging to the militant group. She asserts that, during her detention, she was given drugs that made her powerless to defend herself and dizzy. It happened every time she ate the food that she was served. She was held in the same room for about a month. She submits that the events occurred in 2013."
+    "Text": "The author was raised by her father and mother in Somalia, and she has one brother. Her father worked with herbs used for medical purposes. However, when AlShabaab took control over the author’s hometown, the militia threatened her father on several occasions, demanding that he quit his activities because medicines could not heal people, according to the Qur’an. Given that the author’s father feared for himself and his family, he stopped working with herbal medications for a period. He later decided to continue his business because it was his only means of livelihood. One day following that decision, the author’s father was shot dead by Al-Shabaab for not having followed the militant group’s orders. The author, who was present at the time, fainted because of what she had seen. She woke up alone in a room in a camp controlled by Al-Shabaab. She had flashbacks of her father’s killing. After being detained for five days, she was forced to marry a man belonging to the militant group. She asserts that, during her detention, she was given drugs that made her powerless to defend herself and dizzy. It happened every time she ate the food that she was served. She was held in the same room for about a month. She submits that the events occurred in 2013.[[fn:1]]",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "At one point, the author also asserted that she suffered female genital mutilation, however, no further details have been provided in relation to that claim."
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -45,7 +51,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "On 20 March 2018, the Danish Immigration Service decided to withdraw the author’s fixed-term residence permit. The author appealed against the decision, claiming that she still faced persecution, should she be returned to her region of Somalia, which remained under the control of Al-Shabaab. On 14 May 2019, the Refugee Appeals Board affirmed the decision of the Service. The national authorities held that: (a) there were inconsistencies in the author’s statements during the hearings, as a result of which the Board could not accept the author’s allegations in relation to the killing of her father or that she had no male network in Somalia; (b) conditions had improved in the author’s home area, since her departure; and (c) current country information revealed that Al-Shabaab seemed to have changed their methods, i.e. rather than carrying out arbitrary attacks on civilians, they targeted people of a certain profile, but the author did not seem to belong to any of the targeted vulnerable groups. The Board stated that her unsuccessful refugee status application did not render her vulnerable either. Therefore, considering the author’s individual circumstances, the withdrawal of her residence permit could not be assumed to place her at any particular risk."
+    "Text": "On 20 March 2018, the Danish Immigration Service decided to withdraw the author’s fixed-term residence permit. The author appealed against the decision, claiming that she still faced persecution, should she be returned to her region of Somalia, which remained under the control of Al-Shabaab. On 14 May 2019, the Refugee Appeals Board affirmed the decision of the Service. The national authorities held that: (a) there were inconsistencies in the author’s statements during the hearings, as a result of which the Board could not accept the author’s allegations in relation to the killing of her father or that she had no male network in Somalia;[[fn:2]] (b) conditions had improved in the author’s home area, since her departure; and (c) current country information revealed that Al-Shabaab seemed to have changed their methods, i.e. rather than carrying out arbitrary attacks on civilians, they targeted people of a certain profile, but the author did not seem to belong to any of the targeted vulnerable groups. The Board stated that her unsuccessful refugee status application did not render her vulnerable either. Therefore, considering the author’s individual circumstances, the withdrawal of her residence permit could not be assumed to place her at any particular risk.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "For example, the author’s allegations relating to how long she stayed in Al-Shabaab custody, the date of her marriage, how long she was hiding in the village prior to her escape, whether it was her mother or brother who stayed with her while she hid in the village, how long it took to drive from the village to the airport, whether there were both a man and a woman in the car and how many nights she spent in a hotel before reaching the airport. In addition, the author stated, in her submission of 9 November 2017, that her mother and brother were dead, whereas she later asserted that, in 2015, she had been informed that they were staying in a refugee camp in Kenya, which is still the case, and that the last time she had had contact with them was in April 2019."
+      }
+    ]
   },
   {
     "ID": "2.6.",
@@ -187,15 +199,19 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee takes note of the State party’s view that the claims in the communication are manifestly ill-founded and contrary to article 4 (2) (c) of the Optional Protocol. The Committee takes note of the author’s claim that she fears that she would be at risk of violence from Al-Shabaab if she is deported to Somalia because she fled from Somalia after being forced to marry a local leader of Al-Shabaab. The author also claims that, if the State party deports her to Somalia, she will be personally exposed to serious forms of gender-based violence as a single woman without a male support network, in violation of her rights under articles 2, 3 and 12 of the Convention."
+    "Text": "The Committee takes note of the State party’s view that the claims in the communication are manifestly ill-founded and contrary to article 4 (2) (c) of the Optional Protocol. The Committee takes note of the author’s claim that she fears that she would be at risk of violence from Al-Shabaab if she is deported to Somalia because she fled from Somalia after being forced to marry a local leader of AlShabaab. The author also claims that, if the State party deports her to Somalia, she will be personally exposed to serious forms of gender-based violence as a single woman without a male support network, in violation of her rights under articles 2, 3 and 12 of the Convention."
   },
   {
     "ID": "6.5.",
     "Section": "Consideration of admissibility",
-    "Labels": [
-      "Refugees & asylum-seekers"
-    ],
-    "Text": "The Committee recalls that, under international human rights law, the non-refoulement principle imposed a duty on States to refrain from returning a person to a jurisdiction in which he or she might face serious violations of human rights, notably arbitrary deprivation of life or torture or other cruel, inhuman or degrading treatment or punishment."
+    "Labels": [],
+    "Text": "The Committee recalls that, under international human rights law, the nonrefoulement principle imposed a duty on States to refrain from returning a person to a jurisdiction in which he or she might face serious violations of human rights, notably arbitrary deprivation of life or torture or other cruel, inhuman or degrading treatment or punishment.[[fn:3]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "See para. 21 of general recommendation No. 32 (2014) on the gender-related dimensions of refugee status, asylum, nationality and statelessness of women."
+      }
+    ]
   },
   {
     "ID": "6.6.",
@@ -203,7 +219,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee, however, recalls that it is generally for the authorities of States parties to the Convention to evaluate the facts and evidence and the application of national law in a particular case, unless it can be established that the evaluation was conducted in a manner that was biased or based on gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice. In that regard, the Committee notes that, in substance, the author is challenging the manner in which the State party’s asylum authorities assessed the factual circumstances of her case, applied the provisions of legislation and reached their conclusions. The issues before the Committee are, therefore, whether there was any irregularity in the decision-making process regarding the author’s asylum application and whether the State party’s authorities failed to properly assess the risk of serious gender-based violence in the event of the author’s return to Somalia."
+    "Text": "The Committee, however, recalls that it is generally for the authorities of States parties to the Convention to evaluate the facts and evidence and the application of national law in a particular case, unless it can be established that the evaluation was conducted in a manner that was biased or based on gender stereotypes that constitute discrimination against women, was clearly arbitrary or amounted to a denial of justice.[[fn:4]] In that regard, the Committee notes that, in substance, the author is challenging the manner in which the State party’s asylum authorities assessed the factual circumstances of her case, applied the provisions of legislation and reached their conclusions. The issues before the Committee are, therefore, whether there was any irregularity in the decision-making process regarding the author’s asylum application and whether the State party’s authorities failed to properly assess the risk of serious gender-based violence in the event of the author’s return to Somalia.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "See, for example, N.Q. and S.A. v. United Kingdom of Great Britain and Northern Ireland (CEDAW/C/63/D/62/2013); H.D. v. Denmark (CEDAW/C/70/D/76/2014), para. 7.7.; and S.A.O. v. Denmark (CEDAW/C/71/D/101/2016), para. 6.9."
+      }
+    ]
   },
   {
     "ID": "6.7.",

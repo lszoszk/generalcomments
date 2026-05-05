@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "Decision on admissibility",
+    "Section": "",
     "Labels": [],
     "Text": "The author of the communication dated 12 December 2004 is Antonio Parra Corral, a Spanish citizen born in 1945. He claims to be a victim of violations by Spain to article 14, paragraph 5, and article 26 of the Covenant. The Optional Protocol entered into force for Spain on 25 April 1985. The author is represented by counsel (Mrs. Encarnación Caballero Oliver)."
   },
@@ -11,7 +11,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On 9 December 2001 the Second Chamber of the Provincial Court of Almería (Audiencia Provincial de Almería) sentenced the author to seven and a half years of imprisonment for destruction of property, attempt to commit homicide and manufacturing of illegal explosives, and to one year imprisonment for continuous threats."
+    "Text": "On 9 December 2001 the Second Chamber of the Provincial Court of Almería (Audiencia Provincial de Almería) sentenced the author to seven and a half years of imprisonment for destruction of property, attempt to commit homicide and manufacturing of illegal explosives, and to one year imprisonment for continuous threats.[[fn:3]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "According to the judgment, the author and a co-accused threatened a commercial partner who refused to transport livestock for them. They put a package with explosives in front of the victim’s home and provoked an explosion, which caused severe damage to the premises. The evidence against the author consisted in testimonies about the threats and experts’ affidavits on the type of explosives used by the accused and the extent of the damage caused to the victim’s premises."
+      }
+    ]
   },
   {
     "ID": "2.2.",

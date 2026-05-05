@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The author of the communication is Ms. Bozena Fijalkowska, a Polish citizen, currently residing in Torun, Poland. She claims to be a victim of a violation by Poland of article 7 of the International Covenant on Civil and Political Rights. The case also appears to raise issues under articles 9 and 14 of the Covenant. She is not represented by counsel."
   },
@@ -27,7 +27,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "On 1 June 1998, the author went to the court registry to examine her case file and requested copies of the transcript of the court hearing and decision of 5 February 1998. She received a copy of the decision on 18 June 1998 at the psychiatric institution. On 24 June 1998, she lodged an appeal against the Torun District Court’s decision of 5 February 1998. On 26 June 1998, the Regional Court dismissed her appeal as she had missed the statutory deadline."
+    "Text": "On 1 June 1998, the author went to the court registry to examine her case file and requested copies of the transcript of the court hearing and decision of 5 February 1998. She received a copy of the decision on 18 June 1998 at the psychiatric institution. On 24 June 1998, she lodged an appeal against the Torun District Court’s decision of 5 February 1998. On 26 June 1998, the Regional Court dismissed her appeal as she had missed the statutory deadline.[[fn:3]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "According to the decision, dated 26 June 1998, of the Regional Court, the statutory deadline was 26 February 1998."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -63,7 +69,21 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "By submission of 11 September 2002, the State party submitted that the communication is inadmissible for failure to exhaust domestic remedies. It argued that the author could have filed a constitutional complaint pursuant to article 79 (1) of the new Polish Constitution of 2 April 1997. Her claim that confinement to a psychiatric institution without her consent amounted to cruel, inhuman and degrading treatment could have been examined as an infringement of her rights under articles 39, 40, and 41 of the Constitution. Such a complaint would have tested the constitutionality of article 29 of the Mental Health Protection Act 1994."
+    "Text": "By submission of 11 September 2002, the State party submitted that the communication is inadmissible for failure to exhaust domestic remedies. It argued that the author could have filed a constitutional complaint pursuant to article 79 (1)[[fn:4]] of the new Polish Constitution of 2 April 1997. Her claim that confinement to a psychiatric institution without her consent amounted to cruel, inhuman and degrading treatment could have been examined as an infringement of her rights under articles 39, 40, and 41[[fn:5]] of the Constitution. Such a complaint would have tested the constitutionality of article 29[[fn:6]] of the Mental Health Protection Act 1994.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "This article provides that “In accordance with principles specified by statue, everyone whose constitutional freedoms or rights have been infringed shall have the right to appeal to the Constitutional Court for a judgment on the conformity with the Constitution of the statute or another normative act upon which basis a court or organ of public administration has given a final decision on his freedoms, rights or obligations as specified in the Constitution.”"
+      },
+      {
+        "n": 5,
+        "text": "Articles 39 provides that, “No one shall be subjected to scientific experimentation, including medical experimentation, without his voluntary consent.” Article 40 provides that, “No one may be subjected to torture or cruel, inhuman, or degrading treatment or punishment. The application of corporal punishment shall be prohibited.” Article 41 provides, “1. Personal inviolability and security shall be ensured to everyone. Any deprivation or limitation of liberty may be imposed only in accordance with principles and under procedures specified by statute.”"
+      },
+      {
+        "n": 6,
+        "text": "Article 29 provides « 1. A person mentally ill may also be confined to psychiatric hospital, without the consent required in article 22; a. Whose hitherto behaviour have indicated that a failure to confine him/her to hospital will cause substantial deterioration of his/her state of health, b. who is unable to provide by himself/herself his/her basic needs, and it is justified to anticipate that treatment in a psychiatric hospital will bring about improvement of his/her state of health”."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -149,7 +169,7 @@
   },
   {
     "ID": "2.",
-    "Section": "“1. \tA person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
+    "Section": "“1.  A person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
     "Labels": [
       "Persons with disabilities"
     ],
@@ -157,7 +177,7 @@
   },
   {
     "ID": "7.2.",
-    "Section": "“1. \tA person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
+    "Section": "“1.  A person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
     "Labels": [
       "Persons with disabilities"
     ],
@@ -165,7 +185,7 @@
   },
   {
     "ID": "7.3.",
-    "Section": "“1. \tA person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
+    "Section": "“1.  A person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
     "Labels": [
       "Persons with disabilities"
     ],
@@ -173,7 +193,7 @@
   },
   {
     "ID": "7.4.",
-    "Section": "“1. \tA person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
+    "Section": "“1.  A person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
     "Labels": [
       "Persons with disabilities"
     ],
@@ -181,7 +201,7 @@
   },
   {
     "ID": "7.5.",
-    "Section": "“1. \tA person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
+    "Section": "“1.  A person mentally ill may also be confined to psychiatric hospital, without the consent required in Article 22:",
     "Labels": [
       "Persons with disabilities"
     ],
@@ -199,7 +219,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "As to whether the State party violated article 9 of the Covenant by committing the author to a psychiatric institution, the Committee notes its prior jurisprudence that treatment in a psychiatric institution against the will of the patient constitutes a form of deprivation of liberty that falls under the terms of article 9 of the Covenant. As to whether the committal was lawful, the Committee notes that it was carried out in accordance with the relevant articles of the Mental Health Protection Act and was, thus, lawfully carried out."
+    "Text": "As to whether the State party violated article 9 of the Covenant by committing the author to a psychiatric institution, the Committee notes its prior jurisprudence that treatment in a psychiatric institution against the will of the patient constitutes a form of deprivation of liberty that falls under the terms of article 9 of the Covenant.[[fn:7]] As to whether the committal was lawful, the Committee notes that it was carried out in accordance with the relevant articles of the Mental Health Protection Act and was, thus, lawfully carried out.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Communication No. 754/1997, A. v. New Zealand, Views adopted on 15 July 1999."
+      }
+    ]
   },
   {
     "ID": "8.3.",

@@ -3,7 +3,7 @@
     "ID": "1.",
     "Section": "Annex",
     "Labels": [],
-    "Text": "The author of the communication received on 18 July 2006 is The-Trinh Pham, a Canadian national, born on 21 July 1951 in Viet Nam. He claims to be a victim of violations by Canada of articles 14 and 26 of the Covenant. The author is not represented by counsel. The Covenant and the Optional Protocol to the Covenant entered into force for Canada on 19 August 1976."
+    "Text": "The author of the communication received on 18 July 2006 is TheTrinh Pham, a Canadian national, born on 21 July 1951 in Viet Nam. He claims to be a victim of violations by Canada of articles 14 and 26 of the Covenant. The author is not represented by counsel. The Covenant and the Optional Protocol to the Covenant entered into force for Canada on 19 August 1976."
   },
   {
     "ID": "2.1.",
@@ -12,7 +12,13 @@
       "Children",
       "Persons with disabilities"
     ],
-    "Text": "The author had worked as a computer analyst at Hydro-Québec since May 1981 and, until 1986, had received excellent evaluations from his superiors. After this date, he was accused of having difficulty communicating with his co-workers. In the course of a reorganization of the enterprise in 1989, he was given leave of absence and invited to transfer to another post within 12 months. Over the course of seven years, he was assigned to a variety of jobs and training courses in the field of information technology. He applied for numerous vacancies, but without success. The reasons given by his superiors varied. Some considered the author’s qualifications to be inadequate, others referred to his record of poor evaluations. In certain cases, his handicap was mentioned. Eventually, on 9 February 1996, the author was dismissed. At that point, he decided to initiate three separate proceedings against Hydro-Québec: one before the Labour Standards Commission, one before the Commission on Human Rights and Children’s Rights and one for damages in the Superior Court."
+    "Text": "The author had worked as a computer analyst at HydroQuébec since May 1981 and, until 1986, had received excellent evaluations from his superiors. After this date, he was accused of having difficulty communicating with his coworkers. In the course of a reorganization of the enterprise in 1989, he was given leave of absence and invited to transfer to another post within 12 months. Over the course of seven years, he was assigned to a variety of jobs and training courses in the field of information technology. He applied for numerous vacancies, but without success. The reasons given by his superiors varied. Some considered the author’s qualifications to be inadequate, others referred to his record of poor evaluations. In certain cases, his handicap was mentioned.[[fn:4]] Eventually, on 9 February 1996, the author was dismissed. At that point, he decided to initiate three separate proceedings against HydroQuébec: one before the Labour Standards Commission, one before the Commission on Human Rights and Children’s Rights and one for damages in the Superior Court.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "In his decision of 10 February 1998, the labour commissioner noted, with regard to the reasons for the rejections received by the author over the years, that certain people considered his qualifications to be insufficient; they said that he had an inadequate grasp of HydroQuébec’s information systems. Others pointed to his poor record; his previous evaluations were unfavourable. In some cases, his response was unsatisfactory; in others, it was his handicap. The fact is that Mr. TheTrinh Pham suffers from a severe stammer. Recruitment managers would therefore note some difficulty in communication (p. 6)."
+      }
+    ]
   },
   {
     "ID": "2.2.",
@@ -27,13 +33,25 @@
       "Children",
       "Persons with disabilities"
     ],
-    "Text": "On 16 March 1996 the author filed a complaint with the Commission on Human Rights and Children’s Rights (CDPDJ). He claims to have suffered discrimination on grounds of race, colour, ethnic or national origin and disability. On 17 February 2000 the CDPDJ decided to close the case on the ground that, on the basis of the same facts, the author had lodged another appeal with the Labour Standards Commission. On 20 March 2000 the author filed for review with the Superior Court, requesting that his case should be transferred to the Human Rights Tribunal. On 31 August 2000 his request was denied. On 27 October 2000 the Court of Appeal of Quebec rejected the author’s appeal."
+    "Text": "On 16 March 1996 the author filed a complaint with the Commission on Human Rights and Children’s Rights (CDPDJ). He claims to have suffered discrimination on grounds of race, colour, ethnic or national origin and disability. On 17 February 2000 the CDPDJ decided to close the case on the ground that, on the basis of the same facts, the author had lodged another appeal with the Labour Standards Commission. On 20 March 2000 the author filed for review with the Superior Court, requesting that his case should be transferred to the Human Rights Tribunal.[[fn:5]] On 31 August 2000 his request was denied. On 27 October 2000 the Court of Appeal of Quebec rejected the author’s appeal.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "As of 24 July 1997, private individuals no longer have direct access to the Human Rights Tribunal. Only the Commission on Human Rights and Children’s Rights (CDPDJ) may bring legal action before the Tribunal, on behalf of a victim."
+      }
+    ]
   },
   {
     "ID": "2.4.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 21 January 1999 the author filed a parallel claim for damages against Hydro-Québec before the Superior Court. Following the Superior Court decision of 31 August 2000 in the second set of proceedings mentioned above (para. 2.2), the author amended his statement to the Superior Court to unite the causes of action; these now comprised the period of notice of dismissal, “moral” damages, discrimination and fraud. On 7 May 2003 the Superior Court declared the application inadmissible, finding that the claims regarding period of notice and discrimination were res judicatae. The author appealed against this judgement with the Court of Appeal of Quebec. On 13 April 2004 the Court rejected the appeal. On 28 October 2004 the Supreme Court of Canada rejected the author’s application for leave to appeal."
+    "Text": "On 21 January 1999 the author filed a parallel claim for damages against Hydro-Québec before the Superior Court. Following the Superior Court decision of 31 August 2000 in the second set of proceedings mentioned above (para. 2.2), the author amended his statement to the Superior Court to unite the causes of action; these now comprised the period of notice of dismissal, “moral” damages, discrimination and fraud. On 7 May 2003 the Superior Court declared the application inadmissible, finding that the claims regarding period of notice and discrimination were res judicatae.[[fn:6]] The author appealed against this judgement with the Court of Appeal of Quebec. On 13 April 2004 the Court rejected the appeal. On 28 October 2004 the Supreme Court of Canada rejected the author’s application for leave to appeal.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The Superior Court decided that, at the risk of needlessly reopening an 11-day inquiry before the labour commissioner, it was clear that the claims in respect of period of notice and discrimination were res judicatae in that the parties were the same, there was identity of cause, namely dismissal, and identity of claim, namely reinstatement and compensation on those grounds (decision, para. 14)."
+      }
+    ]
   },
   {
     "ID": "3.",
@@ -63,19 +81,41 @@
     "ID": "4.4.",
     "Section": "State party’s observations on the admissibility and merits of the communication",
     "Labels": [],
-    "Text": "With regard to article 26, the State party considers that the author fails to adduce in his communication the necessary evidence relating to the rights protected under article 26 and that his allegations concern rather the rights protected under article 14. The author has therefore failed to substantiate his claim for the purposes of admissibility. Moreover, he has at no time invoked any remedy under domestic law to challenge a statutory provision that might violate the rights protected under article 26 of the Covenant."
+    "Text": "With regard to article 26, the State party considers that the author fails to adduce in his communication the necessary evidence relating to the rights protected under article 26[[fn:7]] and that his allegations concern rather the rights protected under article 14. The author has therefore failed to substantiate his claim for the purposes of admissibility. Moreover, he has at no time invoked any remedy under domestic law to challenge a statutory provision that might violate the rights protected under article 26 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "See communication No. 802/1998, Rogerson v. Australia, Views adopted on 15 April 2002, para. 7.8."
+      }
+    ]
   },
   {
     "ID": "4.5.",
     "Section": "State party’s observations on the admissibility and merits of the communication",
     "Labels": [],
-    "Text": "Secondly, the State party maintains that the author’s demands are incompatible with the provisions of the Covenant in that they consist primarily of a request to the Committee to review the national courts’ judgements in his case. What the author challenges is basically the labour commissioner’s assessment of the testimony and evidence in his decision of 10 February 1998. The State party recalls that the Committee is not itself an appellate court. With regard to the author’s action for damages in the Superior Court, it notes that the author asks the Committee to determine whether the rules of law have been properly interpreted and applied by the domestic courts, which is not the Committee’s role. The author provides no evidence to show that the decisions referred to in his allegations were marred by any irregularity that would warrant the Committee’s intervention. The State party considers that the mere fact that the law has not upheld the author’s claims does not mean he was deprived of the right to a fair hearing or to equal protection under the law. The communication is therefore inadmissible under article 3 of the Optional Protocol."
+    "Text": "Secondly, the State party maintains that the author’s demands are incompatible with the provisions of the Covenant in that they consist primarily of a request to the Committee to review the national courts’ judgements in his case. What the author challenges is basically the labour commissioner’s assessment of the testimony and evidence in his decision of 10 February 1998. The State party recalls that the Committee is not itself an appellate court.[[fn:8]] With regard to the author’s action for damages in the Superior Court, it notes that the author asks the Committee to determine whether the rules of law have been properly interpreted and applied by the domestic courts, which is not the Committee’s role. The author provides no evidence to show that the decisions referred to in his allegations were marred by any irregularity that would warrant the Committee’s intervention. The State party considers that the mere fact that the law has not upheld the author’s claims does not mean he was deprived of the right to a fair hearing or to equal protection under the law.[[fn:9]] The communication is therefore inadmissible under article 3 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "See communication No. 1234/2003, P.K. v. Canada, inadmissibility decision of 3 April 2007, para. 7.3."
+      },
+      {
+        "n": 9,
+        "text": "See communication No. 761/1997, Singh v. Canada, inadmissibility decision of 14 August 1997, para. 4.2."
+      }
+    ]
   },
   {
     "ID": "4.6.",
     "Section": "State party’s observations on the admissibility and merits of the communication",
     "Labels": [],
-    "Text": "Lastly, the State party contends that the author has not sufficiently substantiated his allegations with regard to the judicial system. These allegations are general in nature, and the author provides no evidence to support them. The author’s claims concerning the domestic courts’ - and in particular, the labour commissioner’s - impartiality and independence are general accusations of partiality. As for his allegations regarding access to the courts, a simple perusal of the 11 decisions and judgements handed down in the actions filed by the author shows that he had access to the various domestic authorities and courts. Regarding his claims that the courts did not provide equal treatment under the law, the State party recalls that the communication contains no fact showing that the author has been treated any differently than other litigants in Quebec who are in a similar situation. The author also accuses the Court of Appeal of Quebec of violating his right to a fair hearing. However, the State party notes that the author had ample opportunity to be heard by the Court of Appeal of Quebec, given that the hearing lasted an entire morning instead of an hour. The communication is therefore inadmissible under article 2 of the Optional Protocol."
+    "Text": "Lastly, the State party contends that the author has not sufficiently substantiated his allegations with regard to the judicial system. These allegations are general in nature, and the author provides no evidence to support them. The author’s claims concerning the domestic courts’ - and in particular, the labour commissioner’s - impartiality and independence are general accusations of partiality.[[fn:10]] As for his allegations regarding access to the courts, a simple perusal of the 11 decisions and judgements handed down in the actions filed by the author shows that he had access to the various domestic authorities and courts. Regarding his claims that the courts did not provide equal treatment under the law, the State party recalls that the communication contains no fact showing that the author has been treated any differently than other litigants in Quebec who are in a similar situation. The author also accuses the Court of Appeal of Quebec of violating his right to a fair hearing. However, the State party notes that the author had ample opportunity to be heard by the Court of Appeal of Quebec, given that the hearing lasted an entire morning instead of an hour. The communication is therefore inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See communication No. 378/1989, E.E. and M.M. v. Italy, inadmissibility decision of 28 March 1990, para. 3.2."
+      }
+    ]
   },
   {
     "ID": "4.7.",
@@ -96,7 +136,17 @@
     "ID": "5.2.",
     "Section": "Author’s comments on the State party’s observations",
     "Labels": [],
-    "Text": "As to his claim of discrimination in the CDPDJ, the author reiterates that the decision of the CDPDJ to close the case before completing its investigation was arbitrary. He recalls that the Committee has recommended that the State party should amend its legislation to ensure that all complainants in matters relating to discrimination have access to justice and to effective remedies. In his view the CDPDJ has an unchallengeable right of triage and, in the case at hand, the State party has exercised arbitrary control over his access to the Human Rights Tribunal, with no right of appeal. In view of the fact that the assessment of the evidence and the application of domestic law by the courts and the CDPDJ were clearly arbitrary and represented a denial of justice, the Committee is competent to intervene."
+    "Text": "As to his claim of discrimination in the CDPDJ, the author reiterates that the decision of the CDPDJ to close the case before completing its investigation was arbitrary. He recalls that the Committee has recommended that the State party should amend its legislation to ensure that all complainants in matters relating to discrimination have access to justice and to effective remedies.[[fn:11]] In his view the CDPDJ has an unchallengeable right of triage and, in the case at hand, the State party has exercised arbitrary control over his access to the Human Rights Tribunal, with no right of appeal. In view of the fact that the assessment of the evidence and the application of domestic law by the courts and the CDPDJ were clearly arbitrary and represented a denial of justice, the Committee is competent to intervene.[[fn:12]]",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "See CCPR/C/79/Add.105, 7 April 1999, para. 9."
+      },
+      {
+        "n": 12,
+        "text": "See communication No. 1403/2005, Gilberg v. Germany, inadmissibility decision of 25 July 2006, para. 6.6."
+      }
+    ]
   },
   {
     "ID": "5.3.",
@@ -164,7 +214,13 @@
     "ID": "7.4.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "With regard to the author’s claims concerning the assessment of evidence by the domestic courts, the Committee notes that the author basically requests a review of the courts’ judgements in his case. The Committee recalls its consistent case law according to which it is generally for the courts of the States parties to the Covenant to evaluate the facts and evidence or the application of domestic law in a particular case, unless it can be established that the evaluation is clearly arbitrary or represents a denial of justice. The evidence submitted to the Committee does not show that the proceedings before the authorities of the State party were marred by such irregularities. Consequently, the Committee considers that the author has not sufficiently substantiated his allegations under article 14 for the purposes of admissibility and finds this part of the communication inadmissible under article 2 of the Optional Protocol."
+    "Text": "With regard to the author’s claims concerning the assessment of evidence by the domestic courts, the Committee notes that the author basically requests a review of the courts’ judgements in his case. The Committee recalls its consistent case law according to which it is generally for the courts of the States parties to the Covenant to evaluate the facts and evidence or the application of domestic law in a particular case, unless it can be established that the evaluation is clearly arbitrary or represents a denial of justice.[[fn:13]] The evidence submitted to the Committee does not show that the proceedings before the authorities of the State party were marred by such irregularities. Consequently, the Committee considers that the author has not sufficiently substantiated his allegations under article 14 for the purposes of admissibility and finds this part of the communication inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "See for example communication No. 541/1993, Errol Simms v. Jamaica, inadmissibility decision of 3 April 1995, para. 6.2."
+      }
+    ]
   },
   {
     "ID": "8.",

@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The author of the communication is Mr. Gennadi Šipin, an ethnic Russian, born in the Kirovskaya region of the Russian Soviet Federative Socialist Republic on 8 October 1961 and currently residing in Estonia. He claims to be a victim of violations by Estonia of article 26 of the Covenant. The Optional Protocol entered into force for the State party on 21 January 1992. The author is not represented by counsel."
   },
@@ -59,7 +59,13 @@
     "ID": "4.5.",
     "Section": "The State party’s submission on admissibility and the merits",
     "Labels": [],
-    "Text": "According to the State party, the country in which the applicant served as a member of the armed forces is irrelevant for the purposes of paragraph 21 (1) clause 6, as whenever such a fact is ascertained the applicant is refused citizenship. Such service is not the only ground for refusal. The State party quotes from the Committee’s jurisprudence for the proposition that considerations related to national security may serve a legitimate aim in the exercise of a State party’s sovereignty in the granting of its citizenship. According to the State party, both the Tallinn Administrative Court and the Tallinn Court of Appeal considered the same claims raised before the Committee, including the claims of discrimination, as well as the claim that the refusal to grant him citizenship on the basis of paragraph 21 (1) clause 6 of the Citizenship Act was unconstitutional, as there was no right of discretion. The author was represented by counsel and both had the opportunity to attend the hearing and make submissions."
+    "Text": "According to the State party, the country in which the applicant served as a member of the armed forces is irrelevant for the purposes of paragraph 21 (1) clause 6, as whenever such a fact is ascertained the applicant is refused citizenship. Such service is not the only ground for refusal. The State party quotes from the Committee’s jurisprudence[[fn:4]] for the proposition that considerations related to national security may serve a legitimate aim in the exercise of a State party’s sovereignty in the granting of its citizenship. According to the State party, both the Tallinn Administrative Court and the Tallinn Court of Appeal considered the same claims raised before the Committee, including the claims of discrimination, as well as the claim that the refusal to grant him citizenship on the basis of paragraph 21 (1) clause 6 of the Citizenship Act was unconstitutional, as there was no right of discretion. The author was represented by counsel and both had the opportunity to attend the hearing and make submissions.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Borzov v. Estonia, Communication No. 1136/2002, Views adopted on 26 July 2004."
+      }
+    ]
   },
   {
     "ID": "4.6.",
@@ -73,7 +79,13 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The Court considered that the author’s reference to professional members of armed forces who have been provided with citizenship is irrelevant, as in such cases the individuals were treated differently either because their spouse was of Estonian nationality and thus fell into the exception under paragraph 21 (2) or arose through an administrative error. It emphasised that the refusal to grant citizenship to the author and the failure to grant any discretion to the administrative authority did not yield a disproportionate result. There were no significant reasons why he should have been granted citizenship and his statelessness could not be such a reason. In this regard, it refers to the Committee’s Views in Borzov v. Estonia, in which it stated that the role of the State parties’ courts in reviewing administrative decisions, including those decided with reference to national security, appears to entail genuine substantive review."
+    "Text": "The Court considered that the author’s reference to professional members of armed forces who have been provided with citizenship is irrelevant, as in such cases the individuals were treated differently either because their spouse was of Estonian nationality and thus fell into the exception under paragraph 21 (2) or arose through an administrative error. It emphasised that the refusal to grant citizenship to the author and the failure to grant any discretion to the administrative authority did not yield a disproportionate result. There were no significant reasons why he should have been granted citizenship and his statelessness could not be such a reason. In this regard, it refers to the Committee’s Views in Borzov v. Estonia[[fn:5]], in which it stated that the role of the State parties’ courts in reviewing administrative decisions, including those decided with reference to national security, appears to entail genuine substantive review.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Borzov v. Estonia, supra n.1."
+      }
+    ]
   },
   {
     "ID": "4.8.",
@@ -124,7 +136,25 @@
     "ID": "7.2.",
     "Section": "Consideration of merits",
     "Labels": [],
-    "Text": "The author claims that paragraph 21 (1) clause 6 of the Citizenship Act, which automatically excludes him from receiving Estonian citizenship on the basis that “he is a former member of the armed forces of another country”, violates article 26 of the Covenant. The State party invokes national security grounds as a justification for this provision of the Act. The Committee refers to its jurisprudence that an individual may be wrongly deprived of his right to equality before the law, if the application of a provision of law to an individual's detriment, is not based on reasonable and objective grounds. It also refers to its Views in Borzov v. Estonia and Tsarjov v. Estonia, where it was held that considerations related to national security may serve a legitimate aim in the exercise of a State party's sovereignty in the granting of its citizenship. It recalls that the invocation of national security on the part of a State party does not, ipso facto, remove an issue wholly from the Committee's scrutiny and recognizes that its own role in reviewing the existence and relevance of such considerations will depend on the circumstances of each case."
+    "Text": "The author claims that paragraph 21 (1) clause 6 of the Citizenship Act, which automatically excludes him from receiving Estonian citizenship on the basis that “he is a former member of the armed forces of another country”, violates article 26 of the Covenant. The State party invokes national security grounds as a justification for this provision of the Act. The Committee refers to its jurisprudence that an individual may be wrongly deprived of his right to equality before the law, if the application of a provision of law to an individual's detriment, is not based on reasonable and objective grounds.[[fn:6]] It also refers to its Views in Borzov v. Estonia[[fn:7]] and Tsarjov v. Estonia,[[fn:8]] where it was held that considerations related to national security may serve a legitimate aim in the exercise of a State party's sovereignty in the granting of its citizenship. It recalls that the invocation of national security on the part of a State party does not, ipso facto, remove an issue wholly from the Committee's scrutiny and recognizes that its own role in reviewing the existence and relevance of such considerations will depend on the circumstances of each case.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "Kavanagh v. Ireland (No.1), Communication No. 819/1998, Views adopted on 4 April 2001, para. 10.3, Borzov v. Estonia, supra n.1, para. 7.2 and Tsarjov v. Estonia, Communication No. 1223/2003, Tsarjov v. Estonia, Views adopted on 26 October 2007, para. 7.3."
+      },
+      {
+        "n": 7,
+        "text": "Borzov v. Estonia, supra n.1, para. 7.3."
+      },
+      {
+        "n": 8,
+        "text": "Tsarjov v. Estonia, supra n.3, para. 7.3."
+      },
+      {
+        "n": 9,
+        "text": "V.M.R.B. v. Canada, Communication No. 236/1987, Decision adopted on 18 July 1988, and Borzov v. Estonia, supra n.1."
+      }
+    ]
   },
   {
     "ID": "7.3.",
@@ -142,7 +172,17 @@
     "ID": "7.5.",
     "Section": "Consideration of merits",
     "Labels": [],
-    "Text": "The Committee also notes that the category of individuals excluded by the State party's legislation from the benefit of Estonian citizenship is closely linked to considerations of national security. Furthermore, where such justification for differential treatment is persuasive, it is unnecessary that the application of the legislation be additionally justified in the circumstances of an individual case. The decision in Borzov is consistent with the view that distinctions made in the legislation itself, where justifiable on reasonable and objective grounds, do not require additional justification on these grounds in their application to an individual. Consequently, the Committee does not, in the circumstances of the present case, conclude that there was a violation of article 26 of the Covenant."
+    "Text": "The Committee also notes that the category of individuals excluded by the State party's legislation from the benefit of Estonian citizenship is closely linked to considerations of national security. Furthermore, where such justification for differential treatment is persuasive, it is unnecessary that the application of the legislation be additionally justified in the circumstances of an individual case.[[fn:10]] The decision in Borzov[[fn:11]] is consistent with the view that distinctions made in the legislation itself, where justifiable on reasonable and objective grounds, do not require additional justification on these grounds in their application to an individual. Consequently, the Committee does not, in the circumstances of the present case, conclude that there was a violation of article 26 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "Tsarjov v. Estonia, supra n.3, para. 7.6."
+      },
+      {
+        "n": 11,
+        "text": "Borzov v. Estonia, supra n.1."
+      }
+    ]
   },
   {
     "ID": "8.",

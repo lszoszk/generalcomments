@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [
       "Women/girls"
     ],
@@ -37,7 +37,7 @@
       "Persons with disabilities",
       "Women/girls"
     ],
-    "Text": "In July 2016, the author appealed to the Borisovskiy District Court. She indicated, inter alia, that, from 1998 to 2009, she was taking care of her children, until her youngest son turned 14 years old. Thereafter, she looked after a person with a disability from 6 April 2009 to 1 May 2010 and from 23 September 2011 to 1 February 2016 (i.e., for more than 5.5 years in total). Those periods between 2009 and 2016, as well as maternity leave, were calculated towards her general labour experience, but not towards pensionable service. A sharp increase in the required amount of pensionable service effectively deprived her of any real chance of qualifying for the old-age pension. At the same time, she is not yet eligible for the social non-contributory pension, as it is payable to women only upon their reaching 60 years of age."
+    "Text": "In July 2016, the author appealed to the Borisovskiy District Court. She indicated, inter alia, that, from 1998 to 2009, she was taking care of her children, until her youngest son turned 14 years old. Thereafter, she looked after a person with a disability from 6 April 2009 to 1 May 2010 and from 23 September 2011 to 1 February 2016 (i.e., for more than 5.5 years in total). Those periods between 2009 and 2016, as well as maternity leave, were calculated towards her general labour experience, but not towards pensionable service. A sharp increase in the required amount of pensionable service effectively deprived her of any real chance of qualifying for the old-age pension. At the same time, she is not yet eligible for the social noncontributory pension, as it is payable to women only upon their reaching 60 years of age."
   },
   {
     "ID": "2.5.",
@@ -137,7 +137,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The State party submits that domestic legislation provides for a wide range of pension regimes, including a contributory old-age pension and a non-contributory social pension. At the relevant time, the old-age pension was guaranteed for women upon reaching 56 years of age and for men upon reaching 61 years of age (pensionable age is subject to a gradual increase of six months per year to 58 years of age for women and 63 years of age for men in 2022). The social pension is payable to women and men upon reaching 60 and 65 years of age, respectively. The difference in age was introduced to achieve de facto equality and account for the effects of cultural stereotypes affecting family role distribution between genders. At the same time, upon reaching retirement age, women are free to continue to work without any legislative restrictions."
+    "Text": "The State party submits that domestic legislation provides for a wide range of pension regimes, including a contributory old-age pension and a non-contributory social pension. At the relevant time, the old-age pension was guaranteed for women upon reaching 56 years of age and for men upon reaching 61 years of age (pensionable age is subject to a gradual increase of six months per year to 58 years of age for women and 63 years of age for men in 2022). The social pension is payable to women and men upon reaching 60 and 65 years of age, respectively.[[fn:1]] The difference in age was introduced to achieve de facto equality and account for the effects of cultural stereotypes affecting family role distribution between genders. At the same time, upon reaching retirement age, women are free to continue to work without any legislative restrictions.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "The State party notes that social pension benefits are lower than old-age pension benefits. However, individuals receiving a social pension may be entitled to other supplementary benefits."
+      }
+    ]
   },
   {
     "ID": "4.5.",
@@ -199,7 +205,13 @@
     "ID": "5.2.",
     "Section": "Author’s comments on the State party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "Replying to the State party’s objection on admissibility, the author notes, on the basis of the long-standing jurisprudence of the Human Rights Committee, that supervisory review appeals to the President of the Supreme Court or a prosecutor’s office are not the remedies to be exhausted, as they are extraordinary remedies that depend on the discretion of a prosecutor or a judge."
+    "Text": "Replying to the State party’s objection on admissibility, the author notes, on the basis of the long-standing jurisprudence of the Human Rights Committee,[[fn:2]] that supervisory review appeals to the President of the Supreme Court or a prosecutor’s office are not the remedies to be exhausted, as they are extraordinary remedies that depend on the discretion of a prosecutor or a judge.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "Koktish v. Belarus (CCPR/C/111/D/1985/2010), para. 7.3; Kruk v. Belarus (CCPR/C/115/D/1996/2010), para. 7.3; and Yuzepchuk v. Belarus (CCPR/C/112/D/1906/2009), para. 7.4."
+      }
+    ]
   },
   {
     "ID": "5.3.",
@@ -207,7 +219,21 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Turning to the merits of the case, the author reiterates that domestic law in Belarus does not contain a universal definition of discrimination. The definition contained in article 14 of the Labour Code is applicable only to labour relations. The lack of the requisite legal framework that would afford an effective protection mechanism against discrimination has been noted by the Human Rights Committee, the Committee on the Elimination of Racial Discrimination and the Committee on the Elimination of Discrimination against Women."
+    "Text": "Turning to the merits of the case, the author reiterates that domestic law in Belarus does not contain a universal definition of discrimination. The definition contained in article 14 of the Labour Code is applicable only to labour relations. The lack of the requisite legal framework that would afford an effective protection mechanism against discrimination has been noted by the Human Rights Committee,[[fn:3]] the Committee on the Elimination of Racial Discrimination[[fn:4]] and the Committee on the Elimination of Discrimination against Women.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "CCPR/C/BLR/CO/5, paras. 15–16."
+      },
+      {
+        "n": 4,
+        "text": "CERD/C/BLR/CO/20-23, paras. 10–11."
+      },
+      {
+        "n": 5,
+        "text": "CEDAW/C/BLR/CO/8, paras. 8–9."
+      }
+    ]
   },
   {
     "ID": "5.4.",
@@ -235,7 +261,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that the State party has not put forward any reasonable justifications for the considerable increase in required amount of pensionable service within a short period of time. Moreover, there have been no transitional period or measures. This particularly affected women in situations similar to that of the author. She thus found herself without any support, as she will be eligible for the social pension only when she reaches 60 years of age. Failure to take those factors into account is contrary to the State party’s obligations under article 2 (d) of the Convention."
+    "Text": "The author claims that the State party has not put forward any reasonable justifications for the considerable increase in required amount of pensionable service within a short period of time. Moreover, there have been no transitional period or measures. This particularly affected women in situations similar to that of the author. She thus found herself without any support, as she will be eligible for the social pension only when she reaches 60 years of age.[[fn:6]] Failure to take those factors into account is contrary to the State party’s obligations under article 2 (d) of the Convention.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The author highlights on several occasions that social pension benefits are only 50 per cent of the minimum wage and currently amount to roughly €50 per month."
+      }
+    ]
   },
   {
     "ID": "5.8.",
@@ -282,7 +314,13 @@
     "ID": "6.3.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee notes the State party’s argument that the communication ought to be declared inadmissible under article 4 (1) of the Optional Protocol for non-exhaustion of domestic remedies, because the author has neither brought a supervisory appeal to the President of the Supreme Court of Belarus nor filed a complaint against the courts’ decisions with a prosecutor’s office. The Committee recalls that, under article 4 (1) of the Optional Protocol, it is precluded from considering a communication unless it has ascertained that all available domestic remedies have been exhausted unless the application of such remedies is unreasonably prolonged or unlikely to bring effective relief. In that connection, the Committee recalls that requests for supervisory review to the president of a court directed against court decisions that have entered into force depend on the discretionary power of a judge and constitute an extraordinary remedy. The State party must show that there is a reasonable prospect that such requests would provide an effective remedy in the circumstances of the case. In the present case, however, the State party has not shown whether and in how many cases petitions to the President of the Supreme Court for supervisory review procedures were applied successfully in cases akin to the one at stake. The Committee also notes that a petition to a prosecutor’s office requesting a review of court decisions that have taken effect does not constitute either a remedy that has to be exhausted for the purposes of article 4 (1) of the Optional Protocol. The Committee therefore considers that it is not precluded by the requirements of article 4 (1) of the Optional Protocol from considering the present communication."
+    "Text": "The Committee notes the State party’s argument that the communication ought to be declared inadmissible under article 4 (1) of the Optional Protocol for nonexhaustion of domestic remedies, because the author has neither brought a supervisory appeal to the President of the Supreme Court of Belarus nor filed a complaint against the courts’ decisions with a prosecutor’s office. The Committee recalls that, under article 4 (1) of the Optional Protocol, it is precluded from considering a communication unless it has ascertained that all available domestic remedies have been exhausted unless the application of such remedies is unreasonably prolonged or unlikely to bring effective relief. In that connection, the Committee recalls that requests for supervisory review to the president of a court directed against court decisions that have entered into force depend on the discretionary power of a judge and constitute an extraordinary remedy. The State party must show that there is a reasonable prospect that such requests would provide an effective remedy in the circumstances of the case. In the present case, however, the State party has not shown whether and in how many cases petitions to the President of the Supreme Court for supervisory review procedures were applied successfully in cases akin to the one at stake. The Committee also notes that a petition to a prosecutor’s office requesting a review of court decisions that have taken effect does not constitute either a remedy that has to be exhausted for the purposes of article 4 (1) of the Optional Protocol.[[fn:7]] The Committee therefore considers that it is not precluded by the requirements of article 4 (1) of the Optional Protocol from considering the present communication.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "See, mutatis mutandis, Malei v. Belarus (CCPR/C/129/D/2404/2014), para. 8.4."
+      }
+    ]
   },
   {
     "ID": "6.4.",
@@ -328,13 +366,25 @@
       "Persons living in poverty",
       "Women/girls"
     ],
-    "Text": "The Committee observes that the right to social security is of central importance in guaranteeing human dignity. The right to social security carries significant financial implications for States, but those should ensure the satisfaction of, at the very least, minimum essential levels of that right. Among other things, they are required to ensure access to a social security scheme that provides a minimum essential level of benefits, without discrimination of any kind. States should provide non-contributory old-age benefits, social services and other assistance for all older persons who, when reaching the retirement age prescribed in national legislation, have not completed a qualifying period of contributions or are not otherwise entitled to an old-age insurance-based pension or other social security benefit or assistance and who have no other source of income. Non-contributory schemes must also take account of the fact that women are more likely to live in poverty than men, that they often have sole responsibility for the care of children and that it is more often they who have no contributory pensions."
+    "Text": "The Committee observes that the right to social security is of central importance in guaranteeing human dignity. The right to social security carries significant financial implications for States, but those should ensure the satisfaction of, at the very least, minimum essential levels of that right. Among other things, they are required to ensure access to a social security scheme that provides a minimum essential level of benefits, without discrimination of any kind. States should provide non-contributory old-age benefits, social services and other assistance for all older persons who, when reaching the retirement age prescribed in national legislation, have not completed a qualifying period of contributions or are not otherwise entitled to an old-age insurance-based pension or other social security benefit or assistance and who have no other source of income. Non-contributory schemes must also take account of the fact that women are more likely to live in poverty than men, that they often have sole responsibility for the care of children and that it is more often they who have no contributory pensions.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Ciobanu v. Republic of Moldova (CEDAW/C/74/D/104/2016), para. 7.6."
+      }
+    ]
   },
   {
     "ID": "7.6.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee notes that States parties have a large margin of appreciation in adopting the measures that they consider necessary to ensure that everyone enjoys the right to social security, with a view to, inter alia, ensuring that retirement pension systems are efficient, sustainable and accessible for everyone. States may therefore establish requirements or conditions that claimants must meet in order to be eligible for social security schemes or to receive a retirement pension or other benefit, provided that the conditions are reasonable, proportionate and transparent. In general, those conditions should be communicated to the public in a timely and sufficient manner so as to ensure that access to retirement pensions is predictable, in particular when the measures adopted by the States parties are regressive in character and no transitional arrangements are put in place to offset the negative consequences thereof."
+    "Text": "The Committee notes that States parties have a large margin of appreciation in adopting the measures that they consider necessary to ensure that everyone enjoys the right to social security, with a view to, inter alia, ensuring that retirement pension systems are efficient, sustainable and accessible for everyone. States may therefore establish requirements or conditions that claimants must meet in order to be eligible for social security schemes or to receive a retirement pension or other benefit, provided that the conditions are reasonable, proportionate and transparent. In general, those conditions should be communicated to the public in a timely and sufficient manner so as to ensure that access to retirement pensions is predictable, in particular when the measures adopted by the States parties are regressive in character and no transitional arrangements are put in place to offset the negative consequences thereof.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Ibid., para. 7.7."
+      }
+    ]
   },
   {
     "ID": "7.7.",
@@ -401,6 +451,6 @@
     "ID": "7.14.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "Acting under article 7 (3) of the Optional Protocol, the Committee concludes that the changes to the domestic legal framework and the requirements for the old-age pension, as well as their effects on the author, do not constitute a breach of article 2 (b)–(d) and (f) or article 11 (1) (e), read in conjunction with article 1, of the Convention."
+    "Text": "Acting under article 7 (3) of the Optional Protocol, the Committee concludes that the changes to the domestic legal framework and the requirements for the oldage pension, as well as their effects on the author, do not constitute a breach of article 2 (b)–(d) and (f) or article 11 (1) (e), read in conjunction with article 1, of the Convention."
   }
 ]

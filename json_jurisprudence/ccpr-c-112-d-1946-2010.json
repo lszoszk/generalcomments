@@ -3,7 +3,13 @@
     "ID": "1.1.",
     "Section": "Annex",
     "Labels": [],
-    "Text": "The author of the communication is Yuri Bolshakov, a Russian Federation national born in 1965, residing in Pskov, Russian Federation. He claims to be a victim of a violation by the Russian Federation of his rights under article 14, paragraph 1, of the International Covenant on Civil and Political Rights. The author is not represented by counsel."
+    "Text": "The author of the communication is Yuri Bolshakov, a Russian Federation national born in 1965, residing in Pskov, Russian Federation. He claims to be a victim of a violation by the Russian Federation of his rights under article 14, paragraph 1, of the International Covenant on Civil and Political Rights.[[fn:3]] The author is not represented by counsel.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The Optional Protocol entered into force for the Russian Federation on 1 October 1991."
+      }
+    ]
   },
   {
     "ID": "1.2.",
@@ -71,7 +77,25 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The State party submits that, according to the practice of the Human Rights Committee, cases that fall under the determination of rights and obligations in a suit at law concern, in particular, such matters as the quantum of an individual’s retirement benefits (pension), the appeal against the results of a psychiatric examination, and the award of compensation. It further refers to general comment 32, in which the Committee discusses the concept of determination of rights and obligations."
+    "Text": "The State party submits that, according to the practice of the Human Rights Committee, cases that fall under the determination of rights and obligations in a suit at law concern, in particular, such matters as the quantum of an individual’s retirement benefits (pension),[[fn:4]] the appeal against the results of a psychiatric examination,[[fn:5]] and the award of compensation.[[fn:6]] It further refers to general comment 32,[[fn:7]] in which the Committee discusses the concept of determination of rights and obligations.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "See communication No. 1524/2006, Yemelianov et al. v. Russian Federation, decision adopted on 22 July 2008."
+      },
+      {
+        "n": 5,
+        "text": "See communication No. 1357/2005, A.K. v. Russian Federation, decision adopted on 29 March 2005."
+      },
+      {
+        "n": 6,
+        "text": "See communication No. 1507/2006, Sechremelis, Sechremelis and Angeliki widow of Balagouras v. Greece, Views adopted on 25 October 2010."
+      },
+      {
+        "n": 7,
+        "text": "General comment No. 32 (2007) on the right to equality before courts and tribunals and to a fair trial."
+      }
+    ]
   },
   {
     "ID": "4.5.",
@@ -89,13 +113,29 @@
     "ID": "4.7.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "As regards the author’s allegation that the reversal of the decision of the City Court in the course of supervisory proceedings represents a violation of the principle of legal certainty of judicial decisions that have entered into force, the State party submits that, unlike article 6 of the European Convention of Human Rights, article 14 of the Covenant does not prohibit the reversal of a decision by way of supervisory review, and that this is confirmed by the Committee’s practice. According to the Committee’s jurisprudence, it is generally for the courts of States parties to the Covenant to review facts and evidence, or the application of domestic legislation, in a particular case. The State party further maintains that the reversal of the decision of the City Court under supervisory review was done in view of important breaches of national law norms by the court of first instance."
+    "Text": "As regards the author’s allegation that the reversal of the decision of the City Court in the course of supervisory proceedings represents a violation of the principle of legal certainty of judicial decisions that have entered into force, the State party submits that, unlike article 6 of the European Convention of Human Rights, article 14 of the Covenant does not prohibit the reversal of a decision by way of supervisory review, and that this is confirmed by the Committee’s practice. According to the Committee’s jurisprudence, it is generally for the courts of States parties to the Covenant to review facts and evidence, or the application of domestic legislation, in a particular case.[[fn:8]] The State party further maintains that the reversal of the decision of the City Court under supervisory review was done in view of important breaches of national law norms by the court of first instance.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "See communications No. 1188/2003, Riedl-Riedenstein et al v. Germany, decision adopted on 2 November 2004, para. 7.3; No. 886/1999, Schedko v. Belarus, Views adopted on 3 April 2003, para. 9.3; and No. 1138/2002, Arenz et al v. Germany, decision adopted on 24 March 2004, para. 8.6."
+      }
+    ]
   },
   {
     "ID": "4.8.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The State party also recalls the jurisprudence of the Committee to the effect that the right of equal access to a court, embodied in article 14, paragraph 1, concerns access to first instance procedures and does not address the issue of the right to appeal or other remedies. Paragraph 5 of article 14, which provides for the right to review of the sentence, does not apply to procedures determining rights and obligations in a suit at law. Therefore, the review of decisions concerning the determination of rights and obligations in a suit at law does not come under the purview of article 14, paragraph 1, of the Covenant."
+    "Text": "The State party also recalls the jurisprudence of the Committee to the effect that the right of equal access to a court, embodied in article 14, paragraph 1, concerns access to first instance procedures and does not address the issue of the right to appeal or other remedies.[[fn:9]] Paragraph 5 of article 14, which provides for the right to review of the sentence, does not apply to procedures determining rights and obligations in a suit at law.[[fn:10]] Therefore, the review of decisions concerning the determination of rights and obligations in a suit at law does not come under the purview of article 14, paragraph 1, of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Communication No. 450/1991, I. P. v. Finland, decision adopted on 26 July 1993, para. 6.2; general comment No. 32 (2007) on the right to equality before courts and tribunals and to a fair trial."
+      },
+      {
+        "n": 10,
+        "text": "See communication No. 450/1991, I. P. v. Finland, decision adopted on 26 July 1993, para. 6.2."
+      }
+    ]
   },
   {
     "ID": "4.9.",
@@ -113,7 +153,13 @@
     "ID": "4.11.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The State party also submits that article 14 of the Covenant does not apply to the procedure of examining an application for review of a judicial decision, as the examination of an application for review on the basis of newly discovered facts does not involve the examination of any criminal charges or the determination of rights and obligations in a suit at law. It submits that no violations of the author’s rights under the Covenant were committed by the national courts in the course of examining his case concerning the refusal of the Department to grant him social assistance."
+    "Text": "The State party also submits that article 14 of the Covenant does not apply to the procedure of examining an application for review of a judicial decision, as the examination of an application for review on the basis of newly discovered facts does not involve the examination of any criminal charges or the determination of rights and obligations in a suit at law.[[fn:11]] It submits that no violations of the author’s rights under the Covenant were committed by the national courts in the course of examining his case concerning the refusal of the Department to grant him social assistance.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "A similar approach is taken by the European Court of Human Rights, for example, in Barantseva v. Russian Federation, Judgement dated 4 March 2010."
+      }
+    ]
   },
   {
     "ID": "4.12.",
@@ -149,7 +195,17 @@
     "ID": "6.1.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "On 6 March 2012, during its 104th session, the Human Rights Committee reviewed the admissibility of the communication. With regard to the author’s claim that the reversal by the Pskov Region Court of the 28 April 2006 decision of the City Court, after the decision had entered into force, in the course of the application of an extraordinary legal remedy, violates his rights under article 14, paragraph 1, of the Covenant, the Committee noted that the State party has raised a ratione materiae objection. The Committee recalled that the concept of a “suit at law” under article 14, paragraph 1, of the Covenant was based on the nature of the right in question rather than the status of one of the parties. The Committee considered that the proceeding in the City Court concerning the eligibility of the author to social benefits, some of which include monetary payments, constituted determination of rights and obligations in a suit at law. The Committee therefore considered that the procedures applicable to the City Court’s decision on the issue were subject to article 14, paragraph 1. The Committee noted the State party’s argument that it was generally for the courts of the States parties to the Covenant to review facts and evidence, or the application of domestic legislation, in a particular case, but observed that the degree to which a final judgment of a court could be impaired by a subsequent action of public authorities did not depend exclusively on domestic legislation, and potentially raised issues under article 14, paragraph 1, of the Covenant. The Committee declared the communication admissible ratione materiae with regard to the author’s claim that the removal of legal effect from the City Court judgment violated his rights under article 14, paragraph 1, of the Covenant."
+    "Text": "On 6 March 2012, during its 104th session, the Human Rights Committee reviewed the admissibility of the communication. With regard to the author’s claim that the reversal by the Pskov Region Court of the 28 April 2006 decision of the City Court, after the decision had entered into force, in the course of the application of an extraordinary legal remedy, violates his rights under article 14, paragraph 1, of the Covenant, the Committee noted that the State party has raised a ratione materiae objection. The Committee recalled that the concept of a “suit at law” under article 14, paragraph 1, of the Covenant was based on the nature of the right in question rather than the status of one of the parties.[[fn:12]] The Committee considered that the proceeding in the City Court concerning the eligibility of the author to social benefits, some of which include monetary payments, constituted determination of rights and obligations in a suit at law. The Committee therefore considered that the procedures applicable to the City Court’s decision on the issue were subject to article 14, paragraph 1. The Committee noted the State party’s argument that it was generally for the courts of the States parties to the Covenant to review facts and evidence, or the application of domestic legislation, in a particular case, but observed that the degree to which a final judgment of a court could be impaired by a subsequent action of public authorities did not depend exclusively on domestic legislation, and potentially raised issues under article 14, paragraph 1, of the Covenant.[[fn:13]] The Committee declared the communication admissible ratione materiae with regard to the author’s claim that the removal of legal effect from the City Court judgment violated his rights under article 14, paragraph 1, of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "See general comment No. 32 (2007) on the right to equality before courts and tribunals and to a fair trial, para. 16. See also communications No. 454/1991, Pons v. Spain, Views adopted on 30 October 1995, para. 9.3, and No. 441/1990, Casanovas v. France, Views adopted on 19 July 1994, para. 5.2."
+      },
+      {
+        "n": 13,
+        "text": "See communications No. 203/1986, Munoz Hermoza v. Peru, Views adopted on 4 November 1988, para. 11.3; No. 823/1998, Czernin et al. v. the Czech Republic, Views adopted on 29 March 2005, paras. 7.4 and 7.5; and No. 1507/2006, Sechermelis et al. v. Greece, Views adopted on 25 October 2010, para. 10.4."
+      }
+    ]
   },
   {
     "ID": "6.2.",
@@ -173,7 +229,13 @@
     "ID": "8.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The question before the Committee is whether, in the circumstances of the present case, the quashing of the judgment of the City Court of Velikie Luki by the decision of the Pskov Region Court on supervisory review, at the request of the Velikie Luki Territorial Department of the Principal State Administration of Social Development and Labour of Pskov District, violated the author’s rights under article 14, paragraph 1, of the Covenant. The Committee notes in that connection that the paragraph in question applies not only to criminal matters but also to the determination of rights and obligations of a civil nature in a suit at law. The right to determination of such rights and obligations in a fair hearing by a competent, independent and impartial tribunal entails that administrative authorities should respect the final outcome of judicial proceedings against them, and that such proceedings should achieve a final outcome with expeditiousness."
+    "Text": "The question before the Committee is whether, in the circumstances of the present case, the quashing of the judgment of the City Court of Velikie Luki by the decision of the Pskov Region Court on supervisory review, at the request of the Velikie Luki Territorial Department of the Principal State Administration of Social Development and Labour of Pskov District, violated the author’s rights under article 14, paragraph 1, of the Covenant. The Committee notes in that connection that the paragraph in question applies not only to criminal matters but also to the determination of rights and obligations of a civil nature in a suit at law. The right to determination of such rights and obligations in a fair hearing by a competent, independent and impartial tribunal entails that administrative authorities should respect the final outcome of judicial proceedings against them, and that such proceedings should achieve a final outcome with expeditiousness.[[fn:14]]",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "See communications No. 203/1986, Munoz Hermoza v. Peru, Views adopted on 4 November 1988, para. 11.3; No. 823/1998, Czernin et al. v. the Czech Republic, Views adopted on 29 March 2005, paras. 7.4 and 7.5; and No. 1507/2006, Sechermelis et al. v. Greece, Views adopted on 25 October 2010, para. 10.4. See also general comment No. 32 (2007) on the right to equality before courts and tribunals and to a fair trial, para. 27."
+      }
+    ]
   },
   {
     "ID": "8.3.",

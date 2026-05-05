@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [
       "Non-citizens and stateless"
     ],
@@ -49,7 +49,13 @@
     "ID": "3.1.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "The author argues that he has been the victim of discrimination on the basis of social origin, contrary to article 26 of the Covenant. He contends that section 21(1) of the Citizenship Act imposes an unreasonable and unjustifiable restriction of rights on the grounds of a person’s social position or origin. He argues that the law presumes that all foreigners who have served in armed forces pose a threat to Estonian national security, regardless of the individual features of the particular service or training in question. He argues that there is proof neither of a threat posed generally by military retirees, nor of such a threat posed by the author specifically. Indeed, the author points out that rather than his residence permit being annulled on national security grounds, he has been granted a five-year extension. The author also contends that refusal of citizenship on such grounds is in conflict with an alleged principle of international law pursuant to which persons cannot be considered to have served in a foreign military force if, prior to acquisition of citizenship, they served in armed forces of a country of which they were nationals."
+    "Text": "The author argues that he has been the victim of discrimination on the basis of social origin, contrary to article 26 of the Covenant. He contends that section 21(1) of the Citizenship Act[[fn:3]] imposes an unreasonable and unjustifiable restriction of rights on the grounds of a person’s social position or origin. He argues that the law presumes that all foreigners who have served in armed forces pose a threat to Estonian national security, regardless of the individual features of the particular service or training in question. He argues that there is proof neither of a threat posed generally by military retirees, nor of such a threat posed by the author specifically. Indeed, the author points out that rather than his residence permit being annulled on national security grounds, he has been granted a five-year extension. The author also contends that refusal of citizenship on such grounds is in conflict with an alleged principle of international law pursuant to which persons cannot be considered to have served in a foreign military force if, prior to acquisition of citizenship, they served in armed forces of a country of which they were nationals.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Section 21(1) provides, in material part: § 21. Refusal to grant or refusal for resumption of Estonian citizenship (1) Estonian citizenship shall not be granted to or resumed by a person who: … 2) does not observe the constitutional order and Acts of Estonia; 3) has acted against the Estonian state and its security; 4) has committed a criminal offence for which a punishment of imprisonment of more than one year was imposed and whose criminal record has not expired or who has been repeatedly punished under criminal procedure for intentionally committed criminal offences; 5) has been employed or is currently employed by foreign intelligence or security services; 6) has served as a professional member of the armed forces of a foreign state or who has been assigned to the reserve forces thereof or has retired therefrom, and nor shall Estonian citizenship be granted to or resumed by his or her spouse who entered Estonia due to a member of the armed forces being sent into service, the reserve or into retirement."
+      }
+    ]
   },
   {
     "ID": "3.2.",
@@ -101,7 +107,13 @@
     "ID": "4.6.",
     "Section": "The State party’s submissions on the admissibility and merits of the communication",
     "Labels": [],
-    "Text": "The State party further contends that the communication is inadmissible for being incompatible with the provisions of the Covenant. It observes that the right to citizenship, much less a particular citizenship, is not contained in the Covenant, and that international law does not give rise to any obligation to grant unconditionally citizenship to a person permanently residing in the country. Rather, under international law all States have the right to determine who, and in which manner, can become a citizen. In so doing, the State also has the right and obligation to protect its population, including national security considerations. The State party refers to the Committee’s decision in V M R B v Canada, where in finding no violation of article 18 or 19 in deporting an alien, the Committee observed that it was not for it to test a sovereign State’s evaluation of an alien’s security rating. Accordingly, the State argues that the refusal to grant citizenship on the grounds of national security does not, and cannot, interfere with any of the author’s Covenant rights. The claim is thus inadmissible ratione materiae with the Covenant."
+    "Text": "The State party further contends that the communication is inadmissible for being incompatible with the provisions of the Covenant. It observes that the right to citizenship, much less a particular citizenship, is not contained in the Covenant, and that international law does not give rise to any obligation to grant unconditionally citizenship to a person permanently residing in the country. Rather, under international law all States have the right to determine who, and in which manner, can become a citizen. In so doing, the State also has the right and obligation to protect its population, including national security considerations. The State party refers to the Committee’s decision in V M R B v Canada,[[fn:4]] where in finding no violation of article 18 or 19 in deporting an alien, the Committee observed that it was not for it to test a sovereign State’s evaluation of an alien’s security rating. Accordingly, the State argues that the refusal to grant citizenship on the grounds of national security does not, and cannot, interfere with any of the author’s Covenant rights. The claim is thus inadmissible ratione materiae with the Covenant.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Case No 236/1987, Decision adopted on 18 July 1988."
+      }
+    ]
   },
   {
     "ID": "4.7.",
@@ -239,13 +251,25 @@
     "ID": "7.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "Turning to the substance of the admissible claim under article 26, the Committee refers to its jurisprudence that an individual may be deprived of his right to equality before the law if a provision of law is applied to him or her in arbitrary fashion, such that an application of law to an individual’s detriment is not based on reasonable and objective grounds. In the present case, the State party has invoked national security, a ground provided for by law, for its refusal to grant citizenship to the author in the light of particular personal circumstances."
+    "Text": "Turning to the substance of the admissible claim under article 26, the Committee refers to its jurisprudence that an individual may be deprived of his right to equality before the law if a provision of law is applied to him or her in arbitrary fashion, such that an application of law to an individual’s detriment is not based on reasonable and objective grounds.[[fn:5]] In the present case, the State party has invoked national security, a ground provided for by law, for its refusal to grant citizenship to the author in the light of particular personal circumstances.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "See Kavanagh v Ireland (No.1) Case No 819/1998, Views adopted on 4 April 2001."
+      }
+    ]
   },
   {
     "ID": "7.3.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "While the Committee recognizes that the Covenant explicitly permits, in certain circumstances, considerations of national security to be invoked as a justification for certain actions on the part of a State party, the Committee emphasizes that invocation of national security on the part of a State party does not, ipso facto, remove an issue wholly from the Committee’s scrutiny. Accordingly, the Committee’s decision in the particular circumstances of V M R B should not be understood as the Committee divesting itself of the jurisdiction to inquire, as appropriate, into the weight to be accorded to an argument of national security. While the Committee cannot leave it to the unfettered discretion of a State party whether reasons related to national security existed in an individual case, it recognizes that its own role in reviewing the existence and relevance of such considerations will depend on the circumstances of the case and the relevant provision of the Covenant. Whereas articles 19, 21 and 22 of the Covenant establish a criterion of necessity in respect of restrictions based on national security, the criteria applicable under article 26 are more general in nature, requiring reasonable and objective justification and a legitimate aim for distinctions that relate to an individual’s characteristics enumerated in article 26, including “other status”. The Committee accepts that considerations related to national security may serve a legitimate aim in the exercise of a State party’s sovereignty in the granting of its citizenship, at least where a newly independent state invokes national security concerns related to its earlier status."
+    "Text": "While the Committee recognizes that the Covenant explicitly permits, in certain circumstances, considerations of national security to be invoked as a justification for certain actions on the part of a State party, the Committee emphasizes that invocation of national security on the part of a State party does not, ipso facto, remove an issue wholly from the Committee’s scrutiny. Accordingly, the Committee’s decision in the particular circumstances of V M R B[[fn:6]] should not be understood as the Committee divesting itself of the jurisdiction to inquire, as appropriate, into the weight to be accorded to an argument of national security. While the Committee cannot leave it to the unfettered discretion of a State party whether reasons related to national security existed in an individual case, it recognizes that its own role in reviewing the existence and relevance of such considerations will depend on the circumstances of the case and the relevant provision of the Covenant. Whereas articles 19, 21 and 22 of the Covenant establish a criterion of necessity in respect of restrictions based on national security, the criteria applicable under article 26 are more general in nature, requiring reasonable and objective justification and a legitimate aim for distinctions that relate to an individual’s characteristics enumerated in article 26, including “other status”. The Committee accepts that considerations related to national security may serve a legitimate aim in the exercise of a State party’s sovereignty in the granting of its citizenship, at least where a newly independent state invokes national security concerns related to its earlier status.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "Op.cit."
+      }
+    ]
   },
   {
     "ID": "7.4.",

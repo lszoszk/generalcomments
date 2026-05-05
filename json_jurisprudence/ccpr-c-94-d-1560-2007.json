@@ -1,13 +1,13 @@
 [
   {
     "ID": "1.1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The authors of the communication are Mr. Orly Marcellana and Mr. Daniel Gumanoy. They submit the communication on behalf of their relatives, Ms. Eden Marcellana and Mr. Eddie Gumanoy, who were both found dead near each other in Bansud (Mindoro Oriental, Philippines), on 22 April 2003. They allege violations by the Philippines of the victims’ rights under article 2, paragraphs 1 and 3; article 6, paragraph 1; article 7; article 9, paragraph 1; article 10, paragraph 1; article 17; and article 26 of the Covenant. They are represented by Ms. Marie Hilao-Enriquez, from the Alliance for the Advancement of People’s Rights- Karapatan."
   },
   {
     "ID": "1.2.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The Covenant entered into force for the State party on 23 January 1986 and the Optional Protocol on 22 November 1989."
   },
@@ -65,7 +65,17 @@
     "ID": "4.1.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "On 3 September 2007, the State party filed its observations on the admissibility and merits of the communication. On admissibility, the State party claims that the authors have not exhausted all available domestic remedies. It states that, although the DOJ complaint was dismissed in December 2004, it could have been appealed to the Secretary of Justice. Should the Secretary of Justice act on the basis of grave abuse of discretion, this decision could be challenged by way of certiorari under Rule 65 of the 1997 Rules of Civil Procedure. As regards the alleged delay in the proceedings at the DOJ, the State party claims that for it to have operative legal adverse effect the delay must be unreasonable and consequently the DOJ cannot be held responsible for any delay. In addition, the DOJ cannot be blamed for dismissing the criminal complaint filed by the authors, as its resolution was not arbitrary but duly considered the claims presented and ultimately concluded that the evidence for the prosecution failed to establish probable cause against the respondents. In the State party, the determination of probable cause for purpose of filing a criminal action in the courts falls within the discretion of the prosecutor subject to the supervision and control of the DOJ Secretary. The authors could still file a criminal complaint if they gather sufficient evidence against the respondents. A preliminary investigation –such as the one conducted by the DOJ- does not in itself constitute a trial. The authors could also file administrative charges against the military officials allegedly involved before the Office of the Ombudsman, or initiate civil proceedings, in accordance with article 35 of the Civil Code."
+    "Text": "On 3 September 2007, the State party filed its observations on the admissibility and merits of the communication. On admissibility, the State party claims that the authors have not exhausted all available domestic remedies. It states that, although the DOJ complaint was dismissed in December 2004, it could have been appealed to the Secretary of Justice.[[fn:3]] Should the Secretary of Justice act on the basis of grave abuse of discretion, this decision could be challenged by way of certiorari under Rule 65 of the 1997 Rules of Civil Procedure. As regards the alleged delay in the proceedings at the DOJ, the State party claims that for it to have operative legal adverse effect the delay must be unreasonable and consequently the DOJ cannot be held responsible for any delay. In addition, the DOJ cannot be blamed for dismissing the criminal complaint filed by the authors, as its resolution was not arbitrary but duly considered the claims presented and ultimately concluded that the evidence for the prosecution failed to establish probable cause against the respondents. In the State party, the determination of probable cause for purpose of filing a criminal action in the courts falls within the discretion of the prosecutor[[fn:4]] subject to the supervision and control of the DOJ Secretary. The authors could still file a criminal complaint if they gather sufficient evidence against the respondents. A preliminary investigation –such as the one conducted by the DOJ- does not in itself constitute a trial. The authors could also file administrative charges against the military officials allegedly involved before the Office of the Ombudsman, or initiate civil proceedings, in accordance with article 35 of the Civil Code.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Section 4, 2000 NPS Rule on Appeal, Department Circular No. 70."
+      },
+      {
+        "n": 4,
+        "text": "“The institution of a criminal action depends upon the sound discretion of the fiscal. He may or may not file the complaint or information, follow or not follow that presented by the offended party, according to whether the evidence in his opinion, is sufficient or not to establish the guilt of the accused beyond reasonable doubt. The reason for placing the criminal prosecution under the direction and control of the fiscal is to prevent malicious or unfounded prosecution by private persons. It cannot be controlled by the complainant”, Supreme Court of the Philippines, Crespo v. Mogul, 151 SCRA 465. 467 (1987)."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -107,7 +117,13 @@
     "ID": "4.8.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "On the merits, the State party states that it actively pursues remedies concerning alleged extra-judicial killings, and refers to Administrative Order No. 157 of 21 August 2006 issued by President Macapagal-Arroyo, which creates an independent commission (the “Melo Commission”) to probe the killings of media workers and activists. On 22 February 2007, the Melo Commission released its eighty-six page preliminary report, which is being studied by various branches of the Government. In addition, the Supreme Court of the Philippines has drafted guidelines for the Special Courts that will handle extrajudicial killing cases. The State party refers to the preliminary report by the Special Rapporteur on extrajudicial, summary or arbitrary executions, which recognizes that efforts have been made by the State party to fight extrajudicial killings."
+    "Text": "On the merits, the State party states that it actively pursues remedies concerning alleged extra-judicial killings, and refers to Administrative Order No. 157 of 21 August 2006 issued by President Macapagal-Arroyo, which creates an independent commission (the “Melo Commission”) to probe the killings of media workers and activists. On 22 February 2007, the Melo Commission released its eighty-six page preliminary report, which is being studied by various branches of the Government. In addition, the Supreme Court of the Philippines has drafted guidelines for the Special Courts that will handle extrajudicial killing cases. The State party refers to the preliminary report by the Special Rapporteur on extrajudicial, summary or arbitrary executions, which recognizes that efforts have been made by the State party to fight extrajudicial killings.[[fn:5]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Preliminary note on the visit of the Special Rapporteur on extrajudicial, summary or arbitrary executions, Philip Alston, to the Philippines (12-21 February, 2007), U.N. Doc. A/HRC/4/20/Add.3, para. 4."
+      }
+    ]
   },
   {
     "ID": "4.9.",
@@ -169,19 +185,37 @@
     "ID": "5.8.",
     "Section": "Authors’ comments on the State party’s observations",
     "Labels": [],
-    "Text": "With respect to the alleged lack of sufficient substantiation invoked by the State party, the authors refer to the extensive supporting documentation attached to their initial communication. They assert that that the link to the State party’s authorities as perpetrator of the crimes was clearly established and validated by the findings and reports of several independent bodies."
+    "Text": "With respect to the alleged lack of sufficient substantiation invoked by the State party, the authors refer to the extensive supporting documentation attached to their initial communication. They assert that that the link to the State party’s authorities as perpetrator of the crimes was clearly established and validated by the findings and reports of several independent bodies.[[fn:6]]",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The authors refer to the Permanent People’s Tribunal Second Session on the Philippines; the report of the US Women Lawyers Human Rights delegation, and the report of the National Council of Churches in the Philippines, which they attached to their submissions."
+      }
+    ]
   },
   {
     "ID": "5.9.",
     "Section": "Authors’ comments on the State party’s observations",
     "Labels": [],
-    "Text": "On the merits, the authors recall that the remedies pursued by the State party have not effectively stopped the extrajudicial killings nor have they afforded justice to the victims. With respect to the Melo Commission, they note that its preliminary report was released in February 2007 under much public pressure, but that no final report has been issued since then. The Melo Commission suffered from lack of credibility and had little power to conduct investigations. Furthermore, several months after the release of the preliminary report, the State party is still studying its recommendations. They invoke the final report of the Special Rapporteur on extrajudicial, summary or arbitrary executions, which states that “[t]he many measures that have been promulgated by the Government to respond to the problem of extrajudicial executions are encouraging. However, they have yet to succeed, and the extrajudicial executions continue”."
+    "Text": "On the merits, the authors recall that the remedies pursued by the State party have not effectively stopped the extrajudicial killings nor have they afforded justice to the victims. With respect to the Melo Commission, they note that its preliminary report was released in February 2007 under much public pressure, but that no final report has been issued since then. The Melo Commission suffered from lack of credibility and had little power to conduct investigations. Furthermore, several months after the release of the preliminary report, the State party is still studying its recommendations. They invoke the final report of the Special Rapporteur on extrajudicial, summary or arbitrary executions, which states that “[t]he many measures that have been promulgated by the Government to respond to the problem of extrajudicial executions are encouraging. However, they have yet to succeed, and the extrajudicial executions continue”.[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Report of the Special Rapporteur on extrajudicial, summary or arbitrary executions, Mission to the Philippines, 27 November 2007, U.N. Doc. A/HRC/8/3/Add.2, pages 46-47."
+      }
+    ]
   },
   {
     "ID": "5.10.",
     "Section": "Authors’ comments on the State party’s observations",
     "Labels": [],
-    "Text": "Finally, the authors allege that it is clear from the presentation of the facts as well as the supporting documents that the perpetrators identified were members of the State party’s security forces, i.e. the 204th infantry brigade of the Philippine Army under the command of then Col. Jovito Palparan., Jr and the so-called rebel returnees who are under military control and command. The authors refer to the Sarma case, where the Committee held Sri Lanka responsible for the disappearance perpetrated by a corporal who abducted a victim, despite the State’s contention that the corporal acted beyond authority and without knowledge of his superior officers."
+    "Text": "Finally, the authors allege that it is clear from the presentation of the facts as well as the supporting documents that the perpetrators identified were members of the State party’s security forces, i.e. the 204th infantry brigade of the Philippine Army under the command of then Col. Jovito Palparan., Jr and the so-called rebel returnees who are under military control and command. The authors refer to the Sarma case[[fn:8]], where the Committee held Sri Lanka responsible for the disappearance perpetrated by a corporal who abducted a victim, despite the State’s contention that the corporal acted beyond authority and without knowledge of his superior officers.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Communication No. 950/2000, Sarma v. Sri Lanka, Views adopted on 16 July 2003."
+      }
+    ]
   },
   {
     "ID": "6.1.",
@@ -193,13 +227,25 @@
     "ID": "6.2.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee notes the State party's challenge to the admissibility of the communication on the ground of failure to exhaust domestic remedies. The authors have conceded non-exhaustion of domestic remedies but claim that remedies have been ineffective and unreasonably prolonged. The Committee refers to its case law, to the effect that, for the purposes of article 5, paragraph 2 (b), of the Optional Protocol, domestic remedies must both be effective and available, and must not be unduly prolonged. The victims’ bodies were found in April 2003, and complaints were filed with the legislative bodies and the DOJ soon thereafter. Proceedings at the DOJ were finally closed in April 2007. To date, an appeal filed in May 2007 before the Office of the President has not been resolved and remains pending. The Committee considers that, in the circumstances of the present case, domestic remedies have been unreasonably prolonged. The Committee accordingly finds that article 5, paragraph 2 (b), does not preclude it from considering the complaint."
+    "Text": "The Committee notes the State party's challenge to the admissibility of the communication on the ground of failure to exhaust domestic remedies. The authors have conceded non-exhaustion of domestic remedies but claim that remedies have been ineffective and unreasonably prolonged. The Committee refers to its case law, to the effect that, for the purposes of article 5, paragraph 2 (b), of the Optional Protocol, domestic remedies must both be effective and available, and must not be unduly prolonged. The victims’ bodies were found in April 2003, and complaints were filed with the legislative bodies and the DOJ soon thereafter.[[fn:9]] Proceedings at the DOJ were finally closed in April 2007. To date, an appeal filed in May 2007 before the Office of the President has not been resolved and remains pending. The Committee considers that, in the circumstances of the present case, domestic remedies have been unreasonably prolonged. The Committee accordingly finds that article 5, paragraph 2 (b), does not preclude it from considering the complaint.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Complaints with the House of representative and Senate were filed in May 2003. Information in the file suggests that proceedings at the DOJ were under way in May/June 2003. No information was provided as to the date of the complaint with the Human Rights Commission."
+      }
+    ]
   },
   {
     "ID": "6.3.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee also notes the State party’s contention that the case is inadmissible because the subject matter of the communication is being or was examined by the United Nations Special Rapporteur on extrajudicial, summary or arbitrary executions, who visited the country in February 2007. However, the Committee observes that fact-finding country visits by a Special Rapporteur do not constitute a “procedure of international investigation or settlement” within the meaning of article 5, paragraph 2(a), of the Optional Protocol. The Committee further recalls that the study of human rights problems in a country by a Special Rapporteur, although it might refer to or draw on information concerning individuals, could not be regarded as being the same matter as the examination of individual cases within the meaning of article 5, paragraph 2 (a), of the Optional Protocol. Accordingly, the Committee considers that the 2007 country visit by the UN Special Rapporteur on extrajudicial, summary or arbitrary executions, does not render the communication inadmissible under article 5, paragraph 2 (a), of the Optional Protocol."
+    "Text": "The Committee also notes the State party’s contention that the case is inadmissible because the subject matter of the communication is being or was examined by the United Nations Special Rapporteur on extrajudicial, summary or arbitrary executions, who visited the country in February 2007. However, the Committee observes that fact-finding country visits by a Special Rapporteur do not constitute a “procedure of international investigation or settlement” within the meaning of article 5, paragraph 2(a), of the Optional Protocol. The Committee further recalls that the study of human rights problems in a country by a Special Rapporteur, although it might refer to or draw on information concerning individuals, could not be regarded as being the same matter as the examination of individual cases within the meaning of article 5, paragraph 2 (a), of the Optional Protocol. Accordingly, the Committee considers that the 2007 country visit by the UN Special Rapporteur on extrajudicial, summary or arbitrary executions, does not render the communication inadmissible under article 5, paragraph 2 (a), of the Optional Protocol.[[fn:10]]",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "Communications Nos. 146/1983 ; 148/1983-154/1983, Baboeram-Adhin et al. v. Suriname, Views of 4 April 1985, paragraph 9.1; Communication No. 540/1993, Laureano v. Peru, Views of 25 March 1996, paragraph 7.1."
+      }
+    ]
   },
   {
     "ID": "6.4.",
@@ -229,7 +275,13 @@
     "ID": "7.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "As to the claim under article 6, paragraph 1, the Committee observes that it is an established fact, as recognized in the decision of the DOJ of 17 December 2004, that Ms. Marcellana and Mr. Gumanoy were kidnapped, robbed and killed by an armed group. In this regard, the Committee recalls its jurisprudence that criminal investigation and consequential prosecution are necessary remedies for violations of human rights such as those protected by article 6. The Committee further recalls its General Comment No. 31 [80], which lays down that where investigations reveal violations of certain Covenant rights, States parties must ensure that those responsible are brought to justice."
+    "Text": "As to the claim under article 6, paragraph 1, the Committee observes that it is an established fact, as recognized in the decision of the DOJ of 17 December 2004, that Ms. Marcellana and Mr. Gumanoy were kidnapped, robbed and killed by an armed group. In this regard, the Committee recalls its jurisprudence that criminal investigation and consequential prosecution are necessary remedies for violations of human rights such as those protected by article 6.[[fn:11]] The Committee further recalls its General Comment No. 31 [80], which lays down that where investigations reveal violations of certain Covenant rights, States parties must ensure that those responsible are brought to justice.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "Communication No.1436/2005, Sathasivam v. Sri Lanka, Views adopted on 8 July 2008, paragraph 6.4. See also the Committee’s General Comment 31, Nature of the General Legal Obligation on States Parties to the Covenant, CCPR/C/21/Rev/Add.13 (2004), paragraphs 15, 18."
+      }
+    ]
   },
   {
     "ID": "7.3.",
@@ -253,7 +305,13 @@
     "ID": "7.6.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee recalls its jurisprudence on article 9, paragraph 1, and reiterates that the Covenant protects the right to security of person also outside the context of formal deprivation of liberty. An interpretation of article 9 which would allow a State party to ignore threats to the personal security of non-detained persons subject to its jurisdiction would render ineffective the guarantees of the Covenant. Moreover, States parties are under an obligation to take reasonable and appropriate measures to protect these persons."
+    "Text": "The Committee recalls its jurisprudence[[fn:12]] on article 9, paragraph 1, and reiterates that the Covenant protects the right to security of person also outside the context of formal deprivation of liberty. An interpretation of article 9 which would allow a State party to ignore threats to the personal security of non-detained persons subject to its jurisdiction would render ineffective the guarantees of the Covenant. Moreover, States parties are under an obligation to take reasonable and appropriate measures to protect these persons.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "Communication No. 195/1985, Delgado Páez v. Colombia, Views adopted on 12 July 1990, paragraph 5.5, Communication No. 711/1996, Dias v. Angola, Views adopted on 20 March 2000, paragraph 8.3; Communication No. 821/1998, Chongwe v. Zambia, Views adopted on 25 October 2000, paragraph 5.3."
+      }
+    ]
   },
   {
     "ID": "7.7.",

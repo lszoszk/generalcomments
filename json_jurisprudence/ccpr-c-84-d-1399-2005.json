@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "DECISION ON ADMINISSIBILITY",
+    "Section": "",
     "Labels": [
       "Persons deprived of their liberty"
     ],
@@ -59,7 +59,13 @@
     "ID": "4.3.",
     "Section": "Consideration of the Committee",
     "Labels": [],
-    "Text": "With regard to the alleged violation of article 14, paragraphs 1 and 3 (d), the Committee recalls its constant jurisprudence that it is not competent to reevaluate findings of fact or reevaluate the application of domestic legislation, unless it can be ascertained that the decisions of domestic courts were arbitrary or amounted to a denial of justice. The Committee considers that the author has failed to substantiate, for purposes of admissibility, that the conduct of the courts of the State party amounted to arbitrariness or a denial of justice and therefore declares both claims inadmissible under article 2 of the Optional Protocol."
+    "Text": "With regard to the alleged violation of article 14, paragraphs 1 and 3 (d), the Committee recalls its constant jurisprudence that it is not competent to reevaluate findings of fact or reevaluate the application of domestic legislation, unless it can be ascertained that the decisions of domestic courts were arbitrary or amounted to a denial of justice[[fn:3]]. The Committee considers that the author has failed to substantiate, for purposes of admissibility, that the conduct of the courts of the State party amounted to arbitrariness or a denial of justice and therefore declares both claims inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "Cases Nos. 811/1998, Mula v. Republic of Guyana, 867/1999, Smartt v. Republic of Guyana, 917/2000, Arutyunyan v. Uzbekistan, 927/2000, Svetik v. Belarus, 1006/2001, Martínez Muñoz v. Spain¸ 1084/2002, Bochaton v. France, 1138/2002, Arenz v. Germany and 1167/2003, Ramil Rayos v. The Philippines."
+      }
+    ]
   },
   {
     "ID": "4.4.",

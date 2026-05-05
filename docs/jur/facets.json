@@ -2,7 +2,7 @@
   "treaties": [
     {
       "value": "CCPR",
-      "count": 2849
+      "count": 2862
     },
     {
       "value": "CEDAW",
@@ -16,11 +16,11 @@
   "outcomes": [
     {
       "value": "violation_found",
-      "count": 857
+      "count": 861
     },
     {
       "value": "inadmissible",
-      "count": 816
+      "count": 822
     },
     {
       "value": "discontinued",
@@ -36,7 +36,7 @@
     },
     {
       "value": "other",
-      "count": 337
+      "count": 340
     },
     {
       "value": "decision",
@@ -46,35 +46,35 @@
   "countries": [
     {
       "value": "Belarus",
-      "count": 255
+      "count": 277
     },
     {
       "value": "Denmark",
-      "count": 221
+      "count": 224
     },
     {
       "value": "Canada",
-      "count": 212
+      "count": 213
     },
     {
       "value": "Russian Federation",
-      "count": 163
+      "count": 166
     },
     {
       "value": "Spain",
-      "count": 152
+      "count": 156
     },
     {
       "value": "Jamaica",
-      "count": 149
+      "count": 150
     },
     {
       "value": "Netherlands",
-      "count": 136
+      "count": 138
     },
     {
       "value": "Australia",
-      "count": 134
+      "count": 138
     },
     {
       "value": "Sweden",
@@ -82,31 +82,31 @@
     },
     {
       "value": "France",
-      "count": 95
+      "count": 96
     },
     {
       "value": "Kazakhstan",
-      "count": 85
+      "count": 88
     },
     {
       "value": "Kyrgyzstan",
-      "count": 62
-    },
-    {
-      "value": "Czech Republic",
-      "count": 57
-    },
-    {
-      "value": "Uzbekistan",
-      "count": 54
+      "count": 63
     },
     {
       "value": "Algeria",
-      "count": 50
+      "count": 60
+    },
+    {
+      "value": "Czech Republic",
+      "count": 58
+    },
+    {
+      "value": "Uzbekistan",
+      "count": 55
     },
     {
       "value": "Uruguay",
-      "count": 45
+      "count": 46
     },
     {
       "value": "Colombia",
@@ -126,18 +126,30 @@
     },
     {
       "value": "New Zealand",
-      "count": 39
+      "count": 40
+    },
+    {
+      "value": "Nepal",
+      "count": 30
+    },
+    {
+      "value": "Turkmenistan",
+      "count": 28
     },
     {
       "value": "Germany",
       "count": 28
     },
     {
-      "value": "Turkmenistan",
-      "count": 27
+      "value": "Lithuania",
+      "count": 28
     },
     {
-      "value": "Lithuania",
+      "value": "Tajikistan",
+      "count": 28
+    },
+    {
+      "value": "Republic of Korea",
       "count": 27
     },
     {
@@ -145,19 +157,7 @@
       "count": 27
     },
     {
-      "value": "Tajikistan",
-      "count": 27
-    },
-    {
       "value": "Italy",
-      "count": 26
-    },
-    {
-      "value": "Republic of Korea",
-      "count": 26
-    },
-    {
-      "value": "Nepal",
       "count": 26
     },
     {
@@ -169,27 +169,31 @@
       "count": 23
     },
     {
+      "value": "Libya",
+      "count": 23
+    },
+    {
+      "value": "Cameroon",
+      "count": 22
+    },
+    {
       "value": "Greece",
       "count": 21
     },
     {
+      "value": "Norway",
+      "count": 21
+    },
+    {
       "value": "Argentina",
-      "count": 20
-    },
-    {
-      "value": "Cameroon",
-      "count": 20
-    },
-    {
-      "value": "Libya",
-      "count": 19
-    },
-    {
-      "value": "Peru",
-      "count": 19
+      "count": 21
     },
     {
       "value": "Ukraine",
+      "count": 20
+    },
+    {
+      "value": "Peru",
       "count": 19
     },
     {
@@ -197,35 +201,31 @@
       "count": 18
     },
     {
-      "value": "Norway",
+      "value": "Hungary",
       "count": 18
     },
     {
-      "value": "Hungary",
-      "count": 18
+      "value": "Bosnia and Herzegovina",
+      "count": 17
+    },
+    {
+      "value": "Azerbaijan",
+      "count": 17
+    },
+    {
+      "value": "Venezuela (Bolivarian Republic of)",
+      "count": 16
     },
     {
       "value": "Switzerland",
       "count": 16
     },
     {
-      "value": "Venezuela (Bolivarian Republic of)",
-      "count": 15
-    },
-    {
-      "value": "Azerbaijan",
-      "count": 15
+      "value": "Bulgaria",
+      "count": 14
     },
     {
       "value": "Latvia",
-      "count": 13
-    },
-    {
-      "value": "Bulgaria",
-      "count": 13
-    },
-    {
-      "value": "Bosnia and Herzegovina",
       "count": 13
     },
     {
@@ -281,6 +281,10 @@
       "count": 7
     },
     {
+      "value": "Croatia",
+      "count": 7
+    },
+    {
       "value": "Republic of Moldova",
       "count": 7
     },
@@ -290,10 +294,6 @@
     },
     {
       "value": "Panama",
-      "count": 6
-    },
-    {
-      "value": "Croatia",
       "count": 6
     },
     {
@@ -313,6 +313,10 @@
       "count": 6
     },
     {
+      "value": "Serbia",
+      "count": 6
+    },
+    {
       "value": "Paraguay",
       "count": 6
     },
@@ -326,10 +330,6 @@
     },
     {
       "value": "Armenia",
-      "count": 5
-    },
-    {
-      "value": "Serbia",
       "count": 5
     },
     {
@@ -350,6 +350,10 @@
     },
     {
       "value": "Iceland",
+      "count": 4
+    },
+    {
+      "value": "Namibia",
       "count": 4
     },
     {
@@ -374,10 +378,6 @@
     },
     {
       "value": "Barbados",
-      "count": 3
-    },
-    {
-      "value": "Namibia",
       "count": 3
     },
     {
@@ -445,6 +445,10 @@
       "count": 1
     },
     {
+      "value": "Kyrgyzstan,Uzbekistan",
+      "count": 1
+    },
+    {
       "value": "India",
       "count": 1
     },
@@ -454,6 +458,14 @@
     },
     {
       "value": "Pakistan",
+      "count": 1
+    },
+    {
+      "value": "Ivory Coast",
+      "count": 1
+    },
+    {
+      "value": "Benin",
       "count": 1
     },
     {
@@ -504,23 +516,23 @@
   "labels": [
     {
       "value": "Persons deprived of their liberty",
-      "count": 7260
+      "count": 7292
     },
     {
       "value": "Women/girls",
-      "count": 6924
+      "count": 6935
     },
     {
       "value": "Children",
-      "count": 5650
+      "count": 5667
     },
     {
       "value": "Refugees & asylum-seekers",
-      "count": 4408
+      "count": 4417
     },
     {
       "value": "Persons with disabilities",
-      "count": 3227
+      "count": 3229
     },
     {
       "value": "LGBTI+",
@@ -532,11 +544,11 @@
     },
     {
       "value": "Non-citizens and stateless",
-      "count": 348
+      "count": 345
     },
     {
       "value": "Persons living in poverty",
-      "count": 324
+      "count": 325
     },
     {
       "value": "Persons affected by armed conflict",
@@ -544,11 +556,11 @@
     },
     {
       "value": "Persons in street situations",
-      "count": 234
+      "count": 235
     },
     {
       "value": "Persons living with HIV/AIDS",
-      "count": 192
+      "count": 189
     },
     {
       "value": "Indigenous peoples",
@@ -560,7 +572,7 @@
     },
     {
       "value": "Persons affected by natural disasters",
-      "count": 107
+      "count": 108
     },
     {
       "value": "Internally displaced persons",
@@ -582,11 +594,11 @@
   "formats": [
     {
       "value": "docx",
-      "count": 2429
+      "count": 2436
     },
     {
       "value": "pdf",
-      "count": 489
+      "count": 494
     },
     {
       "value": "pdf_ocr",
@@ -595,6 +607,10 @@
     {
       "value": "doc",
       "count": 16
+    },
+    {
+      "value": "html",
+      "count": 1
     }
   ],
   "years": {
@@ -615,7 +631,7 @@
       },
       {
         "year": 1980,
-        "count": 9
+        "count": 10
       },
       {
         "year": 1981,
@@ -647,7 +663,7 @@
       },
       {
         "year": 1988,
-        "count": 61
+        "count": 62
       },
       {
         "year": 1989,
@@ -679,7 +695,7 @@
       },
       {
         "year": 1996,
-        "count": 46
+        "count": 47
       },
       {
         "year": 1997,
@@ -687,7 +703,7 @@
       },
       {
         "year": 1998,
-        "count": 44
+        "count": 45
       },
       {
         "year": 1999,
@@ -695,7 +711,7 @@
       },
       {
         "year": 2000,
-        "count": 53
+        "count": 54
       },
       {
         "year": 2001,
@@ -703,7 +719,7 @@
       },
       {
         "year": 2002,
-        "count": 79
+        "count": 81
       },
       {
         "year": 2003,
@@ -715,11 +731,11 @@
       },
       {
         "year": 2005,
-        "count": 86
+        "count": 87
       },
       {
         "year": 2006,
-        "count": 82
+        "count": 83
       },
       {
         "year": 2007,
@@ -727,7 +743,7 @@
       },
       {
         "year": 2008,
-        "count": 93
+        "count": 94
       },
       {
         "year": 2009,
@@ -739,11 +755,11 @@
       },
       {
         "year": 2011,
-        "count": 102
+        "count": 103
       },
       {
         "year": 2012,
-        "count": 105
+        "count": 106
       },
       {
         "year": 2013,
@@ -751,7 +767,7 @@
       },
       {
         "year": 2014,
-        "count": 216
+        "count": 217
       },
       {
         "year": 2015,

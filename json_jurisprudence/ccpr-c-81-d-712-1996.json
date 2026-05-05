@@ -1,9 +1,15 @@
 [
   {
     "ID": "1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "ANNEX",
     "Labels": [],
-    "Text": "The author of the communication is Yelena Pavlovna Smirnova, a Russian citizen, born in 1967. She claims to be a victim of a violation by the Russian Federation of articles 9 and 14 of the Covenant. She is represented by counsel."
+    "Text": "The author of the communication is Yelena Pavlovna Smirnova, a Russian citizen, born in 1967.[[fn:3]] She claims to be a victim of a violation by the Russian Federation of articles 9 and 14 of the Covenant. She is represented by counsel.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The Optional Protocol entered into force in relation to the Russian Federation on 1 January 1992."
+      }
+    ]
   },
   {
     "ID": "2.1.",
@@ -41,7 +47,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author further submits that she suffers from a serious skin disease, haemorrhoidal vasculitis and that the conditions of the prison in which she was detained aggravated her medical condition. In this context, she states that there was no adequate food or medication in the prison, that the cells, designed for 24 persons, held 60, and that she was detained together with serious criminals. The author submits that, given she did not have any previous criminal record, and had not been charged with a serious or violent offence, she should not have been remanded in custody. With regard to the prison conditions in the Butyrskaya prison, reference is made to the report of the Special Rapporteur on Torture of the Commission on Human Rights, dated 16 November 1994. In March 1996, the author was transferred to a hospital ward, where she stayed until 17 May 1996, before being transferred back to her cell."
+    "Text": "The author further submits that she suffers from a serious skin disease, haemorrhoidal vasculitis and that the conditions of the prison in which she was detained aggravated her medical condition. In this context, she states that there was no adequate food or medication in the prison, that the cells, designed for 24 persons, held 60, and that she was detained together with serious criminals. The author submits that, given she did not have any previous criminal record, and had not been charged with a serious or violent offence, she should not have been remanded in custody. With regard to the prison conditions in the Butyrskaya prison, reference is made to the report of the Special Rapporteur on Torture of the Commission on Human Rights, dated 16 November 1994.[[fn:4]] In March 1996, the author was transferred to a hospital ward, where she stayed until 17 May 1996, before being transferred back to her cell.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "E/CN.4/1995/34/Add.1, paragraphs 70 and 71."
+      }
+    ]
   },
   {
     "ID": "2.7.",
@@ -117,13 +129,29 @@
     "ID": "8.1.",
     "Section": "Author’s proceedings before the European Court of Human Rights",
     "Labels": [],
-    "Text": "Although the matter was not raised in the submissions of the author or the State party, the Committee is aware that, on 9 November 1998, after its decision on the admissibility of her communication on 2 April 1998, the author submitted a complaint to the European Court of Human Rights (European Court), which was registered as case no 46133/99. The European Court considered the admissibility of the author’s complaint on 3 October 2002. In its decision, the European Court examined, for the purposes of its own admissibility requirements, the fact that the author had submitted a communication to the Committee. The European Court noted the author’s arguments in defense of the admissibility of her complaint before the Court, stating: ‘(The complainant) asserts that her application to Geneva in 1995 (sic) concerned only the events that predated the application, namely the impossibility to obtain a judicial review of her arrest on 26 August 1995 and therefore could not touch upon the facts which happened afterwards and were submitted to the Court in November 1998.’ (emphasis added)"
+    "Text": "Although the matter was not raised in the submissions of the author or the State party, the Committee is aware that, on 9 November 1998, after its decision on the admissibility of her communication on 2 April 1998, the author submitted a complaint to the European Court of Human Rights (European Court), which was registered as case no 46133/99. The European Court considered the admissibility of the author’s complaint on 3 October 2002. In its decision, the European Court examined, for the purposes of its own admissibility requirements, the fact that the author had submitted a communication to the Committee. The European Court noted the author’s arguments in defense of the admissibility of her complaint before the Court, stating: ‘(The complainant) asserts that her application to Geneva in 1995 (sic)[[fn:5]] concerned only the events that predated the application, namely the impossibility to obtain a judicial review of her arrest on 26 August 1995 and therefore could not touch upon the facts which happened afterwards and were submitted to the Court in November 1998.’[[fn:6]] (emphasis added)",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The application was made on 19 June 1996."
+      },
+      {
+        "n": 6,
+        "text": "Page 10 of the decision."
+      }
+    ]
   },
   {
     "ID": "8.2.",
     "Section": "Author’s proceedings before the European Court of Human Rights",
     "Labels": [],
-    "Text": "The Court noted that the author’s communication to the Human Rights Committee was: ‘directed against her arrest on 26 August 1995, and, in particular, the question whether this arrest was justified, the impossibility to challenge it in the courts, and the alleged inadequate conditions of detention. The scope of the factual basis for (her) application to the Court, although going back to the arrest of 26 August 1995, is significantly wider. It extends to the whole of the proceedings which terminated in 2002, and includes (her) arrest on three more occasions since 26 August 1995. It follows that (her) application is not substantially the same as the petition pending before the Human Rights Committee …’"
+    "Text": "The Court noted that the author’s communication to the Human Rights Committee was: ‘directed against her arrest on 26 August 1995, and, in particular, the question whether this arrest was justified, the impossibility to challenge it in the courts, and the alleged inadequate conditions of detention. The scope of the factual basis for (her) application to the Court, although going back to the arrest of 26 August 1995, is significantly wider. It extends to the whole of the proceedings which terminated in 2002, and includes (her) arrest on three more occasions since 26 August 1995. It follows that (her) application is not substantially the same as the petition pending before the Human Rights Committee …’[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Page 11 of the decision."
+      }
+    ]
   },
   {
     "ID": "8.3.",
@@ -141,13 +169,33 @@
     "ID": "9.2.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "There are several considerations bearing on the admissibility of these additional communications. First, the fact that the author has submitted a complaint to the European Court requires the Committee to consider the issue of article 5, paragraph (2)(a) of the Protocol, namely whether ‘the same matter’ is ‘being examined under another procedure of international investigation or settlement’. Insofar as the matters raised in the authors’ communications to the Committee relate to circumstances occurring after the date of her initial communication to the Committee, these matters appear to the Committee to be the ‘same’ as matter which were before the European Court. So much appears from the judgment of the European Court, which described the factual circumstances submitted to it by the author in some detail. According to the Court, these cover the author’s arrest and detention by the authorities of the State party on four separate occasions. The author’s claim before the European Court invoked article 5 of the European Convention (the right to liberty and security of the person) and article 6 (determination of criminal charges within a reasonable time). However, the author’s case before the European Court has now been determined, and therefore the same matter is not currently ‘being examined’ under another international procedure. The Committee notes that, at the time the author submitted her additional communications dated 17 August 1998, 16 March 2000, 22 May 2002, and her undated communication of 1999, the same matter was before the European Court. Nevertheless, the wording of article 5(2)(a) of the Protocol requires the Committee to consider whether, at the time it considers the question of admissibility, the matter is under another international procedure. The declaration issued by the State party in relation to the Optional Protocol does not, unlike the reservations of some States parties, preclude the Committee from considering communications where the same matter has been the subject of another international procedure. Accordingly, the Committee considers that article 5, paragraph 2(a) poses no obstacle to admissibility in the present circumstances."
+    "Text": "There are several considerations bearing on the admissibility of these additional communications. First, the fact that the author has submitted a complaint to the European Court requires the Committee to consider the issue of article 5, paragraph (2)(a) of the Protocol, namely whether ‘the same matter’ is ‘being examined under another procedure of international investigation or settlement’. Insofar as the matters raised in the authors’ communications to the Committee relate to circumstances occurring after the date of her initial communication to the Committee, these matters appear to the Committee to be the ‘same’ as matter which were before the European Court. So much appears from the judgment of the European Court, which described the factual circumstances submitted to it by the author in some detail. According to the Court, these cover the author’s arrest and detention by the authorities of the State party on four separate occasions. The author’s claim before the European Court invoked article 5 of the European Convention (the right to liberty and security of the person) and article 6 (determination of criminal charges within a reasonable time).[[fn:8]] However, the author’s case before the European Court has now been determined, and therefore the same matter is not currently ‘being examined’ under another international procedure. The Committee notes that, at the time the author submitted her additional communications dated 17 August 1998, 16 March 2000, 22 May 2002, and her undated communication of 1999, the same matter was before the European Court. Nevertheless, the wording of article 5(2)(a) of the Protocol requires the Committee to consider whether, at the time it considers the question of admissibility, the matter is under another international procedure.[[fn:9]] The declaration issued by the State party in relation to the Optional Protocol does not, unlike the reservations of some States parties, preclude the Committee from considering communications where the same matter has been the subject of another international procedure.[[fn:10]] Accordingly, the Committee considers that article 5, paragraph 2(a) poses no obstacle to admissibility in the present circumstances.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "It also invoked article 8 (freedom from interference in private life)."
+      },
+      {
+        "n": 9,
+        "text": "Communication No 349/1988 (Wright v Jamaica)."
+      },
+      {
+        "n": 10,
+        "text": "The declaration reads, relevantly: ‘The Soviet Union also proceeds from the understanding that the Committee shall not consider any communications unless it has been ascertained that the same matter is not being examined under another procedure of international investigation or settlement and that the individual in question has exhausted all available domestic remedies.’"
+      }
+    ]
   },
   {
     "ID": "9.3.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The fact that the European Court has considered the author’s case remains relevant to the question of admissibility in other respects. In accordance with article 1 of the Protocol, the Committee can only consider communications from individuals who claim to be victims of a violation by a State party of rights contained in the Covenant. The Committee has previously recognized that a person’s status as a victim for the purposes of the Protocol can change over time, and that post admissibility developments can remedy a violation. In this instance, it transpires that the author is not currently in detention, and it would appear that the principal form of redress which could be provided by the State party to remedy any relevant violations of her rights would be an award of compensation. The European Court has ordered payment of compensation in relation to matters arising after 19 June 1998 (the date of the author’s first communication to the Committee). Under article 41 of the European Convention, such compensation is directed at affording ‘just satisfaction to the injured party’. These circumstances lead the Committee to the view that the author can no longer be considered a ‘victim’, for the purposes of article 1 of the Protocol, of violations of the Covenant said to have arisen after 19 June 1998."
+    "Text": "The fact that the European Court has considered the author’s case remains relevant to the question of admissibility in other respects. In accordance with article 1 of the Protocol, the Committee can only consider communications from individuals who claim to be victims of a violation by a State party of rights contained in the Covenant. The Committee has previously recognized that a person’s status as a victim for the purposes of the Protocol can change over time, and that post admissibility developments can remedy a violation.[[fn:11]] In this instance, it transpires that the author is not currently in detention, and it would appear that the principal form of redress which could be provided by the State party to remedy any relevant violations of her rights would be an award of compensation. The European Court has ordered payment of compensation in relation to matters arising after 19 June 1998 (the date of the author’s first communication to the Committee). Under article 41 of the European Convention, such compensation is directed at affording ‘just satisfaction to the injured party’. These circumstances lead the Committee to the view that the author can no longer be considered a ‘victim’, for the purposes of article 1 of the Protocol, of violations of the Covenant said to have arisen after 19 June 1998.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "Communication 50/1979 (Van Duzen v Canada)."
+      }
+    ]
   },
   {
     "ID": "9.4.",

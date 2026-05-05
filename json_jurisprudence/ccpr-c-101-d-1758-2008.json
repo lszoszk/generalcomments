@@ -1,11 +1,11 @@
 [
   {
     "ID": "1.",
-    "Section": "Views under article 5, paragraph 4, of the Optional Protocol",
+    "Section": "Annex",
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author of the communication is Ms. Emelysifa Jessop, born in 1983, who was aged 15 when she was convicted and sentenced to 4 years imprisonment for aggravated robbery. She claims that her rights under the following articles of the Covenant were violated by the State party: article 2, paragraph 3; article 9, paragraph 1 and 3; article 10, paragraph 2(b) and paragraph 3; article 14 paragraph 1, paragraph 2, paragraph 3(a), 3(b), 3(c), 3(d), 3(e), 3(g), paragraph 4 and paragraph 5; article 16; article 17; article 24; and article 26. The Optional Protocol entered into force for on 26 May 1989. The author is represented by counsels Tony Ellis and Alison Wills."
+    "Text": "The author of the communication is Ms. Emelysifa Jessop, born in 1983, who was aged 15 when she was convicted and sentenced to 4 years imprisonment for aggravated robbery. She claims that her rights under the following articles of the Covenant were violated by the State party: article 2, paragraph 3; article 9, paragraph 1 and 3; article 10, paragraph 2(b) and paragraph 3; article 14 paragraph 1, paragraph 2, paragraph 3(a), 3(b), 3(c), 3(d), 3(e), 3(g), paragraph 4 and paragraph 5; article 16; article 17; article 24; and article 26. The Optional Protocol entered into force for New Zealand on 26 May 1989. The author is represented by counsels Tony Ellis and Alison Wills."
   },
   {
     "ID": "2.1.",
@@ -14,7 +14,13 @@
       "Migrants",
       "Women/girls"
     ],
-    "Text": "The author is an immigrant to , born in 1983 of Niuean parents, with whom she came to at the age of two months. She was charged with aggravated robbery on 2 June 1998, which involved a violent attack and robbery of an 87-year-old man, in his home, which took place on the same day. Around 3:00 pm., the author and her cousin, aged 15, had visited a friend of the latter, drank and became intoxicated. The author’s cousin later left the author with her friend, and exited the apartment. Around 6:00 pm., the victim was attacked and robbed. Shortly after, a neighbour reported to the police having seen two girls outside his apartment. He could describe their clothing but not their faces. The author and co-accused were arrested around 7:30 pm."
+    "Text": "The author is an immigrant to New Zealand, born in 1983 of Niuean parents[[fn:4]], with whom she came to New Zealand at the age of two months. She was charged with aggravated robbery on 2 June 1998, which involved a violent attack and robbery of an 87-year-old man, in his home, which took place on the same day. Around 3:00 pm., the author and her cousin, aged 15, had visited a friend of the latter, drank and became intoxicated. The author’s cousin later left the author with her friend, and exited the apartment. Around 6:00 pm., the victim was attacked and robbed. Shortly after, a neighbour reported to the police having seen two girls outside his apartment. He could describe their clothing but not their faces. The author and co-accused were arrested around 7:30 pm.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "The author specifies that Niue is a remote Polynesian island in the Pacific Ocean with 2,166 inhabitants. It is self-governing, in free association with New Zealand, with Niue being fully responsible for its internal affairs. New Zealand retains control over the country’s external affairs and defence."
+      }
+    ]
   },
   {
     "ID": "2.2.",
@@ -22,7 +28,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The crime of attack and robbery was later admitted by the author’s cousin (the co-offender), whose evidence at trial stated that the author was not present when the offence was committed. This coincides with the victim’s initial statement that one girl robbed him. After the author was arrested, together with her cousin, the victim alleged that he was robbed by two girls. Due to his ill-health, he could not testify at trial."
+    "Text": "The crime of attack and robbery was later admitted by the author’s cousin (the co-offender), whose evidence at trial stated that the author was not present when the offence was committed[[fn:5]]. This coincides with the victim’s initial statement that one girl robbed him[[fn:6]]. After the author was arrested, together with her cousin, the victim alleged that he was robbed by two girls. Due to his ill-health, he could not testify at trial.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "It appears from the file, however, that upon arrest, the co-offender did initially implicate the author"
+      },
+      {
+        "n": 6,
+        "text": "It however appears from the file that the victim entered a subsequent statement, in which he affirmed having been assaulted by two attackers."
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -36,7 +52,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "A few hours later at the police station, the author initially denied the offence, in a recorded interview. Compelled by the pressure of both the police and her mother, she however entered a second “confession” of the crime, which began with the words “I am going to lie now”, spoken in the author’s native Niuean language, and recorded on a video tape. Immediately after this confession, the author was formally arrested and charged."
+    "Text": "A few hours later at the police station, the author initially denied the offence, in a recorded interview[[fn:7]]. Compelled by the pressure of both the police and her mother, she however entered a second “confession”[[fn:8]] of the crime, which began with the words “I am going to lie now”, spoken in the author’s native Niuean language, and recorded on a video tape. Immediately after this confession, the author was formally arrested and charged.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "It appears from the file that she initially admitted to the detective, before the video commenced, her involvement in the offence, and having hit the victim (see the Court of Appeal of New Zealand judgement of 19 December 2005, para. 29). She thereafter provided different information during the first interview, denying her participation in the crime, followed by a new admission of involvement in the second recorded interview."
+      },
+      {
+        "n": 8,
+        "text": "The quotation marks are the author’s."
+      }
+    ]
   },
   {
     "ID": "2.5.",
@@ -45,13 +71,33 @@
       "Children",
       "Persons deprived of their liberty"
     ],
-    "Text": "A family conference was convened on 15 June 1998 and did not reach agreement on the appropriate jurisdiction for trial. On 30 June 1998, the Otahuhu Youth Court Judge delivered a judgment on jurisdiction, but remanded the case to the High Court of New Zealand, which sentenced the author and the co-offender to four years’ imprisonment on 22 July 1998. The author, who was then aged 14 years and 10 months, contends that this jurisdiction does not apply child-friendly procedures."
+    "Text": "A family conference was convened on 15 June 1998 and did not reach agreement on the appropriate jurisdiction for trial. On 30 June 1998, the Otahuhu Youth Court Judge delivered a judgment on jurisdiction[[fn:9]], but remanded the case to the High Court of New Zealand, which sentenced the author and the co-offender to four years’ imprisonment on 22 July 1998[[fn:10]]. The author, who was then aged 14 years and 10 months, contends that this jurisdiction does not apply child-friendly procedures.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Oral Judgment of Judge R.N. Gilbert, 30 June 1998, District Court, held at Otahuhu."
+      },
+      {
+        "n": 10,
+        "text": "High Court of New Zealand, Sentence of Justice Potter, Auckland Registry S.27/98, 22 July 1998."
+      }
+    ]
   },
   {
     "ID": "2.6.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 2 March 1999, the Court of Appeal of New Zealand allowed the author’s appeal, as it found that the Youth Court proceedings were not held in conformity with the Summary Proceedings Act, which provides that the charge to which the defendant is required to plead shall be read to him and s/he shall then be called upon to plead either guilty or not guilty. As this was not done by the Youth Court, the Court of Appeal set aside the conviction and sentence imposed by the High Court, and remitted the matter to the Youth Court for a plea to be taken by the author according to the law."
+    "Text": "On 2 March 1999, the Court of Appeal of New Zealand allowed the author’s appeal, as it found that the Youth Court proceedings were not held in conformity with the Summary Proceedings Act,[[fn:11]] which provides that the charge to which the defendant is required to plead shall be read to him and s/he shall then be called upon to plead either guilty or not guilty. As this was not done by the Youth Court, the Court of Appeal set aside the conviction and sentence imposed by the High Court, and remitted the matter to the Youth Court for a plea to be taken by the author according to the law.[[fn:12]]",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "Section 153A(4) of the Summary Proceedings Act (1957)"
+      },
+      {
+        "n": 12,
+        "text": "The Queen v. Emelysifa Jessop, Court of Appeal of New Zealand, CA 404/98, 2 March 1999"
+      }
+    ]
   },
   {
     "ID": "2.7.",
@@ -63,7 +109,21 @@
     "ID": "2.8.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 8 October 1999, the High Court adopted a pre-trial ruling, in which it declared the videotaped police interview to be admissible evidence. The Court found the confession of guilt entered by the author during the second interview to be a true and voluntary one under the Evidence Act, as it did not result from any inducement, pressure, and was not tainted by unfairness."
+    "Text": "On 8 October 1999[[fn:13]], the High Court adopted a pre-trial ruling, in which it declared the videotaped police interview to be admissible evidence. The Court found the confession of guilt entered by the author during the second interview to be a true and voluntary one under the Evidence Act[[fn:14]], as it did not result from any inducement, pressure, and was not tainted by unfairness[[fn:15]].",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "The Queen v. Emelysifa Jessop, High Court of New Zealand, T.1411/99, 8 October 1999"
+      },
+      {
+        "n": 14,
+        "text": "Section 20 of the Evidence Act (1908)"
+      },
+      {
+        "n": 15,
+        "text": "The author’s contention is that she was pressured into confessing her guilt, and that pressure came from the concerted disbelief of her mother and the police, coupled with the advice to her that the co-offender had implicated her"
+      }
+    ]
   },
   {
     "ID": "2.9.",
@@ -78,7 +138,7 @@
     "ID": "2.10.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 14 December 1999, the same day she received the High Court sentence, the author appealed before the Court of Appeal of , on the ground that her confession was not a genuine one, and should not have been presented as evidence to the jury."
+    "Text": "On 14 December 1999, the same day she received the High Court sentence, the author appealed before the Court of Appeal of New Zealand, on the ground that her confession was not a genuine one, and should not have been presented as evidence to the jury."
   },
   {
     "ID": "2.11.",
@@ -90,7 +150,13 @@
     "ID": "2.12.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 26 March 2000, the author gave birth to her son, being handcuffed for several hours whilst in labour, the handcuffs being finally removed for the actual birth only. Immediately after the birth, the author had to accept the presence of a prison officer observing her while taking a shower. Her baby was then taken away from her after 24 hours."
+    "Text": "On 26 March 2000, the author gave birth to her son, being handcuffed for several hours whilst in labour, the handcuffs being finally removed for the actual birth only. Immediately after the birth, the author had to accept the presence of a prison officer observing her while taking a shower. Her baby was then taken away from her after 24 hours.[[fn:16]]",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "The author annexes a letter from her to her lawyer, dated 24 March 2000, in which she describes her being in labour while handcuffed, and the efforts of her family to have the handcuffs removed, to no avail. She also annexes a letter from her father to the manager of the Mt Eden Women’s Prison, complaining against the same issue (letter dated 27 March 2000)."
+      }
+    ]
   },
   {
     "ID": "2.13.",
@@ -102,7 +168,13 @@
     "ID": "2.14.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 19 March 2002, in R. v. Taito, the Privy Council considered applications made by a number of unsuccessful appellants before the Court of Appeal of , including the author. The Privy Council found the process of ex- parte dismissal of appeals to be illegal, including the author’s appeal of March 2000. As a result of this decision, the author’s case was remitted back to the Court of Appeal of ."
+    "Text": "On 19 March 2002, in R. v. Taito,[[fn:17]] the Privy Council considered applications made by a number of unsuccessful appellants before the Court of Appeal of New Zealand, including the author. The Privy Council found the process of ex- parte dismissal of appeals to be illegal, including the author’s appeal of March 2000. As a result of this decision, the author’s case was remitted back to the Court of Appeal of New Zealand.",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "[2003] 2 NZLR 577. The Privy Council was then New Zealand’s highest jurisdictional instance. Since 1 July 2004, it is the Supreme Court of New Zealand."
+      }
+    ]
   },
   {
     "ID": "2.15.",
@@ -114,13 +186,25 @@
     "ID": "2.16.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 27 March 2006, the author’s application for leave to appeal to the Supreme Court was dismissed without an oral hearing. Both the author’s grievances, and the Supreme Court reasons for dismissing them, were similar to the Court of Appeal’s earlier decision."
+    "Text": "On 27 March 2006, the author’s application for leave to appeal to the Supreme Court was dismissed without an oral hearing.[[fn:18]] Both the author’s grievances, and the Supreme Court reasons for dismissing them, were similar to the Court of Appeal’s earlier decision.",
+    "Footnotes": [
+      {
+        "n": 18,
+        "text": "[2006] NZSC 14, 27 March 2006."
+      }
+    ]
   },
   {
     "ID": "2.17.",
     "Section": "The facts as presented by the author",
     "Labels": [],
-    "Text": "On 16 August 2007, the author filed a subsequent application before the Supreme Court, to set aside its dismissal of leave to appeal (decision of 27 March 2006), on the ground that the Court had not acted impartially, based on its composition."
+    "Text": "On 16 August 2007, the author filed a subsequent application before the Supreme Court, to set aside its dismissal of leave to appeal (decision of 27 March 2006), on the ground that the Court had not acted impartially, based on its composition.[[fn:19]]",
+    "Footnotes": [
+      {
+        "n": 19,
+        "text": "The author invoked, inter alia, the fact that one of the Supreme Court judges who denied leave to appeal was sitting on the Court of Appeal’s bench at the time of the author’s ex parte hearing of 30 March 2000 (see supra, para 2.13)"
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -172,7 +256,13 @@
     "ID": "3.7.",
     "Section": "Committal of the Case to the High Court and fair hearing",
     "Labels": [],
-    "Text": "The author contends that the committal of her case to the High Court on 30 June 1998 and 24 June 1999 by the Youth Court was in breach of her right to a fair trial. Without application by either party, the Youth Court should have exercised its discretion to assess whether this was in the author’s best interest, and analyze the ensuing consequences of proceedings in the High Court for her."
+    "Text": "The author contends that the committal of her case to the High Court on 30 June 1998 and 24 June 1999 by the Youth Court was in breach of her right to a fair trial. Without application by either party, the Youth Court should have exercised its discretion to assess whether this was in the author’s best interest, and analyze the ensuing consequences of proceedings in the High Court for her.[[fn:20]]",
+    "Footnotes": [
+      {
+        "n": 20,
+        "text": "The author refers, inter alia, to the Guidelines for Action on Children in the Criminal Justice System."
+      }
+    ]
   },
   {
     "ID": "3.8.",
@@ -202,19 +292,31 @@
   },
   {
     "ID": "3.12.",
-    "Section": "(i) \tHigh Court",
+    "Section": "(i)  High Court",
     "Labels": [],
-    "Text": "The author alleges that Justice Potter who had previously sentenced her to 4 years in the High Court later presided her jury trial for the same offence. While her Counsel at the time did not request that this Judge recuse herself, the author herself was not consulted, and did not provide any informed waiver. This amounted to a breach of article 14, paragraph 1 and paragraph 5 of the Covenant in her regard. She also states that Justice Robertson was unfit to sit on the High Court pre-trial application for discharge of October 1999, as she was a member of the Court of Appeal proceedings in March 1999."
+    "Text": "The author alleges that Justice Potter who had previously sentenced her to 4 years in the High Court later presided her jury trial for the same offence.[[fn:21]] While her Counsel at the time did not request that this Judge recuse herself, the author herself was not consulted, and did not provide any informed waiver. This amounted to a breach of article 14, paragraph 1 and paragraph 5 of the Covenant in her regard. She also states that Justice Robertson was unfit to sit on the High Court pre-trial application for discharge of October 1999, as she was a member of the Court of Appeal proceedings in March 1999.",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "The author refers to the Committee’s General Comment No.32 (on article 14), para. 21, and to Principle 2 of the Bangalore Draft Code of Judicial Conduct (2001)"
+      }
+    ]
   },
   {
     "ID": "3.13.",
-    "Section": "(ii) \tCourt of Appeal",
+    "Section": "(ii)  Court of Appeal",
     "Labels": [],
-    "Text": "The author further contends that the Court of Appeal comprised of two permanent Judges of the Court, and one Judge of the High Court, (Justice Panckhurst), who was nominated by the Chief Justice. The author requested a copy of the appointment warrant, but this was rejected. Her challenge to this decision was also dismissed. She thereafter requested the Acting President of the Court of Appeal, Justice Glazebrook, to recuse herself in relation to the nomination of the Justice Panckhurst, on the ground that she was parti pris and displayed apparent bias, but the Judge declined to do so. The Court also declined the author's request that the appeal be referred to a full Court, and heard the appeal. By doing so, and in the circumstances described above, the author claims that the Court was hostile."
+    "Text": "The author further contends that the Court of Appeal comprised of two permanent Judges of the Court, and one Judge of the High Court, (Justice Panckhurst), who was nominated by the Chief Justice. The author requested a copy of the appointment warrant, but this was rejected. Her challenge to this decision was also dismissed. She thereafter requested the Acting President of the Court of Appeal, Justice Glazebrook, to recuse herself in relation to the nomination of the Justice Panckhurst, on the ground that she was parti pris and displayed apparent bias, but the Judge declined to do so. The Court also declined the author's request that the appeal be referred to a full Court, and heard the appeal. By doing so, and in the circumstances described above, the author claims that the Court was hostile[[fn:22]].",
+    "Footnotes": [
+      {
+        "n": 22,
+        "text": "The author refers to General Comment No.32, para 25."
+      }
+    ]
   },
   {
     "ID": "3.14.",
-    "Section": "(ii) \tSupreme Court",
+    "Section": "(ii)  Supreme Court",
     "Labels": [],
     "Text": "The author also claims that her appeal before the Supreme Court, which was heard in March 2006, also suffered from defects under article 14 of the Covenant. She claims that Justices Elias and Tipping were parti pris. To support her allegation, the author explains that the Supreme Court Chief Justice Elias was a member of the Court of Appeal upon overturning of her sentence on 2 March 1999. Also, Justice Tipping was one of those who declined her appeal ex parte in March 2000, and who had, among other Judges, provided evidence to a parliamentary law reform Committee in respect of the reform of criminal appellate procedure considered in the Taito decision. According to the author, these elements amounted to a further violation of article 14, paragraph 1 and paragraph 5 of the Covenant in her regard."
   },
@@ -231,7 +333,13 @@
     "ID": "3.16.",
     "Section": "Penalty imposed",
     "Labels": [],
-    "Text": "The sentencing Judge failed to deduct the 11 months of detention she had spent, on the ground that pre-trial detention spent in Youth Justice Detention facilities could not be taken into account, as a matter of statutory law.She also contends that the 4 year and 8 months sentence is strictly punitive, as opposed to rehabilitative, disproportionate to the circumstances and gravity of the offence, and in contradiction with the principle that deprivation of liberty of juveniles should be a measure of last resort. According to the author, this amounted to a breach of her rights under article 9 paragraph 3, article 10 paragraph 3, article14 paragraph 4, and article 24 of the Covenant."
+    "Text": "The sentencing Judge failed to deduct the 11 months of detention she had spent, on the ground that pre-trial detention spent in Youth Justice Detention facilities could not be taken into account, as a matter of statutory law.[[fn:23]]She also contends that the 4 year and 8 months sentence is strictly punitive, as opposed to rehabilitative, disproportionate to the circumstances and gravity of the offence, and in contradiction with the principle that deprivation of liberty of juveniles should be a measure of last resort. According to the author, this amounted to a breach of her rights under article 9 paragraph 3, article 10 paragraph 3, article14 paragraph 4, and article 24 of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 23,
+        "text": "Section 81 of the Criminal Justice Act (1985) [repealed in 2002], cited in R. v. Emelysifa Jessop, High Court of New Zealand 14 December 1999, para. 11."
+      }
+    ]
   },
   {
     "ID": "3.17.",
@@ -265,7 +373,7 @@
     "ID": "4.1.",
     "Section": "Author’s supplementary submissions",
     "Labels": [],
-    "Text": "On 18 March 2008, the author informs the Committee, inter alia, that her application of 16 August 2007, for review of the Supreme Court’s decision of 27 March 2006, declining leave to appeal, was dismissed on 30 November 2007. The author therefore exhausted domestic remedies at her disposal in ."
+    "Text": "On 18 March 2008, the author informs the Committee, inter alia, that her application of 16 August 2007, for review of the Supreme Court’s decision of 27 March 2006, declining leave to appeal, was dismissed on 30 November 2007. The author therefore exhausted domestic remedies at her disposal in New Zealand."
   },
   {
     "ID": "4.2.",
@@ -370,7 +478,7 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "From 22 July to 4 August 1998 the author commenced serving her sentence at Mt Eden Prison in . This period counted toward time served on her sentence. On 5 August 1998, she was transferred to a youth justice facility in Christchurch pursuant to s. 142A of the Criminal Justice Act (detention of young persons serving a sentence of imprisonment), and continued to serve her sentence in that youth justice residential facility until her successful appeal to the Court of Appeal in March 1999. This period counted towards her time served."
+    "Text": "From 22 July to 4 August 1998 the author commenced serving her sentence at Mt Eden Prison in Auckland. This period counted toward time served on her sentence. On 5 August 1998, she was transferred to a youth justice facility in Christchurch pursuant to s. 142A of the Criminal Justice Act (detention of young persons serving a sentence of imprisonment), and continued to serve her sentence in that youth justice residential facility until her successful appeal to the Court of Appeal in March 1999. This period counted towards her time served."
   },
   {
     "ID": "5.13.",
@@ -386,7 +494,7 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On 7 April 1999, she was transferred back to Mt Eden prison in to appear before the Youth Court to enter her plea. On 13 April 1999, she applied for bail, and was released on bail on 15 April 1999. The period of 7 to 15 April counted as time served on remand in the calculation of her release date."
+    "Text": "On 7 April 1999, she was transferred back to Mt Eden prison in Auckland to appear before the Youth Court to enter her plea. On 13 April 1999, she applied for bail, and was released on bail on 15 April 1999. The period of 7 to 15 April counted as time served on remand in the calculation of her release date."
   },
   {
     "ID": "5.15.",
@@ -394,7 +502,7 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The author remained on bail until her conviction in the High Court in October 1999, when she was remanded to Mt Eden prison in pending sentencing on 14 December 1999. This period on remand counted in the calculation of her release date. She then continued to serve her sentence of four years and eight months, until her release on parole in January 2002, i.e. two years and one month after her second sentencing, and three years six months after her first sentence was imposed, five months of which was spent on bail. In total, she served a sentence of 37 months, representing two thirds of her final sentence in accordance with usual practice at this time, taking into account days of loss of remission for disciplinary offences committed in prison."
+    "Text": "The author remained on bail until her conviction in the High Court in October 1999, when she was remanded to Mt Eden prison in Auckland pending sentencing on 14 December 1999. This period on remand counted in the calculation of her release date. She then continued to serve her sentence of four years and eight months, until her release on parole in January 2002, i.e. two years and one month after her second sentencing, and three years six months after her first sentence was imposed, five months of which was spent on bail. In total, she served a sentence of 37 months, representing two thirds of her final sentence in accordance with usual practice at this time, taking into account days of loss of remission for disciplinary offences committed in prison."
   },
   {
     "ID": "5.16.",
@@ -533,7 +641,7 @@
       "Persons deprived of their liberty",
       "Women/girls"
     ],
-    "Text": "The State party clarifies that in March 2000, the author was a high- medium risk security prisoner, with a history of violent offending and proven drug use. Prison authorities were obliged to put in place appropriate restrictions for her stay in public hospital. The direction to prison staff for the author’s delivery were that handcuffs were to be carried and used “if necessary”, and that the author had to remain in constant visual observation by female prison officer, except when in delivery. She was admitted to the hospital, handcuffed by one wrist to a female prison officer, and the handcuff was removed when she was in early stage of labour. She remained in the hospital for three days, and her baby was placed in the care of her parents, with her consent, when she returned to prison. Arrangements were made for her to remain at Mt Eden prison, close to her parents, in order to have daily visits. The author however transferred away from at her own request in May 2000."
+    "Text": "The State party clarifies that in March 2000, the author was a high- medium risk security prisoner, with a history of violent offending and proven drug use. Prison authorities were obliged to put in place appropriate restrictions for her stay in public hospital. The direction to prison staff for the author’s delivery were that handcuffs were to be carried and used “if necessary”, and that the author had to remain in constant visual observation by female prison officer, except when in delivery. She was admitted to the hospital, handcuffed by one wrist to a female prison officer, and the handcuff was removed when she was in early stage of labour. She remained in the hospital for three days, and her baby was placed in the care of her parents, with her consent, when she returned to prison. Arrangements were made for her to remain at Mt Eden prison, close to her parents, in order to have daily visits. The author however transferred away from Auckland at her own request in May 2000."
   },
   {
     "ID": "5.38.",
@@ -669,7 +777,17 @@
     "ID": "7.11.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee observes that most of the author's remaining claims relate to the evaluation of facts and evidence by the State party's courts. It notes, firstly, that the admissibility of the author's confession as trial evidence, presented under article 14, paragraph 3(g), was thoroughly discussed, and dismissed in fact and in law, in particular by the Court of Appeal in its judgement of 19 December 2005, and by the Supreme Court on 30 November 2007. The Committee recalls that it is generally for the courts of States parties to evaluate facts and evidence in a particular case, unless it can be ascertained that the evaluation was clearly arbitrary or amounted to a denial of justice. The material before the Committee does not reveal elements susceptible of demonstrating that the court examination of this issue suffered from any such defect. The Committee thus declares this part of the communication inadmissible under article 2 of the Optional Protocol."
+    "Text": "The Committee observes that most of the author's remaining claims relate to the evaluation of facts and evidence by the State party's courts. It notes, firstly, that the admissibility of the author's confession as trial evidence, presented under article 14, paragraph 3(g), was thoroughly discussed, and dismissed in fact and in law, in particular by the Court of Appeal in its judgement of 19 December 2005, and by the Supreme Court on 30 November 2007. The Committee recalls [[fn:24]] that it is generally for the courts of States parties to evaluate facts and evidence in a particular case, unless it can be ascertained that the evaluation was clearly arbitrary or amounted to a denial of justice.[[fn:25]] The material before the Committee does not reveal elements susceptible of demonstrating that the court examination of this issue suffered from any such defect. The Committee thus declares this part of the communication inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 24,
+        "text": "See the Committee's General Comment No. 32 (article 14 ICCPR), CCPR/C/GC/32, 2August 2007, para 39."
+      },
+      {
+        "n": 25,
+        "text": "See, inter alia, communication No. 541/1993, Errol Simms v. Jamaica, inadmissibility decision adopted on 3 April 1995, paragraph 6.2."
+      }
+    ]
   },
   {
     "ID": "7.12.",
@@ -769,7 +887,17 @@
     "ID": "8.2.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "With respect to the author’s allegation of delay in the proceedings under article 9 paragraph 3, article 10 paragraph 2 (b), and article 14, paragraph 3(c), paragraph 4 and paragraph 5, the Committee recalls that juveniles are to enjoy at least the same guarantees and protection as those accorded to adults under article 14 of the Covenant. The Committee took note of the author's contention that the second committal of her case to the High Court resulted in undue delay, as the Youth Court would have proceeded faster. The Committee recalls its jurisprudence that the right to a fair trial guaranteed by this provision includes the expeditious rendering of justice, without undue delay. The issue of delay must be assessed against the overall circumstances of the case, including an assessment of the factual and legal complexity of the case."
+    "Text": "With respect to the author’s allegation of delay in the proceedings under article 9 paragraph 3, article 10 paragraph 2 (b), and article 14, paragraph 3(c), paragraph 4 and paragraph 5, the Committee recalls that juveniles are to enjoy at least the same guarantees and protection as those accorded to adults under article 14 of the Covenant. [[fn:26]] The Committee took note of the author's contention that the second committal of her case to the High Court resulted in undue delay, as the Youth Court would have proceeded faster. The Committee recalls its jurisprudence that the right to a fair trial guaranteed by this provision includes the expeditious rendering of justice, without undue delay.[[fn:27]] The issue of delay must be assessed against the overall circumstances of the case, including an assessment of the factual and legal complexity of the case.",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "General Comment No.32, para 42, and communications No. 1209/2003, 1231/2003 and 1241/2004, Sharifova, Safarov and Burkhonov v. Tajikistan, Views adopted on 1 April 2008, para 6.6"
+      },
+      {
+        "n": 27,
+        "text": "Muñoz Hermoza v Peru, communication No. 203/1986, Views adopted on 4 November 1988, para 11.3; Fei v Colombia, communication No.514/1992, Views adopted on 4 April 1995, para 8.4, and González del Río v Peru, communication No. 263/1987, Views adopted on 28 October 1992, para 5.2."
+      }
+    ]
   },
   {
     "ID": "8.3.",
@@ -795,13 +923,25 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "Regarding the author’s contention, that she was unable to interrogate the victim during the High Court trial, which resulted in a breach of her rights under article 14, paragraph 3 (e), the Committee observes that the victim, who was nearly 89 years’ old at the time of the High Court trial in 1999, was found unable to attend the hearing for health reasons. The Committee observes the importance of the evidence of the victim for the trial, magnified by the fact that he had provided contradictory statements, initially claiming that there was only one assailant when the robbery occurred, while later stating that there were two, thereby implicating the author. The Committee recalls that article 14, paragraph 3 (e), guarantees the right of accused persons to examine, or have examined, the witnesses against them and to obtain the attendance and examination of witnesses on their behalf under the same conditions as witnesses against them. The Committee observes that a reading of the victim's statement to the jury could have fallen short of the requirement, under article 14, paragraph 3 (e), to be given a proper opportunity to question and challenge witnesses, a fortiori where their evidence is of direct relevance for the resolution of the case, and where the charges faced are of such serious nature. However, in the particular circumstances of the case, the fact that the author, as claimed by the State party and uncontested by the author, was convicted based on her own confession and without the victim’s statement having been read to the jury, does not support a finding of violation of the principle of equality of arms under article 14, paragraph 3(e)."
+    "Text": "Regarding the author’s contention, that she was unable to interrogate the victim during the High Court trial, which resulted in a breach of her rights under article 14, paragraph 3 (e), the Committee observes that the victim, who was nearly 89 years’ old at the time of the High Court trial in 1999, was found unable to attend the hearing for health reasons. The Committee observes the importance of the evidence of the victim for the trial, magnified by the fact that he had provided contradictory statements, initially claiming that there was only one assailant when the robbery occurred, while later stating that there were two, thereby implicating the author. The Committee recalls that article 14, paragraph 3 (e), guarantees the right of accused persons to examine, or have examined, the witnesses against them and to obtain the attendance and examination of witnesses on their behalf under the same conditions as witnesses against them[[fn:28]]. The Committee observes that a reading of the victim's statement to the jury could have fallen short of the requirement, under article 14, paragraph 3 (e), to be given a proper opportunity to question and challenge witnesses, a fortiori where their evidence is of direct relevance for the resolution of the case, and where the charges faced are of such serious nature. However, in the particular circumstances of the case, the fact that the author, as claimed by the State party and uncontested by the author, was convicted based on her own confession and without the victim’s statement having been read to the jury, does not support a finding of violation of the principle of equality of arms under article 14, paragraph 3(e).",
+    "Footnotes": [
+      {
+        "n": 28,
+        "text": "See the Committee's General Comment No. 32, supra, note 86, para 39."
+      }
+    ]
   },
   {
     "ID": "8.7.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The author also alleges that the dismissal, by the Supreme Court, of her appeal on 27 March 2006 was in breach of article 14, paragraph 1, as it consisted of four paragraphs only, and was without an oral hearing. The Committee observes that it is not disputed that the author’s trial and appeal were openly and publicly conducted, and recalls its previous jurisprudence that the disposition of an appeal does not necessarily require an oral hearing. Accordingly, the Committee is of the view that the Supreme Court proceedings of March 2006 do not disclose a violation of article 14, paragraph 1, of the Covenant for the author."
+    "Text": "The author also alleges that the dismissal, by the Supreme Court, of her appeal on 27 March 2006 was in breach of article 14, paragraph 1, as it consisted of four paragraphs only, and was without an oral hearing. The Committee observes that it is not disputed that the author’s trial and appeal were openly and publicly conducted, and recalls its previous jurisprudence that the disposition of an appeal does not necessarily require an oral hearing.[[fn:29]] Accordingly, the Committee is of the view that the Supreme Court proceedings of March 2006 do not disclose a violation of article 14, paragraph 1, of the Covenant for the author.",
+    "Footnotes": [
+      {
+        "n": 29,
+        "text": "Communication No.1347/2005, Dudko v. Australia, Views adopted on 23 July 2007, para 7.2, No. 301/1988, R.M. v. Finland, para. 6.4 and No. 819/1998, Kavanagh v. Ireland, para. 10.4."
+      }
+    ]
   },
   {
     "ID": "9.",

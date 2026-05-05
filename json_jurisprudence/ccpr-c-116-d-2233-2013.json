@@ -11,7 +11,13 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The authors entered Australian territorial waters in various boats between September 2009 and September 2010, in order to claim protection as refugees in Australia. They were first disembarked at Christmas Island. They did not have valid visas to enter Australia and were placed in immigration detention facilities upon their arrival, under section 189 (3) of Migration Act 1958, according to which Australian authorities must detain a person who is an “unlawful non-citizen” in an “excised offshore place”. At the time of submission of the communication to the Committee, F.J. was being held at Melbourne Immigration Transit Accommodation, C.S. and T.S. at Port Augusta Immigration Transit Accommodation, T.T. at Villawood Immigration Detention Centre and V.N. at Christmas Island Immigration Detention Centre."
+    "Text": "The authors entered Australian territorial waters in various boats between September 2009 and September 2010, in order to claim protection as refugees in Australia. They were first disembarked at Christmas Island. They did not have valid visas to enter Australia and were placed in immigration detention facilities upon their arrival, under section 189 (3) of Migration Act 1958, according to which Australian authorities must detain a person who is an “unlawful non-citizen” in an “excised offshore place”.[[fn:4]] At the time of submission of the communication to the Committee, F.J. was being held at Melbourne Immigration Transit Accommodation, C.S. and T.S. at Port Augusta Immigration Transit Accommodation, T.T. at Villawood Immigration Detention Centre and V.N. at Christmas Island Immigration Detention Centre.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Section 189 governs the detention of those who enter Australia without authorization under immigration law."
+      }
+    ]
   },
   {
     "ID": "2.2.",
@@ -25,7 +31,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "The authors are unable to challenge the merits of their security assessment. In particular, under Section 36 of the Australian Security Intelligence Organisation Act 1979, review by the Administrative Appeals Tribunal is denied to persons who are not citizens or holders of either a valid permanent visa or a special visa. Further, because the authors are offshore entry persons, they are not entitled to seek merits review in the Refugee Review Tribunal. This Tribunal has power only to review a decision to refuse to grant protection. Furthermore, the Australian Security Intelligence Organisation issues adverse security assessments after the offshore determination process has been completed. There is therefore no offshore process in which the merits of the adverse security assessments can be reviewed as part of the asylum determination process."
+    "Text": "The authors are unable to challenge the merits of their security assessment.[[fn:5]] In particular, under Section 36 of the Australian Security Intelligence Organisation Act 1979, review by the Administrative Appeals Tribunal is denied to persons who are not citizens or holders of either a valid permanent visa or a special visa. Further, because the authors are offshore entry persons, they are not entitled to seek merits review in the Refugee Review Tribunal. This Tribunal has power only to review a decision to refuse to grant protection. Furthermore, the Australian Security Intelligence Organisation issues adverse security assessments after the offshore determination process has been completed. There is therefore no offshore process in which the merits of the adverse security assessments can be reviewed as part of the asylum determination process.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "In the letters received by the authors regarding the outcome of their security assessment, it was indicated that they did not have a right to seek a merits review of the Australian Security Intelligence Organisation assessment, because under the Australian Security Intelligence Organisation Act 1979, only certain categories of persons were able to seek a merits review of a security assessment and the authors did not come within any of those categories."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -77,7 +89,13 @@
     "Labels": [
       "Persons affected by armed conflict"
     ],
-    "Text": "As to the post-refusal stage, the mere assertion by the executive branch that a person poses a security risk that justifies detention cannot satisfy the requirements of article 9. The secret basis for the security assessment renders it impossible to evaluate the justification for detention. It also constitutes a denial of due process of law. The authors consider that it can only be assumed that the assessments relate to their suspected conduct prior to their entry to Australia. However, they argue that if the State party possesses good evidence to suspect that any of the Sri Lankan authors has committed a crime in the context of the armed conflict in Sri Lanka, or by association with an organization such as the Liberation Tigers of Tamil Eelam, such crimes can be prosecuted under Australian law. Furthermore, any prior activities of the authors in Sri Lanka cannot easily establish that the authors present a relevant risk to the Australian community. The provenance of any information about them may be unreliable, particularly if the Australian authorities have relied upon intelligence provided by the Government of Sri Lanka. Likewise, any serious crimes committed in the context of involvement with the Taliban, if relevant to the Afghan author, could be prosecuted, as could any terrorism offences, for instance, committed in the Islamic Republic of Iran, if relevant to the Iranian author."
+    "Text": "As to the post-refusal stage, the mere assertion by the executive branch that a person poses a security risk that justifies detention cannot satisfy the requirements of article 9.[[fn:6]] The secret basis for the security assessment renders it impossible to evaluate the justification for detention. It also constitutes a denial of due process of law. The authors consider that it can only be assumed that the assessments relate to their suspected conduct prior to their entry to Australia. However, they argue that if the State party possesses good evidence to suspect that any of the Sri Lankan authors has committed a crime in the context of the armed conflict in Sri Lanka, or by association with an organization such as the Liberation Tigers of Tamil Eelam, such crimes can be prosecuted under Australian law. Furthermore, any prior activities of the authors in Sri Lanka cannot easily establish that the authors present a relevant risk to the Australian community. The provenance of any information about them may be unreliable, particularly if the Australian authorities have relied upon intelligence provided by the Government of Sri Lanka. Likewise, any serious crimes committed in the context of involvement with the Taliban, if relevant to the Afghan author, could be prosecuted, as could any terrorism offences, for instance, committed in the Islamic Republic of Iran, if relevant to the Iranian author.",
+    "Footnotes": [
+      {
+        "n": 6,
+        "text": "The authors provided an example of the template letter received from the Department of Immigration and Citizenship informing them about the security assessment outcome. The substantive part of the letter indicates: “[The Australian Security Intelligence Organisation] assesses [name of author] to be directly (or indirectly) a risk to security, within the meaning of section 4 of the Australian Security Intelligence Organisation Act 1979. [The Organisation] therefore recommends that any application for a visa by [name of author] be refused”. Section 4 of the Act defines “security” as: (a) the protection of, and of the people of, the Commonwealth and the several States and Territories from: (i) espionage; (ii) sabotage; (iii) politically motivated violence; (iv) promotion of communal violence; (v) attacks on Australia’s defence system; or (vi) acts of foreign interference; whether directed from, or committed within, Australia or not; and (aa) the protection of Australia’s territorial and border integrity from serious threats; and (b) the carrying out of Australia’s responsibilities to any foreign country in relation to a matter mentioned in any of the subparagraphs of paragraph (a) or the matter mentioned in paragraph (aa)."
+      }
+    ]
   },
   {
     "ID": "3.6.",
@@ -145,7 +163,17 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "Some institutions, including the Australian Human Rights Commission and medical bodies, have expressed serious concerns in connection with the mental health of persons detained in immigration facilities. In 2010, one of the largest studies on the topic, involving over 700 detainees, found a “clear association” between time in detention and rates of mental illness, with especially poor mental health in those detained for more than two years. Another 2010 study found psychological difficulties with relationships, profound changes to the view of self, concentration and memory disturbances, persistent anxiety and high rates of depression and post-traumatic stress disorder."
+    "Text": "Some institutions, including the Australian Human Rights Commission and medical bodies, have expressed serious concerns in connection with the mental health of persons detained in immigration facilities. In 2010, one of the largest studies on the topic, involving over 700 detainees, found a “clear association” between time in detention and rates of mental illness, with especially poor mental health in those detained for more than two years.[[fn:7]] Another 2010 study found psychological difficulties with relationships, profound changes to the view of self, concentration and memory disturbances, persistent anxiety and high rates of depression and post-traumatic stress disorder.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "See Janet P. Green and Kathy Eagar, “The health of people in Australian immigration detention centres”, Medical Journal of Australia, vol. 192, No. 2 (2010). See also D. Silove, P. Austin and Z. Steel, “No refuge from terror: the impact of detention on the mental health of trauma-affected refugees seeking asylum in Australia”, Transcultural Psychiatry, vol. 44, No. 3 (September 2007)."
+      },
+      {
+        "n": 8,
+        "text": "Guy J. Coffey and others, “The meaning and mental health consequences of long-term immigration detention for people seeking asylum”, Social Science & Medicine, vol. 70, No. 12 (June 2010)."
+      }
+    ]
   },
   {
     "ID": "3.16.",
@@ -541,7 +569,13 @@
     "ID": "8.1.",
     "Section": "Additional submissions by the parties",
     "Labels": [],
-    "Text": "On 13 July 2015, the State party submitted that V.N. and C.S. had been released from immigration detention on 22 December 2014 and 1 July 2015, respectively, following a qualified assessment and a non-prejudicial assessment."
+    "Text": "On 13 July 2015, the State party submitted that V.N. and C.S. had been released from immigration detention on 22 December 2014 and 1 July 2015, respectively, following a qualified assessment and a non-prejudicial assessment.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "The State party provided the following additional information on terminology: (a) a qualified security assessment is an assessment in which the Australian Security Intelligence Organisation communicates information relevant to security that is or could be prejudicial to the interests of the individual, but does not make a prejudicial recommendation in relation to taking prescribed administrative action; (b) an adverse security assessment is an assessment that contains (i) any opinion or advice, or any qualification of any opinion or advice, or any information, that is or could be prejudicial to the interests of the person; and (ii) a recommendation that prescribed administrative action be taken or not be taken in respect of the person, being a recommendation the implementation of which would be prejudicial to the interests of the person; and (c) a non-prejudicial security assessment is furnished when the Organisation has no security-related concerns."
+      }
+    ]
   },
   {
     "ID": "8.2.",
@@ -623,7 +657,21 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The Committee recalls that a detention may be authorized by domestic law and nonetheless be arbitrary. The notion of “arbitrariness” is not to be equated with “against the law”, but must be interpreted more broadly to include elements of inappropriateness, injustice, lack of predictability and due process of law. Detention in the course of proceedings for the control of immigration is not arbitrary per se, but the detention must be justified as reasonable, necessary and proportionate in the light of the circumstances and reassessed as it extends in time. Asylum seekers who unlawfully enter a State party’s territory may be detained for a brief initial period in order to document their entry, record their claims, and determine their identity if it is in doubt. To detain them further while their claims are being resolved would be arbitrary absent particular reasons specific to the individual, such as an individualized likelihood of absconding, danger of crimes against others, or risk of acts against national security. The decision must consider relevant factors case by case, and not be based on a mandatory rule for a broad category; must take into account less invasive means of achieving the same ends, such as reporting obligations, sureties or other conditions to prevent absconding; and must be subject to periodic re-evaluation and judicial review. The decision must also take into account the mental health condition of those detained. Individuals must not be detained indefinitely on immigration control grounds if the State party is unable to carry out their expulsion. The inability of a State party to carry out the expulsion of an individual does not justify indefinite detention."
+    "Text": "The Committee recalls that a detention may be authorized by domestic law and nonetheless be arbitrary.[[fn:10]] The notion of “arbitrariness” is not to be equated with “against the law”, but must be interpreted more broadly to include elements of inappropriateness, injustice, lack of predictability and due process of law. Detention in the course of proceedings for the control of immigration is not arbitrary per se, but the detention must be justified as reasonable, necessary and proportionate in the light of the circumstances and reassessed as it extends in time.[[fn:11]] Asylum seekers who unlawfully enter a State party’s territory may be detained for a brief initial period in order to document their entry, record their claims, and determine their identity if it is in doubt. To detain them further while their claims are being resolved would be arbitrary absent particular reasons specific to the individual, such as an individualized likelihood of absconding, danger of crimes against others, or risk of acts against national security. The decision must consider relevant factors case by case, and not be based on a mandatory rule for a broad category; must take into account less invasive means of achieving the same ends, such as reporting obligations, sureties or other conditions to prevent absconding; and must be subject to periodic re-evaluation and judicial review. The decision must also take into account the mental health condition of those detained. Individuals must not be detained indefinitely on immigration control grounds if the State party is unable to carry out their expulsion. The inability of a State party to carry out the expulsion of an individual does not justify indefinite detention.[[fn:12]]",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See Human Rights Committee general comment No. 35 (2014) on liberty and security of person, para. 12."
+      },
+      {
+        "n": 11,
+        "text": "See communications No. 560/1993, A v. Australia, Views adopted on 3 April 1997, paras. 9.3-9.4; and No. 1557/2007, Nystrom v. Australia, Views adopted on 18 July 2011, paras. 7.2-7.3. See also general comment No. 35, para. 18."
+      },
+      {
+        "n": 12,
+        "text": "See communication No. 2136/2012, M.M.M. et al. v. Australia, Views adopted on 25 July 2013, para. 10.3. See also general comment No. 35, para. 18."
+      }
+    ]
   },
   {
     "ID": "10.4.",
@@ -637,7 +685,13 @@
     "Labels": [
       "Refugees & asylum-seekers"
     ],
-    "Text": "Regarding the authors’ claim that their detention could not be challenged under Australian law and that no court had jurisdiction to assess the substantive necessity of their detention, the Committee notes the State party’s argument that the authors could seek judicial review before the High Court of the legality of their detention and the adverse security assessment. In view of the High Court’s 2004 precedent in Al­Kateb v. Godwin declaring the lawfulness of indefinite immigration detention, and the absence of relevant precedents in the State party’s response showing the effectiveness of an application before the High Court in similar more recent situations, the Committee is not convinced that it is open to the Court to review the justification of the authors’ detention in substantive terms. Furthermore, the Committee notes that in the High Court’s decision of 5 October 2012 in the Plaintiff M47 case, the Court upheld the continuing mandatory detention of the refugee, demonstrating that a successful legal challenge need not lead to release from arbitrary detention. The Committee recalls its jurisprudence that judicial review of the lawfulness of detention under article 9 (4) is not limited to mere compliance of the detention with domestic law, but must include the possibility to order release if the detention is incompatible with the requirements of the Covenant, in particular those of article 9 (1). Accordingly, the Committee considers that the facts in the present case reveal a violation of article 9 (4)."
+    "Text": "Regarding the authors’ claim that their detention could not be challenged under Australian law and that no court had jurisdiction to assess the substantive necessity of their detention, the Committee notes the State party’s argument that the authors could seek judicial review before the High Court of the legality of their detention and the adverse security assessment. In view of the High Court’s 2004 precedent in Al­Kateb v. Godwin declaring the lawfulness of indefinite immigration detention, and the absence of relevant precedents in the State party’s response showing the effectiveness of an application before the High Court in similar more recent situations, the Committee is not convinced that it is open to the Court to review the justification of the authors’ detention in substantive terms. Furthermore, the Committee notes that in the High Court’s decision of 5 October 2012 in the Plaintiff M47 case, the Court upheld the continuing mandatory detention of the refugee, demonstrating that a successful legal challenge need not lead to release from arbitrary detention. The Committee recalls its jurisprudence that judicial review of the lawfulness of detention under article 9 (4) is not limited to mere compliance of the detention with domestic law, but must include the possibility to order release if the detention is incompatible with the requirements of the Covenant, in particular those of article 9 (1).[[fn:13]] Accordingly, the Committee considers that the facts in the present case reveal a violation of article 9 (4).",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "Communications No. 1014/2001, Baban v. Australia, Views adopted on 6 August 2003, para. 7.2; No. 1069/2002, Bakhtiyari v. Australia, Views adopted on 29 October 2003, para. 9.4; and Nos. 1255/2004, 1256/2004, 1259/2004, 1260/2004, 1266/2004, 1268/2004, 1270/2004 and 1288/2004, Shams et al. v. Australia, Views adopted on 20 July 2007, para. 7.3."
+      }
+    ]
   },
   {
     "ID": "10.6.",

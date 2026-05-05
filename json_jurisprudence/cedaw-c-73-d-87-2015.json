@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [
       "Women/girls"
     ],
@@ -48,7 +48,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Also at the end of February 2006, at the request of the author’s parents, the Ukrainian authorities contacted the Ukrainian Embassy in Amman which, as a result, filed a domestic violence complaint with the Jordanian authorities. In March, the case was decided under sharia law by a muhafed (regional representative of the Monarchy), which ruled in favour of a three-month reconciliation period. At the husband’s request, the court also determined that the eldest daughter should be returned to Jordan from Ukraine. The author was not provided with a copy of the decision. No Embassy official followed the proceedings, and the author was not given access to a lawyer or an interpreter."
+    "Text": "Also at the end of February 2006, at the request of the author’s parents, the Ukrainian authorities contacted the Ukrainian Embassy in Amman which, as a result, filed a domestic violence complaint with the Jordanian authorities. In March, the case was decided under sharia law by a muhafed (regional representative of the Monarchy), which ruled in favour of a three-month reconciliation period. At the husband’s request, the court also determined that the eldest daughter should be returned to Jordan from Ukraine. The author was not provided with a copy of the decision. No Embassy official followed the proceedings, and the author was not given access to a lawyer or an interpreter.[[fn:1]]",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "The author explains that the Embassy noted, on this point, that the Embassy staff counted no lawyer."
+      }
+    ]
   },
   {
     "ID": "2.7.",
@@ -94,7 +100,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Once the 10 days had elapsed, the author’s husband presented her to law enforcement officials and reported that she had not complied with the judgment. The police placed her in detention, and the author sought the assistance of the Ukrainian Embassy. She remained in detention for 24 hours with 15 other women, in “inhumane conditions”. She was then taken to court, where a representative of the Embassy was present. The author was asked to sign a declaration to the effect that she was legally bound to bring her eldest daughter to Jordan. Her husband, however, did not allow the author to travel but insisted that her parents should send the daughter to Jordan alone, threatening to kill the entire family if they failed to do so."
+    "Text": "Once the 10 days had elapsed, the author’s husband presented her to law enforcement officials and reported that she had not complied with the judgment. The police placed her in detention, and the author sought the assistance of the Ukrainian Embassy. She remained in detention for 24 hours with 15 other women, in “inhumane conditions”.[[fn:2]] She was then taken to court, where a representative of the Embassy was present. The author was asked to sign a declaration to the effect that she was legally bound to bring her eldest daughter to Jordan. Her husband, however, did not allow the author to travel but insisted that her parents should send the daughter to Jordan alone, threatening to kill the entire family if they failed to do so.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "No further details provided."
+      }
+    ]
   },
   {
     "ID": "2.13.",
@@ -306,7 +318,7 @@
     "ID": "4.5.",
     "Section": "State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The State party further notes that the author has not yet initiated a case in the sharia court in Jordan to win custody of her youngest daughter. Given that the author’s presence in Jordan could be potentially dangerous for her, owing to the non-implementation of a previous sharia court decision, the author can initiate the case by giving a Jordanian lawyer power of attorney in the matter. The lawyer could also visit the daughter and check on the condition of the environment in which she is living. The Embassy in its letters has repeatedly invited the author to initiate such proceedings, but the author has refused, focusing instead on the implementation of the Ukrainian court judgments through diplomatic channels or wrongly believing that the sharia court decision gave her custody of her youngest daughter and that there was therefore no need to initiate a new case."
+    "Text": "The State party further notes that the author has not yet initiated a case in the sharia court in Jordan to win custody of her youngest daughter. Given that the author’s presence in Jordan could be potentially dangerous for her, owing to the nonimplementation of a previous sharia court decision, the author can initiate the case by giving a Jordanian lawyer power of attorney in the matter. The lawyer could also visit the daughter and check on the condition of the environment in which she is living. The Embassy in its letters has repeatedly invited the author to initiate such proceedings, but the author has refused, focusing instead on the implementation of the Ukrainian court judgments through diplomatic channels or wrongly believing that the sharia court decision gave her custody of her youngest daughter and that there was therefore no need to initiate a new case."
   },
   {
     "ID": "4.6.",
@@ -498,7 +510,7 @@
   },
   {
     "ID": "12.",
-    "Section": "(iv)\tTake further measures to reach an agreement with Jordan on legal aid and child custody matters",
+    "Section": "(iv) Take further measures to reach an agreement with Jordan on legal aid and child custody matters",
     "Labels": [],
     "Text": "In accordance with article 7 (4) of the Optional Protocol, the State party shall give due consideration to the views of the Committee, together with its recommendations, and shall submit to the Committee, within six months, a written response, including any information on any action taken in the light of the views and recommendations of the Committee. The State party shall also publish the Committee’s views and recommendations and have them widely distributed in order to reach all relevant sectors of society."
   }

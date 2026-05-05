@@ -25,7 +25,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "At the time of the submission of the complaint in December 2019, the author was detained at Villawood Immigration Detention Centre, New South Wales. From mid-2016 to the beginning of 2017, he was detained on Christmas Island. On 19 January 2017, he was severely assaulted by other detainees at the Christmas Island detention facility, resulting in a broken eye socket, vision and hearing impairments, facial distortion and mental health issues. He was evacuated to mainland Australia, where he underwent several medical operations, after which he was detained at the Yongah Hill Immigration Detention Centre in Perth. The perpetrators of the assault were sentenced to prison. On release from prison, one of the perpetrators was housed in the same room as the author. He therefore requested a transfer to another detention facility and was placed in the Perth Immigration Detention Centre."
+    "Text": "At the time of the submission of the complaint in December 2019, the author was detained at Villawood Immigration Detention Centre, New South Wales. From mid-2016 to the beginning of 2017, he was detained on Christmas Island.[[fn:4]] On 19 January 2017, he was severely assaulted by other detainees at the Christmas Island detention facility, resulting in a broken eye socket, vision and hearing impairments, facial distortion and mental health issues. He was evacuated to mainland Australia, where he underwent several medical operations, after which he was detained at the Yongah Hill Immigration Detention Centre in Perth. The perpetrators of the assault were sentenced to prison. On release from prison, one of the perpetrators was housed in the same room as the author. He therefore requested a transfer to another detention facility and was placed in the Perth Immigration Detention Centre.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Christmas Island is an external territory of Australia."
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -33,7 +39,21 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The author notes that the Migration Act specifically provides, in sections 189 (1), 196 (1) and 196 (3), that so-called “unlawful non-citizens” must be detained and kept in detention until they are: (a) removed or deported from Australia; or (b) granted a visa. Section 196 (3) specifically provides that even a court cannot release an unlawful non-citizen from detention. The author further states that the High Court of Australia has held that mandatory immigration detention is not contrary to the Constitution or national legislation. As such, the author argues that he lacks any possibility to challenge his detention. He further notes that the Committee has held, in C. v. Australia, that there is no effective remedy for persons subject to mandatory immigration detention in the State Party. The author informs the Committee that he has lodged multiple complaints with the Department of Home Affairs, the Australian Human Rights Commission and the Ombudsman concerning his conditions of detention. To date, no favourable outcome has been achieved."
+    "Text": "The author notes that the Migration Act specifically provides, in sections 189 (1), 196 (1) and 196 (3), that so-called “unlawful non-citizens” must be detained and kept in detention until they are: (a) removed or deported from Australia; or (b) granted a visa. Section 196 (3) specifically provides that even a court cannot release an unlawful non-citizen from detention.[[fn:5]] The author further states that the High Court of Australia has held that mandatory immigration detention is not contrary to the Constitution or national legislation.[[fn:6]] As such, the author argues that he lacks any possibility to challenge his detention. He further notes that the Committee has held, in C. v. Australia, that there is no effective remedy for persons subject to mandatory immigration detention in the State Party.[[fn:7]] The author informs the Committee that he has lodged multiple complaints with the Department of Home Affairs, the Australian Human Rights Commission and the Ombudsman concerning his conditions of detention. To date, no favourable outcome has been achieved.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "Section 189 (1) of the Migration Act reads: “If an officer knows or reasonably suspects that a person in the migration zone (other than an excised offshore place) is an unlawful non-citizen, the officer must detain the person.” Section 196 (1) reads: “An unlawful non-citizen detained under section 189 must be kept in immigration detention until: (a) he or she is removed from Australia under section 198 or 199; or (aa) an officer begins to deal with the non-citizen under subsection 198AD(3); or (b) he or she is deported under section 200; or (c) he or she is granted a visa.” Section 196 (3) reads: “To avoid doubt, subsection (1) prevents the release, even by a court, of an unlawful non-citizen from detention (otherwise than as referred to in paragraph (1)(a), (aa) or (b)) unless the non-citizen has been granted a visa.”"
+      },
+      {
+        "n": 6,
+        "text": "The author refers to High Court of Australia, Al-Kateb v. Godwin, Case No. A253/2003, Judgment, 6 August 2004."
+      },
+      {
+        "n": 7,
+        "text": "The author refers to C. v. Australia (CCPR/C/76/D/900/1999)."
+      }
+    ]
   },
   {
     "ID": "2.4.",
@@ -42,7 +62,13 @@
       "Children",
       "Persons with disabilities"
     ],
-    "Text": "At the time of the submission of the complaint, the author noted that it was anticipated that he would remain in administrative detention indefinitely, owing to identity and character concerns. He states that, given his migration history and mental health issues, it was highly unlikely that he would meet the requirements to be granted a visa or placement in community detention. He notes that the State Party classifies Afghanistan as a “no return” country, meaning that he will not be deported to Afghanistan and, in addition, as he has no Afghan identity documents, it is unclear whether the Afghan authorities would allow him entry. The author notes that he has been unable to provide sufficient identification documentation to the satisfaction of the State Party’s authorities because he arrived in Australia on an Austrian passport in the name of Moslem Ahmad Madjidi. He states that the lack of formal identification documentation is a common problem for the Hazara, and particularly for him, as, when he was a child, his family fled Afghanistan for Pakistan, where they lived without lawful residence status. He notes that the Australian Criminal Intelligence Commission found that his fingerprints matched police records in Austria, but he claims that he has never been charged with a crime in Austria, where he was living as an unaccompanied minor."
+    "Text": "At the time of the submission of the complaint, the author noted that it was anticipated that he would remain in administrative detention indefinitely, owing to identity and character concerns. He states that, given his migration history and mental health issues, it was highly unlikely that he would meet the requirements to be granted a visa or placement in community detention. He notes that the State Party classifies Afghanistan as a “no return” country, meaning that he will not be deported to Afghanistan and, in addition, as he has no Afghan identity documents, it is unclear whether the Afghan authorities would allow him entry. The author notes that he has been unable to provide sufficient identification documentation to the satisfaction of the State Party’s authorities because he arrived in Australia on an Austrian passport in the name of Moslem Ahmad Madjidi.[[fn:8]] He states that the lack of formal identification documentation is a common problem for the Hazara, and particularly for him, as, when he was a child, his family fled Afghanistan for Pakistan, where they lived without lawful residence status. He notes that the Australian Criminal Intelligence Commission found that his fingerprints matched police records in Austria, but he claims that he has never been charged with a crime in Austria, where he was living as an unaccompanied minor.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "According to the International Treaties Obligations Assessment decision, the Austrian passport that the author used to travel to Australia was found to be fraudulent by the domestic authorities."
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -86,7 +112,7 @@
       "Non-citizens and stateless",
       "Refugees & asylum-seekers"
     ],
-    "Text": "A condition of a Bridging visa E is that the person must declare that they will voluntarily leave Australia 28 days after the notification of a refusal of a protection visa or at the conclusion of any appeal process. Following the refusal of his protection visa, the author did not voluntarily leave Australia and his Bridging visa E ceased on 22 May 2013. At that point, the author again became an unlawful non-citizen under the Migration Act and, on 14 June 2013, he was lawfully detained under section 189 (1) of the Act and transferred to Villawood Immigration Detention Centre in Sydney. On 20 May 2015, the author was affected by a data breach in which the identity information of persons kept in immigration detention between 10 and 24 February 2014 was unintentionally made public. The Department of Home Affairs commenced an International Treaties Obligations Assessment to determine whether the breach had increased the risk of harm to the author and therefore affected the application of the non-refoulement obligations of Australia. On 2 September 2015, the International Treaties Obligations Assessment found that the author did not engage the non-refoulement obligations of the State Party in relation to the Covenant or the Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment. On 30 March 2016, the author lodged an application for judicial review of the Assessment. On 17 July 2017, the Federal Circuit Court found that the International Treaties Obligations Assessment decision was affected by error of law and remitted the decision back to the Department."
+    "Text": "A condition of a Bridging visa E is that the person must declare that they will voluntarily leave Australia 28 days after the notification of a refusal of a protection visa or at the conclusion of any appeal process. Following the refusal of his protection visa, the author did not voluntarily leave Australia and his Bridging visa E ceased on 22 May 2013. At that point, the author again became an unlawful non-citizen under the Migration Act and, on 14 June 2013, he was lawfully detained under section 189 (1) of the Act and transferred to Villawood Immigration Detention Centre in Sydney. On 20 May 2015, the author was affected by a data breach in which the identity information of persons kept in immigration detention between 10 and 24 February 2014 was unintentionally made public. The Department of Home Affairs commenced an International Treaties Obligations Assessment to determine whether the breach had increased the risk of harm to the author and therefore affected the application of the non-refoulement obligations of Australia. On 2 September 2015, the International Treaties Obligations Assessment found that the author did not engage the nonrefoulement obligations of the State Party in relation to the Covenant or the Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment. On 30 March 2016, the author lodged an application for judicial review of the Assessment. On 17 July 2017, the Federal Circuit Court found that the International Treaties Obligations Assessment decision was affected by error of law and remitted the decision back to the Department."
   },
   {
     "ID": "4.5.",
@@ -106,7 +132,13 @@
     "ID": "4.7.",
     "Section": "State Party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "On 6 February 2020, the Minister intervened under section 48B of the Migration Act and allowed the author to apply for a Temporary Protection (subclass 785) visa or Safe Haven Enterprise (subclass 790) visa. On 13 February 2020, the Minister agreed to grant the author a Bridging visa E in order to allow him to reside in the community, under section 195A of the Migration Act, and the author was released from immigration detention, enabling him to reside lawfully in Sydney, with full permission to work, obtain access to Medicare and receive support services, including income support services. On 20 February 2020, the author lodged a valid application for a Safe Haven Enterprise (subclass 790) visa."
+    "Text": "On 6 February 2020, the Minister intervened under section 48B of the Migration Act and allowed the author to apply for a Temporary Protection (subclass 785) visa or Safe Haven Enterprise (subclass 790) visa. On 13 February 2020, the Minister agreed to grant the author a Bridging visa E in order to allow him to reside in the community, under section 195A of the Migration Act, and the author was released from immigration detention, enabling him to reside lawfully in Sydney, with full permission to work, obtain access to Medicare and receive support services, including income support services. On 20 February 2020, the author lodged a valid application for a Safe Haven Enterprise (subclass 790) visa.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "The State Party informs the Committee that a Safe Haven Enterprise (subclass 790) visa allows persons who arrived in Australia illegally and who meet the State Party’s protection requirements to stay in Australia for up to five years, with work and study rights and access to government services."
+      }
+    ]
   },
   {
     "ID": "4.8.",
@@ -128,7 +160,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "In the event that the Committee finds that the author is subject to the protections afforded in article 10 (2) (a), the State Party submits that, in any event, it has not breached article 10 (2) (a) owing to the reservation it has made with respect to said article: “In relation to paragraph 2 (a) the principle of segregation is accepted as an objective to be achieved progressively”. It further notes that the reservation was upheld by the Committee in Cabal and Pasini v. Australia and in Minogue v. Australia. It submits that, on the basis of the reservation, it does not have an immediate obligation to ensure that all accused persons are segregated from convicted persons pursuant to article 10 (2) (a)."
+    "Text": "In the event that the Committee finds that the author is subject to the protections afforded in article 10 (2) (a), the State Party submits that, in any event, it has not breached article 10 (2) (a) owing to the reservation it has made with respect to said article: “In relation to paragraph 2 (a) the principle of segregation is accepted as an objective to be achieved progressively”. It further notes that the reservation was upheld by the Committee in Cabal and Pasini v. Australia and in Minogue v. Australia.[[fn:10]] It submits that, on the basis of the reservation, it does not have an immediate obligation to ensure that all accused persons are segregated from convicted persons pursuant to article 10 (2) (a).",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See Cabal and Pasini v. Australia (CCPR/C/78/D/1020/2001); and Minogue v. Australia (CCPR/C/82/D/954/2000)."
+      }
+    ]
   },
   {
     "ID": "4.11.",
@@ -142,7 +180,13 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The State Party notes that it accepts that the author was in detention, within the meaning of article 9 (1) of the Covenant, while he was detained in immigration detention centres on the Australian mainland and Christmas Island. It, however, submits that the detention was permissible under article 9 (1) because it was lawful and not arbitrary. The detention was in accordance with the legislation and procedures established by the Migration Act, specifically section 189 (1), since by entering Australia without a valid visa, the author was classified as an “unlawful non-citizen” under the Act. It submits that the phrase “in accordance with such procedures as are established by law” in article 9 (1) refers to law in the domestic legal system. It argues that the travaux préparatoires demonstrate that the term “lawful”, and the phrase “on such grounds and in accordance with such procedures as are established by law”, both refer to the domestic laws of States Parties."
+    "Text": "The State Party notes that it accepts that the author was in detention, within the meaning of article 9 (1) of the Covenant, while he was detained in immigration detention centres on the Australian mainland and Christmas Island. It, however, submits that the detention was permissible under article 9 (1) because it was lawful and not arbitrary. The detention was in accordance with the legislation and procedures established by the Migration Act, specifically section 189 (1), since by entering Australia without a valid visa, the author was classified as an “unlawful non-citizen” under the Act. It submits that the phrase “in accordance with such procedures as are established by law” in article 9 (1) refers to law in the domestic legal system. It argues that the travaux préparatoires demonstrate that the term “lawful”, and the phrase “on such grounds and in accordance with such procedures as are established by law”, both refer to the domestic laws of States Parties.[[fn:11]]",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "Marc J. Bossuyt, Guide to the “Travaux Préparatoires” of the International Covenant on Civil and Political Rights (Brill, 1987), p. 197; and Manfred Nowak, U.N. Covenant on Civil and Political Rights: CCPR Commentary (N.P. Engel, 2005), pp. 224–227."
+      }
+    ]
   },
   {
     "ID": "4.13.",
@@ -166,7 +210,13 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The State Party further notes the author’s claim that, as an unlawful non-citizen, he was unable to access any judicial or administrative processes to challenge his detention. It argues that judicial review of the lawfulness of detention was available to the author under section 75 (v) of the Constitution, which provides that the High Court of Australia has jurisdiction in relation to every matter where a writ of mandamus, prohibition or injunction is sought against an officer of the Commonwealth, and that habeas corpus is also available as an avenue under which a person is entitled to bring proceedings for a court to review the lawfulness of that person’s detention. Should the Court find the detention to be unlawful, it would be a matter for the Court to determine the appropriate remedy in the circumstances of the case. The State Party submits that the author was therefore able to test the lawfulness of his detention before a court, and that any claim under article 9 (4) of the Covenant is without merit."
+    "Text": "The State Party further notes the author’s claim that, as an unlawful non-citizen, he was unable to access any judicial or administrative processes to challenge his detention. It argues that judicial review of the lawfulness of detention was available to the author under section 75 (v) of the Constitution, which provides that the High Court of Australia has jurisdiction in relation to every matter where a writ of mandamus,[[fn:12]] prohibition or injunction is sought against an officer of the Commonwealth, and that habeas corpus is also available as an avenue under which a person is entitled to bring proceedings for a court to review the lawfulness of that person’s detention. Should the Court find the detention to be unlawful, it would be a matter for the Court to determine the appropriate remedy in the circumstances of the case. The State Party submits that the author was therefore able to test the lawfulness of his detention before a court, and that any claim under article 9 (4) of the Covenant is without merit.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "The State Party notes that mandamus is a writ issued to compel an inferior court, a public official or a corporation to perform a public duty. It is issued where there is a specific legal right but no corresponding specific legal remedy, or where a remedy exists but it is less convenient, beneficial or effectual."
+      }
+    ]
   },
   {
     "ID": "4.16.",
@@ -212,7 +262,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The author contends that mandatory immigration detention in the State Party, by definition, operates irrespective of the unique circumstances of each individual. The State Party has thus not demonstrated that, in the light of his particular circumstances, there were not less invasive means of achieving the same ends – that is, compliance with the State Party’s immigration policies – through, for example, the imposition of reporting obligations, sureties or other conditions that would have taken account of his deteriorating condition. He further argues that the internal reviews referred to by the State Party are insufficient to discharge its obligation to assess the appropriateness, proportionality and necessity of detention and that it is well established that protracted periods of immigration detention have severe psychiatric consequences for detainees."
+    "Text": "The author contends that mandatory immigration detention in the State Party, by definition, operates irrespective of the unique circumstances of each individual. The State Party has thus not demonstrated that, in the light of his particular circumstances, there were not less invasive means of achieving the same ends – that is, compliance with the State Party’s immigration policies – through, for example, the imposition of reporting obligations, sureties or other conditions that would have taken account of his deteriorating condition. He further argues that the internal reviews referred to by the State Party are insufficient to discharge its obligation to assess the appropriateness, proportionality and necessity of detention and that it is well established that protracted periods of immigration detention have severe psychiatric consequences for detainees.[[fn:13]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "The author refers, among other publications, to Michael Dudley and others, “Health professionals confront the intentional harms of indefinite immigration detention: an Australian overview, evaluation of alternative responses and proposed strategy”, International Journal of Migration, Health and Social Care, vol. 17, No. 1 (2021), pp. 35–51; Kyli Hedrick and Rohan Borschmann, “Addressing self-harm among detained asylum seekers in Australia during the COVID-19 pandemic”, Australian and New Zealand Journal of Public Health, vol. 45, No. 1 (February 2021); Kyli Hedrick and others, “Self-harm among asylum seekers in Australian onshore immigration detention: how incidence rates vary by held detention type”, BMC Public Health, vol. 20, No. 592 (2020); M. von Werthern and others, “The impact of immigration detention on mental health: a systematic review”, BMC Psychiatry, vol. 18, No. 382 (2018); and Anagha Killedar and Patrick Harris, “Australia’s refugee policies and their health impact: a review of the evidence and recommendations for the Australian Government”, Australian and New Zealand Journal of Public Health, vol. 41, No. 4 (2017), pp. 335–337."
+      }
+    ]
   },
   {
     "ID": "5.5.",
@@ -220,7 +276,13 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The author further argues that judicial review of immigration detention decisions in the State Party is limited to whether the detention was lawful in accordance with domestic law and is thus incompatible with article 9 (4) of the Covenant. The only issue justiciable before the domestic courts in relation to the lawfulness of his detention was whether he was a non-citizen who had entered the State Party’s territory without valid entry documentation. According to domestic jurisprudence, indefinite immigration detention is lawful and mandatory, even in circumstances where there was no real likelihood or prospect that an individual would be removed, in the reasonably foreseeable future, to their country of origin or to a third country. The author argues that his detention, although compliant with domestic law, is in violation of the right of non-discrimination because it only applies to those who come under the definition of “unlawful non-citizen” under the Migration Act, irrespective of the individual’s personal circumstances, and that the discriminatory effect is compounded by the author’s inability to have access to judicial intervention, on a substantive level, that is focused on determining whether continued detention is justified or not."
+    "Text": "The author further argues that judicial review of immigration detention decisions in the State Party is limited to whether the detention was lawful in accordance with domestic law and is thus incompatible with article 9 (4) of the Covenant. The only issue justiciable before the domestic courts in relation to the lawfulness of his detention was whether he was a non-citizen who had entered the State Party’s territory without valid entry documentation. According to domestic jurisprudence, indefinite immigration detention is lawful and mandatory, even in circumstances where there was no real likelihood or prospect that an individual would be removed, in the reasonably foreseeable future, to their country of origin or to a third country.[[fn:14]] The author argues that his detention, although compliant with domestic law, is in violation of the right of non-discrimination because it only applies to those who come under the definition of “unlawful non-citizen” under the Migration Act, irrespective of the individual’s personal circumstances, and that the discriminatory effect is compounded by the author’s inability to have access to judicial intervention, on a substantive level, that is focused on determining whether continued detention is justified or not.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "The author refers to High Court of Australia, Al-Kateb v. Godwin, Case No. A253/2003, Judgment, 6 August 2004."
+      }
+    ]
   },
   {
     "ID": "5.6.",
@@ -228,13 +290,25 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "Regarding the issue of right to judicial review, the author further notes that the High Court of Australia has found that the State Party’s authorities have a duty to remove a detainee from Australia pursuant to section 198 (1) of the Migration Act as soon as reasonably possible; a breach of that duty by, for example, failure inferred through unreasonable or unexplained delay will not erase the purposes for which detention is effected, nor will it render detention unlawful. The High Court has held that the appropriate remedy in these circumstances is not a writ of habeas corpus commanding the release of the detainee, but a writ of mandamus commanding the authorities to perform their duty to remove the detainee."
+    "Text": "Regarding the issue of right to judicial review, the author further notes that the High Court of Australia has found that the State Party’s authorities have a duty to remove a detainee from Australia pursuant to section 198 (1) of the Migration Act as soon as reasonably possible; a breach of that duty by, for example, failure inferred through unreasonable or unexplained delay will not erase the purposes for which detention is effected, nor will it render detention unlawful. The High Court has held that the appropriate remedy in these circumstances is not a writ of habeas corpus commanding the release of the detainee, but a writ of mandamus commanding the authorities to perform their duty to remove the detainee.[[fn:15]]",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "The author refers to High Court of Australia, Commonwealth of Australia v. AJL20, Case No. HCA 21 of 2021, Judgment, 23 June 2021."
+      }
+    ]
   },
   {
     "ID": "5.7.",
     "Section": "Author’s comments on the State Party’s observations on admissibility and the merits",
     "Labels": [],
-    "Text": "The author further claims that his rights under article 10 (1) of the Covenant were violated, as he was subjected to violent acts in detention, for which he received inadequate medical attention. He further argues that it is clear from his medical records, submitted in support of his communication, that prolonged detention would have adverse consequences for him and that less invasive measures, such as community detention, would have helped to prevent further mental deterioration. In this connection, he notes that, during his detention, he was diagnosed with post-traumatic stress disorder, major depressive disorder and having an intermittent stutter. On 7 March 2019, following a suicide attempt, he was admitted to hospital as an involuntary patient for being at high risk of suicide and self-harm. The medical report on his hospitalization notes that the uncertainty regarding immigration issues and his subsequent deprivation of freedom, combined with fears for his safety from other detainees, appeared to be notable factors contributing to his health situation. The author thus submits that his placement in immigration detention facilities for a prolonged period of over six years was in diametric opposition to the recommendations made by his treating doctors and psychiatrists."
+    "Text": "The author further claims that his rights under article 10 (1) of the Covenant were violated, as he was subjected to violent acts in detention, for which he received inadequate medical attention. He further argues that it is clear from his medical records, submitted in support of his communication, that prolonged detention would have adverse consequences for him and that less invasive measures, such as community detention, would have helped to prevent further mental deterioration. In this connection, he notes that, during his detention, he was diagnosed with post-traumatic stress disorder, major depressive disorder and having an intermittent stutter.[[fn:16]] On 7 March 2019, following a suicide attempt, he was admitted to hospital as an involuntary patient for being at high risk of suicide and self-harm. The medical report on his hospitalization notes that the uncertainty regarding immigration issues and his subsequent deprivation of freedom, combined with fears for his safety from other detainees, appeared to be notable factors contributing to his health situation. The author thus submits that his placement in immigration detention facilities for a prolonged period of over six years was in diametric opposition to the recommendations made by his treating doctors and psychiatrists.",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "The author refers to a medical report by a psychiatrist, dated 16 November 2014, and another medical report by a psychiatrist confirming the diagnosis, dated 12 July 2018."
+      }
+    ]
   },
   {
     "ID": "6.1.",
@@ -266,7 +340,25 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The Committee notes that the State Party has not specifically submitted that the author’s claims should be found to be inadmissible under article 5 (2) (b) of the Optional Protocol for failing to exhaust domestic remedies. The Committee, however, notes that the State Party has contended that the author could have challenged his detention by applying for a writ of mandamus under section 75 (v) of the Constitution, or for a writ of habeas corpus. The Committee recalls its jurisprudence that, although there is no obligation to exhaust domestic remedies if they have no chance of being successful, authors of communications must exercise due diligence in the pursuit of available remedies, and that mere doubts or assumptions about their effectiveness do not absolve the authors from exhausting them. The Committee also recalls that when the highest domestic court has ruled on the matter in dispute in a manner eliminating any prospect that a claim before domestic courts may succeed, authors are not obliged to exhaust domestic remedies for the purposes of the Optional Protocol. The Committee notes the author’s argument that, according to the jurisprudence of the High Court of Australia that applied at the time of his detention, indefinite detention of a so-called “unlawful non-citizen” who could not be deported was lawful under domestic legislation. The Committee recalls that it has stated that the possibility that the High Court could someday overrule its precedent upholding indefinite detention of “unlawful non-citizens” did not suffice to indicate the availability of an effective remedy. The Committee notes that, at the time of the author’s submission of his complaint before the Committee, said precedent had not been overturned. In the light of the above circumstances, the Committee considers that the author’s failure to apply for a writ of mandamus or habeas corpus to challenge his detention is not an obstacle under article 5 (2) (b) of the Optional Protocol to the admissibility of the present communication."
+    "Text": "The Committee notes that the State Party has not specifically submitted that the author’s claims should be found to be inadmissible under article 5 (2) (b) of the Optional Protocol for failing to exhaust domestic remedies. The Committee, however, notes that the State Party has contended that the author could have challenged his detention by applying for a writ of mandamus under section 75 (v) of the Constitution, or for a writ of habeas corpus. The Committee recalls its jurisprudence that, although there is no obligation to exhaust domestic remedies if they have no chance of being successful, authors of communications must exercise due diligence in the pursuit of available remedies, and that mere doubts or assumptions about their effectiveness do not absolve the authors from exhausting them.[[fn:17]] The Committee also recalls that when the highest domestic court has ruled on the matter in dispute in a manner eliminating any prospect that a claim before domestic courts may succeed, authors are not obliged to exhaust domestic remedies for the purposes of the Optional Protocol.[[fn:18]] The Committee notes the author’s argument that, according to the jurisprudence of the High Court of Australia that applied at the time of his detention, indefinite detention of a so-called “unlawful non-citizen” who could not be deported was lawful under domestic legislation.[[fn:19]] The Committee recalls that it has stated that the possibility that the High Court could someday overrule its precedent upholding indefinite detention of “unlawful non-citizens” did not suffice to indicate the availability of an effective remedy.[[fn:20]] The Committee notes that, at the time of the author’s submission of his complaint before the Committee, said precedent had not been overturned. In the light of the above circumstances, the Committee considers that the author’s failure to apply for a writ of mandamus or habeas corpus to challenge his detention is not an obstacle under article 5 (2) (b) of the Optional Protocol to the admissibility of the present communication.",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "See, for example, M.L. v. Croatia (CCPR/C/127/D/2505/2014), para. 6.6."
+      },
+      {
+        "n": 18,
+        "text": "See, for example, X et al. v. Greece (CCPR/C/126/D/2701/2015), para. 8.5."
+      },
+      {
+        "n": 19,
+        "text": "High Court of Australia, Al-Kateb v. Godwin, Case No. A253/2003, Judgment, 6 August 2004."
+      },
+      {
+        "n": 20,
+        "text": "F.K.A.G. et al. v. Australia (CCPR/C/108/D/2094/2011), para. 8.4; F.J. et al. v. Australia (CCPR/C/116/D/2233/2013), para. 9.3; and Nabhari v. Australia (CCPR/C/142/D/3663/2019), para. 7.3."
+      }
+    ]
   },
   {
     "ID": "7.4.",
@@ -275,7 +367,13 @@
       "Persons deprived of their liberty",
       "Persons with disabilities"
     ],
-    "Text": "The Committee notes the author’s claim that his rights under article 10 (2) (a) of the Covenant were violated because he was not isolated from detainees with prior criminal convictions. The Committee recalls its general comment No. 21 (1992), in which it stated that article 10 (2) (a) requires the segregation of accused persons from convicted ones in order to emphasize presumption of innocence of unconvicted persons. In the present case, the Committee, however, notes that both the author and the alleged perpetrators of his assault were held in immigration detention; the author was thus not an “accused person”, nor were the perpetrators of the assault “convicted persons” under article 10 (2) (a) of the Covenant. In the light of the above, the Committee finds that the State Party’s reservation on the principle of segregation is not applicable to the claims raised in the communication and that the Committee is therefore not precluded by the reservation from considering said claims. However, taking into account that the author is not an “accused person” within the meaning of article 10 (2) (a), the Committee finds his claims as raised in connection to article 10 (2) (a) to be inadmissible ratione materiae under article 3 of the Optional Protocol. The Committee, however, notes that the author has also raised claims that he received inadequate medical care following the assault, as well as claims that his mental health deteriorated following the assault, this being exacerbated by his continued prolonged detention. The Committee considers that these aspects of his claims should be considered under article 10 (1) of the Covenant."
+    "Text": "The Committee notes the author’s claim that his rights under article 10 (2) (a) of the Covenant were violated because he was not isolated from detainees with prior criminal convictions. The Committee recalls its general comment No. 21 (1992), in which it stated that article 10 (2) (a) requires the segregation of accused persons from convicted ones in order to emphasize presumption of innocence of unconvicted persons.[[fn:21]] In the present case, the Committee, however, notes that both the author and the alleged perpetrators of his assault were held in immigration detention; the author was thus not an “accused person”, nor were the perpetrators of the assault “convicted persons” under article 10 (2) (a) of the Covenant. In the light of the above, the Committee finds that the State Party’s reservation on the principle of segregation is not applicable to the claims raised in the communication and that the Committee is therefore not precluded by the reservation from considering said claims. However, taking into account that the author is not an “accused person” within the meaning of article 10 (2) (a), the Committee finds his claims as raised in connection to article 10 (2) (a) to be inadmissible ratione materiae under article 3 of the Optional Protocol. The Committee, however, notes that the author has also raised claims that he received inadequate medical care following the assault, as well as claims that his mental health deteriorated following the assault, this being exacerbated by his continued prolonged detention. The Committee considers that these aspects of his claims should be considered under article 10 (1) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "General comment No. 21 (1992) on the humane treatment of persons deprived of their liberty, para. 9."
+      }
+    ]
   },
   {
     "ID": "7.5.",
@@ -287,7 +385,13 @@
     "ID": "7.6.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee further notes that the author has also invoked claims under articles 7 and 14 of the Universal Declaration of Human Rights. The Committee recalls that, in accordance with article 1 of the Optional Protocol, its competence is limited to the examination of communications claiming a violation of rights under the Covenant. Accordingly, alleged violations of other instruments or agreements fall outside the Committee’s competence. The Committee thus finds the claims invoked by the author under the Universal Declaration of Human Rights to be inadmissible ratione materiae under article 3 of the Optional Protocol."
+    "Text": "The Committee further notes that the author has also invoked claims under articles 7 and 14 of the Universal Declaration of Human Rights. The Committee recalls that, in accordance with article 1 of the Optional Protocol, its competence is limited to the examination of communications claiming a violation of rights under the Covenant. Accordingly, alleged violations of other instruments or agreements fall outside the Committee’s competence.[[fn:22]] The Committee thus finds the claims invoked by the author under the Universal Declaration of Human Rights to be inadmissible ratione materiae under article 3 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 22,
+        "text": "See, for example, Z v. Denmark (CCPR/C/137/D/2795/2016), para. 6.4."
+      }
+    ]
   },
   {
     "ID": "7.7.",
@@ -313,7 +417,21 @@
     "Labels": [
       "Non-citizens and stateless"
     ],
-    "Text": "The Committee refers to its general comment No. 35 (2014), in which it stated that an arrest or detention may be authorized by domestic law yet nonetheless be arbitrary and thus contrary to article 9 (1) of the Covenant. Detention in the course of proceedings for the control of immigration is not arbitrary per se, but must be justified as being reasonable, necessary and proportionate in the light of the circumstances and reassessed as it extends in time. Asylum-seekers who unlawfully enter a State Party’s territory may be detained for a brief initial period in order to document their entry, record their claims and determine their identity if it is in doubt. To detain them further while their claims are being resolved would be arbitrary in the absence of particular reasons specific to the person concerned, such as an individualized likelihood of absconding, a danger of crimes against others or a risk of acts against national security. The decision to detain must consider relevant factors on an individualized basis; must not be based on a mandatory rule for a broad category of persons; must take into account less invasive means of achieving the same ends, such as reporting obligations, sureties or other conditions to prevent absconding; and must be subject to periodic re-evaluation and judicial review. The inability of a State Party to carry out the expulsion of an individual because of statelessness or other obstacles does not justify indefinite detention."
+    "Text": "The Committee refers to its general comment No. 35 (2014), in which it stated that an arrest or detention may be authorized by domestic law yet nonetheless be arbitrary and thus contrary to article 9 (1) of the Covenant.[[fn:23]] Detention in the course of proceedings for the control of immigration is not arbitrary per se, but must be justified as being reasonable, necessary and proportionate in the light of the circumstances and reassessed as it extends in time. Asylum-seekers who unlawfully enter a State Party’s territory may be detained for a brief initial period in order to document their entry, record their claims and determine their identity if it is in doubt. To detain them further while their claims are being resolved would be arbitrary in the absence of particular reasons specific to the person concerned, such as an individualized likelihood of absconding, a danger of crimes against others or a risk of acts against national security. The decision to detain must consider relevant factors on an individualized basis; must not be based on a mandatory rule for a broad category of persons; must take into account less invasive means of achieving the same ends, such as reporting obligations, sureties or other conditions to prevent absconding; and must be subject to periodic re-evaluation and judicial review.[[fn:24]] The inability of a State Party to carry out the expulsion of an individual because of statelessness or other obstacles does not justify indefinite detention.[[fn:25]]",
+    "Footnotes": [
+      {
+        "n": 23,
+        "text": "General comment No. 35 (2014) on liberty and security of person, para. 12."
+      },
+      {
+        "n": 24,
+        "text": "Ibid., para. 18."
+      },
+      {
+        "n": 25,
+        "text": "Ibid."
+      }
+    ]
   },
   {
     "ID": "8.4.",
@@ -325,7 +443,13 @@
     "ID": "8.5.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "The Committee notes the State Party’s argument that it considered the author’s individual needs in determining the appropriateness and necessity of detention (see paras. 4.14–4.16 above). The Committee, however, considers that the State Party has not identified any individualized and specific reasons that would have justified the need to deprive the author of his liberty for such a protracted period. In particular, the State Party has not indicated that it determined that the author posed a risk to public security, public order or safety, or a risk of absconding, nor has it demonstrated that, in the light of the author’s particular circumstances, there were not less invasive means of achieving the same ends – that is, compliance with the State Party’s immigration policies – through, for example, the imposition of reporting obligations, sureties or other conditions that would take account of the author’s deteriorating health condition. The Committee therefore finds that the protracted nature of the author’s initial and subsequent periods of detention were unreasonable, unnecessary and disproportionate to the State Party’s policy objectives and in violation of the author’s rights under article 9 (1) of the Covenant."
+    "Text": "The Committee notes the State Party’s argument that it considered the author’s individual needs in determining the appropriateness and necessity of detention (see paras. 4.14–4.16 above). The Committee, however, considers that the State Party has not identified any individualized and specific reasons that would have justified the need to deprive the author of his liberty for such a protracted period. In particular, the State Party has not indicated that it determined that the author posed a risk to public security, public order or safety, or a risk of absconding, nor has it demonstrated that, in the light of the author’s particular circumstances, there were not less invasive means of achieving the same ends – that is, compliance with the State Party’s immigration policies – through, for example, the imposition of reporting obligations, sureties or other conditions that would take account of the author’s deteriorating health condition.[[fn:26]] The Committee therefore finds that the protracted nature of the author’s initial and subsequent periods of detention were unreasonable, unnecessary and disproportionate to the State Party’s policy objectives and in violation of the author’s rights under article 9 (1) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 26,
+        "text": "C. v. Australia, para. 8.2; A v. Australia (CCPR/C/59/D/560/1993), para. 9.4; M.M.M. et al. v. Australia (CCPR/C/108/D/2136/2012), para. 10.4; F.J. et al. v. Australia, para. 10.4; and Nabhari v. Australia, paras. 8.6 and 8.7."
+      }
+    ]
   },
   {
     "ID": "8.6.",
@@ -337,7 +461,21 @@
     "ID": "8.7.",
     "Section": "Consideration of the merits",
     "Labels": [],
-    "Text": "Article 9 (4) entitles anyone who is deprived of liberty by arrest or detention to take proceedings before a court, in order that the court may decide without delay on the lawfulness of the detention and order release if the detention is not lawful. The Committee refers to its general comment No. 35 (2014), in which it stated that judicial review of the lawfulness of detention under article 9 (4) is not limited to mere compliance of the detention with domestic law, but must include the possibility to order release if the detention is incompatible with the requirements of the Covenant, in particular those of article 9 (1). The Committee further recalls its previous jurisprudence concerning review of the detention of non-citizens without valid entry documentation in the State Party, in which it concluded that the scope of domestic judicial review of immigration detention was insufficient to permit the examination of an individual’s detention in substantive terms. In its previous jurisprudence, the Committee has further stated that the State Party has not provided any relevant legal precedents showing the effectiveness of an application for a judicial review of mandatory immigration detention under the Migration Act, nor has it shown that national courts have the authority to make individualized rulings on the justification for an applicant’s detention. The Committee therefore considers that the facts in the present case amount to a violation of the author’s rights under article 9 (4) of the Covenant."
+    "Text": "Article 9 (4) entitles anyone who is deprived of liberty by arrest or detention to take proceedings before a court, in order that the court may decide without delay on the lawfulness of the detention and order release if the detention is not lawful. The Committee refers to its general comment No. 35 (2014), in which it stated that judicial review of the lawfulness of detention under article 9 (4) is not limited to mere compliance of the detention with domestic law, but must include the possibility to order release if the detention is incompatible with the requirements of the Covenant, in particular those of article 9 (1).[[fn:27]] The Committee further recalls its previous jurisprudence concerning review of the detention of non-citizens without valid entry documentation in the State Party, in which it concluded that the scope of domestic judicial review of immigration detention was insufficient to permit the examination of an individual’s detention in substantive terms.[[fn:28]] In its previous jurisprudence, the Committee has further stated that the State Party has not provided any relevant legal precedents showing the effectiveness of an application for a judicial review of mandatory immigration detention under the Migration Act, nor has it shown that national courts have the authority to make individualized rulings on the justification for an applicant’s detention.[[fn:29]] The Committee therefore considers that the facts in the present case amount to a violation of the author’s rights under article 9 (4) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 27,
+        "text": "General comment No. 35 (2014), paras. 40 and 44. See also M.M.M. et al. v. Australia, para. 10.6; F.J. et al. v. Australia, para. 10.5; and F.K.A.G. et al. v. Australia, para. 9.6."
+      },
+      {
+        "n": 28,
+        "text": "M.M.M. et al. v. Australia, para. 10.6; F.J. et al. v. Australia, para. 10.5; and F.K.A.G. et al. v. Australia, para. 9.6."
+      },
+      {
+        "n": 29,
+        "text": "M.I. et al. v. Australia (CCPR/C/142/D/2749/2016), para. 10.6."
+      }
+    ]
   },
   {
     "ID": "8.8.",
@@ -359,7 +497,17 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "The Committee refers to paragraph 3 of its general comment No. 21 (1992), in which it stated that article 10 (1) imposes a positive obligation on States Parties towards persons who are particularly vulnerable because of their status as persons deprived of liberty. It further recalls that decisions regarding the detention of migrants must also take into account the effect of detention on their physical or mental health. The Committee recalls its jurisprudence in which it has held that prolonged and indefinite immigration detention against medical advice resulting in deteriorating mental health may, in combination with the arbitrary character of the protracted duration or indefinite term of detention, amount to a violation of article 10 of the Covenant. In the present case, the Committee notes that, according to the author’s medical records, the uncertainty regarding his migration status and the subsequent deprivation of freedom, combined with fears for his safety from other detainees following his assault, were factors that contributed significantly to his vulnerable mental health situation, including a high risk of suicide and a risk of further deterioration if his detention were to continue. The Committee therefore finds that the negative impact that the protracted detention had on the author’s mental health, as supported by his medical records, and the difficult conditions of detention that cumulatively inflicted serious psychological harm on the author, constituted treatment contrary to article 10 (1) of the Covenant."
+    "Text": "The Committee refers to paragraph 3 of its general comment No. 21 (1992), in which it stated that article 10 (1) imposes a positive obligation on States Parties towards persons who are particularly vulnerable because of their status as persons deprived of liberty. It further recalls that decisions regarding the detention of migrants must also take into account the effect of detention on their physical or mental health.[[fn:30]] The Committee recalls its jurisprudence in which it has held that prolonged and indefinite immigration detention against medical advice resulting in deteriorating mental health may, in combination with the arbitrary character of the protracted duration or indefinite term of detention, amount to a violation of article 10 of the Covenant.[[fn:31]] In the present case, the Committee notes that, according to the author’s medical records, the uncertainty regarding his migration status and the subsequent deprivation of freedom, combined with fears for his safety from other detainees following his assault, were factors that contributed significantly to his vulnerable mental health situation, including a high risk of suicide and a risk of further deterioration if his detention were to continue. The Committee therefore finds that the negative impact that the protracted detention had on the author’s mental health, as supported by his medical records, and the difficult conditions of detention that cumulatively inflicted serious psychological harm on the author, constituted treatment contrary to article 10 (1) of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 30,
+        "text": "General comment No. 35 (2014), para. 18."
+      },
+      {
+        "n": 31,
+        "text": "Madafferi et al. v. Australia (CCPR/C/81/D/1011/2001), para. 9.3. See also M.M.M. et al. v. Australia, para. 10.7; F.J. et al. v. Australia, para. 10.6; F.K.A.G. et al. v. Australia, para. 9.8; and C. v. Australia, para. 8.4."
+      }
+    ]
   },
   {
     "ID": "9.",
@@ -401,7 +549,13 @@
     "ID": "OP1-3.",
     "Section": "Individual opinion of Committee member Yvonne Donders (concurring)",
     "Labels": [],
-    "Text": "When Australia ratified the Covenant in 1980, it filed a reservation, which reads: “in relation to paragraph 2 (a) the principle of segregation is accepted as an objective to be achieved progressively”. The Committee rightly concludes (para. 7.4 of the Views) that this reservation was not applicable in this case. However, the invocation by Australia of the reservation raises several issues. The language of the reservation reflects the State Party’s agreement with the principle of segregation, but also its position that this is an objective that cannot be implemented immediately but rather incrementally and over time. The language of progressive realization reminds us of the International Covenant on Economic, Social and Cultural Rights, article 2 (1) of which requires that each State Party undertake “to take steps, individually and through international assistance and co-operation … to the maximum of its available resources, with a view to achieving progressively the full realization of the rights”. The reservation seems to refer to such a form of implementation of article 10 (2) (a).",
+    "Text": "When Australia ratified the Covenant in 1980, it filed a reservation, which reads: “in relation to paragraph 2 (a) the principle of segregation is accepted as an objective to be achieved progressively”.[[fn:32]] The Committee rightly concludes (para. 7.4 of the Views) that this reservation was not applicable in this case. However, the invocation by Australia of the reservation raises several issues. The language of the reservation reflects the State Party’s agreement with the principle of segregation, but also its position that this is an objective that cannot be implemented immediately but rather incrementally and over time. The language of progressive realization reminds us of the International Covenant on Economic, Social and Cultural Rights, article 2 (1) of which requires that each State Party undertake “to take steps, individually and through international assistance and co-operation … to the maximum of its available resources, with a view to achieving progressively the full realization of the rights”. The reservation seems to refer to such a form of implementation of article 10 (2) (a).",
+    "Footnotes": [
+      {
+        "n": 32,
+        "text": "The reservation only refers to the segregation of convicted and unconvicted persons and does not extend to cover the separate treatment element of article 10 (2) (a). See Cabal and Pasini v. Australia (CCPR/C/78/D/1020/2001), para. 7.4."
+      }
+    ],
     "OriginalID": "3.",
     "Namespace": "OP1"
   },
@@ -411,7 +565,17 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "When invoking the reservation in this case, Australia noted that it was upheld by the Committee in earlier decisions. In these cases, the Committee recognized that “while 20 years have passed since the State party entered the reservation and that it intended to achieve its objective ‘progressively’, and although it would be desirable for all States parties to withdraw reservations expeditiously, there is no rule under the Covenant on the timeframe for the withdrawal of reservations”. The Committee further noted the State Party’s efforts to construct new detention facilities to house remand prisoners. The Committee concluded that although it was “unfortunate that the State party has not achieved its objective to segregate convicted and unconvicted persons in full compliance with article 10, paragraph 2 (a)”, it could not at the time find the reservation to be incompatible with the object and purpose of the Covenant.",
+    "Text": "When invoking the reservation in this case, Australia noted that it was upheld by the Committee in earlier decisions. In these cases, the Committee recognized that “while 20 years have passed since the State party entered the reservation and that it intended to achieve its objective ‘progressively’, and although it would be desirable for all States parties to withdraw reservations expeditiously, there is no rule under the Covenant on the timeframe for the withdrawal of reservations”.[[fn:33]] The Committee further noted the State Party’s efforts to construct new detention facilities to house remand prisoners. The Committee concluded that although it was “unfortunate that the State party has not achieved its objective to segregate convicted and unconvicted persons in full compliance with article 10, paragraph 2 (a)”, it could not at the time find the reservation to be incompatible with the object and purpose of the Covenant.[[fn:34]]",
+    "Footnotes": [
+      {
+        "n": 33,
+        "text": "Cabal and Pasini v. Australia, para. 7.4; and Minogue v. Australia (CCPR/C/82/D/954/2000), para. 6.5."
+      },
+      {
+        "n": 34,
+        "text": "Ibid."
+      }
+    ],
     "OriginalID": "4.",
     "Namespace": "OP1"
   },
@@ -419,7 +583,17 @@
     "ID": "OP1-5.",
     "Section": "Individual opinion of Committee member Yvonne Donders (concurring)",
     "Labels": [],
-    "Text": "It should be noted that Australia acceded to the Covenant in 1980 and that it withdrew several reservations in 1984, including on article 10 (1). In its most recent concluding observations on Australia in 2017, the Committee recommended that the State Party should review periodically the justifications for, and the necessity of, maintaining this and other reservations “with a view to withdrawing them”. Bearing in mind that there is no fixed time limit for withdrawal of reservations, that 45 years have passed since Australia submitted the reservation to article 10 (2) (a), and that more than 20 years have elapsed since the earlier cases in which the Committee upheld this reservation, one may reasonably ask whether the State Party should not have “progressively achieved” its objectives by now. I have doubts as to how much longer the Committee should consider this reservation to be compatible with the object and purpose of the Covenant.",
+    "Text": "It should be noted that Australia acceded to the Covenant in 1980 and that it withdrew several reservations in 1984, including on article 10 (1).[[fn:35]] In its most recent concluding observations on Australia in 2017, the Committee recommended that the State Party should review periodically the justifications for, and the necessity of, maintaining this and other reservations “with a view to withdrawing them”.[[fn:36]] Bearing in mind that there is no fixed time limit for withdrawal of reservations, that 45 years have passed since Australia submitted the reservation to article 10 (2) (a), and that more than 20 years have elapsed since the earlier cases in which the Committee upheld this reservation, one may reasonably ask whether the State Party should not have “progressively achieved” its objectives by now. I have doubts as to how much longer the Committee should consider this reservation to be compatible with the object and purpose of the Covenant.",
+    "Footnotes": [
+      {
+        "n": 35,
+        "text": "In a communication received on 6 November 1984, the Government of Australia notified the Secretary-General of its decision to withdraw the reservations and declarations made upon ratification with regard to articles 2 and 50, 17, 19, 25 and to partially withdraw its reservations to articles 10 and 14. For the text of the reservations and declarations, see United Nations, Treaty Series, vol. 1197, No. 14668."
+      },
+      {
+        "n": 36,
+        "text": "CCPR/C/AUS/CO/6, para. 8."
+      }
+    ],
     "OriginalID": "5.",
     "Namespace": "OP1"
   }

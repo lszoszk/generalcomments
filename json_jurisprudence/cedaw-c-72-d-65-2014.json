@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "",
+    "Section": "Background",
     "Labels": [],
     "Text": "The author of the communication is S.T., a national of the Russian Federation born in 1959. She claims that the Russian Federation has violated her rights guaranteed under article 2 (c) and (d), read in conjunction with article 1, and article 5 (a) of the Convention, given the failure of the authorities to prevent and to effectively investigate the severe physical and psychological violence committed against her by her former husband. The Convention entered into force for the State party on 3 September 1981 and the Optional Protocol on 28 October 2004. The author is represented by counsel, Vanessa Kogan and Aleksei Ponomarev."
   },
@@ -31,7 +31,13 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On 26 April 2010, the Achkhoy-Martan Magistrates’ Court convicted the author’s husband of intentional infliction of bodily harm under article 115 (1) of the Criminal Code of the Russian Federation. The magistrates’ court took into account the information provided by the police regarding the systematic abuse and mistreatment of the author by her husband. Mr. Timagov was ordered only to pay a fine of 15,000 Rub, however, with no further sanctions applied. The author continued living in the same house with her abuser, because she had nowhere else to go, owing to her lack of economic independence."
+    "Text": "On 26 April 2010, the Achkhoy-Martan Magistrates’ Court convicted the author’s husband of intentional infliction of bodily harm under article 115 (1) of the Criminal Code of the Russian Federation. The magistrates’ court took into account the information provided by the police regarding the systematic abuse and mistreatment of the author by her husband. Mr. Timagov was ordered only to pay a fine of 15,000 Rub,[[fn:1]] however, with no further sanctions applied. The author continued living in the same house with her abuser, because she had nowhere else to go, owing to her lack of economic independence.",
+    "Footnotes": [
+      {
+        "n": 1,
+        "text": "Equivalent to US$ 225."
+      }
+    ]
   },
   {
     "ID": "2.5.",
@@ -51,7 +57,7 @@
     "ID": "2.7.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "On 6 February 2010, while still legally married to the author, Mr. Timagov entered into a religious marriage, in accordance with sharia law, to R, whom he had met one month prior to the wedding. On 6 April 2010, the Achkhoy-Martan District Court issued a divorce ruling, indicating that the author and her two sons were entitled to a one-half share of the house, namely, a bedroom and a hallway, in addition to a one-half share of three vehicles, a car, a truck and a tractor. On 25 May 2010, the Supreme Court of Chechnya, Russian Federation, partially quashed the lower court decision. On 22 July 2010, the Achkhoy-Martan District Court rendered an amended decision on the family arrangements, confirming the author’s entitlement to a one-half share of the house. Subsequently, the author was able to move back into the house, where Mr. Timagov had been living with his new wife. In the intervening period, for eight months, the author was obliged to live with her parents."
+    "Text": "On 6 February 2010, while still legally married to the author, Mr. Timagov entered into a religious marriage, in accordance with sharia law, to R, whom he had met one month prior to the wedding. On 6 April 2010, the Achkhoy-Martan District Court issued a divorce ruling, indicating that the author and her two sons were entitled to a one-half share of the house, namely, a bedroom and a hallway, in addition to a one-half share of three vehicles, a car, a truck and a tractor. On 25 May 2010, the Supreme Court of Chechnya, Russian Federation, partially quashed the lower court decision. On 22 July 2010, the Achkhoy-Martan District Court rendered an amended decision on the family arrangements, confirming the author’s entitlement to a onehalf share of the house. Subsequently, the author was able to move back into the house, where Mr. Timagov had been living with his new wife. In the intervening period, for eight months, the author was obliged to live with her parents."
   },
   {
     "ID": "2.8.",
@@ -110,7 +116,13 @@
     "Labels": [
       "Persons with disabilities"
     ],
-    "Text": "On 15 July 2011, the additional psychiatric examination of the accused was conducted, in the absence of the author and her representative. The examination report recognized that the author’s ex-husband had been temporarily insane while committing the crime. As a consequence thereof, the public prosecutor requested that the court mitigate the classification of the crime from attempted murder to inflicting serious bodily harm in the state of temporary insanity, under article 113 of the Criminal Code."
+    "Text": "On 15 July 2011, the additional psychiatric examination of the accused was conducted, in the absence of the author and her representative. The examination report recognized that the author’s ex-husband had been temporarily insane while committing the crime.[[fn:2]] As a consequence thereof, the public prosecutor requested that the court mitigate the classification of the crime from attempted murder to inflicting serious bodily harm in the state of temporary insanity, under article 113 of the Criminal Code.",
+    "Footnotes": [
+      {
+        "n": 2,
+        "text": "The report, which is annexed to the submission, indicated that: “Timagov was constantly in a state of internal conflict, on one side his injured vanity due to the non-recognition as an authority and head of the family, on the other side the necessity to suppress his negative emotions and to build tolerant relationships with family members in order to avoid conflicts and ensure the safety of his new family. The dramatic event occurred in this context. Listening to the insults addressed to him and his new wife, he tried to maintain self-control and be in charge of his emotions. At some point, nevertheless, happened an ‘explosion of affect’ that ended in brutal axe blows directed at the victim’s head.”"
+      }
+    ]
   },
   {
     "ID": "2.16.",
@@ -151,7 +163,7 @@
     "ID": "2.21.",
     "Section": "Facts as submitted by the author",
     "Labels": [],
-    "Text": "On 28 March 2012, the Supreme Court of Chechnya upheld the Achkhoy-Martan District Court verdict, with one amendment deleting the mention of Mr. Timagov’s previous conviction by the Achkhoy-Martan Magistrates’ Court. The author’s subsequent applications for supervisory review were dismissed by the Supreme Court of Chechnya, on 8 August 2012 and 19 February 2013, respectively."
+    "Text": "On 28 March 2012, the Supreme Court of Chechnya upheld the AchkhoyMartan District Court verdict, with one amendment deleting the mention of Mr. Timagov’s previous conviction by the Achkhoy-Martan Magistrates’ Court. The author’s subsequent applications for supervisory review were dismissed by the Supreme Court of Chechnya, on 8 August 2012 and 19 February 2013, respectively."
   },
   {
     "ID": "2.22.",
@@ -184,13 +196,25 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author submits that the definition of discrimination against women in article 1 of the Convention includes gender-based violence, notably, acts that inflict physical, mental or sexual harm or suffering, threats of such acts, coercion and other deprivation of liberty. She claims that States may also be responsible for private acts if they fail to act with due diligence to prevent violations of rights or to investigate and punish acts of violence. She claims that she was subjected to gender-based violence perpetrated by her former husband and that the authorities’ response to the violence was manifestly inadequate and disproportionate to the gravity of the offence. She claims that the overall violence to which she was subjected over a long period of time cannot be considered as separate, isolated episodes but as a chain of connected events in which the level of violence continually escalated over time. She claims that the violence was not limited to the physical injuries but also included psychological pressure and a corresponding feeling of helplessness and despair."
+    "Text": "The author submits that the definition of discrimination against women in article 1 of the Convention includes gender-based violence, notably, acts that inflict physical, mental or sexual harm or suffering, threats of such acts, coercion and other deprivation of liberty.[[fn:3]] She claims that States may also be responsible for private acts if they fail to act with due diligence to prevent violations of rights or to investigate and punish acts of violence. She claims that she was subjected to gender-based violence perpetrated by her former husband and that the authorities’ response to the violence was manifestly inadequate and disproportionate to the gravity of the offence. She claims that the overall violence to which she was subjected over a long period of time cannot be considered as separate, isolated episodes but as a chain of connected events in which the level of violence continually escalated over time. She claims that the violence was not limited to the physical injuries but also included psychological pressure and a corresponding feeling of helplessness and despair.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "The author refers to the Committee’s general recommendation No. 19 (1992) on violence against women, para. 6; and general recommendation No. 28 (2010) on the core obligations of States parties under article 2 of the Convention; as well as to jurisprudence of the European Court of Human Rights, namely, Opuz v. Turkey (application No. 33401/02), judgment of 9 June 2009."
+      }
+    ]
   },
   {
     "ID": "3.3.",
     "Section": "Complaint",
     "Labels": [],
-    "Text": "The author alleges that she suffered revictimization by the State party, given that the disproportionately lenient sentence imposed on her former husband violated her right to non-discrimination and the State party failed in its legal obligation to respect, protect and fulfil that right. She claims that she was deprived of effective legal protection, in violation of article 2 (c) of the Convention. She also claims that a judgment grounded in gender-based misconceptions and myths can hardly be considered as one rendered by a fair, impartial and competent tribunal."
+    "Text": "The author alleges that she suffered revictimization[[fn:4]] by the State party, given that the disproportionately lenient sentence imposed on her former husband violated her right to non-discrimination and the State party failed in its legal obligation to respect, protect and fulfil that right. She claims that she was deprived of effective legal protection, in violation of article 2 (c) of the Convention. She also claims that a judgment grounded in gender-based misconceptions and myths can hardly be considered as one rendered by a fair, impartial and competent tribunal.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "In this regard, the author refers to Vertido v. Philippines (CEDAW/C/46/D/18/2008)."
+      }
+    ]
   },
   {
     "ID": "3.4.",
@@ -198,7 +222,17 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author maintains that, in domestic violence cases, in which victims are particularly vulnerable due to the nature of the crime and the proximity of ties with the perpetrator, perpetrators’ rights cannot supersede victims’ rights to life and to physical and mental integrity. The author submits that, although the national statistical institution of the State party does not maintain centralized statistics, disaggregated by gender, on domestic violence, it is considered to be of general knowledge that around 14,000 women are killed by their husbands or other relatives every year."
+    "Text": "The author maintains that, in domestic violence cases, in which victims are particularly vulnerable due to the nature of the crime and the proximity of ties with the perpetrator, perpetrators’ rights cannot supersede victims’ rights to life and to physical and mental integrity.[[fn:5]] The author submits that, although the national statistical institution of the State party does not maintain centralized statistics, disaggregated by gender, on domestic violence, it is considered to be of general knowledge that around 14,000 women are killed by their husbands or other relatives every year.[[fn:6]]",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The author refers to Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Akbak et al v. Austria (CEDAW/C/39/D/6/2005) and Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Goekce et al v. Austria (CEDAW/C/39/D/5/2005) and to the Committee’s concluding observations on the combined sixth and seventh periodic reports of the Russian Federation (CEDAW/C/USR/CO/7, para. 24, regarding the Committee’s concerns about the increasing rate of violence against women and the killings of women in Chechnya)."
+      },
+      {
+        "n": 6,
+        "text": "American Bar Association Rule of Law Initiative-Central European and Eurasian Law Initiative, “CEDAW assessment tool report for the Russian Federation”, February 2006, p. 97. Available from www.americanbar.org/content/dam/aba/directories/roli/russia/russia-cedaw-eng.pdf."
+      }
+    ]
   },
   {
     "ID": "3.5.",
@@ -206,7 +240,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that she could not have asked for a restraining or protection order, because neither is available under the law of the State party. Nor could she flee to a shelter or seek assistance at a crisis centre, because none are available in Achkhoy-Martan. She submits that article 2 of the Convention is not limited to the prohibition of discrimination against women caused directly or indirectly by public authorities, but also imposes a positive obligation of due diligence on States parties."
+    "Text": "The author claims that she could not have asked for a restraining or protection order, because neither is available under the law of the State party. Nor could she flee to a shelter or seek assistance at a crisis centre, because none are available in Achkhoy-Martan. She submits that article 2 of the Convention is not limited to the prohibition of discrimination against women caused directly or indirectly by public authorities, but also imposes a positive obligation of due diligence on States parties.[[fn:7]]",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "The author also refers to the Committee’s general recommendation No. 28 (2010) on the core obligations of States parties under article 2 of the Convention, para. 9; and European Court of Human Rights, Wilson v. United Kingdom (application No. 10601/09), decision of inadmissibility of 2 February 2009, para. 37."
+      }
+    ]
   },
   {
     "ID": "3.6.",
@@ -214,7 +254,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author further submits that there are no special provisions or procedures in civil or family law for cases of violence against women, such as remedies or compensation for pecuniary and non-pecuniary damage. She invoked a general provision on compensation, to no avail. She claims that the cost of her two surgeries in Grozny and Saint Petersburg and the prolonged treatment sessions that were required following the assault of 27 December 2010 amounted to around 200,000 Rub. Furthermore, there is no free legal aid for victims of domestic violence; only the accused has the right to obtain free legal advice and legal representation in court. During the trial, the prosecutor and defence counsel argued against the court ordering any compensation for the material and moral losses that the author had sustained, and the court dismissed all claims for compensation."
+    "Text": "The author further submits that there are no special provisions or procedures in civil or family law for cases of violence against women, such as remedies or compensation for pecuniary and non-pecuniary damage. She invoked a general provision on compensation, to no avail. She claims that the cost of her two surgeries in Grozny and Saint Petersburg and the prolonged treatment sessions that were required following the assault of 27 December 2010 amounted to around 200,000 Rub.[[fn:8]] Furthermore, there is no free legal aid for victims of domestic violence; only the accused has the right to obtain free legal advice and legal representation in court. During the trial, the prosecutor and defence counsel argued against the court ordering any compensation for the material and moral losses that the author had sustained, and the court dismissed all claims for compensation.",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Equivalent to US$ 3,002."
+      }
+    ]
   },
   {
     "ID": "3.7.",
@@ -222,7 +268,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that there is no effective support for victims of domestic violence, namely, appropriate protective and support services such as shelters, specially trained health-care workers, rehabilitation or counselling."
+    "Text": "The author claims that there is no effective support for victims of domestic violence, namely, appropriate protective and support services such as shelters, specially trained health-care workers, rehabilitation or counselling.[[fn:9]]",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "The author refers the Committee’s general recommendation No. 19, para 24 (o). She explains that 21 crisis centres and 5 shelters are available to cover a country of 143 million people, of whom 76 million are women."
+      }
+    ]
   },
   {
     "ID": "3.8.",
@@ -238,7 +290,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "Under article 5 of the Convention, the author submits that the lenient sentence granted to her ex-husband was the result of the domestic courts having based their decisions on gender-related myths and misconceptions of how Chechen women must behave towards their husbands. The authorities’ response to the conduct of her former husband was manifestly inadequate and disproportionate to the gravity of the offence in question. The author submits that, had the court not been influenced by gender-based myths and stereotypes, her ex-husband would not have been granted impunity for the committed crime. She claims that the court took into account only the testimonies of the defence witnesses and, on that sole basis, attributed to the author “systemic amoral behaviour”, i.e., not in line with the behaviour associated with a stereotypical proper Chechen woman. The court disregarded the numerous witnesses supporting the author’s version of events, who were moreover direct witnesses, who could have testified to the author’s behaviour, given that they lived side by side in the same house."
+    "Text": "Under article 5 of the Convention, the author submits that the lenient sentence granted to her ex-husband was the result of the domestic courts having based their decisions on gender-related myths and misconceptions of how Chechen women must behave towards their husbands. The authorities’ response to the conduct of her former husband was manifestly inadequate and disproportionate to the gravity of the offence in question. The author submits that, had the court not been influenced by genderbased myths and stereotypes, her ex-husband would not have been granted impunity for the committed crime. She claims that the court took into account only the testimonies of the defence witnesses and, on that sole basis, attributed to the author “systemic amoral behaviour”, i.e., not in line with the behaviour associated with a stereotypical proper Chechen woman. The court disregarded the numerous witnesses supporting the author’s version of events, who were moreover direct witnesses, who could have testified to the author’s behaviour, given that they lived side by side in the same house.[[fn:10]]",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "The court’s selective preference of defence witnesses over those of the prosecution is explicitly referenced in the text of the verdict, which states that “the Court critically [критически, could also be translated as “negatively”] evaluates the victim’s testimony as it contradicts [that of] witnesses”."
+      }
+    ]
   },
   {
     "ID": "3.10.",
@@ -254,7 +312,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author claims that the traditional attitudes by which women are regarded as subordinate to men contribute to violence against women, and judgments such as the one rendered in her case strengthen these stereotypical believes. The court gave precedence to the version of events put forth by the defence, that she had repeatedly insulted her ex-husband, while not giving equal consideration to the fact that her ex husband had continually assaulted her physically and mentally, which was supported by witnesses and evidenced by her injuries. In addition, the prosecution proprio motu petitioned the court for mitigation, reducing the classification of the crime with which the defendant was charged from attempted murder to inflicting serious bodily harm in a state of temporary insanity. The Supreme Court of Chechnya held to remove the mention in its judgment of Mr. Timagov’s previous conviction by the Achkhoy-Martan Magistrates’ Court. According to the author, the judicial decisions reveal a certain degree of tolerance of, with no preventive or deterrent effect on, the conduct of potential perpetrators. They lack effectiveness, because they suggest that domestic violence is tolerated by the authorities. The discriminatory judgment revictimized the author and de facto justified her ex-husband’s aggression."
+    "Text": "The author claims that the traditional attitudes by which women are regarded as subordinate to men contribute to violence against women, and judgments such as the one rendered in her case strengthen these stereotypical believes. The court gave precedence to the version of events put forth by the defence, that she had repeatedly insulted her ex-husband, while not giving equal consideration to the fact that her ex husband had continually assaulted her physically and mentally, which was supported by witnesses and evidenced by her injuries. In addition, the prosecution proprio motu petitioned the court for mitigation, reducing the classification of the crime with which the defendant was charged from attempted murder to inflicting serious bodily harm in a state of temporary insanity. The Supreme Court of Chechnya held to remove the mention in its judgment of Mr. Timagov’s previous conviction by the AchkhoyMartan Magistrates’ Court. According to the author, the judicial decisions reveal a certain degree of tolerance of, with no preventive or deterrent effect on, the conduct of potential perpetrators. They lack effectiveness, because they suggest that domestic violence is tolerated by the authorities.[[fn:11]] The discriminatory judgment revictimized the author and de facto justified her ex-husband’s aggression.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "At the same time, the author claims that no violence by women is tolerated, either by their husbands or by the State. She refers to a verdict of the Lenin district court of Grozny of 21 February 2013, in which, for inflicting a grave injury under article 111 (1) of the Criminal Code, a woman was sentenced to 3 years of imprisonment."
+      }
+    ]
   },
   {
     "ID": "3.12.",
@@ -306,7 +370,13 @@
     "ID": "5.2.",
     "Section": "Author’s comments on the State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The author also contends that the European Court of Human Rights has not examined her application on the merits and has not provided detailed reasons why it was declared inadmissible. According to the Court inadmissibility letter of 6 December 2012, her application did not correspond to the admissibility criteria set out in articles 34 and 35 of the European Convention on Human Rights. The letter was issued two months after the Court received her application. The application was therefore rejected at a very initial screening stage, which does not comprise any consideration of the merits. In addition, the author refers to N.S.F. v. United Kingdom (CEDAW/C/38/D/10/2005), in which the Committee found that a declaration of inadmissibility by the Court did not preclude the Committee from examining the case."
+    "Text": "The author also contends that the European Court of Human Rights has not examined her application on the merits and has not provided detailed reasons why it was declared inadmissible. According to the Court inadmissibility letter of 6 December 2012,[[fn:12]] her application did not correspond to the admissibility criteria set out in articles 34 and 35 of the European Convention on Human Rights. The letter was issued two months after the Court received her application. The application was therefore rejected at a very initial screening stage, which does not comprise any consideration of the merits. In addition, the author refers to N.S.F. v. United Kingdom (CEDAW/C/38/D/10/2005), in which the Committee found that a declaration of inadmissibility by the Court did not preclude the Committee from examining the case.",
+    "Footnotes": [
+      {
+        "n": 12,
+        "text": "On file with the secretariat of the Committee."
+      }
+    ]
   },
   {
     "ID": "5.3.",
@@ -336,7 +406,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The author submits that supervisory review proceedings would only be relevant to punishing the perpetrator, insomuch as the Supreme Court would overrule the verdict and remit the case for a new examination to courts that had already found in his favour. However, in line with the Committee’s practice, effective domestic remedies in domestic violence cases were those related to the obligation of the State party concerned to exercise due diligence to protect, investigate the crime, punish the perpetrator and provide compensation as set out in general recommendation No. 19 of the Committee."
+    "Text": "The author submits that supervisory review proceedings would only be relevant to punishing the perpetrator, insomuch as the Supreme Court would overrule the verdict and remit the case for a new examination to courts that had already found in his favour. However, in line with the Committee’s practice, effective domestic remedies in domestic violence cases were those related to the obligation of the State party concerned to exercise due diligence to protect, investigate the crime, punish the perpetrator and provide compensation as set out in general recommendation No. 19 of the Committee.[[fn:13]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "Reference is made to Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Akbak et al v. Austria, para. 7.3; and Vienna Intervention Centre against Domestic Violence and Association for Women’s Access to Justice on behalf of Goekce et al v. Austria, para. 7.3."
+      }
+    ]
   },
   {
     "ID": "5.7.",
@@ -356,7 +432,13 @@
     "ID": "5.9.",
     "Section": "Author’s comments on the State party’s observations on admissibility",
     "Labels": [],
-    "Text": "The author underlines that the compensation claims were brought in the course of the criminal proceedings and are closely linked to the classification of the perpetrator’s status. Because the court accepted that he was temporarily insane at the moment of almost hacking the author to death, her compensation claims were rejected. Thus the author was caught in a vicious circle. The general legal principle is that damages should be compensated for in full by the individual who has inflicted them. However, it is at the court’s discretion to award compensation, when perpetrators are not aware of their actions, such as in cases of temporary insanity. Therefore, by recognizing Mr. Timagov to have been temporarily insane, the district court also ruled out the author’s compensation claims. The Supreme Court of Chechnya, by upholding the lower court’s position as to the mental state of the perpetrator at the time of the commission of the crime, automatically confirmed that the author was not entitled to compensation."
+    "Text": "The author underlines that the compensation claims were brought in the course of the criminal proceedings and are closely linked to the classification of the perpetrator’s status. Because the court accepted that he was temporarily insane at the moment of almost hacking the author to death, her compensation claims were rejected. Thus the author was caught in a vicious circle. The general legal principle is that damages should be compensated for in full by the individual who has inflicted them.[[fn:14]] However, it is at the court’s discretion to award compensation, when perpetrators are not aware of their actions, such as in cases of temporary insanity. Therefore, by recognizing Mr. Timagov to have been temporarily insane, the district court also ruled out the author’s compensation claims. The Supreme Court of Chechnya, by upholding the lower court’s position as to the mental state of the perpetrator at the time of the commission of the crime, automatically confirmed that the author was not entitled to compensation.",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "Liability for damage, article 1064 (1) of the Civil Code of the Russian Federation."
+      }
+    ]
   },
   {
     "ID": "5.10.",
@@ -401,7 +483,13 @@
     "ID": "6.2.",
     "Section": "State party’s observations on the merits",
     "Labels": [],
-    "Text": "The State party also submits that, under article 42 of the Code of Criminal Procedure of the Russian Federation, a victim is a natural person, upon whom physical, property or moral damages are inflicted by the crime, as well as a legal entity, if his property and business reputation were damaged by the crime. Pursuant to article 131 of the Code: The procedural outlays are spending connected with the proceedings on the criminal case, which shall be compensated from the funds of the federal budget or from the means of the participants in the criminal court proceedings. To the victim shall be guaranteed the compensation for the property damage inflicted by the crime, as well as for the outlays he has had to make in connection with his participation in the process of the preliminary investigation and of the trial, including the outlays on the representative, in conformity with article 131 of the Code. The rules governing compensation for moral and material (property) damages are established in the Civil Code. Nevertheless, if damages are inflicted on the life or health of the victim, the court has discretionary power to order perpetrators to pay full or partial compensation for the damages, regardless of their mental state at the moment of commission of the crime."
+    "Text": "The State party also submits that, under article 42 of the Code of Criminal Procedure of the Russian Federation, a victim is a natural person, upon whom physical, property or moral damages are inflicted by the crime, as well as a legal entity, if his property and business reputation were damaged by the crime. Pursuant to article 131 of the Code: The procedural outlays are spending connected with the proceedings on the criminal case, which shall be compensated from the funds of the federal budget or from the means of the participants in the criminal court proceedings. To the victim shall be guaranteed the compensation for the property damage inflicted by the crime, as well as for the outlays he has had to make in connection with his participation in the process of the preliminary investigation and of the trial, including the outlays on the representative, in conformity with article 131 of the Code. The rules governing compensation for moral and material (property) damages are established in the Civil Code.[[fn:15]] Nevertheless, if damages are inflicted on the life or health of the victim, the court has discretionary power to order perpetrators to pay full or partial compensation for the damages, regardless of their mental state at the moment of commission of the crime.",
+    "Footnotes": [
+      {
+        "n": 15,
+        "text": "The State party refers to articles 1064, 1078 and 1101 of the Civil Code and ruling No. 10 of the Supreme Court plenary."
+      }
+    ]
   },
   {
     "ID": "6.3.",
@@ -409,7 +497,7 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "On 14 October 2011, the Achkhoy-Martan District Court found the author’s ex-husband guilty of inflicting serious bodily harm in the state of temporary insanity under article 113 of the Criminal Code and sentenced him to 9 months and 8 days’ imprisonment, a punishment which is in compliance with the sanctions established thereunder. However, the court rejected the author’s claim for compensation of moral damages, because, according to Supreme Court Decree No 4409-VIII of 26 June 1973 on the compensation of expenses for medical treatment of citizens-victims of crime, individuals who commit a crime in a “state of affect”, are not required to compensate victims for the cost of medical treatment."
+    "Text": "On 14 October 2011, the Achkhoy-Martan District Court found the author’s exhusband guilty of inflicting serious bodily harm in the state of temporary insanity under article 113 of the Criminal Code and sentenced him to 9 months and 8 days’ imprisonment, a punishment which is in compliance with the sanctions established thereunder. However, the court rejected the author’s claim for compensation of moral damages, because, according to Supreme Court Decree No 4409-VIII of 26 June 1973 on the compensation of expenses for medical treatment of citizens-victims of crime, individuals who commit a crime in a “state of affect”, are not required to compensate victims for the cost of medical treatment."
   },
   {
     "ID": "6.4.",
@@ -464,7 +552,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee recalls that, under article 4 (1) of the Optional Protocol, it is precluded from considering a communication unless it has ascertained that all available domestic remedies have been exhausted or that the application of such remedies is unreasonably prolonged or unlikely to bring effective relief. In that connection, the Committee notes the State party’s argument that the communication should be declared inadmissible under that provision, because the author failed to lodge a supervisory review application to the Supreme Court of the Russian Federation in relation to the court decisions of 26 April 2010 and 14 October 2011. Nevertheless, the Committee notes the author’s submission that she has exhausted all available domestic remedies that would have been likely to bring sufficient relief and the application of which would not have been unreasonably prolonged. She has challenged the verdict in cassation and supervisory review proceedings. Both of her applications for supervisory review were dismissed by the Supreme Court of Chechnya, on 8 August 2012 and 19 February 2013. The Committee notes the author’s assertion that the supervisory review proceedings, given that they are aimed at providing an extraordinary remedy dependant on the discretion of the authorized officials, are unlikely to provide adequate effective relief in domestic violence cases and that applying to the Supreme Court of the Russian Federation would be an unreasonably prolonged remedy."
+    "Text": "The Committee recalls that, under article 4 (1) of the Optional Protocol, it is precluded from considering a communication unless it has ascertained that all available domestic remedies have been exhausted or that the application of such remedies is unreasonably prolonged or unlikely to bring effective relief.[[fn:16]] In that connection, the Committee notes the State party’s argument that the communication should be declared inadmissible under that provision, because the author failed to lodge a supervisory review application to the Supreme Court of the Russian Federation in relation to the court decisions of 26 April 2010 and 14 October 2011. Nevertheless, the Committee notes the author’s submission that she has exhausted all available domestic remedies that would have been likely to bring sufficient relief and the application of which would not have been unreasonably prolonged. She has challenged the verdict in cassation and supervisory review proceedings. Both of her applications for supervisory review were dismissed by the Supreme Court of Chechnya, on 8 August 2012 and 19 February 2013. The Committee notes the author’s assertion that the supervisory review proceedings, given that they are aimed at providing an extraordinary remedy dependant on the discretion of the authorized officials, are unlikely to provide adequate effective relief in domestic violence cases and that applying to the Supreme Court of the Russian Federation would be an unreasonably prolonged remedy.",
+    "Footnotes": [
+      {
+        "n": 16,
+        "text": "E.S. and S.C. v. United Republic of Tanzania (CEDAW/C/60/D/48/2013), para. 6.3; and L.R. v. Republic of Moldova (CEDAW/C/66/D/58/2013), para. 12.2."
+      }
+    ]
   },
   {
     "ID": "8.5.",
@@ -484,7 +578,7 @@
     "Labels": [
       "Persons deprived of their liberty"
     ],
-    "Text": "The Committee notes the argument of the State party that, the author’s ex-husband’s punishment was proportionate to the gravity of the crime he committed, notably, that the Achkhoy-Martan District Court found him guilty of inflicting serious bodily harm in the state of temporary insanity and therefore sentenced him to 9 months and 8 days’ imprisonment, which is in accordance with the sanctions established by article 113 of the Criminal Code. It also notes the State party’s argument that the court rejected the author’s claims for compensation of moral and material damages, in compliance with national legislation."
+    "Text": "The Committee notes the argument of the State party that, the author’s exhusband’s punishment was proportionate to the gravity of the crime he committed, notably, that the Achkhoy-Martan District Court found him guilty of inflicting serious bodily harm in the state of temporary insanity and therefore sentenced him to 9 months and 8 days’ imprisonment, which is in accordance with the sanctions established by article 113 of the Criminal Code. It also notes the State party’s argument that the court rejected the author’s claims for compensation of moral and material damages, in compliance with national legislation."
   },
   {
     "ID": "9.3.",
@@ -500,7 +594,21 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "With regard to the submission of the author that the decisions of the authorities were based on gender stereotypes, in violation of article 5 of the Convention, the Committee reaffirms that the Convention places obligations on all State organs and that States parties can be responsible for judicial decisions that violate provisions of the Convention. The Committee also emphasizes that the full implementation of the Convention requires States parties not only to take steps to eliminate direct and indirect discrimination and improve the de facto position of women, but also to modify and transform gender stereotypes and eliminate wrongful gender stereotyping, a root cause and consequence of discrimination against women. Gender stereotypes are perpetuated through various means and institutions, including laws and legal systems, and can be perpetuated by State actors in all branches and at all levels of government and by private actors."
+    "Text": "With regard to the submission of the author that the decisions of the authorities were based on gender stereotypes, in violation of article 5 of the Convention, the Committee reaffirms that the Convention places obligations on all State organs and that States parties can be responsible for judicial decisions that violate provisions of the Convention.[[fn:17]] The Committee also emphasizes that the full implementation of the Convention requires States parties not only to take steps to eliminate direct and indirect discrimination and improve the de facto position of women, but also to modify and transform gender stereotypes and eliminate wrongful gender stereotyping, a root cause and consequence of discrimination against women.[[fn:18]] Gender stereotypes are perpetuated through various means and institutions, including laws and legal systems, and can be perpetuated by State actors in all branches and at all levels of government and by private actors.[[fn:19]]",
+    "Footnotes": [
+      {
+        "n": 17,
+        "text": "V.K. v. Bulgaria (CEDAW/C/49/D/20/2008), para. 9.11; and L.R. v. Republic of Moldova, para. 13.6."
+      },
+      {
+        "n": 18,
+        "text": "Belousova v. Kazakhstan (CEDAW/C/61/D/45/2012), para. 10.10."
+      },
+      {
+        "n": 19,
+        "text": "R.K.B. v. Turkey (CEDAW/C/51/D/28/2010), para. 8.8."
+      }
+    ]
   },
   {
     "ID": "9.5.",
@@ -508,7 +616,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee recalls that, under article 2 (a) and (c)–(e) and article 5 (a) of the Convention, the State party has a duty to modify or abolish not only existing laws and regulations, but also customs and practices that constitute discrimination against women. In that regard, the Committee stresses that stereotyping affects women’s right to a fair trial and that the judiciary must be careful not to create inflexible standards on the basis of preconceived notions of what constitutes domestic or gender-based violence, as noted in its general recommendation No. 33 (2015) on women’s access to justice."
+    "Text": "The Committee recalls that, under article 2 (a) and (c)–(e) and article 5 (a) of the Convention, the State party has a duty to modify or abolish not only existing laws and regulations, but also customs and practices that constitute discrimination against women. In that regard, the Committee stresses that stereotyping affects women’s right to a fair trial and that the judiciary must be careful not to create inflexible standards on the basis of preconceived notions of what constitutes domestic or gender-based violence, as noted in its general recommendation No. 33 (2015) on women’s access to justice.[[fn:20]]",
+    "Footnotes": [
+      {
+        "n": 20,
+        "text": "L.R. v. Republic of Moldova, para. 13.6."
+      }
+    ]
   },
   {
     "ID": "9.6.",
@@ -546,7 +660,13 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "The Committee also notes the author’s submission that the legislation in the State party does not provide effective legal protection against domestic violence. In that regard, the Committee recalls that, under article 3 of the Convention, States parties are obligated to take, in all fields, in particular in the political, social, economic and cultural fields, all appropriate measures, including legislation, to ensure the full development and advancement of women, for the purpose of guaranteeing them the exercise and enjoyment of human rights and fundamental freedoms on a basis of equality with men. The Committee recalls its concluding observations on the State party’s eighth periodic report (CEDAW/C/RUS/CO/8), in which it recommended that the State party urgently adopt comprehensive legislation to prevent and address violence against women, including domestic violence, introduce ex officio prosecution of domestic and sexual violence, ensure that women and girls who are victims of violence have access to immediate means of redress and protection, and that perpetrators are prosecuted and adequately punished. The Committee regrets recent amendments to national legislation that, instead of strengthening the law against domestic violence, decriminalize assault, under which many domestic violence cases are prosecuted, owing to the absence of a definition of “domestic violence” in Russian law. Under such circumstances, the Committee cannot subscribe to the State party’s observations that its legislation is fully compatible with the standards and norms set out in the Convention."
+    "Text": "The Committee also notes the author’s submission that the legislation in the State party does not provide effective legal protection against domestic violence. In that regard, the Committee recalls that, under article 3 of the Convention, States parties are obligated to take, in all fields, in particular in the political, social, economic and cultural fields, all appropriate measures, including legislation, to ensure the full development and advancement of women, for the purpose of guaranteeing them the exercise and enjoyment of human rights and fundamental freedoms on a basis of equality with men. The Committee recalls its concluding observations on the State party’s eighth periodic report (CEDAW/C/RUS/CO/8), in which it recommended that the State party urgently adopt comprehensive legislation to prevent and address violence against women, including domestic violence, introduce ex officio prosecution of domestic and sexual violence, ensure that women and girls who are victims of violence have access to immediate means of redress and protection, and that perpetrators are prosecuted and adequately punished. The Committee regrets recent amendments to national legislation that, instead of strengthening the law against domestic violence, decriminalize assault, under which many domestic violence cases are prosecuted, owing to the absence of a definition of “domestic violence” in Russian law.[[fn:21]] Under such circumstances, the Committee cannot subscribe to the State party’s observations that its legislation is fully compatible with the standards and norms set out in the Convention.",
+    "Footnotes": [
+      {
+        "n": 21,
+        "text": "As at 7 February 2017, an assault without causing bodily harm was categorized as an administrative offence, rather than a criminal offence."
+      }
+    ]
   },
   {
     "ID": "9.11.",
@@ -562,7 +682,7 @@
     "Labels": [
       "Women/girls"
     ],
-    "Text": "In the light of the foregoing, the Committee considers that the manner in which the author’s case was addressed by the State party’s authorities constitutes a violation of her rights under article 2 (c) and (d), read in conjunction with article 1, and article 5 (a) of the Convention, taking into consideration general recommendation No. 19 and general recommendation No. 35 (2017) on gender-based violence against women, updating general recommendation No. 19. Specifically, the Committee recognizes that the author has suffered moral damages and prejudice. She was subjected to severe physical and psychological gender-based violence when she was left without adequate State protection, while she was continually ill-treated by her then husband (now ex-husband) and was exposed to renewed trauma when the State authorities that should have been her protector, in particular the police and the court, instead failed to prevent the violence and in the aftermath failed to adequately punish the perpetrator or to provide compensation to the victim."
+    "Text": "In the light of the foregoing, the Committee considers that the manner in which the author’s case was addressed by the State party’s authorities constitutes a violation of her rights under article 2 (c) and (d), read in conjunction with article 1, and article 5 (a) of the Convention, taking into consideration general recommendation No. 19 and general recommendation No. 35 (2017) on gender-based violence against women, updating general recommendation No. 19. Specifically, the Committee recognizes that the author has suffered moral damages and prejudice. She was subjected to severe physical and psychological gender-based violence when she was left without adequate State protection, while she was continually ill-treated by her then husband (now exhusband) and was exposed to renewed trauma when the State authorities that should have been her protector, in particular the police and the court, instead failed to prevent the violence and in the aftermath failed to adequately punish the perpetrator or to provide compensation to the victim."
   },
   {
     "ID": "10.",
@@ -578,7 +698,7 @@
   },
   {
     "ID": "12.",
-    "Section": "(b)\tGeneral:",
+    "Section": "(b) General:",
     "Labels": [],
     "Text": "In accordance with article 7 (4) of the Optional Protocol, the State party shall give due consideration to the views of the Committee, together with its recommendations, and shall submit to the Committee, within six months, a written response, including information on any action taken in the light of the views and recommendations of the Committee. The State party is requested to publish the Committee’s views and recommendations and to have them widely disseminated, in order to reach all sectors of society."
   }

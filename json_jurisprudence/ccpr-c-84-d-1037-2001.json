@@ -1,7 +1,7 @@
 [
   {
     "ID": "1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "",
     "Labels": [],
     "Text": "The author of the communication is Zdzislaw Bator, an American and Polish citizen, currently residing in the United States of America. He claims to be a victim of violations of articles 2, paragraph 3 (a) and (b), and 14, paragraph 1, by Poland, of the International Covenant on Civil and Political Rights. He is represented by counsel: the law firm of Winston and Strawn in Switzerland and Mr. Sloan and Leon Zelechowski, United States of America."
   },
@@ -45,7 +45,13 @@
     "ID": "2.7.",
     "Section": "Factual background",
     "Labels": [],
-    "Text": "Prior to the reconsideration of this matter in the District Court on 15 October 1998, the author’s lawyer had filed a motion requesting an adjournment, as the author was ill and unable to travel, and his lawyer could not represent him on the date in question. The Court did not acknowledge receipt of the motion to delay the hearing. According to the author, this request was delivered to the Court by 8:00 a.m. on the day of the hearing. A different judge presided over the proceedings and ruled in favour of Waldemar reiterating the reasoning of the District Court. On 6 July 1999, the Circuit Court affirmed the District Court’s ruling. The Court allegedly refused the author’s request to testify and to present documentary evidence. The author filed several procedural motions to reopen the proceedings and to appeal before the Supreme Court. All these requests were denied."
+    "Text": "Prior to the reconsideration of this matter in the District Court on 15 October 1998, the author’s lawyer had filed a motion requesting an adjournment, as the author was ill and unable to travel, and his lawyer could not represent him on the date in question. The Court did not acknowledge receipt of the motion to delay the hearing. According to the author, this request was delivered to the Court by 8:00 a.m. on the day of the hearing. A different judge presided over the proceedings and ruled in favour of Waldemar reiterating the reasoning of the District Court[[fn:3]]. On 6 July 1999, the Circuit Court affirmed the District Court’s ruling. The Court allegedly refused the author’s request to testify and to present documentary evidence. The author filed several procedural motions to reopen the proceedings and to appeal before the Supreme Court. All these requests were denied.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "According to the judgment, the Court gave several reasons for its decision and determined that the author had failed to fulfill his responsibilities as liquidator under the Commercial Code."
+      }
+    ]
   },
   {
     "ID": "3.1.",
@@ -129,7 +135,13 @@
     "ID": "6.2.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "As to the author’s claim that he did not receive a fair and public hearing to defend himself against repeated attempts to dismiss him as liquidator, the Committee observes that the author's allegations relate primarily to the evaluation of facts and evidence by the courts. It recalls that it is in principle for the courts of States parties, and not for the Committee, to evaluate facts and evidence in a particular case, unless it is apparent that the courts' decisions are manifestly arbitrary or amount to a denial of justice. In the instant case, the Committee notes that both the Circuit Court and Supreme Court considered the author’s claims and it finds no evidence that these court decisions suffered from such defects. The Committee therefore concludes that the author has not substantiated his claim and that this part of the communication is inadmissible under article 2 of the Optional Protocol."
+    "Text": "As to the author’s claim that he did not receive a fair and public hearing to defend himself against repeated attempts to dismiss him as liquidator, the Committee observes that the author's allegations relate primarily to the evaluation of facts and evidence by the courts. It recalls that it is in principle for the courts of States parties, and not for the Committee, to evaluate facts and evidence in a particular case, unless it is apparent that the courts' decisions are manifestly arbitrary or amount to a denial of justice.[[fn:4]] In the instant case, the Committee notes that both the Circuit Court and Supreme Court considered the author’s claims and it finds no evidence that these court decisions suffered from such defects. The Committee therefore concludes that the author has not substantiated his claim and that this part of the communication is inadmissible under article 2 of the Optional Protocol.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "See Communication No. 541/1993, Errol Simms v. Jamaica, inadmissibility decision of 3 April 1995, paragraph 4.3."
+      }
+    ]
   },
   {
     "ID": "6.3.",

@@ -23,7 +23,13 @@
     "ID": "2.2.",
     "Section": "Facts of the case",
     "Labels": [],
-    "Text": "On 16 November 1992, the author requested judge Garzón’s withdrawal under article 219, paragraphs 9, 10 and 11, of the Judiciary Act. The author claimed to have been under the immediate supervision of and legally subordinate to the judge at the time the alleged offences occurred. The challenge was dismissed by Central Investigating Court No. 1 on 21 November 1992."
+    "Text": "On 16 November 1992, the author requested judge Garzón’s withdrawal under article 219, paragraphs 9, 10 and 11, of the Judiciary Act.[[fn:4]] The author claimed to have been under the immediate supervision of and legally subordinate to the judge at the time the alleged offences occurred. The challenge was dismissed by Central Investigating Court No. 1 on 21 November 1992.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Article 219: Grounds for withdrawal or, where appropriate, challenge. ... 9. Close friendship with or overt hostility towards one of the parties; 10. Direct or indirect interest in the dispute or case; 11. Involvement in the investigation of the criminal matter or in the settlement of the dispute or case in another instance ... ."
+      }
+    ]
   },
   {
     "ID": "2.3.",
@@ -43,7 +49,17 @@
     "ID": "2.5.",
     "Section": "Facts of the case",
     "Labels": [],
-    "Text": "The author filed an appeal in cassation with the Criminal Division of the Supreme Court. In that appeal the author cited nine grounds for cassation, including the right to be tried by an impartial judge, the right to presumption of innocence, the right to trial with due process guarantees and the right to effective judicial remedy, with reference to the probative value accorded to statements obtained under duress. On 11 January 1999, the Supreme Court, after separately considering each of the nine grounds for the appeal, partially upheld the National Court judgement, acquitting the author of the offence of misrepresentation of facts in a public instrument. As to the possibility of a fresh evaluation of the evidence, the Court ruled that evaluation of the evidence was the sole and exclusive prerogative of the court of first instance. It nevertheless reviewed the evidence and concluded that sufficient evidence existed and that it was legal. With regard to pressure on some of the witnesses, the Court said that it did not have enough information or evidence to determine whether any such pressure had been exerted and said that coercion of that kind should be reported at the proper time."
+    "Text": "The author filed an appeal in cassation with the Criminal Division of the Supreme Court. In that appeal the author cited nine grounds for cassation, including the right to be tried by an impartial judge, the right to presumption of innocence, the right to trial with due process guarantees and the right to effective judicial remedy, with reference to the probative value accorded to statements obtained under duress. On 11 January 1999, the Supreme Court, after separately considering each of the nine grounds for the appeal, partially upheld the National Court judgement, acquitting the author of the offence of misrepresentation of facts in a public instrument.[[fn:5]] As to the possibility of a fresh evaluation of the evidence, the Court ruled that evaluation of the evidence was the sole and exclusive prerogative of the court of first instance.[[fn:6]] It nevertheless reviewed the evidence and concluded that sufficient evidence existed and that it was legal. With regard to pressure on some of the witnesses, the Court said that it did not have enough information or evidence to determine whether any such pressure had been exerted and said that coercion of that kind should be reported at the proper time.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The National Court had found the author guilty of misrepresentation inasmuch as he had diverged from the truth in the statements he had prepared for the investigating judge and in several reports to the prosecutor’s office on the outcome of the operations. The Supreme Court found that there was no malicious intent to deceive ... although he might have been attempting to cover his tracks, which is not punishable since, as a general rule, no one may be compelled to testify against themselves."
+      },
+      {
+        "n": 6,
+        "text": "“No adulteration of the remedy of cassation can be permitted such as to transform it into a second or third hearing and ... it is important to bear in mind that immediate apprehension of the evidence is only possible in the lower courts, principally through oral proceedings ... Consequently, the sole task of the court of cassation is to consider whether or not there existed direct or circumstantial incriminating evidence with sufficient probative value, and whether such evidence may be in any way unlawful.”"
+      }
+    ]
   },
   {
     "ID": "2.6.",
@@ -55,7 +71,13 @@
     "ID": "2.7.",
     "Section": "Facts of the case",
     "Labels": [],
-    "Text": "On 14 July 2000, the author applied to the European Court of Human Rights; the application was declared inadmissible by the Court on 5 March 2002. On the alleged violation of the right to presumption of innocence, the Court stated that, according to its case law, absent arbitrariness, it is for the domestic courts to interpret facts and domestic law. It went on to state that the information available in the file showed no violation of any of the rights invoked. As to the violation of the right to an impartial tribunal, the European Court considered that the relationship of cooperation or subordination referred to by the author was of no importance since the subordination related to different events and operations, albeit of a similar nature. It further held that the existence of a professional relationship between the author and the investigating judge did not in itself mean that the judge was “tainted” and therefore unfit to handle the investigation of a case based on different facts; it stressed that the alleged lack of impartiality referred to the investigating judge and not the trial judges. Both complaints were accordingly declared inadmissible as manifestly unfounded under article 35, paragraphs 3 and 4, of the European Convention for the Protection of Human Rights and Fundamental Freedoms."
+    "Text": "On 14 July 2000, the author applied to the European Court of Human Rights; the application was declared inadmissible by the Court on 5 March 2002.[[fn:7]] On the alleged violation of the right to presumption of innocence, the Court stated that, according to its case law, absent arbitrariness, it is for the domestic courts to interpret facts and domestic law. It went on to state that the information available in the file showed no violation of any of the rights invoked. As to the violation of the right to an impartial tribunal, the European Court considered that the relationship of cooperation or subordination referred to by the author was of no importance since the subordination related to different events and operations, albeit of a similar nature. It further held that the existence of a professional relationship between the author and the investigating judge did not in itself mean that the judge was “tainted” and therefore unfit to handle the investigation of a case based on different facts; it stressed that the alleged lack of impartiality referred to the investigating judge and not the trial judges. Both complaints were accordingly declared inadmissible as manifestly unfounded under article 35, paragraphs 3 and 4, of the European Convention for the Protection of Human Rights and Fundamental Freedoms.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "European Court of Human Rights, Fourth Section, application No. 61341/00, decision on admissibility, 5 March 2002."
+      }
+    ]
   },
   {
     "ID": "2.8.",
@@ -81,13 +103,25 @@
     "ID": "3.3.",
     "Section": "Complaint",
     "Labels": [],
-    "Text": "Lastly, with regard to article 14, paragraph 5, the author argues that the remedy of cassation does not constitute a second hearing but is an extraordinary remedy that can only be invoked on specific grounds defined by law. In his view the lack of any right to a full review of the conviction and sentence is a violation of article 14, paragraph 5, of the Covenant. In this regard he cites the Committee’s Views in Gómez Vázquez."
+    "Text": "Lastly, with regard to article 14, paragraph 5, the author argues that the remedy of cassation does not constitute a second hearing but is an extraordinary remedy that can only be invoked on specific grounds defined by law. In his view the lack of any right to a full review of the conviction and sentence is a violation of article 14, paragraph 5, of the Covenant. In this regard he cites the Committee’s Views in Gómez Vázquez.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "Communication No. 701/1996, Gómez Vázquez v. Spain, Views of 20 July 2000."
+      }
+    ]
   },
   {
     "ID": "4.1.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "On 9 October 2006, the State party submitted its observations on the admissibility of the communication. The State party recalls that the subject matter of this communication has already been examined by the European Court of Human Rights, which found no violation of the rights and freedoms asserted by the author, and that that constitutes grounds for inadmissibility under article 5, paragraph 2 (a), of the Optional Protocol. Here the State party refers to the Committee’s decision in Ferragut Pallach, which was declared inadmissible under that article, as modified by the State party’s reservation."
+    "Text": "On 9 October 2006, the State party submitted its observations on the admissibility of the communication. The State party recalls that the subject matter of this communication has already been examined by the European Court of Human Rights, which found no violation of the rights and freedoms asserted by the author, and that that constitutes grounds for inadmissibility under article 5, paragraph 2 (a), of the Optional Protocol. Here the State party refers to the Committee’s decision in Ferragut Pallach,[[fn:9]] which was declared inadmissible under that article, as modified by the State party’s reservation.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "Communication No. 1074/2002, Ferragut Pallach v. Spain, decision on admissibility, 31 March 2004, para. 6.2."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -107,7 +141,13 @@
     "ID": "4.4.",
     "Section": "State party’s observations on admissibility and merits",
     "Labels": [],
-    "Text": "With regard to article 14, paragraph 5, the State party argues that the author makes statements of a generic nature but does not say specifically which facts were not reviewed, thereby leaving him without a defence. Although cassation may not constitute a second hearing, that does not mean that the Supreme Court does not consider whether there was evidence for the prosecution and whether such evidence was legal. The State party further points out that the Supreme Court conducted an extensive assessment of the verdict and the sentence, even going so far as to revoke the National Court’s finding of guilty of misrepresentation of facts in a public instrument. The State party refers to various of the Committee’s Views in which it found that an appeal in cassation complies with the requirements of article 14, paragraph 5, of the Covenant."
+    "Text": "With regard to article 14, paragraph 5, the State party argues that the author makes statements of a generic nature but does not say specifically which facts were not reviewed, thereby leaving him without a defence. Although cassation may not constitute a second hearing, that does not mean that the Supreme Court does not consider whether there was evidence for the prosecution and whether such evidence was legal. The State party further points out that the Supreme Court conducted an extensive assessment of the verdict and the sentence, even going so far as to revoke the National Court’s finding of guilty of misrepresentation of facts in a public instrument. The State party refers to various of the Committee’s Views in which it found that an appeal in cassation complies with the requirements of article 14, paragraph 5, of the Covenant.[[fn:10]]",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See, inter alia, communications Nos. 1356/2005, Parra Corral v. Spain, decision on admissibility, 29 March 2005; and 1399/2005, Cuartero Casado v. Spain, decision on admissibility, 25 July 2005."
+      }
+    ]
   },
   {
     "ID": "4.5.",
@@ -143,19 +183,41 @@
     "ID": "6.3.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "As to the State party’s contention that the communication is inadmissible under article 5, paragraph 2 (a), of the Optional Protocol in conjunction with the State party’s reservation to this provision, the Committee notes that, with the exception of the claim under article 7 of the Covenant, the claims submitted by the author to the European Court of Human Rights were the same as those now brought before the Committee. The Committee also observes that, after analysing in detail the complaints regarding the right to presumption of innocence and to be tried by an impartial tribunal, the European Court, in a reasoned 15-page decision, declared those complaints inadmissible under article 35, paragraphs 3 and 4, of the European Convention as manifestly unfounded. In this regard the Committee recalls its case law to the effect that, when the European Court bases a declaration of inadmissibility not solely on procedural grounds but also on reasons that include a certain consideration of the merits of the case, then the same matter should be deemed to have been “examined” within the meaning of the respective reservations to article 5, paragraph 2 (a), of the Optional Protocol. Accordingly, the Committee finds that the complaints relating to article 14, paragraphs 1 and 2, of the Covenant are inadmissible under article 5, paragraph 2 (a), of the Optional Protocol and Spain’s reservation to that provision."
+    "Text": "As to the State party’s contention that the communication is inadmissible under article 5, paragraph 2 (a), of the Optional Protocol in conjunction with the State party’s reservation to this provision,[[fn:11]] the Committee notes that, with the exception of the claim under article 7 of the Covenant, the claims submitted by the author to the European Court of Human Rights were the same as those now brought before the Committee. The Committee also observes that, after analysing in detail the complaints regarding the right to presumption of innocence and to be tried by an impartial tribunal, the European Court, in a reasoned 15-page decision, declared those complaints inadmissible under article 35, paragraphs 3 and 4, of the European Convention as manifestly unfounded. In this regard the Committee recalls its case law to the effect that, when the European Court bases a declaration of inadmissibility not solely on procedural grounds but also on reasons that include a certain consideration of the merits of the case, then the same matter should be deemed to have been “examined” within the meaning of the respective reservations to article 5, paragraph 2 (a), of the Optional Protocol.[[fn:12]] Accordingly, the Committee finds that the complaints relating to article 14, paragraphs 1 and 2, of the Covenant are inadmissible under article 5, paragraph 2 (a), of the Optional Protocol and Spain’s reservation to that provision.",
+    "Footnotes": [
+      {
+        "n": 11,
+        "text": "“The Spanish Government accedes to the Optional Protocol to the International Covenant on Civil and Political Rights, interpreting article 5, paragraph 2, of the Protocol to mean that the Human Rights Committee shall not consider any communication from an individual unless it has ascertained that the same matter has not been or is not being examined under another procedure of international investigation or settlement.”"
+      },
+      {
+        "n": 12,
+        "text": "See, inter alia, communications Nos. 1396/2005, Rivera Fernández v. Spain, decision on admissibility, 28 October 2005, para. 6.2; Ferragut Pallach v. Spain, loc. cit.; 744/1997, Linderholm v. Croatia, decision on admissibility, 23 July 1999, para. 4.2; 168/1994, V.O. v. Norway, decision on admissibility, 17 July 1985, para. 4.4; 121/1982, A.M. v. Denmark, decision on admissibility, 23 July 1982, para. 6."
+      }
+    ]
   },
   {
     "ID": "6.4.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "With regard to article 14, paragraph 5, of the Covenant, the Committee notes that the European Court declared inadmissible that part of the application concerning the right to a second hearing in criminal matters on the grounds that this right is not guaranteed in the European Convention and that Spain is not a party to Protocol No. 7 to that Convention. The Committee recalls that, according to its case law, where the rights protected under the European Convention differ from the rights established in the Covenant, a matter that has been declared inadmissible by the European Court as incompatible with the Convention or its protocols cannot be deemed to have been “examined” within the meaning of article 5, paragraph 2, of the Optional Protocol, such as to preclude the Committee considering it."
+    "Text": "With regard to article 14, paragraph 5, of the Covenant, the Committee notes that the European Court declared inadmissible that part of the application concerning the right to a second hearing in criminal matters on the grounds that this right is not guaranteed in the European Convention and that Spain is not a party to Protocol No. 7 to that Convention. The Committee recalls that, according to its case law, where the rights protected under the European Convention differ from the rights established in the Covenant, a matter that has been declared inadmissible by the European Court as incompatible with the Convention or its protocols cannot be deemed to have been “examined” within the meaning of article 5, paragraph 2, of the Optional Protocol, such as to preclude the Committee considering it.[[fn:13]]",
+    "Footnotes": [
+      {
+        "n": 13,
+        "text": "See communication No. 441/1990, Casanovas v. France, Views of 15 July 1994, para. 5.1."
+      }
+    ]
   },
   {
     "ID": "6.5.",
     "Section": "Issues and proceedings before the Committee",
     "Labels": [],
-    "Text": "The Committee notes, however, that the Supreme Court decision makes it clear that the Court thoroughly examined each of the grounds for appeal adduced by the author, and that the Court considered that the author’s claim regarding the misrepresentation of facts in a public instrument was valid and accordingly found the author not guilty of that offence and reduced the penalty initially imposed. With regard to the principle of presumption of innocence, the Supreme Court found that there was sufficient evidence to outweigh such presumption. The Committee therefore considers that the complaint under article 14, paragraph 5, has not been sufficiently substantiated for the purposes of admissibility and accordingly finds it inadmissible under article 2 of the Optional Protocol."
+    "Text": "The Committee notes, however, that the Supreme Court decision makes it clear that the Court thoroughly examined each of the grounds for appeal adduced by the author, and that the Court considered that the author’s claim regarding the misrepresentation of facts in a public instrument was valid and accordingly found the author not guilty of that offence and reduced the penalty initially imposed. With regard to the principle of presumption of innocence, the Supreme Court found that there was sufficient evidence to outweigh such presumption. The Committee therefore considers that the complaint under article 14, paragraph 5, has not been sufficiently substantiated for the purposes of admissibility and accordingly finds it inadmissible under article 2 of the Optional Protocol.[[fn:14]]",
+    "Footnotes": [
+      {
+        "n": 14,
+        "text": "See communications Nos. 1375/2005, Subero Biesti v. Spain, decision of 1 April 2008, para. 6.4; 1399/2005, Cuartero Casado v. Spain decision of 25 July 2005, para. 4.4, and 1059/2002, Carvallo Villar v. Spain, decision of 28 October 2005, para. 9.5."
+      }
+    ]
   },
   {
     "ID": "6.6.",

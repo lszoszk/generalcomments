@@ -1,13 +1,13 @@
 [
   {
     "ID": "1.1.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "The author of the communication is Johannes van den Hemel, a Dutch citizen. He claims to be a victim of a violation by the Netherlands of his rights under article 14 of the International Covenant on Civil and Political Rights. He is represented by counsel, Mr. B.W.M. Zegers."
   },
   {
     "ID": "1.2.",
-    "Section": "DECISION ON ADMISSIBILITY",
+    "Section": "ANNEX",
     "Labels": [],
     "Text": "On 15 August 2003, pursuant to the State party’s submission on admissibility, the Special Rapporteur on New Communications, acting on behalf of the Committee, decided that the admissibility and merits of the communication should be considered together."
   },
@@ -69,7 +69,13 @@
     "ID": "3.2.",
     "Section": "The complaint",
     "Labels": [],
-    "Text": "He claims that the relationship of the two judges of the Supreme Court with Royal, through their presence on the Supervisory Board, gives rise to “the appearance of a possible bias” in violation of the author’s right to a fair hearing under article 14 of the Covenant. He argues that a finding by these judges of the Supreme Court for the author in Royal’s claim against him could have resulted in the termination of their membership on the Board and thus a loss of fees. The author states that the two judges indicated their interest in the dispute between the author and Royal through their refusal to withdraw from the case and their behavior during the author’s challenge to their hearing of the case. In addition, he argues that the failure to grant him a fair hearing was compounded by the “link” between Judge Mijnssen and Judge Heemskerk, as they had earlier been colleagues in a university in Amsterdam."
+    "Text": "He claims that the relationship of the two judges of the Supreme Court with Royal, through their presence on the Supervisory Board, gives rise to “the appearance of a possible bias” in violation of the author’s right to a fair hearing under article 14 of the Covenant.[[fn:3]] He argues that a finding by these judges of the Supreme Court for the author in Royal’s claim against him could have resulted in the termination of their membership on the Board and thus a loss of fees. The author states that the two judges indicated their interest in the dispute between the author and Royal through their refusal to withdraw from the case and their behavior during the author’s challenge to their hearing of the case. In addition, he argues that the failure to grant him a fair hearing was compounded by the “link” between Judge Mijnssen and Judge Heemskerk, as they had earlier been colleagues in a university in Amsterdam.",
+    "Footnotes": [
+      {
+        "n": 3,
+        "text": "In the communication, the author cites as applicable a decision of the House of Lords of 17 December 1998, ILM Vol. 38 (1999), which discusses the principle that a man may not be a judge in his own case as applied in a case where a judge is in fact a party to the litigation and where the behaviour of the judge gives rise to a suspicion that he is not impartial. The author additionally cites the High Court of Australia in Webb and Hay v. the Queen to demonstrate that the doctrine of disqualification applies where, as in the current case, a direct or indirect relationship gives rise to prejudice on the part of a judge."
+      }
+    ]
   },
   {
     "ID": "3.3.",
@@ -81,7 +87,13 @@
     "ID": "4.1.",
     "Section": "The State party’s submission on admissibility and merits and the author’s comments thereon",
     "Labels": [],
-    "Text": "On 4 August 2003, the State party contested the admissibility of part of the complaint. It submitted that the claim concerning the judges of the Court of Appeal is inadmissible for failure to exhaust domestic remedies. It argues that under articles 36 and 37, paragraph 1, of the Code of Civil Procedure, the author could have challenged the judges assigned to examine his case on “the grounds of facts and or circumstances which might prejudice judicial impartiality” and should be done “as soon as the person concerned has become familiar with these facts or circumstances”. Had the author challenged the impartiality of one or more of the judges, the proceedings would have been suspended immediately. The challenge would have been heard by the full bench, excluding the challenged judges, at the earliest opportunity. Had the full-bench upheld the author’s challenge, the case would subsequently have been heard by a court in which the challenged judge or judges took no part. It refers to the Committee’s decision in Perera v. Australia and in Triboulet v. France in this regard."
+    "Text": "On 4 August 2003, the State party contested the admissibility of part of the complaint. It submitted that the claim concerning the judges of the Court of Appeal is inadmissible for failure to exhaust domestic remedies. It argues that under articles 36 and 37, paragraph 1, of the Code of Civil Procedure, the author could have challenged the judges assigned to examine his case on “the grounds of facts and or circumstances which might prejudice judicial impartiality” and should be done “as soon as the person concerned has become familiar with these facts or circumstances”. Had the author challenged the impartiality of one or more of the judges, the proceedings would have been suspended immediately. The challenge would have been heard by the full bench, excluding the challenged judges, at the earliest opportunity. Had the full-bench upheld the author’s challenge, the case would subsequently have been heard by a court in which the challenged judge or judges took no part. It refers to the Committee’s decision in Perera v. Australia and in Triboulet v. France[[fn:4]] in this regard.",
+    "Footnotes": [
+      {
+        "n": 4,
+        "text": "Communication No. 536/1993, Decision adopted on 28 March 1995, para. 6.5, and Communication No. 661/1995, Decision adopted on 29 July 1997, paragraph 6.2."
+      }
+    ]
   },
   {
     "ID": "4.2.",
@@ -93,13 +105,29 @@
     "ID": "4.3.",
     "Section": "The State party’s submission on admissibility and merits and the author’s comments thereon",
     "Labels": [],
-    "Text": "As to the facts, the State party sets out the legislation governing challenges to judges on grounds of bias and the recusal of judges, including article 34 of the Code of Civil Procedure and 8:19 of the General Administrative Law Act (Algemene Wet Bestuursrecht), which states that a judge must recuse himself if there are facts or circumstances in a case that could be prejudicial to the court’s impartiality. It submits that, under (old) article 32 of the Code of Procedure, the court may determine, at the request of either the challenging party or the challenged judge, that either one or both parties will not be heard in each others’ presence. The two judges of the Supreme Court availed themselves of this option and author’s counsel stated expressly during the oral questioning at the public hearing of 4 October 1999 that he did not object. After the president had granted the request, the author left the court. His counsel stated that he “thought it better that he should also leave the court”. The State party adds that the judges concerned had said that they had no objection to the author’s counsel being present while they were being heard. As to the claim that the judges stated that if their request were not granted by the court, they would “no longer [………] cooperate with the hearing of the request with regard to the challenge”, the State party submits that this observation is completely groundless and is not supported by the documents in the case."
+    "Text": "As to the facts, the State party sets out the legislation governing challenges to judges on grounds of bias and the recusal of judges, including article 34 of the Code of Civil Procedure and 8:19 of the General Administrative Law Act (Algemene Wet Bestuursrecht), which states that a judge must recuse himself if there are facts or circumstances in a case that could be prejudicial to the court’s impartiality. It submits that, under (old)[[fn:5]] article 32 of the Code of Procedure, the court may determine, at the request of either the challenging party or the challenged judge, that either one or both parties will not be heard in each others’ presence. The two judges of the Supreme Court availed themselves of this option and author’s counsel stated expressly during the oral questioning at the public hearing of 4 October 1999 that he did not object.[[fn:6]] After the president had granted the request, the author left the court. His counsel stated that he “thought it better that he should also leave the court”. The State party adds that the judges concerned had said that they had no objection to the author’s counsel being present while they were being heard. As to the claim that the judges stated that if their request were not granted by the court, they would “no longer [………] cooperate with the hearing of the request with regard to the challenge”, the State party submits that this observation is completely groundless and is not supported by the documents in the case.",
+    "Footnotes": [
+      {
+        "n": 5,
+        "text": "The Judiciary Act and the Code of Civil Procedure was amended on 1 January 2002. Thus, the numbering of the articles has changed."
+      },
+      {
+        "n": 6,
+        "text": "It refers to the relevant paragraph of the official report which reads as follows, “At the request of Mr. Mijnssen and Mr. Herrmann to be heard in Mr. Van den Hemel’s absence, Mr. Groen replied that his client had no objection to this”, and “The President [of the special chamber hearing the challenge on grounds of bias – the Government stated that the request of Mr. Mijnssen and Mr. Hermann to be heard in Mr. Van den Hemel’s absence was granted, since the latter did not object”."
+      }
+    ]
   },
   {
     "ID": "4.4.",
     "Section": "The State party’s submission on admissibility and merits and the author’s comments thereon",
     "Labels": [],
-    "Text": "As to the claim that two of the judges considering his case before the Supreme Court were members of the Insurance Companies Supervisory Board, which is financed by the Dutch Association of Insurers, of which the other party in this case belonged, the State party refers to the Committee’s definition of impartiality in Communication No. 387/1989, Karttunen v. Finland, in which it was found that, “impartiality of the court implies that judges must not harbour preconceptions about the matter put before them, and that they must not act in ways that promote the interests of one of the parties.” In the State party’s view, the author has not demonstrated that the judges in question harboured such preconceptions."
+    "Text": "As to the claim that two of the judges considering his case before the Supreme Court were members of the Insurance Companies Supervisory Board, which is financed by the Dutch Association of Insurers, of which the other party in this case belonged, the State party refers to the Committee’s definition of impartiality in Communication No. 387/1989, Karttunen v. Finland[[fn:7]], in which it was found that, “impartiality of the court implies that judges must not harbour preconceptions about the matter put before them, and that they must not act in ways that promote the interests of one of the parties.” In the State party’s view, the author has not demonstrated that the judges in question harboured such preconceptions.",
+    "Footnotes": [
+      {
+        "n": 7,
+        "text": "Views adopted on 23 October 19992, para. 7.2."
+      }
+    ]
   },
   {
     "ID": "4.5.",
@@ -111,7 +139,13 @@
     "ID": "4.6.",
     "Section": "The State party’s submission on admissibility and merits and the author’s comments thereon",
     "Labels": [],
-    "Text": "The State party refers to the reasoning of the Supreme Court, stating that the mere fact that the Supervisory Board is financed in part, by way of the Insurance Companies’ Complaints Council, and the Dutch Association of Insurers, the large membership of which includes the other party to the author’s proceedings, and that the Supervisory Board’s members receive a fee for their work, provides no justification, for the author’s fear that the judges concerned lack impartiality."
+    "Text": "The State party refers to the reasoning of the Supreme Court, stating that the mere fact that the Supervisory Board is financed in part, by way of the Insurance Companies’ Complaints Council, and the Dutch Association of Insurers, the large membership of which includes the other party to the author’s proceedings, and that the Supervisory Board’s members receive a fee for their work, provides no justification, for the author’s fear that the judges concerned lack impartiality.[[fn:8]]",
+    "Footnotes": [
+      {
+        "n": 8,
+        "text": "“The mere fact that the Foundation is financed in the manner described in 2.7 and that the members of the Supervisory Board receive a fee, the amount of which is determined by the Foundation’s Board, is insufficient having regard, inter alia, to the mandate [of the Supervisory Board] as defined in 2.5, to justify the conclusion that the petitioner’s fear as described in 2.6 [that judges who are also members of the Supervisory Board lack impartiality in cases between insurers and non-insurers] is objectively justified.”"
+      }
+    ]
   },
   {
     "ID": "4.7.",
@@ -147,7 +181,13 @@
     "ID": "6.2.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "The Committee notes that this matter was already considered by the European Court of Human Rights on 14 November 2000. However, it recalls its jurisprudence that it is only where the same matter is being examined under another procedure of international investigation or settlement that the Committee has no competence to deal with a communication under article 5, paragraph 2 (a), of the Optional Protocol. Thus, article 5, paragraph 2(a), does not bar the Committee from considering the present communication."
+    "Text": "The Committee notes that this matter was already considered by the European Court of Human Rights on 14 November 2000. However, it recalls its jurisprudence[[fn:9]] that it is only where the same matter is being examined under another procedure of international investigation or settlement that the Committee has no competence to deal with a communication under article 5, paragraph 2 (a), of the Optional Protocol. Thus, article 5, paragraph 2(a), does not bar the Committee from considering the present communication.",
+    "Footnotes": [
+      {
+        "n": 9,
+        "text": "See Communication, No. 824/1998, N.M. Nicolov v. Bulgaria, decision adopted on 24 March 2000."
+      }
+    ]
   },
   {
     "ID": "6.3.",
@@ -165,7 +205,13 @@
     "ID": "6.5.",
     "Section": "Consideration of admissibility",
     "Labels": [],
-    "Text": "In as much as the second claim is concerned (bias because of the Supreme Court judges’ position on the National Insurers Association Supervisory Board), the Committee observes that the author challenged the two Supreme Court judges in question and requested that they recuse themselves. While expressing some doubts about the propriety of a system that allows judges to sit on a supervisory board established by a business association, the Committee notes that the Supreme Court heard the author’s recusal challenge in a different composition, proceeded to a full hearing of the positions and the evidence advanced by the author and the judges in question, and in the end dismissed the challenge and subsequently, on 24 December 1999, also the substance of the appeal. The Committee recalls that it is generally for the courts of States parties to the Covenant to evaluate facts and evidence in a case, unless it can be ascertained that the evaluation was clearly arbitrary or amounted to a denial of justice. Nothing in the material before the Committee suggests that the proceedings before the Supreme Court that resulted in the dismissal of the author’s challenge on 19 November 1999 and of the substance of his appeal a month later suffered from such defects. Accordingly, this claim is inadmissible under article 2 of the Optional Protocol. The same applies with even more force to the author’s claim, under article 14, that one of the Supreme Court judges who considered the author’s challenge of the two Supreme Court judges had been a former colleague of one of these judges in the University of Amsterdam."
+    "Text": "In as much as the second claim is concerned (bias because of the Supreme Court judges’ position on the National Insurers Association Supervisory Board), the Committee observes that the author challenged the two Supreme Court judges in question and requested that they recuse themselves. While expressing some doubts about the propriety of a system that allows judges to sit on a supervisory board established by a business association, the Committee notes that the Supreme Court heard the author’s recusal challenge in a different composition, proceeded to a full hearing of the positions and the evidence advanced by the author and the judges in question, and in the end dismissed the challenge and subsequently, on 24 December 1999, also the substance of the appeal. The Committee recalls that it is generally for the courts of States parties to the Covenant to evaluate facts and evidence in a case, unless it can be ascertained that the evaluation was clearly arbitrary or amounted to a denial of justice[[fn:10]]. Nothing in the material before the Committee suggests that the proceedings before the Supreme Court that resulted in the dismissal of the author’s challenge on 19 November 1999 and of the substance of his appeal a month later suffered from such defects. Accordingly, this claim is inadmissible under article 2 of the Optional Protocol. The same applies with even more force to the author’s claim, under article 14, that one of the Supreme Court judges who considered the author’s challenge of the two Supreme Court judges had been a former colleague of one of these judges in the University of Amsterdam.",
+    "Footnotes": [
+      {
+        "n": 10,
+        "text": "See Errol Simms v. Jamaica, communication No.541/1993, declared inadmissible 3 April 1995."
+      }
+    ]
   },
   {
     "ID": "6.6.",
