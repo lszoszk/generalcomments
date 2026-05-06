@@ -2755,23 +2755,45 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .docs-filter:focus { border-bottom-color: var(--garnet); }
 .docs-filter::placeholder { color: var(--ink-4); font-style: italic; }
 
+/* v19.49: 3-tab scope selector (GC / JUR / SP — "All" dropped). Tabs
+   stretch full rail width and split equally. The full label
+   ("General Comments") shows when there's room; the rail is narrow on
+   the typical 1440 px viewport so we collapse to the abbreviation
+   below ~360 px of available scope row. */
 .docs-scope {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
   border: 1px solid var(--ink);
+  font-family: var(--display);
+  font-size: 12px;
 }
 .docs-scope-opt {
-  font-family: var(--display);
-  font-size: 13px;
+  flex: 1 1 0;
+  min-width: 0;
   background: transparent;
   color: var(--ink-2);
   border: 0;
   border-right: 1px solid var(--ink);
-  padding: 6px 14px;
+  padding: 6px 8px;
   cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .docs-scope-opt:last-child { border-right: 0; }
 .docs-scope-opt:hover { background: var(--paper-3); color: var(--ink); }
 .docs-scope-opt.is-active { background: var(--ink); color: var(--paper); }
+/* Default: show abbreviations (the rail is typically too narrow for the
+   full labels to fit without truncation). Promote to full labels only
+   on viewports where the rail has room — empirically that's > 1500 px,
+   beyond which the layout has space to widen the rail. */
+.docs-scope-full { display: none; }
+.docs-scope-abbr { display: inline; font-family: var(--mono); letter-spacing: 0.04em; }
+@media (min-width: 1500px) {
+  .docs-scope-full { display: inline; font-family: var(--display); }
+  .docs-scope-abbr { display: none; }
+}
 
 .docs-body {
   max-width: 1280px;

@@ -20,7 +20,7 @@ const state = {
   // reachable, false = unreachable (local fallback engaged for the session).
   apiOnline: null,
   view: 'search',               // 'search' | 'documents' | 'about' — driven by URL hash
-  docsScope: 'all',             // documents-view scope: 'all' | 'gc' | 'jur' | 'sp'
+  docsScope: 'gc',              // documents-view scope: 'gc' | 'jur' | 'sp' (v19.49: dropped "all" tab — GC is primary)
   docsFilter: '',               // documents-view free-text filter
   docsActiveDocId: null,        // v17: currently-open document in the reader
   docsActiveParaId: null,       // v17: currently-active ¶ inside the reader (for highlight)
@@ -1152,9 +1152,65 @@ const TOUR_STEPS = [
   },
 ];
 
-let _tourState = { idx: 0, active: false };
+// v19.49: Documents-tab tour. Triggered when the user clicks the masthead
+// Tour button while already on the Documents view. Pre-opens the first
+// available doc so the reader-pane and outline-drawer steps have content
+// to point at.
+const DOCUMENTS_TOUR_STEPS = [
+  {
+    selector: '.docs-scope',
+    view: 'documents',
+    title: 'Pick a corpus',
+    body: 'General Comments is the authoritative core (186 docs). Jurisprudence is a 3,176-case CCPR/CEDAW/CRPD preview. Special Procedures is a 173-report mandate-holder preview. Tabs split the rail equally.',
+  },
+  {
+    selector: '.docs-filter',
+    view: 'documents',
+    title: 'Filter the rail',
+    body: 'Type any fragment of a case name, signature ("CCPR/C/145"), country, year, or outcome — the rail narrows live. Useful when you know roughly what you are looking for.',
+  },
+  {
+    selector: '#docs-rail-list',
+    view: 'documents',
+    title: 'Browse the catalog',
+    body: 'Documents grouped by treaty body, ordered newest-first within each. Click any row to load it in the reader; only that case’s shard is fetched (not the whole corpus), so navigation feels instant.',
+    beforeShow: () => {
+      // Pre-open the first doc in the active scope so subsequent steps
+      // have content to point at.
+      if (state.docsActiveDocId) return;
+      const firstRow = document.querySelector('.docs-rail-row');
+      if (firstRow?.dataset?.docId) openDocReader(firstRow.dataset.docId);
+    },
+  },
+  {
+    selector: '.docs-reader-head',
+    view: 'documents',
+    title: 'Document header',
+    body: 'Signature, date, country, paragraph count and a link to the original UN PDF. For OCR-recovered scanned cases you also see a banner declaring OCR provenance with a one-click "report an OCR error" link to the GitHub tracker.',
+  },
+  {
+    selector: '.docs-reader-langs',
+    view: 'documents',
+    title: 'Multilingual links',
+    body: 'For ~2,500 CCPR cases we mirror direct PDF/DOCX URLs in EN + ES + FR + AR + RU + ZH from the CCPR Centre digest. Click any chip to read in that language.',
+  },
+  {
+    selector: '.docs-reader-para',
+    view: 'documents',
+    title: 'Paragraph-level actions',
+    body: 'Click any ¶ to bookmark it (★), copy its text, or generate a citation in your preferred style. The right-pane outline jumps to sections; the rail row stays in sync as you scroll.',
+  },
+  {
+    selector: '#docs-drawer',
+    view: 'documents',
+    title: 'Outline + workspace',
+    body: 'Section outline (jump-to-¶), then any bookmarks/notes you have on this doc. Workspace state syncs with the dedicated Workspace tab.',
+  },
+];
 
-function startTour(fromStep = 0) {
+let _tourState = { idx: 0, active: false, steps: null };
+
+function startTour(fromStep = 0, opts = {}) {
   // v19.43-fix15: mobile-aware tour entry. The desktop tour positions
   // a 360-px popover with absolute coordinates against fixed-width
   // panes; on phones the spotlights land off-screen and the popover
@@ -1168,7 +1224,11 @@ function startTour(fromStep = 0) {
     try { localStorage.setItem(_LS.tourSeen, '1'); } catch {}
     return;
   }
-  _tourState = { idx: fromStep, active: true };
+  // v19.49: tour can be either the search-view walkthrough (default) or
+  // the documents-view walkthrough; pick from `opts.steps` or auto-detect
+  // by the user's currently-active view.
+  const steps = opts.steps || (state.view === 'documents' ? DOCUMENTS_TOUR_STEPS : TOUR_STEPS);
+  _tourState = { idx: fromStep, active: true, steps };
   paintTourStep();
 }
 
@@ -1218,7 +1278,10 @@ function endTour({ markSeen = true } = {}) {
 }
 
 function paintTourStep() {
-  const step = TOUR_STEPS[_tourState.idx];
+  // v19.49: tour can be either the search-view walkthrough or the
+  // documents-view walkthrough. _tourState.steps was set by startTour().
+  const steps = _tourState.steps || TOUR_STEPS;
+  const step = steps[_tourState.idx];
   if (!step) { endTour(); return; }
   // Switch view if needed (some steps target elements that only exist in
   // certain views — currently all are on the search view, but be safe).
@@ -1286,12 +1349,12 @@ function paintTourStep() {
     height: (r.height + PAD * 2) + 'px',
   });
 
-  document.getElementById('tour-step').textContent  = `${_tourState.idx + 1} / ${TOUR_STEPS.length}`;
+  document.getElementById('tour-step').textContent  = `${_tourState.idx + 1} / ${steps.length}`;
   document.getElementById('tour-title').textContent = step.title;
   document.getElementById('tour-body').textContent  = step.body;
   document.getElementById('tour-prev').toggleAttribute('disabled', _tourState.idx === 0);
   const nextBtn = document.getElementById('tour-next');
-  nextBtn.textContent = _tourState.idx === TOUR_STEPS.length - 1 ? 'Done' : 'Next →';
+  nextBtn.textContent = _tourState.idx === steps.length - 1 ? 'Done' : 'Next →';
 
   // Position popover: prefer below the target; if no room, above; else right.
   pop.style.visibility = 'hidden';
@@ -1333,7 +1396,8 @@ function bindTour() {
     if (_tourState.idx > 0) { _tourState.idx--; paintTourStep(); }
   });
   document.getElementById('tour-next')?.addEventListener('click', () => {
-    if (_tourState.idx < TOUR_STEPS.length - 1) { _tourState.idx++; paintTourStep(); }
+    const len = (_tourState.steps || TOUR_STEPS).length;
+    if (_tourState.idx < len - 1) { _tourState.idx++; paintTourStep(); }
     else endTour();
   });
   // Keyboard navigation
@@ -1342,7 +1406,8 @@ function bindTour() {
     if (e.key === 'Escape')                      { endTour(); }
     else if (e.key === 'ArrowRight' || e.key === ' ') {
       e.preventDefault();
-      if (_tourState.idx < TOUR_STEPS.length - 1) { _tourState.idx++; paintTourStep(); }
+      const len = (_tourState.steps || TOUR_STEPS).length;
+      if (_tourState.idx < len - 1) { _tourState.idx++; paintTourStep(); }
       else endTour();
     }
     else if (e.key === 'ArrowLeft') {
@@ -1992,11 +2057,7 @@ function paintDocDrawer(doc) {
       <h3 class="folio">Outline</h3>
       ${outlineHtml}
     </div>
-    ${wsHtml}
-    <div class="docs-drawer-block">
-      <h3 class="folio">Open in search</h3>
-      <a class="btn btn-ghost" href="?p=${encodeURIComponent(paragraphs[0]?.id || '')}#search">↗ Switch to search view</a>
-    </div>`;
+    ${wsHtml}`;
 
   // Collapse button.
   $('#docs-drawer-collapse')?.addEventListener('click', () => {

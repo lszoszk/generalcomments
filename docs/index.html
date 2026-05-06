@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260507-v19-48a" />
-<link rel="stylesheet" href="assets/app.css?v=20260507-v19-48a" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260507-v19-49a" />
+<link rel="stylesheet" href="assets/app.css?v=20260507-v19-49a" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -449,11 +449,26 @@
     <aside class="docs-rail" id="docs-rail" role="navigation" aria-label="Documents rail">
       <div class="docs-rail-tools">
         <input id="docs-filter" type="search" class="serif docs-filter" placeholder="Filter by name, signature, year…" autocomplete="off" spellcheck="false" />
+        <!-- v19.49: dropped "All" tab — primary corpus is GC, JUR + SP
+             surfaced as tabs of equal width. Default scope flips to "gc"
+             on first paint via state.docsScope. Long labels collapse to
+             the abbreviation on narrow rails (CSS @container query). -->
         <div class="docs-scope" role="tablist">
-          <button class="docs-scope-opt is-active" data-docs-scope="all">All</button>
-          <button class="docs-scope-opt" data-docs-scope="gc" title="General Comments">GC</button>
-          <button class="docs-scope-opt" data-docs-scope="jur" title="Jurisprudence">JUR</button>
-          <button class="docs-scope-opt" data-docs-scope="sp" title="Special Procedures">SP</button>
+          <button class="docs-scope-opt is-active" data-docs-scope="gc"
+                  title="General Comments">
+            <span class="docs-scope-full">General Comments</span>
+            <span class="docs-scope-abbr">GC</span>
+          </button>
+          <button class="docs-scope-opt" data-docs-scope="jur"
+                  title="Jurisprudence">
+            <span class="docs-scope-full">Jurisprudence</span>
+            <span class="docs-scope-abbr">JUR</span>
+          </button>
+          <button class="docs-scope-opt" data-docs-scope="sp"
+                  title="Special Procedures">
+            <span class="docs-scope-full">Special Procedures</span>
+            <span class="docs-scope-abbr">SP</span>
+          </button>
         </div>
       </div>
       <div class="docs-rail-list" id="docs-rail-list"></div>
@@ -921,6 +936,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260507-v19-48a"></script>
+<script type="module" src="assets/app.js?v=20260507-v19-49a"></script>
 </body>
 </html>
