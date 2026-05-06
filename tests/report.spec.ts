@@ -47,12 +47,24 @@ test('F2. modalOpens · click button → 6 categories', async ({ page }) => {
   await expect(page.locator('#report-submit')).toBeVisible();
 });
 
+// v19.43-fix3: search-view URL no longer carries `?p=<paraId>`, so we
+// can't pre-set an active paragraph via the boot URL. Instead, run a
+// real search and click a result to set the active paragraph (matching
+// the actual user flow). The specific paragraph id is whatever the
+// click lands on; the assertions read it back from the row.
+async function activateFirstResult(page: any) {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'disability');
+  await page.locator('.result').first().click();
+  const paraId = await page.locator('.result.is-active').first().getAttribute('data-para-id');
+  return paraId;
+}
+
 test('F3. contextAutofill · active paragraph fills CONTEXT line', async ({ page }) => {
-  await bootApp(page, '/index.html?q=disability&p=crpd-c-gc-6-0020');
-  await page.waitForTimeout(800);
+  const paraId = await activateFirstResult(page);
   await page.locator('#foot-report').click();
   await expect(page.locator('#report-context')).toBeVisible();
-  await expect(page.locator('#report-context-detail')).toContainText(/crpd-c-gc-6-0020/);
+  await expect(page.locator('#report-context-detail')).toContainText(paraId!);
 });
 
 test('F5. submitOk · 200 → toast + auto-close + auto-context payload', async ({ page }) => {
@@ -64,8 +76,7 @@ test('F5. submitOk · 200 → toast + auto-close + auto-context payload', async 
       body: JSON.stringify({ ok: true, ts: '2026-04-30', issueNumber: null, issueUrl: null }),
     });
   });
-  await bootApp(page, '/index.html?q=disability&p=crpd-c-gc-6-0020');
-  await page.waitForTimeout(800);
+  const paraId = await activateFirstResult(page);
   await page.locator('#foot-report').click();
   await page.locator('input[value="wrong-fn"]').click();
   await page.locator('#report-message').fill('Footnote 3 should anchor after the second comma');
@@ -75,11 +86,11 @@ test('F5. submitOk · 200 → toast + auto-close + auto-context payload', async 
   await expect(page.locator('#report-modal')).toBeHidden();
   // Server payload — auto-captured context fields are populated.
   expect(captured.kind).toBe('wrong-fn');
-  expect(captured.paraId).toBe('crpd-c-gc-6-0020');
-  expect(captured.docId).toBe('crpd-c-gc-6');
+  expect(captured.paraId).toBe(paraId);
+  // docId is paraId minus the trailing `-NNNN` paragraph suffix.
+  expect(captured.docId).toBe(paraId!.replace(/-\d{4,}$/, ''));
   expect(captured.view).toBe('search');
   expect(captured.scope).toBe('gc');
-  expect(captured.url).toContain('p=crpd-c-gc-6-0020');
   expect(captured.query).toBe('disability');
   expect(typeof captured.excerpt).toBe('string');
   expect(captured.message).toContain('anchor after the second comma');
@@ -108,9 +119,13 @@ test('F8. escClose · Escape key closes modal', async ({ page }) => {
 
 test('F9. dossierFlag · ⚐ button on dossier opens modal with context', async ({ page }) => {
   // Open a paragraph in the search dossier, click the new flag button.
+  // v19.43-fix8: the flag button lives inside the More overflow menu.
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
+  await page.locator('#dossier-more').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
   await page.locator('#ws-flag').click();
   await expect(page.locator('#report-modal')).toBeVisible();
   await expect(page.locator('#report-context')).toBeVisible();
@@ -119,13 +134,15 @@ test('F9. dossierFlag · ⚐ button on dossier opens modal with context', async 
   expect(txt).toMatch(/-\d{4}/);
 });
 
-test('F10. readerFlag · ⚐ in documents reader opens modal', async ({ page }) => {
+test.fixme('F10. readerFlag · ⚐ in documents reader opens modal', async ({ page }) => {
+  // v19.45 retired the per-paragraph .docs-para-flag affordance from
+  // the document reader; in-reader reporting now happens via the
+  // OCR-banner GitHub-issue link (when sourceFormat === 'pdf_ocr')
+  // and otherwise from the per-row Cite/Copy controls + the global
+  // footer "Report a problem" entry. This test needs a redesign
+  // against the current reader UI.
   await bootApp(page, '/index.html#documents/crpd-c-gc-6');
   await page.waitForTimeout(800);
-  // Click the flag in the first paragraph row.
-  await page.locator('.docs-reader-para .docs-para-flag').first().click();
-  await expect(page.locator('#report-modal')).toBeVisible();
-  await expect(page.locator('#report-context-detail')).toContainText(/crpd-c-gc-6/);
 });
 
 test('F11. issueLinkInToast · server returns issueUrl → toast renders link', async ({ page }) => {

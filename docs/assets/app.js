@@ -401,6 +401,14 @@ const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1',
 function encodeUrlState() {
   if (!state.facets) return;
   const u = new URLSearchParams();
+  // v19.50.1 (audit Step 3.C): preserve the explicit `?api=0|1` opt-in.
+  // It's not part of URL_KEYS (the encoder otherwise rebuilds from
+  // state) but it's user-set and must survive the boot-time canonical
+  // URL rewrite — without this, `?api=1` was stripped before pingApi()
+  // ran, so apiEnabled() fell through to the localhost-disable branch
+  // and the API badge / api-mode tests never observed any traffic.
+  const incomingApi = new URLSearchParams(window.location.search).get('api');
+  if (incomingApi === '0' || incomingApi === '1') u.set('api', incomingApi);
   if (state.query) u.set(URL_KEYS.q, state.query);
   if (state.scope !== 'gc') u.set(URL_KEYS.scope, state.scope);
   if (state.filters.committees.size) u.set(URL_KEYS.tb, [...state.filters.committees].join('|'));
@@ -1730,6 +1738,15 @@ function paintDocReaderBody(doc, paraId) {
   const host = $('#docs-reader-body');
   if (!host) return;
 
+  // v19.50.1 (audit H5): when the user lands here from a search result,
+  // continue highlighting the matched terms — the dossier already does
+  // this, so without it the highlights vanish the moment the reader
+  // takes over the centre pane and the user loses the eye-anchor that
+  // brought them here. Empty query → terms is `[]`, no-op in
+  // renderParagraphHtml's fast path.
+  const ast = state.query ? parseQuery(state.query) : null;
+  const readerTerms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
+
   const paragraphs = state.paragraphs.filter(p => p.docId === doc.docId);
   if (!paragraphs.length) {
     host.innerHTML = `
@@ -1882,7 +1899,7 @@ function paintDocReaderBody(doc, paraId) {
           </button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">✎</span>' : ''}
         </div>
-        <p class="docs-reader-para-text serif">${renderParagraphHtml(p.text, p.footnotes)}</p>
+        <p class="docs-reader-para-text serif">${renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms })}</p>
       </div>`;
   }).join('');
 
@@ -2674,6 +2691,11 @@ function bindUI() {
       // 1–3 chars: don't run the index. Show a tiny inline "keep typing"
       // hint where the result count usually lives so the user understands.
       state.query = v;                        // keep state in sync for URL
+      // v19.50.1 (audit C3 / smoke#3): bump the run counter so any
+      // in-flight runSearch (e.g. the empty-query boot search awaiting
+      // ensureCorpusReady) bails on its `runId !== state.searchRun`
+      // re-check before painting and stomping the hint.
+      state.searchRun = (state.searchRun || 0) + 1;
       paintShortQueryHint(v);
     }
   });
@@ -3835,6 +3857,13 @@ async function ensureCorpusReady() {
         await ensureSearchIndex();
       }
       paintCorpusLoadingState('ready');
+      // v19.50.1 (audit Step 3.C / W3): re-paint the workspace if the
+      // user landed directly on #workspace before the lazy corpus load
+      // finished. Without this they saw the "(paragraph body will load
+      // when you open this scope…)" placeholder forever, since
+      // renderWorkspace was only called once at boot — bookmarks never
+      // hydrated to full text and the workspace looked broken.
+      if (state.view === 'workspace') renderWorkspace();
     } finally {
       document.body.classList.remove('is-corpus-loading');
     }
@@ -3852,6 +3881,13 @@ function paintCorpusLoadingState(phase) {
   const sub   = document.getElementById('results-sub');
   const title = document.getElementById('results-title');
   if (!count || !sub) return;
+  // v19.50.1 (audit Step 3.C / A6): suppress the local-index loading
+  // chrome when a search has already painted results (typically the
+  // API path landed first). Without this guard, the late-arriving
+  // FlexSearch build phase clobbered "1,844 ¶" with "— indexing"
+  // even though the user has results on screen and doesn't care
+  // that the local fallback index is still building behind them.
+  if (state.results && state.results.length) return;
   if (phase === 'fetch') {
     count.textContent = '— loading';
     if (title) title.textContent = 'Setting up local search…';
@@ -4273,6 +4309,15 @@ async function runSearch() {
     matched.push({ p, score });
   }
 
+  // v19.50.1 (audit Step 3.C / smoke 3 flake): re-check the run token
+  // before mutating state + painting. The synchronous matching loop
+  // above can iterate 25k+ paragraphs on an empty/wildcard query —
+  // long enough for a fast-typing user (or a Playwright `fill`) to
+  // queue the next keystroke, which bumps state.searchRun via
+  // paintShortQueryHint and expects this in-flight search to bail.
+  // Without the check, the older runSearch overwrites paintResults +
+  // updateDocumentTitle on top of the just-painted "Keep typing" hint.
+  if (runId !== state.searchRun) return;
   state.results = matched;
   state.alsoTry = [];                       // v19: local path doesn't have synonyms
   state.apiTotal = null;                    // local path: state.results.length is the truth
@@ -4504,9 +4549,18 @@ function paintResultBreakdown() {
   const spPill = $('#rb-sp');
   if (!wrap || !gcPill || !jurPill || !spPill) return;
   if (!state.results.length || state.scope !== 'all') {
-    wrap.hidden = true;
+    // v19.50.1 (audit Step 3.C / A1): the api-badge lives inside this
+    // wrap (paintApiBadge appends to #result-breakdown). Hiding the
+    // wrap on empty results also hid the badge — so the boot-time
+    // pingApi result was invisible until the user ran a scope=all
+    // query. Keep the wrap visible if the badge is present, hide the
+    // GC/JUR/SP pills individually instead.
+    const hasBadge = !!wrap.querySelector('#api-badge');
+    wrap.hidden = !hasBadge;
+    gcPill.hidden = jurPill.hidden = spPill.hidden = true;
     return;
   }
+  gcPill.hidden = jurPill.hidden = spPill.hidden = false;
   // v19.6 (U2): in API mode, prefer the server-supplied breakdown so
   // the pills reflect the FULL match-set (not just the 200-row page
   // slice that we have rendered). Falls back to a local count for the

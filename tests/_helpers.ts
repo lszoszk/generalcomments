@@ -124,6 +124,13 @@ export async function resetWorkspace(page: Page): Promise<void> {
       // upstream sha, so without this the seeded fnText would never be
       // indexed (the previous test run's index would be restored).
       try { indexedDB.deleteDatabase('gr-cache'); } catch {}
+      // v19.50.1 (audit Step 3.B): pre-mark the first-visit welcome
+      // card as already seen, otherwise it pops up on every test boot
+      // and intercepts clicks on the dossier / search controls.
+      // Without this every reset-then-click test races the welcome
+      // overlay (visible 600ms after the loader fades) and times out
+      // with "subtree intercepts pointer events".
+      localStorage.setItem('unhrdb_welcome_seen_v1', '1');
     } catch {
       // about:blank or similar — ignore.
     }

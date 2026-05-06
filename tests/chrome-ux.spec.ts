@@ -150,7 +150,14 @@ test('UX4. localJurFallbackShowsProgress · api=0 remains explicit and bounded',
   await bootApp(page, '/index.html?api=0&scope=jur&q=non-refoulement');
   await expect(page.locator('.result').first()).toBeVisible({ timeout: 30_000 });
   const elapsed = Date.now() - t0;
-  expect(elapsed).toBeLessThan(20_000);
+  // v19.50.1 (audit Step 3.C): bumped from 20s → 25s. The JUR corpus
+  // has grown since the test was written (3,176 docs, 116k paragraphs)
+  // and on a contended machine the first-run shard fetch + index build
+  // routinely hovers around the original 20 s ceiling. The CEILING IS
+  // STILL A REGRESSION GUARD — it fails fast if the local fallback
+  // suddenly takes 60+ seconds again — but the headroom matches the
+  // current production budget.
+  expect(elapsed).toBeLessThan(25_000);
   expect(shardRequests.length).toBeGreaterThan(0);
   await expect(page.locator('#api-badge')).toContainText(/offline/);
 });
@@ -173,6 +180,13 @@ test('UX6. mobileSmoke · search scope result dossier flow fits narrow viewport'
   await expect(first).toBeVisible();
   await first.click();
   await expect(page.locator('.dossier-title')).toBeVisible();
+  // v19.43-fix8 + mobile-filters-collapsed: the dossier covers the
+  // result column and the scope picker (a filter block) is collapsed
+  // by default below 900 px. Dismiss the dossier (Escape), then expand
+  // the filters via the .mobile-filters-toggle to reach the scope tab
+  // — matches the actual mobile user flow.
+  await page.locator('body').press('Escape');
+  await page.locator('.mobile-filters-toggle').click();
   await page.locator('.scope-opt[data-scope="sp"]').click();
   await typeQuery(page, '"will and preferences"');
   await expect(page.locator('.result').first()).toBeVisible();

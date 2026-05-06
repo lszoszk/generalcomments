@@ -23,16 +23,25 @@ async function openDossier(page: any) {
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
-  await page.locator('.dossier-toolbar').waitFor();
+  await page.locator('.dossier-footer').waitFor();
 }
 
 test('D1. saveToggles · bookmark on/off survives reload', async ({ page }) => {
+  // v19.43-fix3: the search-view URL no longer carries `?p=<paraId>`,
+  // so the dossier is NOT auto-restored after reload — opening it
+  // requires re-clicking the row. The bookmark itself lives in
+  // localStorage and IS persistent; we re-open the dossier on the same
+  // paragraph after reload to verify the persisted ★ state.
   await openDossier(page);
+  const paraId = await page.locator('.result.is-active').first().getAttribute('data-para-id');
   await page.locator('#ws-bookmark').click();
   await expect(page.locator('#ws-bookmark')).toHaveClass(/on/);
   await page.reload({ waitUntil: 'commit' });
   await page.waitForFunction(() => /\d+\s*¶/.test(document.getElementById('mast-folio')?.textContent || ''));
-  await page.locator('.dossier-toolbar').waitFor();
+  // Same paragraph by data-para-id, not just .result first-child (sort
+  // order may differ run-to-run on the search corpus).
+  await page.locator(`.result[data-para-id="${paraId}"]`).first().click();
+  await page.locator('.dossier-footer').waitFor();
   await expect(page.locator('#ws-bookmark')).toHaveClass(/on/);
 });
 
@@ -78,7 +87,7 @@ test.fixme('D4. noteEditor · opens, focuses, autosaves on blur', async ({ page 
   // Navigate to the captured URL so the ?p= param re-opens the same ¶.
   await page.goto(beforeUrl, { waitUntil: 'commit' });
   await page.waitForFunction(() => /\d+\s*¶/.test(document.getElementById('mast-folio')?.textContent || ''));
-  await page.locator('.dossier-toolbar').waitFor();
+  await page.locator('.dossier-footer').waitFor();
   await page.locator('#ws-note-toggle').click();
   await expect(page.locator('#ws-note')).toHaveValue('Test note from playwright suite');
 });
@@ -86,7 +95,14 @@ test.fixme('D4. noteEditor · opens, focuses, autosaves on blur', async ({ page 
 test('D5. citeMenu · 9 formats incl. legal-IL ones → UN footnote copies', async ({ page, browserName }) => {
   test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
   await openDossier(page);
-  await page.locator('#cite-trigger').click();
+  // v19.43-fix8: the cite popover is opened from the "Cite in another
+  // format" entry inside the More overflow, not a top-level button.
+  // Open the <details> directly (synthetic clicks on <summary> can be
+  // flaky during dossier mount animation — see smoke 8).
+  await page.locator('#dossier-more').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
+  await page.locator('#cite-other-trigger').click();
   await expect(page.locator('#cite-pop')).toBeVisible();
   // v19.15: legal formats first, academic/tooling formats after.
   const formats = await page.locator('#cite-pop .cite-opt').evaluateAll((els) =>
@@ -102,36 +118,29 @@ test('D5. citeMenu · 9 formats incl. legal-IL ones → UN footnote copies', asy
   expect(text).toMatch(/Committee/);
 });
 
-test('D6. citeOpenStyle · open-state inverts colour, equal-width grid', async ({ page }) => {
-  // v19.15: Pin removed (-1), Link added (+1) — toolbar still 7 cols.
-  // Order: Save · Copy · Note · Cite · Flag · Link · Read.
+test.fixme('D6. citeOpenStyle · open-state inverts colour, equal-width grid', async ({ page }) => {
+  // v19.43-fix8 retired the "7 equal-width buttons in a grid" layout.
+  // The footer now uses a sticky-CTA + 3-icon-shortcut + overflow-menu
+  // pattern. The "open-state inverts the cite cell" inversion was a
+  // styling artefact of the grid layout that no longer applies.
+  // Skipped pending a redesign of this test against the new footer.
   await openDossier(page);
-  const cols = await page.locator('.dossier-toolbar').evaluate((el) => {
-    return getComputedStyle(el).gridTemplateColumns;
-  });
-  const widths = cols.split(/\s+/).map((w) => parseFloat(w));
-  expect(widths.length).toBe(7);
-  expect(Math.max(...widths) - Math.min(...widths)).toBeLessThan(2);
-  // Cite cell has no special background or border before opening.
-  const closed = await page.locator('#cite-menu').evaluate((el) => {
-    const cs = getComputedStyle(el);
-    return { bg: cs.backgroundColor, border: cs.border };
-  });
-  expect(closed.bg).toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
-  // Open: inversion kicks in.
-  await page.locator('#cite-trigger').click();
-  await expect(page.locator('#cite-menu')).toHaveClass(/is-open/);
 });
 
 test('D7. readNavigatesToFullDoc · Read jumps to #documents/<docId>?p=…', async ({ page }) => {
   // v19.15: Read no longer toggles a styling overlay. It navigates to
   // the documents view with the active paragraph centered + highlighted
   // (the existing R4 deep-link path).
+  //
+  // v19.43-fix3: the search-view URL no longer carries `?p=<paraId>`
+  // — read it from the active result row's data-para-id instead.
+  // v19.43-fix8: the Read action lives in the More overflow now.
   await openDossier(page);
-  // Capture the active paragraph's id from the URL ?p= param.
-  const beforeUrl = new URL(page.url());
-  const paraId = beforeUrl.searchParams.get('p');
+  const paraId = await page.locator('.result.is-active').first().getAttribute('data-para-id');
   expect(paraId).toBeTruthy();
+  await page.locator('#dossier-more').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
   await page.locator('#ws-read').click();
   // After click: hash starts with #documents/<docId>, ?p= preserved.
   await page.waitForFunction(() => window.location.hash.startsWith('#documents/'));
@@ -144,7 +153,13 @@ test('D7. readNavigatesToFullDoc · Read jumps to #documents/<docId>?p=…', asy
 test('D8. permalink · Link button copies a deep URL containing ?p=…', async ({ page, browserName }) => {
   test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
   await openDossier(page);
-  const paraId = new URL(page.url()).searchParams.get('p');
+  // v19.43-fix3: read paraId from active row, not URL.
+  // v19.43-fix8: permalink lives in the More overflow.
+  const paraId = await page.locator('.result.is-active').first().getAttribute('data-para-id');
+  expect(paraId).toBeTruthy();
+  await page.locator('#dossier-more').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
   await page.locator('#ws-permalink').click();
   // Toast confirmation
   await expect(page.locator('#feedback-toast.is-shown')).toBeVisible({ timeout: 3_000 });

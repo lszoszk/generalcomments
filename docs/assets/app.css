@@ -502,6 +502,15 @@ body:not(.has-results) #save-search,
 body:not(.has-results) .result-breakdown {
   display: none !important;
 }
+/* v19.50.1 (audit Step 3.C / A1): when the boot-time pingApi appended
+   the API badge inside .result-breakdown, the no-results state hid
+   the badge along with the pills. Force the breakdown wrap visible
+   when an api-badge is present, so the connectivity indicator shows
+   even before the user runs a search. The GC/JUR/SP pills stay
+   individually hidden via paintResultBreakdown until results arrive. */
+body:not(.has-results) .result-breakdown:has(#api-badge) {
+  display: inline-flex !important;
+}
 
 /* v19.43: "More views…" disclosure for the result-grouping segmented
    control. Hides "By treaty body" (rare) behind a … chip; click to

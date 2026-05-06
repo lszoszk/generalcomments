@@ -60,7 +60,19 @@ test('W3. fullSnippet · long bookmarks default to full text + Collapse toggle',
     );
   });
   await page.goto('/index.html#workspace', { waitUntil: 'commit' });
-  await page.waitForTimeout(800);
+  // v19.43-fix14: corpus.json (where the snippet body lives) loads
+  // lazily after first paint. Workspace renders an initial row from
+  // metadata only (~80 chars) and re-paints once state.paragraphById
+  // hydrates. Wait on the actual long-text condition instead of a
+  // fixed timeout so a slow corpus fetch doesn't false-fail this.
+  await page.waitForFunction(
+    () => {
+      const el = document.querySelector('.ws-row .ws-row-snippet');
+      return !!el && (el.textContent || '').length > 180;
+    },
+    null,
+    { timeout: 15_000 }
+  );
   // Long paragraphs (≥320 chars) get a <details class="ws-snippet-fold open">
   // so the user sees full text by default with a Collapse toggle.
   const snippet = page.locator('.ws-row .ws-row-snippet').first();

@@ -34,8 +34,11 @@ test('1. boot · page reaches "ready" without console errors', async ({ page }) 
   // Mast folio reads e.g. "VOL. I · NO. 1 · 29 APRIL 2026 · 132 711 ¶ · 3296 DOCUMENTS"
   // The number includes a NARROW NO-BREAK SPACE (toLocaleString output) so
   // we match permissively — \s alone may not catch every thin-space variant.
-  await expect(page.locator('#mast-folio')).toContainText(/¶/);
-  await expect(page.locator('#mast-folio')).toContainText(/DOCUMENTS$/);
+  // v19.43+: #mast-folio also wraps a progress-bar child, so the textContent
+  // is followed by whitespace. Assert against the inner #mast-folio-text
+  // span instead of the wrapper to avoid the trailing whitespace problem.
+  await expect(page.locator('#mast-folio-text')).toContainText(/¶/);
+  await expect(page.locator('#mast-folio-text')).toContainText(/DOCUMENTS\s*$/);
   expect(errors, errors.join('\n')).toEqual([]);
 });
 
@@ -102,27 +105,41 @@ test('7. clickToDossier · click row → dossier paints', async ({ page }) => {
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
   await expect(page.locator('.dossier-title')).toBeVisible();
-  await expect(page.locator('.dossier-toolbar')).toBeVisible();
+  // v19.43-fix8: the loose toolbar was replaced by a sticky footer that
+  // carries role="toolbar". The class renamed to `.dossier-footer`;
+  // update the assertion accordingly.
+  await expect(page.locator('.dossier-footer')).toBeVisible();
 });
 
-test('8. dossierToolbar · 7 equal-width buttons in order', async ({ page }) => {
-  // v19.15: Pin removed (now mid-panel only); Link button added.
-  // v19.14 added the ⚐ Flag button. Order is now:
-  // Save · Copy · Note · Cite · Flag · Link · Read
+test('8. dossierFooter · primary Cite + 3 quick-icons + More menu', async ({ page }) => {
+  // v19.43-fix8: the loose 7-button toolbar was replaced by a sticky
+  // footer with a primary "Cite" CTA, three quick-action icon buttons
+  // (Save / Note / Copy), and a "⋯ More" overflow that holds the
+  // less-frequent actions (permalink, open-in-reader, cite-other,
+  // flag-a-problem).
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
-  const labels = await page.locator('.dossier-tool-label').allTextContents();
-  expect(labels.map((s) => s.trim())).toEqual([
-    'Save', 'Copy', 'Note', 'Cite', 'Flag', 'Link', 'Read',
-  ]);
-  const widths = await page.locator('.dossier-tool').evaluateAll((els) =>
-    els.map((el) => el.getBoundingClientRect().width)
+  // Primary CTA visible + carries a Cite label.
+  await expect(page.locator('.dossier-cta')).toBeVisible();
+  await expect(page.locator('.dossier-cta-label')).toContainText(/Cite/i);
+  // Three quick-action icon buttons by id (matches the markup).
+  for (const id of ['#ws-bookmark', '#ws-note-toggle', '#ws-copy']) {
+    await expect(page.locator(id)).toBeVisible();
+  }
+  // More menu summary visible (collapsed by default).
+  const moreSummary = page.locator('#dossier-more summary');
+  await expect(moreSummary).toBeVisible();
+  // Toggle the <details> element directly — Playwright's click on a
+  // <summary> element occasionally times out on stability when the
+  // dossier is mid-animation; flipping the parent's `open` attribute
+  // is the same user-visible effect with no synthetic-click flakiness.
+  await page.locator('#dossier-more').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
   );
-  const min = Math.min(...widths);
-  const max = Math.max(...widths);
-  // Grid template repeats 1fr × 7, so widths stay within 2 px of each other.
-  expect(max - min).toBeLessThan(3);
+  for (const id of ['#ws-permalink', '#ws-read', '#cite-other-trigger', '#ws-flag']) {
+    await expect(page.locator(id)).toBeVisible();
+  }
 });
 
 test('9. openInDocFromR · R navigates to full-document reader', async ({ page }) => {
@@ -131,10 +148,16 @@ test('9. openInDocFromR · R navigates to full-document reader', async ({ page }
   // full document reader (the existing #documents/<docId>?p=… deep
   // link). The R5 docs-reader test verifies the underlying landing page;
   // this one verifies the keyboard shortcut wiring from the dossier.
+  //
+  // v19.43-fix3: the search-view URL no longer carries `?p=<paraId>` —
+  // the active paragraph is per-session state, not a share param. Read
+  // the active row's `data-para-id` instead, then assert that pressing
+  // R produces a `?p=<that>` URL on the documents view (where ?p IS
+  // intentional, since you DO share a deep link to a paragraph).
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
-  const paraId = new URL(page.url()).searchParams.get('p');
+  const paraId = await page.locator('.result.is-active').first().getAttribute('data-para-id');
   expect(paraId).toBeTruthy();
   await page.locator('body').press('r');
   await page.waitForFunction(() => window.location.hash.startsWith('#documents/'));
