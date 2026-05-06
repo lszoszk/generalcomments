@@ -1173,6 +1173,25 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   outline: none;
   border-color: var(--garnet);
 }
+/* v19.50: "Show all (N)" / "Show fewer" toggle below the article-filter
+   chip grid. Tiny ghost-link styling — sits below the chips, doesn't
+   compete with them visually. */
+.filter-toggle-more {
+  margin-top: 6px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--garnet);
+  font-family: var(--display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.filter-toggle-more:hover {
+  text-decoration: underline;
+}
 .checkbox-list label {
   font-family: var(--display);
   font-size: 13px;

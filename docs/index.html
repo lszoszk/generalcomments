@@ -341,13 +341,17 @@
 
     <!-- v19.47: articles-cited filter — JUR-only. Substantive Covenant
          articles only (Optional Protocol procedural articles in a
-         separate field). Also typeahead-filterable. -->
+         separate field). v19.50: typeahead + "Show all" toggle so the
+         long tail (155+ articles) doesn't drown the top hits. -->
     <details class="filter-block filter-collapsible" id="filter-block-articles" hidden>
       <summary>
         <span class="folio">Article cited <span class="dim" style="font-weight:normal">(Covenant)</span></span>
         <span class="folio dim" id="filter-articles-count">—</span>
       </summary>
+      <input type="search" id="filter-articles-search" class="filter-typeahead"
+             placeholder="Filter by article number…" autocomplete="off" />
       <div id="filter-articles" class="chip-grid chip-grid-compact"></div>
+      <button type="button" id="filter-articles-toggle" class="filter-toggle-more" hidden></button>
     </details>
 
     <details class="filter-block filter-collapsible" id="filter-block-country" hidden>

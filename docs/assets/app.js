@@ -117,7 +117,24 @@ function apiActive(scope) {
   // and the timeout means we fail fast.
   if (!apiEnabled()) return false;
   if (state.apiOnline === false) return false;
-  return scope === 'jur' || scope === 'all';
+  if (!(scope === 'jur' || scope === 'all')) return false;
+  // v19.50: JUR-only client filters that the API doesn't support yet
+  // (rights-keywords, articles-cited, country, outcome, report-type).
+  // Without this gate the user toggled a chip and saw NO change in
+  // results because runSearchViaApi only forwards body/labels/years.
+  // Falling back to local search when any of these are active keeps
+  // the filter actually filtering. The cost is the local-shard load
+  // (one-time, ~3-4 MB) — acceptable in exchange for correct results.
+  // Drop this gate per-filter as the API gains support.
+  const f = state.filters;
+  const usesUnsupportedFilter =
+    (f.rightsKeywords && f.rightsKeywords.size) ||
+    (f.articles && f.articles.size) ||
+    (f.countries && f.countries.size) ||
+    (f.outcomes && f.outcomes.size) ||
+    (f.reportTypes && f.reportTypes.size);
+  if (usesUnsupportedFilter) return false;
+  return true;
 }
 async function apiFetch(path, params) {
   const url = new URL(API_BASE + path);
@@ -545,6 +562,7 @@ async function boot() {
     syncOutcomeFilterVisibility();
     syncRightsFilterVisibility();
     syncArticleFilterVisibility();
+    syncStatusFilterVisibility();
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
     bindRouter();
@@ -2290,6 +2308,17 @@ function paintStatusFilter() {
   }
 }
 
+// v19.50: hide the "Document status" block (superseded toggle) when
+// the active scope is JUR or SP — superseded is a GC-only concept,
+// the toggle was visible-but-inert in non-GC scopes which read as a
+// bug. Mirrors the visibility helpers for report-types / countries /
+// outcomes / rights / articles.
+function syncStatusFilterVisibility() {
+  const block = $('.filter-block-status');
+  if (!block) return;
+  block.hidden = !(state.scope === 'gc' || state.scope === 'all');
+}
+
 // Show or hide the SP report-type filter based on scope
 function syncReportTypeFilterVisibility() {
   const block = $('#filter-block-reporttype');
@@ -2446,11 +2475,32 @@ function syncRightsFilterVisibility() {
 // ─────────── JUR articles-cited filter (v19.47) ───────────
 // Aggregates `articlesCited` across loaded JUR docs. Render as
 // chip-grid sorted by frequency. Each chip toggles inclusion.
+//
+// v19.50: defensive runtime sanitizer. The OHCHR-JURIS ingest used by
+// the v19.47 batch has a parsing bug that produces malformed values
+// like "Art. 319450" or "Art. 761879" (concatenated multi-article
+// strings — "art. 3, 19, 4, 50" → "319450" after comma+space stripping)
+// for two CCPR cases. The data fix lives in `_docs_internal/
+// sanitize_articles.py` (run as part of the next ingest batch); this
+// guard keeps the UI clean in the meantime by dropping any chip whose
+// leading article number exceeds the largest article in any UN core
+// treaty (CMW art. 93). Anything > 99 is therefore mechanically wrong.
+const ARTICLE_NUM_MAX = 99;
+function isPlausibleArticle(value) {
+  const m = String(value).match(/^Art\.\s*(\d+)/i);
+  if (!m) return true;     // unknown shape — leave alone, don't mask real bugs
+  return parseInt(m[1], 10) <= ARTICLE_NUM_MAX;
+}
+function sanitizeArticleList(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.filter(isPlausibleArticle);
+}
+
 function computeJurArticleFacet() {
   const counts = new Map();
   for (const d of state.documents.values()) {
     if (d.type !== 'jur') continue;
-    for (const a of (d.articlesCited || [])) {
+    for (const a of sanitizeArticleList(d.articlesCited)) {
       counts.set(a, (counts.get(a) || 0) + (d.paragraphCount || 1));
     }
   }
@@ -2459,14 +2509,36 @@ function computeJurArticleFacet() {
     .sort((a, b) => (b.count - a.count) || a.value.localeCompare(b.value));
 }
 
+// v19.50: typeahead-filtered + collapsed chip list. The full facet has
+// ~155 distinct articles after sanitisation — too many to scan as a
+// flat chip-grid. Show the top 12 by frequency by default, with a
+// typeahead input that narrows by substring and a "Show all" toggle
+// for the long tail. Selected chips are always rendered (so the user
+// can deselect them without scrolling away from a filtered view).
+const ARTICLE_FILTER_DEFAULT_LIMIT = 12;
 function paintArticleFilter() {
   const host = $('#filter-articles');
   const counter = $('#filter-articles-count');
+  const search = $('#filter-articles-search');
+  const toggle = $('#filter-articles-toggle');
   if (!host) return;
+
   const facet = computeJurArticleFacet();
   if (counter) counter.textContent = facet.length ? `${facet.length} articles` : '';
+
+  const expanded = host.dataset.expanded === '1';
+  const needle = (search?.value || '').trim().toLowerCase();
+  const matches = needle
+    ? facet.filter(({ value }) => value.toLowerCase().includes(needle))
+    : facet;
+  // Always render selected chips, then top-N by frequency.
+  const selected = matches.filter(({ value }) => state.filters.articles.has(value));
+  const rest = matches.filter(({ value }) => !state.filters.articles.has(value));
+  const visibleRest = expanded || needle ? rest : rest.slice(0, ARTICLE_FILTER_DEFAULT_LIMIT);
+  const visible = [...selected, ...visibleRest];
+
   host.innerHTML = '';
-  for (const { value, count } of facet) {
+  for (const { value, count } of visible) {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'chip chip-compact jur-chip';
@@ -2476,10 +2548,28 @@ function paintArticleFilter() {
     b.addEventListener('click', () => {
       if (state.filters.articles.has(value)) state.filters.articles.delete(value);
       else state.filters.articles.add(value);
-      b.classList.toggle('on');
+      paintArticleFilter();
       runSearch();
     });
     host.appendChild(b);
+  }
+
+  // Show-all toggle: only meaningful when there's actually a tail to expand.
+  if (toggle) {
+    const hiddenCount = !expanded && !needle ? Math.max(0, rest.length - ARTICLE_FILTER_DEFAULT_LIMIT) : 0;
+    toggle.hidden = hiddenCount === 0 && !expanded;
+    toggle.textContent = expanded ? 'Show fewer' : `Show all (${rest.length})`;
+    if (!toggle.dataset.bound) {
+      toggle.dataset.bound = '1';
+      toggle.addEventListener('click', () => {
+        host.dataset.expanded = expanded ? '0' : '1';
+        paintArticleFilter();
+      });
+    }
+  }
+  if (search && !search.dataset.bound) {
+    search.dataset.bound = '1';
+    search.addEventListener('input', () => paintArticleFilter());
   }
 }
 
@@ -2718,6 +2808,7 @@ function bindUI() {
     syncOutcomeFilterVisibility();
     syncRightsFilterVisibility();
     syncArticleFilterVisibility();
+    syncStatusFilterVisibility();
 
     // v19.10: jurisprudence has 3,100+ documents and 111k paragraphs, so
     // the default "Paragraphs" view dumps a wall of weakly-related rows on
@@ -4099,7 +4190,9 @@ async function runSearch() {
         if (!dRk.length || ![...f.rightsKeywords].some(k => dRk.includes(k))) continue;
       }
       if (f.articles.size) {
-        const dArt = doc.articlesCited || [];
+        // v19.50: sanitised view, so a chip the user can SEE in the
+        // filter aligns with the values we actually match against here.
+        const dArt = sanitizeArticleList(doc.articlesCited);
         if (!dArt.length || ![...f.articles].some(a => dArt.includes(a))) continue;
       }
     }
@@ -5389,9 +5482,14 @@ function paintDossier() {
     : '';
 
   // JUR-only Articles cited — chip strip in the grid.
-  const articlesCitedHtml = (isJurDoc && Array.isArray(doc?.articlesCited) && doc.articlesCited.length)
-    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Articles cited</div><div class="v">${
-        doc.articlesCited.map(a => `<span class="dossier-chip">${escape(a)}</span>`).join(' ')
+  // v19.50: relabelled "Mentioned in decision text" to make the
+  // distinction with "Articles invoked" (= claimed by the author in the
+  // case header) discoverable. Also sanitises out malformed values
+  // produced by the OHCHR-JURIS ingest parsing bug ("Art. 319450" etc.).
+  const articlesCitedSan = sanitizeArticleList(doc?.articlesCited);
+  const articlesCitedHtml = (isJurDoc && articlesCitedSan.length)
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio" title="Article references extracted from the decision body — useful for full-text discovery, but unverified.">Mentioned in decision text</div><div class="v">${
+        articlesCitedSan.map(a => `<span class="dossier-chip">${escape(a)}</span>`).join(' ')
       }</div></div>`
     : '';
 
@@ -5429,10 +5527,20 @@ function paintDossier() {
       }</div></div>`
     : '';
 
-  // Articles invoked from the case header (front matter). Distinct from
-  // articlesCited (which we extract from the body text). Render as
-  // "Art. X(Y)(z)" chips covering covenant, convention, and OP articles.
+  // Articles INVOKED — what the complainant alleged was violated, taken
+  // from the case header (front matter). Authoritative for what the
+  // case is "about". Distinct from "Mentioned in decision text" above
+  // (which is a noisier full-text extraction).
+  //
+  // v19.50: handle two failure modes. (1) Some `*ArticlesParsed` entries
+  // are bare strings ('OP1 Art. 2') instead of objects — those produced
+  // "Art. undefined" chips because formatArt() tried to read `.article`
+  // off a string. We now coerce strings into a synthetic object. (2) An
+  // entry with no `article` field (still possible from older ingests)
+  // is dropped rather than rendered as "Art. undefined".
   const formatArt = (a) => {
+    if (typeof a === 'string') return a;            // already-formatted upstream
+    if (!a || !a.article) return null;              // skip undefined / malformed
     let s = `Art. ${a.article}`;
     if (a.paragraph) s += `(${a.paragraph}${a.subparagraph ? ')(' + a.subparagraph : ''})`;
     else if (a.subparagraph) s += `(${a.subparagraph})`;
@@ -5443,9 +5551,14 @@ function paintDossier() {
     ...(doc?.conventionArticlesParsed || []),
     ...(doc?.optionalProtocolArticlesParsed || []),
   ];
-  const articlesInvokedHtml = (isJurDoc && allArticles.length)
-    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Articles invoked</div><div class="v">${
-        allArticles.map(a => `<span class="dossier-chip" title="${escape(a.instrument || '')}">${escape(formatArt(a))}</span>`).join(' ')
+  const articlesInvokedRendered = allArticles
+    .map(a => ({ raw: a, label: formatArt(a) }))
+    .filter(x => x.label);
+  const articlesInvokedHtml = (isJurDoc && articlesInvokedRendered.length)
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio" title="Articles the complainant alleged were violated — taken from the case header. Authoritative for what the case is about.">Invoked by complainant</div><div class="v">${
+        articlesInvokedRendered.map(({ raw, label }) =>
+          `<span class="dossier-chip" title="${escape((raw && raw.instrument) || '')}">${escape(label)}</span>`
+        ).join(' ')
       }</div></div>`
     : '';
 
