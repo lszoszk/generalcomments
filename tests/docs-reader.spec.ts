@@ -23,9 +23,13 @@ test('R1. railRenders · rail has 100+ rows, scope tabs visible', async ({ page 
   await page.waitForTimeout(800);
   await expect(page.locator('.docs-rail-list')).toBeVisible();
   expect(await page.locator('.docs-rail-row').count()).toBeGreaterThan(100);
-  // Four scope tabs: All / GC / JUR / SP
-  const tabs = await page.locator('.docs-scope-opt').allTextContents();
-  expect(tabs).toEqual(['All', 'GC', 'JUR', 'SP']);
+  // v19.49: dropped the "All" tab; three corpus tabs GC / JUR / SP.
+  // Each button now has TWO label spans (full + abbreviation) so we
+  // assert on the data-docs-scope attribute instead of the text.
+  const scopes = await page.locator('.docs-scope-opt').evaluateAll(
+    (els) => els.map((el) => (el as HTMLElement).dataset.docsScope)
+  );
+  expect(scopes).toEqual(['gc', 'jur', 'sp']);
 });
 
 test('R2. clickRowOpensDoc · rail click → reader paints + hash', async ({ page }) => {
@@ -67,8 +71,9 @@ test('R5. drawerOutline · outline + workspace tools render', async ({ page, vie
   await expect(page.locator('#docs-drawer')).toBeVisible();
   await page.locator('.docs-reader-para').first().click();
   await page.waitForTimeout(300);
-  // Three .docs-drawer-block rows — expect at least one visible. Use
-  // .first() because strict mode would fail on three matches.
+  // v19.49: "Open in search" drawer block was removed — Outline +
+  // workspace tools remain. Use .first() because strict mode would
+  // fail on multiple matches.
   await expect(page.locator('.docs-drawer-block').first()).toBeVisible();
   await expect(page.locator('#dw-bm')).toBeVisible();
   // v19.15: #dw-pin removed — pin lives only on the per-row 📌 affordance now.

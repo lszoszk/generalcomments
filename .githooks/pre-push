@@ -1,0 +1,44 @@
+#!/bin/sh
+# Pre-push hook: run the chromium Playwright suite before allowing the push.
+#
+# Why a hook (and not just CI)?
+#   GitHub Pages deploys directly from the main/docs folder. There is no
+#   workflow gate, so a broken build that fails CI still ships to prod.
+#   Running tests locally before push catches regressions earlier and
+#   keeps the live site in sync with whatever passes locally.
+#
+# Override: set UNHRDB_SKIP_TESTS=1 to bypass (e.g. for emergency hotfixes
+# or doc-only changes that don't affect the runtime).
+#
+# Cost: ~3-4 min for the chromium suite. Acceptable given the visibility
+# gain — broken pushes are far more expensive in cleanup time.
+
+set -e
+
+if [ "${UNHRDB_SKIP_TESTS:-0}" = "1" ]; then
+  echo "[pre-push] UNHRDB_SKIP_TESTS=1 — skipping test suite."
+  exit 0
+fi
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+# Only run if the push touches files the tests can see (docs/, tests/, or
+# playwright.config.ts). Bumping a README or non-shipping file shouldn't
+# pay the test toll.
+CHANGED=$(git diff --name-only "@{push}" HEAD 2>/dev/null || git diff --name-only HEAD~1 HEAD)
+if ! echo "$CHANGED" | grep -qE '^(docs/|tests/|playwright\.config\.ts|package(-lock)?\.json)'; then
+  echo "[pre-push] No runtime-affecting changes detected — skipping tests."
+  exit 0
+fi
+
+echo "[pre-push] Running chromium Playwright suite (UNHRDB_SKIP_TESTS=1 to bypass)…"
+if ! npx playwright test --project=chromium --reporter=line; then
+  echo ""
+  echo "[pre-push] ❌ Tests failed. Push blocked."
+  echo "[pre-push] Fix the failures or run with UNHRDB_SKIP_TESTS=1 to bypass."
+  exit 1
+fi
+
+echo "[pre-push] ✅ Tests passed."
+exit 0

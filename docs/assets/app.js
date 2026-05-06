@@ -989,9 +989,21 @@ function applyUrlState(parsed) {
 
   // Active paragraph
   // v19.43-fix3: per-session interaction — never auto-restored from
-  // URL on boot. The dossier should always start closed on a fresh
-  // page load. Old share links carrying ?p=… are silently ignored.
-  state.activeId = null;
+  // URL on boot for the SEARCH view (the dossier should start closed
+  // on a fresh page load, and old share links carrying ?p=… on the
+  // search hash are silently ignored).
+  //
+  // v19.50: BUT the documents reader uses ?p=<paraId> as a legitimate
+  // deep-link target ("scroll to this paragraph and highlight it") —
+  // openDocReader writes that param itself. So when the URL hash is
+  // `#documents/<docId>` AND the parsed.activeId belongs to that doc,
+  // preserve it for parseDocsHash() to consume.
+  const hash = window.location.hash.replace(/^#/, '');
+  const docMatch = hash.match(/^documents\/(.+)$/);
+  const docHashId = docMatch ? decodeURIComponent(docMatch[1]) : null;
+  const paraIdBelongsToDoc = parsed.activeId && docHashId
+    && parsed.activeId.startsWith(docHashId + '-');
+  state.activeId = paraIdBelongsToDoc ? parsed.activeId : null;
 }
 
 // v19.12: keep the operators-row chip's visual state synchronized with
@@ -1479,9 +1491,16 @@ function parseDocsHash() {
   const hash = window.location.hash.replace(/^#/, '');                 // "documents/<docId>"
   const m = hash.match(/^documents\/(.+)$/);
   const docId = m ? decodeURIComponent(m[1]) : null;
-  const paraId = new URLSearchParams(window.location.search).get('p');
-  // Only honour ?p when it actually belongs to the docId we're opening,
-  // otherwise ignore (it's probably a search-view share URL).
+  // v19.50: encodeUrlState() runs early in boot and strips ?p= (per
+  // the v19.43-fix3 design — active paragraph is per-session, not in
+  // the URL). The decoded value is preserved on state.activeId, so
+  // fall back to that when the query string has been wiped. Without
+  // this, deep links like "?p=<paraId>#documents/<docId>" silently
+  // drop the paragraph anchor between cold-load and paintDocumentsView.
+  const fromQuery = new URLSearchParams(window.location.search).get('p');
+  const paraId = fromQuery || state.activeId || null;
+  // Only honour the paraId when it actually belongs to the docId we're
+  // opening, otherwise ignore (it's probably a search-view share URL).
   const paraOk = docId && paraId && paraId.startsWith(docId + '-');
   return { docId, paraId: paraOk ? paraId : null };
 }
@@ -1653,6 +1672,19 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
         }
       } catch (e) { console.warn('[jur shard load failed]', e); }
     }
+  }
+
+  // v19.50: GC + SP paragraphs live in corpus.json, loaded lazily by
+  // ensureCorpusReady(). On a cold deep-link load (#documents/<gc-id>),
+  // setView fires before the background corpus pre-warm finishes, so
+  // paintDocReaderBody would hit "DOCUMENT BODY UNAVAILABLE" because
+  // state.paragraphs is still empty. Await the loader here so the deep
+  // link case behaves like a click-after-warm-up. No-op if already loaded.
+  if (doc.type !== 'jur' && !state.paragraphs.length) {
+    try {
+      $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading document corpus…</div>';
+      await ensureCorpusReady();
+    } catch (e) { console.warn('[corpus load failed]', e); }
   }
 
   state.docsActiveDocId = docId;

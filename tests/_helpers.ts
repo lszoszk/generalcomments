@@ -62,6 +62,12 @@ export async function bootApp(
     () => {
       const folio = document.getElementById('mast-folio')?.textContent || '';
       const ready = /\d+[\s ]*\d*\s*¶/.test(folio);
+      // v19.50: guard against `document.body` being null on the very
+      // first poll after `waitUntil: 'commit'`. Newer Playwright
+      // surfaces predicate exceptions as fatal test failures (older
+      // versions silently retried), so this null deref used to be
+      // invisible and now blows up the entire suite.
+      if (!document.body) return false;
       const viewSet = !!document.body.dataset.activeView;
       return ready && viewSet;
     },
