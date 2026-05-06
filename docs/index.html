@@ -4,6 +4,43 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="uRqyBExQlN44ffcViC03Aa1do01KisztE9Sol47X8Jg" />
+<!-- v19.50.2 (audit L3): Content-Security-Policy.
+     Scripts are limited to this origin + the CDN hosts whose assets we
+     pin via SRI (xlsx + flexsearch) + GA4 + the hash of the GA
+     bootstrap inline block. The hash is the raw <script>…</script>
+     body text including leading newline+indent — recompute by saving
+     the page and running:
+       sha256 of the exact `script.textContent`, base64-encoded.
+     Or read the violation report from the browser console; CSP error
+     messages include the expected hash inline.
+     Styles allow 'unsafe-inline' because the app keeps ~20 small
+     style="…" attributes for layout tweaks; tighten to a hash list if
+     those migrate to classes. connect-src covers the unhrdb-api VM,
+     GA4, and GitHub.
+     frame-ancestors is omitted (it's ignored in <meta> CSP, only
+     works as an HTTP header — set on the deploy if clickjacking is a
+     concern). -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self'
+    https://cdn.sheetjs.com
+    https://cdn.jsdelivr.net
+    https://www.googletagmanager.com
+    'sha256-oEt6+K3ebdUcKakq19sHrCp7ZQBJnobiuqfhiDcpct4=';
+  style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' data:;
+  connect-src 'self'
+    https://150.254.115.204
+    https://www.google-analytics.com
+    https://*.google-analytics.com
+    https://*.googletagmanager.com
+    https://github.com
+    https://api.github.com;
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self'
+" />
 <title>UN Human Rights Database</title>
 <meta name="description" content="Paragraph-level search across UN Treaty Body General Comments, CCPR/CEDAW/CRPD jurisprudence preview, and Special Procedures reports — for human rights researchers, academics and legal practitioners." />
 <link rel="canonical" href="https://lszoszk.github.io/generalcomments/" />

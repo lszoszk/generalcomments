@@ -147,7 +147,10 @@ test('D7. readNavigatesToFullDoc · Read jumps to #documents/<docId>?p=…', asy
   expect(page.url()).toContain(`#documents/${paraId!.replace(/-\d{4}$/, '')}`);
   expect(page.url()).toContain(`p=${paraId}`);
   // Full document reader is now visible with the matching ¶ active.
-  await expect(page.locator('.docs-reader-para.is-active')).toHaveAttribute('data-para-id', paraId!);
+  // openInDocReader is a hard navigation, so the reader re-boots
+  // before paintDocReaderBody marks the paragraph — bump the wall.
+  await expect(page.locator('.docs-reader-para.is-active'))
+    .toHaveAttribute('data-para-id', paraId!, { timeout: 15_000 });
 });
 
 test('D8. permalink · Link button copies a deep URL containing ?p=…', async ({ page, browserName }) => {

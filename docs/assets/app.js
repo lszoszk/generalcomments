@@ -194,9 +194,10 @@ async function runSearchViaApi(runId) {
     page: 1,
     // The API caps page_size at 200. That's enough for the first
     // screen + a few infinite-scroll ticks — past 200, follow-up
-    // pages are fetched on demand (TODO Sprint-3.1: chain pages on
-    // scroll). 200 is also a sensible "you should refine your
-    // filters" cliff, mirroring our local RESULT_HARD_CAP behaviour.
+    // pages are fetched on demand by fetchNextApiPage() (called from
+    // the IntersectionObserver below paintResults). 200 is also a
+    // sensible "you should refine your filters" cliff, mirroring our
+    // local RESULT_HARD_CAP behaviour.
     page_size: 200,
   };
   // v19.4: route every chip through `body=` — a server-side union that
@@ -577,10 +578,6 @@ async function boot() {
     bindTour();                          // v19.43: first-visit tour controller
     initDossierResizer();                // v15: drag handle + persisted width
     initDossierFontPref();               // v15: restore S/M/L preference
-    // v19.43-fix3: app-shell layout — window never scrolls, so the
-    // mast can't and shouldn't shrink. initCompactHeader() is a no-op
-    // here; left intact in source for reference but no longer wired.
-    // initCompactHeader();
     state.apiPingPromise = pingApi();    // v19.11: stashed so the first JUR runSearch can await it briefly
     paintDiffTray();                     // restore pinned-tray on reload
     paintWorkspaceBadge();
@@ -1606,13 +1603,6 @@ function paintDocsRail() {
       if (docId) openDocReader(docId);
     });
   }
-  // The original per-row loop is preserved below as a NO-OP so the next
-  // few lines (which deliberately don't run anything else for a click,
-  // but originally chained off `.forEach(a => { ... })`) keep their
-  // syntactic shape until removed in a follow-up.
-  host.querySelectorAll('.docs-rail-row').forEach(a => {
-    // intentionally empty — handled by delegated listener above
-  });
 }
 
 function renderRailCommittee(committee, list, type) {
@@ -3168,14 +3158,23 @@ function exportBibtex(rows) {
 
 // SheetJS is large (~600 KB) — load on demand, only when user asks for XLSX.
 let sheetJsPromise = null;
+// v19.50.2 (audit H7): Subresource Integrity for CDN-hosted scripts.
+// Without `integrity=` a CDN compromise (or DNS hijack) could silently
+// inject arbitrary JS into the SPA. The hash pins this exact build of
+// SheetJS xlsx-0.20.3; bumping the version means recomputing it via:
+//   curl -sf <url> | openssl dgst -sha384 -binary | openssl base64 -A
+const SHEETJS_URL = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+const SHEETJS_SRI = 'sha384-EnyY0/GSHQGSxSgMwaIPzSESbqoOLSexfnSMN2AP+39Ckmn92stwABZynq1JyzdT';
 function loadSheetJS() {
   if (window.XLSX) return Promise.resolve(window.XLSX);
   if (sheetJsPromise) return sheetJsPromise;
   sheetJsPromise = new Promise((resolve, reject) => {
     const s = document.createElement('script');
-    s.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+    s.src = SHEETJS_URL;
+    s.integrity = SHEETJS_SRI;
+    s.crossOrigin = 'anonymous';
     s.onload = () => resolve(window.XLSX);
-    s.onerror = () => reject(new Error('SheetJS failed to load'));
+    s.onerror = () => reject(new Error('SheetJS failed to load (or SRI mismatch)'));
     document.head.appendChild(s);
   });
   return sheetJsPromise;
@@ -3478,14 +3477,20 @@ const IDB_NAME = 'gr-cache';
 const IDB_STORE = 'flex-index';
 
 let flexSearchPromise = null;
+// v19.50.2 (audit H7): SRI for the FlexSearch CDN script. See SHEETJS_SRI
+// above for the rationale and recompute steps.
+const FLEXSEARCH_URL = 'https://cdn.jsdelivr.net/npm/flexsearch@0.7.43/dist/flexsearch.bundle.min.js';
+const FLEXSEARCH_SRI = 'sha384-omGpH0ys9SL6Z7v/u6TzV7YS77iCT53Bjl2W1MCkg58+e3huwjWJgHrpOkumVj1c';
 function loadFlexSearch() {
   if (window.FlexSearch) return Promise.resolve(window.FlexSearch);
   if (flexSearchPromise) return flexSearchPromise;
   flexSearchPromise = new Promise((resolve, reject) => {
     const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/flexsearch@0.7.43/dist/flexsearch.bundle.min.js';
+    s.src = FLEXSEARCH_URL;
+    s.integrity = FLEXSEARCH_SRI;
+    s.crossOrigin = 'anonymous';
     s.onload = () => resolve(window.FlexSearch);
-    s.onerror = () => reject(new Error('FlexSearch failed to load'));
+    s.onerror = () => reject(new Error('FlexSearch failed to load (or SRI mismatch)'));
     document.head.appendChild(s);
   });
   return flexSearchPromise;
@@ -6288,11 +6293,23 @@ function setPrefCiteFmt(key) {
 // v19.43: copy raw paragraph text. Strips inline `[[fn:N]]` markers and
 // rendered footnote-marker glyphs; produces clean prose suitable for
 // pasting into a doc.
-function copyParagraphText(anchorEl, para) {
+//
+// v19.50.2 (audit M5): the clipboard API returns a Promise that
+// rejects on permission failure / focus issues / Safari weirdness.
+// The previous `try { writeText(...) } catch {}` only caught the
+// synchronous "no clipboard API" branch, so a real write failure
+// still left the user with a misleading "Copied!" toast. Now we
+// await the promise and surface a real error toast on rejection.
+async function copyParagraphText(anchorEl, para) {
   let text = (para.text || '').trim();
   text = text.replace(/\[\[fn:\d+\]\]/g, '');         // inline marker tokens
   text = text.replace(/\s{2,}/g, ' ').trim();
-  try { navigator.clipboard?.writeText(text); } catch {}
+  try {
+    await navigator.clipboard?.writeText(text);
+  } catch (e) {
+    showFeedbackToast({ ok: false, _msg: 'Clipboard write failed', _mark: '⚠' });
+    return;
+  }
   if (anchorEl) {
     anchorEl.classList.add('is-flash');
     setTimeout(() => anchorEl.classList.remove('is-flash'), 700);
@@ -6300,12 +6317,17 @@ function copyParagraphText(anchorEl, para) {
   showFeedbackToast({ ok: true, _msg: 'Paragraph text copied', _mark: '⎘' });
 }
 
-function copyCiteWithPref(anchorEl, para) {
+async function copyCiteWithPref(anchorEl, para) {
   const doc = state.documents.get(para.docId);
   const key = getPrefCiteFmt();
   const fmt = CITE_FORMATS.find(f => f.key === key) || CITE_FORMATS[0];
   const cite = fmt.build(doc, para);
-  try { navigator.clipboard?.writeText(cite); } catch {}
+  try {
+    await navigator.clipboard?.writeText(cite);
+  } catch (e) {
+    showFeedbackToast({ ok: false, _msg: 'Clipboard write failed', _mark: '⚠' });
+    return;
+  }
   // Visual feedback on the button. We add `is-flash` for ~700 ms, same
   // class the dossier Copy button uses, so the same CSS rule covers it.
   if (anchorEl) {
@@ -7791,40 +7813,12 @@ function initDossierFontPref() {
 }
 
 // ─────────── Compact sticky header (v19.20) ───────────
-// When the user scrolls past COMPACT_THRESHOLD px the masthead shrinks:
-// folio text + subtitle collapse, title font drops, padding tightens.
-// The --mast-h CSS variable is kept in sync so the sticky filter panel
-// can always offset its `top` below the mast without hard-coding heights.
-function initCompactHeader() {
-  const mast = document.querySelector('header.mast');
-  if (!mast) return;
-  const root = document.documentElement;
-  const COMPACT_THRESHOLD = 60;
-  let compact = false;
-
-  function syncMastHeight() {
-    root.style.setProperty('--mast-h', mast.offsetHeight + 'px');
-  }
-
-  function applyCompact(nowCompact) {
-    if (nowCompact === compact) return;
-    compact = nowCompact;
-    mast.classList.toggle('mast--compact', compact);
-    // After the CSS transition finishes, re-measure and update the var.
-    setTimeout(syncMastHeight, 200);
-  }
-
-  window.addEventListener('scroll', () => {
-    applyCompact(window.scrollY > COMPACT_THRESHOLD);
-  }, { passive: true });
-
-  // Set accurately now (triggers a synchronous reflow which is fine
-  // here since we're called at the end of boot(), layout is stable)
-  // and once more after the first paint so percentage/calc values
-  // resolve correctly in older engines.
-  syncMastHeight();
-  requestAnimationFrame(syncMastHeight);
-}
+// initCompactHeader removed in v19.50.2 (audit M6). The pre-v19.43-fix3
+// design had the window scroll, so the masthead could shrink on
+// scroll. The current app-shell layout (window never scrolls; only
+// the centre column scrolls inside its own pane) makes the helper a
+// permanent no-op. Removed here; CSS still reserves space via
+// --mast-h on :root, set elsewhere.
 
 // ─────────── Helpers ───────────
 function escape(s) {
@@ -8060,9 +8054,9 @@ function _positionFnPopover(trigger, pop) {
   pop.style.top = top + 'px';
 }
 
-function escapeRe(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
+// `escapeRe` removed in v19.50.2 (audit M3 dedup). It was identical to
+// `escapeRegex` (line 3726) and had zero call sites. Use `escapeRegex`
+// for any regex-escape need.
 
 function formatOutcome(value) {
   return String(value || '')

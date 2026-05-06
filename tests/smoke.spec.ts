@@ -162,8 +162,12 @@ test('9. openInDocFromR · R navigates to full-document reader', async ({ page }
   await page.locator('body').press('r');
   await page.waitForFunction(() => window.location.hash.startsWith('#documents/'));
   expect(page.url()).toContain(`p=${paraId}`);
+  // openInDocReader uses window.location.assign() — a hard navigation —
+  // so the docs-reader has to re-boot and re-fetch the corpus before
+  // paintDocReaderBody can mark the active paragraph. 5 s isn't enough
+  // on slow CI machines; 15 s mirrors the bootApp wall.
   await expect(page.locator('.docs-reader-para.is-active'))
-    .toHaveAttribute('data-para-id', paraId!);
+    .toHaveAttribute('data-para-id', paraId!, { timeout: 15_000 });
 });
 
 test('10. workspaceBadge · ★ flips the badge count', async ({ page }) => {
