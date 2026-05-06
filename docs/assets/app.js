@@ -1737,7 +1737,26 @@ function paintDocReaderBody(doc, paraId) {
   const ast = state.query ? parseQuery(state.query) : null;
   const readerTerms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
 
-  const paragraphs = state.paragraphs.filter(p => p.docId === doc.docId);
+  // v19.51 (audit Classes A + B): filter out metadata-as-paragraph
+  // noise (Class B) and duplicate-preamble paragraphs (Class A).
+  // The data fix in _docs_internal/sanitize_metadata_paragraphs.py +
+  // resplit_gc_paragraphs.py removes these from corpus.json / jur
+  // shards, but a future ingest could reintroduce them — this runtime
+  // guard keeps the reader clean unconditionally.
+  const docParagraphs = state.paragraphs.filter(p => p.docId === doc.docId);
+  const preambleText = (
+    docParagraphs.find(p => p.isPreamble === true)?.text || ''
+  ).trim();
+  const paragraphs = docParagraphs.filter(p => {
+    if (isReaderNoiseStub(p.text)) return false;
+    // Class A: a non-preamble paragraph that repeats the preamble verbatim
+    // (older `annotated-cedaw-gr*` extraction emitted the entire document
+    // twice — once with isPreamble=true, once as ¶1 with identical text).
+    if (!p.isPreamble && preambleText && preambleText === (p.text || '').trim()) {
+      return false;
+    }
+    return true;
+  });
   if (!paragraphs.length) {
     host.innerHTML = `
       <div class="docs-reader-empty">
@@ -2501,6 +2520,34 @@ function isPlausibleArticle(value) {
 function sanitizeArticleList(arr) {
   if (!Array.isArray(arr)) return [];
   return arr.filter(isPlausibleArticle);
+}
+
+// v19.51 (audit Classes A + B): runtime filter for reader noise.
+// Drops paragraphs that are actually case-header metadata fields
+// emitted as bogus paragraphs by the upstream PDF extractor
+// ("Communication submitted by:", "State party:", "Substantive
+// issue:", etc.) and bare-stub paragraphs (date crumbs, title
+// lines). Also drops the older Class-A duplicate-preamble pattern
+// where a non-preamble paragraph repeats the preamble text verbatim.
+// Mirrors `_docs_internal/sanitize_metadata_paragraphs.py` +
+// `resplit_gc_paragraphs.py`. The data files have been cleaned,
+// but this guard keeps the reader resilient against future ingest
+// regressions.
+const READER_NOISE_KV = /^(?:Communication submitted by|Submitted by|Alleged victim|State [Pp]arty|Dates? of communication|Date of adoption of (?:decision|[Vv]iews)|Subject matter|Procedural issues?|Substantive issues?|Document references?|Articles? of the Covenant|Articles? of the (?:Optional Protocol|Convention))\b\s*:?/;
+const READER_NOISE_TITLE = /^(?:Decision|Views) adopted by the Committee\b.*(?:communication|case) No\.\s*\d+\/\d+/i;
+const READER_NOISE_COMM_NO = /^Communication No\.\s*\d+\/\d+\s*$/i;
+const READER_NOISE_MONTH_YEAR = /^(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*$/i;
+const READER_NOISE_PAGE_HEADER = /^on civil and political rights\s*$|^on the elimination of (?:racial )?discrimination(?: against women)?\s*$/i;
+function isReaderNoiseStub(text) {
+  const t = (text || '').trim();
+  if (!t) return true;
+  return (
+    READER_NOISE_KV.test(t) ||
+    READER_NOISE_TITLE.test(t) ||
+    READER_NOISE_COMM_NO.test(t) ||
+    READER_NOISE_MONTH_YEAR.test(t) ||
+    READER_NOISE_PAGE_HEADER.test(t)
+  );
 }
 
 function computeJurArticleFacet() {
