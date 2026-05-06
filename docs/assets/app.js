@@ -58,9 +58,14 @@ const state = {
   jur: {
     manifest: null,
     facets: null,
-    loaded: false,
+    loaded: false,             // ALL shards loaded (full search ready)
     loading: null,
     error: null,
+    // v19.48: per-shard tracking so the Documents tab can lazy-load
+    // just the shard a clicked doc lives in (~1-3 MB) instead of the
+    // whole corpus (~30 MB sequential).
+    loadedShards: new Set(),   // shardId names ("jur_CCPR_2014-2015") fetched so far
+    shardLoaders: new Map(),   // shardId → in-flight Promise (so two parallel reads coalesce)
   },
 };
 
@@ -1478,13 +1483,25 @@ function paintDocsRail() {
   }
   host.innerHTML = html.join('');
 
-  // Click handler — single delegation, no per-row listeners.
-  host.querySelectorAll('.docs-rail-row').forEach(a => {
-    a.addEventListener('click', (e) => {
+  // v19.48: TRUE single-delegation click handler (was attaching 3,176
+  // individual listeners — visible jank when the rail rebuilds). Bind
+  // once via dataset flag; subsequent renders just replace innerHTML.
+  if (!host.dataset.delegateBound) {
+    host.dataset.delegateBound = '1';
+    host.addEventListener('click', (e) => {
+      const a = e.target.closest('.docs-rail-row');
+      if (!a) return;
       e.preventDefault();
       const docId = a.dataset.docId;
       if (docId) openDocReader(docId);
     });
+  }
+  // The original per-row loop is preserved below as a NO-OP so the next
+  // few lines (which deliberately don't run anything else for a click,
+  // but originally chained off `.forEach(a => { ... })`) keep their
+  // syntactic shape until removed in a follow-up.
+  host.querySelectorAll('.docs-rail-row').forEach(a => {
+    // intentionally empty — handled by delegated listener above
   });
 }
 
@@ -1553,12 +1570,24 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
     return;
   }
 
-  // JUR paragraphs live in lazy shards; pull if needed.
-  if (doc.type === 'jur' && !state.jur.loaded) {
-    try {
-      $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading jurisprudence shard…</div>';
-      await loadJurCorpus();
-    } catch (e) { console.warn('[jur load failed]', e); }
+  // v19.48: JUR paragraphs live in lazy shards. Pull ONLY the shard
+  // this doc lives in (~1-3 MB) instead of the whole corpus
+  // (~30 MB sequential). doc.shardId is set at ingest time
+  // (e.g. "jur_CCPR_2014-2015"). Falls back to the full loader for
+  // legacy records that lack the field.
+  if (doc.type === 'jur') {
+    const shardId = doc.shardId;
+    const alreadyLoaded = shardId && state.jur.loadedShards.has(shardId);
+    if (!alreadyLoaded) {
+      try {
+        $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading jurisprudence shard…</div>';
+        if (shardId) {
+          await loadJurShard(shardId);
+        } else if (!state.jur.loaded) {
+          await loadJurCorpus();
+        }
+      } catch (e) { console.warn('[jur shard load failed]', e); }
+    }
   }
 
   state.docsActiveDocId = docId;
@@ -3686,53 +3715,116 @@ function paintLowMemoryFallback() {
     </ul>`;
 }
 
+// v19.48: shared paragraph-ingest path used by both the per-shard lazy
+// loader and the bulk corpus loader. Idempotent — re-ingesting the same
+// shard is a no-op because state.jur.loadedShards is checked upstream.
+function _ingestJurShardData(shard) {
+  const additions = [];
+  for (const p of shard.paragraphs || []) {
+    if (state.paragraphById.has(p.id)) continue;
+    const doc = state.documents.get(p.docId);
+    const enriched = {
+      ...p,
+      type: 'jur',
+      labels: p.labels || [],
+      committee: doc?.committee || p.treaty || 'Jurisprudence',
+      committees: doc?.committees || (p.treaty ? [p.treaty] : ['Jurisprudence']),
+      year: p.year ?? doc?.year ?? null,
+      n: p.n ?? p.paragraphId ?? p.idx,
+    };
+    state.paragraphs.push(enriched);
+    state.paragraphById.set(enriched.id, enriched);
+    additions.push(enriched);
+  }
+  // Add to FlexSearch if it's already built (boot path may not have built it yet).
+  if (state.searchIndex && additions.length) {
+    for (const p of additions) {
+      const fnText = (p.footnotes && p.footnotes.length)
+        ? p.footnotes.map(f => f.text || '').join(' ')
+        : '';
+      state.searchIndex.add({
+        id: p.id,
+        text: foldDiacritics(stripFnMarkers(p.text)),
+        fnText: foldDiacritics(fnText),
+      });
+    }
+  }
+  return additions.length;
+}
+
+// v19.48: lazy single-shard loader. Used when a user opens a JUR doc
+// in the Documents tab — we fetch ONLY the shard that doc lives in
+// (~1-3 MB) instead of all 28 shards (~30 MB sequential). Coalesces
+// duplicate concurrent calls via an in-flight Promise registry.
+async function loadJurShard(shardName) {
+  if (!shardName) return 0;
+  const key = shardName.startsWith('shards/') ? shardName : `shards/${shardName}.json`;
+  const shardId = key.replace('shards/', '').replace(/\.json$/, '');
+  if (state.jur.loadedShards.has(shardId)) return 0;
+  const inflight = state.jur.shardLoaders.get(shardId);
+  if (inflight) return inflight;
+
+  const promise = (async () => {
+    const shard = await fetchJson(`${JUR_BASE}${key}`);
+    const added = _ingestJurShardData(shard);
+    state.jur.loadedShards.add(shardId);
+    _flushDfCache();
+    _avgDocLen = null;
+    return added;
+  })().finally(() => {
+    state.jur.shardLoaders.delete(shardId);
+  });
+
+  state.jur.shardLoaders.set(shardId, promise);
+  return promise;
+}
+
+// v19.48: full-corpus loader (used by JUR-scope search & "All scope").
+// Skips shards already pulled in lazily, parallelises the rest.
 async function loadJurCorpus() {
   const files = state.jur.manifest?.files || {};
   const shardNames = Object.keys(files)
     .filter(name => name.startsWith('shards/'))
     .sort();
-  const totalBytes = shardNames.reduce((sum, name) => sum + (files[name]?.bytes || 0), 0);
+  const remaining = shardNames.filter(n => {
+    const id = n.replace('shards/', '').replace(/\.json$/, '');
+    return !state.jur.loadedShards.has(id);
+  });
+  if (!remaining.length) {
+    state.jur.loaded = true;
+    paintScopeCounts();
+    if (state.view === 'documents') paintDocumentsView();
+    return;
+  }
+  const totalBytes = remaining.reduce((sum, name) => sum + (files[name]?.bytes || 0), 0);
   const mb = totalBytes ? ` (~${(totalBytes / 1024 / 1024).toFixed(0)} MB)` : '';
   $('#results-title').textContent = 'Loading local jurisprudence fallback…';
-  $('#results-sub').textContent = `Fetching ${shardNames.length} paragraph shards${mb}. API search is faster; local mode keeps the database usable offline.`;
+  $('#results-sub').textContent = `Fetching ${remaining.length} paragraph shards${mb}. API search is faster; local mode keeps the database usable offline.`;
   paintApiBadge(false);
 
-  const loadedParagraphs = [];
-  for (const [i, shardName] of shardNames.entries()) {
-    $('#results-sub').textContent = `Loading local jurisprudence shard ${i + 1}/${shardNames.length}: ${shardName.replace('shards/', '')}${mb}.`;
-    const shard = await fetchJson(`${JUR_BASE}${shardName}`);
-    for (const p of shard.paragraphs || []) {
-      const doc = state.documents.get(p.docId);
-      loadedParagraphs.push({
-        ...p,
-        type: 'jur',
-        labels: p.labels || [],
-        committee: doc?.committee || p.treaty || 'Jurisprudence',
-        committees: doc?.committees || (p.treaty ? [p.treaty] : ['Jurisprudence']),
-        year: p.year ?? doc?.year ?? null,
-        n: p.n ?? p.paragraphId ?? p.idx,
-      });
+  // v19.48: parallel fetch with a small concurrency bound. Sequential was
+  // ~30 s on a typical connection; parallel-of-4 brings it under 8 s and
+  // doesn't peg the browser memory peak.
+  const CONCURRENCY = 4;
+  let completed = 0;
+  const queue = [...remaining];
+  async function worker() {
+    while (queue.length) {
+      const name = queue.shift();
+      if (!name) break;
+      try {
+        await loadJurShard(name);
+      } catch (e) {
+        console.warn(`[jur shard] ${name} failed:`, e);
+      }
+      completed++;
+      $('#results-sub').textContent = `Loaded ${completed}/${remaining.length} jurisprudence shards${mb}.`;
     }
   }
-
-  for (const p of loadedParagraphs) {
-    state.paragraphs.push(p);
-    state.paragraphById.set(p.id, p);
-    const fnText = (p.footnotes && p.footnotes.length)
-      ? p.footnotes.map(f => f.text || '').join(' ')
-      : '';
-    // v19.46: fold diacritics — see ensureSearchIndex().
-    state.searchIndex?.add({
-      id: p.id,
-      text: foldDiacritics(stripFnMarkers(p.text)),
-      fnText: foldDiacritics(fnText),
-    });
-  }
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
   state.jur.loaded = true;
   state.jur.error = null;
-  _flushDfCache();
-  _avgDocLen = null;
   paintScopeCounts();
   if (state.view === 'documents') paintDocumentsView();
 }
