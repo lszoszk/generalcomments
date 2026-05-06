@@ -42,6 +42,8 @@ const state = {
     reportTypes: new Set(),      // SP only — annual / thematic / communications / addendum / country-visit
     countries: new Set(),        // JUR only — state party of the case
     outcomes: new Set(),         // JUR only — case outcome (violation_found, inadmissible, …)
+    rightsKeywords: new Set(),   // JUR / CCPR only — rights-based topic tags from CCPR Centre
+    articles: new Set(),         // JUR only — substantive Covenant articles cited
     showSuperseded: false,       // hide superseded GCs by default
   },
   results: [],
@@ -372,7 +374,7 @@ const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard mat
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', fn: 'fn', pre: 'pre' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', rk: 'rk', ar: 'ar', fn: 'fn', pre: 'pre' };
 
 function encodeUrlState() {
   if (!state.facets) return;
@@ -398,6 +400,9 @@ function encodeUrlState() {
   if (state.filters.countries.size) u.set(URL_KEYS.cy, [...state.filters.countries].join('|'));
   // v19.46: outcome filter (JUR-only). Encoded as pipe-separated values.
   if (state.filters.outcomes.size) u.set(URL_KEYS.oc, [...state.filters.outcomes].join('|'));
+  // v19.47: rights-keywords + article-cited filters (JUR-only).
+  if (state.filters.rightsKeywords.size) u.set(URL_KEYS.rk, [...state.filters.rightsKeywords].join('|'));
+  if (state.filters.articles.size) u.set(URL_KEYS.ar, [...state.filters.articles].join('|'));
   if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
   // v19.12: only emit fn=0 when toggle is OFF (default ON keeps URLs short).
   if (state.searchInFootnotes === false) u.set(URL_KEYS.fn, '0');
@@ -432,6 +437,8 @@ function decodeUrlState() {
     reportTypes: split('rt'),
     countries: split('cy'),
     outcomes: split('oc'),
+    rightsKeywords: split('rk'),
+    articles: split('ar'),
     showSuperseded: u.get(URL_KEYS.sup) === '1',
     // v19.12: omitted/anything-but-'0' = ON (default). 'fn=0' = OFF.
     searchInFootnotes: u.get(URL_KEYS.fn) !== '0',
@@ -526,9 +533,13 @@ async function boot() {
     paintStatusFilter();
     paintCountryFilter();
     paintOutcomeFilter();
+    paintRightsFilter();
+    paintArticleFilter();
     syncReportTypeFilterVisibility();
     syncCountryFilterVisibility();
     syncOutcomeFilterVisibility();
+    syncRightsFilterVisibility();
+    syncArticleFilterVisibility();
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
     bindRouter();
@@ -902,6 +913,18 @@ function applyUrlState(parsed) {
   // v19.46: JUR outcome filter — same scoping pattern.
   const validOutcomes = new Set((state.facets.outcomes || []).map(o => o.value));
   state.filters.outcomes = new Set((parsed.outcomes || []).filter(o => validOutcomes.has(o)));
+
+  // v19.47: JUR rights-keywords + articles filters
+  const validRights = new Set((state.facets.rightsKeywords || []).map(o => o.value));
+  state.filters.rightsKeywords = new Set((parsed.rightsKeywords || []).filter(o => validRights.has(o)));
+  // articles: collect all distinct articlesCited values from currently-loaded jur docs
+  const validArticles = new Set();
+  for (const d of state.documents.values()) {
+    if (d.type === 'jur') {
+      for (const a of (d.articlesCited || [])) validArticles.add(a);
+    }
+  }
+  state.filters.articles = new Set((parsed.articles || []).filter(a => validArticles.has(a)));
 
   // Year range
   const { min, max } = state.facets.years;
@@ -1619,6 +1642,28 @@ function paintDocReaderBody(doc, paraId) {
        </details>`
     : '';
 
+  // v19.47: multilingual document-link strip. CCPR Centre supplied direct
+  // PDF/DOCX URLs in EN + ES + FR + AR + RU + ZH for 2,539 of our CCPR
+  // cases. Surface them as a discoverable "Read in:" row so non-English-
+  // speaking researchers can grab their working language in one click.
+  const docLinks = doc.documentLinks || [];
+  const langOrder = ['en', 'es', 'fr', 'ar', 'ru', 'zh'];
+  const langLabel = { en: 'EN', es: 'ES', fr: 'FR', ar: 'AR', ru: 'RU', zh: 'ZH' };
+  const langName = { en: 'English', es: 'Español', fr: 'Français', ar: 'العربية', ru: 'Русский', zh: '中文' };
+  const sortedLinks = [...docLinks].sort((a, b) =>
+    (langOrder.indexOf(a.lang) + 100) - (langOrder.indexOf(b.lang) + 100));
+  const langStripHtml = sortedLinks.length >= 2
+    ? `<div class="docs-reader-langs">
+         <span class="folio">Read in:</span>
+         ${sortedLinks.map(L => `
+           <a class="lang-chip lang-chip-${escape(L.lang)}" href="${escape(L.url)}"
+              target="_blank" rel="noopener"
+              title="${escape(langName[L.lang] || L.lang.toUpperCase())} (.${escape(L.extension || 'pdf')})">
+             ${escape(langLabel[L.lang] || L.lang.toUpperCase())}
+           </a>`).join('')}
+       </div>`
+    : '';
+
   const head = `
     <header class="docs-reader-head">
       <div class="folio garnet">${escape(formatDocHeadline(doc, { compact: true }))}</div>
@@ -1631,6 +1676,7 @@ function paintDocReaderBody(doc, paraId) {
         <span>${paragraphs.length} paragraphs</span>
         ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener" class="docs-reader-source">↗ original</a>` : ''}
       </div>
+      ${langStripHtml}
       ${fullCaseHtml}
       ${ocrBanner}
     </header>`;
@@ -2225,6 +2271,102 @@ function syncOutcomeFilterVisibility() {
   block.hidden = state.scope !== 'jur';
 }
 
+// ─────────── JUR rights-keywords filter (v19.47) ───────────
+// 119-tag CCPR Centre rights vocabulary — too many for a flat list,
+// so we render top-N by paragraph count plus a typeahead input that
+// hides non-matching rows in real time.
+function paintRightsFilter() {
+  const host = $('#filter-rights');
+  const counter = $('#filter-rights-count');
+  const search = $('#filter-rights-search');
+  if (!host || !state.facets) return;
+  const items = state.facets.rightsKeywords || [];
+  if (counter) {
+    counter.textContent = state.filters.rightsKeywords.size
+      ? `${state.filters.rightsKeywords.size} of ${items.length}`
+      : `${items.length} keywords`;
+  }
+  host.innerHTML = '';
+  for (const { value, count } of items) {
+    const id = `filter-rk-${value.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
+    const wrap = document.createElement('label');
+    wrap.dataset.value = value.toLowerCase();
+    wrap.innerHTML = `
+      <input type="checkbox" id="${id}" data-rk="${escape(value)}" ${state.filters.rightsKeywords.has(value) ? 'checked' : ''} />
+      <span>${escape(value)}</span>
+      <span class="count">${count.toLocaleString()}</span>`;
+    wrap.querySelector('input').addEventListener('change', e => {
+      const v = e.target.dataset.rk;
+      if (e.target.checked) state.filters.rightsKeywords.add(v);
+      else state.filters.rightsKeywords.delete(v);
+      runSearch();
+    });
+    host.appendChild(wrap);
+  }
+  // Typeahead: hide rows whose label doesn't contain the query
+  if (search && !search.dataset.bound) {
+    search.dataset.bound = '1';
+    search.addEventListener('input', () => {
+      const q = (search.value || '').toLowerCase().trim();
+      host.querySelectorAll('label').forEach(lbl => {
+        lbl.hidden = q && !lbl.dataset.value.includes(q);
+      });
+    });
+  }
+}
+
+function syncRightsFilterVisibility() {
+  const block = $('#filter-block-rights');
+  if (!block) return;
+  block.hidden = state.scope !== 'jur';
+}
+
+// ─────────── JUR articles-cited filter (v19.47) ───────────
+// Aggregates `articlesCited` across loaded JUR docs. Render as
+// chip-grid sorted by frequency. Each chip toggles inclusion.
+function computeJurArticleFacet() {
+  const counts = new Map();
+  for (const d of state.documents.values()) {
+    if (d.type !== 'jur') continue;
+    for (const a of (d.articlesCited || [])) {
+      counts.set(a, (counts.get(a) || 0) + (d.paragraphCount || 1));
+    }
+  }
+  return [...counts.entries()]
+    .map(([value, count]) => ({ value, count }))
+    .sort((a, b) => (b.count - a.count) || a.value.localeCompare(b.value));
+}
+
+function paintArticleFilter() {
+  const host = $('#filter-articles');
+  const counter = $('#filter-articles-count');
+  if (!host) return;
+  const facet = computeJurArticleFacet();
+  if (counter) counter.textContent = facet.length ? `${facet.length} articles` : '';
+  host.innerHTML = '';
+  for (const { value, count } of facet) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip chip-compact jur-chip';
+    if (state.filters.articles.has(value)) b.classList.add('on');
+    b.dataset.article = value;
+    b.innerHTML = `${escape(value)} <span class="chip-count">${count.toLocaleString()}</span>`;
+    b.addEventListener('click', () => {
+      if (state.filters.articles.has(value)) state.filters.articles.delete(value);
+      else state.filters.articles.add(value);
+      b.classList.toggle('on');
+      runSearch();
+    });
+    host.appendChild(b);
+  }
+}
+
+function syncArticleFilterVisibility() {
+  const block = $('#filter-block-articles');
+  if (!block) return;
+  block.hidden = state.scope !== 'jur';
+}
+
 function initYearRange() {
   const { min, max } = state.facets.years;
   state.filters.yearMin = min;
@@ -2452,6 +2594,8 @@ function bindUI() {
     syncReportTypeFilterVisibility();
     syncCountryFilterVisibility();
     syncOutcomeFilterVisibility();
+    syncRightsFilterVisibility();
+    syncArticleFilterVisibility();
 
     // v19.10: jurisprudence has 3,100+ documents and 111k paragraphs, so
     // the default "Paragraphs" view dumps a wall of weakly-related rows on
@@ -2550,13 +2694,18 @@ function bindUI() {
     state.filters.reportTypes.clear();
     state.filters.countries.clear();
     state.filters.outcomes.clear();
+    state.filters.rightsKeywords.clear();
+    state.filters.articles.clear();
     state.filters.showSuperseded = false;
     state.filters.labelsMode = 'any';
     state.filters.yearMin = state.facets.years.min;
     state.filters.yearMax = state.facets.years.max;
-    $$('#filter-committees .chip, #filter-mandates .chip, #filter-countries .chip').forEach(c => c.classList.remove('on'));
+    $$('#filter-committees .chip, #filter-mandates .chip, #filter-countries .chip, #filter-articles .chip').forEach(c => c.classList.remove('on'));
     $$('#filter-labels input').forEach(i => i.checked = false);
     $$('#filter-outcomes input').forEach(i => i.checked = false);
+    $$('#filter-rights input').forEach(i => i.checked = false);
+    const rkSearch = $('#filter-rights-search'); if (rkSearch) rkSearch.value = '';
+    $$('#filter-rights label').forEach(l => { l.hidden = false; });
     $$('#labels-mode .aa-opt').forEach(x => x.classList.toggle('is-active', x.dataset.mode === 'any'));
     $('#year-min').value = state.facets.years.min;
     $('#year-max').value = state.facets.years.max;
@@ -2565,6 +2714,8 @@ function bindUI() {
     paintStatusFilter();
     paintCountryFilter();
     paintOutcomeFilter();
+    paintRightsFilter();
+    paintArticleFilter();
     runSearch();
   });
 
@@ -3753,6 +3904,20 @@ async function runSearch() {
     // countries; a non-empty set drops every non-JUR paragraph because
     // GC/SP paragraphs lack `p.outcome`.
     if (f.outcomes.size && (!p.outcome || !f.outcomes.has(p.outcome))) continue;
+    // v19.47: rights-keywords + article-cited filters — JUR-only.
+    // These live on the DOC, not the paragraph. Pull the doc record once.
+    if (f.rightsKeywords.size || f.articles.size) {
+      const doc = state.documents.get(p.docId);
+      if (!doc) continue;
+      if (f.rightsKeywords.size) {
+        const dRk = doc.rightsKeywords || [];
+        if (!dRk.length || ![...f.rightsKeywords].some(k => dRk.includes(k))) continue;
+      }
+      if (f.articles.size) {
+        const dArt = doc.articlesCited || [];
+        if (!dArt.length || ![...f.articles].some(a => dArt.includes(a))) continue;
+      }
+    }
     if (f.labels.size) {
       const pl = p.labels || [];
       if (f.labelsMode === 'all') {

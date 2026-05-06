@@ -1148,6 +1148,31 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   flex-direction: column;
   gap: 4px;
 }
+
+/* v19.47: scrollable variant for long facet lists (rights-keywords has 119
+   values — too many for a flat list, so cap at ~280 px and let it scroll). */
+.checkbox-list-scroll {
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;        /* room for scrollbar */
+}
+/* v19.47: typeahead input above a checkbox-list. Mirrors the search-bar
+   styling but compact for the rail. */
+.filter-typeahead {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 4px 8px;
+  font-family: var(--display);
+  font-size: 12px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  color: var(--ink);
+}
+.filter-typeahead:focus {
+  outline: none;
+  border-color: var(--garnet);
+}
 .checkbox-list label {
   font-family: var(--display);
   font-size: 13px;
@@ -3059,6 +3084,50 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 }
 .docs-reader-source { color: var(--garnet); text-decoration: none; }
 .docs-reader-source:hover { text-decoration: underline; }
+
+/* v19.47: multilingual "Read in:" strip — only rendered when CCPR Centre
+   supplied 2+ language URLs for the case. Chips link to direct PDF/DOCX
+   URLs on ccprcentre.org for each language; English usually mirrors the
+   doc's main `link` but the others are unique. */
+.docs-reader-langs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-family: var(--display);
+  max-width: 720px;
+}
+.docs-reader-langs > .folio {
+  font-size: 10px;
+  color: var(--ink-3);
+  margin-right: 2px;
+}
+.lang-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.lang-chip:hover {
+  background: var(--paper-3);
+  border-color: var(--garnet);
+  color: var(--garnet);
+}
+.lang-chip-en { /* slight emphasis on EN since it's our primary corpus language */
+  border-color: var(--ink-3);
+  color: var(--ink);
+}
 
 /* v19.46: <details> disclosure under the doc-reader title that exposes the
    full applicant list when the visible title was shortened to "First et al.".

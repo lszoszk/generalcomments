@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260506-v19-47a" />
-<link rel="stylesheet" href="assets/app.css?v=20260506-v19-47a" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260506-v19-47b" />
+<link rel="stylesheet" href="assets/app.css?v=20260506-v19-47b" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -324,6 +324,30 @@
         <span class="folio dim" id="filter-outcome-count">—</span>
       </summary>
       <div id="filter-outcomes" class="checkbox-list"></div>
+    </details>
+
+    <!-- v19.47: rights-keywords filter — JUR-only. Sourced from CCPR Centre's
+         119-tag rights vocabulary. Includes a typeahead input because the
+         vocab is too large for a flat checkbox list to scan. -->
+    <details class="filter-block filter-collapsible" id="filter-block-rights" hidden>
+      <summary>
+        <span class="folio">Rights / issues <span class="dim" style="font-weight:normal">(CCPR)</span></span>
+        <span class="folio dim" id="filter-rights-count">—</span>
+      </summary>
+      <input type="search" id="filter-rights-search" class="filter-typeahead"
+             placeholder="Filter by keyword…" autocomplete="off" />
+      <div id="filter-rights" class="checkbox-list checkbox-list-scroll"></div>
+    </details>
+
+    <!-- v19.47: articles-cited filter — JUR-only. Substantive Covenant
+         articles only (Optional Protocol procedural articles in a
+         separate field). Also typeahead-filterable. -->
+    <details class="filter-block filter-collapsible" id="filter-block-articles" hidden>
+      <summary>
+        <span class="folio">Article cited <span class="dim" style="font-weight:normal">(Covenant)</span></span>
+        <span class="folio dim" id="filter-articles-count">—</span>
+      </summary>
+      <div id="filter-articles" class="chip-grid chip-grid-compact"></div>
     </details>
 
     <details class="filter-block filter-collapsible" id="filter-block-country" hidden>
@@ -897,6 +921,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260506-v19-47a"></script>
+<script type="module" src="assets/app.js?v=20260506-v19-47b"></script>
 </body>
 </html>
