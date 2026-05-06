@@ -3060,6 +3060,45 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .docs-reader-source { color: var(--garnet); text-decoration: none; }
 .docs-reader-source:hover { text-decoration: underline; }
 
+/* v19.46: <details> disclosure under the doc-reader title that exposes the
+   full applicant list when the visible title was shortened to "First et al.".
+   Closed by default — keeps the head compact for joint-communication cases
+   that have 20+ applicants. */
+.docs-reader-applicants {
+  margin-top: 12px;
+  max-width: 720px;
+  font-family: var(--display);
+}
+.docs-reader-applicants > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 4px 0;
+  color: var(--ink-3);
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.docs-reader-applicants > summary::-webkit-details-marker { display: none; }
+.docs-reader-applicants > summary::before {
+  content: '▸';
+  font-family: var(--mono);
+  color: var(--garnet);
+  transition: transform .15s;
+  display: inline-block;
+}
+.docs-reader-applicants[open] > summary::before { transform: rotate(90deg); }
+.docs-reader-applicants > summary:hover { color: var(--ink); }
+.docs-reader-applicants-body {
+  margin: 6px 0 0;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  background: var(--paper-2);
+  border-left: 2px solid var(--rule);
+}
+
 /* v19.45: OCR-provenance banner inside the document-reader head. Sits
    directly under the meta line, full-width, paper-2 background with a
    garnet left rule. Combines a clear "this is OCR'd text" advisory with

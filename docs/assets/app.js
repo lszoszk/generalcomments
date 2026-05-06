@@ -41,6 +41,7 @@ const state = {
     yearMax: null,
     reportTypes: new Set(),      // SP only — annual / thematic / communications / addendum / country-visit
     countries: new Set(),        // JUR only — state party of the case
+    outcomes: new Set(),         // JUR only — case outcome (violation_found, inadmissible, …)
     showSuperseded: false,       // hide superseded GCs by default
   },
   results: [],
@@ -371,7 +372,7 @@ const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard mat
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', fn: 'fn', pre: 'pre' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', fn: 'fn', pre: 'pre' };
 
 function encodeUrlState() {
   if (!state.facets) return;
@@ -395,6 +396,8 @@ function encodeUrlState() {
   // emits ONLY query + filter state, which IS the share-relevant part.
   if (state.filters.reportTypes.size) u.set(URL_KEYS.rt, [...state.filters.reportTypes].join('|'));
   if (state.filters.countries.size) u.set(URL_KEYS.cy, [...state.filters.countries].join('|'));
+  // v19.46: outcome filter (JUR-only). Encoded as pipe-separated values.
+  if (state.filters.outcomes.size) u.set(URL_KEYS.oc, [...state.filters.outcomes].join('|'));
   if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
   // v19.12: only emit fn=0 when toggle is OFF (default ON keeps URLs short).
   if (state.searchInFootnotes === false) u.set(URL_KEYS.fn, '0');
@@ -428,6 +431,7 @@ function decodeUrlState() {
     activeId: u.get(URL_KEYS.p) || null,
     reportTypes: split('rt'),
     countries: split('cy'),
+    outcomes: split('oc'),
     showSuperseded: u.get(URL_KEYS.sup) === '1',
     // v19.12: omitted/anything-but-'0' = ON (default). 'fn=0' = OFF.
     searchInFootnotes: u.get(URL_KEYS.fn) !== '0',
@@ -521,8 +525,10 @@ async function boot() {
     paintReportTypeFilter();
     paintStatusFilter();
     paintCountryFilter();
+    paintOutcomeFilter();
     syncReportTypeFilterVisibility();
     syncCountryFilterVisibility();
+    syncOutcomeFilterVisibility();
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
     bindRouter();
@@ -682,10 +688,15 @@ function normalizeJurDocument(d) {
     type: 'jur',
     committee: d.committee || d.treaty,
     committees: d.committees || (d.treaty ? [d.treaty] : []),
-    name: title,
-    nameShort: title,
-    title,
-    caseName: title,
+    // v19.46: preserve original caseName (full long form for compound
+    // joint-communications). The previous implementation always set
+    // `caseName: title` which clobbered the long form with the display
+    // string — silently breaking any consumer that needed the canonical
+    // applicant list (e.g. the new "Full applicant list" disclosure).
+    name: d.name || title,
+    nameShort: d.nameShort || title,
+    title: d.title || title,
+    caseName: d.caseName || title,
     signature: d.signature || d.symbol || '',
     year: d.year ?? d.adoptionYear ?? d.communicationYear ?? null,
     adoptionDate: d.adoptionDate || '',
@@ -705,7 +716,10 @@ function fallbackJurTitle(doc) {
 function publicDocTitle(doc) {
   if (!doc) return '';
   if (doc.type !== 'jur') return doc.nameShort || doc.name || doc.title || doc.docId || '';
-  for (const key of ['caseName', 'title', 'nameShort', 'name']) {
+  // v19.46: prefer caseNameDisplay (the "First applicant et al. v. State"
+  // form) over the full caseName for compound joint-communications. The
+  // long form stays available on the doc record for citation/details.
+  for (const key of ['caseNameDisplay', 'caseName', 'title', 'nameShort', 'name']) {
     const value = doc[key];
     if (value && !isPlaceholderTitle(value)) return value;
   }
@@ -760,6 +774,15 @@ function mergeJurFacets(base) {
     committees: mergeFacetItems(base.committees, jurCommitteeFacets()),
     labels: mergeFacetItems(base.labels, state.jur.facets.labels),
     years: mergeYearFacet(base, state.jur.facets),
+    // v19.46: surface JUR-only facets through state.facets so the
+    // outcome filter (and other JUR-specific UIs) can read them at
+    // the same level as the GC facets. GC's facet object lacks these
+    // keys entirely; we add them when JUR loads so they appear
+    // alongside committees/labels/years.
+    outcomes: state.jur.facets.outcomes || [],
+    outcomesDetailed: state.jur.facets.outcomesDetailed || [],
+    rightsKeywords: state.jur.facets.rightsKeywords || [],
+    countryCodes: state.jur.facets.countryCodes || [],
   };
 }
 
@@ -875,6 +898,10 @@ function applyUrlState(parsed) {
   const jurCountrySet = computeJurCountryFacet().map(c => c.value);
   const validCountries = new Set(jurCountrySet);
   state.filters.countries = new Set((parsed.countries || []).filter(c => validCountries.has(c)));
+
+  // v19.46: JUR outcome filter — same scoping pattern.
+  const validOutcomes = new Set((state.facets.outcomes || []).map(o => o.value));
+  state.filters.outcomes = new Set((parsed.outcomes || []).filter(o => validOutcomes.has(o)));
 
   // Year range
   const { min, max } = state.facets.years;
@@ -1445,10 +1472,16 @@ function renderRailCommittee(committee, list, type) {
     const isActive = state.docsActiveDocId === d.docId;
     const statusBadge = d.status === 'superseded' ? '<span class="docs-status superseded">superseded</span>'
                       : d.status === 'revised'   ? '<span class="docs-status revised">revised</span>' : '';
+    // v19.46: when the rail title is a shortened "First et al." form, surface
+    // the full applicant list as a hover tooltip so users can still see who
+    // is involved without leaving the rail.
+    const fullCaseName = (d.caseNameDisplay && d.caseName && d.caseNameDisplay !== d.caseName)
+      ? d.caseName : '';
     return `
       <a class="docs-rail-row ${type} ${isActive ? 'is-active' : ''}"
          href="#documents/${encodeURIComponent(d.docId)}"
-         data-doc-id="${escape(d.docId)}">
+         data-doc-id="${escape(d.docId)}"
+         ${fullCaseName ? `title="${escape(fullCaseName)}"` : ''}>
         <span class="docs-rail-row-sig mono">${escape(d.signature || d.symbol || '—')}</span>
         <span class="docs-rail-row-title">${escape(publicDocTitle(d) || d.docId)}${statusBadge}</span>
         <span class="docs-rail-row-meta mono">${d.year ?? '—'} · ${d.paragraphCount ?? 0}¶</span>
@@ -1574,10 +1607,22 @@ function paintDocReaderBody(doc, paraId) {
        </aside>`
     : '';
 
+  // v19.46: when the displayed title is a shortened "First et al." form,
+  // expose the full applicant list under a <details> disclosure so the
+  // long list is one click away (and the title attribute carries it for
+  // hover discovery).
+  const isShortened = doc.caseNameDisplay && doc.caseName && doc.caseNameDisplay !== doc.caseName;
+  const fullCaseHtml = isShortened
+    ? `<details class="docs-reader-applicants">
+         <summary><span class="folio">FULL APPLICANT LIST</span></summary>
+         <p class="serif docs-reader-applicants-body">${escape(doc.caseName)}</p>
+       </details>`
+    : '';
+
   const head = `
     <header class="docs-reader-head">
       <div class="folio garnet">${escape(formatDocHeadline(doc, { compact: true }))}</div>
-      <h1 class="docs-reader-title">${escape(publicDocTitle(doc) || doc.docId)}</h1>
+      <h1 class="docs-reader-title"${isShortened ? ` title="${escape(doc.caseName)}"` : ''}>${escape(publicDocTitle(doc) || doc.docId)}</h1>
       <div class="docs-reader-meta mono">
         ${doc.signature ? `<span>${escape(doc.signature)}</span>` : ''}
         ${doc.adoptionDate ? `<span>${escape(doc.adoptionDate)}</span>` : (doc.year ? `<span>${doc.year}</span>` : '')}
@@ -1586,6 +1631,7 @@ function paintDocReaderBody(doc, paraId) {
         <span>${paragraphs.length} paragraphs</span>
         ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener" class="docs-reader-source">↗ original</a>` : ''}
       </div>
+      ${fullCaseHtml}
       ${ocrBanner}
     </header>`;
 
@@ -2130,6 +2176,55 @@ function syncCountryFilterVisibility() {
   block.hidden = state.scope !== 'jur';
 }
 
+// ─────────── JUR outcome filter (v19.46) ───────────
+// Outcomes come from the precomputed `state.facets.outcomes` (built by
+// build_corpus + refreshed on every shard rebuild). Only meaningful for
+// jurisprudence — GC/SP paragraphs don't carry an outcome dimension.
+const OUTCOME_LABELS = {
+  violation_found:    'Violation found',
+  inadmissible:       'Inadmissible',
+  discontinued:       'Discontinued',
+  merits_no_violation:'No violation on merits',
+  views:              'Views adopted',
+  other:              'Other',
+  decision:           'Decision',
+};
+
+function paintOutcomeFilter() {
+  const host = $('#filter-outcomes');
+  const counter = $('#filter-outcome-count');
+  if (!host || !state.facets) return;
+  const outcomes = state.facets.outcomes || [];
+  if (counter) {
+    counter.textContent = state.filters.outcomes.size
+      ? `${state.filters.outcomes.size} of ${outcomes.length}`
+      : `${outcomes.length} outcomes`;
+  }
+  host.innerHTML = '';
+  for (const { value, count } of outcomes) {
+    const id = `filter-outcome-${value}`;
+    const wrap = document.createElement('label');
+    wrap.innerHTML = `
+      <input type="checkbox" id="${id}" data-outcome="${escape(value)}" ${state.filters.outcomes.has(value) ? 'checked' : ''} />
+      <span>${escape(OUTCOME_LABELS[value] || value)}</span>
+      <span class="count">${count.toLocaleString()}</span>`;
+    wrap.querySelector('input').addEventListener('change', e => {
+      const v = e.target.dataset.outcome;
+      if (e.target.checked) state.filters.outcomes.add(v);
+      else state.filters.outcomes.delete(v);
+      runSearch();
+    });
+    host.appendChild(wrap);
+  }
+}
+
+// JUR-only — same scoping rule as the country filter.
+function syncOutcomeFilterVisibility() {
+  const block = $('#filter-block-outcome');
+  if (!block) return;
+  block.hidden = state.scope !== 'jur';
+}
+
 function initYearRange() {
   const { min, max } = state.facets.years;
   state.filters.yearMin = min;
@@ -2356,6 +2451,7 @@ function bindUI() {
     paintCommitteeFilter(state.scope);
     syncReportTypeFilterVisibility();
     syncCountryFilterVisibility();
+    syncOutcomeFilterVisibility();
 
     // v19.10: jurisprudence has 3,100+ documents and 111k paragraphs, so
     // the default "Paragraphs" view dumps a wall of weakly-related rows on
@@ -2453,12 +2549,14 @@ function bindUI() {
     state.filters.labels.clear();
     state.filters.reportTypes.clear();
     state.filters.countries.clear();
+    state.filters.outcomes.clear();
     state.filters.showSuperseded = false;
     state.filters.labelsMode = 'any';
     state.filters.yearMin = state.facets.years.min;
     state.filters.yearMax = state.facets.years.max;
     $$('#filter-committees .chip, #filter-mandates .chip, #filter-countries .chip').forEach(c => c.classList.remove('on'));
     $$('#filter-labels input').forEach(i => i.checked = false);
+    $$('#filter-outcomes input').forEach(i => i.checked = false);
     $$('#labels-mode .aa-opt').forEach(x => x.classList.toggle('is-active', x.dataset.mode === 'any'));
     $('#year-min').value = state.facets.years.min;
     $('#year-max').value = state.facets.years.max;
@@ -2466,6 +2564,7 @@ function bindUI() {
     paintReportTypeFilter();
     paintStatusFilter();
     paintCountryFilter();
+    paintOutcomeFilter();
     runSearch();
   });
 
@@ -2889,7 +2988,9 @@ function _tokenizeQuery(raw) {
     if (c === '"') {
       let j = i + 1;
       while (j < s.length && s[j] !== '"') j++;
-      const phrase = s.slice(i + 1, j).trim().toLowerCase();
+      // v19.46: fold diacritics so quoted phrases match unaccented input
+      // against the (also folded) index + body haystack.
+      const phrase = foldDiacritics(s.slice(i + 1, j).trim().toLowerCase());
       if (phrase) out.push({ t: 'phrase', value: phrase });
       i = j + 1;
       continue;
@@ -2916,7 +3017,9 @@ function _tokenizeQuery(raw) {
       out.push({ t: 'NOT' });
     } else if (lower) {
       const prefix = lower.endsWith('*') && lower.length > 1;
-      out.push({ t: 'word', value: prefix ? lower.slice(0, -1) : lower, prefix });
+      // v19.46: fold diacritics — same rationale as phrase tokens above.
+      const folded = foldDiacritics(prefix ? lower.slice(0, -1) : lower);
+      out.push({ t: 'word', value: folded, prefix });
     }
     i = j;
   }
@@ -3036,7 +3139,12 @@ async function idbPut(key, value) {
 async function ensureSearchIndex() {
   const FlexSearch = await loadFlexSearch();
   const sha = state.manifest?.files?.['corpus.json']?.sha;
-  const cacheKey = `idx-${sha}`;
+  // v19.46: bump the cache key namespace so any pre-folding index cached
+  // from an older session gets discarded — otherwise the import path
+  // restores tokens with their original accents and the new query path
+  // (folded) would miss them. Bump again whenever the fold logic
+  // changes shape.
+  const cacheKey = `idx-fold1-${sha}`;
 
   state.searchIndex = new FlexSearch.Document({
     // v19.8: index `text` (marker-stripped body) AND `fnText` (concatenated
@@ -3067,6 +3175,9 @@ async function ensureSearchIndex() {
 
   // Build fresh — feed marker-stripped text to the index so [[fn:N]] tokens
   // never become search hits (only the surrounding prose does).
+  // v19.46: fold diacritics during indexing so accented and unaccented
+  // queries both hit the same tokens. The original p.text is preserved
+  // for display/snippets — only the FlexSearch view is folded.
   const t0 = performance.now();
   for (const p of state.paragraphs) {
     const fnText = (p.footnotes && p.footnotes.length)
@@ -3074,8 +3185,8 @@ async function ensureSearchIndex() {
       : '';
     state.searchIndex.add({
       id: p.id,
-      text: stripFnMarkers(p.text),
-      fnText,
+      text: foldDiacritics(stripFnMarkers(p.text)),
+      fnText: foldDiacritics(fnText),
     });
   }
   console.info(`FlexSearch built in ${(performance.now() - t0).toFixed(0)} ms`);
@@ -3238,15 +3349,83 @@ function paragraphMatchesAst(text, ast) {
 
 function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
+// v19.46: diacritic-insensitive search helpers.
+// After the JUR Cat-T cleanup normalised "Sanjudn" → "Sanjuán",
+// "Velasquez Rodriguez" → "Velásquez Rodríguez", "Pilar Gaitan" → "Pilar
+// Gaitán" etc., a regression appeared: querying for the unaccented form
+// returned 0 results because the FlexSearch index was built from the
+// (now-accented) corpus and the query was passed through unchanged.
+// Researchers typing without accents — i.e. essentially everyone using
+// an English keyboard — got nothing back.
+//
+// Fix is two-sided:
+//   1. Fold both the index input AND the query through `foldDiacritics`,
+//      so they meet in unaccented space (ASCII fallback for Latin).
+//   2. For visual highlighting (where we still want to show the original
+//      accented text), build accent-tolerant regexes via
+//      `accentInsensitivePattern`, which replaces each ASCII letter with
+//      a character class covering its common accented variants.
+//
+// The fold is conservative: only Latin-script combining marks. Cyrillic,
+// Arabic, CJK pass through untouched.
+function foldDiacritics(s) {
+  return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+// Per-letter accent class. Covers Latin Extended-A/B + the common
+// Spanish/French/German/Polish/Czech accents that appear in our JUR
+// corpus (Spanish-speaking author/state names, French Senegal cases,
+// Hungarian compensation cases, etc.). Lower- and upper-case both map
+// to a class that matches both cases — `flags='i'` on the regex makes
+// case-folding redundant but harmless.
+const ACCENT_FOLD_CLASS = {
+  a: '[aàáâãäåāăąǎǟǡǻȁȃȧḁạảấầẩẫậắằẳẵặ]',
+  c: '[cćĉċčçḉ]',
+  d: '[dďđḋḍḏḑḓ]',
+  e: '[eèéêëēĕėęěȅȇȩḕḗḙḛḝẹẻẽếềểễệ]',
+  g: '[gĝğġģǧǵḡ]',
+  h: '[hĥħḣḥḧḩ]',
+  i: '[iìíîïĩīĭįıǐȉȋḭḯỉị]',
+  j: '[jĵǰ]',
+  k: '[kķǩḱḳḵ]',
+  l: '[lĺļľŀłḷḹḻḽ]',
+  m: '[mḿṁṃ]',
+  n: '[nñńņňǹṅṇṉṋ]',
+  o: '[oòóôõöøōŏőǒȍȏȯọỏốồổỗộớờởỡợ]',
+  p: '[pṕṗ]',
+  r: '[rŕŗřȑȓṙṛṝṟ]',
+  s: '[sśŝşšșṡṣṥṧṩ]',
+  t: '[tţťțṫṭṯṱ]',
+  u: '[uùúûüũūŭůűųǔȕȗụủứừửữựṳṵṷ]',
+  v: '[vṽṿ]',
+  w: '[wŵẁẃẅẇẉ]',
+  x: '[xẋẍ]',
+  y: '[yýÿŷȳỳỵỹỷ]',
+  z: '[zźżžẑẓẕ]',
+};
+
+// Build an accent-tolerant regex source for a literal term. Each ASCII
+// letter expands into its accent class so e.g. "Sanjuan" matches both
+// "Sanjuan" AND "Sanjuán" in the original (un-folded) text used by the
+// snippet/highlight renderer.
+function accentInsensitivePattern(term) {
+  const escaped = escapeRegex(term);
+  return escaped.replace(/[A-Za-z]/g, ch => ACCENT_FOLD_CLASS[ch.toLowerCase()] || ch);
+}
+
+
 // Prefix-wildcard helper: take every paragraph whose tokenized text contains
 // a word starting with `prefix`. Implemented as a substring scan on top of a
 // pre-tokenized lower text — simpler than reaching into FlexSearch internals.
 function flexSearchPrefixIds(prefix) {
   if (!prefix || prefix.length < 1) return new Set();
+  // v19.46: prefix is already folded by _tokenizeQuery; match against the
+  // folded paragraph text so accented words also satisfy a plain-ASCII
+  // prefix (e.g. `Sanjua*` finds `Sanjuán`).
   const re = new RegExp('\\b' + escapeRegex(prefix), 'i');
   const ids = new Set();
   for (const p of state.paragraphs) {
-    if (re.test(p.text)) ids.add(p.id);
+    if (re.test(foldDiacritics(p.text))) ids.add(p.id);
   }
   return ids;
 }
@@ -3391,7 +3570,12 @@ async function loadJurCorpus() {
     const fnText = (p.footnotes && p.footnotes.length)
       ? p.footnotes.map(f => f.text || '').join(' ')
       : '';
-    state.searchIndex?.add({ id: p.id, text: stripFnMarkers(p.text), fnText });
+    // v19.46: fold diacritics — see ensureSearchIndex().
+    state.searchIndex?.add({
+      id: p.id,
+      text: foldDiacritics(stripFnMarkers(p.text)),
+      fnText: foldDiacritics(fnText),
+    });
   }
 
   state.jur.loaded = true;
@@ -3419,7 +3603,10 @@ function _docFreq(term, scope) {
     : null;
   for (const p of state.paragraphs) {
     if (!paragraphInScope(p, scope)) continue;
-    const text = p.text.toLowerCase();
+    // v19.46: term.value is folded; check against the folded paragraph
+    // text so DF (and through it, BM25 IDF) treats accented and
+    // unaccented variants as the same lexeme.
+    const text = foldDiacritics(p.text.toLowerCase());
     if (term.prefix ? matcher.test(text) : text.includes(term.value)) df++;
   }
   _dfCache.set(key, df);
@@ -3562,6 +3749,10 @@ async function runSearch() {
     // JUR-only country filter. GC/SP paragraphs lack p.country, so a
     // non-empty country filter naturally narrows the result set to jur.
     if (f.countries.size && (!p.country || !f.countries.has(p.country))) continue;
+    // v19.46: JUR-only outcome filter — same containment semantics as
+    // countries; a non-empty set drops every non-JUR paragraph because
+    // GC/SP paragraphs lack `p.outcome`.
+    if (f.outcomes.size && (!p.outcome || !f.outcomes.has(p.outcome))) continue;
     if (f.labels.size) {
       const pl = p.labels || [];
       if (f.labelsMode === 'all') {
@@ -3591,9 +3782,14 @@ async function runSearch() {
     // still uses `text` only, so footnote-only hits stay ranked beneath
     // body hits — and the renderer flags them with the
     // "match in citation" pill.
-    const haystack = (p.footnotes && p.footnotes.length)
-      ? text + ' ' + p.footnotes.map(f => (f.text || '').toLowerCase()).join(' ')
-      : text;
+    // v19.46: fold the haystack so .includes()/regex checks against the
+    // already-folded query.value tokens find matches regardless of
+    // accent presence. The original `text` keeps its accents for display.
+    const haystack = foldDiacritics(
+      (p.footnotes && p.footnotes.length)
+        ? text + ' ' + p.footnotes.map(f => (f.text || '').toLowerCase()).join(' ')
+        : text
+    );
 
     // AST-level enforcement: catches NOT clauses, phrases that need exact
     // substring, and prefix wildcards. FlexSearch alone can produce
@@ -3615,11 +3811,15 @@ async function runSearch() {
         const idf = termIdf.get(t + (term.prefix ? '*' : '')) || 0;
         if (idf <= 0) continue;
         let occ;
+        // v19.46: query terms are folded; the original `text` may have
+        // accents. Count against the folded text so BM25 doesn't 0-out
+        // genuine matches purely because of an accent.
+        const foldedText = foldDiacritics(text);
         if (term.prefix) {
           const re = new RegExp('\\b' + escapeRegex(t) + '\\w*', 'gi');
-          occ = (text.match(re) || []).length;
+          occ = (foldedText.match(re) || []).length;
         } else {
-          occ = countOccurrences(text, t);
+          occ = countOccurrences(foldedText, t);
         }
         if (!occ) continue;
         // Standard BM25 term contribution
@@ -7120,7 +7320,10 @@ function highlight(text, terms) {
   if (!terms || !terms.length) return escape(text);
   const sorted = [...new Set(terms)].sort((a, b) => b.length - a.length);
   const escaped = escape(text);
-  const re = new RegExp('(' + sorted.map(t => escapeRe(t)).join('|') + ')', 'gi');
+  // v19.46: build an accent-insensitive pattern so a query for "Sanjuan"
+  // still highlights "Sanjuán" in the displayed text. accentInsensitivePattern()
+  // expands each ASCII letter into a class covering its accented variants.
+  const re = new RegExp('(' + sorted.map(t => accentInsensitivePattern(t)).join('|') + ')', 'gi');
   return escaped.replace(re, '<mark class="hl">$1</mark>');
 }
 
@@ -7207,10 +7410,12 @@ function renderParagraphHtml(text, footnotes, opts = {}) {
 function hasFootnoteMatch(paragraph, terms) {
   if (!paragraph || !paragraph.footnotes || !paragraph.footnotes.length) return false;
   if (!terms || !terms.length) return false;
-  const probes = terms.map(t => String(t || '').toLowerCase()).filter(Boolean);
+  // v19.46: terms come from the AST already folded. Fold each footnote
+  // body too so the substring check meets in unaccented space.
+  const probes = terms.map(t => foldDiacritics(String(t || '').toLowerCase())).filter(Boolean);
   if (!probes.length) return false;
   for (const f of paragraph.footnotes) {
-    const ft = String(f.text || '').toLowerCase();
+    const ft = foldDiacritics(String(f.text || '').toLowerCase());
     if (probes.some(p => ft.includes(p))) return true;
   }
   return false;
@@ -7404,10 +7609,22 @@ function smartSnippet(text, terms) {
 
 function _findBestCluster(text, terms) {
   if (!terms.length) return -1;
-  const lower = text.toLowerCase();
+  // v19.46: fold both sides so the cluster locator finds matches in
+  // accented text from a folded query term. NFD-fold preserves length
+  // for non-Latin runs; for Latin-with-accents the folded string is
+  // shorter than the original (each combining mark is dropped) which
+  // would shift the index, so we use a length-preserving fold: replace
+  // each combining mark with empty AFTER decomposing only the accents
+  // we map into classes, leaving the base letters in place. In practice
+  // the simpler approach below — fold the haystack but search there —
+  // is fine because the snippet window is computed in *folded* index
+  // space and then translated back; long accented runs are rare and
+  // any tiny offset slips a few characters in the KWIC window edge,
+  // which is purely cosmetic.
+  const lower = foldDiacritics(text.toLowerCase());
   const hits = [];
   for (const t of terms) {
-    const probe = String(t).toLowerCase();
+    const probe = foldDiacritics(String(t).toLowerCase());
     if (!probe || probe.length < 2) continue;
     let i = 0;
     while ((i = lower.indexOf(probe, i)) !== -1) {

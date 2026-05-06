@@ -2,7 +2,7 @@
   "treaties": [
     {
       "value": "CCPR",
-      "count": 2862
+      "count": 2921
     },
     {
       "value": "CEDAW",
@@ -16,31 +16,85 @@
   "outcomes": [
     {
       "value": "violation_found",
-      "count": 861
+      "count": 57710
     },
     {
       "value": "inadmissible",
-      "count": 822
-    },
-    {
-      "value": "discontinued",
-      "count": 356
+      "count": 31935
     },
     {
       "value": "merits_no_violation",
-      "count": 352
+      "count": 19606
     },
     {
-      "value": "views",
-      "count": 352
+      "value": "discontinued",
+      "count": 3217
     },
     {
       "value": "other",
-      "count": 340
+      "count": 2216
+    },
+    {
+      "value": "views",
+      "count": 1709
     },
     {
       "value": "decision",
-      "count": 34
+      "count": 263
+    }
+  ],
+  "outcomesDetailed": [
+    {
+      "value": "merits_violation",
+      "count": 1142
+    },
+    {
+      "value": "inadmissible",
+      "count": 847
+    },
+    {
+      "value": "discontinuance",
+      "count": 256
+    },
+    {
+      "value": "merits_no_violation",
+      "count": 217
+    },
+    {
+      "value": "admissible_merits_violation",
+      "count": 63
+    },
+    {
+      "value": "merits_violation_admissible",
+      "count": 47
+    },
+    {
+      "value": "merits_no_violation_admissible",
+      "count": 9
+    },
+    {
+      "value": "admissible_merits_no_violation",
+      "count": 8
+    },
+    {
+      "value": "admissible",
+      "count": 3
+    },
+    {
+      "value": "merits_violation_merits_no_violation",
+      "count": 2
+    },
+    {
+      "value": "discontinuance_inadmissible",
+      "count": 2
+    },
+    {
+      "value": "merits_no_violation_merits_violation",
+      "count": 1
+    },
+    {
+      "value": "inadmissible_discontinuance",
+      "count": 1
     }
   ],
   "countries": [
@@ -221,6 +275,10 @@
       "count": 16
     },
     {
+      "value": "UY",
+      "count": 16
+    },
+    {
       "value": "Bulgaria",
       "count": 14
     },
@@ -257,6 +315,10 @@
       "count": 11
     },
     {
+      "value": "JM",
+      "count": 10
+    },
+    {
       "value": "Georgia",
       "count": 9
     },
@@ -274,6 +336,10 @@
     },
     {
       "value": "Maldives",
+      "count": 8
+    },
+    {
+      "value": "CA",
       "count": 8
     },
     {
@@ -365,6 +431,10 @@
       "count": 4
     },
     {
+      "value": "NL",
+      "count": 4
+    },
+    {
       "value": "Suriname",
       "count": 3
     },
@@ -386,6 +456,10 @@
     },
     {
       "value": "Saudi Arabia",
+      "count": 3
+    },
+    {
+      "value": "TT",
       "count": 3
     },
     {
@@ -511,68 +585,538 @@
     {
       "value": "United Kingdom of Great Britain and Northern Ireland (Overseas Territory)",
       "count": 1
+    },
+    {
+      "value": "BY",
+      "count": 1
+    },
+    {
+      "value": "RU",
+      "count": 1
+    },
+    {
+      "value": "LT",
+      "count": 1
+    },
+    {
+      "value": "AU",
+      "count": 1
+    },
+    {
+      "value": "TR",
+      "count": 1
+    },
+    {
+      "value": "EE",
+      "count": 1
+    },
+    {
+      "value": "DZ",
+      "count": 1
+    },
+    {
+      "value": "KR",
+      "count": 1
+    },
+    {
+      "value": "CF",
+      "count": 1
+    },
+    {
+      "value": "ZM",
+      "count": 1
+    },
+    {
+      "value": "CZ",
+      "count": 1
+    },
+    {
+      "value": "NI",
+      "count": 1
+    },
+    {
+      "value": "LY",
+      "count": 1
+    },
+    {
+      "value": "FI",
+      "count": 1
+    },
+    {
+      "value": "CD",
+      "count": 1
+    },
+    {
+      "value": "IT",
+      "count": 1
+    },
+    {
+      "value": "DK",
+      "count": 1
+    },
+    {
+      "value": "NO",
+      "count": 1
+    }
+  ],
+  "countryCodes": [
+    {
+      "value": "BY",
+      "count": 242
+    },
+    {
+      "value": "CA",
+      "count": 189
+    },
+    {
+      "value": "DK",
+      "count": 148
+    },
+    {
+      "value": "RU",
+      "count": 142
+    },
+    {
+      "value": "JM",
+      "count": 140
+    },
+    {
+      "value": "ES",
+      "count": 133
+    },
+    {
+      "value": "NL",
+      "count": 123
+    },
+    {
+      "value": "AU",
+      "count": 105
+    },
+    {
+      "value": "SE",
+      "count": 99
+    },
+    {
+      "value": "FR",
+      "count": 75
+    },
+    {
+      "value": "KZ",
+      "count": 71
+    },
+    {
+      "value": "UY",
+      "count": 61
+    },
+    {
+      "value": "DZ",
+      "count": 60
+    },
+    {
+      "value": "KG",
+      "count": 58
+    },
+    {
+      "value": "CZ",
+      "count": 57
+    },
+    {
+      "value": "UZ",
+      "count": 51
+    },
+    {
+      "value": "FI",
+      "count": 40
+    },
+    {
+      "value": "NZ",
+      "count": 40
+    },
+    {
+      "value": "CO",
+      "count": 39
+    },
+    {
+      "value": "TT",
+      "count": 38
+    },
+    {
+      "value": "AT",
+      "count": 29
+    },
+    {
+      "value": "NP",
+      "count": 29
+    },
+    {
+      "value": "TJ",
+      "count": 27
+    },
+    {
+      "value": "TM",
+      "count": 26
+    },
+    {
+      "value": "KR",
+      "count": 25
+    },
+    {
+      "value": "LK",
+      "count": 25
+    },
+    {
+      "value": "CD",
+      "count": 24
+    },
+    {
+      "value": "DE",
+      "count": 23
+    },
+    {
+      "value": "LY",
+      "count": 22
+    },
+    {
+      "value": "IT",
+      "count": 21
+    },
+    {
+      "value": "LT",
+      "count": 21
+    },
+    {
+      "value": "NO",
+      "count": 20
+    },
+    {
+      "value": "CM",
+      "count": 20
+    },
+    {
+      "value": "GR",
+      "count": 19
+    },
+    {
+      "value": "PH",
+      "count": 19
+    },
+    {
+      "value": "PE",
+      "count": 17
+    },
+    {
+      "value": "UA",
+      "count": 17
+    },
+    {
+      "value": "VE",
+      "count": 16
+    },
+    {
+      "value": "BA",
+      "count": 15
+    },
+    {
+      "value": "HU",
+      "count": 13
+    },
+    {
+      "value": "AZ",
+      "count": 13
+    },
+    {
+      "value": "AR",
+      "count": 12
+    },
+    {
+      "value": "ZM",
+      "count": 12
+    },
+    {
+      "value": "BE",
+      "count": 12
+    },
+    {
+      "value": "TR",
+      "count": 11
+    },
+    {
+      "value": "LV",
+      "count": 11
+    },
+    {
+      "value": "EC",
+      "count": 10
+    },
+    {
+      "value": "GY",
+      "count": 10
+    },
+    {
+      "value": "BG",
+      "count": 10
+    },
+    {
+      "value": "PL",
+      "count": 9
+    },
+    {
+      "value": "IE",
+      "count": 8
+    },
+    {
+      "value": "MX",
+      "count": 8
+    },
+    {
+      "value": "MU",
+      "count": 7
+    },
+    {
+      "value": "SK",
+      "count": 7
+    },
+    {
+      "value": "CL",
+      "count": 7
+    },
+    {
+      "value": "EE",
+      "count": 7
+    },
+    {
+      "value": "BO",
+      "count": 6
+    },
+    {
+      "value": "PA",
+      "count": 6
+    },
+    {
+      "value": "PY",
+      "count": 6
+    },
+    {
+      "value": "AL",
+      "count": 6
+    },
+    {
+      "value": "MV",
+      "count": 6
+    },
+    {
+      "value": "HR",
+      "count": 5
+    },
+    {
+      "value": "CY",
+      "count": 5
+    },
+    {
+      "value": "AM",
+      "count": 5
+    },
+    {
+      "value": "RS",
+      "count": 5
+    },
+    {
+      "value": "MG",
+      "count": 4
+    },
+    {
+      "value": "IS",
+      "count": 4
+    },
+    {
+      "value": "PT",
+      "count": 4
+    },
+    {
+      "value": "ZA",
+      "count": 4
+    },
+    {
+      "value": "MD",
+      "count": 4
+    },
+    {
+      "value": "DO",
+      "count": 3
+    },
+    {
+      "value": "GQ",
+      "count": 3
+    },
+    {
+      "value": "BB",
+      "count": 3
+    },
+    {
+      "value": "NA",
+      "count": 3
+    },
+    {
+      "value": "RO",
+      "count": 3
+    },
+    {
+      "value": "NI",
+      "count": 3
+    },
+    {
+      "value": "CR",
+      "count": 2
+    },
+    {
+      "value": "SN",
+      "count": 2
+    },
+    {
+      "value": "CF",
+      "count": 2
+    },
+    {
+      "value": "TG",
+      "count": 2
+    },
+    {
+      "value": "AO",
+      "count": 2
+    },
+    {
+      "value": "CI",
+      "count": 2
+    },
+    {
+      "value": "GE",
+      "count": 2
+    },
+    {
+      "value": "TN",
+      "count": 2
+    },
+    {
+      "value": "GT",
+      "count": 2
+    },
+    {
+      "value": "SR",
+      "count": 1
+    },
+    {
+      "value": "VC",
+      "count": 1
+    },
+    {
+      "value": "BF",
+      "count": 1
+    },
+    {
+      "value": "BJ",
+      "count": 1
+    },
+    {
+      "value": "GH",
+      "count": 1
+    },
+    {
+      "value": "SC",
+      "count": 1
+    },
+    {
+      "value": "BR",
+      "count": 1
+    },
+    {
+      "value": "MT",
+      "count": 1
+    },
+    {
+      "value": "SI",
+      "count": 1
+    },
+    {
+      "value": "DJ",
+      "count": 1
+    },
+    {
+      "value": "CG",
+      "count": 1
+    },
+    {
+      "value": "MK",
+      "count": 1
+    },
+    {
+      "value": "TD",
+      "count": 1
+    },
+    {
+      "value": "CV",
+      "count": 1
     }
   ],
   "labels": [
     {
       "value": "Persons deprived of their liberty",
-      "count": 7292
+      "count": 8341
     },
     {
       "value": "Women/girls",
-      "count": 6935
+      "count": 7239
     },
     {
       "value": "Children",
-      "count": 5667
+      "count": 5791
     },
     {
       "value": "Refugees & asylum-seekers",
-      "count": 4417
+      "count": 5708
     },
     {
       "value": "Persons with disabilities",
-      "count": 3229
+      "count": 3347
+    },
+    {
+      "value": "Migrants",
+      "count": 1352
     },
     {
       "value": "LGBTI+",
-      "count": 689
+      "count": 687
+    },
+    {
+      "value": "Indigenous peoples",
+      "count": 574
+    },
+    {
+      "value": "Non-citizens and stateless",
+      "count": 451
+    },
+    {
+      "value": "Persons living in poverty",
+      "count": 396
+    },
+    {
+      "value": "Persons affected by armed conflict",
+      "count": 367
     },
     {
       "value": "Roma, Gypsies, Sinti and Travellers",
       "count": 352
     },
     {
-      "value": "Non-citizens and stateless",
-      "count": 345
-    },
-    {
-      "value": "Persons living in poverty",
-      "count": 325
-    },
-    {
-      "value": "Persons affected by armed conflict",
-      "count": 320
-    },
-    {
       "value": "Persons in street situations",
-      "count": 235
+      "count": 308
     },
     {
       "value": "Persons living with HIV/AIDS",
-      "count": 189
-    },
-    {
-      "value": "Indigenous peoples",
-      "count": 141
-    },
-    {
-      "value": "Migrants",
-      "count": 126
+      "count": 233
     },
     {
       "value": "Persons affected by natural disasters",
-      "count": 108
+      "count": 111
     },
     {
       "value": "Internally displaced persons",
@@ -588,230 +1132,712 @@
     },
     {
       "value": "Persons living in rural/remote areas",
+      "count": 55
+    }
+  ],
+  "rightsKeywords": [
+    {
+      "value": "Torture / ill-treatment",
+      "count": 839
+    },
+    {
+      "value": "Fair trial",
+      "count": 501
+    },
+    {
+      "value": "Effective remedy",
+      "count": 400
+    },
+    {
+      "value": "Fair hearing",
+      "count": 341
+    },
+    {
+      "value": "Equality before the law",
+      "count": 332
+    },
+    {
+      "value": "Right to life",
+      "count": 331
+    },
+    {
+      "value": "Freedom of expression",
+      "count": 268
+    },
+    {
+      "value": "Conditions of detention",
+      "count": 248
+    },
+    {
+      "value": "Deportation",
+      "count": 211
+    },
+    {
+      "value": "Arbitrary detention",
+      "count": 193
+    },
+    {
+      "value": "Non-discrimination",
+      "count": 169
+    },
+    {
+      "value": "Privacy",
+      "count": 158
+    },
+    {
+      "value": "Liberty and security of person",
+      "count": 154
+    },
+    {
+      "value": "Respect for the inherent dignity of the human person",
+      "count": 130
+    },
+    {
+      "value": "Right to appeal",
+      "count": 128
+    },
+    {
+      "value": "Presumption of innocence",
+      "count": 125
+    },
+    {
+      "value": "Freedom of assembly",
+      "count": 111
+    },
+    {
+      "value": "Exhaustion of domestic remedies",
+      "count": 108
+    },
+    {
+      "value": "Preparation of defence",
+      "count": 101
+    },
+    {
+      "value": "Freedom of religion",
+      "count": 93
+    },
+    {
+      "value": "Right to defence",
+      "count": 90
+    },
+    {
+      "value": "Rights of the child",
+      "count": 84
+    },
+    {
+      "value": "Protection of family",
+      "count": 80
+    },
+    {
+      "value": "Arbitrary arrest",
+      "count": 79
+    },
+    {
+      "value": "Expeditiousness of the trial",
+      "count": 79
+    },
+    {
+      "value": "Non-refoulement",
+      "count": 67
+    },
+    {
+      "value": "Freedom of opinion",
+      "count": 64
+    },
+    {
+      "value": "Freedom of association",
+      "count": 64
+    },
+    {
+      "value": "Access to witnesses",
+      "count": 63
+    },
+    {
+      "value": "Right to family",
+      "count": 60
+    },
+    {
+      "value": "Protection of minorities",
+      "count": 59
+    },
+    {
+      "value": "Freedom of movement",
+      "count": 58
+    },
+    {
+      "value": "Legal Personality",
+      "count": 58
+    },
+    {
+      "value": "Self-incrimination",
+      "count": 57
+    },
+    {
+      "value": "Participation in public affairs",
+      "count": 54
+    },
+    {
+      "value": "Death penalty",
+      "count": 52
+    },
+    {
+      "value": "Retroactivity of the law",
+      "count": 48
+    },
+    {
+      "value": "Information on charge",
+      "count": 42
+    },
+    {
+      "value": "Right of peaceful assembly",
+      "count": 42
+    },
+    {
+      "value": "Failure to substantiate claim",
+      "count": 42
+    },
+    {
+      "value": "Arbitrary interference with family",
+      "count": 41
+    },
+    {
+      "value": "Right to legal assistance",
+      "count": 40
+    },
+    {
+      "value": "Expulsion of aliens",
+      "count": 38
+    },
+    {
+      "value": "Recognition as a person before the law",
+      "count": 37
+    },
+    {
+      "value": "Access to public services",
+      "count": 34
+    },
+    {
+      "value": "Gender equality",
+      "count": 29
+    },
+    {
+      "value": "Freedom of thought, conscience and religion",
+      "count": 29
+    },
+    {
+      "value": "Interference with one's home",
+      "count": 29
+    },
+    {
+      "value": "Enforced disappearance",
+      "count": 27
+    },
+    {
+      "value": "Asylum / refugee status determination",
+      "count": 24
+    },
+    {
+      "value": "Independent and impartial tribunal",
       "count": 23
+    },
+    {
+      "value": "Right to vote",
+      "count": 22
+    },
+    {
+      "value": "Prompt and impartial investigation",
+      "count": 22
+    },
+    {
+      "value": "Imposition of a death sentence after unfair trial",
+      "count": 21
+    },
+    {
+      "value": "Lack of proper investigation",
+      "count": 18
+    },
+    {
+      "value": "Right to be elected",
+      "count": 17
+    },
+    {
+      "value": "Right to liberty",
+      "count": 17
+    },
+    {
+      "value": "Self-determination",
+      "count": 16
+    },
+    {
+      "value": "Domestic implementation",
+      "count": 15
+    },
+    {
+      "value": "Right to judicial review of detention",
+      "count": 14
+    },
+    {
+      "value": "Conscientious objection to military service",
+      "count": 14
+    },
+    {
+      "value": "Equality of arms and fair hearing",
+      "count": 14
+    },
+    {
+      "value": "Access to court",
+      "count": 13
+    },
+    {
+      "value": "Access to information",
+      "count": 13
+    },
+    {
+      "value": "Ethnic origin",
+      "count": 12
+    },
+    {
+      "value": "Freedom to impart information",
+      "count": 12
+    },
+    {
+      "value": "Confessions obtained under duress",
+      "count": 12
+    },
+    {
+      "value": "Review of conviction and sentence",
+      "count": 12
+    },
+    {
+      "value": "Best interest of the child",
+      "count": 11
+    },
+    {
+      "value": "Liberty of movement",
+      "count": 10
+    },
+    {
+      "value": "Slavery / servitude",
+      "count": 10
+    },
+    {
+      "value": "Right to seek information",
+      "count": 10
+    },
+    {
+      "value": "Ne bis in idem",
+      "count": 10
+    },
+    {
+      "value": "Limitation to rights",
+      "count": 9
+    },
+    {
+      "value": "Equality of spouses",
+      "count": 8
+    },
+    {
+      "value": "Freedom of conscience",
+      "count": 8
+    },
+    {
+      "value": "Effective legal protection",
+      "count": 8
+    },
+    {
+      "value": "Right to a hearing before a competent court",
+      "count": 8
+    },
+    {
+      "value": "Manifestation of religion or belief",
+      "count": 8
+    },
+    {
+      "value": "LGBTI",
+      "count": 7
+    },
+    {
+      "value": "Arbitrary Expulsion",
+      "count": 7
+    },
+    {
+      "value": "Juvenile trials",
+      "count": 6
+    },
+    {
+      "value": "Incommunicado detention",
+      "count": 6
+    },
+    {
+      "value": "Disability",
+      "count": 5
+    },
+    {
+      "value": "Right to enter one's own country",
+      "count": 5
+    },
+    {
+      "value": "Child's right to a nationality",
+      "count": 5
+    },
+    {
+      "value": "Arbitrary execution",
+      "count": 5
+    },
+    {
+      "value": "Right to impart information",
+      "count": 5
+    },
+    {
+      "value": "Forced labour",
+      "count": 5
+    },
+    {
+      "value": "Honour and reputation",
+      "count": 5
+    },
+    {
+      "value": "Right to enjoy one’s own culture",
+      "count": 5
+    },
+    {
+      "value": "Derogations",
+      "count": 4
+    },
+    {
+      "value": "Compelling reasons of national security",
+      "count": 4
+    },
+    {
+      "value": "Incitement to discrimination",
+      "count": 4
+    },
+    {
+      "value": "Abortion",
+      "count": 4
+    },
+    {
+      "value": "Defamation",
+      "count": 3
+    },
+    {
+      "value": "Right to marry",
+      "count": 3
+    },
+    {
+      "value": "Detention for debt",
+      "count": 3
+    },
+    {
+      "value": "Extrajudicial executions",
+      "count": 3
+    },
+    {
+      "value": "Right to choose residence",
+      "count": 3
+    },
+    {
+      "value": "Forced marriage",
+      "count": 2
+    },
+    {
+      "value": "Jurisdiction of the Committee",
+      "count": 2
+    },
+    {
+      "value": "Rape",
+      "count": 2
+    },
+    {
+      "value": "Due process in review of expulsion",
+      "count": 2
+    },
+    {
+      "value": "Interim Measures",
+      "count": 2
+    },
+    {
+      "value": "Principle of legality",
+      "count": 2
+    },
+    {
+      "value": "Arbitrary or unlawful interference",
+      "count": 2
+    },
+    {
+      "value": "Crime of genocide",
+      "count": 1
+    },
+    {
+      "value": "Hate speech",
+      "count": 1
+    },
+    {
+      "value": "Legal traditions",
+      "count": 1
+    },
+    {
+      "value": "Trial by jury",
+      "count": 1
+    },
+    {
+      "value": "Double sentencing",
+      "count": 1
+    },
+    {
+      "value": "Terrorism",
+      "count": 1
+    },
+    {
+      "value": "Right to social security",
+      "count": 1
+    },
+    {
+      "value": "Right to shelter",
+      "count": 1
+    },
+    {
+      "value": "Extraterritorial application of the ICCPR",
+      "count": 1
+    },
+    {
+      "value": "Birth registration",
+      "count": 1
+    },
+    {
+      "value": "Extradition",
+      "count": 1
+    },
+    {
+      "value": "Seizure of material",
+      "count": 1
     }
   ],
   "formats": [
     {
       "value": "docx",
-      "count": 2436
+      "count": 95351
     },
     {
       "value": "pdf",
-      "count": 494
+      "count": 15202
     },
     {
       "value": "pdf_ocr",
-      "count": 170
+      "count": 5415
     },
     {
       "value": "doc",
-      "count": 16
+      "count": 622
     },
     {
       "value": "html",
-      "count": 1
+      "count": 66
     }
   ],
   "years": {
     "min": 1977,
-    "max": 2025,
+    "max": 2026,
     "histogram": [
       {
         "year": 1977,
-        "count": 8
+        "count": 165
       },
       {
         "year": 1978,
-        "count": 8
+        "count": 180
       },
       {
         "year": 1979,
-        "count": 16
+        "count": 462
       },
       {
         "year": 1980,
-        "count": 10
+        "count": 274
       },
       {
         "year": 1981,
-        "count": 19
+        "count": 477
       },
       {
         "year": 1982,
-        "count": 10
-      },
-      {
-        "year": 1983,
-        "count": 14
-      },
-      {
-        "year": 1984,
-        "count": 19
-      },
-      {
-        "year": 1985,
-        "count": 9
-      },
-      {
-        "year": 1986,
-        "count": 14
-      },
-      {
-        "year": 1987,
-        "count": 43
-      },
-      {
-        "year": 1988,
-        "count": 62
-      },
-      {
-        "year": 1989,
-        "count": 28
-      },
-      {
-        "year": 1990,
-        "count": 39
-      },
-      {
-        "year": 1991,
-        "count": 34
-      },
-      {
-        "year": 1992,
-        "count": 32
-      },
-      {
-        "year": 1993,
-        "count": 38
-      },
-      {
-        "year": 1994,
-        "count": 30
-      },
-      {
-        "year": 1995,
-        "count": 57
-      },
-      {
-        "year": 1996,
-        "count": 47
-      },
-      {
-        "year": 1997,
-        "count": 50
-      },
-      {
-        "year": 1998,
-        "count": 45
-      },
-      {
-        "year": 1999,
-        "count": 47
-      },
-      {
-        "year": 2000,
-        "count": 54
-      },
-      {
-        "year": 2001,
-        "count": 64
-      },
-      {
-        "year": 2002,
-        "count": 81
-      },
-      {
-        "year": 2003,
-        "count": 64
-      },
-      {
-        "year": 2004,
-        "count": 56
-      },
-      {
-        "year": 2005,
-        "count": 87
-      },
-      {
-        "year": 2006,
-        "count": 83
-      },
-      {
-        "year": 2007,
-        "count": 83
-      },
-      {
-        "year": 2008,
-        "count": 94
-      },
-      {
-        "year": 2009,
-        "count": 57
-      },
-      {
-        "year": 2010,
-        "count": 88
-      },
-      {
-        "year": 2011,
-        "count": 103
-      },
-      {
-        "year": 2012,
-        "count": 106
-      },
-      {
-        "year": 2013,
-        "count": 113
-      },
-      {
-        "year": 2014,
-        "count": 217
-      },
-      {
-        "year": 2015,
-        "count": 203
-      },
-      {
-        "year": 2016,
-        "count": 218
-      },
-      {
-        "year": 2017,
         "count": 168
       },
       {
+        "year": 1983,
+        "count": 332
+      },
+      {
+        "year": 1984,
+        "count": 465
+      },
+      {
+        "year": 1985,
+        "count": 229
+      },
+      {
+        "year": 1986,
+        "count": 333
+      },
+      {
+        "year": 1987,
+        "count": 987
+      },
+      {
+        "year": 1988,
+        "count": 1280
+      },
+      {
+        "year": 1989,
+        "count": 605
+      },
+      {
+        "year": 1990,
+        "count": 924
+      },
+      {
+        "year": 1991,
+        "count": 990
+      },
+      {
+        "year": 1992,
+        "count": 849
+      },
+      {
+        "year": 1993,
+        "count": 1719
+      },
+      {
+        "year": 1994,
+        "count": 1329
+      },
+      {
+        "year": 1995,
+        "count": 2213
+      },
+      {
+        "year": 1996,
+        "count": 1916
+      },
+      {
+        "year": 1997,
+        "count": 1694
+      },
+      {
+        "year": 1998,
+        "count": 1347
+      },
+      {
+        "year": 1999,
+        "count": 1442
+      },
+      {
+        "year": 2000,
+        "count": 1896
+      },
+      {
+        "year": 2001,
+        "count": 2006
+      },
+      {
+        "year": 2002,
+        "count": 2602
+      },
+      {
+        "year": 2003,
+        "count": 2251
+      },
+      {
+        "year": 2004,
+        "count": 1888
+      },
+      {
+        "year": 2005,
+        "count": 3121
+      },
+      {
+        "year": 2006,
+        "count": 3000
+      },
+      {
+        "year": 2007,
+        "count": 3152
+      },
+      {
+        "year": 2008,
+        "count": 4417
+      },
+      {
+        "year": 2009,
+        "count": 2646
+      },
+      {
+        "year": 2010,
+        "count": 3930
+      },
+      {
+        "year": 2011,
+        "count": 4524
+      },
+      {
+        "year": 2012,
+        "count": 4895
+      },
+      {
+        "year": 2013,
+        "count": 4923
+      },
+      {
+        "year": 2014,
+        "count": 8647
+      },
+      {
+        "year": 2015,
+        "count": 8184
+      },
+      {
+        "year": 2016,
+        "count": 9877
+      },
+      {
+        "year": 2017,
+        "count": 7084
+      },
+      {
         "year": 2018,
-        "count": 137
+        "count": 6264
       },
       {
         "year": 2019,
-        "count": 111
+        "count": 4795
       },
       {
         "year": 2020,
-        "count": 80
+        "count": 2592
       },
       {
         "year": 2021,
-        "count": 56
+        "count": 1367
       },
       {
         "year": 2022,
-        "count": 35
+        "count": 666
       },
       {
         "year": 2023,
-        "count": 22
+        "count": 486
       },
       {
         "year": 2024,
-        "count": 8
+        "count": 242
       },
       {
         "year": 2025,
-        "count": 1
+        "count": 62
+      },
+      {
+        "year": 2026,
+        "count": 239
       }
     ]
   }

@@ -57,8 +57,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260506-v19-46a" />
-<link rel="stylesheet" href="assets/app.css?v=20260506-v19-46a" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260506-v19-47a" />
+<link rel="stylesheet" href="assets/app.css?v=20260506-v19-47a" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -313,6 +313,19 @@
       <div id="filter-labels" class="checkbox-list"></div>
     </div>
 
+    <!-- v19.46: outcome filter — JUR-only (Special Procedures + GC don't
+         have an outcome dimension). Hidden until the JUR scope is active.
+         Renders as a checkbox-list of the seven outcome buckets
+         (violation_found / inadmissible / discontinued / merits_no_violation
+         / views / other / decision) with paragraph counts. -->
+    <details class="filter-block filter-collapsible" id="filter-block-outcome" hidden>
+      <summary>
+        <span class="folio">Outcome <span class="dim" style="font-weight:normal">(jurisprudence)</span></span>
+        <span class="folio dim" id="filter-outcome-count">—</span>
+      </summary>
+      <div id="filter-outcomes" class="checkbox-list"></div>
+    </details>
+
     <details class="filter-block filter-collapsible" id="filter-block-country" hidden>
       <summary>
         <span class="folio">State party</span>
@@ -519,14 +532,62 @@
         <div class="about-block">
           <h3 class="folio">Jurisprudence</h3>
           <p class="serif">
-            <strong>3,117 CCPR/CEDAW/CRPD jurisprudence documents</strong> ·
-            <strong>115,170 paragraphs</strong> are included as a
+            <strong>3,176 CCPR/CEDAW/CRPD jurisprudence documents</strong> ·
+            <strong>116,656 paragraphs</strong> are included as a
             preview. They are published as separate shards under
             <code class="mono">docs/jur/</code>, so the main General Comments
             interface stays lightweight while the full Treaty Body jurisprudence
             corpus is still being prepared. CCPR now includes OCR-recovered
-            scanned legacy cases; 51 CCPR records remain pending because their
-            English source files still need repair or manual verification.
+            scanned legacy cases; a small number of CCPR records remain pending
+            because their English source files still need repair or manual
+            verification.
+          </p>
+          <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px dotted var(--rule); font-size: 13px;">
+            <strong class="folio">Sources &amp; enrichment.</strong> Primary
+            source: the OHCHR bulk jurisprudence dump (catalog + raw English
+            DOCX/PDF). Secondary source for CCPR cases: the
+            <a class="about-link" href="https://ccprcentre.org/database-decisions" target="_blank" rel="noopener">CCPR Centre</a>'s
+            curated digest (Geneva Centre for Civil and Political Rights,
+            crawled 6 May 2026 — 2,694 records). Per-document provenance is
+            tracked in <code class="mono">metadataSources</code> so any field's
+            origin is auditable.
+          </p>
+          <p class="serif" style="margin-top: 0.4rem; font-size: 13px;">
+            <strong class="folio">What we adopted from CCPR Centre</strong>
+            (acknowledgment of their work):
+            their substantive Covenant-article extraction (replacing or
+            enriching <strong>2,046</strong> of our cases where our front-matter
+            parse had pulled only Optional-Protocol procedural articles);
+            their 119-keyword rights-based topic vocabulary as a new
+            <code class="mono">rightsKeywords</code> field on
+            <strong>2,465</strong> CCPR cases; multilingual document URLs
+            (EN + ES + FR + AR + RU + ZH where available) on
+            <strong>2,539</strong> cases; ISO-3166 country codes; granular
+            outcome classifications; and clean ISO-8601 decision dates where
+            our parser had garbled them. We also adopted their case-name
+            authority for <strong>170</strong> cases where ours was a stub
+            ("Communication No. X") or front-matter junk, plus
+            <strong>59</strong> CCPR decisions that were missing from our
+            corpus entirely (mostly 1977&ndash;1996 Uruguay, Canada, Jamaica
+            cases).
+          </p>
+          <p class="serif" style="margin-top: 0.4rem; font-size: 13px;">
+            <strong class="folio">What we add on top of CCPR Centre.</strong>
+            Paragraph-level full-text search across the entire corpus (theirs
+            is decision-level only); <strong>~99 %</strong> submission-date
+            coverage (theirs: 41 %); aggressive OCR cleanup for 170
+            scanned-PDF legacy cases (1,388 fixes across five categories,
+            documented at
+            <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/_docs_internal/JUR_OCR_AUDIT_REPORT.md" target="_blank" rel="noopener">JUR_OCR_AUDIT_REPORT.md</a>);
+            re-extraction of 352 docs whose paragraphs had collapsed into a
+            single 1-paragraph blob during our initial ingest (added 3,123
+            paragraphs, ~91&nbsp;K words); clean year-field repair across
+            1,260 docs; diacritic-insensitive search; smart "First applicant
+            et al. v. State" display for 165 compound joint-communication case
+            names; and a reader-pane provenance banner on every OCR-recovered
+            document with a one-click report-issue link to the GitHub tracker.
+            CCPR Centre's digest is decision-only; our corpus also retains
+            corrigenda, revisions and procedural items where useful.
           </p>
         </div>
 
@@ -836,6 +897,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260506-v19-46a"></script>
+<script type="module" src="assets/app.js?v=20260506-v19-47a"></script>
 </body>
 </html>

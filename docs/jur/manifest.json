@@ -1,199 +1,205 @@
 {
   "version": "20260506",
-  "builtAt": "2026-05-06T07:07:47+00:00",
+  "builtAt": "2026-05-06T12:25:49+00:00",
   "scope": "all",
   "counts": {
-    "documents": 3117,
-    "paragraphs": 115170,
+    "documents": 3176,
+    "paragraphs": 116656,
     "shards": 28,
     "treaties": 3,
     "countries": 117,
     "labels": 19,
     "yearRange": [
       1977,
-      2025
+      2026
     ]
   },
   "files": {
     "documents.json": {
-      "sha": "599724fc3aa3ca33",
-      "bytes": 21886317
+      "sha": "cd4e53065bdf9613",
+      "bytes": 24437304
     },
     "documents-lite.json": {
-      "sha": "2e784baa2e867f48",
-      "bytes": 5981434
+      "sha": "2c42e769c836b118",
+      "bytes": 11970470
     },
     "facets.json": {
-      "sha": "226fa93aab42a919",
-      "bytes": 12538
+      "sha": "9468344cf9135d68",
+      "bytes": 28583
     },
     "shards/jur_CCPR_1976-1977.json": {
-      "sha": "a87bf74e92cf7bf4",
-      "bytes": 189853,
-      "documents": 8,
-      "paragraphs": 140
+      "sha": "6fd2933a22917d3f",
+      "bytes": 237679,
+      "paragraphs": 165,
+      "documents": 10
     },
     "shards/jur_CCPR_1978-1979.json": {
-      "sha": "d11d007645af9e8e",
-      "bytes": 657500,
-      "documents": 24,
-      "paragraphs": 584
+      "sha": "e2fd7a701dd1805b",
+      "bytes": 723713,
+      "paragraphs": 642,
+      "documents": 34
     },
     "shards/jur_CCPR_1980-1981.json": {
-      "sha": "0895b00e1b69cb7d",
-      "bytes": 751703,
-      "documents": 29,
-      "paragraphs": 674
+      "sha": "5e04c9610c70886e",
+      "bytes": 838609,
+      "paragraphs": 741,
+      "documents": 34
     },
     "shards/jur_CCPR_1982-1983.json": {
-      "sha": "80477da124681e21",
-      "bytes": 576090,
-      "documents": 24,
-      "paragraphs": 483
+      "sha": "4866fdffd4f9c470",
+      "bytes": 611009,
+      "paragraphs": 500,
+      "documents": 25
     },
     "shards/jur_CCPR_1984-1985.json": {
-      "sha": "937c763a88bbe482",
-      "bytes": 799159,
-      "documents": 28,
-      "paragraphs": 626
+      "sha": "12c409cbd868e57d",
+      "bytes": 857351,
+      "paragraphs": 694,
+      "documents": 32
     },
     "shards/jur_CCPR_1986-1987.json": {
-      "sha": "e60b058078553a6a",
-      "bytes": 1485039,
-      "documents": 57,
-      "paragraphs": 1297
+      "sha": "7f3c9e48542b075c",
+      "bytes": 1518854,
+      "paragraphs": 1320,
+      "documents": 58
     },
     "shards/jur_CCPR_1988-1989.json": {
-      "sha": "8ba3a8d4b3d9701c",
-      "bytes": 1990437,
-      "documents": 90,
-      "paragraphs": 1858
+      "sha": "a228dce0ec364d10",
+      "bytes": 2017099,
+      "paragraphs": 1885,
+      "documents": 91
     },
     "shards/jur_CCPR_1990-1991.json": {
-      "sha": "fb2d87d5dd85db6c",
-      "bytes": 1991108,
-      "documents": 73,
-      "paragraphs": 1859
+      "sha": "c3d016e9ba77def0",
+      "bytes": 2080664,
+      "paragraphs": 1924,
+      "documents": 76
     },
     "shards/jur_CCPR_1992-1993.json": {
-      "sha": "74983cd1358b321c",
-      "bytes": 2542871,
-      "documents": 70,
-      "paragraphs": 2231
+      "sha": "9221db81c7e96622",
+      "bytes": 2881843,
+      "paragraphs": 2473,
+      "documents": 77
     },
     "shards/jur_CCPR_1994-1995.json": {
-      "sha": "7246d3e70df763eb",
-      "bytes": 3647945,
-      "documents": 87,
-      "paragraphs": 3358
+      "sha": "7c31d1dfd360d748",
+      "bytes": 3955447,
+      "paragraphs": 3497,
+      "documents": 99
     },
     "shards/jur_CCPR_1996-1997.json": {
-      "sha": "f32c2150c21a6b8b",
-      "bytes": 3888261,
-      "documents": 97,
-      "paragraphs": 3535
+      "sha": "56a2b7d36112ace2",
+      "bytes": 3951942,
+      "paragraphs": 3539,
+      "documents": 97
     },
     "shards/jur_CCPR_1998-1999.json": {
-      "sha": "04de2ddedafb5146",
-      "bytes": 3050815,
-      "documents": 92,
-      "paragraphs": 2765
+      "sha": "a20df4e86649b5e5",
+      "bytes": 3067950,
+      "paragraphs": 2774,
+      "documents": 92
     },
     "shards/jur_CCPR_2000-2001.json": {
-      "sha": "3aa44432ef5a7dd6",
-      "bytes": 4202914,
-      "documents": 118,
-      "paragraphs": 3876
+      "sha": "cd7a6e92d46c07cb",
+      "bytes": 4229627,
+      "paragraphs": 3885,
+      "documents": 118
     },
     "shards/jur_CCPR_2002-2003.json": {
-      "sha": "af87eedf85d9b1d4",
-      "bytes": 5369882,
-      "documents": 145,
-      "paragraphs": 4790
+      "sha": "e12e0fb2a5f43f23",
+      "bytes": 5395089,
+      "paragraphs": 4798,
+      "documents": 147
     },
     "shards/jur_CCPR_2004-2005.json": {
-      "sha": "898f3d3d32b99966",
-      "bytes": 5610207,
-      "documents": 137,
-      "paragraphs": 4597
+      "sha": "740e191341276e36",
+      "bytes": 5624584,
+      "paragraphs": 4597,
+      "documents": 137
     },
     "shards/jur_CCPR_2006-2007.json": {
-      "sha": "b692fabd8e7c840d",
-      "bytes": 6975870,
-      "documents": 162,
-      "paragraphs": 5756
+      "sha": "afb9b39c0b8e14f2",
+      "bytes": 6998919,
+      "paragraphs": 5760,
+      "documents": 162
     },
     "shards/jur_CCPR_2008-2009.json": {
-      "sha": "767ef1cb2531e079",
-      "bytes": 8176344,
-      "documents": 144,
-      "paragraphs": 6413
+      "sha": "724dce916a449ab4",
+      "bytes": 8193539,
+      "paragraphs": 6417,
+      "documents": 145
     },
     "shards/jur_CCPR_2010-2011.json": {
-      "sha": "9cbe2afb27419255",
-      "bytes": 9720555,
-      "documents": 174,
-      "paragraphs": 7558
+      "sha": "ee1b0636fdbfc9ab",
+      "bytes": 9756156,
+      "paragraphs": 7570,
+      "documents": 177
     },
     "shards/jur_CCPR_2012-2013.json": {
-      "sha": "bfd92d11939d2e71",
-      "bytes": 9779988,
-      "documents": 183,
-      "paragraphs": 7813
+      "sha": "e5851baca2aecdda",
+      "bytes": 9824695,
+      "paragraphs": 7821,
+      "documents": 185
     },
     "shards/jur_CCPR_2014-2015.json": {
-      "sha": "84475f9006f9adc2",
-      "bytes": 17701991,
-      "documents": 374,
-      "paragraphs": 14438
+      "sha": "34633d59b9aed67f",
+      "bytes": 17815396,
+      "paragraphs": 14442,
+      "documents": 375
     },
     "shards/jur_CCPR_2016-2017.json": {
-      "sha": "f2ceb3e7c8d97da3",
-      "bytes": 18572027,
-      "documents": 351,
-      "paragraphs": 14770
+      "sha": "9c4d97487dbbbab3",
+      "bytes": 18739739,
+      "paragraphs": 14840,
+      "documents": 352
     },
     "shards/jur_CCPR_2018-2019.json": {
-      "sha": "f18502e99c8c1e31",
-      "bytes": 10395881,
-      "documents": 191,
-      "paragraphs": 8179
+      "sha": "58d6fcc93decbb4b",
+      "bytes": 10546461,
+      "paragraphs": 8244,
+      "documents": 191
     },
     "shards/jur_CCPR_2020-2021.json": {
-      "sha": "18d9ea84946561f5",
-      "bytes": 2534298,
-      "documents": 102,
-      "paragraphs": 2360
+      "sha": "127f21151cfeb95e",
+      "bytes": 2627918,
+      "paragraphs": 2435,
+      "documents": 103
     },
     "shards/jur_CCPR_2022-2023.json": {
-      "sha": "a3986c739aabd050",
-      "bytes": 844819,
-      "documents": 47,
-      "paragraphs": 862
+      "sha": "71a30058ad079b91",
+      "bytes": 860615,
+      "paragraphs": 862,
+      "documents": 47
     },
     "shards/jur_CCPR_2024-2025.json": {
-      "sha": "21baf9ad51e65974",
-      "bytes": 82817,
-      "documents": 7,
-      "paragraphs": 94
+      "sha": "f35a0c30c4fd44ba",
+      "bytes": 115804,
+      "paragraphs": 127,
+      "documents": 8
     },
     "shards/jur_CCPR_unknown.json": {
-      "sha": "1566fe678f17d92c",
-      "bytes": 2137898,
-      "documents": 48,
-      "paragraphs": 1563
+      "sha": "60069026ccdca06f",
+      "bytes": 2275113,
+      "paragraphs": 1782,
+      "documents": 48
     },
     "shards/jur_CEDAW.json": {
-      "sha": "7a4d0f2b39b84df4",
-      "bytes": 11239100,
-      "documents": 167,
-      "paragraphs": 8950
+      "sha": "04b046cbf84d064a",
+      "bytes": 11252414,
+      "paragraphs": 8952,
+      "documents": 167
     },
     "shards/jur_small_treaties.json": {
-      "sha": "aa870ed46c87e627",
-      "bytes": 5114664,
-      "documents": 88,
-      "paragraphs": 3741
+      "sha": "b7349c71525ef94f",
+      "bytes": 5125371,
+      "paragraphs": 3749,
+      "documents": 88
+    },
+    "shards/jur_CCPR_2026-2027.json": {
+      "sha": "010f9a4573efb2c6",
+      "bytes": 83088,
+      "paragraphs": 221,
+      "documents": 1
     }
   },
   "schema": {
@@ -251,6 +257,36 @@
       "date": "2026-05-06",
       "category": "reextraction",
       "note": "Cat-W re-extraction of 352 docs whose paragraph extractor crammed multi-paragraph source into 1 paragraph. Added 3,123 paragraphs across CCPR/CEDAW/CRPD."
+    },
+    {
+      "date": "2026-05-06",
+      "category": "year_repair",
+      "note": "Cat-X year-field repair: 43 docs had wrong/missing `year`+`communicationYear`; 1,217 had `adoptionYear` drifted off the canonical adoptionDate text. Fixed all. 1 OHCHR signature-typo overridden by date (CCPR/C/19/D/90/1991 → 1981)."
+    },
+    {
+      "date": "2026-05-06",
+      "category": "ccpr_centre_ingest",
+      "note": "Cat-Z + Cat-Z2 + Cat-Z3 — ingested CCPR Centre digest enrichments: rights-based keywords on 2,465 cases, multilingual document URLs on 2,539, ISO country codes, granular outcomes, replaced 1,312 procedural-article lists with substantive Covenant articles, repaired 170 broken case names. Backfilled 59 missing CCPR decisions (~3,000 paragraphs)."
+    },
+    {
+      "date": "2026-05-06",
+      "category": "paragraph_resplit",
+      "note": "Cat-AA split 48 mega-¶ (>5K chars) into 400 chunks. Cat-BB re-split 4 narrative-prose 1977-1983 PDFs that Cat-W had rejected."
+    },
+    {
+      "date": "2026-05-06",
+      "category": "thin_doc_resplit",
+      "note": "Cat-CC: re-split 60 thin-doc paragraphs (+170 ¶). Cat-DD: re-extracted 6 corrigenda from raw docx (+41 ¶) — fixed broken stubs."
+    },
+    {
+      "date": "2026-05-06",
+      "category": "metadata_quality_pass",
+      "note": "Cat-EE: promoted 613 weak outcomes (other/decision/views) → granular CCPR Centre value. Cat-FF: stripped extraction noise (page numbers, GE refs, UN headers, Minnesota citations) on 357 ¶. Cat-GG: re-evaluated metadataConfidence (low → high/medium for 359 docs) and caseNameConfidence (low → high for 14 docs)."
+    },
+    {
+      "date": "2026-05-06",
+      "category": "metadata_enrichment_v2",
+      "note": "Cat-HH: 211 docs gained caseLabels mapped from CCPR Centre rights-keywords. Cat-II: 989 docs gained subjectMatter from rights-keywords. Cat-JJ: 4,660 ¶ gained section via sibling-inheritance."
     }
   ]
 }
