@@ -89,6 +89,94 @@ def tokenize_with_markers(text: str) -> list[tuple[str, str]]:
     return tokens
 
 
+def docx_supersedes_corpus(
+    corpus_text: str, docx_text: str, all_doc_footnotes: list[dict]
+) -> tuple[bool, str]:
+    """Return (True, reason) when the docx-derived text should REPLACE
+    the corpus text outright. We trust docx as canonical when there's
+    evidence the corpus suffers PDF-extraction corruption.
+
+    Two corruption patterns observed (a-79-182 ¶12, ¶13, ¶14):
+
+      • Trailing / inline bare-digit echo of the footnote marker
+        (pdftotext flattens superscripts to bare digits):
+            corpus: "…security 13 and sovereignty. 14 … populations. 15"
+            docx:   "…security[[fn:13]] and sovereignty.[[fn:14]] …
+                     populations.[[fn:15]]"
+
+      • Footnote BODIES dumped inline at end of paragraph (pdftotext
+        can't tell page-bottom region from main-body text):
+            corpus: "…cooperation. 11 Ibid., art. 3 (m). General Assembly
+                     resolution 71/189, …" (six footnote bodies dumped)
+            docx:   "…cooperation.[[fn:11]]"
+
+    Decision rule (both clean of markers for comparison):
+
+      1. First 20 words of corpus_clean and docx_clean must match.
+      2a. If docx/corpus length ratio ≥ 0.85 → trust docx (lengths
+          are similar; differences are likely the inline-digit echo
+          or curly-quote / hyphenation noise).
+      2b. If ratio < 0.85 → corpus has substantial extra trailing
+          content. Only replace if those extras look like bleed-through:
+            • all bare digits (≤200, optionally matching a footnote n), OR
+            • ≥60% of extra word vocab appears in this doc's footnote bodies.
+          Otherwise the extras may be legitimate paragraph content
+          that the docx parser missed (e.g., a paragraph alignment
+          mismatch); skip and let the existing merge attempt handle it.
+    """
+    corpus_clean = re.sub(r"\[\[fn:\d+\]\]", "", corpus_text)
+    docx_clean = re.sub(r"\[\[fn:\d+\]\]", "", docx_text)
+    cw = [m.group(0).lower() for m in WORD.finditer(corpus_clean)]
+    dw = [m.group(0).lower() for m in WORD.finditer(docx_clean)]
+    if len(cw) < 5 or len(dw) < 5:
+        return False, "too_short"
+
+    # Prefix comparison ignores bare 1-3-digit tokens — those are
+    # exactly the PDF footnote-marker echoes we're trying to remove,
+    # and they're scattered through the body, not just at the end
+    # (a-79-182 ¶14: "…security 13 and sovereignty. 14 …").
+    def filter_digits(words: list[str]) -> list[str]:
+        return [w for w in words if not (w.isdigit() and len(w) <= 3)]
+
+    cwf = filter_digits(cw)
+    dwf = filter_digits(dw)
+    n = min(20, len(cwf), len(dwf))
+    if n < 5:
+        return False, "too_short_after_filter"
+    if cwf[:n] != dwf[:n]:
+        return False, "prefix_mismatch"
+
+    ratio = len(dw) / len(cw)
+
+    # Case 1: lengths similar — trust docx, it's the canonical UN
+    # publication. Differences are inline-digit echoes, curly quotes,
+    # hyphenation, etc. — all noise that docx fixes.
+    if ratio >= 0.85:
+        return True, f"length_safe ({ratio:.2f})"
+
+    # Case 2: docx materially shorter. Anchor-check: the LAST 5
+    # non-digit words of docx must also appear (in order, contiguously)
+    # somewhere in the last ~30 non-digit words of corpus. This proves
+    # the docx ¶ properly ends inside the corpus ¶ — i.e., extras are
+    # mid-paragraph bleed-through, not orphaned content. (a-79-182 ¶30
+    # has 8 footnote bodies dumped mid-paragraph; ratio is 0.67 but
+    # docx and corpus share the same start AND end.)
+    if len(dwf) >= 5:
+        tail = dwf[-5:]
+        last_30 = cwf[-30:]
+        for i in range(len(last_30) - len(tail) + 1):
+            if last_30[i:i + len(tail)] == tail:
+                return True, f"anchored_bleed (ratio={ratio:.2f})"
+
+    # Trailing-only-digits fallback (¶13 pattern when corpus is shorter).
+    extra = cw[len(dw):]
+    if extra:
+        fn_ns = {str(f["n"]) for f in all_doc_footnotes}
+        if all(w.isdigit() and (w in fn_ns or int(w) <= 200) for w in extra):
+            return True, f"trailing_digits ({len(extra)})"
+    return False, f"foreign_extras (ratio={ratio:.2f})"
+
+
 def merge_markers_into_text(
     corpus_text: str, docx_text: str, *, min_overlap: float = 0.85
 ) -> tuple[Optional[str], dict]:
@@ -179,6 +267,20 @@ def main() -> int:
     extras_aligned = 0
     extras_orphaned = 0
     docs_touched = 0
+    docx_replaced_safe = 0      # ratio ≥ 0.85, docx is canonical
+    docx_replaced_bleed = 0     # ratio <  0.85, footnote-body bleed
+    docx_replaced_digits = 0    # ratio <  0.85, all-digit extras
+
+    # Pre-build a docId → all footnote bodies index — used by
+    # docx_supersedes_corpus() to detect footnote-body bleed-through.
+    all_fn_by_doc: dict[str, list[dict]] = {}
+    for doc_id, info in sec.items():
+        bag: list[dict] = []
+        for entry in info.get("paragraphs", {}).values():
+            bag.extend(entry.get("footnotes") or [])
+        for extra in info.get("extras", []) or []:
+            bag.extend(extra.get("footnotes") or [])
+        all_fn_by_doc[doc_id] = bag
 
     # Pre-build a docId → [paragraphs sorted by n] index for extras alignment.
     by_doc: dict[str, list[dict]] = {}
@@ -208,6 +310,29 @@ def main() -> int:
             corpus_text = p.get("text") or ""
             docx_text = entry.get("inline_text") or ""
             footnotes = entry.get("footnotes") or []
+
+            # ── Phase 1a: detect & replace PDF-extraction corruption.
+            # When the corpus paragraph carries trailing footnote-body
+            # bleed-through or echoed superscript digits, the corpus
+            # text is unsafe — overwrite with the docx-clean version
+            # and skip the merge step entirely.
+            superseded, _reason = docx_supersedes_corpus(
+                corpus_text, docx_text, all_fn_by_doc.get(doc_id) or [],
+            )
+            if superseded:
+                if args.apply:
+                    p["text"] = docx_text
+                if _reason.startswith("length_safe"):
+                    docx_replaced_safe += 1
+                elif _reason.startswith("trailing_digits"):
+                    docx_replaced_digits += 1
+                else:
+                    docx_replaced_bleed += 1
+                if (p.get("footnotes") or []) != footnotes:
+                    if args.apply:
+                        p["footnotes"] = footnotes
+                touched += 1
+                continue
 
             merged, mi = merge_markers_into_text(
                 corpus_text, docx_text, min_overlap=args.min_overlap,
@@ -316,6 +441,9 @@ def main() -> int:
     print(f"  text + array updated:           {set_text:,}")
     print(f"  array only (low overlap text):  {set_array_only:,}")
     print(f"  ¶s skipped (overlap < {args.min_overlap:g}):     {skipped_low_overlap:,}")
+    print(f"  docx text replaced (length-safe):       {docx_replaced_safe:,}")
+    print(f"  docx text replaced (bleed-through):     {docx_replaced_bleed:,}")
+    print(f"  docx text replaced (trailing digits):   {docx_replaced_digits:,}")
     print(f"  extras aligned via prefix:      {extras_aligned:,}")
     print(f"  extras orphaned (no match):     {extras_orphaned:,}")
 
