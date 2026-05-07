@@ -123,6 +123,23 @@ test('R9. spSectionHeadings · SP docs now render section rollups', async ({ pag
   expect(headings.join(' · ')).toMatch(/INTRODUCTION/i);
 });
 
+test('R10. spFootnoteMarkers · SP docs render inline footnote markers', async ({ page }) => {
+  // v19.52: extracted footnotes from documents.un.org docx (with
+  // libreoffice fallback for legacy .doc) and stitched them onto SP
+  // corpus paragraphs. Reader's renderParagraphHtml already supported
+  // [[fn:N]] markers (from GC pipeline); verifying it now fires on SP.
+  // a-75-385 (Special Rapporteur on freedom of religion or belief, 2020)
+  // has 179 footnotes across 83 numbered ¶s — first marker lives in ¶1.
+  await bootApp(page, '/index.html#documents/a-75-385');
+  await page.waitForTimeout(1200);
+  // Inline marker buttons render as <button class="fn-marker">
+  const markers = page.locator('.docs-reader-para button.fn-marker');
+  expect(await markers.count()).toBeGreaterThan(20);
+  // First marker should carry data-fn-text (extracted body) — non-empty.
+  const firstFnText = await markers.first().getAttribute('data-fn-text');
+  expect(firstFnText && firstFnText.length).toBeGreaterThan(5);
+});
+
 test('R8. titleSyncReader · browser tab <title> follows the open doc', async ({ page }) => {
   // v19.6 (B1) fix: updateDocumentTitle now branches on state.view ===
   // 'documents' and reads state.docsActiveDocId. paintDocReaderBody
