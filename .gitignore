@@ -176,3 +176,10 @@ _docs_internal/sp-headings/__pycache__/
 # (the canonical extraction output) ARE tracked; docx/.doc files are not.
 _docs_internal/footnotes/docx/
 _docs_internal/footnotes/__pycache__/
+
+# CESCR jurisprudence ingestion: fetched documents.un.org docx files
+# (~9 MB across 147 decisions). Rebuildable via extract_cescr.py.
+# Scripts + cescr.json + case_list.json (canonical outputs) ARE
+# tracked; the docx cache is not.
+_docs_internal/cescr/docx/
+_docs_internal/cescr/__pycache__/

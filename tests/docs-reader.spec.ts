@@ -140,6 +140,21 @@ test('R10. spFootnoteMarkers · SP docs render inline footnote markers', async (
   expect(firstFnText && firstFnText.length).toBeGreaterThan(5);
 });
 
+test('R11. cescrJurisprudence · CESCR cases load via the JUR shard', async ({ page }) => {
+  // v19.53: added 247 CESCR Optional Protocol decisions as a new
+  // jurisprudence shard (jur_CESCR.json). I.D.G. v. Spain
+  // (E/C.12/55/D/2/2014) is the very first OP-ICESCR Views — short
+  // case name, well-formed metadata, footnotes attached.
+  await bootApp(page, '/index.html#documents/e-c-12-55-d-2-2014');
+  await page.waitForTimeout(1500);
+  await expect(page.locator('.docs-reader-title')).toBeVisible();
+  // Should render >20 paragraphs (the substantive Views).
+  expect(await page.locator('.docs-reader-para').count()).toBeGreaterThan(20);
+  // Inline footnote markers should be present (extractor walks
+  // <w:footnoteReference> directly).
+  expect(await page.locator('.docs-reader-para button.fn-marker').count()).toBeGreaterThan(5);
+});
+
 test('R8. titleSyncReader · browser tab <title> follows the open doc', async ({ page }) => {
   // v19.6 (B1) fix: updateDocumentTitle now branches on state.view ===
   // 'documents' and reads state.docsActiveDocId. paintDocReaderBody
