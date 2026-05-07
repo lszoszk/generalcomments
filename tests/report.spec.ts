@@ -134,16 +134,11 @@ test('F9. dossierFlag · ⚐ button on dossier opens modal with context', async 
   expect(txt).toMatch(/-\d{4}/);
 });
 
-test.fixme('F10. readerFlag · ⚐ in documents reader opens modal', async ({ page }) => {
-  // v19.45 retired the per-paragraph .docs-para-flag affordance from
-  // the document reader; in-reader reporting now happens via the
-  // OCR-banner GitHub-issue link (when sourceFormat === 'pdf_ocr')
-  // and otherwise from the per-row Cite/Copy controls + the global
-  // footer "Report a problem" entry. This test needs a redesign
-  // against the current reader UI.
-  await bootApp(page, '/index.html#documents/crpd-c-gc-6');
-  await page.waitForTimeout(800);
-});
+// F10 (readerFlag) was retired with v19.45 — the per-paragraph
+// .docs-para-flag affordance was removed in favour of the OCR-banner
+// GitHub-issue link (for OCR'd docs) plus the global footer "Report
+// a problem" entry. F1 + F9 cover the surviving entry points.
+// Removed v19.51.6.
 
 test('F11. issueLinkInToast · server returns issueUrl → toast renders link', async ({ page }) => {
   await page.route('**/unhrdb-api/api/feedback', (route) =>

@@ -17,32 +17,30 @@ const VIEWS = [
 ];
 
 for (const view of VIEWS) {
-  // KNOWN REMAINING VIOLATIONS (after v19.6 round):
-  //   - color-contrast on .dim text + .badge-preview/jur on light bg
-  //   - target-size on the result-row ☆/📌/”/📝 marks (≤24×24)
-  //
-  // v19.6 cleared:
-  //   ✅ A2 aria-required-attr on year-range sliders (explicit aria-*
-  //      attrs added by initYearRange + paintYearFill)
-  //   ✅ A4 docs view axe timeout (rail wrapped in role="navigation")
-  //
-  // The suite stays in the rig as `.fixme` until A1 + A3 (target-size +
-  // color-contrast) ship.  Drop the .fixme then.
-  test.fixme(`a11y · ${view.label}`, async ({ page }) => {
+  // v19.51.2 (audit Tier 1 H6 + C2) brought serious + critical
+  // violations to ZERO across all four views, so the test is now
+  // wired live (was `.fixme` since the v19.6 era). The assertion
+  // below is the regression guard: a future change that introduces
+  // a serious/critical violation will fail this test.
+  // Moderate/minor violations are surfaced to stdout but don't fail
+  // the build (region landmarks etc. — semantic improvements, not
+  // WCAG-AA blockers).
+  test(`a11y · ${view.label}`, async ({ page }) => {
     await resetWorkspace(page);
     await bootApp(page, '/index.html' + view.hash);
-    await page.waitForTimeout(800);
+    // Wait for layout + lazy paints (corpus, JUR catalog) to settle.
+    await page.waitForLoadState('networkidle').catch(() => {});
+    await page.waitForTimeout(1500);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa', 'best-practice'])
       .analyze();
     const critical = results.violations.filter((v) => ['serious', 'critical'].includes(v.impact || ''));
     if (critical.length) {
-      // Print human-readable summary so CI logs are useful.
+      // Human-readable summary for CI logs.
       for (const v of critical) {
         console.log(`  ${v.impact?.toUpperCase()}  ${v.id}  ${v.help}  (${v.nodes.length} nodes)`);
       }
     }
-    // Log the moderate/minor pile (informational).
     const minor = results.violations.filter((v) => !['serious', 'critical'].includes(v.impact || ''));
     if (minor.length) {
       console.log(`  [info] ${minor.length} moderate/minor violations on ${view.label}`);

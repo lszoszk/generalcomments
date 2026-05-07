@@ -94,8 +94,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260507-ac14850" />
-<link rel="stylesheet" href="assets/app.css?v=20260507-ac14850" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260507-0f514f1" />
+<link rel="stylesheet" href="assets/app.css?v=20260507-0f514f1" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -543,7 +543,10 @@
 </section><!-- /documents view -->
 
 <!-- ═══════════════════════════ WORKSPACE VIEW ═══════════════════════════ -->
-<section data-view="workspace" hidden>
+<!-- tabindex="0" makes the scrollable section keyboard-reachable when
+     empty (no bookmarks/notes/pins yet have any focusable children).
+     Closes axe-core scrollable-region-focusable serious violation. -->
+<section data-view="workspace" hidden tabindex="0">
   <div class="workspace-shell">
     <header class="workspace-head">
       <div class="folio garnet">PERSONAL · IN-BROWSER ONLY</div>
@@ -984,6 +987,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260507-ac14850"></script>
+<script type="module" src="assets/app.js?v=20260507-0f514f1"></script>
 </body>
 </html>

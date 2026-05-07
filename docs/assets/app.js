@@ -427,12 +427,25 @@ function encodeUrlState() {
   if (state.filters.yearMax != null && state.filters.yearMax !== state.facets.years.max) {
     u.set(URL_KEYS.y2, state.filters.yearMax);
   }
-  // Result-display preferences (sort, group) and the
-  // active-paragraph anchor (p) NO LONGER go in the URL by default.
-  // Sort/group are user-level preferences → localStorage. Active
-  // paragraph is a per-session interaction → not persisted at all.
-  // The URL stays neutral on a fresh page load. encodeUrlState now
-  // emits ONLY query + filter state, which IS the share-relevant part.
+  // Result-display preferences (sort, group) and the active-paragraph
+  // anchor (p) NO LONGER go in the URL by default for the SEARCH view
+  // — sort/group are user prefs → localStorage, active paragraph is
+  // per-session. The URL stays neutral on fresh search loads.
+  //
+  // EXCEPTION: when the hash is `#documents/<docId>`, `?p=<paraId>` IS
+  // the legitimate share param (the docs reader's deep-link target).
+  // Preserve it through the canonical URL rewrite — otherwise a
+  // hard-navigate from `openInDocReader()` lands on a URL whose `?p=`
+  // gets wiped by encodeUrlState before the docs reader can act on
+  // it (smoke 9 flake root cause). Mirrors the v19.50.1 fix in
+  // applyUrlState that preserves state.activeId for docs-view hashes.
+  const hashNow = window.location.hash || '';
+  const docMatch = hashNow.match(/^#documents\/(.+)$/);
+  const docHashId = docMatch ? decodeURIComponent(docMatch[1]) : null;
+  const incomingP = new URLSearchParams(window.location.search).get('p');
+  if (docHashId && incomingP && incomingP.startsWith(docHashId + '-')) {
+    u.set(URL_KEYS.p, incomingP);
+  }
   if (state.filters.reportTypes.size) u.set(URL_KEYS.rt, [...state.filters.reportTypes].join('|'));
   if (state.filters.countries.size) u.set(URL_KEYS.cy, [...state.filters.countries].join('|'));
   // v19.46: outcome filter (JUR-only). Encoded as pipe-separated values.
@@ -1080,6 +1093,19 @@ function setView(view) {
   if (!VIEWS.includes(view)) view = 'search';
   state.view = view;
   document.body.dataset.activeView = view;
+
+  // v19.51.6 (audit Tier A): toggle the section[data-view] `hidden`
+  // attribute in lockstep with the body[data-active-view] selector.
+  // The CSS rule `body[...] section[...] { display: block; }` already
+  // overrides the `hidden`-driven `display: none`, but axe-core (and
+  // screen readers) honour the `hidden` attribute directly — so the
+  // workspace + about sections were flagged as a serious
+  // `scrollable-region-focusable` violation despite being visible.
+  // Keep both signals consistent.
+  $$('section[data-view]').forEach(section => {
+    if (section.dataset.view === view) section.removeAttribute('hidden');
+    else section.setAttribute('hidden', '');
+  });
 
   // Active link in masthead nav
   $$('.mast-nav a').forEach(a => {
