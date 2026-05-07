@@ -2,17 +2,18 @@
   "name": "generalcomments",
   "version": "0.0.0",
   "private": true,
-  "description": "UN Human Rights Database — static GH Pages site. npm only used for Playwright smoke tests; production is zero-build vanilla JS served straight from docs/.",
+  "description": "UN Human Rights Database \u2014 static GH Pages site. npm only used for Playwright smoke tests; production is zero-build vanilla JS served straight from docs/.",
   "scripts": {
-    "test":               "playwright test --project=chromium",
-    "test:headed":        "playwright test --headed --project=chromium",
-    "test:ui":            "playwright test --ui",
-    "test:firefox":       "playwright test --project=firefox",
-    "test:webkit":        "playwright test --project=webkit",
-    "test:mobile":        "playwright test --project=mobile",
+    "test": "playwright test --project=chromium",
+    "test:headed": "playwright test --headed --project=chromium",
+    "test:ui": "playwright test --ui",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project=mobile",
     "test:cross-browser": "playwright test",
-    "test:contracts":     "playwright test --config=playwright.contracts.config.ts",
-    "serve":              "python3 -m http.server 8765 --directory docs"
+    "test:contracts": "playwright test --config=playwright.contracts.config.ts",
+    "serve": "python3 -m http.server 8765 --directory docs",
+    "stamp": "./scripts/stamp-cache-buster.sh"
   },
   "license": "ISC",
   "devDependencies": {

@@ -143,3 +143,15 @@ test-results/
 playwright-report/
 .playwright-cache/
 _docs_internal/hf-build/
+
+# Local Claude Code session config — not deployment-relevant.
+.claude/
+
+# CCPR Centre fetched datasets — reproducible from
+# _docs_internal/ccprcentre/fetch_ccprcentre_decisions.py (script IS
+# tracked); the JSON dumps are big (10 MB+) and rebuildable, so don't
+# bloat history with them.
+_docs_internal/ccprcentre/*.json
+
+# v2 build staging (parallel target experiment) — generated artefacts.
+docs_v2/

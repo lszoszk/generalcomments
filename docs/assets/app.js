@@ -16,7 +16,7 @@ const state = {
   facets: null,
   baseFacets: null,
   searchIndex: null,            // FlexSearch.Document instance, populated after boot
-  // v19.11: ternary online status. null = ping not yet returned, true = API
+  // Ternary online status. null = ping not yet returned, true = API
   // reachable, false = unreachable (local fallback engaged for the session).
   apiOnline: null,
   view: 'search',               // 'search' | 'documents' | 'about' — driven by URL hash
@@ -48,13 +48,19 @@ const state = {
   },
   results: [],
   activeId: null,
-  // v19.43-fix7: dossier shows the active paragraph inside a context
+  // Dossier shows the active paragraph inside a context
   // window (±2 paragraphs within the same section). When this flag is
   // true the user has clicked "Show entire section" and the dossier
   // expands to render the full section. Per-session, resets on
   // setActive() so opening a different paragraph collapses again.
   dossierExpanded: false,
   searchRun: 0,
+  // v19.51.4 (audit C3): run-token for openDocReader. Incremented on
+  // each call; awaited continuations bail when it changes.
+  docsOpenRun: 0,
+  // Same pattern for jumpToParagraph (which can also race when the
+  // user clicks a workspace row mid-search-result-load).
+  jumpRun: 0,
   jur: {
     manifest: null,
     facets: null,
@@ -72,7 +78,7 @@ const state = {
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
 const JUR_BASE = './jur/';    // jurisprudence pilot: lightweight metadata eager, paragraphs lazy
 
-// v19.11: server-side search API is the DEFAULT for jurisprudence and
+// Server-side search API is the DEFAULT for jurisprudence and
 // scope=all. The local FlexSearch path stays as the offline fallback —
 // it kicks in automatically if the boot-time ping fails or any API call
 // errors. Opt-out is via `?api=0` in the URL or
@@ -92,7 +98,7 @@ function apiEnabled() {
     const lsFlag = localStorage.getItem('unhrdb_useApi');
     if (lsFlag === '0') return false;
     if (lsFlag === '1') return true;
-    // v19.43-fix5: auto-disable on localhost / 127.0.0.1 / file:// dev
+    // Auto-disable on localhost / 127.0.0.1 / file:// dev
     // origins. The production API at 150.254.115.204 doesn't include
     // those origins in its CORS allow-list, so the boot ping fails
     // noisily and clutters the console. GC + SP corpora are local
@@ -200,7 +206,7 @@ async function runSearchViaApi(runId) {
     // local RESULT_HARD_CAP behaviour.
     page_size: 200,
   };
-  // v19.4: route every chip through `body=` — a server-side union that
+  // Route every chip through `body=` — a server-side union that
   // matches when ANY of d.treaty / d.committee / d.mandate is in the
   // list. The frontend's chip values map cleanly onto those three
   // columns:
@@ -222,7 +228,7 @@ async function runSearchViaApi(runId) {
   }
   if (f.labels.size) {
     params.labels = [...f.labels].join(',');
-    // v19.21: forward the ANY/ALL toggle to the server. Without this the
+    // Forward the ANY/ALL toggle to the server. Without this the
     // API silently treated every multi-label query as ANY (its IN-clause
     // default), so the ALL toggle in scope=all / scope=jur was inert.
     if (f.labelsMode === 'all') params.labels_mode = 'all';
@@ -273,7 +279,7 @@ async function runSearchViaApi(runId) {
   // this when running through the API — without it, the GC/JUR/SP
   // pills under the searchbar showed only what was rendered.
   state.apiBreakdown = body.breakdown || null;
-  // v19.2: stash the params + page cursor so the IntersectionObserver
+  // Stash the params + page cursor so the IntersectionObserver
   // can fetch /api/search?page=N+1 when the user scrolls past 200.
   state.apiPage = 1;
   state.apiPageSize = params.page_size;
@@ -284,7 +290,7 @@ async function runSearchViaApi(runId) {
   updateDocumentTitle();
 }
 
-// v19.2: pull the next /api/search page and append to state.results.
+// Pull the next /api/search page and append to state.results.
 // Returns true when new rows landed, false when the server has nothing
 // left or the call failed. Concurrency-safe via state.apiPageInflight —
 // a Promise stash prevents two scroll ticks from double-fetching.
@@ -421,7 +427,7 @@ function encodeUrlState() {
   if (state.filters.yearMax != null && state.filters.yearMax !== state.facets.years.max) {
     u.set(URL_KEYS.y2, state.filters.yearMax);
   }
-  // v19.43-fix3: result-display preferences (sort, group) and the
+  // Result-display preferences (sort, group) and the
   // active-paragraph anchor (p) NO LONGER go in the URL by default.
   // Sort/group are user-level preferences → localStorage. Active
   // paragraph is a per-session interaction → not persisted at all.
@@ -435,9 +441,9 @@ function encodeUrlState() {
   if (state.filters.rightsKeywords.size) u.set(URL_KEYS.rk, [...state.filters.rightsKeywords].join('|'));
   if (state.filters.articles.size) u.set(URL_KEYS.ar, [...state.filters.articles].join('|'));
   if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
-  // v19.12: only emit fn=0 when toggle is OFF (default ON keeps URLs short).
+  // Only emit fn=0 when toggle is OFF (default ON keeps URLs short).
   if (state.searchInFootnotes === false) u.set(URL_KEYS.fn, '0');
-  // v19.43: same convention for preamble search ('pre=0' when OFF).
+  // Same convention for preamble search ('pre=0' when OFF).
   if (state.searchInPreamble === false) u.set(URL_KEYS.pre, '0');
   const qs = u.toString();
   // v17: preserve the hash — the docs reader relies on "#documents/<docId>"
@@ -471,10 +477,10 @@ function decodeUrlState() {
     rightsKeywords: split('rk'),
     articles: split('ar'),
     showSuperseded: u.get(URL_KEYS.sup) === '1',
-    // v19.12: omitted/anything-but-'0' = ON (default). 'fn=0' = OFF.
+    // Omitted/anything-but-'0' = ON (default). 'fn=0' = OFF.
     searchInFootnotes: u.get(URL_KEYS.fn) !== '0',
     searchInFootnotesUrl: u.has(URL_KEYS.fn),     // explicit URL signal
-    // v19.43: same semantics for preambles.
+    // Same semantics for preambles.
     searchInPreamble: u.get(URL_KEYS.pre) !== '0',
     searchInPreambleUrl: u.has(URL_KEYS.pre),
   };
@@ -495,7 +501,7 @@ function setProgress(pct, msg) {
   const w = `${Math.min(100, Math.max(0, pct))}%`;
   loaderFill.style.width = w;
   if (msg) loaderMsg.textContent = msg;
-  // v19.43: mirror progress on the masthead folio's thin bar so the
+  // Mirror progress on the masthead folio's thin bar so the
   // user sees forward motion even after the splash loader has faded.
   const folioFill = document.getElementById('mast-folio-bar-fill');
   if (folioFill) folioFill.style.width = w;
@@ -525,7 +531,7 @@ async function boot() {
     state.manifest = manifest;
     paintMastFolio(manifest);
 
-    // v19.43-fix14: only the small metadata files load on boot
+    // Only the small metadata files load on boot
     // (manifest + documents.json + facets.json + JUR meta = ~1 MB).
     // The 25 MB corpus.json + FlexSearch index build are deferred to
     // ensureCorpusReady(), which runs in the background on desktop
@@ -553,7 +559,7 @@ async function boot() {
     paintScopeCounts();
     initYearRange();
     applyUrlState(decodeUrlState());     // restore from ?q=…&scope=…&tb=… etc.
-    // v19.43-fix3: rewrite the address bar with the canonical URL so
+    // Rewrite the address bar with the canonical URL so
     // legacy params (?p=…&sort=…&group=…) drop off after they've been
     // applied (or ignored). Keeps the URL neutral on a fresh load and
     // clears stale per-session state from previous reloads.
@@ -586,11 +592,11 @@ async function boot() {
     setProgress(100, 'Ready.');
     setTimeout(hideLoader, 250);
 
-    // v19.43-fix13: initial GA4 pageview is fired by setView(...)
+    // Initial GA4 pageview is fired by setView(...)
     // above (which we just called to honor the URL hash). Subsequent
     // navigations are tracked from setView + the hashchange listener.
 
-    // v19.43-fix15: device-memory fallback. <2 GB devices (legacy
+    // Device-memory fallback. <2 GB devices (legacy
     // Android phones, low-end laptops) can't safely parse the 25 MB
     // corpus + build the FlexSearch index without OOM-crashing.
     // Replace the search shell with a clear "use desktop" message
@@ -600,7 +606,7 @@ async function boot() {
       return;
     }
 
-    // v19.43-fix15: corpus pre-warm. Desktop uses requestIdleCallback
+    // Corpus pre-warm. Desktop uses requestIdleCallback
     // so the browser parses the corpus in an idle slot (post-paint,
     // not stealing CPU from the user's first scroll). Mobile sticks
     // to a short setTimeout — idle callbacks on iOS Safari are
@@ -617,7 +623,7 @@ async function boot() {
 
     runSearch();   // awaits ensureCorpusReady internally; renders lede status while waiting
 
-    // v19.43: auto-focus the search input on initial paint, but ONLY
+    // Auto-focus the search input on initial paint, but ONLY
     // when the user is on the search view AND there's no query already
     // (URL deep-link or restored from previous session).  Avoids
     // hijacking focus from any deep-linked active paragraph.
@@ -632,7 +638,7 @@ async function boot() {
       }, 350);  // after the loader fades out
     }
 
-    // v19.43: first-visit welcome card.  Only shown if the user hasn't
+    // First-visit welcome card.  Only shown if the user hasn't
     // seen it before and is on the search view.
     if (state.view === 'search' && !state.query) {
       maybeShowWelcomeCard();
@@ -830,7 +836,7 @@ function paintMastFolio(m) {
   const today = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
   const jurDocs = state.jur.manifest?.counts?.documents || 0;
   const jurParas = state.jur.manifest?.counts?.paragraphs || 0;
-  // v19.43: write into the inner #mast-folio-text span so the loading
+  // Write into the inner #mast-folio-text span so the loading
   // bar stays in the DOM (now invisible because progress reaches 100%).
   const textNode = document.getElementById('mast-folio-text');
   const newText = `${today} · ${(m.counts.paragraphs + jurParas).toLocaleString()} ¶ · ${m.counts.documents + jurDocs} DOCUMENTS`;
@@ -913,7 +919,7 @@ function applyUrlState(parsed) {
     b.classList.toggle('is-active', on);
     b.setAttribute('aria-selected', on ? 'true' : 'false');
   });
-  // v19.22: deep-link `?scope=jur|sp` opens the preview banner up front.
+  // Deep-link `?scope=jur|sp` opens the preview banner up front.
   syncScopeBanner();
 
   // Query
@@ -966,7 +972,7 @@ function applyUrlState(parsed) {
   paintYearFill();
 
   // Results controls
-  // v19.43-fix3: precedence is URL > localStorage > default. URL was the
+  // Precedence is URL > localStorage > default. URL was the
   // old persistence channel; we keep reading it so existing share links
   // still work, but new clicks write only to localStorage (see bindUI).
   let lsSort = null, lsGroup = null;
@@ -988,7 +994,7 @@ function applyUrlState(parsed) {
   }
   syncResultsControls();
 
-  // v19.12: search-in-footnotes preference. URL > localStorage > default(ON).
+  // Search-in-footnotes preference. URL > localStorage > default(ON).
   if (parsed.searchInFootnotesUrl) {
     state.searchInFootnotes = parsed.searchInFootnotes;
   } else {
@@ -1000,7 +1006,7 @@ function applyUrlState(parsed) {
   }
   syncFnToggleControl();
 
-  // v19.43: same precedence chain for preamble-search preference.
+  // Same precedence chain for preamble-search preference.
   if (parsed.searchInPreambleUrl) {
     state.searchInPreamble = parsed.searchInPreamble;
   } else {
@@ -1011,7 +1017,7 @@ function applyUrlState(parsed) {
   syncPreambleToggleControl();
 
   // Active paragraph
-  // v19.43-fix3: per-session interaction — never auto-restored from
+  // Per-session interaction — never auto-restored from
   // URL on boot for the SEARCH view (the dossier should start closed
   // on a fresh page load, and old share links carrying ?p=… on the
   // search hash are silently ignored).
@@ -1029,7 +1035,7 @@ function applyUrlState(parsed) {
   state.activeId = paraIdBelongsToDoc ? parsed.activeId : null;
 }
 
-// v19.12: keep the operators-row chip's visual state synchronized with
+// Keep the operators-row chip's visual state synchronized with
 // state.searchInFootnotes. Called whenever the value changes (URL apply,
 // click handler, programmatic toggle).
 function syncFnToggleControl() {
@@ -1045,7 +1051,7 @@ function syncFnToggleControl() {
     : 'Search is restricted to paragraph bodies (footnotes excluded). Click to include footnotes.';
 }
 
-// v19.43: mirror of syncFnToggleControl for the preamble-search chip.
+// Mirror of syncFnToggleControl for the preamble-search chip.
 function syncPreambleToggleControl() {
   const btn = document.getElementById('pre-toggle');
   if (!btn) return;
@@ -1088,13 +1094,13 @@ function setView(view) {
   // 'search' results are kept in DOM after boot, no need to repaint
 
   updateDocumentTitle();
-  // v19.43-fix13: GA4 SPA pageview on view switch. Fires only after
+  // GA4 SPA pageview on view switch. Fires only after
   // boot completes (state.manifest is set) so we don't double-count
   // the very first paint (handled by the initial trackPageView call).
   if (state.manifest) trackPageView();
 }
 
-// v19.43-fix13: tiny GA4 wrapper. Sends page_view events on hash
+// Tiny GA4 wrapper. Sends page_view events on hash
 // route changes so the dashboard's SPA navigation shows up as
 // distinct subpages in GA, not just the single root URL.
 //   • #search                  → /search
@@ -1133,7 +1139,7 @@ const TOUR_STEPS = [
     title: 'Type to search',
     body: 'Type any keyword. Try phrases in "quotes", combine with AND / OR / NOT, or use * for prefix wildcards. The "?" button to the right shows full operator syntax.',
   },
-  // v19.43-fix10: Source moved from a top horizontal bar into the
+  // Source moved from a top horizontal bar into the
   // left pane. Tour now points at the new vertical block.
   {
     selector: '.filter-block-source',
@@ -1156,7 +1162,7 @@ const TOUR_STEPS = [
     title: 'Search options',
     body: 'Toggle whether the search index includes footnote text and preamble paragraphs. Both default ON. Useful for excluding citation-heavy docs or focusing only on numbered substantive paragraphs.',
   },
-  // v19.43-fix10: drawer step. The dossier only renders after a ¶ is
+  // Drawer step. The dossier only renders after a ¶ is
   // clicked, so this step pre-clicks the first result so the user
   // sees what they're being told about. beforeShow runs synchronously
   // BEFORE the spotlight measures positions.
@@ -1246,7 +1252,7 @@ const DOCUMENTS_TOUR_STEPS = [
 let _tourState = { idx: 0, active: false, steps: null };
 
 function startTour(fromStep = 0, opts = {}) {
-  // v19.43-fix15: mobile-aware tour entry. The desktop tour positions
+  // Mobile-aware tour entry. The desktop tour positions
   // a 360-px popover with absolute coordinates against fixed-width
   // panes; on phones the spotlights land off-screen and the popover
   // overflows the viewport. Skip the walkthrough on narrow screens
@@ -1267,7 +1273,7 @@ function startTour(fromStep = 0, opts = {}) {
   paintTourStep();
 }
 
-// v19.43-fix15: shared mobile detection. Used in tour skip, deviceMemory
+// Shared mobile detection. Used in tour skip, deviceMemory
 // fallback, and (above) ensureCorpusReady's mobile-aware decisions.
 function isMobileViewport() {
   return window.matchMedia('(max-width: 900px)').matches;
@@ -1323,13 +1329,13 @@ function paintTourStep() {
   if (step.view && state.view !== step.view) {
     setView(step.view);
   }
-  // v19.43-fix10: optional beforeShow hook — lets a step prepare DOM
+  // Optional beforeShow hook — lets a step prepare DOM
   // state (e.g. open the dossier by activating the first result) before
   // the spotlight measures bounding rects. Runs synchronously.
   if (typeof step.beforeShow === 'function') {
     try { step.beforeShow(); } catch (e) { console.warn('[tour] beforeShow failed:', e); }
   }
-  // v19.43: a step's selector may match MULTIPLE elements (e.g. both
+  // A step's selector may match MULTIPLE elements (e.g. both
   // search-option toggles). Compute the union bounding box so the
   // spotlight covers them all as one rectangle.
   const targets = Array.from(document.querySelectorAll(step.selector));
@@ -1642,9 +1648,16 @@ function renderRailCommittee(committee, list, type) {
 // Loads JUR shards on demand, paints the centre body, sets the URL, and
 // seeds the right drawer.  Reusable: search-view code can also call this
 // when the user wants to "read the whole document".
+//
+// v19.51.4 (audit C3): each call captures `state.docsOpenRun` at entry
+// and re-checks after every `await`. A second `openDocReader()` call
+// (e.g. user clicks doc B before A's shard load resolves) bumps the
+// counter; A's continuation bails on its next runId check instead of
+// clobbering B's docsActive* state with stale data.
 async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
+  const runId = ++state.docsOpenRun;
   let doc = state.documents.get(docId);
-  // v19.43: stable-URL fallback — the joint-comment docId scheme was
+  // Stable-URL fallback — the joint-comment docId scheme was
   // normalised in the May 2026 batch (e.g. "cmw-c-gc-7cerd-c-gc-38" →
   // "cmw-c-gc-7-cerd-c-gc-38").  Old URLs are kept alive by looking up
   // any doc that lists the requested id in its `alternativeIds`.
@@ -1687,6 +1700,7 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
           await loadJurCorpus();
         }
       } catch (e) { console.warn('[jur shard load failed]', e); }
+      if (runId !== state.docsOpenRun) return;
     }
   }
 
@@ -1701,6 +1715,7 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
       $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading document corpus…</div>';
       await ensureCorpusReady();
     } catch (e) { console.warn('[corpus load failed]', e); }
+    if (runId !== state.docsOpenRun) return;
   }
 
   state.docsActiveDocId = docId;
@@ -1767,7 +1782,7 @@ function paintDocReaderBody(doc, paraId) {
     return;
   }
 
-  // v19.45: OCR-provenance banner. When the document came from a scanned
+  // OCR-provenance banner. When the document came from a scanned
   // PDF (sourceFormat === "pdf_ocr"), surface that fact prominently in the
   // reader so users know the text passed through OCR and may carry residual
   // character-level errors despite the cleanup pipeline. The banner also
@@ -1851,7 +1866,7 @@ function paintDocReaderBody(doc, paraId) {
       ${ocrBanner}
     </header>`;
 
-  // v19.43: emit only the section LEVELS that changed since the previous
+  // Emit only the section LEVELS that changed since the previous
   // paragraph, each at its own depth. So a hop from
   //   [V. Obligations, A. General, 4. Previous]
   // to
@@ -1932,7 +1947,7 @@ function paintDocReaderBody(doc, paraId) {
         e.stopPropagation();
         if (btn.dataset.act === 'bm')  { bmToggle(id); paintWorkspaceBadge(); }
         if (btn.dataset.act === 'cite') {
-          // v19.16: one-click cite using the user's preferred format
+          // One-click cite using the user's preferred format
           // (set via the docs-drawer <details> Cite menu). Mid-panels
           // never open a chooser — that's the drawer's job.
           const para = state.paragraphById.get(id);
@@ -1940,7 +1955,7 @@ function paintDocReaderBody(doc, paraId) {
           return;                                  // skip the re-paint
         }
         if (btn.dataset.act === 'copy') {
-          // v19.43: copy raw paragraph text to clipboard.  Strips inline
+          // Copy raw paragraph text to clipboard.  Strips inline
           // [[fn:N]] markers + footnote-marker glyphs so the copied text
           // reads cleanly without UI artifacts.
           const para = state.paragraphById.get(id);
@@ -1974,7 +1989,7 @@ function paintDocReaderBody(doc, paraId) {
     }
   }
 
-  // v19.43: outline scroll-spy.  As the user scrolls through the
+  // Outline scroll-spy.  As the user scrolls through the
   // middle pane, find the topmost-visible paragraph and highlight the
   // matching `.docs-outline-link` in the right-pane outline. Because
   // the middle pane only emits the changed level of each section
@@ -2056,7 +2071,7 @@ function paintDocDrawer(doc) {
   const para = paraId ? state.paragraphById.get(paraId) : null;
   const paragraphs = state.paragraphs.filter(p => p.docId === doc.docId);
 
-  // v19.43: outline shows each unique section ONCE, with the paragraph
+  // Outline shows each unique section ONCE, with the paragraph
   // range that belongs to it. Previously every paragraph carrying the
   // same section was duplicated, producing 15+ identical entries for
   // long sections. Now we walk paragraphs in order, group by canonical
@@ -2157,7 +2172,7 @@ function paintDocDrawer(doc) {
 
   if (para) {
     $('#dw-bm')?.addEventListener('click', () => { bmToggle(para.id); paintDocReaderBody(doc, para.id); paintDocDrawer(doc); paintWorkspaceBadge(); });
-    // v19.15: dw-pin removed — pinning lives on the per-¶ row in the
+    // Dw-pin removed — pinning lives on the per-¶ row in the
     // reader body (📌 button next to ☆/cite/flag), so the drawer doesn't
     // duplicate the affordance.
 
@@ -2177,7 +2192,7 @@ function paintDocDrawer(doc) {
         if (!fmt) return;
         const cite = fmt.build(doc, para);
         try { navigator.clipboard?.writeText(cite); } catch {}
-        // v19.16: drawer click persists choice as the one-click default.
+        // Drawer click persists choice as the one-click default.
         setPrefCiteFmt(fmt.key);
         body.querySelectorAll('.docs-drawer-cite .cite-opt').forEach(b => b.classList.remove('is-default'));
         btn.classList.add('is-default');
@@ -2669,7 +2684,7 @@ function syncYearSliderAria(el, min, max, val) {
 // per-key cost stays under one frame.
 const MIN_QUERY = 4;
 
-// v19.44-fix24: mobile filters accordion. Below 900 px the entire
+// Mobile filters accordion. Below 900 px the entire
 // filter pane collapses behind a "Filters · ▾" toggle pill at the top.
 // Researcher lands → sees results immediately. Tap toggle → filters
 // expand below. Toggle state lives only in the body class (no LS) so
@@ -2776,7 +2791,7 @@ function bindUI() {
     runSearch();
   }));
 
-  // v19.12: footnote-search toggle in the operators row.
+  // Footnote-search toggle in the operators row.
   document.getElementById('fn-toggle')?.addEventListener('click', () => {
     state.searchInFootnotes = !state.searchInFootnotes;
     try { localStorage.setItem(_LS.searchInFn, state.searchInFootnotes ? '1' : '0'); } catch {}
@@ -2785,7 +2800,7 @@ function bindUI() {
     runSearch();
   });
 
-  // v19.43: preamble-search toggle.  When OFF, paragraphs flagged
+  // Preamble-search toggle.  When OFF, paragraphs flagged
   // `isPreamble: true` are filtered out of result sets even if their text
   // matches the query.
   document.getElementById('pre-toggle')?.addEventListener('click', () => {
@@ -2797,7 +2812,7 @@ function bindUI() {
   });
 
   // Result sorting / grouping controls
-  // v19.43-fix3: persist preferences to localStorage instead of URL.
+  // Persist preferences to localStorage instead of URL.
   $$('#result-sort .result-opt').forEach(b => b.addEventListener('click', () => {
     state.resultSort = b.dataset.sort;
     try { localStorage.setItem(_LS.resultSort, state.resultSort); } catch {}
@@ -2815,7 +2830,7 @@ function bindUI() {
     paintResults();
     updateDocumentTitle();
     scheduleUrlUpdate();
-    // v19.43: close the "More views…" dropdown after a selection so it
+    // Close the "More views…" dropdown after a selection so it
     // doesn't linger overlapping the result list.
     const moreViews = document.getElementById('result-more-views');
     if (moreViews) moreViews.open = false;
@@ -2823,7 +2838,7 @@ function bindUI() {
 
   $('#expand-groups').addEventListener('click', () => {
     if (state.resultGroup === 'paragraphs') {
-      // v19.19: in paragraph view, expand every truncated snippet at once.
+      // In paragraph view, expand every truncated snippet at once.
       $$('#result-list .result-expand-btn:not(.is-expanded)').forEach(btn => btn.click());
       return;
     }
@@ -2833,7 +2848,7 @@ function bindUI() {
 
   $('#collapse-groups').addEventListener('click', () => {
     if (state.resultGroup === 'paragraphs') {
-      // v19.19: in paragraph view, collapse every expanded snippet at once.
+      // In paragraph view, collapse every expanded snippet at once.
       $$('#result-list .result-expand-btn.is-expanded').forEach(btn => btn.click());
       return;
     }
@@ -2869,7 +2884,7 @@ function bindUI() {
     syncArticleFilterVisibility();
     syncStatusFilterVisibility();
 
-    // v19.10: jurisprudence has 3,100+ documents and 111k paragraphs, so
+    // Jurisprudence has 3,100+ documents and 111k paragraphs, so
     // the default "Paragraphs" view dumps a wall of weakly-related rows on
     // a cold tab switch. Group by document by default — much more useful,
     // far fewer DOM nodes. The user's explicit choice (clicked the
@@ -2885,7 +2900,7 @@ function bindUI() {
       }
     }
 
-    // v19.22: banner follows the scope.  Always show on jur/sp, always
+    // Banner follows the scope.  Always show on jur/sp, always
     // hide on gc/all — previously a "shown once" flag froze it open after
     // first reveal even if the user navigated away.  Dismiss button still
     // hides it for the current visit; re-entering the scope re-shows.
@@ -3028,7 +3043,7 @@ function bindUI() {
     }, 150);
   });
 
-  // v19.3: report-a-problem affordance in the footer + Esc / backdrop close
+  // Report-a-problem affordance in the footer + Esc / backdrop close
   // on the modal. The actual submit handler lives in openReportModal()
   // because it needs to know the current paragraph context at click time.
   $('#foot-report')?.addEventListener('click', () => openReportModal());
@@ -3037,7 +3052,7 @@ function bindUI() {
   $('#report-modal .report-cancel')?.addEventListener('click', closeReportModal);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !$('#report-modal')?.hidden) closeReportModal();
-    // v19.43-fix5: Esc also closes the dossier when nothing else is on
+    // Esc also closes the dossier when nothing else is on
     // top. Skip if a modal is open (report, tour, cite popover) so it
     // doesn't fight existing escape handlers.
     // v19.43-fix11 (bug): the previous "skip if input/textarea focused"
@@ -3237,7 +3252,7 @@ function loadSheetJS() {
 
 async function exportXlsx(rows, busyButton) {
   const XLSX = await loadSheetJS();
-  // v19.43-fix12: refreshed Info sheet — UNHRD branding, human-readable
+  // Refreshed Info sheet — UNHRD branding, human-readable
   // export timestamp, citation suggestion, and the same query/scope/
   // filter snapshot used to produce the Results sheet.
   const exportedHuman = new Date().toLocaleString('en-GB', {
@@ -3298,7 +3313,7 @@ async function runExport(format, button) {
 
 // Replace the banner body with the actual mandate breakdown computed from documents.
 // Strips out the mandate prefix so 'SR Freedom of Expression' reads as 'Freedom of Expression'.
-// v19.22: paint+show on jur/sp, hide otherwise. Single source of truth
+// Paint+show on jur/sp, hide otherwise. Single source of truth
 // for the preview banner — called from both the scope-tab click handler
 // and the URL-state restore path so a deep-link `?scope=jur` opens with
 // the banner visible.
@@ -3593,7 +3608,7 @@ async function ensureSearchIndex() {
   const cacheKey = `idx-fold1-${sha}`;
 
   state.searchIndex = new FlexSearch.Document({
-    // v19.8: index `text` (marker-stripped body) AND `fnText` (concatenated
+    // Index `text` (marker-stripped body) AND `fnText` (concatenated
     // footnote bodies). FlexSearch uses BM25-ish scoring; default field
     // weights are equal which matches the user's desired UX (footnote hits
     // should surface, but the renderer downranks them visually with the
@@ -3664,7 +3679,7 @@ function dumpIndex() {
 
 // Run one FlexSearch term and return matching paragraph ids.
 // Boolean query semantics are composed below so OR always means a true union.
-// v19.12: when state.searchInFootnotes is false, restrict the index to the
+// When state.searchInFootnotes is false, restrict the index to the
 // `text` field so footnote text never matches. Default behaviour is to
 // query both fields (text + fnText) for citation-aware coverage.
 function flexSearchIds(query) {
@@ -3886,8 +3901,8 @@ async function ensureScopeLoaded(scope) {
   return state.jur.loading;
 }
 
-// v19.43-fix14: lazy corpus + FlexSearch index loader.
-// v19.43-fix15: device-memory aware. Adds an `is-corpus-loading` body
+// Lazy corpus + FlexSearch index loader.
+// Device-memory aware. Adds an `is-corpus-loading` body
 // class while the heavy work is in flight so accidental taps don't
 // queue handlers that compound the JSON.parse memory peak (the cause
 // of mobile OOM crashes on click). Idempotent — second call returns
@@ -3931,7 +3946,7 @@ async function ensureCorpusReady() {
   return state._corpusLoadPromise;
 }
 
-// v19.43-fix15: warmer first-visit messaging. The earlier copy was
+// Warmer first-visit messaging. The earlier copy was
 // neutral ("Loading the paragraph corpus (~25 MB)"); on a slow link
 // users assumed it was hung. New copy is reassuring + explains the
 // one-time cost of the local index. Once cached in IndexedDB, the
@@ -3961,7 +3976,7 @@ function paintCorpusLoadingState(phase) {
   }
 }
 
-// v19.43-fix15: low-memory device fallback. Replaces the search
+// Low-memory device fallback. Replaces the search
 // shell with a clear, non-blame-y explanation that the local index
 // is too large for this device, plus links to alternatives that work
 // in low-memory contexts (the OHCHR site, the document reader which
@@ -4182,7 +4197,7 @@ async function runSearch() {
   const runId = ++state.searchRun;
   scheduleUrlUpdate();
 
-  // v19.11: if the boot-time ping is still in flight when JUR/all needs
+  // If the boot-time ping is still in flight when JUR/all needs
   // to choose between API vs local, give it a brief grace window. This
   // avoids speculatively firing an API search that times out 5 s later
   // when the VM is actually unreachable. We race against a 1.5 s wall
@@ -4205,7 +4220,7 @@ async function runSearch() {
   }
 
   try {
-    // v19.43-fix14: lazy corpus + index. First search after boot
+    // Lazy corpus + index. First search after boot
     // awaits the load (and shows a status while it runs); subsequent
     // searches are instant.
     await ensureCorpusReady();
@@ -4256,7 +4271,7 @@ async function runSearch() {
   for (const p of iter) {
     if (!paragraphInScope(p, scope)) continue;
 
-    // v19.43: drop preamble entries when the user has toggled off
+    // Drop preamble entries when the user has toggled off
     // "search in preambles". Preamble paragraphs are flagged
     // `isPreamble: true` and carry the resolution-style "The Committee
     // on…, Recalling…" text — useful by default but easily filtered out
@@ -4315,7 +4330,7 @@ async function runSearch() {
     }
 
     const text = p.text.toLowerCase();
-    // v19.8: build the AST-verification haystack from BOTH body text and
+    // Build the AST-verification haystack from BOTH body text and
     // footnote bodies so a query that hits a footnote-only term (e.g. a
     // case citation) survives the substring re-check below. BM25 scoring
     // still uses `text` only, so footnote-only hits stay ranked beneath
@@ -4450,7 +4465,7 @@ function syncResultsControls() {
     b.classList.toggle('is-active', on);
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
-  // v19.43: when the active group is one of the disclosure-hidden
+  // When the active group is one of the disclosure-hidden
   // options ("bodies"), mark the parent <details> with .has-active-child
   // so the … chip turns garnet ✓ — gives the user feedback that their
   // current selection is "in there".
@@ -4510,7 +4525,7 @@ function paintResults() {
   syncResultsControls();
 
   $('#result-count').textContent = `${total.toLocaleString()} ¶`;
-  // v19.43: hide post-search controls (Export, Copy link, Save search)
+  // Hide post-search controls (Export, Copy link, Save search)
   // until the user has *actively initiated a search* — not just on the
   // basis of "results > 0", because runSearch() runs on initial boot
   // and returns the full corpus by default. Tying to !!state.query
@@ -4527,7 +4542,7 @@ function paintResults() {
   $('#results-sub').appendChild(scopeNotice());
   paintResultBreakdown();
 
-  // v19.43-fix16: refresh facet counts to reflect the current query +
+  // Refresh facet counts to reflect the current query +
   // filter set. Both facet chips/checkboxes and the year histogram
   // pick up new counts. Heavy-ish (~30 ms on 7K paragraphs) so we
   // run it AFTER results are committed so user sees results-text
@@ -4578,7 +4593,7 @@ function paintResults() {
     _attachResultSentinel(list, allTerms);
   }
 
-  // v19.43-fix4: do NOT auto-open the dossier on every paintResults.
+  // Do NOT auto-open the dossier on every paintResults.
   // Drawer is a click-to-reveal panel now (see app-shell layout). If
   // the user hasn't selected a paragraph, the dossier stays hidden.
   // We still clear stale activeIds when their row drops out of the
@@ -4626,7 +4641,7 @@ function paintResultBreakdown() {
   // slice that we have rendered). Falls back to a local count for the
   // FlexSearch path.
   //
-  // v19.20: guard against stale state. The API always returns
+  // Guard against stale state. The API always returns
   // breakdown.gc + .jur + .sp === total, so any mismatch means
   // state.apiBreakdown is from a different search than state.apiTotal
   // (can happen during rapid filter changes). When inconsistent, fall
@@ -4783,7 +4798,7 @@ function appendNextPage(list, terms) {
 }
 
 function updateResultMore() {
-  // v19.2: the source-of-truth total is state.apiTotal when we're in
+  // The source-of-truth total is state.apiTotal when we're in
   // API-paginated mode, otherwise state.results.length. Keep the
   // "End of results" copy honest in both modes.
   const buffered = state.results.length;
@@ -5090,7 +5105,7 @@ function renderResult(p, rank, terms, opts = {}) {
 
   const badge = sourceBadge(p.type);
 
-  // v19.45: OCR-provenance pill on the result headline. Shown when the
+  // OCR-provenance pill on the result headline. Shown when the
   // paragraph itself was OCR-recovered (per-¶ flag, since within an OCR
   // doc some pages may be text-layer extracted). Tooltip points users at
   // the issue tracker for residual character-level errors.
@@ -5124,7 +5139,7 @@ function renderResult(p, rank, terms, opts = {}) {
   // text (highlighted) untouched. When the API supplied its own snippet
   // (FTS5's snippet() with <mark> tags), prefer it — the server already
   // chose the best 24-token window around the highest-scoring match.
-  // v19.8: smartSnippet receives marker-stripped text so [[fn:N]] tokens
+  // SmartSnippet receives marker-stripped text so [[fn:N]] tokens
   // never appear in snippets. The full marker text is only used inside the
   // documents reader.
   const bareText = stripFnMarkers(p.text);
@@ -5134,7 +5149,7 @@ function renderResult(p, rank, terms, opts = {}) {
   const kwicBadge = snippet.isKwic
     ? `<span class="kwic-badge" title="Keyword-in-context · paragraph is long — click Expand to read in full">◎ KWIC · ${snippet.fullLen.toLocaleString()} chars</span>`
     : '';
-  // v19.19: truncated rows get an inline expand toggle; "Expand all" fires it
+  // Truncated rows get an inline expand toggle; "Expand all" fires it
   // in batch. The button is omitted when the API already sent a pre-trimmed
   // snippet (the server snippet is intentionally opaque — we don't have the
   // full text to show here in a meaningful way without an extra round-trip).
@@ -5144,10 +5159,10 @@ function renderResult(p, rank, terms, opts = {}) {
                title="Show the full paragraph text">Expand ▾ <span class="result-expand-count">${snippet.fullLen.toLocaleString()} chars</span></button>`
     : '';
 
-  // v19.8: detect "match in citation" — query term hit only inside a
+  // Detect "match in citation" — query term hit only inside a
   // footnote (visible snippet wouldn't show why). Show a small pill so the
   // user understands the match without opening the doc.
-  // v19.12: only flag "match in citation" when the user has footnote-search
+  // Only flag "match in citation" when the user has footnote-search
   // enabled. With the toggle OFF the index never returns footnote-only hits,
   // and showing the pill would be misleading.
   const matchInFn = state.searchInFootnotes !== false
@@ -5199,7 +5214,7 @@ function renderResult(p, rank, terms, opts = {}) {
       </div>
     </div>
   `;
-  // v19.19: expand/collapse a truncated paragraph snippet.
+  // Expand/collapse a truncated paragraph snippet.
   // stopPropagation() keeps the li click-to-dossier handler from firing.
   if (isTruncated) {
     const expandBtnEl = li.querySelector('.result-expand-btn');
@@ -5225,7 +5240,7 @@ function renderResult(p, rank, terms, opts = {}) {
   }
 
   li.addEventListener('click', (e) => {
-    // v19.16: source-symbol link → opens un.org in a new tab, doesn't
+    // Source-symbol link → opens un.org in a new tab, doesn't
     // touch the active paragraph. The browser handles the navigation;
     // we just need to bail before setActive so the dossier doesn't
     // also flip while the user is just chasing a citation.
@@ -5240,7 +5255,7 @@ function renderResult(p, rank, terms, opts = {}) {
       if (wsBtn.dataset.ws === 'bm') bmToggle(p.id);
       else if (wsBtn.dataset.ws === 'pin') pinToggle(p.id);
       else if (wsBtn.dataset.ws === 'cite') {
-        // v19.16: one-click cite — copies in the user's preferred format
+        // One-click cite — copies in the user's preferred format
         // (default 'unfn', set via the dossier-toolbar / docs-drawer
         // popover). No popover here; mid-panels are for action, not
         // choice. Tooltip on the button reflects the current pref.
@@ -5270,7 +5285,7 @@ function sourceBadge(type) {
 }
 
 function setActive(id) {
-  // v19.43-fix7: opening a new paragraph resets the section-expand
+  // Opening a new paragraph resets the section-expand
   // toggle. The "Show entire section" disclosure is per-active-¶, not
   // a global preference.
   if (state.activeId !== id) state.dossierExpanded = false;
@@ -5278,7 +5293,7 @@ function setActive(id) {
   $$('.result').forEach(el => {
     el.classList.toggle('is-active', el.dataset.paraId === id);
   });
-  // v19.43-fix15: defer the heavy paintDossier work on mobile so iOS
+  // Defer the heavy paintDossier work on mobile so iOS
   // Safari can finish painting the tap feedback before we mount a
   // full-screen overlay with formatted content. Without the defer,
   // tap → setActive → paintDossier all ran in the same microtask
@@ -5294,7 +5309,7 @@ function setActive(id) {
   scheduleUrlUpdate();
 }
 
-// v19.43-fix7: resolve the dossier context window for the active
+// Resolve the dossier context window for the active
 // paragraph. Returns up to N preceding and N following paragraphs
 // within the SAME section in the same document. If the active ¶ is a
 // preamble or has no section info (JUR/SP, or older docs), the
@@ -5524,7 +5539,7 @@ async function postMetaVote(docId, vote, note) {
 
 function paintDossier() {
   const host = $('#dossier');
-  // v19.43: collapse dossier to a thin rail when there's no active
+  // Collapse dossier to a thin rail when there's no active
   // paragraph. Reclaims ~30% of horizontal width on first paint so the
   // result list can breathe. The rail keeps a small "case note"
   // affordance so users know what'll appear when they click a result.
@@ -5536,7 +5551,7 @@ function paintDossier() {
       </div>`;
     return;
   }
-  // v19.13: JUR paragraphs come from the API and live ONLY in
+  // JUR paragraphs come from the API and live ONLY in
   // state.paragraphById (hydrated by runSearchViaApi → adaptApiHit).
   // state.paragraphs is just the local GC corpus, so a `.find()` against
   // it returns nothing for JUR rows and the dossier silently bails —
@@ -5690,7 +5705,7 @@ function paintDossier() {
       `).join('')}
     </div>`;
 
-  // v19.43-fix8: app-shell drawer. The dossier is now a column flex
+  // App-shell drawer. The dossier is now a column flex
   // container with a sticky header (× + folio + badges) and a sticky
   // footer (primary cite CTA + secondary icons + more menu). The
   // middle .dossier-body owns scroll. Replaces the old loose-toolbar
@@ -5748,13 +5763,13 @@ function paintDossier() {
         `}
     </div>
     ${(() => {
-      // v19.43-fix7: context-aware blockquote. Shows the active
+      // Context-aware blockquote. Shows the active
       // paragraph plus up to ±2 surrounding paragraphs within the same
       // section. Surrounding ¶s are dimmed and slightly smaller; the
       // active ¶ keeps full size + a garnet left rule. A "Show entire
       // section" disclosure expands to the full section when it has
       // more paragraphs than the default window.
-      // v19.43-fix15: on mobile (<900 px), skip the context block to
+      // On mobile (<900 px), skip the context block to
       // keep the dossier DOM small. Phones don't have the horizontal
       // budget for sibling-paragraph context anyway, and the heavy
       // DOM mutation of mounting a full-screen overlay + 5 ¶ of
@@ -5879,7 +5894,7 @@ function paintDossier() {
     </footer>
   `;
 
-  // v19.12: footnote-marker click → singleton popover (mirrors reader UX).
+  // Footnote-marker click → singleton popover (mirrors reader UX).
   // Delegated on the dossier root so we don't rebind per-marker.
   host.querySelectorAll('button.fn-marker').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -5889,11 +5904,11 @@ function paintDossier() {
     });
   });
 
-  // v19.14: Flag paragraph for triage — opens the report modal
+  // Flag paragraph for triage — opens the report modal
   // pre-populated with this paragraph's full context.
   $('#ws-flag')?.addEventListener('click', () => openReportModal({ paraId: para.id, docId: para.docId }));
 
-  // v19.43-fix5: dossier close button. Sets activeId=null and repaints.
+  // Dossier close button. Sets activeId=null and repaints.
   // The dossier-collapsed body class re-applies, hiding the panel and
   // letting the results column reclaim the freed width.
   $('#dossier-close')?.addEventListener('click', () => {
@@ -5902,7 +5917,7 @@ function paintDossier() {
     refreshResultMarks();
   });
 
-  // v19.43-fix7: section expand/collapse disclosures inside the
+  // Section expand/collapse disclosures inside the
   // context block. Toggle state.dossierExpanded and repaint.
   $('#dossier-expand-section')?.addEventListener('click', () => {
     state.dossierExpanded = true;
@@ -5913,7 +5928,7 @@ function paintDossier() {
     paintDossier();
   });
 
-  // v19.43-fix7: clicking a context (non-active) paragraph promotes
+  // Clicking a context (non-active) paragraph promotes
   // it to active. Acts like clicking a result row but inside the
   // dossier — lets the user "walk" through neighbouring paragraphs
   // without leaving the case-note panel.
@@ -5928,7 +5943,7 @@ function paintDossier() {
     });
   });
 
-  // v19.43-fix7: scroll the active paragraph into view in the dossier
+  // Scroll the active paragraph into view in the dossier
   // after paint. Without this, opening a paragraph that has a long
   // ¶N-1 above it lands the user mid-prev-paragraph rather than at
   // the active blockquote — visually disorienting.
@@ -5951,10 +5966,10 @@ function paintDossier() {
   // B1 Bookmark toggle
   $('#ws-bookmark')?.addEventListener('click', () => { bmToggle(para.id); paintDossier(); refreshResultMarks(para.id); });
   // B3 Pin toggle
-  // v19.15: ws-pin removed from dossier toolbar — the per-result-row 📌
+  // Ws-pin removed from dossier toolbar — the per-result-row 📌
   // handles this without making the dossier feel cluttered.
 
-  // v19.43-fix10: Copy paragraph text — visible icon button now (was
+  // Copy paragraph text — visible icon button now (was
    // moved up from the More menu). Uses the icon-btn flash pattern:
    // is-flash class + textContent swap.
   $('#ws-copy')?.addEventListener('click', (e) => {
@@ -6035,7 +6050,7 @@ function paintDossier() {
     });
   }
 
-  // v19.43-fix8: primary Cite CTA — one click copies in user's
+  // Primary Cite CTA — one click copies in user's
   // preferred format (LS-stored), no popover. Smart default flow.
   // The "Cite in another format…" item in the More menu opens the
   // full popover for the rare case the user wants something else.
@@ -6045,7 +6060,7 @@ function paintDossier() {
     copyCiteWithPref(btn, para);
   });
 
-  // v19.43-fix8: cite popover for "other formats". Triggered from
+  // Cite popover for "other formats". Triggered from
   // the More menu's "Cite in another format…" item, NOT from a
   // primary toolbar button — so the default flow is one-click cite.
   const citePop = $('#cite-pop');
@@ -6085,7 +6100,7 @@ function paintDossier() {
       if (!fmt) return;
       const cite = fmt.build(doc, para);
       try { navigator.clipboard?.writeText(cite); } catch {}
-      // v19.16: drawer click also persists the choice as the default
+      // Drawer click also persists the choice as the default
       // for one-click cite buttons in the middle panels. Move the ★
       // marker to the just-clicked option so the user sees the change
       // without re-rendering the popover.
@@ -6098,7 +6113,7 @@ function paintDossier() {
       setTimeout(() => {
         label.textContent = original;
         closeCite();
-        // v19.43-fix8: repaint so the primary CTA's format chip updates
+        // Repaint so the primary CTA's format chip updates
         // to the just-chosen format. User picked Bluebook → next time
         // they see "Cite [BLUEBOOK]" on the primary button.
         paintDossier();
@@ -6106,11 +6121,11 @@ function paintDossier() {
     });
   });
 
-  // v19.15: Read button → open the paragraph in its full document context.
+  // Read button → open the paragraph in its full document context.
   // Replaces the old `is-reading-mode` overlay (which just hid chrome
   // around the same paragraph the user already had on screen).
   $('#ws-read')?.addEventListener('click', () => openInDocReader(para));
-  // v19.15: Permalink button → copy a deep-link to clipboard.
+  // Permalink button → copy a deep-link to clipboard.
   $('#ws-permalink')?.addEventListener('click', () => copyPermalink(para));
 
   // v19.43-fix11 (bug): close the More menu after any of its items
@@ -6314,7 +6329,7 @@ function _citePlainURL(doc, para) {
 }
 
 const CITE_FORMATS = [
-  // v19.15: legal-citation formats first — what HR lawyers actually
+  // Legal-citation formats first — what HR lawyers actually
   // paste into briefs. Default order surfaces the UN treaty-body
   // footnote (the dominant IL convention) at the top.
   { key: 'unfn',    name: 'UN treaty-body footnote', fmt: 'UN', build: _citeUnFootnote },
@@ -6329,7 +6344,7 @@ const CITE_FORMATS = [
   { key: 'url',     name: 'Plain URL',       fmt: 'LINK',    build: _citePlainURL },
 ];
 
-// v19.16: user-preferred cite format. Drawer popovers (search-dossier
+// User-preferred cite format. Drawer popovers (search-dossier
 // toolbar + docs-drawer <details>) write this every time a format is
 // clicked. Mid-panel buttons (result rows, docs-reader paragraph rows)
 // read it for one-click cite — no popover.
@@ -6345,7 +6360,7 @@ function setPrefCiteFmt(key) {
 // flash the anchor button, and toast the format name so the user sees
 // what just landed on the clipboard. Returns the format object on
 // success (handy for tests / keyboard handlers).
-// v19.43: copy raw paragraph text. Strips inline `[[fn:N]]` markers and
+// Copy raw paragraph text. Strips inline `[[fn:N]]` markers and
 // rendered footnote-marker glyphs; produces clean prose suitable for
 // pasting into a doc.
 //
@@ -6398,7 +6413,7 @@ async function copyCiteWithPref(anchorEl, para) {
 // the dossier toolbar). Only one open at a time — clicking elsewhere
 // or pressing Esc closes it.
 //
-// v19.16: middle-panel buttons (result rows, docs-reader rows) no
+// Middle-panel buttons (result rows, docs-reader rows) no
 // longer call this — they use copyCiteWithPref() instead. The
 // drawer chooser still uses this code path so users can pick a
 // format AND set it as default in one click.
@@ -6590,7 +6605,7 @@ function openInDocReader(para) {
   window.location.assign(u.toString());
 }
 
-// v19.15: copy a stable deep-link to the active paragraph. Uses
+// Copy a stable deep-link to the active paragraph. Uses
 // query-param `?p=<paraId>` which the boot path resolves to
 // `state.activeId` and scrolls to. Not view-bound — works whether
 // the recipient lands in search or documents.
@@ -7210,7 +7225,7 @@ async function submitReport(ev) {
   }
 }
 
-// v19.14: lightweight toast notifying the user that their report
+// Lightweight toast notifying the user that their report
 // landed, with a deep link to the GitHub issue when the backend
 // surfaces one. Auto-dismisses after 6s, manually closeable.
 // Renders a small toast bottom-right. Used by feedback submit (with
@@ -7248,7 +7263,7 @@ function showFeedbackToast(reply) {
 
 // ─────────── B4 Year histogram ───────────
 //
-// v19.43-fix16: dynamic facet counts. Standard faceted-search
+// Dynamic facet counts. Standard faceted-search
 // pattern (Westlaw, JSTOR, Google Scholar): every count next to a
 // facet value reflects "how many results would I see if I added/
 // replaced this facet" — compute by applying ALL OTHER filters, but
@@ -7384,7 +7399,7 @@ function paintYearHistogram() {
   const yMin = state.facets.years.min;
   const yMax = state.facets.years.max;
 
-  // v19.43-fix16: dynamic year counts from current query+filter (minus
+  // Dynamic year counts from current query+filter (minus
   // year filter itself, so dragging the range doesn't self-zero the
   // bars). When no query/filter is active, falls back to corpus
   // baseline so first-paint shows the natural shape of the dataset.
@@ -7580,6 +7595,12 @@ function _docIdFromParaId(paraId) {
 //     (replaceState alone does NOT fire hashchange, so setView never ran in v14).
 async function jumpToParagraph(paraId) {
   if (!paraId) return;
+  // v19.51.4 (audit C3): run-token. The JUR-corpus load below can take
+  // multiple seconds on a cold cache; if the user clicks a different
+  // workspace row mid-load, the older call's continuation would still
+  // call setView/runSearch with the stale paraId and clobber the
+  // newer click's state. Bail early if a newer jump is in flight.
+  const runId = ++state.jumpRun;
 
   // Identify the target document, even if the paragraph itself isn't loaded
   let doc = state.documents.get(_docIdFromParaId(paraId) || '');
@@ -7592,6 +7613,7 @@ async function jumpToParagraph(paraId) {
   // paragraph is in state.paragraphById.
   if (targetScope === 'jur' && !state.jur.loaded) {
     try { await loadJurCorpus(); } catch (e) { console.warn('[jur load failed]', e); }
+    if (runId !== state.jumpRun) return;
   }
 
   // Switch scope tab if we're not already on a compatible one.  "All sources"
@@ -8022,7 +8044,7 @@ function openFnPopover(triggerBtn) {
   const flags = (triggerBtn.dataset.fnFlags || '').trim();
   const pop = _ensureFnPopover();
   pop.querySelector('.fn-popover-n').textContent = n;
-  // v19.43: when a footnote carries resolvedText (Ibid., See note N, bare
+  // When a footnote carries resolvedText (Ibid., See note N, bare
   // Para. N.), show BOTH the literal text and the full citation it
   // resolves to so readers don't have to chase the reference.
   const bodyEl = pop.querySelector('.fn-popover-body');
@@ -8128,13 +8150,13 @@ function formatOutcome(value) {
 // centred on the best cluster of query terms so the user can scan many results
 // without wading through wall-of-text treaty prose.
 //
-// v19.19: every paragraph longer than KWIC_TRUNCATE is truncated in the result
+// Every paragraph longer than KWIC_TRUNCATE is truncated in the result
 // list regardless of where the match falls — even hits near the top of a
 // 2,000-char paragraph are obscured by the subsequent text. An "Expand ▾"
 // button appears below the snippet; "Expand all" expands every row at once.
 //
 // Returns { html, isKwic, isTruncated, fullLen }.
-// v19.22: bumped from 600/140/240/400 — earlier limits felt cramped on
+// Bumped from 600/140/240/400 — earlier limits felt cramped on
 // the mid-pane and clipped paragraphs that read naturally at 800-900 chars.
 const KWIC_TRUNCATE   = 900;   // paragraphs longer than this are always capped
 const KWIC_PRE_CHARS  = 200;   // chars before the matched cluster
