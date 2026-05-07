@@ -126,9 +126,15 @@ OPERATIVE_RE = re.compile(
 # without losing any real list-item match.
 ITEM_RE = re.compile(r"\(\s*([a-z]{1,3}|[ivxIVX]{1,4})\s*\)\s+(?=[A-Z\"“])")
 
-# Numbered list-item: "1. ", "2. " etc.  Used as a fallback for docs
-# with no lettered markers but a clear numeric outline.
-NUM_ITEM_RE = re.compile(r"(?:^|\n)\s*(\d{1,2})\.\s+(?=[A-Z])")
+# Top-level numbered item: "1. " / "2. " etc., either at the start of
+# the body OR following one of the typical end-of-clause punctuators
+# (";", "."). Look-ahead requires a capital letter to avoid matching
+# "article 18.", "ratio 3.5", etc. The captured `(\d+)` is sequence-
+# checked at split time so a stray inline number ("decision 3.") doesn't
+# anchor a split unless the surrounding sequence is plausible (1, 2, 3…).
+NUM_ITEM_RE = re.compile(
+    r"(?:(?<=^)|(?<=[\s;.]))(\d{1,2})\.\s+(?=[A-Z])"
+)
 
 
 def split_text(text: str) -> list[tuple[str, bool]]:
@@ -186,15 +192,42 @@ def split_text(text: str) -> list[tuple[str, bool]]:
 
 
 def _split_items(items_text: str) -> list[tuple[str, bool]]:
-    """Split the body text into item paragraphs."""
+    """Split the body text into item paragraphs.
+
+    NUMBERED items (1., 2., 3., …) take precedence over lettered ones
+    when present, because UN docs nest lettered items as SUB-items of
+    numbered ones (e.g. CEDAW GR6: "1. Establish … to: (a) Advise…;
+    (b) Monitor…; (c) Help formulate…; 2. Take …"). Splitting on the
+    lettered markers shreds item 1 across three "paragraphs" and
+    buries items 2-4 inside item (c).
+
+    A numbered split only fires when the captured numbers form a
+    plausible sequence (1, 2, 3, …). Lone matches or wild jumps fall
+    through to the lettered path.
+    """
     items_text = items_text.strip()
     if not items_text:
         return []
-    # Lettered items first
+
+    # Numbered first — but only if the sequence is sane.
+    num_matches = list(NUM_ITEM_RE.finditer(items_text))
+    nums = [int(m.group(1)) for m in num_matches]
+    if len(num_matches) >= 2 and _is_plausible_sequence(nums):
+        out = []
+        head = items_text[: num_matches[0].start()].strip()
+        if head:
+            out.append((head, False))
+        for i, m in enumerate(num_matches):
+            end = num_matches[i + 1].start() if i + 1 < len(num_matches) else len(items_text)
+            piece = items_text[m.start():end].strip()
+            if piece:
+                out.append((piece, False))
+        return out
+
+    # Lettered items
     matches = list(ITEM_RE.finditer(items_text))
     if matches:
         out = []
-        # Anything before the first match (rare) is its own paragraph
         head = items_text[: matches[0].start()].strip()
         if head:
             out.append((head, False))
@@ -204,21 +237,24 @@ def _split_items(items_text: str) -> list[tuple[str, bool]]:
             if piece:
                 out.append((piece, False))
         return out
-    # Numbered items fallback
-    matches = list(NUM_ITEM_RE.finditer(items_text))
-    if matches:
-        out = []
-        head = items_text[: matches[0].start()].strip()
-        if head:
-            out.append((head, False))
-        for i, m in enumerate(matches):
-            end = matches[i + 1].start() if i + 1 < len(matches) else len(items_text)
-            piece = items_text[m.start():end].strip()
-            if piece:
-                out.append((piece, False))
-        return out
+
     # No structured items: keep the whole body as one paragraph
     return [(items_text, False)]
+
+
+def _is_plausible_sequence(nums: list[int]) -> bool:
+    """True if `nums` looks like a real list outline (1, 2, 3, …): starts
+    with 1 or 2, every step is +1 or +0 (allowing repeats from inline
+    references that slipped past the regex), max value bounded so an
+    inline citation like "decision 17." can't anchor a wrong split."""
+    if not nums or max(nums) > 30 or nums[0] not in (1, 2):
+        return False
+    prev = nums[0]
+    for n in nums[1:]:
+        if n - prev not in (0, 1):
+            return False
+        prev = n
+    return True
 
 
 def _categorise_segments(segs: list[str]) -> list[tuple[str, bool]]:
@@ -281,20 +317,117 @@ def _categorise_segments(segs: list[str]) -> list[tuple[str, bool]]:
     return out
 
 
+def _norm_ws(s: str) -> str:
+    """Whitespace-normalised view for duplicate detection."""
+    return re.sub(r"\s+", " ", (s or "")).strip()
+
+
+def _is_broken(ordered: list[dict]) -> tuple[bool, dict | None]:
+    """Decide whether `ordered` paragraphs are the "broken" pattern that
+    needs re-splitting, and if so return the source paragraph (the one
+    holding the full doc text).
+
+    Patterns considered broken:
+      - 1 paragraph total (a flat unsplit doc).
+      - 2+ paragraphs where one paragraph's normalised text contains
+        every other paragraph's normalised text (HF source emitted both
+        a preamble and a "full doc including preamble" copy).
+      - 2 paragraphs where the longer is much bigger (≥2.5x) than the
+        shorter AND starts with the shorter's first 30+ chars (the HF
+        source occasionally shipped a slightly-truncated preamble in
+        pos=1 — characters dropped between two adjacent words — so
+        strict substring matching fails. Length-ratio + prefix-match
+        catches these).
+      - 2+ paragraphs that are exact duplicates after normalisation.
+
+    Distinct multi-paragraph docs (a-32-18: "Requests…" + "Invites…",
+    a-46-18: 3 distinct operative paragraphs, etc.) are LEFT ALONE.
+    """
+    if not ordered:
+        return False, None
+    if len(ordered) == 1:
+        return True, ordered[0]
+    norm_texts = [_norm_ws(p.get("text", "")) for p in ordered]
+    n = len(ordered)
+    # Find a paragraph that contains every other paragraph's text.
+    for i in range(n):
+        if all(
+            norm_texts[i] == norm_texts[j] or norm_texts[j] in norm_texts[i]
+            for j in range(n) if j != i
+        ):
+            return True, ordered[i]
+    # 2-paragraph length-ratio heuristic with prefix match
+    if n == 2:
+        ts = sorted(zip(norm_texts, ordered), key=lambda x: len(x[0]))
+        short, longer = ts[0], ts[1]
+        if (len(short[0]) >= 30 and len(longer[0]) >= 2.5 * len(short[0])
+                and longer[0].startswith(short[0][:30])):
+            return True, longer[1]
+    # All-pairs equal? (rare degenerate case)
+    if len(set(norm_texts)) == 1:
+        return True, max(ordered, key=lambda p: len((p.get("text") or "")))
+    return False, None
+
+
 def rebuild_paragraphs(doc_id: str, original: list[dict]) -> list[dict]:
-    """Build a fresh list of paragraph records for the doc."""
+    """Build a fresh list of paragraph records for the doc.
+
+    Three behaviours:
+      1. The doc is "broken" (1 paragraph, or one paragraph contains
+         all others) — re-split the dominant paragraph using split_text.
+      2. The doc has multiple distinct paragraphs but at least ONE of
+         them packs an operative-verb + lettered/numbered list inline
+         ("…recommended that … should: (a)… (b)… (c)…") — split THAT
+         paragraph with _split_items, leave the others alone.
+      3. Otherwise — return as-is.
+    """
     if not original:
         return []
-    # Source text: the longest paragraph (the duplicate that holds full content)
-    source = max(original, key=lambda p: len((p.get("text") or "")))
+    ordered = sorted(original, key=lambda p: p.get("idx") or p.get("n") or 0)
+    broken, source = _is_broken(ordered)
+    if broken:
+        template = {
+            k: v for k, v in source.items()
+            if k not in ("id", "n", "idx", "text", "isPreamble")
+        }
+        splits = split_text(source.get("text", ""))
+        return _materialise(doc_id, template, splits)
+
+    # Per-paragraph fallback: split any paragraph that has a clear
+    # ":(a) …(b) …(c) …" or ": 1. … 2. …" inline list — but ONLY when
+    # the paragraph itself isn't already a numbered top-level item.
+    # Skip paragraphs starting with "N." (those are already split-as-a-
+    # numbered-item; their lettered sub-items must stay inline). This
+    # also keeps the script idempotent: a second pass over already-fixed
+    # data is a no-op.
+    NUM_PREFIX_RE = re.compile(r"^\d{1,2}\.\s+[A-Z]")
+    expanded: list[tuple[str, bool]] = []
+    changed = False
+    for p in ordered:
+        text = (p.get("text") or "").strip()
+        is_pre = p.get("isPreamble") is True
+        if NUM_PREFIX_RE.match(text):
+            expanded.append((text, is_pre))
+            continue
+        if (": (a)" in text or ": (i)" in text or ":(a)" in text
+                or re.search(r":\s*1\.\s+[A-Z]", text)):
+            sub = split_text(text)
+            if len(sub) > 1:
+                expanded.extend(sub)
+                changed = True
+                continue
+        expanded.append((text, is_pre))
+    if not changed:
+        return original
     template = {
-        k: v for k, v in source.items()
+        k: v for k, v in ordered[0].items()
         if k not in ("id", "n", "idx", "text", "isPreamble")
     }
-    splits = split_text(source.get("text", ""))
-    if not splits:
-        return original  # safety: don't touch on empty result
+    return _materialise(doc_id, template, expanded)
 
+
+def _materialise(doc_id: str, template: dict, splits: list[tuple[str, bool]]) -> list[dict]:
+    """Build paragraph records from (text, is_preamble) tuples."""
     out: list[dict] = []
     for i, (text, is_pre) in enumerate(splits, start=1):
         rec = dict(template)
