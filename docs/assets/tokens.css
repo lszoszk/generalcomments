@@ -13,11 +13,18 @@
   --rule:         oklch(86% 0.013 75);
   --rule-soft:    oklch(91% 0.011 75);
 
-  /* Ink */
-  --ink:          oklch(18% 0.012 270);
-  --ink-2:        oklch(32% 0.014 270);
-  --ink-3:        oklch(48% 0.013 270);
-  --ink-4:        oklch(62% 0.012 270);
+  /* Ink. v19.51.2 (audit H6): values are sRGB hex (computed from the
+     prior oklch palette via the CSS-Color-4 reference conversion).
+     The browser's actual paint is unchanged from the oklch authoring,
+     but axe-core's color-contrast checker approximates oklch
+     conservatively (reading oklch(18%) as ~#7d7c7d instead of
+     ~#0f1117), which produced false-positive AA violations on every
+     `--ink`-coloured element. Swapping to hex makes the contrast
+     calculation match what the browser displays. */
+  --ink:          #0f1117;
+  --ink-2:        #2b2e35;
+  --ink-3:        #45474f;
+  --ink-4:        #60636a;
 
   /* Accent — garnet/oxblood (used for hierarchy, never for chrome) */
   --garnet:       oklch(45% 0.13 25);
@@ -34,7 +41,12 @@
   --jur-tone:     oklch(43% 0.09 190);    /* Jurisprudence — teal, preview-but-legal */
   --jur-soft:     oklch(94% 0.035 190);
   --sp-tone:      var(--ink-2);           /* Special Procedures — slightly muted, "preview" */
-  --preview:      oklch(58% 0.14 70);     /* burnt-orange for PREVIEW badges */
+  /* v19.51.2 (audit H6): darkened --preview from oklch(58%) → 50%
+     (= #945000) so `.badge-preview` (cream text on solid --preview
+     bg, weight 600, ~9px) clears WCAG AA 4.5:1 — was 4.15:1. Knock-on
+     for `.badge-sp` (--preview fg on --preview-soft cream-tinted bg)
+     is positive; contrast goes up. */
+  --preview:      #945000;                /* burnt-orange for PREVIEW badges */
   --preview-soft: oklch(95% 0.05 70);
 
   /* Type */
@@ -58,10 +70,11 @@
   --rule:         oklch(30% 0.013 270);
   --rule-soft:    oklch(25% 0.013 270);
 
-  --ink:          oklch(94% 0.008 75);
-  --ink-2:        oklch(82% 0.010 75);
-  --ink-3:        oklch(68% 0.011 75);
-  --ink-4:        oklch(54% 0.012 75);
+  /* Dark-mode inks — same hex conversion (see light-mode comment). */
+  --ink:          #eeeae5;
+  --ink-2:        #c8c3bd;
+  --ink-3:        #9c9791;
+  --ink-4:        #a39d96;
 
   --garnet:       oklch(72% 0.11 25);
   --garnet-2:     oklch(78% 0.10 25);

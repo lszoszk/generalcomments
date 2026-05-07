@@ -3006,8 +3006,16 @@ function bindUI() {
   // the currently-open doc so changing scope/filter doesn't kick the user
   // out of their reading position.
   $$('.docs-scope-opt').forEach(b => b.addEventListener('click', () => {
-    $$('.docs-scope-opt').forEach(x => x.classList.remove('is-active'));
+    // v19.51.2 (audit C2): keep aria-selected in lockstep with the
+    // visual is-active state so screen readers announce the active
+    // corpus tab. role="tab" + aria-selected together satisfy the
+    // aria-required-children rule on the parent role="tablist".
+    $$('.docs-scope-opt').forEach(x => {
+      x.classList.remove('is-active');
+      x.setAttribute('aria-selected', 'false');
+    });
     b.classList.add('is-active');
+    b.setAttribute('aria-selected', 'true');
     state.docsScope = b.dataset.docsScope;
     paintDocsRail();
   }));

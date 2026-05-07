@@ -94,8 +94,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260507-v19-51b" />
-<link rel="stylesheet" href="assets/app.css?v=20260507-v19-51b" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260507-v19-51c" />
+<link rel="stylesheet" href="assets/app.css?v=20260507-v19-51c" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -493,19 +493,26 @@
         <!-- v19.49: dropped "All" tab — primary corpus is GC, JUR + SP
              surfaced as tabs of equal width. Default scope flips to "gc"
              on first paint via state.docsScope. Long labels collapse to
-             the abbreviation on narrow rails (CSS @container query). -->
-        <div class="docs-scope" role="tablist">
+             the abbreviation on narrow rails (CSS @container query).
+             v19.51.2 (audit C2): added role="tab" + aria-selected on each
+             button and aria-label on the tablist — axe-core flagged the
+             missing required-children as a critical violation. The
+             aria-selected state is kept in sync by paintDocsRail(). -->
+        <div class="docs-scope" role="tablist" aria-label="Document corpus">
           <button class="docs-scope-opt is-active" data-docs-scope="gc"
+                  role="tab" aria-selected="true"
                   title="General Comments">
             <span class="docs-scope-full">General Comments</span>
             <span class="docs-scope-abbr">GC</span>
           </button>
           <button class="docs-scope-opt" data-docs-scope="jur"
+                  role="tab" aria-selected="false"
                   title="Jurisprudence">
             <span class="docs-scope-full">Jurisprudence</span>
             <span class="docs-scope-abbr">JUR</span>
           </button>
           <button class="docs-scope-opt" data-docs-scope="sp"
+                  role="tab" aria-selected="false"
                   title="Special Procedures">
             <span class="docs-scope-full">Special Procedures</span>
             <span class="docs-scope-abbr">SP</span>
@@ -977,6 +984,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260507-v19-51b"></script>
+<script type="module" src="assets/app.js?v=20260507-v19-51c"></script>
 </body>
 </html>
