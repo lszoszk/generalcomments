@@ -161,3 +161,11 @@ docs_v2/
 # The script + extracted .txt files ARE tracked (auditable + small).
 _docs_internal/reextract/pdfs/
 _docs_internal/reextract/__pycache__/
+
+# SP heading extraction working dir: fetched UN documents.un.org
+# PDFs (75 MB across 173 docs). Rebuildable from each doc's symbol
+# via extract_sp_sections.py. The scripts + sections.json (the
+# canonical output) ARE tracked; PDFs are not.
+_docs_internal/sp-headings/pdfs/
+_docs_internal/sp-headings/texts/
+_docs_internal/sp-headings/__pycache__/

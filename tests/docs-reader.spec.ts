@@ -110,6 +110,19 @@ test('R7. railScopeTabs · clicking GC narrows rail to GC docs only', async ({ p
   expect(gcRows).toBe(total);
 });
 
+test('R9. spSectionHeadings · SP docs now render section rollups', async ({ page }) => {
+  // v19.51.8: extracted section structure from OHCHR PDFs and stitched
+  // it onto SP corpus paragraphs. The reader's section-rollup heading
+  // code (which already worked for GCs) now fires for SPs too.
+  // a-50-440 has a clean 6-section TOC: I. INTRODUCTION, II. …, etc.
+  await bootApp(page, '/index.html#documents/a-50-440');
+  await page.waitForTimeout(800);
+  // The reader emits .docs-reader-section h3s for each section change.
+  const headings = await page.locator('.docs-reader-section').allTextContents();
+  expect(headings.length).toBeGreaterThan(2);
+  expect(headings.join(' · ')).toMatch(/INTRODUCTION/i);
+});
+
 test('R8. titleSyncReader · browser tab <title> follows the open doc', async ({ page }) => {
   // v19.6 (B1) fix: updateDocumentTitle now branches on state.view ===
   // 'documents' and reads state.docsActiveDocId. paintDocReaderBody
