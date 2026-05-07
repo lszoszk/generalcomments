@@ -164,7 +164,27 @@ def split_text(text: str) -> list[tuple[str, bool]]:
         # No colon: preamble + body as 2 paras (preamble flag on first)
         return [(pre, True), (operative_block, False)]
 
-    # Strategy 3: lettered-item fallback. Some docs use past-tense or
+    # Strategy 3: numbered-item fallback for docs whose operative
+    # verbs ARE the numbered items themselves (CERD-style: "The
+    # Committee… Alarmed by …, Convinced …, 1. Considers …,
+    # 2. Urges …, 3. Requests …" — no separate "Recommends:" lead).
+    # Treat everything before the first plausible "1." as the
+    # preamble.
+    num_matches = list(NUM_ITEM_RE.finditer(text))
+    nums = [int(m.group(1)) for m in num_matches]
+    if len(num_matches) >= 2 and _is_plausible_sequence(nums):
+        head = text[: num_matches[0].start()].strip().rstrip(",").rstrip(":").strip()
+        out = []
+        if head:
+            out.append((head, True))
+        for i, mm in enumerate(num_matches):
+            end = num_matches[i + 1].start() if i + 1 < len(num_matches) else len(text)
+            piece = text[mm.start():end].strip()
+            if piece:
+                out.append((piece, False))
+        return out
+
+    # Strategy 4: lettered-item fallback. Some docs use past-tense or
     # otherwise-unmatched operative wording ("The Committee recommended
     # that … States parties should: (a) … (b) …"), so we still want to
     # split on the items. Treat everything before the first item as

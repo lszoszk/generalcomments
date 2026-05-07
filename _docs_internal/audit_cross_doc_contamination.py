@@ -45,6 +45,18 @@ def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s or "").strip()
 
 
+# Legitimate-quotation whitelist: pairs where one doc verbatim quotes
+# another by design, and the audit's contiguous-text heuristic flags
+# the overlap as contamination. Add new (a, b) tuples here as the
+# audit surfaces false positives. Sorted alphabetically.
+QUOTATION_WHITELIST = {
+    # CEDAW GR2(b) explicitly quotes the 1986 recommendation that IS
+    # a-41-38 (= CEDAW GR1): "the general recommendation adopted in
+    # 1986 in these terms: '...'". Legitimate citation.
+    ("a-41-38", "annotated-cedaw-gr2-reporting"),
+}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--write", action="store_true",
@@ -77,12 +89,13 @@ def main() -> int:
             if fp in text:
                 contamination.append((d_src, d_target))
 
-    # De-duplicate undirected pairs
+    # De-duplicate undirected pairs and drop whitelisted legitimate
+    # quotation pairs.
     seen_pair = set()
     pairs = []
     for a, b in contamination:
         key = tuple(sorted([a, b]))
-        if key in seen_pair:
+        if key in seen_pair or key in QUOTATION_WHITELIST:
             continue
         seen_pair.add(key)
         pairs.append(key)

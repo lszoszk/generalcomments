@@ -6,14 +6,10 @@ These need re-extraction from the authoritative OHCHR source PDFs in
 the next ingest batch — the splitter cannot fix them from corpus.json
 alone because the wrong-doc text is already serialised.
 
-Pairs found: **4**
+Pairs found: **0**
 
 | Doc A | Doc B |
 | --- | --- |
-| `a-41-38` | `annotated-cedaw-gr2-reporting` |
-| `a-49-18` | `annotated-cerd-gr17-national-institutions` |
-| `annotated-cedaw-gr10-tenth-anniversary` | `annotated-cedaw-gr9-statisticaldata` |
-| `annotated-cerd-gr16-article9` | `annotated-cerd-gr17-national-institutions` |
 
 ## How to fix
 

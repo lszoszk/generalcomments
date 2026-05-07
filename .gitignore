@@ -155,3 +155,9 @@ _docs_internal/ccprcentre/*.json
 
 # v2 build staging (parallel target experiment) — generated artefacts.
 docs_v2/
+
+# Re-extraction working dir: fetched OHCHR source PDFs/DOCs are
+# rebuildable from each doc's `link` URL via apply_reextraction.py.
+# The script + extracted .txt files ARE tracked (auditable + small).
+_docs_internal/reextract/pdfs/
+_docs_internal/reextract/__pycache__/
