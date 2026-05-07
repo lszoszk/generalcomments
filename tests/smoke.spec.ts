@@ -256,3 +256,29 @@ test('14. apiBreakdownPills · server total wins over page-slice (v19.6 U2)', as
   await expect(page.locator('#rb-jur')).toContainText(/^JUR 1.?500\s*¶/);
   await expect(page.locator('#rb-sp')).toContainText(/^SP 44\s*¶/);
 });
+
+// v19.51.7 (Tier B.3): keyboard shortcut overlay
+test('15. shortcutsOverlay · `?` opens the shortcuts dialog', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  // Move focus off the search input so the global keydown handler fires.
+  await page.locator('body').focus();
+  await page.keyboard.press('Shift+Slash');
+  await expect(page.locator('#shortcuts-modal')).toBeVisible();
+  await expect(page.locator('#shortcuts-modal')).toContainText(/show this overlay/);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#shortcuts-modal')).not.toBeVisible();
+});
+
+// v19.51.7 (Tier B.1): recent-searches dropdown
+test('16. recentQueries · successful search appears in #q-recent on next focus', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'disability');
+  // Wait for results to land — the recent-query record fires from
+  // paintResults when state.results.length > 0.
+  await expect(page.locator('.result').first()).toBeVisible({ timeout: 10_000 });
+  // Clear input and refocus — dropdown should appear with our query.
+  await page.locator('#q-clear').click();
+  await page.locator('#q').focus();
+  await expect(page.locator('#q-recent')).toBeVisible();
+  await expect(page.locator('#q-recent')).toContainText('disability');
+});

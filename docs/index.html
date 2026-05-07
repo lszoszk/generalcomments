@@ -94,8 +94,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260507-0f514f1" />
-<link rel="stylesheet" href="assets/app.css?v=20260507-0f514f1" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260507-9cd8b18" />
+<link rel="stylesheet" href="assets/app.css?v=20260507-9cd8b18" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -135,6 +135,24 @@
     </button>
   </div>
 </aside>
+
+<!-- v19.51.7 (Tier B.3): keyboard shortcut overlay. Toggled by `?`
+     key (when no input is focused). Static markup; no JS render. -->
+<dialog id="shortcuts-modal" class="shortcuts-modal" aria-labelledby="shortcuts-title">
+  <div class="shortcuts-head">
+    <div class="folio garnet" id="shortcuts-title">KEYBOARD · SHORTCUTS</div>
+    <button type="button" class="shortcuts-close" id="shortcuts-close" aria-label="Close">×</button>
+  </div>
+  <ul class="shortcuts-list">
+    <li><kbd>?</kbd> <span class="shortcuts-help">show this overlay</span></li>
+    <li><kbd>/</kbd> <span class="shortcuts-help">focus the search input</span></li>
+    <li><kbd>⌘</kbd> <kbd>K</kbd> <span class="shortcuts-or">or</span> <kbd>Ctrl</kbd> <kbd>K</kbd> <span class="shortcuts-help">open the command palette</span></li>
+    <li><kbd>R</kbd> <span class="shortcuts-help">open the active paragraph in the document reader</span></li>
+    <li><kbd>Esc</kbd> <span class="shortcuts-help">close popovers / dialogs / clear search input</span></li>
+    <li><kbd>←</kbd> <kbd>→</kbd> <span class="shortcuts-help">navigate the tour (when active)</span></li>
+  </ul>
+  <p class="shortcuts-foot">Tip: shortcuts ignore typing inside text fields.</p>
+</dialog>
 
 <!-- v19.43: Tour overlay. Spotlight on a target element + popover with
      description. Created on demand by the tour controller in app.js. -->
@@ -195,9 +213,14 @@
     <span class="serif search-prompt">Search<span class="garnet">.</span></span>
     <input id="q" type="search" class="serif search-input"
            placeholder='e.g. "best interests of the child"  ·  digital environment  ·  surveillance'
-           autocomplete="off" autocapitalize="off" spellcheck="false" />
+           autocomplete="off" autocapitalize="off" spellcheck="false"
+           aria-haspopup="listbox" aria-controls="q-recent" />
     <button id="q-clear" type="button" class="q-clear-btn" hidden
             title="Clear the keyword (Esc)" aria-label="Clear keyword">×</button>
+    <!-- v19.51.7 (Tier B.1): recent-searches dropdown. Shown when the
+         search input is focused and empty. Populated by runSearch after
+         a non-trivial query lands ≥1 result. localStorage-backed. -->
+    <div id="q-recent" class="q-recent" role="listbox" aria-label="Recent searches" hidden></div>
     <button id="q-help" type="button" class="q-help-btn"
             title="Search syntax — operators, examples, tips"
             aria-haspopup="dialog" aria-expanded="false" aria-label="Search syntax help">?</button>
@@ -987,6 +1010,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260507-0f514f1"></script>
+<script type="module" src="assets/app.js?v=20260507-9cd8b18"></script>
 </body>
 </html>

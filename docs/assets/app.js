@@ -1937,7 +1937,7 @@ function paintDocReaderBody(doc, paraId) {
     }
     return `
       ${sectionHead}
-      <div class="docs-reader-para ${isActive ? 'is-active' : ''}" id="reader-para-${escape(p.id)}" data-para-id="${escape(p.id)}" data-section-key="${escape(curSectionKey)}">
+      <div class="docs-reader-para ${isActive ? 'is-active' : ''} ${isBm ? 'is-bookmarked' : ''} ${isPin ? 'is-pinned' : ''} ${hasNote ? 'has-note' : ''}" id="reader-para-${escape(p.id)}" data-para-id="${escape(p.id)}" data-section-key="${escape(curSectionKey)}">
         <div class="docs-reader-para-marker">
           <span class="mono">${marker}</span>
           <button class="docs-para-bm ${isBm ? 'on' : ''}" data-act="bm" title="${isBm ? 'Remove bookmark' : 'Bookmark this paragraph'}">${isBm ? '★' : '☆'}</button>
@@ -2750,8 +2750,110 @@ function initMobileFilterToggle() {
   });
 }
 
+// ─────────── v19.51.7 (Tier B.1): recent-searches dropdown ───────────
+//
+// Local-only history of the user's last 12 successful queries
+// (≥ MIN_QUERY chars and at least one hit). Stored in localStorage as
+// [{q, ts}] newest-first. Surfaces as a panel below #q whenever the
+// input is focused and empty. Click an entry to re-run the query.
+const RECENT_Q_MAX = 12;
+
+function recordRecentQuery(q) {
+  q = (q || '').trim();
+  if (q.length < MIN_QUERY) return;
+  const list = _lsGet(_LS.recentQ, []);
+  const filtered = list.filter(r => r && r.q !== q);
+  filtered.unshift({ q, ts: Date.now() });
+  _lsSet(_LS.recentQ, filtered.slice(0, RECENT_Q_MAX));
+  // Keep an open dropdown's contents in sync so the just-run query
+  // appears at the top of the list on next focus.
+  const panel = document.getElementById('q-recent');
+  if (panel && !panel.hidden) paintRecentQueriesDropdown();
+}
+
+function paintRecentQueriesDropdown() {
+  const panel = document.getElementById('q-recent');
+  if (!panel) return;
+  const list = _lsGet(_LS.recentQ, []);
+  if (!list.length) {
+    panel.hidden = true;
+    return;
+  }
+  panel.innerHTML = `
+    <div class="q-recent-head">
+      <span class="folio">Recent searches</span>
+      <button type="button" id="q-recent-clear" class="q-recent-clear" title="Clear history">Clear</button>
+    </div>
+    <ul class="q-recent-list" role="presentation">
+      ${list.map((r, i) => `
+        <li role="option" aria-selected="false">
+          <button type="button" class="q-recent-opt" data-q="${escape(r.q)}">
+            <span class="q-recent-q">${escape(r.q)}</span>
+            <span class="q-recent-ago folio">${_relativeTimeFolio(r.ts)}</span>
+          </button>
+        </li>`).join('')}
+    </ul>`;
+  panel.hidden = false;
+  // Click handler — wire once per paint.
+  panel.querySelectorAll('.q-recent-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const q = btn.dataset.q || '';
+      const input = document.getElementById('q');
+      if (!input) return;
+      input.value = q;
+      state.query = q;
+      panel.hidden = true;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+  document.getElementById('q-recent-clear')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    _lsSet(_LS.recentQ, []);
+    panel.hidden = true;
+  });
+}
+
+function _relativeTimeFolio(ts) {
+  const diff = (Date.now() - ts) / 1000;
+  if (diff < 60)        return 'just now';
+  if (diff < 3600)      return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400)     return `${Math.floor(diff / 3600)}h ago`;
+  if (diff < 86400 * 7) return `${Math.floor(diff / 86400)}d ago`;
+  return new Date(ts).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+}
+
+function initRecentQueriesDropdown() {
+  const input = document.getElementById('q');
+  const panel = document.getElementById('q-recent');
+  if (!input || !panel) return;
+
+  const showIfEmpty = () => {
+    if ((input.value || '').trim() === '') paintRecentQueriesDropdown();
+  };
+
+  input.addEventListener('focus', showIfEmpty);
+  input.addEventListener('input', () => {
+    if ((input.value || '').trim() === '') paintRecentQueriesDropdown();
+    else panel.hidden = true;
+  });
+  // Hide on outside click. Use mousedown so a click on a recent-opt
+  // button still resolves before the panel hides.
+  document.addEventListener('mousedown', (e) => {
+    const target = e.target;
+    if (target instanceof Node && (input.contains(target) || panel.contains(target))) {
+      return;
+    }
+    panel.hidden = true;
+  });
+  // Hide on Escape from the input.
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') panel.hidden = true;
+  });
+}
+
 function bindUI() {
   initMobileFilterToggle();
+  initRecentQueriesDropdown();
   // Search input (debounced)
   let t;
   const qInput = $('#q');
@@ -4559,6 +4661,9 @@ function paintResults() {
   // Pure progressive disclosure: declutters the first-paint searchbar.
   const hasActiveQuery = !!(state.query && state.query.trim());
   document.body.classList.toggle('has-results', hasActiveQuery && total > 0);
+  // v19.51.7 (Tier B.1): record successful queries (≥ MIN_QUERY chars,
+  // ≥ 1 hit) for the recent-searches dropdown.
+  if (hasActiveQuery && total > 0) recordRecentQuery(state.query);
   $('#results-title').textContent = total
     ? (clippedToApi
         ? `${total.toLocaleString()} passages — showing first ${renderedTotal.toLocaleString()} from ${docCount} document${docCount === 1 ? '' : 's'}`
@@ -6662,6 +6767,43 @@ document.addEventListener('keydown', (e) => {
   openInDocReader(para);
 });
 
+// ─────────── v19.51.7 (Tier B.3): keyboard shortcut overlay ───────────
+//
+// `?` opens the shortcuts modal; `/` focuses the search input. Both
+// ignore typing inside editable elements so they don't interfere with
+// punctuation in queries / notes / report bodies.
+function _isEditableTarget(t) {
+  if (!t) return false;
+  const tag = (t.tagName || '').toLowerCase();
+  return tag === 'input' || tag === 'textarea' || t.isContentEditable;
+}
+document.addEventListener('keydown', (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (_isEditableTarget(e.target)) return;
+  // `?` is shift+/ on US keyboards; check both forms.
+  if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+    e.preventDefault();
+    const dlg = document.getElementById('shortcuts-modal');
+    if (!dlg) return;
+    if (dlg.open) dlg.close();
+    else if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open', '');
+    return;
+  }
+  if (e.key === '/') {
+    e.preventDefault();
+    document.getElementById('q')?.focus();
+  }
+});
+// Close button + Esc inside the dialog (Esc handled natively by
+// <dialog>, but we also bind here for browsers that don't honour it).
+document.addEventListener('click', (e) => {
+  const t = e.target;
+  if (t instanceof Element && (t.id === 'shortcuts-close' || t.closest('#shortcuts-close'))) {
+    document.getElementById('shortcuts-modal')?.close?.();
+  }
+});
+
 // ─────────── Command palette ⌘K (A2) ───────────
 //
 // Self-contained palette — opens with ⌘K / Ctrl+K, fuzzy-searches every
@@ -6940,6 +7082,7 @@ const _LS = {
   prefCiteFmt:  'unhrdb_pref_cite_fmt_v1',  // v19.16: cite-format key for one-click cite
   resultSort:   'unhrdb_result_sort_v1',    // v19.43-fix3: 'relevance' | 'date'
   resultGroup:  'unhrdb_result_group_v1',   // v19.43-fix3: 'paragraphs' | 'documents' | 'bodies'
+  recentQ:      'unhrdb_recent_queries_v1', // v19.51.7: array of {q, ts}, capped at 12
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
@@ -7515,6 +7658,7 @@ function renderWorkspace() {
       <span class="dim mono">${totalItems} item${totalItems === 1 ? '' : 's'} in your workspace</span>
       <div class="ws-export-actions">
         <button class="btn btn-ghost" id="ws-export-md" type="button" title="Download a Markdown file with every bookmark, note, pin, and saved search">⬇ Markdown</button>
+        <button class="btn btn-ghost" id="ws-export-tex" type="button" title="Download a LaTeX (.tex) file with each paragraph as a \\quote{} block + a thebibliography entry per source">⬇ LaTeX</button>
         <button class="btn btn-ghost" id="ws-export-json" type="button" title="Download a JSON backup of the entire workspace">⬇ JSON</button>
       </div>
     </div>` : '';
@@ -7585,6 +7729,7 @@ function renderWorkspace() {
   // v15: workspace export. Markdown is human-readable; JSON is a full
   // backup the user can re-import (we'll add import in a later release).
   $('#ws-export-md')?.addEventListener('click', () => exportWorkspace('md'));
+  $('#ws-export-tex')?.addEventListener('click', () => exportWorkspace('tex'));
   $('#ws-export-json')?.addEventListener('click', () => exportWorkspace('json'));
 
   host.querySelectorAll('.ws-jump').forEach(a => {
@@ -7723,6 +7868,103 @@ function _wsRowFor(paraId, kind) {
 // searches) as either Markdown (human-readable, drop into Obsidian/Word/etc.)
 // or JSON (full structured backup).  Both formats include the source signature
 // + paragraph number + full body text where the paragraph is currently loaded.
+// v19.51.7 (Tier B.4): LaTeX export. Emits a self-contained `.tex`
+// fragment with one `\quote{}` block per paragraph (each paragraph
+// labelled with the case/GC signature + ¶N) plus a thebibliography
+// section keyed by signature. Designed to drop straight into an
+// academic paper without further editing — the user can `\input` the
+// file or paste the contents into their main `.tex`.
+function _texEscape(s) {
+  return String(s ?? '')
+    .replace(/\\/g, '\\textbackslash{}')
+    .replace(/([&%$#_{}])/g, '\\$1')
+    .replace(/~/g, '\\textasciitilde{}')
+    .replace(/\^/g, '\\textasciicircum{}')
+    .replace(/“|”/g, '"')
+    .replace(/‘|’/g, "'")
+    .replace(/—/g, '---')
+    .replace(/–/g, '--');
+}
+
+function _texCiteKey(sig, paraId) {
+  // BibTeX-friendly citation key: alphanumerics from signature +
+  // a paragraph suffix when present.
+  const base = (sig || paraId || '').replace(/[^A-Za-z0-9]+/g, '');
+  return base || 'unhrdb';
+}
+
+function _buildLatexExport(rows, ss, bms, notes, pins) {
+  const lines = [];
+  lines.push('% UN Human Rights Database — Workspace export');
+  lines.push(`% Exported ${new Date().toLocaleString('en-GB')}`);
+  lines.push('% ' + [
+    `${bms.length} bookmark${bms.length === 1 ? '' : 's'}`,
+    `${Object.keys(notes).length} note${Object.keys(notes).length === 1 ? '' : 's'}`,
+    `${pins.length} pinned`,
+    `${ss.length} saved search${ss.length === 1 ? '' : 'es'}`,
+  ].join(' · '));
+  lines.push('%');
+  lines.push('% Drop this file into your paper with \\input{unhrdb-workspace-…}.');
+  lines.push('% Each paragraph is wrapped in a `quote` environment plus a');
+  lines.push('% \\cite key. Bibliography entries are at the bottom.');
+  lines.push('');
+
+  // Paragraphs as quote blocks.
+  for (const r of rows) {
+    const key = _texCiteKey(r.sig, r.paraId);
+    const sigEsc = _texEscape(r.sig);
+    const paraLabel = r.paragraphN != null ? `\\textparagraph{}~${_texEscape(String(r.paragraphN))}` : '';
+    lines.push(`% ${r.sig}${r.paragraphN != null ? ` ¶${r.paragraphN}` : ''}`);
+    lines.push('\\begin{quote}');
+    if (r.text) {
+      // Word-wrap quoted text at ~80 chars to keep the .tex readable
+      // without altering output. LaTeX collapses internal whitespace.
+      const wrapped = (r.text).replace(/\s+/g, ' ').trim();
+      lines.push(_texEscape(wrapped));
+    } else {
+      lines.push(`\\emph{(paragraph body not yet loaded; open \\texttt{${sigEsc}} in the app)}`);
+    }
+    lines.push(`\\hfill --- \\cite[${paraLabel}]{${key}}`);
+    lines.push('\\end{quote}');
+    if (r.note) {
+      lines.push(`\\paragraph*{Note} ${_texEscape(r.note)}`);
+    }
+    lines.push('');
+  }
+
+  // Bibliography.
+  if (rows.length) {
+    lines.push('\\begin{thebibliography}{99}');
+    const seen = new Set();
+    for (const r of rows) {
+      const key = _texCiteKey(r.sig, r.paraId);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const author = r.country
+        ? `UN Human Rights Committee`           // JUR: Committee author
+        : `UN Treaty Body`;                     // GC/SP: treaty body author
+      const title = _texEscape(r.title || r.sig);
+      const sig   = _texEscape(r.sig);
+      const yr    = r.year || '';
+      const url   = r.sourceLink ? `\\url{${r.sourceLink}}` : '';
+      lines.push(`\\bibitem{${key}} ${author}, \\emph{${title}}, ${sig}${yr ? ` (${yr})` : ''}${url ? ', ' + url : ''}.`);
+    }
+    lines.push('\\end{thebibliography}');
+    lines.push('');
+  }
+
+  // Saved searches as a comment block (not citable, but useful trace).
+  if (ss.length) {
+    lines.push('% Saved searches:');
+    for (const s of ss) {
+      const url = (location.origin || '') + (s.url.startsWith('/') ? s.url : '/' + s.url);
+      lines.push(`%   ${s.name}: ${url}`);
+    }
+  }
+
+  return lines.join('\n') + '\n';
+}
+
 function exportWorkspace(fmt) {
   const bms = bmList();
   const notes = _lsGet(_LS.notes, {});
@@ -7757,7 +7999,11 @@ function exportWorkspace(fmt) {
   });
 
   let blob, filename, mime;
-  if (fmt === 'json') {
+  if (fmt === 'tex' || fmt === 'latex') {
+    blob = new Blob([_buildLatexExport(rows, ss, bms, notes, pins)], { type: 'text/x-tex' });
+    filename = `unhrdb-workspace-${stamp}.tex`;
+    mime = 'text/x-tex';
+  } else if (fmt === 'json') {
     const payload = {
       schemaVersion: 1,
       exportedAt: new Date().toISOString(),
