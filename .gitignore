@@ -183,3 +183,9 @@ _docs_internal/footnotes/__pycache__/
 # tracked; the docx cache is not.
 _docs_internal/cescr/docx/
 _docs_internal/cescr/__pycache__/
+
+# GC footnote re-extraction working dir: fetched documents.un.org
+# docx files (~29 MB across 92 docs). Rebuildable via
+# extract_gc_footnotes.py. Scripts + gc_footnotes.json (canonical
+# extraction output) ARE tracked; docx cache is not.
+_docs_internal/footnotes/gc-docx/

@@ -32,6 +32,8 @@
   img-src 'self' data:;
   connect-src 'self'
     https://150.254.115.204
+    http://localhost:8767
+    http://127.0.0.1:8767
     https://www.google-analytics.com
     https://*.google-analytics.com
     https://*.googletagmanager.com
@@ -94,8 +96,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260508-27636cd" />
-<link rel="stylesheet" href="assets/app.css?v=20260508-27636cd" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260508-10e6acb" />
+<link rel="stylesheet" href="assets/app.css?v=20260508-10e6acb" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -186,6 +188,7 @@
     </div>
     <nav class="mast-nav">
       <a href="#search" class="active">Search</a>
+      <a href="#ask">Ask</a>
       <a href="#documents">Documents</a>
       <a href="#workspace" id="workspace-nav-link">Workspace<span class="workspace-badge" id="workspace-badge" hidden></span></a>
       <a href="#about">About</a>
@@ -497,6 +500,82 @@
 </main>
 
 </section><!-- /search view -->
+
+<!-- ═══════════════════════════ ASK VIEW (Phase 1: extractive RAG) ═══════════════════════════ -->
+<section data-view="ask" hidden>
+
+<style>
+  .ask-disclaimer { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 0.75rem 1rem; margin: 1rem 1.5rem; border-radius: 4px; font-size: 0.92rem; line-height: 1.5; }
+  .ask-meta { font-size: 0.78rem; color: #555; margin: 0 1.5rem 0.5rem; }
+  .ask-answer { background: #f8fafc; border-left: 4px solid #6d1422; padding: 1rem 1.25rem; margin: 1rem 1.5rem; border-radius: 4px; }
+  .ask-answer-title { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.5rem; color: #6d1422; letter-spacing: 0.04em; }
+  .ask-answer-body { white-space: pre-wrap; line-height: 1.55; }
+  .ask-sources-title { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 1.05rem; margin: 1.5rem 1.5rem 0.5rem; }
+  .ask-source { background: white; border: 1px solid #e5e7eb; padding: 0.85rem 1rem; margin: 0.5rem 1.5rem; border-radius: 6px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+  .ask-source:hover { border-color: #6d1422; box-shadow: 0 2px 6px rgba(109, 20, 34, 0.08); }
+  .ask-source:focus { outline: 2px solid #6d1422; outline-offset: 2px; }
+  .ask-source-open-hint { font-size: 0.75rem; color: #6d1422; margin-top: 0.5rem; opacity: 0.6; }
+  .ask-source:hover .ask-source-open-hint { opacity: 1; }
+  /* Ask drawer is just a positioning slot; the actual #dossier element is
+     moved here when a source is clicked, so it inherits ALL existing
+     dossier styles and behaviour (font controls, cite buttons, ±2 context,
+     close button — everything). Slides in from the right. */
+  .ask-drawer { position: fixed; top: 0; right: 0; width: min(520px, 92vw); height: 100vh; z-index: 1000; transform: translateX(100%); transition: transform .22s ease-out; background: var(--paper, #fbfaf7); border-left: 1px solid #ddd; box-shadow: -8px 0 24px rgba(0,0,0,.12); display: flex; flex-direction: column; }
+  .ask-drawer.is-open { transform: translateX(0); }
+  .ask-drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.18); z-index: 999; opacity: 0; pointer-events: none; transition: opacity .22s; }
+  .ask-drawer-backdrop.is-open { opacity: 1; pointer-events: auto; }
+  /* Override layout when #dossier is the drawer's child — make it fill */
+  .ask-drawer #dossier { flex: 1 1 auto; max-width: none; min-width: 0; height: 100%; border-left: none; box-shadow: none; }
+  .ask-source-meta { font-size: 0.85rem; color: #555; margin-bottom: 0.4rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+  .ask-citation { font-weight: 700; color: #6d1422; }
+  .ask-status-superseded { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
+  .ask-score { padding: 2px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; margin-left: auto; }
+  .ask-score-excellent { background: #d8f3dc; color: #14532d; }
+  .ask-score-good { background: #e0f2fe; color: #075985; }
+  .ask-score-medium { background: #fef3c7; color: #92400e; }
+  .ask-score-weak, .ask-score-very { background: #fee2e2; color: #991b1b; }
+  .ask-source-title { font-weight: 600; }
+  .ask-source-header { font-size: 0.85rem; color: #666; margin-top: .25rem; }
+  .ask-source-articles { font-size: 0.8rem; color: #444; margin-top: .25rem; font-variant: small-caps; letter-spacing: 0.02em; }
+  .ask-source-text { margin-top: 0.5rem; line-height: 1.55; }
+  .ask-source-text mark { background: #fff0a8; padding: 0 2px; }
+  .ask-loading { padding: 2rem; text-align: center; color: #666; font-style: italic; }
+  .ask-error { padding: 1rem 1.5rem; color: #991b1b; background: #fee2e2; border-left: 4px solid #991b1b; margin: 1rem 1.5rem; border-radius: 4px; }
+  body[data-active-view="ask"] section[data-view="ask"] {
+    display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; overflow-y: auto; padding-bottom: 4rem;
+  }
+  .ask-controls { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 1.5rem 0; font-size: 0.88rem; color: #555; }
+  .ask-controls label { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .ask-controls input[type="number"] { width: 4rem; padding: 0.25rem 0.4rem; border: 1px solid #bbb; border-radius: 4px; font: inherit; }
+</style>
+
+<section class="searchbar">
+  <div class="searchbar-inner">
+    <span class="serif search-prompt">Ask<span class="garnet">.</span></span>
+    <input id="ask-q" type="search" class="serif search-input"
+           placeholder='e.g. "What does Article 14 ICCPR require for fair trial?"'
+           autocomplete="off" autocapitalize="off" spellcheck="false" />
+    <button id="ask-go" class="btn">Ask General Comments</button>
+  </div>
+</section>
+
+<div class="ask-controls">
+  <label for="ask-limit">Top results:
+    <input id="ask-limit" type="number" min="1" max="50" step="1" value="10" />
+  </label>
+  <span style="opacity:.7;">(1–50; rerank scores all 50 candidates regardless)</span>
+</div>
+
+<div class="ask-disclaimer">
+  <strong>About this tool.</strong> Surfaces verbatim sentences from UN Treaty Body General Comments using neural retrieval (voyage-law-2 embeddings + voyage rerank-2). Answers are <em>extractive only</em> — no LLM is invoked, no text is paraphrased. Each cited paragraph should still be verified before being relied on.
+</div>
+
+<div id="ask-output"></div>
+
+<div class="ask-drawer-backdrop" id="ask-drawer-backdrop" hidden></div>
+<aside class="ask-drawer" id="ask-drawer" hidden role="dialog" aria-label="Paragraph context"></aside>
+
+</section><!-- /ask view -->
 
 <!-- ═══════════════════════════ DOCUMENTS VIEW (3-pane reader) ═══════════════════════════ -->
 <section data-view="documents" hidden>
@@ -1049,6 +1128,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260508-27636cd"></script>
+<script type="module" src="assets/app.js?v=20260508-10e6acb"></script>
 </body>
 </html>
