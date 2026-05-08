@@ -269,16 +269,39 @@ test('15. shortcutsOverlay · `?` opens the shortcuts dialog', async ({ page }) 
   await expect(page.locator('#shortcuts-modal')).not.toBeVisible();
 });
 
-// v19.51.7 (Tier B.1): recent-searches dropdown
+// v19.51.7 (Tier B.1): recent-searches dropdown.
+// v19.53.1: recording is debounced 2 s so partial typings don't pile
+// up; Enter is the explicit-submit hook that flushes immediately.
 test('16. recentQueries · successful search appears in #q-recent on next focus', async ({ page }) => {
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
-  // Wait for results to land — the recent-query record fires from
-  // paintResults when state.results.length > 0.
+  // Wait for results to land — recording is now debounced.
   await expect(page.locator('.result').first()).toBeVisible({ timeout: 10_000 });
+  // Press Enter to flush the pending record without waiting the
+  // full 2 s stability window.
+  await page.locator('#q').press('Enter');
   // Clear input and refocus — dropdown should appear with our query.
   await page.locator('#q-clear').click();
   await page.locator('#q').focus();
   await expect(page.locator('#q-recent')).toBeVisible();
   await expect(page.locator('#q-recent')).toContainText('disability');
+});
+
+// v19.53.1: typing a long query character-by-character should NOT
+// register every intermediate state in recent searches — only the
+// final stable query.
+test('16b. recentQueries debounces partial typings', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  // Pre-clear any stored history from previous tests on this profile
+  await page.evaluate(() => localStorage.removeItem('unhrdb_recent_queries_v1'));
+  await typeQuery(page, 'children');
+  await expect(page.locator('.result').first()).toBeVisible({ timeout: 10_000 });
+  await page.locator('#q').press('Enter');
+  // After flush, recent-queries should hold exactly ONE entry,
+  // not one for each prefix of "children".
+  const recent = await page.evaluate(
+    () => JSON.parse(localStorage.getItem('unhrdb_recent_queries_v1') || '[]')
+  );
+  expect(recent.length).toBe(1);
+  expect(recent[0].q).toBe('children');
 });

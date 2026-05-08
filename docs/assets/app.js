@@ -2757,18 +2757,40 @@ function initMobileFilterToggle() {
 // [{q, ts}] newest-first. Surfaces as a panel below #q whenever the
 // input is focused and empty. Click an entry to re-run the query.
 const RECENT_Q_MAX = 12;
+// v19.53.1: search runs on every keystroke (debounced 180ms), so
+// recording on every successful render saved partial typings like
+// '"internal life" OR "inner life" OR "ment' as separate entries.
+// Debounce the RECORDING itself by 2 s — only queries that stay
+// stable for that long are considered "the user actually meant this".
+// The pending query is force-flushed on Enter, Escape, blur, and on
+// hash navigation away from the search view, so a real submit doesn't
+// have to wait the full 2 s.
+const RECENT_Q_STABLE_MS = 2000;
+let _recentQTimer = null;
+let _recentQPending = null;
 
-function recordRecentQuery(q) {
-  q = (q || '').trim();
-  if (q.length < MIN_QUERY) return;
+function _flushRecentQuery() {
+  if (_recentQTimer) {
+    clearTimeout(_recentQTimer);
+    _recentQTimer = null;
+  }
+  const q = _recentQPending;
+  _recentQPending = null;
+  if (!q) return;
   const list = _lsGet(_LS.recentQ, []);
   const filtered = list.filter(r => r && r.q !== q);
   filtered.unshift({ q, ts: Date.now() });
   _lsSet(_LS.recentQ, filtered.slice(0, RECENT_Q_MAX));
-  // Keep an open dropdown's contents in sync so the just-run query
-  // appears at the top of the list on next focus.
   const panel = document.getElementById('q-recent');
   if (panel && !panel.hidden) paintRecentQueriesDropdown();
+}
+
+function recordRecentQuery(q) {
+  q = (q || '').trim();
+  if (q.length < MIN_QUERY) return;
+  _recentQPending = q;
+  if (_recentQTimer) clearTimeout(_recentQTimer);
+  _recentQTimer = setTimeout(_flushRecentQuery, RECENT_Q_STABLE_MS);
 }
 
 function paintRecentQueriesDropdown() {
@@ -2880,6 +2902,13 @@ function bindUI() {
     }
   });
   qInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      // v19.53.1: explicit submit — flush the pending recent-query
+      // record immediately rather than waiting for the 2 s stability
+      // window. Lets the user "lock in" a query the moment they press
+      // Enter regardless of whether it would otherwise stay stable.
+      _flushRecentQuery();
+    }
     if (e.key === 'Escape' && qInput.value) {
       e.preventDefault();
       qInput.value = '';
@@ -2888,6 +2917,9 @@ function bindUI() {
       runSearch();
     }
   });
+  // v19.53.1: also flush on blur — user moving focus elsewhere is a
+  // strong signal the current query is the one they meant.
+  qInput.addEventListener('blur', () => _flushRecentQuery());
   qClear?.addEventListener('click', () => {
     qInput.value = '';
     state.query = '';
