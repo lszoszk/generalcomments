@@ -102,8 +102,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260509-onebox" />
-<link rel="stylesheet" href="assets/app.css?v=20260509-onebox" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260509-mobile" />
+<link rel="stylesheet" href="assets/app.css?v=20260509-mobile" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -119,7 +119,15 @@
   gtag('config', 'G-F3XBX45HQC', { send_page_view: false, anonymize_ip: true });
 </script>
 </head>
-<body>
+<body class="dossier-collapsed">
+<!-- v19.55.13: dossier-collapsed is the JS-managed default after first
+     paint (no active paragraph → dossier hidden). Set it pre-boot too,
+     because the mobile CSS (@media max-width: 1100px) renders a
+     `body:not(.dossier-collapsed) .dossier` as a `position: fixed; inset: 0`
+     fullscreen overlay — without this class, the empty "CASE NOTE"
+     placeholder covers the entire screen for the few hundred ms before
+     JS finishes booting. JS continues to toggle the class normally; this
+     just sets the right initial state. -->
 
 <!-- v19.43: first-visit welcome card (dismissible).  Appears once for
      a new user (gated by localStorage flag); offers a 30-second tour.
@@ -1229,6 +1237,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260509-onebox"></script>
+<script type="module" src="assets/app.js?v=20260509-mobile"></script>
 </body>
 </html>
