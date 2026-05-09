@@ -1078,8 +1078,8 @@ function syncPreambleToggleControl() {
     : 'Preambles are excluded from search results. Click to include them again.';
 }
 
-// ─────────── Hash router (Search / Documents / About) ───────────
-const VIEWS = ['search', 'documents', 'about', 'workspace'];
+// ─────────── Hash router (Search / Ask / Documents / About) ───────────
+const VIEWS = ['search', 'ask', 'documents', 'about', 'workspace'];
 
 function viewFromHash() {
   const h = window.location.hash.replace(/^#/, '');
@@ -1949,7 +1949,7 @@ function paintDocReaderBody(doc, paraId) {
           </button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">✎</span>' : ''}
         </div>
-        <p class="docs-reader-para-text serif">${renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms })}</p>
+        <p class="docs-reader-para-text serif">${emphasiseTrailingSubhead(renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms }))}</p>
       </div>`;
   }).join('');
 
@@ -1994,6 +1994,16 @@ function paintDocReaderBody(doc, paraId) {
         state.docsActiveParaId = id;
         paintDocReaderBody(doc, id);
         paintDocDrawer(doc);
+        return;
+      }
+      // If the user is mid-drag selecting text inside this paragraph,
+      // don't activate it — the re-paint would wipe the selection.
+      // We allow native browser select-and-copy as the default
+      // behaviour; activation requires a click without a selection.
+      const sel = window.getSelection();
+      if (sel && !sel.isCollapsed
+          && sel.anchorNode && el.contains(sel.anchorNode)
+          && sel.focusNode && el.contains(sel.focusNode)) {
         return;
       }
       // Plain click → make this the active paragraph (drawer follows).
@@ -2536,7 +2546,12 @@ function paintRightsFilter() {
 function syncRightsFilterVisibility() {
   const block = $('#filter-block-rights');
   if (!block) return;
-  block.hidden = state.scope !== 'jur';
+  // v19.55.11: rightsKeywords filter retired from the UI. The vocabulary
+  // is CCPR-only and our scope spans all UN treaty bodies, so a CCPR-
+  // exclusive filter created an asymmetry with the rest of the corpus.
+  // Data is still ingested and present in the dataset for downstream
+  // consumers; we just don't surface it as a UI filter.
+  block.hidden = true;
 }
 
 // ─────────── JUR articles-cited filter (v19.47) ───────────
@@ -8237,6 +8252,30 @@ const FN_MARKER_RE = /\[\[fn:(\d+)\]\]/g;
 function stripFnMarkers(text) {
   return String(text || '').replace(FN_MARKER_RE, '');
 }
+// Many GCs end a "scene-setting" paragraph with the trailing label of the
+// next subsection — e.g. CESCR GC15 ¶20 ends with "(a) Obligations to
+// respect" before ¶21–23 elaborate that obligation. Visually break the
+// label onto its own line so it reads as a heading rather than a sentence
+// continuation.
+function emphasiseTrailingSubhead(html) {
+  // Promote a trailing "(letter) Capitalized phrase" into a styled subheader.
+  // Common in CESCR GCs (e.g. GC15 ¶20 ends with "(a) Obligations to
+  // respect" — a label introducing the next subsection's content).
+  //
+  // We have to be careful: many paragraphs contain in-line enumerated lists
+  // (a) … (b) … (c) … which we must NOT collapse into a single subheader.
+  // The two heuristics below reject those:
+  //   • the label must be reasonably short (subheaders are 3–8 words);
+  //   • the label must not itself contain another "(letter)" marker.
+  const re = /(\([a-z]\)\s+[A-Z][^<]*)\s*$/;
+  const m = String(html || '').match(re);
+  if (!m) return html;
+  const label = m[1].trim();
+  if (label.length > 80) return html;
+  if (/\([a-z]\)/.test(label.slice(3))) return html;
+  return html.replace(re, `<span class="docs-reader-subhead">${label}</span>`);
+}
+
 function renderParagraphHtml(text, footnotes, opts = {}) {
   const t = String(text || '');
   const terms = opts.terms || null;
@@ -8535,6 +8574,1288 @@ function _findBestCluster(text, terms) {
     if (count > best.count) best = { count, start: hits[i] };
   }
   return best.start;
+}
+
+// ═══════════════════════════ ASK TAB (Phase 1: extractive RAG) ═══════════════════════════
+// SECURITY NOTE: this file MUST NEVER carry the Voyage API key, an
+// OpenAI key, or any other server-side credential. The frontend
+// only knows the BACKEND URL — the VM forwards queries to Voyage
+// using a key it holds locally and never returns to the browser.
+// If you find yourself wanting to add a key here, stop and add it
+// to the backend's environment instead.
+//
+// v19.55 P1 hardening: backend URL no longer hard-coded. Resolves
+// from THREE sources, in precedence order:
+//   1. URL ?ask=https://your-backend.example.org   (highest)
+//   2. <meta name="ask-api-base" content="…">      (in index.html)
+//   3. Local-dev fallback to http://127.0.0.1:8767 only when running
+//      on 127.0.0.1 / localhost.
+// If none resolve, _resolveAskApiBase() returns null and the entire
+// Ask tab — nav link AND section — stays hidden. Public visitors on
+// a deploy with no backend never see broken UI.
+//
+// Cost note: each successful Ask query triggers backend retrieval +
+// cross-encoder rerank, which translates to paid Voyage API calls
+// upstream. The frontend therefore has THREE defensive measures:
+//   (a) single-flight via AbortController — typing a new query while
+//       one is in flight cancels the previous request before issuing
+//       the new one, so the user can't pile up 10 in-flight calls;
+//   (b) the submit button is disabled while a request is pending;
+//   (c) tab visibility is gated by configuration so casual visitors
+//       on a misconfigured deploy can't fire requests at all.
+function _resolveAskApiBase() {
+  const fromUrl = new URLSearchParams(window.location.search).get('ask');
+  if (fromUrl) return fromUrl;
+  const metaEl = document.querySelector('meta[name="ask-api-base"]');
+  const fromMeta = metaEl?.content?.trim();
+  if (fromMeta) return fromMeta;
+  if (window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'localhost') {
+    return 'http://127.0.0.1:8767';
+  }
+  return null;
+}
+const ASK_API_BASE = _resolveAskApiBase();
+let _askInFlight = null;          // AbortController of pending request, if any.
+let _askBackendOnline = null;     // probe result; null = not yet probed.
+
+// v19.55.10 Phase 1.5: lazy-loaded treaty bundle for inline annotations.
+// Fetched once per session from /api/treaties (~600KB), cached in module
+// memory. Used to (a) tag "the Covenant"/"the Convention" with the source
+// treaty's abbreviation, (b) wrap article references in clickable buttons
+// that pop up the actual treaty article text on demand.
+let _treatiesCache = null;
+let _treatiesByCommittee = {};   // CCPR → iccpr_treaty_obj
+let _treatiesLoading = null;
+async function _loadTreaties() {
+  if (_treatiesCache) return _treatiesCache;
+  if (_treatiesLoading) return _treatiesLoading;
+  if (!ASK_API_BASE) return {};
+  _treatiesLoading = (async () => {
+    try {
+      const res = await fetch(`${ASK_API_BASE}/api/treaties`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      _treatiesCache = data;
+      // Build committee → treaty index. A committee may have a main
+      // convention plus optional protocols (e.g., CCPR maps to ICCPR
+      // and ICCPR-OP1/OP2). The main convention wins so "the Covenant"
+      // / "the Convention" annotations resolve to the substantive
+      // treaty, not its protocol.
+      _treatiesByCommittee = {};
+      for (const treaty of Object.values(data)) {
+        const isMain = treaty.term !== 'Optional Protocol';
+        for (const cc of (treaty.committee_codes || [])) {
+          const key = String(cc).toUpperCase();
+          if (!_treatiesByCommittee[key] || isMain) {
+            _treatiesByCommittee[key] = treaty;
+          }
+        }
+      }
+      return data;
+    } catch (e) {
+      console.warn('[ask] treaties bundle failed:', e);
+      return {};
+    } finally {
+      _treatiesLoading = null;
+    }
+  })();
+  return _treatiesLoading;
+}
+
+// Annotate an already-escaped paragraph (or HTML chunk that's safe to
+// run regex over). Inputs:
+//   text — the rendered text/HTML fragment
+//   committee — code of the committee that issued the source GC; used
+//     to resolve "the Covenant"/"the Convention" to the right treaty
+function annotateTreatyText(html, committee) {
+  if (!html || !committee || !_treatiesCache) return html;
+  const treaty = _treatiesByCommittee[String(committee).toUpperCase()];
+  if (!treaty) return html;
+  const term = treaty.term || 'Covenant';
+  const abbr = treaty.abbr;
+
+  // HTML-aware: split into tag/text segments so we never inject a
+  // <button> inside another tag's attribute. Footnote buttons emitted
+  // by renderParagraphHtml carry "art. N" inside their aria-label
+  // attribute (e.g. "Footnote 23: …, art. 19"). Naive regex on the
+  // whole HTML string would break those attributes and leak markup
+  // back into the visible text.
+  const tagRe = /<[^>]*>/g;
+  const segments = [];
+  let lastIdx = 0;
+  let m;
+  while ((m = tagRe.exec(html)) !== null) {
+    if (m.index > lastIdx) {
+      segments.push({ tag: false, value: html.slice(lastIdx, m.index) });
+    }
+    segments.push({ tag: true, value: m[0] });
+    lastIdx = m.index + m[0].length;
+  }
+  if (lastIdx < html.length) {
+    segments.push({ tag: false, value: html.slice(lastIdx) });
+  }
+
+  const termPat = new RegExp(`\\b(the\\s+(?:present\\s+)?${term})\\b`, 'g');
+
+  // Article references — handles singular AND plural lists in one pass.
+  // Qualifier in parentheses is restricted to numeric/paragraph forms
+  // ("(2)", "(paragraph 2)", "(paragraphs 1 and 2)") so descriptive
+  // parentheticals ("article 6 (right to life)") do NOT get pulled into
+  // the button — they stay as plain text after the button.
+  // Examples:
+  //   "article 4"                                 → button(4)
+  //   "Art. 4(2)"                                 → button(4 para 2)
+  //   "articles 18 (2) and 17"                    → button(18 para 2) + "and" + button(17)
+  //   "article 6 (right to life)"                 → button(6) + " (right to life)"
+  //   "articles 6, 7, 8 (paragraphs 1 and 2), 11" → 4 buttons (Art 8's qualifier
+  //     captured because content is "paragraphs 1 and 2" — multi-para form;
+  //     button has no data-paragraph → popover shows whole article)
+  // Pattern groups: (1) prefix word, (2) whitespace, (3) number-list body.
+  const QUAL = String.raw`(?:\s*\(\s*(?:paragraphs?\s+)?\d+(?:(?:\s+and\s+|\s*,\s*)\d+)*\s*\))?`;
+  const artListPat = new RegExp(
+    String.raw`\b(articles?|arts?\.?)(\s+)(\d+${QUAL}(?:\s*(?:,|\band\b|\bor\b)\s*\d+${QUAL})*)`,
+    'gi'
+  );
+  const itemPat = /(\d+)(?:\s*\(\s*((?:paragraphs?\s+)?\d+(?:(?:\s+and\s+|\s*,\s*)\d+)*)\s*\))?/g;
+
+  return segments.map(seg => {
+    if (seg.tag) return seg.value;
+    let t = seg.value;
+    t = t.replace(termPat, (mm) =>
+      `<span class="treaty-term" data-treaty="${abbr}">${mm}<sup class="treaty-term-abbr">${abbr}</sup></span>`
+    );
+    // Detect Protocol context palliative: when "article N" is followed
+    // by "of (that|the|its) (Optional) Protocol", the citation refers to
+    // an Optional Protocol's article — not the main treaty's. Without
+    // the deferred metadata pipeline we can't disambiguate which OP
+    // exactly, so safer to leave such refs as plain text than to
+    // wrong-link them to the main treaty (e.g., GC29 ¶ that says
+    // "article 6 of that Protocol" really means ICCPR-OP2 art 6,
+    // not ICCPR art 6).
+    const PROTOCOL_TRAILING_RE = /^[\s,]*(?:as\s+\w+\s+(?:in|under)\s+)?(?:of|in|under)\s+(?:that|the|its)\s+(?:(?:First|Second|Third)\s+)?(?:Optional\s+)?Protocol\b/i;
+    t = t.replace(artListPat, (match, prefix, ws, body, offset, fullStr) => {
+      // Look ~50 chars after the match for a Protocol trailer.
+      const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 60);
+      if (PROTOCOL_TRAILING_RE.test(tail)) {
+        return match;  // leave as plain text — see comment above
+      }
+      let out = prefix + ws;
+      let lastIdx = 0;
+      let m;
+      itemPat.lastIndex = 0;
+      while ((m = itemPat.exec(body)) !== null) {
+        out += body.slice(lastIdx, m.index);
+        const art = m[1];
+        const qualifier = m[2];
+        // Only carry data-paragraph when qualifier is a single number
+        // ("(2)" / "(paragraph 2)"). Complex forms ("paragraphs 1 and 2",
+        // sub-letters, etc.) fall back to whole-article popover.
+        const paraMatch = qualifier ? qualifier.match(/^(?:paragraphs?\s+)?(\d+)$/i) : null;
+        const para = paraMatch ? paraMatch[1] : null;
+        const attrs = `data-treaty="${abbr}" data-article="${art}"` +
+                      (para ? ` data-paragraph="${para}"` : '');
+        out += `<button type="button" class="treaty-article-ref" ${attrs}>${m[0]}</button>`;
+        lastIdx = m.index + m[0].length;
+      }
+      out += body.slice(lastIdx);
+      return out;
+    });
+    return t;
+  }).join('');
+}
+
+// Click handler target. Builds a popover with the article's actual text
+// from the cached treaty bundle, positions it near the clicked button.
+function showTreatyPopover(button) {
+  if (!_treatiesCache) return;
+  // Popover lookup uses treaty abbr (set by annotateTreatyText into
+  // data-treaty), not committee — abbr matches the cache key directly.
+  const treaty = _treatiesCache[String(button.dataset.treaty || '').toLowerCase()];
+  if (!treaty) return;
+  const article = (treaty.articles || []).find(a => a.number === button.dataset.article);
+  if (!article) return;
+  let popover = document.getElementById('treaty-popover');
+  if (!popover) {
+    popover = document.createElement('div');
+    popover.id = 'treaty-popover';
+    popover.className = 'treaty-popover';
+    popover.setAttribute('role', 'dialog');
+    document.body.appendChild(popover);
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.treaty-article-ref') || e.target.closest('#treaty-popover')) return;
+      popover.style.display = 'none';
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') popover.style.display = 'none';
+    });
+  }
+  const articleLabel = button.dataset.paragraph
+    ? `Article ${askEscape(button.dataset.article)}(${askEscape(button.dataset.paragraph)})`
+    : `Article ${askEscape(button.dataset.article)}`;
+  let body;
+  if (button.dataset.paragraph) {
+    const para = (article.paragraphs || []).find(p => p.num === button.dataset.paragraph);
+    body = para
+      ? `<div class="treaty-popover-para">${askEscape(para.text)}</div>`
+      : (article.paragraphs || []).map(p =>
+          `<div class="treaty-popover-para">${p.num ? `<strong>(${askEscape(p.num)})</strong> ` : ''}${askEscape(p.text)}</div>`
+        ).join('');
+  } else {
+    body = (article.paragraphs || []).map(p =>
+      `<div class="treaty-popover-para">${p.num ? `<strong>(${askEscape(p.num)})</strong> ` : ''}${askEscape(p.text)}</div>`
+    ).join('');
+  }
+  popover.innerHTML = `
+    <div class="treaty-popover-header">
+      <span class="treaty-popover-abbr">${askEscape(treaty.abbr)}</span>
+      <span class="treaty-popover-art">${articleLabel}</span>
+      <button type="button" class="treaty-popover-close" aria-label="Close">×</button>
+    </div>
+    <div class="treaty-popover-body">${body}</div>
+    <div class="treaty-popover-source">${askEscape(treaty.name_full)}</div>
+  `;
+  popover.style.display = 'block';
+  popover.style.position = 'fixed';
+  // Position with viewport-aware sizing — use whichever side has more
+  // room (above/below button) and clamp max-height so the full article
+  // text fits with internal scroll instead of getting cut off.
+  const btnRect = button.getBoundingClientRect();
+  const POP_WIDTH = 420;
+  const MARGIN = 16;
+  const left = Math.max(
+    MARGIN,
+    Math.min(btnRect.left, window.innerWidth - POP_WIDTH - MARGIN),
+  );
+  const spaceBelow = window.innerHeight - btnRect.bottom - MARGIN;
+  const spaceAbove = btnRect.top - MARGIN;
+  let top, maxHeight;
+  if (spaceBelow >= 240 || spaceBelow >= spaceAbove) {
+    top = btnRect.bottom + 8;
+    maxHeight = Math.max(200, spaceBelow - 8);
+  } else {
+    maxHeight = Math.max(200, spaceAbove - 8);
+    top = Math.max(MARGIN, btnRect.top - maxHeight - 8);
+  }
+  popover.style.left = `${left}px`;
+  popover.style.top = `${top}px`;
+  popover.style.maxHeight = `${maxHeight}px`;
+  popover.querySelector('.treaty-popover-close')?.addEventListener('click', () => {
+    popover.style.display = 'none';
+  });
+}
+
+// v19.55.2 P2 #7: filter state for the Ask tab. Inherits the same
+// vocabulary as Search (committees from state.facets.committees,
+// year range, superseded toggle). Filters are session-only: on
+// page reload they reset to defaults. URL-shareable persistence
+// can be layered on later if a researcher asks for it.
+const _askFilters = {
+  committees: new Set(),    // empty == "all" (no narrowing)
+  yearFrom: null,
+  yearTo: null,
+  includeSuperseded: false, // default: hide superseded GCs
+  // v19.55.3 P4 #12: counter-evidence retrieval. Opt-in because it
+  // doubles Voyage cost per question. Off by default.
+  counterEvidence: false,
+};
+
+function askEscape(s) {
+  return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'
+  })[c]);
+}
+
+function askBandClass(label) {
+  if (!label) return 'medium';
+  const k = label.toLowerCase();
+  if (k.includes('excellent')) return 'excellent';
+  if (k.includes('very weak')) return 'very';
+  if (k.includes('weak')) return 'weak';
+  if (k.includes('good')) return 'good';
+  if (k.includes('medium')) return 'medium';
+  return 'medium';
+}
+
+// v19.55.1 P2 quick-win #8: per-source "why this matched" panel.
+// Computed entirely on the frontend from data the backend already
+// sends — no extra API surface, no extra Voyage call. Shows:
+//   • verbatim query terms that appear in the paragraph
+//   • whether this paragraph's article(s) overlap the article context
+//     the backend boosted on
+// The block sits inside a <details> so it costs zero attention until
+// the researcher actually wants to know.
+const _ASK_STOPWORDS = new Set([
+  'the', 'a', 'an', 'and', 'or', 'but', 'if', 'of', 'to', 'in', 'on',
+  'at', 'for', 'with', 'by', 'as', 'is', 'are', 'was', 'were', 'be',
+  'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'this',
+  'that', 'these', 'those', 'it', 'its', 'their', 'they', 'them',
+  'what', 'which', 'who', 'whose', 'when', 'where', 'how', 'why',
+  'about', 'from', 'into', 'than', 'so', 'not', 'no', 'any', 'all',
+  'some', 'such', 'will', 'would', 'should', 'may', 'might', 'must',
+  'can', 'could', 'shall',
+]);
+// v19.55.5: HR-domain common words that match in nearly every paragraph
+// and tell the user nothing about WHY a particular result surfaced.
+// Filtering these out of the "verbatim terms" panel keeps the
+// explanation honest — single-term matches like "rights" or "state"
+// were noise.
+const _ASK_HR_COMMONWORDS = new Set([
+  'right', 'rights', 'human', 'international', 'state', 'states', 'party',
+  'parties', 'committee', 'committees', 'general', 'comment', 'comments',
+  'covenant', 'protocol', 'convention', 'article', 'articles', 'paragraph',
+  'paragraphs', 'recommendation', 'recommendations', 'observation',
+  'observations', 'session', 'sessions', 'communication', 'communications',
+  'recall', 'recalls', 'note', 'notes', 'consider', 'considers',
+  'principle', 'principles', 'including', 'particularly', 'persons',
+  'person', 'individual', 'individuals', 'view', 'views', 'measure',
+  'measures', 'ensure', 'guarantee', 'protect', 'respect', 'fulfil',
+  'fulfill', 'states-parties', 'undertake', 'shall', 'should',
+]);
+
+function _askRenderWhyMatched(query, source, articleBoost) {
+  // v19.55.5: tokenise + filter both stopwords AND HR-domain common
+  // words. A single hit on "rights" or "state" is noise — matches
+  // are interesting only when they're substantive content terms.
+  const rawTokens = (query.toLowerCase().match(/\b[a-z][a-z'-]{3,}\b/g) || []);
+  const isMeaningful = t => !_ASK_STOPWORDS.has(t) && !_ASK_HR_COMMONWORDS.has(t);
+  const allTokens = rawTokens.filter(t => !_ASK_STOPWORDS.has(t));
+  const meaningfulTokens = rawTokens.filter(isMeaningful);
+  const text = (source.text || '').toLowerCase();
+  const matchedMeaningful = [...new Set(meaningfulTokens)].filter(t => text.includes(t));
+
+  // Bigrams (2-word adjacent phrases) — much stronger signal than
+  // single-word matches. "fair trial" matching as a phrase is a real
+  // explanation; "trial" alone is not.
+  const bigrams = [];
+  for (let i = 0; i < allTokens.length - 1; i++) {
+    const bg = `${allTokens[i]} ${allTokens[i + 1]}`;
+    bigrams.push(bg);
+  }
+  const matchedBigrams = [...new Set(bigrams)].filter(bg => text.includes(bg));
+
+  const sourceArts = source.articles || [];
+  const boostedArts = (articleBoost?.confidence === 'high' ||
+                       articleBoost?.confidence === 'medium')
+    ? (articleBoost.articles || []) : [];
+  const articleHit = boostedArts.length && sourceArts.some(
+    a => boostedArts.some(b => String(a).includes(String(b)))
+  );
+
+  const bits = [];
+
+  // Compact lexical signals when present — they're concrete and
+  // useful for a researcher, no jargon needed.
+  if (matchedBigrams.length) {
+    const shown = matchedBigrams.slice(0, 3)
+      .map(bg => `<em>“${askEscape(bg)}”</em>`).join(', ');
+    bits.push(`<div class="ask-why-row"><span class="ask-why-label">Phrase match:</span> ${shown}${matchedBigrams.length > 3 ? ` (+${matchedBigrams.length - 3} more)` : ''}</div>`);
+  } else if (matchedMeaningful.length >= 2) {
+    const shown = matchedMeaningful.slice(0, 5).map(askEscape).join(', ');
+    bits.push(`<div class="ask-why-row"><span class="ask-why-label">Word match:</span> ${shown}${matchedMeaningful.length > 5 ? ` (+${matchedMeaningful.length - 5} more)` : ''}</div>`);
+  }
+
+  if (articleHit) {
+    bits.push(`<div class="ask-why-row"><span class="ask-why-label">Article match:</span> this paragraph cites ${boostedArts.map(askEscape).join(', ')} — same as your query</div>`);
+  }
+
+  // When no strong lexical signal: explain in researcher language
+  // that the AI rewrote the question to match treaty-body wording.
+  // No pipeline jargon — just a pointer to the visible "Search
+  // interpretation" panel that already explains the rewrite.
+  if (!matchedBigrams.length && matchedMeaningful.length < 2 && !articleHit) {
+    bits.push(`<div class="ask-why-row dim">No direct word overlap. Matched on doctrinal meaning — see <em>Search interpretation</em> above for how your question was rewritten.</div>`);
+  }
+  return `
+    <details class="ask-why">
+      <summary>Why this matched</summary>
+      <div class="ask-why-body">${bits.join('')}</div>
+    </details>`;
+}
+
+// v19.55.3: source-list rendering extracted from renderAskResult so
+// counter-evidence can reuse the same shape without duplication.
+// Optional `excludeIds` set hides sources already shown in the
+// primary block — keeps the counter section from re-listing the
+// same paragraphs the user just read.
+function _askRenderSourceCards(data, userQuery, opts = {}) {
+  const ret = data?.retrieval || {};
+  const excludeIds = opts.excludeIds || null;
+  return (data?.sources || [])
+    .filter(s => !excludeIds || !excludeIds.has(s.paraId))
+    .map(s => {
+      const m = s.match || {};
+      const band = askBandClass(m.bandLabel);
+      // Drop the "[S1]" position markers — the card's place in the list
+      // already signals rank. Surface the document signature (e.g.
+      // "CCPR/C/21/Rev.1/Add.11") as a real citable identifier instead;
+      // it's what a researcher would actually cite.
+      const cite = askEscape(s.signature || '');
+      const com = askEscape(s.committee || '');
+      const yr = s.year || '';
+      const title = askEscape(s.title || '');
+      const status = s.status === 'superseded'
+        ? `<span class="ask-status-superseded">superseded</span>` : '';
+      const head = s.headerText
+        ? `<div class="ask-source-header">↳ ${askEscape(s.headerText)}</div>` : '';
+      const arts = s.articles?.length
+        ? `<div class="ask-source-articles">Articles: ${s.articles.map(askEscape).join(', ')}</div>` : '';
+      const localPara = state.paragraphById?.get(s.paraId);
+      const rawText = localPara && typeof renderParagraphHtml === 'function'
+        ? renderParagraphHtml(localPara.text, localPara.footnotes)
+        : askEscape(s.text || '');
+      const text = annotateTreatyText(rawText, s.committee);
+      const why = _askRenderWhyMatched(userQuery, s, ret.articleBoost);
+      const actions = _askRenderSourceActions(s);
+      return `
+        <div class="ask-source${opts.counter ? ' is-counter' : ''}" data-para-id="${askEscape(s.paraId || '')}" data-doc-id="${askEscape(s.docId || '')}" tabindex="0" role="button" title="Open in dossier">
+          <div class="ask-source-meta">
+            <span class="ask-citation">${cite}</span>
+            <span>${com} · ${yr}</span>
+            ${status}
+            <span class="ask-score ask-score-${band}" title="Relevance band based on cross-encoder rerank">${askEscape(m.bandLabel || '')}</span>
+          </div>
+          <div class="ask-source-title">${title}</div>
+          ${head}
+          ${arts}
+          <div class="ask-source-text">${text}</div>
+          ${why}
+          ${actions}
+        </div>
+      `;
+    }).join('');
+}
+
+// v19.55.10: per-source action toolbar — Copy text, Cite (preferred
+// format), Bookmark to Workspace, UN source link. Inline so a
+// researcher doesn't need to round-trip through the dossier drawer
+// for the routine actions.
+function _askRenderSourceActions(s) {
+  const paraId = s.paraId || '';
+  const docId = s.docId || '';
+  const isBm = paraId && typeof bmHas === 'function' ? bmHas(paraId) : false;
+  // OHCHR's treaty-body database accepts the document signature as the
+  // `symbolno` URL param (verified pattern; same one used by the
+  // Document tab's "↗ original" link).
+  const ohchrUrl = s.signature
+    ? `https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=${encodeURIComponent(s.signature)}&Lang=en`
+    : null;
+  const linkPart = ohchrUrl
+    ? `<a class="ask-source-act ask-source-act-link" href="${askEscape(ohchrUrl)}" target="_blank" rel="noopener" title="Open this document at the UN treaty-body database (tbinternet.ohchr.org)" data-act="open">↗ UN source</a>`
+    : '';
+  return `
+    <div class="ask-source-actions" data-para-id="${askEscape(paraId)}" data-doc-id="${askEscape(docId)}">
+      <button type="button" class="ask-source-act" data-act="copy" title="Copy paragraph text + short citation to clipboard">📋 Copy</button>
+      <button type="button" class="ask-source-act" data-act="cite" title="Copy citation in your preferred format (UN footnote by default — change in dossier)">” Cite</button>
+      <button type="button" class="ask-source-act ask-source-act-bm${isBm ? ' is-on' : ''}" data-act="bookmark" aria-pressed="${isBm}" title="${isBm ? 'Remove bookmark from Workspace' : 'Save paragraph to Workspace'}">${isBm ? '★' : '☆'} Bookmark</button>
+      ${linkPart}
+      <button type="button" class="ask-source-act ask-source-act-dossier" data-act="dossier" title="Open the full dossier — adjacent paragraphs, footnotes, treaty articles, notes & more">📖 Open dossier <span class="ask-source-act-sub">for more context / options</span></button>
+    </div>
+  `;
+}
+
+// Brief visual feedback on the clicked action button — replace label
+// with a check/cross for ~1.5s, then restore.
+function _flashAskAction(btn, msg, ok = true) {
+  if (!btn) return;
+  const orig = btn.dataset.origLabel || btn.textContent;
+  btn.dataset.origLabel = orig;
+  btn.textContent = msg;
+  btn.classList.toggle('is-flash-ok', ok);
+  btn.classList.toggle('is-flash-err', !ok);
+  setTimeout(() => {
+    btn.textContent = orig;
+    btn.classList.remove('is-flash-ok', 'is-flash-err');
+    delete btn.dataset.origLabel;
+  }, 1500);
+}
+
+function _askRenderCitedFooter(data) {
+  const list = data?.sources || [];
+  if (!list.length) return '';
+  const counts = new Map();
+  const titles = new Map();
+  for (const s of list) {
+    const sig = s.signature || s.docId || '';
+    if (!sig) continue;
+    counts.set(sig, (counts.get(sig) || 0) + 1);
+    if (!titles.has(sig) && s.title) titles.set(sig, s.title);
+  }
+  if (!counts.size) return '';
+  const rows = [...counts.entries()]
+    .sort(([, a], [, b]) => b - a)
+    .map(([sig, n]) => {
+      const title = titles.get(sig) || '';
+      return `<li><strong>${askEscape(sig)}</strong>${
+        n > 1 ? ` <span class="dim">×${n}</span>` : ''
+      }${title ? ` <span class="dim">— ${askEscape(title)}</span>` : ''}</li>`;
+    })
+    .join('');
+  const noun = counts.size === 1 ? 'document' : 'documents';
+  return `
+    <details class="ask-cited" open>
+      <summary>Pulled from <strong>${counts.size}</strong> unique ${noun}${counts.size <= 2 ? ' — narrow coverage; consider refining your query' : ''}</summary>
+      <ul class="ask-cited-list">${rows}</ul>
+    </details>`;
+}
+
+// v19.55.3: renderAskResult now takes (primaryData, counterData?).
+// counterData is non-null only when the user opted into the
+// counter-evidence retrieval. Rendered as a clearly-separated
+// section with its own visual treatment so it never blurs into
+// the primary results.
+function renderAskResult(primaryData, counterData) {
+  const data = primaryData;
+  const ret = data.retrieval || {};
+  const metaBits = [];
+  if (ret.modeApplied) metaBits.push(`mode: ${ret.modeApplied}`);
+  if (ret.rerank?.used) metaBits.push(`reranked top-${ret.rerank.top_n}`);
+  if (ret.llm_judge?.used) metaBits.push(`AI-judged top-${ret.llm_judge.top_k}`);
+  if (ret.articleBoost?.confidence === 'high' || ret.articleBoost?.confidence === 'medium') {
+    const arts = (ret.articleBoost.articles || []).join(', ');
+    const coms = (ret.articleBoost.committees || []).join(', ');
+    metaBits.push(`article context: ${arts}${coms ? ' · ' + coms : ''}`);
+  }
+  if (ret.constraints?.excludedConcepts?.length) {
+    metaBits.push(`excluded: ${ret.constraints.excludedConcepts.join(', ')}`);
+  }
+  if (counterData) {
+    metaBits.push('counter-evidence pass: enabled');
+  }
+  const meta = metaBits.length
+    ? `<div class="ask-meta">${metaBits.map(askEscape).join(' · ')}</div>`
+    : '';
+
+  // v19.55.8: HyDE-interpretation panel — Tier 1 UX rework.
+  // Backend now returns hyde_terms[] alongside hyde_paragraph (key
+  // doctrinal phrases extracted from the AI-generated probe). We
+  // lead with the terms (concrete, scannable, build trust) and bury
+  // the full paragraph behind a nested "show full probe" toggle —
+  // exposing it by default felt authoritative to readers who didn't
+  // realize it was generated, not retrieved. Outer accordion is now
+  // CLOSED by default: the results are the thing, not the machinery.
+  // Falls back to old behaviour (paragraph only) if hyde_terms missing.
+  const hydeParagraph = ret.hyde_paragraph;
+  const hydeTerms = Array.isArray(ret.hyde_terms) ? ret.hyde_terms : [];
+  const hydeExpansions = Array.isArray(ret.hyde_expansions) ? ret.hyde_expansions : [];
+  const renderTermChips = (terms) => terms
+    .filter(t => typeof t === 'string' && t.trim())
+    .slice(0, 6)
+    .map(t => `<span class="ask-hyde-term">${askEscape(t.trim())}</span>`)
+    .join('');
+  // v19.55.9: hyde_expansions are alternative doctrinal framings the
+  // LLM produced. Not used for retrieval (Tier 2 reverted — no benefit
+  // when HyDE paragraph already covers them) but useful as click-to-
+  // try suggestions when the user wants to explore a different angle.
+  const renderExpansions = (exps) => exps
+    .filter(e => typeof e === 'string' && e.trim())
+    .slice(0, 4)
+    .map(e => `<button type="button" class="ask-hyde-expansion" data-q="${askEscape(e.trim())}">${askEscape(e.trim())}</button>`)
+    .join('');
+  const hydeBlock = hydeParagraph
+    ? `<details class="ask-hyde">
+         <summary>Search interpretation</summary>
+         <div class="ask-hyde-body">
+           <p class="ask-hyde-hint">An AI rewrites your question into the
+           language of UN Treaty Body doctrine before searching, so everyday
+           phrasing can find relevant paragraphs without you having to know
+           the exact treaty-body terminology. The rewrite is a
+           <strong>retrieval probe, not an answer</strong>; only the cited
+           paragraphs below are authoritative.</p>
+           ${hydeTerms.length
+             ? `<div class="ask-hyde-terms-row">
+                  <span class="ask-hyde-terms-label">Matched on:</span>
+                  <span class="ask-hyde-terms">${renderTermChips(hydeTerms)}</span>
+                </div>`
+             : ''}
+           ${hydeExpansions.length
+             ? `<div class="ask-hyde-expansions-row">
+                  <span class="ask-hyde-terms-label">Try a different angle:</span>
+                  <div class="ask-hyde-expansions">${renderExpansions(hydeExpansions)}</div>
+                </div>`
+             : ''}
+           <details class="ask-hyde-probe">
+             <summary>Show AI-generated query probe</summary>
+             <blockquote class="ask-hyde-quote">${askEscape(hydeParagraph)}</blockquote>
+           </details>
+         </div>
+       </details>`
+    : `<details class="ask-hyde ask-hyde-unavailable">
+         <summary>Question interpretation temporarily unavailable</summary>
+         <div class="ask-hyde-body">
+           <p class="ask-hyde-hint">
+             Normally an LLM rewrites your question into the language of treaty
+             body doctrine before retrieval (improves matches for doctrinal
+             questions like <em>"is X absolute?"</em> or <em>"can the State
+             limit Y?"</em>). Right now that step is unavailable — most likely
+             rate-limit on the LLM provider, less commonly a backend issue.
+             <strong>Retrieval fell back to using your original question</strong>
+             — results are still returned but may be less precisely tuned to
+             legal-doctrine wording. Try again in a minute, or refine your query
+             with explicit doctrinal terms (e.g. <em>"non-derogable"</em>,
+             <em>"permissible limitations"</em>).
+           </p>
+         </div>
+       </details>`;
+
+  const userQuery = data.query || data.q || (document.getElementById('ask-q')?.value || '');
+
+  const sources = _askRenderSourceCards(data, userQuery);
+
+  // v19.55.10: source-context line above the verbatim answer.
+  // ICCPR + ICESCR are "Covenants"; CRC, CEDAW, CRPD, CAT, CERD,
+  // CMW, CED are "Conventions" — they are NOT interchangeable. The
+  // hint must use the singular correct term so a reader doesn't see
+  // both options dangled together (which would itself be an error).
+  const COMMITTEE_TO_TREATY = {
+    CCPR:  { abbr: 'ICCPR',  term: 'Covenant'   },
+    CESCR: { abbr: 'ICESCR', term: 'Covenant'   },
+    CERD:  { abbr: 'ICERD',  term: 'Convention' },
+    CEDAW: { abbr: 'CEDAW',  term: 'Convention' },
+    CAT:   { abbr: 'CAT',    term: 'Convention' },
+    CRC:   { abbr: 'CRC',    term: 'Convention' },
+    CRPD:  { abbr: 'CRPD',   term: 'Convention' },
+    CMW:   { abbr: 'ICRMW',  term: 'Convention' },
+    CED:   { abbr: 'ICPPED', term: 'Convention' },
+    'CAT-OP': { abbr: 'OPCAT', term: 'Optional Protocol' },
+  };
+  const topSource = (data.sources && data.sources[0]) || null;
+  const buildSourceContext = (s) => {
+    if (!s) return '';
+    const committee = (s.committee || '').toUpperCase();
+    const treaty = COMMITTEE_TO_TREATY[committee];
+    const title = s.title || s.signature || '';
+    const year = s.year ? ` (${s.year})` : '';
+    const hint = treaty
+      ? `In this paragraph, "the ${askEscape(treaty.term)}" refers to <strong>${askEscape(treaty.abbr)}</strong>.`
+      : '';
+    return `<div class="ask-answer-source">
+              <span class="ask-answer-source-committee">${askEscape(committee)}</span>
+              ${title ? `<span class="ask-answer-source-title">${askEscape(title)}</span>` : ''}
+              <span class="ask-answer-source-year">${askEscape(year)}</span>
+              ${hint ? `<div class="ask-answer-source-hint">${hint}</div>` : ''}
+            </div>`;
+  };
+  const answer = data.answer
+    ? `<div class="ask-answer">
+         <div class="ask-answer-title">Top match · verbatim</div>
+         <div class="ask-answer-hint">First-ranked paragraph below. Read all sources for context — General Comments rarely give a single answer.</div>
+         ${buildSourceContext(topSource)}
+         <div class="ask-answer-body">${annotateTreatyText(askEscape(data.answer), topSource?.committee)}</div>
+       </div>`
+    : '';
+
+  const citedFooter = _askRenderCitedFooter(data);
+
+  // ── Counter-evidence block (P4 #12). Only renders when the user
+  // ticked the "Also retrieve counter-evidence" checkbox. Sources
+  // already shown in the primary set are filtered out so the
+  // pushback section adds new perspectives, not duplicates.
+  let counterBlock = '';
+  if (counterData) {
+    const primaryIds = new Set(
+      (data.sources || []).map(s => s.paraId).filter(Boolean)
+    );
+    const counterCards = _askRenderSourceCards(
+      counterData, userQuery,
+      { excludeIds: primaryIds, counter: true }
+    );
+    counterBlock = `
+      <div class="ask-counter-section">
+        <h3 class="ask-counter-title">Counter-evidence — paragraphs that may qualify the answer</h3>
+        <p class="ask-counter-hint">
+          Second retrieval pass focused on exceptions, limitations, derogations and
+          balancing language. <strong>Not authoritative</strong> — surfaces paragraphs
+          a confirmation-bias view would miss. Read alongside the primary results.
+        </p>
+        ${counterCards
+          ? counterCards
+          : '<div class="ask-counter-empty">No additional counter-evidence surfaced beyond what was already in the primary set.</div>'}
+      </div>`;
+  }
+
+  return `${answer}${meta}${hydeBlock}${
+    sources ? `<div class="ask-sources-title">Matching paragraphs</div>${sources}` : ''
+  }${counterBlock}${citedFooter}`;
+}
+
+async function runAsk() {
+  const input = document.getElementById('ask-q');
+  const out = document.getElementById('ask-output');
+  const goBtn = document.getElementById('ask-go');
+  if (!input || !out) return;
+  if (!ASK_API_BASE) {
+    out.innerHTML = '<div class="ask-error">Ask is not configured for this deploy.</div>';
+    return;
+  }
+  const q = input.value.trim();
+  if (!q) {
+    // Don't kick off a request for nothing — but tell the user the
+    // button worked, otherwise it looks broken. Inline hint replaces
+    // any prior result; clears as soon as something is typed.
+    out.innerHTML = '<div class="ask-empty-hint">Type a question first — anything from a one-line lay query (<em>"is non-discrimination absolute?"</em>) to a doctrinal phrase (<em>"non-derogability under article 4(2)"</em>).</div>';
+    input.focus();
+    return;
+  }
+
+  // v19.55 single-flight: cancel any pending request before issuing
+  // the new one so a user holding Enter can't queue 10 paid backend
+  // calls. AbortController.signal is plumbed through fetch().
+  if (_askInFlight) _askInFlight.abort();
+  const ctrl = new AbortController();
+  _askInFlight = ctrl;
+
+  out.innerHTML = '<div class="ask-loading">Searching General Comments and reranking…</div>';
+  if (goBtn) {
+    goBtn.disabled = true;
+    goBtn.dataset.prevText = goBtn.textContent;
+    goBtn.textContent = 'Searching…';
+  }
+
+  let timeoutId;
+  try {
+    const limitInput = document.getElementById('ask-limit');
+    let limit = parseInt(limitInput?.value || '10', 10);
+    if (!Number.isFinite(limit) || limit < 1) limit = 10;
+    if (limit > 50) limit = 50;
+    if (limitInput) limitInput.value = String(limit);
+
+    // ── Build a URL builder that captures ALL the shared params,
+    // so we can issue a primary call and (optionally) a parallel
+    // counter-evidence call without duplicating the param logic.
+    function buildUrl(query, opts = {}) {
+      const u = new URL(ASK_API_BASE + '/api/ask');
+      u.searchParams.set('q', query);
+      u.searchParams.set('rerank', 'voyage');
+      u.searchParams.set('limit', String(opts.limit || limit));
+      u.searchParams.set('context_limit', String(Math.max(50000, (opts.limit || limit) * 4000)));
+      if (_askFilters.committees.size) {
+        u.searchParams.set('committees', [..._askFilters.committees].join(','));
+      }
+      if (_askFilters.yearFrom != null) u.searchParams.set('year_from', String(_askFilters.yearFrom));
+      if (_askFilters.yearTo != null)   u.searchParams.set('year_to',   String(_askFilters.yearTo));
+      if (_askFilters.includeSuperseded) u.searchParams.set('include_superseded', '1');
+      if (opts.mode) u.searchParams.set('mode', opts.mode);
+      return u;
+    }
+
+    const primaryUrl = buildUrl(q);
+    // v19.55.3 P4 #12: counter-evidence call. Frontend query
+    // expansion: the user's question is appended with qualifier-
+    // flavoured terms so the embedding model retrieves paragraphs
+    // about exceptions, limitations, balancing, derogations.
+    // We also pass `mode=pushback` so a future backend can switch
+    // to a dedicated rerank prompt rather than rely on expansion
+    // alone — when the backend ignores `mode`, expansion still
+    // does most of the work.
+    const counterUrl = _askFilters.counterEvidence
+      ? buildUrl(
+          `${q} (considering exceptions, limitations, derogations, qualifications, balancing, or competing rights)`,
+          // v19.55.4: mode value renamed pushback → counter to match
+          // the user-facing rename. Backend can switch on this for a
+          // dedicated rerank prompt; absent backend support, the
+          // expanded query carries most of the work.
+          { mode: 'counter', limit: Math.min(limit, 8) }
+        )
+      : null;
+
+    out.innerHTML = counterUrl
+      ? '<div class="ask-loading">Searching General Comments and reranking — including counter-evidence pass…</div>'
+      : '<div class="ask-loading">Searching General Comments and reranking…</div>';
+
+    // 95s wall-clock timeout — slightly longer than nginx's 90s
+    // proxy_read_timeout so the server-side error surfaces first when
+    // upstream stalls. Anything longer than this means the user's
+    // session is wedged; better to fail fast and let them retry.
+    timeoutId = setTimeout(() => {
+      try { ctrl.abort(); } catch (_) {}
+    }, 95000);
+
+    const fetchOne = async (url) => {
+      const res = await fetch(url.toString(), {
+        credentials: 'omit',
+        signal: ctrl.signal,
+      });
+      if (!res.ok) {
+        const e = new Error(`HTTP ${res.status}`);
+        e.httpStatus = res.status;
+        throw e;
+      }
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      return data;
+    };
+
+    const [primaryData, counterData] = await Promise.all([
+      fetchOne(primaryUrl),
+      counterUrl ? fetchOne(counterUrl) : Promise.resolve(null),
+    ]);
+
+    // v19.55.5 issue #1 fix: client-side filter fallback.
+    // The backend may not honour `committees=` / `year_from/to` /
+    // `include_superseded` URL params yet — when it doesn't, the
+    // chip selection has no visible effect. Apply the same filters
+    // client-side as a defensive layer. Bands stay as the backend
+    // emitted them (they reflect absolute relevance against the
+    // un-filtered candidate pool); only the visible row set narrows.
+    if (primaryData) primaryData.sources = _askApplyClientFilters(primaryData.sources);
+    if (counterData) counterData.sources = _askApplyClientFilters(counterData.sources);
+
+    // v19.55.10: trust API ordering. The backend now applies LLM-judge
+    // as the final ranker (Phase 1) — its top picks may have voyage
+    // cross-encoder score lower than later items, by design. Re-sorting
+    // client-side by score100 would undo the judge's deliberate
+    // re-ranking. The score band is a coarse secondary indicator,
+    // surfaced in the per-source "Why this matched" detail.
+
+    out.innerHTML = renderAskResult(primaryData, counterData);
+    _askBackendOnline = true;
+  } catch (err) {
+    if (ctrl.signal.aborted) {
+      // Could be (a) superseded by a newer request — silently swallow,
+      // OR (b) the 95s timeout fired — show a useful timeout message.
+      // We can tell because timeoutId is still scheduled when (a) happens
+      // (no abort caused by us), but already fired when (b) happened.
+      // Easier signal: if the request hasn't been replaced, treat as timeout.
+      if (_askInFlight === ctrl) {
+        out.innerHTML = `<div class="ask-error"><strong>Request timed out.</strong> The retrieval backend took longer than expected (>95s). Try a shorter question or retry in a moment.</div>`;
+      }
+      return;
+    }
+    _askBackendOnline = false;
+    // 429 vs 5xx vs other: legit users can hit our 15-q/min nginx rate
+    // limit during quick iteration. Surface that as a soft, accurate
+    // message instead of "backend offline" — that misleads them into
+    // thinking the system is broken.
+    if (err.httpStatus === 429) {
+      out.innerHTML = `<div class="ask-error"><strong>Slow down a moment.</strong> You've hit the per-IP rate limit (15 requests / minute). Wait ~20 seconds and try again. This protects the API token budget from automated traffic.</div>`;
+    } else if (err.httpStatus === 403) {
+      out.innerHTML = `<div class="ask-error"><strong>Request blocked.</strong> The retrieval backend rejected this request. If you reached this from an unexpected URL, please report the issue.</div>`;
+    } else {
+      out.innerHTML = `<div class="ask-error"><strong>Ask is currently offline.</strong> The retrieval backend didn't respond. Try <a href="#search" class="about-link">Search</a> in the meantime.</div>`;
+    }
+  } finally {
+    clearTimeout(timeoutId);
+    if (_askInFlight === ctrl) _askInFlight = null;
+    if (goBtn) {
+      goBtn.disabled = false;
+      goBtn.textContent = goBtn.dataset.prevText || 'Ask General Comments';
+      delete goBtn.dataset.prevText;
+    }
+  }
+}
+
+// Hold the dossier's original DOM position so we can restore it on close.
+let _askDossierOrigParent = null;
+let _askDossierOrigNext = null;
+
+function paintAskDrawer(paraId, docId) {
+  const drawer = document.getElementById('ask-drawer');
+  const backdrop = document.getElementById('ask-drawer-backdrop');
+  const dossier = document.getElementById('dossier');
+  if (!drawer || !backdrop || !dossier) return;
+  if (!state.paragraphById.has(paraId)) {
+    if (docId) {
+      location.hash = `documents/${encodeURIComponent(docId)}`;
+      setTimeout(() => openDocReader(docId, { paraId }), 50);
+    }
+    return;
+  }
+  // Update activeId; the existing paintDossier renderer fills the panel.
+  setActive(paraId);
+  // Move the actual #dossier element into our slide-in slot. Remember
+  // where it lived so we can put it back on close.
+  if (!_askDossierOrigParent) {
+    _askDossierOrigParent = dossier.parentNode;
+    _askDossierOrigNext = dossier.nextSibling;
+  }
+  drawer.appendChild(dossier);
+  drawer.removeAttribute('hidden');
+  backdrop.removeAttribute('hidden');
+  void drawer.offsetWidth;
+  drawer.classList.add('is-open');
+  backdrop.classList.add('is-open');
+  // Wire the existing dossier-close button to also close OUR drawer.
+  const innerClose = dossier.querySelector('#dossier-close');
+  if (innerClose && !innerClose._wiredAskClose) {
+    innerClose._wiredAskClose = true;
+    innerClose.addEventListener('click', closeAskDrawer, { capture: true });
+  }
+}
+
+function closeAskDrawer() {
+  const drawer = document.getElementById('ask-drawer');
+  const backdrop = document.getElementById('ask-drawer-backdrop');
+  const dossier = document.getElementById('dossier');
+  if (!drawer || !backdrop) return;
+  drawer.classList.remove('is-open');
+  backdrop.classList.remove('is-open');
+  setTimeout(() => {
+    drawer.setAttribute('hidden', '');
+    backdrop.setAttribute('hidden', '');
+    // Restore the dossier to its original parent.
+    if (dossier && _askDossierOrigParent) {
+      if (_askDossierOrigNext && _askDossierOrigNext.parentNode === _askDossierOrigParent) {
+        _askDossierOrigParent.insertBefore(dossier, _askDossierOrigNext);
+      } else {
+        _askDossierOrigParent.appendChild(dossier);
+      }
+    }
+  }, 250);
+}
+
+// v19.55.5: client-side filter fallback. Applied AFTER fetch so
+// even when the backend ignores the `committees` / `year_*` /
+// `include_superseded` URL params the user's chip selection is
+// still honoured visually. This narrows the displayed result set
+// only — band labels stay as the backend emitted them, since
+// they reflect absolute relevance against the un-filtered pool.
+function _askApplyClientFilters(sources) {
+  if (!Array.isArray(sources)) return sources;
+  const f = _askFilters;
+  let out = sources;
+  if (f.committees.size) {
+    out = out.filter(s => s.committee && f.committees.has(s.committee));
+  }
+  if (f.yearFrom != null) {
+    out = out.filter(s => !s.year || Number(s.year) >= f.yearFrom);
+  }
+  if (f.yearTo != null) {
+    out = out.filter(s => !s.year || Number(s.year) <= f.yearTo);
+  }
+  if (!f.includeSuperseded) {
+    out = out.filter(s => s.status !== 'superseded');
+  }
+  return out;
+}
+
+// v19.55.2 P2 #7 helpers.
+function _askAnyFilterActive() {
+  return _askFilters.committees.size > 0
+    || _askFilters.yearFrom != null
+    || _askFilters.yearTo != null
+    || _askFilters.includeSuperseded === true
+    || _askFilters.counterEvidence === true;
+}
+
+function _askRenderCommitteeChips() {
+  const host = document.getElementById('ask-filters-committees');
+  if (!host) return;
+  // Replace any existing chips, keep the label
+  [...host.querySelectorAll('.ask-chip')].forEach(el => el.remove());
+  // Source: GC-typed committees from state.facets. If facets isn't
+  // hydrated yet (rare edge case where the user opens Ask before
+  // first paint), fall back to a static list.
+  const fallback = ['CAT', 'CCPR', 'CED', 'CEDAW', 'CERD', 'CESCR', 'CMW', 'CRC', 'CRPD'];
+  const fromState = (state.facets?.committees || [])
+    .map(c => c.value)
+    .filter(v => fallback.includes(v));
+  const list = fromState.length ? fromState : fallback;
+  const frag = document.createDocumentFragment();
+  for (const cmte of list) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'ask-chip';
+    btn.dataset.committee = cmte;
+    btn.textContent = cmte;
+    btn.setAttribute('aria-pressed', 'false');
+    if (_askFilters.committees.has(cmte)) {
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-pressed', 'true');
+    }
+    frag.appendChild(btn);
+  }
+  host.appendChild(frag);
+}
+
+function _askRefreshClearButton() {
+  const btn = document.getElementById('ask-filters-clear');
+  if (btn) btn.hidden = !_askAnyFilterActive();
+}
+
+function _askWireFilters() {
+  const root = document.getElementById('ask-filters');
+  if (!root || root.dataset.wired === '1') return;
+  root.dataset.wired = '1';
+  // Committee chips (delegated)
+  root.addEventListener('click', e => {
+    const chip = e.target.closest('.ask-chip');
+    if (chip && root.contains(chip)) {
+      const v = chip.dataset.committee;
+      if (_askFilters.committees.has(v)) {
+        _askFilters.committees.delete(v);
+        chip.classList.remove('is-active');
+        chip.setAttribute('aria-pressed', 'false');
+      } else {
+        _askFilters.committees.add(v);
+        chip.classList.add('is-active');
+        chip.setAttribute('aria-pressed', 'true');
+      }
+      _askRefreshClearButton();
+      return;
+    }
+    if (e.target.id === 'ask-filters-clear') {
+      _askFilters.committees.clear();
+      _askFilters.yearFrom = _askFilters.yearTo = null;
+      _askFilters.includeSuperseded = false;
+      _askFilters.counterEvidence = false;
+      const yf = document.getElementById('ask-filter-year-from');
+      const yt = document.getElementById('ask-filter-year-to');
+      const ck = document.getElementById('ask-filter-superseded');
+      const cc = document.getElementById('ask-filter-counter');
+      if (yf) yf.value = '';
+      if (yt) yt.value = '';
+      if (ck) ck.checked = false;
+      if (cc) cc.checked = false;
+      _askRenderCommitteeChips();
+      _askRefreshClearButton();
+    }
+  });
+  // Year inputs
+  ['ask-filter-year-from', 'ask-filter-year-to'].forEach((id, idx) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('change', () => {
+      const v = parseInt(el.value, 10);
+      if (idx === 0) _askFilters.yearFrom = Number.isFinite(v) ? v : null;
+      else            _askFilters.yearTo   = Number.isFinite(v) ? v : null;
+      _askRefreshClearButton();
+    });
+  });
+  // Superseded toggle
+  const ck = document.getElementById('ask-filter-superseded');
+  if (ck) ck.addEventListener('change', () => {
+    _askFilters.includeSuperseded = !!ck.checked;
+    _askRefreshClearButton();
+  });
+  // v19.55.3 P4 #12: counter-evidence toggle.
+  const cc = document.getElementById('ask-filter-counter');
+  if (cc) cc.addEventListener('change', () => {
+    _askFilters.counterEvidence = !!cc.checked;
+    _askRefreshClearButton();
+  });
+}
+
+async function _probeAskBackend() {
+  // One-shot health probe; result cached in _askBackendOnline so we
+  // don't re-call on every tab switch. The probe itself is cheap
+  // (<10 ms typical) and goes to /api/health which doesn't trigger
+  // any paid Voyage call upstream.
+  if (_askBackendOnline !== null) return _askBackendOnline;
+  if (!ASK_API_BASE) { _askBackendOnline = false; return false; }
+  try {
+    const ctrl = new AbortController();
+    const timeout = setTimeout(() => ctrl.abort(), 4000);
+    const res = await fetch(`${ASK_API_BASE}/api/health`, {
+      method: 'GET', credentials: 'omit', cache: 'no-store',
+      signal: ctrl.signal,
+    });
+    clearTimeout(timeout);
+    _askBackendOnline = res.ok;
+  } catch {
+    _askBackendOnline = false;
+  }
+  return _askBackendOnline;
+}
+
+function _refreshAskOfflineNotice() {
+  // v19.55.3: probe result drives ONLY the visible advisory notice;
+  // it no longer disables input or submit. Two reasons:
+  //   (a) probe can be wrong — endpoint shape might differ across
+  //       backend versions, network might be flaky, etc. Letting
+  //       the user try anyway costs nothing if it fails (the fetch
+  //       itself errors gracefully) and recovers if it works.
+  //   (b) UI testing without a backend was blocked entirely. Now
+  //       the user can still type, submit, and see the rest of the
+  //       UI react — only the actual fetch fails.
+  const notice = document.getElementById('ask-offline');
+  if (!notice) return;
+  notice.hidden = _askBackendOnline !== false;
+}
+
+function wireAskTab() {
+  // v19.55: tab visibility gate. The nav link + section are both
+  // hidden in HTML by default; we only un-hide when ASK_API_BASE
+  // resolves to something. On a deploy with no backend configured,
+  // this function leaves the tab invisible — visitors don't even
+  // know it exists.
+  if (!ASK_API_BASE) {
+    return;
+  }
+  const navLink = document.getElementById('ask-nav-link');
+  if (navLink) navLink.hidden = false;
+
+  // Phase 1.5: warm the treaty bundle cache eagerly. Fire-and-forget;
+  // the user's first answer is the latest moment we'd need it, but
+  // pre-fetching means annotations and tooltips are ready instantly.
+  _loadTreaties().catch(() => {});
+
+  const goBtn = document.getElementById('ask-go');
+  const input = document.getElementById('ask-q');
+  if (goBtn) goBtn.addEventListener('click', runAsk);
+  if (input) input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); runAsk(); }
+  });
+  // Source-card delegation — single listener on the output area covers
+  // every rendered card across re-renders.
+  const out = document.getElementById('ask-output');
+  if (out) {
+    out.addEventListener('click', e => {
+      // Footnote markers take precedence — open the popover, do NOT open
+      // the dossier drawer (clicking a fn shouldn't navigate).
+      const fnBtn = e.target.closest('button.fn-marker');
+      if (fnBtn) {
+        e.stopPropagation();
+        e.preventDefault();
+        if (typeof openFnPopover === 'function') openFnPopover(fnBtn);
+        return;
+      }
+      // v19.55.9: HyDE expansion chips — replace query and re-run ask.
+      // Lets the user try the LLM-suggested doctrinal angle without
+      // having to retype it.
+      const expBtn = e.target.closest('button.ask-hyde-expansion');
+      if (expBtn) {
+        e.stopPropagation();
+        e.preventDefault();
+        const newQ = expBtn.dataset.q || expBtn.textContent || '';
+        const askInput = document.getElementById('ask-q');
+        if (askInput && newQ) {
+          askInput.value = newQ;
+          askInput.focus();
+          runAsk();
+        }
+        return;
+      }
+      // v19.55.10 Phase 1.5: treaty article-reference button — show
+      // the actual treaty article text in a popover so a researcher
+      // can verify a citation without leaving the result.
+      const tArtBtn = e.target.closest('button.treaty-article-ref');
+      if (tArtBtn) {
+        e.stopPropagation();
+        e.preventDefault();
+        showTreatyPopover(tArtBtn);
+        return;
+      }
+      // "Why this matched" details accordion — let the native <details>
+      // toggle handle open/close, but do NOT cascade up to the card
+      // click that would otherwise open the dossier drawer. These are
+      // semantically different actions and shouldn't be conflated.
+      if (e.target.closest('.ask-why')) {
+        return;
+      }
+      // v19.55.10: per-source action toolbar — Copy / Cite / Bookmark / UN.
+      // Each button does its own thing and must NOT also open the dossier.
+      const actBtn = e.target.closest('.ask-source-act');
+      if (actBtn) {
+        e.stopPropagation();
+        // The UN-source link is an <a> — let the browser navigate.
+        if (actBtn.tagName === 'A') return;
+        e.preventDefault();
+        const wrap = actBtn.closest('.ask-source-actions');
+        const paraId = wrap?.dataset.paraId || '';
+        const docId = wrap?.dataset.docId || '';
+        const act = actBtn.dataset.act;
+        const card = actBtn.closest('.ask-source');
+        if (act === 'copy') {
+          // Paragraph text + short tag for easy paste-into-notes.
+          const txt = card?.querySelector('.ask-source-text')?.innerText?.trim() || '';
+          const tag = card?.querySelector('.ask-citation')?.innerText?.trim() || '';
+          const meta = card?.querySelector('.ask-source-meta')?.innerText?.trim() || '';
+          const payload = [txt, tag ? `\n— ${tag} (${meta})` : ''].join('').trim();
+          navigator.clipboard?.writeText(payload).then(
+            () => _flashAskAction(actBtn, '✓ Copied'),
+            () => _flashAskAction(actBtn, '✗ Copy failed', false)
+          );
+          return;
+        }
+        if (act === 'cite') {
+          const para = state.paragraphById?.get(paraId);
+          const doc  = state.documents?.get(docId);
+          if (para && doc && typeof CITE_FORMATS !== 'undefined') {
+            const fmt = CITE_FORMATS.find(f => f.key === getPrefCiteFmt()) || CITE_FORMATS[0];
+            const cite = fmt.build(doc, para);
+            navigator.clipboard?.writeText(cite).then(
+              () => _flashAskAction(actBtn, '✓ Citation copied'),
+              () => _flashAskAction(actBtn, '✗ Copy failed', false)
+            );
+          } else {
+            _flashAskAction(actBtn, '× corpus not loaded', false);
+          }
+          return;
+        }
+        if (act === 'bookmark') {
+          if (typeof bmToggle !== 'function' || !paraId) {
+            _flashAskAction(actBtn, '× cannot bookmark', false);
+            return;
+          }
+          const newState = bmToggle(paraId);
+          actBtn.classList.toggle('is-on', newState);
+          actBtn.textContent = `${newState ? '★' : '☆'} Bookmark`;
+          actBtn.title = newState
+            ? 'Remove bookmark from Workspace'
+            : 'Save paragraph to Workspace';
+          actBtn.setAttribute('aria-pressed', String(newState));
+          return;
+        }
+        if (act === 'dossier') {
+          // Explicit "open dossier" — same as clicking the card body,
+          // but discoverable as a labeled action so users don't have to
+          // guess that the card itself is clickable.
+          if (typeof paintAskDrawer === 'function' && paraId && docId) {
+            paintAskDrawer(paraId, docId);
+          }
+          return;
+        }
+        return;
+      }
+      const card = e.target.closest('.ask-source');
+      if (!card) return;
+      paintAskDrawer(card.dataset.paraId, card.dataset.docId);
+    });
+    out.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      // Don't hijack Enter/Space when a fn-marker is focused.
+      if (e.target.closest('button.fn-marker')) return;
+      const card = e.target.closest('.ask-source');
+      if (!card) return;
+      e.preventDefault();
+      paintAskDrawer(card.dataset.paraId, card.dataset.docId);
+    });
+  }
+  document.getElementById('ask-drawer-close')?.addEventListener('click', closeAskDrawer);
+  document.getElementById('ask-drawer-backdrop')?.addEventListener('click', closeAskDrawer);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.getElementById('ask-drawer')?.classList.contains('is-open')) {
+      closeAskDrawer();
+    }
+  });
+
+  // v19.55: probe the backend the FIRST time the user actually
+  // opens the Ask view — never on initial page load. Avoids any
+  // unsolicited request on visitors who never click Ask.
+  // v19.55.2: also (re)render filter chips on tab open so they
+  // pick up state.facets once hydrated.
+  const _onAskOpen = () => {
+    _probeAskBackend().then(_refreshAskOfflineNotice);
+    _askRenderCommitteeChips();
+    _askWireFilters();
+    _askRefreshClearButton();
+  };
+  window.addEventListener('hashchange', () => {
+    if (window.location.hash.replace(/^#/, '').split('/')[0] === 'ask') {
+      _onAskOpen();
+    }
+  });
+  if (window.location.hash.replace(/^#/, '').split('/')[0] === 'ask') {
+    _onAskOpen();
+  }
+
+  window.runAsk = runAsk; // expose for debugging
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', wireAskTab);
+} else {
+  wireAskTab();
 }
 
 // ─────────── Go ───────────

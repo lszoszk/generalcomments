@@ -3509,6 +3509,15 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   cursor: pointer;
   transition: background .12s;
 }
+/* Trailing subsection label — e.g. "(a) Obligations to respect" at the end
+   of a paragraph. Promote it to its own line so it reads as a subheader. */
+.docs-reader-subhead {
+  display: block;
+  margin-top: 0.65rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--garnet, #6d1422);
+}
 .docs-reader-para:hover { background: var(--paper-2); }
 .docs-reader-para.is-active {
   background: var(--paper-2);
@@ -5372,4 +5381,831 @@ body.is-corpus-loading #q { cursor: progress; }
     bottom: 8px;
     max-width: none;
   }
+}
+
+/* ───────────────────────── Ask tab (v19.55) ─────────────────────────
+   Extractive RAG view. Styles use design tokens so dark-mode + theme
+   switches Just Work; no hard-coded hex colours. */
+body[data-active-view="ask"] section[data-view="ask"] {
+  display: flex; flex-direction: column; flex: 1 1 0;
+  min-height: 0; overflow-y: auto; padding-bottom: 4rem;
+}
+.ask-disclaimer {
+  /* v19.55.2 user preference: yellow advisory, not garnet-red.
+     Uses the existing vellum-yellow highlight token so dark mode
+     and theme switches stay coherent. */
+  background: var(--hl);
+  border-left: 4px solid var(--hl-edge);
+  padding: 0.75rem 1rem; margin: 1rem 1.5rem;
+  border-radius: 4px;
+  font-size: 0.92rem; line-height: 1.5;
+  color: var(--ink);
+}
+.ask-disclaimer .about-link {
+  color: var(--garnet); text-decoration: underline;
+}
+.ask-controls-details {
+  margin: 0.5rem 1.5rem 0; font-size: 0.88rem;
+}
+.ask-controls-details > summary {
+  color: var(--ink-3); cursor: pointer;
+  font-family: var(--display); letter-spacing: 0.02em;
+  padding: 0.25rem 0; user-select: none;
+}
+.ask-controls-details > summary:hover { color: var(--garnet); }
+.ask-controls {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-top: 0.4rem; color: var(--ink-3);
+}
+.ask-controls label { display: inline-flex; align-items: center; gap: 0.4rem; }
+.ask-controls input[type="number"] {
+  width: 4rem; padding: 0.25rem 0.4rem;
+  border: 1px solid var(--rule); border-radius: 4px; font: inherit;
+  background: var(--paper);
+}
+.ask-controls-hint { opacity: 0.7; }
+.ask-meta {
+  font-size: 0.78rem; color: var(--ink-4);
+  margin: 0 1.5rem 0.5rem;
+}
+.ask-answer {
+  background: var(--paper-2);
+  border-left: 4px solid var(--garnet);
+  padding: 1rem 1.25rem; margin: 1rem 1.5rem;
+  border-radius: 4px;
+}
+.ask-answer-title {
+  font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem;
+  color: var(--garnet); letter-spacing: 0.04em;
+  font-family: var(--display); text-transform: uppercase;
+}
+.ask-answer-hint {
+  font-size: 0.82rem; color: var(--ink-3);
+  margin-bottom: 0.55rem; font-style: italic;
+}
+.ask-answer-body { white-space: pre-wrap; line-height: 1.55; color: var(--ink); }
+
+/* v19.55.10: source context line — committee · GC title (year) +
+   "Covenant"/"Convention" disambiguation hint. Sits between the
+   "first-ranked paragraph below" sub-hint and the verbatim text. */
+.ask-answer-source {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.55rem;
+  padding: 0.5rem 0.7rem;
+  margin: 0 0 0.6rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-size: 0.86rem;
+}
+.ask-answer-source-committee {
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--garnet);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+.ask-answer-source-title {
+  color: var(--ink);
+  font-weight: 600;
+  font-family: var(--display);
+}
+.ask-answer-source-year {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+}
+.ask-answer-source-hint {
+  flex-basis: 100%;
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  font-style: italic;
+}
+.ask-answer-source-hint strong {
+  font-style: normal;
+  color: var(--ink-2);
+}
+
+/* v19.55.10 Phase 1.5: inline treaty annotations + popover.
+   "the Covenant" becomes "the Covenant[ICCPR]" — verbatim text is
+   never modified, only annotated.  "article 4(2)" becomes a clickable
+   button that opens a popover with the actual treaty article text. */
+.treaty-term {
+  /* purely a wrapper for the inline abbr badge — no border/background
+     so verbatim text reads unchanged */
+}
+.treaty-term-abbr {
+  display: inline-block;
+  margin-left: 0.15em;
+  padding: 0 0.32em;
+  background: var(--paper-2, #f4eee5);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  font-family: var(--display);
+  font-size: 0.62em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  vertical-align: super;
+  line-height: 1.2;
+  text-transform: none;
+}
+.treaty-article-ref {
+  display: inline;
+  padding: 0 0.18em;
+  margin: 0 0.05em;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--garnet);
+  color: var(--garnet);
+  cursor: pointer;
+  font: inherit;
+  line-height: inherit;
+}
+.treaty-article-ref:hover,
+.treaty-article-ref:focus-visible {
+  background: var(--paper-2, #f4eee5);
+  outline: none;
+  border-bottom-style: solid;
+}
+.treaty-popover {
+  display: none;
+  z-index: 1000;
+  width: 420px;
+  max-width: 90vw;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--paper, #fbf7f0);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.treaty-popover-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--display);
+}
+.treaty-popover-abbr {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--garnet);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+.treaty-popover-art {
+  font-weight: 600;
+  color: var(--ink);
+  flex-grow: 1;
+}
+.treaty-popover-close {
+  background: transparent;
+  border: none;
+  color: var(--ink-3);
+  cursor: pointer;
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 0 0.3rem;
+}
+.treaty-popover-close:hover { color: var(--garnet); }
+.treaty-popover-body {
+  padding: 0.6rem 0.85rem;
+  color: var(--ink);
+}
+.treaty-popover-para {
+  margin: 0 0 0.55rem;
+}
+.treaty-popover-para:last-child { margin-bottom: 0; }
+.treaty-popover-para strong {
+  color: var(--ink-2);
+  margin-right: 0.15em;
+}
+.treaty-popover-source {
+  padding: 0.4rem 0.85rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  font-style: italic;
+}
+.ask-sources-title {
+  font-family: var(--display); font-weight: 700; font-size: 1.05rem;
+  margin: 1.5rem 1.5rem 0.5rem;
+  color: var(--ink);
+}
+.ask-source {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 0.85rem 1rem; margin: 0.5rem 1.5rem;
+  border-radius: 6px; cursor: pointer;
+  transition: border-color .15s, box-shadow .15s;
+}
+.ask-source:hover {
+  border-color: var(--garnet);
+  box-shadow: 0 2px 6px var(--garnet-soft);
+}
+.ask-source:focus { outline: 2px solid var(--garnet); outline-offset: 2px; }
+.ask-source-meta {
+  font-size: 0.85rem; color: var(--ink-3);
+  margin-bottom: 0.4rem;
+  display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+}
+.ask-citation { font-weight: 700; color: var(--garnet); }
+.ask-status-superseded {
+  background: var(--garnet-soft); color: var(--garnet-2);
+  padding: 1px 6px; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 700;
+}
+.ask-score {
+  padding: 2px 8px; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 700; margin-left: auto;
+}
+.ask-score-excellent { background: oklch(94% 0.05 145); color: oklch(35% 0.10 145); }
+.ask-score-good      { background: oklch(94% 0.04 220); color: oklch(40% 0.10 220); }
+.ask-score-medium    { background: var(--hl); color: oklch(35% 0.08 80); }
+.ask-score-weak,
+.ask-score-very      { background: var(--garnet-soft); color: var(--garnet-2); }
+.ask-source-title    { font-weight: 600; color: var(--ink); }
+.ask-source-header   { font-size: 0.85rem; color: var(--ink-3); margin-top: .25rem; }
+.ask-source-articles {
+  font-size: 0.8rem; color: var(--ink-3);
+  margin-top: .25rem;
+  font-variant: small-caps; letter-spacing: 0.02em;
+}
+.ask-source-text { margin-top: 0.5rem; line-height: 1.55; color: var(--ink); }
+.ask-source-text mark { background: var(--hl); padding: 0 2px; }
+.ask-source-open-hint {
+  font-size: 0.75rem; color: var(--garnet);
+  margin-top: 0.5rem; opacity: 0.6;
+}
+.ask-source:hover .ask-source-open-hint { opacity: 1; }
+
+/* v19.55.10: per-source action toolbar — Copy / Cite / Bookmark / UN.
+   Inline at the bottom of each source card so a researcher doesn't
+   need to round-trip through the dossier drawer for routine actions. */
+.ask-source-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.5rem;
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--rule);
+}
+.ask-source-act {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  padding: 0.25rem 0.55rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  color: var(--ink-2);
+  font-family: var(--display);
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+.ask-source-act:hover,
+.ask-source-act:focus-visible {
+  background: var(--paper-2);
+  border-color: var(--garnet);
+  color: var(--garnet);
+  outline: none;
+}
+.ask-source-act-bm.is-on {
+  background: var(--paper-2);
+  border-color: var(--garnet);
+  color: var(--garnet);
+}
+.ask-source-act.is-flash-ok {
+  background: var(--garnet-soft, #f0e0e0);
+  border-color: var(--garnet);
+  color: var(--garnet);
+}
+.ask-source-act.is-flash-err {
+  background: #fff3e0;
+  border-color: #c46f00;
+  color: #c46f00;
+}
+.ask-source-act-link::after {
+  /* small visual hint for "leaves the app" */
+  content: '';
+}
+.ask-source-act-hint {
+  font-size: 0.72rem;
+  font-style: italic;
+  margin-left: 0.2rem;
+}
+.ask-source-act-dossier {
+  margin-left: auto;   /* pushes the dossier button to the right edge */
+  background: var(--paper-2);
+  border-color: var(--rule);
+  color: var(--ink-2);
+}
+.ask-source-act-dossier:hover,
+.ask-source-act-dossier:focus-visible {
+  border-color: var(--garnet);
+  color: var(--garnet);
+}
+.ask-source-act-sub {
+  font-size: 0.72rem;
+  font-style: italic;
+  font-weight: normal;
+  color: var(--ink-3);
+  margin-left: 0.3rem;
+}
+.ask-loading {
+  padding: 2rem; text-align: center;
+  color: var(--ink-3); font-style: italic;
+}
+.ask-empty-hint {
+  padding: 1rem 1.5rem;
+  margin: 0.5rem 1.5rem;
+  color: var(--ink-3);
+  background: var(--paper-2);
+  border-left: 3px solid var(--rule);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* BETA / experimental tagging.  Two surfaces:
+   1. nav badge next to "Ask" link — small inline pill
+   2. tab-level banner above the ask form — wider, more visible */
+.nav-beta-badge {
+  display: inline-block;
+  margin-left: 0.35em;
+  padding: 0.05em 0.4em;
+  background: var(--garnet, #9b1d1d);
+  color: white;
+  font-family: var(--mono, monospace);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  border-radius: 3px;
+  vertical-align: super;
+  line-height: 1.4;
+}
+.about-method-toc .nav-beta-badge,
+.about-method-summary-title .nav-beta-badge {
+  vertical-align: baseline;
+}
+.ask-beta-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.8rem 1.1rem;
+  margin: 0.4rem 1.5rem 0.8rem;
+  background: #fff3df;
+  border: 1px solid #d6a85a;
+  border-left: 4px solid #b8861f;
+  border-radius: 4px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.ask-beta-tag {
+  display: inline-block;
+  flex-shrink: 0;
+  padding: 0.18rem 0.55rem;
+  background: #b8861f;
+  color: white;
+  font-family: var(--mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-radius: 3px;
+  white-space: nowrap;
+  margin-top: 0.1rem;
+}
+.ask-beta-text {
+  flex-grow: 1;
+}
+.ask-beta-text p {
+  margin: 0;
+}
+.ask-beta-text p + p {
+  margin-top: 0.45rem;
+}
+.ask-beta-meta {
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  font-style: italic;
+}
+.ask-beta-meta a {
+  font-style: normal;
+}
+.ask-error {
+  padding: 1rem 1.5rem;
+  color: var(--garnet-2); background: var(--garnet-soft);
+  border-left: 4px solid var(--garnet);
+  margin: 1rem 1.5rem; border-radius: 4px;
+}
+/* Drawer slot — reuses the existing #dossier element by re-parenting. */
+.ask-drawer {
+  position: fixed; top: 0; right: 0;
+  width: min(560px, 92vw); height: 100vh;
+  z-index: 1000; transform: translateX(100%);
+  transition: transform .22s ease-out;
+  background: var(--paper);
+  border-left: 1px solid var(--rule);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12);
+  display: flex; flex-direction: column;
+}
+.ask-drawer.is-open { transform: translateX(0); }
+.ask-drawer-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 999; opacity: 0; pointer-events: none;
+  transition: opacity .22s;
+}
+.ask-drawer-backdrop.is-open { opacity: 1; pointer-events: auto; }
+.ask-drawer #dossier {
+  flex: 1 1 auto; max-width: none; min-width: 0;
+  height: 100%; border-left: none; box-shadow: none;
+}
+
+/* v19.55.1: per-source "why this matched" + cited-corpus footer. */
+.ask-why {
+  margin-top: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--ink-3);
+  border-top: 1px dashed var(--rule-soft);
+  padding-top: 0.45rem;
+}
+.ask-why > summary {
+  cursor: pointer;
+  color: var(--ink-3);
+  font-family: var(--display);
+  letter-spacing: 0.02em;
+  user-select: none;
+  padding: 0.1rem 0;
+}
+.ask-why > summary:hover { color: var(--garnet); }
+.ask-why-body { padding: 0.4rem 0 0.1rem; }
+.ask-why-row {
+  margin: 0.2rem 0;
+  line-height: 1.45;
+}
+.ask-why-row.dim { color: var(--ink-4); font-style: italic; }
+.ask-why-label {
+  display: inline-block;
+  min-width: 7.5em;
+  font-variant: small-caps;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.ask-cited {
+  margin: 1.2rem 1.5rem 0;
+  font-size: 0.88rem;
+  color: var(--ink-2);
+  border-top: 1px solid var(--rule-soft);
+  padding-top: 0.6rem;
+}
+.ask-cited > summary {
+  cursor: pointer;
+  font-family: var(--display);
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+  padding: 0.25rem 0;
+  user-select: none;
+}
+.ask-cited > summary:hover { color: var(--garnet); }
+.ask-cited > summary strong { color: var(--garnet); }
+.ask-cited-list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  font-size: 0.85rem;
+  color: var(--ink-2);
+}
+.ask-cited-list li {
+  padding: 0.18rem 0;
+  border-bottom: 1px dashed var(--rule-soft);
+}
+.ask-cited-list li:last-child { border-bottom: none; }
+.ask-cited-list .dim { color: var(--ink-3); }
+
+/* v19.55.2 P2 #7: Ask filter chips. Mirrors Search's filter idiom
+   but kept self-contained so Ask can evolve independently. Uses
+   design tokens — dark mode works without changes. */
+.ask-filters {
+  margin: 0.5rem 1.5rem 0;
+  padding: 0.5rem 0.75rem;
+  background: var(--paper-2);
+  border: 1px solid var(--rule-soft);
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+.ask-filters-row {
+  display: flex; flex-wrap: wrap;
+  align-items: center; gap: 0.4rem 0.6rem;
+  padding: 0.2rem 0;
+}
+.ask-filters-row + .ask-filters-row {
+  margin-top: 0.3rem; padding-top: 0.4rem;
+  border-top: 1px dashed var(--rule-soft);
+}
+.ask-filters-label {
+  font-family: var(--display);
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  min-width: 6.2em;
+  font-weight: 600;
+}
+.ask-filters-dash { color: var(--ink-4); padding: 0 0.1rem; }
+.ask-filters input[type="number"] {
+  width: 5rem;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font: inherit;
+  background: var(--paper);
+  color: var(--ink);
+}
+.ask-filter-superseded {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-left: 0.5rem;
+  color: var(--ink-3);
+  cursor: pointer;
+  user-select: none;
+}
+.ask-filter-superseded input[type="checkbox"] {
+  margin: 0; cursor: pointer;
+}
+.ask-chip {
+  font: inherit;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: all 0.12s ease-out;
+  user-select: none;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+.ask-chip:hover {
+  border-color: var(--garnet);
+  color: var(--garnet);
+}
+.ask-chip.is-active {
+  background: var(--garnet);
+  color: var(--paper);
+  border-color: var(--garnet);
+}
+.ask-chip.is-active:hover {
+  background: var(--garnet-2);
+}
+.ask-chip-count {
+  margin-left: 0.3rem;
+  opacity: 0.6;
+  font-size: 0.78rem;
+}
+.ask-filters-clear {
+  margin-left: auto;
+  font: inherit;
+  font-size: 0.78rem;
+  background: transparent;
+  border: none;
+  color: var(--garnet);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0.2rem 0.3rem;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+.ask-filters-clear:hover { color: var(--garnet-2); }
+
+/* v19.55.3 P4 #12: counter-evidence section + pushback checkbox. */
+.ask-filter-pushback {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--ink-3);
+  cursor: pointer;
+  user-select: none;
+}
+.ask-filter-pushback input[type="checkbox"] { margin: 0; cursor: pointer; }
+.ask-filters-cost-hint {
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--ink-4);
+  margin-left: 0.3rem;
+}
+.ask-counter-section {
+  margin: 2rem 1.5rem 0.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--rule);
+}
+.ask-counter-title {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.3rem;
+  color: var(--ink);
+}
+.ask-counter-title::before {
+  content: '⚖';
+  margin-right: 0.4rem;
+  color: var(--garnet);
+  font-weight: normal;
+}
+.ask-counter-hint {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-3);
+  margin: 0 0 0.8rem;
+  max-width: 56em;
+}
+.ask-source.is-counter {
+  /* Visual distinction without being heavy-handed: thin teal accent
+     that signals "this is the other side" without crowding the main
+     reading rhythm. */
+  border-left: 3px solid var(--jur-tone);
+  background: linear-gradient(to right, var(--jur-soft) 0, var(--paper) 60%);
+}
+.ask-source.is-counter:hover {
+  border-color: var(--jur-tone);
+  box-shadow: 0 2px 6px var(--jur-soft);
+}
+.ask-counter-empty {
+  font-style: italic;
+  color: var(--ink-3);
+  padding: 0.8rem 1rem;
+  background: var(--paper-2);
+  border-radius: 6px;
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* v19.55.6: HyDE-interpretation panel — "How your question was interpreted".
+   Open by default (single biggest trust signal in the tab); user can
+   collapse. Different visual treatment from regular sources so it
+   reads clearly as meta-info. */
+.ask-hyde {
+  margin: 0.6rem 1.5rem 0;
+  padding: 0.7rem 1rem;
+  background: var(--paper-2);
+  border-left: 4px solid var(--ink-3);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.ask-hyde > summary {
+  cursor: pointer;
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  user-select: none;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
+.ask-hyde > summary:hover { color: var(--garnet); }
+.ask-hyde-body {
+  margin-top: 0.5rem;
+  color: var(--ink);
+}
+.ask-hyde-hint {
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  margin: 0 0 0.6rem;
+  line-height: 1.5;
+}
+.ask-hyde-quote {
+  font-family: var(--display);
+  font-style: italic;
+  margin: 0;
+  padding: 0.5rem 0.8rem;
+  border-left: 2px solid var(--rule);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* v19.55.8: HyDE Tier-1 UX rework — show extracted doctrinal terms
+   as chips instead of leading with the full hypothetical paragraph.
+   The chip row is the headline; the full probe is a nested toggle. */
+.ask-hyde-terms-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.5rem;
+  margin: 0 0 0.6rem;
+}
+.ask-hyde-terms-label {
+  font-family: var(--display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.ask-hyde-terms {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.ask-hyde-term {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-family: var(--display);
+  color: var(--ink);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+/* v19.55.9: clickable expansion suggestions — alternative doctrinal
+   framings the LLM produced. Click replaces query and re-runs ask. */
+.ask-hyde-expansions-row {
+  margin: 0.5rem 0 0.6rem;
+}
+.ask-hyde-expansions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}
+.ask-hyde-expansion {
+  display: block;
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.4rem 0.65rem;
+  font-family: var(--display);
+  font-size: 0.86rem;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.45;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+  width: 100%;
+}
+.ask-hyde-expansion:hover,
+.ask-hyde-expansion:focus-visible {
+  border-color: var(--garnet);
+  background: var(--paper-2);
+  outline: none;
+}
+.ask-hyde-expansion::before {
+  content: '↻ ';
+  color: var(--ink-3);
+  font-style: normal;
+  font-weight: 600;
+  margin-right: 0.2rem;
+}
+
+.ask-hyde-probe {
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--rule);
+}
+.ask-hyde-probe > summary {
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-family: var(--display);
+  letter-spacing: 0.03em;
+  color: var(--ink-3);
+  user-select: none;
+}
+.ask-hyde-probe > summary:hover { color: var(--garnet); }
+.ask-hyde-probe[open] > summary { color: var(--ink-2); }
+.ask-hyde-probe > .ask-hyde-quote {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+/* v19.55.7: HyDE "unavailable" variant — different visual weight
+   so it reads as "this feature is offline" rather than equal-status
+   to a successful interpretation. Dimmer left rule, smaller summary. */
+.ask-hyde.ask-hyde-unavailable {
+  border-left-color: var(--rule);
+  background: transparent;
+  padding-left: 0.85rem;
+}
+.ask-hyde.ask-hyde-unavailable > summary {
+  color: var(--ink-3);
+  font-weight: 600;
+  text-transform: none;
+  font-size: 0.85rem;
+  letter-spacing: 0;
+  font-style: italic;
+}
+.ask-hyde.ask-hyde-unavailable > summary::before {
+  content: '⚠ ';
+  color: var(--preview, #945000);
 }

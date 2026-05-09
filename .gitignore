@@ -189,3 +189,13 @@ _docs_internal/cescr/__pycache__/
 # extract_gc_footnotes.py. Scripts + gc_footnotes.json (canonical
 # extraction output) ARE tracked; docx cache is not.
 _docs_internal/footnotes/gc-docx/
+
+# Secrets — Ask backend lives on a separate VM, but a stray .env
+# file in this repo would still leak via git. Belt-and-braces.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*-secret.json
+*-secrets.json

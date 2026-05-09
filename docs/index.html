@@ -4,6 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-site-verification" content="uRqyBExQlN44ffcViC03Aa1do01KisztE9Sol47X8Jg" />
+<!-- v19.55 reminder: when deploying the Ask backend, ALSO add its
+     origin to connect-src below. Browsers enforce CSP before JS
+     runs, so a runtime meta[name='ask-api-base'] alone won't work
+     — the host must be on the connect-src allowlist. CSP itself
+     does not support /* */ comments, so this note lives outside it.
+-->
 <!-- v19.50.2 (audit L3): Content-Security-Policy.
      Scripts are limited to this origin + the CDN hosts whose assets we
      pin via SRI (xlsx + flexsearch) + GA4 + the hash of the GA
@@ -96,8 +102,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260508-10e6acb" />
-<link rel="stylesheet" href="assets/app.css?v=20260508-10e6acb" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260509-onebox" />
+<link rel="stylesheet" href="assets/app.css?v=20260509-onebox" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -188,7 +194,11 @@
     </div>
     <nav class="mast-nav">
       <a href="#search" class="active">Search</a>
-      <a href="#ask">Ask</a>
+      <!-- v19.55: Ask tab hidden by default. JS un-hides only when a
+           backend is configured (meta[name="ask-api-base"], ?ask=URL,
+           or running on localhost). On the public deploy with no
+           backend yet, visitors never see the tab. -->
+      <a href="#ask" id="ask-nav-link" hidden>Ask <span class="nav-beta-badge" aria-label="experimental feature">BETA</span></a>
       <a href="#documents">Documents</a>
       <a href="#workspace" id="workspace-nav-link">Workspace<span class="workspace-badge" id="workspace-badge" hidden></span></a>
       <a href="#about">About</a>
@@ -501,76 +511,112 @@
 
 </section><!-- /search view -->
 
-<!-- ═══════════════════════════ ASK VIEW (Phase 1: extractive RAG) ═══════════════════════════ -->
-<section data-view="ask" hidden>
+<!-- ═══════════════════════════ ASK VIEW (Phase 1: extractive RAG) ═══════════════════════════
+     v19.55 P1 hardening: backend URL is no longer hard-coded into JS.
+     Configure ONE of the three sources (highest precedence first):
+       1. URL parameter:    ?ask=https://your-backend.example.org
+       2. Meta tag below:   uncomment <meta name="ask-api-base"> and set content
+       3. Local dev only:   when hostname is 127.0.0.1 / localhost, JS
+                            falls back to http://127.0.0.1:8767.
+     If NONE of the above resolve, the Ask tab stays hidden in nav and
+     the section is unreachable — public visitors never see broken UI.
 
-<style>
-  .ask-disclaimer { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 0.75rem 1rem; margin: 1rem 1.5rem; border-radius: 4px; font-size: 0.92rem; line-height: 1.5; }
-  .ask-meta { font-size: 0.78rem; color: #555; margin: 0 1.5rem 0.5rem; }
-  .ask-answer { background: #f8fafc; border-left: 4px solid #6d1422; padding: 1rem 1.25rem; margin: 1rem 1.5rem; border-radius: 4px; }
-  .ask-answer-title { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.5rem; color: #6d1422; letter-spacing: 0.04em; }
-  .ask-answer-body { white-space: pre-wrap; line-height: 1.55; }
-  .ask-sources-title { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 1.05rem; margin: 1.5rem 1.5rem 0.5rem; }
-  .ask-source { background: white; border: 1px solid #e5e7eb; padding: 0.85rem 1rem; margin: 0.5rem 1.5rem; border-radius: 6px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }
-  .ask-source:hover { border-color: #6d1422; box-shadow: 0 2px 6px rgba(109, 20, 34, 0.08); }
-  .ask-source:focus { outline: 2px solid #6d1422; outline-offset: 2px; }
-  .ask-source-open-hint { font-size: 0.75rem; color: #6d1422; margin-top: 0.5rem; opacity: 0.6; }
-  .ask-source:hover .ask-source-open-hint { opacity: 1; }
-  /* Ask drawer is just a positioning slot; the actual #dossier element is
-     moved here when a source is clicked, so it inherits ALL existing
-     dossier styles and behaviour (font controls, cite buttons, ±2 context,
-     close button — everything). Slides in from the right. */
-  .ask-drawer { position: fixed; top: 0; right: 0; width: min(520px, 92vw); height: 100vh; z-index: 1000; transform: translateX(100%); transition: transform .22s ease-out; background: var(--paper, #fbfaf7); border-left: 1px solid #ddd; box-shadow: -8px 0 24px rgba(0,0,0,.12); display: flex; flex-direction: column; }
-  .ask-drawer.is-open { transform: translateX(0); }
-  .ask-drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.18); z-index: 999; opacity: 0; pointer-events: none; transition: opacity .22s; }
-  .ask-drawer-backdrop.is-open { opacity: 1; pointer-events: auto; }
-  /* Override layout when #dossier is the drawer's child — make it fill */
-  .ask-drawer #dossier { flex: 1 1 auto; max-width: none; min-width: 0; height: 100%; border-left: none; box-shadow: none; }
-  .ask-source-meta { font-size: 0.85rem; color: #555; margin-bottom: 0.4rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
-  .ask-citation { font-weight: 700; color: #6d1422; }
-  .ask-status-superseded { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
-  .ask-score { padding: 2px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; margin-left: auto; }
-  .ask-score-excellent { background: #d8f3dc; color: #14532d; }
-  .ask-score-good { background: #e0f2fe; color: #075985; }
-  .ask-score-medium { background: #fef3c7; color: #92400e; }
-  .ask-score-weak, .ask-score-very { background: #fee2e2; color: #991b1b; }
-  .ask-source-title { font-weight: 600; }
-  .ask-source-header { font-size: 0.85rem; color: #666; margin-top: .25rem; }
-  .ask-source-articles { font-size: 0.8rem; color: #444; margin-top: .25rem; font-variant: small-caps; letter-spacing: 0.02em; }
-  .ask-source-text { margin-top: 0.5rem; line-height: 1.55; }
-  .ask-source-text mark { background: #fff0a8; padding: 0 2px; }
-  .ask-loading { padding: 2rem; text-align: center; color: #666; font-style: italic; }
-  .ask-error { padding: 1rem 1.5rem; color: #991b1b; background: #fee2e2; border-left: 4px solid #991b1b; margin: 1rem 1.5rem; border-radius: 4px; }
-  body[data-active-view="ask"] section[data-view="ask"] {
-    display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; overflow-y: auto; padding-bottom: 4rem;
-  }
-  .ask-controls { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 1.5rem 0; font-size: 0.88rem; color: #555; }
-  .ask-controls label { display: inline-flex; align-items: center; gap: 0.4rem; }
-  .ask-controls input[type="number"] { width: 4rem; padding: 0.25rem 0.4rem; border: 1px solid #bbb; border-radius: 4px; font: inherit; }
-</style>
+     Don't forget to add the configured backend host to the CSP
+     `connect-src` allowlist at the top of this file when you deploy.
+-->
+<meta name="ask-api-base" content="https://150.254.115.204/ask-api">
+<section data-view="ask" hidden>
 
 <section class="searchbar">
   <div class="searchbar-inner">
     <span class="serif search-prompt">Ask<span class="garnet">.</span></span>
     <input id="ask-q" type="search" class="serif search-input"
-           placeholder='e.g. "What does Article 14 ICCPR require for fair trial?"'
+           placeholder="Ask in your own words — system surfaces matching paragraphs from General Comments."
+           aria-label="Ask General Comments — type your question"
            autocomplete="off" autocapitalize="off" spellcheck="false" />
     <button id="ask-go" class="btn">Ask General Comments</button>
   </div>
 </section>
 
-<div class="ask-controls">
-  <label for="ask-limit">Top results:
-    <input id="ask-limit" type="number" min="1" max="50" step="1" value="10" />
-  </label>
-  <span style="opacity:.7;">(1–50; rerank scores all 50 candidates regardless)</span>
+<!-- v19.55.2 P2 #7: filter chips above results — committees, year
+     range, superseded toggle. Inherits the same vocabulary as Search.
+     Filters are passed to the backend as URL params on /api/ask;
+     when no backend support is wired yet they're simply ignored. -->
+<section class="ask-filters" id="ask-filters" aria-label="Filter results">
+  <div class="ask-filters-row ask-filters-committees" id="ask-filters-committees">
+    <span class="ask-filters-label">Treaty body</span>
+    <!-- chip buttons rendered by JS once state.facets is hydrated -->
+  </div>
+  <div class="ask-filters-row">
+    <span class="ask-filters-label">Year</span>
+    <input id="ask-filter-year-from" type="number" min="1976" max="2030" step="1" placeholder="from" inputmode="numeric" />
+    <span class="ask-filters-dash">–</span>
+    <input id="ask-filter-year-to" type="number" min="1976" max="2030" step="1" placeholder="to" inputmode="numeric" />
+    <label class="ask-filter-superseded">
+      <input type="checkbox" id="ask-filter-superseded" />
+      <span>Include superseded GCs</span>
+    </label>
+    <button type="button" class="ask-filters-clear" id="ask-filters-clear" hidden>Clear filters</button>
+  </div>
+  <!-- v19.55.3 P4 #12: counter-evidence retrieval. Opt-in because
+       it triggers a SECOND retrieval call (extra Voyage cost).
+       v19.55.4: row label renamed from "Pushback" → "Counter-evidence"
+       — "pushback" carries charged civil-society connotations in
+       human rights discourse. -->
+  <div class="ask-filters-row">
+    <span class="ask-filters-label">Counter-evidence</span>
+    <label class="ask-filter-pushback" title="Runs a second retrieval focused on exceptions, limitations, derogations and balancing — surfaces paragraphs that may qualify the answer">
+      <input type="checkbox" id="ask-filter-counter" />
+      <span>Also surface counter-evidence</span>
+      <span class="ask-filters-cost-hint">extra retrieval call</span>
+    </label>
+  </div>
+</section>
+
+<!-- v19.55.12 (Hick's Law): one consolidated info box instead of two
+     stacked banners. BETA tag + what-it-does + verbatim guarantee +
+     status caveats + fallback link, all in a single block above the
+     ask form. Less visual scanning before the user reaches the input. -->
+<div class="ask-beta-banner">
+  <span class="ask-beta-tag">BETA</span>
+  <div class="ask-beta-text">
+    <p>
+      Surfaces <strong>verbatim</strong> sentences from UN Treaty Body
+      General Comments / Recommendations using neural retrieval and
+      cross-encoder reranking. An LLM interprets your question
+      (rewriting it into doctrinal language before retrieval), but
+      <strong>returned paragraphs are verbatim from the Committees</strong> —
+      no paraphrase, no AI-generated answer text, no hallucination.
+    </p>
+    <p class="ask-beta-meta">
+      Active development; quality benchmarks cleared (100% docHit@5,
+      81% paraHit@5 on a 30-question commentary-grounded eval). You may
+      still see wrong-treaty links or off-by-one paragraph matches —
+      verify against the source GC before quoting. See
+      <a href="#about" class="about-link">methodology</a> for the full
+      pipeline. Need exact wording or Boolean operators? Use
+      <a href="#search" class="about-link">Search</a>.
+    </p>
+  </div>
 </div>
 
-<div class="ask-disclaimer">
-  <strong>About this tool.</strong> Surfaces verbatim sentences from UN Treaty Body General Comments using neural retrieval (voyage-law-2 embeddings + voyage rerank-2). Answers are <em>extractive only</em> — no LLM is invoked, no text is paraphrased. Each cited paragraph should still be verified before being relied on.
+<div id="ask-offline" class="ask-error" hidden>
+  <strong>Ask is currently offline.</strong>
+  This tab requires a configured retrieval backend. Try
+  <a href="#search" class="about-link">Search</a> in the meantime.
 </div>
 
 <div id="ask-output"></div>
+
+<details class="ask-controls-details">
+  <summary>Advanced controls</summary>
+  <div class="ask-controls">
+    <label for="ask-limit">Top results:
+      <input id="ask-limit" type="number" min="1" max="50" step="1" value="10" />
+    </label>
+    <span class="ask-controls-hint">(1–50; rerank scores all 50 candidates regardless)</span>
+  </div>
+</details>
 
 <div class="ask-drawer-backdrop" id="ask-drawer-backdrop" hidden></div>
 <aside class="ask-drawer" id="ask-drawer" hidden role="dialog" aria-label="Paragraph context"></aside>
@@ -735,41 +781,30 @@
             verification.
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px dotted var(--rule); font-size: 13px;">
-            <strong class="folio">Sources &amp; enrichment.</strong> Primary
+            <strong class="folio">Sources &amp; cross-checks.</strong> Primary
             source: the OHCHR bulk jurisprudence dump (catalog + raw English
-            DOCX/PDF). Secondary source for CCPR cases: the
+            DOCX/PDF). For partial cross-checking and methodological
+            inspiration in selected areas — particularly metadata
+            normalisation and substantive-article extraction for CCPR cases —
+            we also consulted external curated databases such as the
             <a class="about-link" href="https://ccprcentre.org/database-decisions" target="_blank" rel="noopener">CCPR Centre</a>'s
-            curated digest (Geneva Centre for Civil and Political Rights,
-            crawled 6 May 2026 — 2,694 records). Per-document provenance is
+            decisions digest and the
+            <a class="about-link" href="http://hrlibrary.umn.edu/" target="_blank" rel="noopener">University of Minnesota Human Rights Library</a>.
+            Their work focuses on specific subsets (CCPR jurisprudence,
+            treaty-text reference). Our scope is broader — covering all UN
+            treaty bodies' General Comments and Recommendations, all bodies'
+            individual-communications jurisprudence, and Special Procedures
+            mandate-holder reports — so use of these external resources was
+            complementary, not foundational. Per-document provenance is
             tracked in <code class="mono">metadataSources</code> so any field's
             origin is auditable.
           </p>
           <p class="serif" style="margin-top: 0.4rem; font-size: 13px;">
-            <strong class="folio">What we adopted from CCPR Centre</strong>
-            (acknowledgment of their work):
-            their substantive Covenant-article extraction (replacing or
-            enriching <strong>2,046</strong> of our cases where our front-matter
-            parse had pulled only Optional-Protocol procedural articles);
-            their 119-keyword rights-based topic vocabulary as a new
-            <code class="mono">rightsKeywords</code> field on
-            <strong>2,465</strong> CCPR cases; multilingual document URLs
-            (EN + ES + FR + AR + RU + ZH where available) on
-            <strong>2,539</strong> cases; ISO-3166 country codes; granular
-            outcome classifications; and clean ISO-8601 decision dates where
-            our parser had garbled them. We also adopted their case-name
-            authority for <strong>170</strong> cases where ours was a stub
-            ("Communication No. X") or front-matter junk, plus
-            <strong>59</strong> CCPR decisions that were missing from our
-            corpus entirely (mostly 1977&ndash;1996 Uruguay, Canada, Jamaica
-            cases).
-          </p>
-          <p class="serif" style="margin-top: 0.4rem; font-size: 13px;">
-            <strong class="folio">What we add on top of CCPR Centre.</strong>
-            Paragraph-level full-text search across the entire corpus (theirs
-            is decision-level only); <strong>~99 %</strong> submission-date
-            coverage (theirs: 41 %); aggressive OCR cleanup for 170
-            scanned-PDF legacy cases (1,388 fixes across five categories,
-            documented at
+            <strong class="folio">What we add on top.</strong>
+            Paragraph-level full-text search across the entire corpus;
+            <strong>~99 %</strong> submission-date coverage; aggressive OCR
+            cleanup for 170 scanned-PDF legacy cases (1,388 fixes across five
+            categories, documented at
             <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/_docs_internal/JUR_OCR_AUDIT_REPORT.md" target="_blank" rel="noopener">JUR_OCR_AUDIT_REPORT.md</a>);
             re-extraction of 352 docs whose paragraphs had collapsed into a
             single 1-paragraph blob during our initial ingest (added 3,123
@@ -778,8 +813,8 @@
             et al. v. State" display for 165 compound joint-communication case
             names; and a reader-pane provenance banner on every OCR-recovered
             document with a one-click report-issue link to the GitHub tracker.
-            CCPR Centre's digest is decision-only; our corpus also retains
-            corrigenda, revisions and procedural items where useful.
+            Our corpus also retains corrigenda, revisions and procedural items
+            where useful.
           </p>
         </div>
 
@@ -840,7 +875,73 @@
             <a class="about-method-toc-link" href="#m-conservatism">Conservatism over coverage</a>
             <a class="about-method-toc-link" href="#m-cescr">CESCR jurisprudence coverage</a>
             <a class="about-method-toc-link" href="#m-ai">Role of generative AI</a>
+            <a class="about-method-toc-link" href="#m-ask">Ask tab pipeline <span class="nav-beta-badge">BETA</span></a>
           </div>
+
+          <details class="about-method-detail" id="m-ask">
+            <summary class="about-method-summary">
+              <span class="about-method-summary-title">Ask tab pipeline <span class="nav-beta-badge">BETA</span></span>
+              <span class="about-method-summary-hint dim">extractive RAG · hybrid retrieval + LLM-judge · verbatim only, no hallucination</span>
+            </summary>
+            <div class="about-method-body">
+              <p class="serif">
+                The <strong>Ask</strong> tab is an experimental retrieval layer over
+                the General Comments corpus. It returns <strong>verbatim paragraphs</strong>
+                from the Committees — no paraphrase, no AI-generated answer text. The
+                LLM only operates on the <em>query side</em> (rewriting the question into
+                doctrinal language) and as a final-stage <em>ranker</em> (deciding which
+                of 50 retrieved paragraphs most directly answer the question). This is
+                an <em>extractive</em> RAG — fundamentally different from the chatbot
+                style that synthesises answers and may hallucinate citations.
+              </p>
+              <p class="serif">
+                <strong>Pipeline:</strong> question →
+                Gemini Flash-Lite HyDE rewrite →
+                BM25 (SQLite FTS5) + Voyage law-2 dense embeddings retrieved in parallel →
+                Reciprocal Rank Fusion (k=60) →
+                Voyage rerank-2 cross-encoder against the original question →
+                Gemini Flash-Lite second-stage <em>judge</em> over top-10 candidates,
+                augmented with the actual treaty article text from the relevant treaty
+                JSON bundle (covers all 9 core treaties + 9 optional protocols) →
+                final ordered top-10.
+              </p>
+              <p class="serif">
+                <strong>Quality gates</strong> — measured against a 30-question
+                commentary-anchored benchmark (Saul on ICESCR, Joseph &amp; Castan
+                on ICCPR; 16 of 30 questions carry paragraph-level expected IDs):
+              </p>
+              <ul class="serif">
+                <li><strong>docHit@5: 100%</strong> — every question's expected
+                    document is in the first 5 results</li>
+                <li><strong>paraHit@5: 81.2%</strong> — the canonical expected
+                    paragraph is in the first 5 (the 3 misses are off-by-one in the
+                    correct GC, i.e., adjacent paragraphs in the same section)</li>
+                <li><strong>paraHit@10: 87.5%</strong></li>
+                <li>Latency: median ~3.9s, p95 ~6.1s end-to-end</li>
+              </ul>
+              <p class="serif">
+                <strong>Known limitations.</strong> Cross-treaty references inside GCs
+                — when a CERD/CRC/CEDAW GC mentions "the Covenant" or "article 4(2)"
+                referring to ICCPR — are partially handled by a defensive fallback
+                ("article N <em>of that Protocol</em>" left as plain text rather
+                than wrong-linked). Full disambiguation requires pre-tagging the
+                corpus with explicit <code>cited_articles</code> metadata, deferred
+                to a later pipeline. Some lay queries surface adjacent-but-not-canonical
+                paragraphs from the right document — usable, sometimes confusing.
+                Per-IP rate limit (15 q/min) caps token costs from automated traffic;
+                researchers running heavy iteration may briefly hit it.
+              </p>
+              <p class="serif">
+                <strong>Grounding.</strong> The treaty-text augmentation, the LLM-judge
+                stage, and the rerank cross-encoder all operate on actual paragraph
+                text, not on summaries. Every visible citation is traceable: signature
+                + GC number + paragraph number → click <em>Open dossier</em> for full
+                context. The Ask tab augments — it does <em>not</em> replace —
+                <a class="about-link" href="#search">paragraph-level Search</a>,
+                which remains the source of truth for exact wording or Boolean queries.
+              </p>
+            </div>
+          </details>
 
           <details class="about-method-detail" id="m-ocr">
             <summary class="about-method-summary">
@@ -1128,6 +1229,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260508-10e6acb"></script>
+<script type="module" src="assets/app.js?v=20260509-onebox"></script>
 </body>
 </html>
