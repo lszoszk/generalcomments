@@ -8619,6 +8619,33 @@ const ASK_API_BASE = _resolveAskApiBase();
 let _askInFlight = null;          // AbortController of pending request, if any.
 let _askBackendOnline = null;     // probe result; null = not yet probed.
 
+// v19.55.2: selectively suppress fetch-network unhandled rejections.
+// iOS Safari counts unhandled rejections and shows "A problem repeatedly
+// occurred on this page" after ~3-5 of them. Until the backend has a
+// proper SSL cert (AMU subdomain incoming), every cross-origin fetch to
+// the self-signed test endpoint produces a TypeError that, even when
+// awaited inside try/catch, can still surface as an unhandled rejection
+// via implicit abort propagation. Filter narrowly: only swallow errors
+// that look like fetch/network/abort, not real app bugs.
+if (typeof window !== 'undefined') {
+  window.addEventListener('unhandledrejection', (event) => {
+    const r = event.reason;
+    const msg = (r && (r.message || r.toString())) || '';
+    const name = r && r.name;
+    if (
+      /NetworkError|Failed to fetch|Load failed|cancelled|aborted|certificate/i.test(msg) ||
+      name === 'AbortError' || name === 'TypeError'
+    ) {
+      event.preventDefault();   // tell Safari "we handled it"
+      // Log once per session per error type so devs still see in console.
+      if (!window.__loggedRejection?.has(msg.slice(0, 80))) {
+        (window.__loggedRejection ||= new Set()).add(msg.slice(0, 80));
+        console.warn('[ask] swallowed network rejection:', msg.slice(0, 200));
+      }
+    }
+  });
+}
+
 // v19.55.10 Phase 1.5: lazy-loaded treaty bundle for inline annotations.
 // Fetched once per session from /api/treaties (~600KB), cached in module
 // memory. Used to (a) tag "the Covenant"/"the Convention" with the source
@@ -9286,6 +9313,23 @@ async function runAsk() {
   if (!input || !out) return;
   if (!ASK_API_BASE) {
     out.innerHTML = '<div class="ask-error">Ask is not configured for this deploy.</div>';
+    return;
+  }
+  // v19.55.2: short-circuit on devices that have already confirmed the
+  // backend is unreachable from this network/browser combination. This
+  // is the common iOS Safari case while we run on a self-signed cert
+  // (proper Let's Encrypt cert via AMU subdomain is incoming). Without
+  // this guard, repeated submit taps spawn repeated failing fetches
+  // → cascading unhandled rejections → Safari's "too many errors" dialog.
+  if (_askBackendOnline === false) {
+    out.innerHTML = `<div class="ask-error">
+      <strong>Ask backend not reachable from this device.</strong>
+      We're transitioning the backend to a proper SSL certificate via an
+      AMU subdomain (should be live within a few days). Until then, iOS
+      Safari and some hardened browsers block our test cert.
+      Please try this tab on a desktop browser, or use
+      <a href="#search" class="about-link">Search</a> in the meantime.
+    </div>`;
     return;
   }
   const q = input.value.trim();
