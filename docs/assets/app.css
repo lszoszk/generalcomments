@@ -6209,3 +6209,17 @@ body[data-active-view="ask"] section[data-view="ask"] {
   content: '⚠ ';
   color: var(--preview, #945000);
 }
+
+/* v19.56: ISO-3166 alpha-2 country code badge — appears next to the
+   country name in the doc reader head and dossier. Small mono pill. */
+.country-code {
+  display: inline-block;
+  background: var(--paper-2, #f0ece4);
+  color: var(--ink-3, #555);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 0.78em;
+  letter-spacing: 0.04em;
+  margin-left: 0.35em;
+  vertical-align: baseline;
+}

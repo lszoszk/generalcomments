@@ -1255,12 +1255,9 @@ const DOCUMENTS_TOUR_STEPS = [
     title: 'Document header',
     body: 'Signature, date, country, paragraph count and a link to the original UN PDF. For OCR-recovered scanned cases you also see a banner declaring OCR provenance with a one-click "report an OCR error" link to the GitHub tracker.',
   },
-  {
-    selector: '.docs-reader-langs',
-    view: 'documents',
-    title: 'Multilingual links',
-    body: 'For ~2,500 CCPR cases we mirror direct PDF/DOCX URLs in EN + ES + FR + AR + RU + ZH from the CCPR Centre digest. Click any chip to read in that language.',
-  },
+  // v19.56: "Multilingual links" tour step retired with the langStrip
+  // UI — restore both when CCPR-Centre parity is achieved for the other
+  // committees.
   {
     selector: '.docs-reader-para',
     view: 'documents',

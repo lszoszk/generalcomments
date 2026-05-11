@@ -1,1867 +1,1005 @@
 {
   "treaties": [
     {
-      "value": "CCPR", 
-      "count": 2921
-    }, 
+      "value": "CCPR",
+      "count": 2862
+    },
     {
-      "value": "CEDAW", 
-      "count": 167
-    }, 
+      "value": "CAT",
+      "count": 580
+    },
     {
-      "value": "CESCR", 
-      "count": 147
-    }, 
+      "value": "CEDAW",
+      "count": 169
+    },
     {
-      "value": "CRPD", 
-      "count": 88
+      "value": "CESCR",
+      "count": 148
+    },
+    {
+      "value": "CRC",
+      "count": 90
+    },
+    {
+      "value": "CRPD",
+      "count": 90
+    },
+    {
+      "value": "CERD",
+      "count": 53
+    },
+    {
+      "value": "CED",
+      "count": 3
     }
-  ], 
+  ],
   "outcomes": [
     {
-      "value": "violation_found", 
-      "count": 57710
-    }, 
+      "value": "violation_found",
+      "count": 1282
+    },
     {
-      "value": "inadmissible", 
-      "count": 32509
-    }, 
+      "value": "inadmissible",
+      "count": 969
+    },
     {
-      "value": "merits_no_violation", 
-      "count": 19606
-    }, 
+      "value": "other",
+      "count": 482
+    },
     {
-      "value": "views", 
-      "count": 4624
-    }, 
+      "value": "discontinued",
+      "count": 445
+    },
     {
-      "value": "discontinued", 
-      "count": 3527
-    }, 
+      "value": "merits_no_violation",
+      "count": 392
+    },
     {
-      "value": "other", 
-      "count": 2881
-    }, 
+      "value": "views",
+      "count": 391
+    },
     {
-      "value": "decision", 
-      "count": 263
+      "value": "decision",
+      "count": 34
     }
-  ], 
-  "outcomesDetailed": [
-    {
-      "value": "views", 
-      "count": 2915
-    }, 
-    {
-      "value": "inadmissible", 
-      "count": 1421
-    }, 
-    {
-      "value": "merits_violation", 
-      "count": 1142
-    }, 
-    {
-      "value": "other", 
-      "count": 665
-    }, 
-    {
-      "value": "discontinued", 
-      "count": 310
-    }, 
-    {
-      "value": "discontinuance", 
-      "count": 256
-    }, 
-    {
-      "value": "merits_no_violation", 
-      "count": 217
-    }, 
-    {
-      "value": "admissible_merits_violation", 
-      "count": 63
-    }, 
-    {
-      "value": "merits_violation_admissible", 
-      "count": 47
-    }, 
-    {
-      "value": "merits_no_violation_admissible", 
-      "count": 9
-    }, 
-    {
-      "value": "admissible_merits_no_violation", 
-      "count": 8
-    }, 
-    {
-      "value": "admissible", 
-      "count": 3
-    }, 
-    {
-      "value": "discontinuance_inadmissible", 
-      "count": 2
-    }, 
-    {
-      "value": "merits_violation_merits_no_violation", 
-      "count": 2
-    }, 
-    {
-      "value": "inadmissible_discontinuance", 
-      "count": 1
-    }, 
-    {
-      "value": "merits_no_violation_merits_violation", 
-      "count": 1
-    }
-  ], 
+  ],
   "countries": [
     {
-      "value": "Spain", 
-      "count": 281
-    }, 
+      "value": "Spain",
+      "count": 318
+    },
     {
-      "value": "Belarus", 
+      "value": "Denmark",
+      "count": 280
+    },
+    {
+      "value": "Belarus",
       "count": 277
-    }, 
+    },
     {
-      "value": "Denmark", 
-      "count": 224
-    }, 
+      "value": "Canada",
+      "count": 264
+    },
     {
-      "value": "Canada", 
-      "count": 213
-    }, 
+      "value": "Sweden",
+      "count": 220
+    },
     {
-      "value": "Russian Federation", 
+      "value": "Australia",
+      "count": 208
+    },
+    {
+      "value": "Russian Federation",
+      "count": 177
+    },
+    {
+      "value": "Netherlands",
       "count": 166
-    }, 
+    },
     {
-      "value": "Jamaica", 
+      "value": "Switzerland",
+      "count": 162
+    },
+    {
+      "value": "Jamaica",
       "count": 150
-    }, 
+    },
     {
-      "value": "Australia", 
-      "count": 138
-    }, 
+      "value": "France",
+      "count": 124
+    },
     {
-      "value": "Netherlands", 
-      "count": 138
-    }, 
-    {
-      "value": "Sweden", 
-      "count": 128
-    }, 
-    {
-      "value": "France", 
+      "value": "Kazakhstan",
       "count": 99
-    }, 
+    },
     {
-      "value": "Kazakhstan", 
-      "count": 88
-    }, 
+      "value": "Algeria",
+      "count": 65
+    },
     {
-      "value": "Kyrgyzstan", 
+      "value": "Kyrgyzstan",
       "count": 63
-    }, 
+    },
     {
-      "value": "Algeria", 
-      "count": 60
-    }, 
+      "value": "Czech Republic",
+      "count": 59
+    },
     {
-      "value": "Czech Republic", 
-      "count": 58
-    }, 
-    {
-      "value": "Uzbekistan", 
-      "count": 55
-    }, 
-    {
-      "value": "Uruguay", 
-      "count": 47
-    }, 
-    {
-      "value": "Finland", 
-      "count": 45
-    }, 
-    {
-      "value": "Colombia", 
-      "count": 44
-    }, 
-    {
-      "value": "Austria", 
-      "count": 41
-    }, 
-    {
-      "value": "New Zealand", 
-      "count": 40
-    }, 
-    {
-      "value": "Trinidad and Tobago", 
-      "count": 40
-    }, 
-    {
-      "value": "Italy", 
-      "count": 33
-    }, 
-    {
-      "value": "Nepal", 
-      "count": 30
-    }, 
-    {
-      "value": "Germany", 
-      "count": 28
-    }, 
-    {
-      "value": "Lithuania", 
-      "count": 28
-    }, 
-    {
-      "value": "Tajikistan", 
-      "count": 28
-    }, 
-    {
-      "value": "Turkmenistan", 
-      "count": 28
-    }, 
-    {
-      "value": "Republic of Korea", 
-      "count": 27
-    }, 
-    {
-      "value": "Sri Lanka", 
-      "count": 27
-    }, 
-    {
-      "value": "Democratic Republic of the Congo", 
-      "count": 25
-    }, 
-    {
-      "value": "Libya", 
-      "count": 23
-    }, 
-    {
-      "value": "Philippines", 
-      "count": 23
-    }, 
-    {
-      "value": "Argentina", 
-      "count": 22
-    }, 
-    {
-      "value": "Cameroon", 
-      "count": 22
-    }, 
-    {
-      "value": "Greece", 
-      "count": 21
-    }, 
-    {
-      "value": "Norway", 
-      "count": 21
-    }, 
-    {
-      "value": "Ukraine", 
-      "count": 20
-    }, 
-    {
-      "value": "Peru", 
-      "count": 19
-    }, 
-    {
-      "value": "Hungary", 
-      "count": 18
-    }, 
-    {
-      "value": "Türkiye", 
-      "count": 18
-    }, 
-    {
-      "value": "Azerbaijan", 
-      "count": 17
-    }, 
-    {
-      "value": "Bosnia and Herzegovina", 
-      "count": 17
-    }, 
-    {
-      "value": "Venezuela (Bolivarian Republic of)", 
-      "count": 17
-    }, 
-    {
-      "value": "Switzerland", 
-      "count": 16
-    }, 
-    {
-      "value": "UY", 
-      "count": 16
-    }, 
-    {
-      "value": "Ecuador", 
-      "count": 15
-    }, 
-    {
-      "value": "Bulgaria", 
-      "count": 14
-    }, 
-    {
-      "value": "Belgium", 
-      "count": 13
-    }, 
-    {
-      "value": "Latvia", 
-      "count": 13
-    }, 
-    {
-      "value": "Mexico", 
-      "count": 13
-    }, 
-    {
-      "value": "Poland", 
-      "count": 12
-    }, 
-    {
-      "value": "Zambia", 
-      "count": 12
-    }, 
-    {
-      "value": "Guyana", 
-      "count": 11
-    }, 
-    {
-      "value": "Slovakia", 
-      "count": 11
-    }, 
-    {
-      "value": "JM", 
-      "count": 10
-    }, 
-    {
-      "value": "Georgia", 
-      "count": 9
-    }, 
-    {
-      "value": "United Kingdom of Great Britain and Northern Ireland", 
-      "count": 9
-    }, 
-    {
-      "value": "CA", 
-      "count": 8
-    }, 
-    {
-      "value": "Chile", 
-      "count": 8
-    }, 
-    {
-      "value": "Ireland", 
-      "count": 8
-    }, 
-    {
-      "value": "Maldives", 
-      "count": 8
-    }, 
-    {
-      "value": "Portugal", 
-      "count": 8
-    }, 
-    {
-      "value": "Croatia", 
-      "count": 7
-    }, 
-    {
-      "value": "Mauritius", 
-      "count": 7
-    }, 
-    {
-      "value": "Republic of Moldova", 
-      "count": 7
-    }, 
-    {
-      "value": "Albania", 
-      "count": 6
-    }, 
-    {
-      "value": "Bolivia (Plurinational State of)", 
-      "count": 6
-    }, 
-    {
-      "value": "Cyprus", 
-      "count": 6
-    }, 
-    {
-      "value": "Estonia", 
-      "count": 6
-    }, 
-    {
-      "value": "Panama", 
-      "count": 6
-    }, 
-    {
-      "value": "Paraguay", 
-      "count": 6
-    }, 
-    {
-      "value": "Serbia", 
-      "count": 6
-    }, 
-    {
-      "value": "Sierra Leone", 
-      "count": 6
-    }, 
-    {
-      "value": "Armenia", 
-      "count": 5
-    }, 
-    {
-      "value": "Brazil", 
-      "count": 5
-    }, 
-    {
-      "value": "South Africa", 
-      "count": 5
-    }, 
-    {
-      "value": "Angola", 
-      "count": 4
-    }, 
-    {
-      "value": "Iceland", 
-      "count": 4
-    }, 
-    {
-      "value": "Madagascar", 
-      "count": 4
-    }, 
-    {
-      "value": "NL", 
-      "count": 4
-    }, 
-    {
-      "value": "Namibia", 
-      "count": 4
-    }, 
-    {
-      "value": "North Macedonia", 
-      "count": 4
-    }, 
-    {
-      "value": "Togo", 
-      "count": 4
-    }, 
-    {
-      "value": "United Republic of Tanzania", 
-      "count": 4
-    }, 
-    {
-      "value": "Barbados", 
-      "count": 3
-    }, 
-    {
-      "value": "Congo", 
-      "count": 3
-    }, 
-    {
-      "value": "Dominican Republic", 
-      "count": 3
-    }, 
-    {
-      "value": "Equatorial Guinea", 
-      "count": 3
-    }, 
-    {
-      "value": "Saudi Arabia", 
-      "count": 3
-    }, 
-    {
-      "value": "Suriname", 
-      "count": 3
-    }, 
-    {
-      "value": "TT", 
-      "count": 3
-    }, 
-    {
-      "value": "Cambodia", 
-      "count": 2
-    }, 
-    {
-      "value": "Costa Rica", 
-      "count": 2
-    }, 
-    {
-      "value": "Guatemala", 
-      "count": 2
-    }, 
-    {
-      "value": "Nicaragua", 
-      "count": 2
-    }, 
-    {
-      "value": "Romania", 
-      "count": 2
-    }, 
-    {
-      "value": "Senegal", 
-      "count": 2
-    }, 
-    {
-      "value": "Seychelles", 
-      "count": 2
-    }, 
-    {
-      "value": "State of Palestine", 
-      "count": 2
-    }, 
-    {
-      "value": "Tunisia", 
-      "count": 2
-    }, 
-    {
-      "value": "AU", 
-      "count": 1
-    }, 
-    {
-      "value": "BY", 
-      "count": 1
-    }, 
-    {
-      "value": "Benin", 
-      "count": 1
-    }, 
-    {
-      "value": "Burkina Faso", 
-      "count": 1
-    }, 
-    {
-      "value": "CD", 
-      "count": 1
-    }, 
-    {
-      "value": "CF", 
-      "count": 1
-    }, 
-    {
-      "value": "CZ", 
-      "count": 1
-    }, 
-    {
-      "value": "Cabo Verde", 
-      "count": 1
-    }, 
-    {
-      "value": "Central African Republic", 
-      "count": 1
-    }, 
-    {
-      "value": "Chad", 
-      "count": 1
-    }, 
-    {
-      "value": "Côte d'Ivoire", 
-      "count": 1
-    }, 
-    {
-      "value": "DK", 
-      "count": 1
-    }, 
-    {
-      "value": "DZ", 
-      "count": 1
-    }, 
-    {
-      "value": "Djibouti", 
-      "count": 1
-    }, 
-    {
-      "value": "EE", 
-      "count": 1
-    }, 
-    {
-      "value": "FI", 
-      "count": 1
-    }, 
-    {
-      "value": "Ghana", 
-      "count": 1
-    }, 
-    {
-      "value": "Guinea", 
-      "count": 1
-    }, 
-    {
-      "value": "IT", 
-      "count": 1
-    }, 
-    {
-      "value": "India", 
-      "count": 1
-    }, 
-    {
-      "value": "Ivory Coast", 
-      "count": 1
-    }, 
-    {
-      "value": "KR", 
-      "count": 1
-    }, 
-    {
-      "value": "Kyrgyzstan,Uzbekistan", 
-      "count": 1
-    }, 
-    {
-      "value": "LT", 
-      "count": 1
-    }, 
-    {
-      "value": "LY", 
-      "count": 1
-    }, 
-    {
-      "value": "Luxembourg", 
-      "count": 1
-    }, 
-    {
-      "value": "Malta", 
-      "count": 1
-    }, 
-    {
-      "value": "Mongolia", 
-      "count": 1
-    }, 
-    {
-      "value": "Morocco", 
-      "count": 1
-    }, 
-    {
-      "value": "NI", 
-      "count": 1
-    }, 
-    {
-      "value": "NO", 
-      "count": 1
-    }, 
-    {
-      "value": "Pakistan", 
-      "count": 1
-    }, 
-    {
-      "value": "RU", 
-      "count": 1
-    }, 
-    {
-      "value": "Saint Vincent and the Grenadines", 
-      "count": 1
-    }, 
-    {
-      "value": "Slovenia", 
-      "count": 1
-    }, 
-    {
-      "value": "TR", 
-      "count": 1
-    }, 
-    {
-      "value": "Timor-Leste", 
-      "count": 1
-    }, 
-    {
-      "value": "United Kingdom of Great Britain and Northern Ireland (Crown Dependencies)", 
-      "count": 1
-    }, 
-    {
-      "value": "United Kingdom of Great Britain and Northern Ireland (Hong Kong)", 
-      "count": 1
-    }, 
-    {
-      "value": "United Kingdom of Great Britain and Northern Ireland (Overseas Territory)", 
-      "count": 1
-    }, 
-    {
-      "value": "ZM", 
-      "count": 1
-    }
-  ], 
-  "countryCodes": [
-    {
-      "value": "ES", 
-      "count": 258
-    }, 
-    {
-      "value": "BY", 
-      "count": 242
-    }, 
-    {
-      "value": "CA", 
-      "count": 189
-    }, 
-    {
-      "value": "DK", 
-      "count": 148
-    }, 
-    {
-      "value": "RU", 
-      "count": 142
-    }, 
-    {
-      "value": "JM", 
-      "count": 140
-    }, 
-    {
-      "value": "NL", 
-      "count": 123
-    }, 
-    {
-      "value": "AU", 
-      "count": 105
-    }, 
-    {
-      "value": "SE", 
-      "count": 99
-    }, 
-    {
-      "value": "FR", 
-      "count": 78
-    }, 
-    {
-      "value": "KZ", 
-      "count": 71
-    }, 
-    {
-      "value": "UY", 
-      "count": 62
-    }, 
-    {
-      "value": "DZ", 
-      "count": 60
-    }, 
-    {
-      "value": "KG", 
-      "count": 58
-    }, 
-    {
-      "value": "CZ", 
+      "value": "Finland",
       "count": 57
-    }, 
+    },
     {
-      "value": "UZ", 
-      "count": 51
-    }, 
+      "value": "Uzbekistan",
+      "count": 55
+    },
     {
-      "value": "FI", 
-      "count": 42
-    }, 
+      "value": "Uruguay",
+      "count": 47
+    },
     {
-      "value": "NZ", 
+      "value": "New Zealand",
+      "count": 44
+    },
+    {
+      "value": "Colombia",
+      "count": 44
+    },
+    {
+      "value": "Austria",
+      "count": 43
+    },
+    {
+      "value": "Trinidad and Tobago",
       "count": 40
-    }, 
+    },
     {
-      "value": "CO", 
-      "count": 39
-    }, 
+      "value": "Germany",
+      "count": 36
+    },
     {
-      "value": "TT", 
-      "count": 38
-    }, 
+      "value": "Italy",
+      "count": 36
+    },
     {
-      "value": "AT", 
+      "value": "Norway",
+      "count": 31
+    },
+    {
+      "value": "Nepal",
+      "count": 30
+    },
+    {
+      "value": "Republic of Korea",
       "count": 29
-    }, 
+    },
     {
-      "value": "NP", 
-      "count": 29
-    }, 
-    {
-      "value": "IT", 
+      "value": "Argentina",
       "count": 28
-    }, 
+    },
     {
-      "value": "TJ", 
+      "value": "Turkmenistan",
+      "count": 28
+    },
+    {
+      "value": "Lithuania",
+      "count": 28
+    },
+    {
+      "value": "Tajikistan",
+      "count": 28
+    },
+    {
+      "value": "Sri Lanka",
       "count": 27
-    }, 
+    },
     {
-      "value": "TM", 
-      "count": 26
-    }, 
-    {
-      "value": "KR", 
+      "value": "Democratic Republic of the Congo",
       "count": 25
-    }, 
+    },
     {
-      "value": "LK", 
-      "count": 25
-    }, 
-    {
-      "value": "CD", 
-      "count": 24
-    }, 
-    {
-      "value": "DE", 
+      "value": "Cameroon",
       "count": 23
-    }, 
+    },
     {
-      "value": "LY", 
+      "value": "Philippines",
+      "count": 23
+    },
+    {
+      "value": "Libya",
+      "count": 23
+    },
+    {
+      "value": "Morocco",
       "count": 22
-    }, 
+    },
     {
-      "value": "LT", 
+      "value": "Ukraine",
       "count": 21
-    }, 
+    },
     {
-      "value": "CM", 
+      "value": "Peru",
+      "count": 21
+    },
+    {
+      "value": "Greece",
+      "count": 21
+    },
+    {
+      "value": "Hungary",
       "count": 20
-    }, 
+    },
     {
-      "value": "NO", 
+      "value": "Belgium",
       "count": 20
-    }, 
+    },
     {
-      "value": "GR", 
+      "value": "Venezuela (Bolivarian Republic of)",
       "count": 19
-    }, 
+    },
     {
-      "value": "PH", 
+      "value": "Azerbaijan",
       "count": 19
-    }, 
+    },
     {
-      "value": "PE", 
-      "count": 17
-    }, 
+      "value": "Bosnia and Herzegovina",
+      "count": 19
+    },
     {
-      "value": "UA", 
-      "count": 17
-    }, 
+      "value": "Türkiye",
+      "count": 19
+    },
     {
-      "value": "VE", 
-      "count": 17
-    }, 
+      "value": "Mexico",
+      "count": 18
+    },
     {
-      "value": "BA", 
+      "value": "Ecuador",
+      "count": 18
+    },
+    {
+      "value": "Bulgaria",
+      "count": 16
+    },
+    {
+      "value": "Burundi",
+      "count": 16
+    },
+    {
+      "value": "Slovakia",
       "count": 15
-    }, 
+    },
     {
-      "value": "AR", 
+      "value": "Georgia",
       "count": 13
-    }, 
+    },
     {
-      "value": "AZ", 
+      "value": "Poland",
       "count": 13
-    }, 
+    },
     {
-      "value": "BE", 
+      "value": "Latvia",
       "count": 13
-    }, 
+    },
     {
-      "value": "EC", 
-      "count": 13
-    }, 
-    {
-      "value": "HU", 
-      "count": 13
-    }, 
-    {
-      "value": "ZM", 
+      "value": "Zambia",
       "count": 12
-    }, 
+    },
     {
-      "value": "LV", 
+      "value": "Chile",
       "count": 11
-    }, 
+    },
     {
-      "value": "TR", 
+      "value": "Guyana",
       "count": 11
-    }, 
+    },
     {
-      "value": "BG", 
+      "value": "Tunisia",
       "count": 10
-    }, 
+    },
     {
-      "value": "GY", 
+      "value": "Ireland",
       "count": 10
-    }, 
+    },
     {
-      "value": "PL", 
+      "value": "Serbia",
       "count": 9
-    }, 
+    },
     {
-      "value": "IE", 
+      "value": "Republic of Moldova",
+      "count": 9
+    },
+    {
+      "value": "United Kingdom of Great Britain and Northern Ireland",
+      "count": 9
+    },
+    {
+      "value": "Portugal",
       "count": 8
-    }, 
+    },
     {
-      "value": "MX", 
+      "value": "Maldives",
       "count": 8
-    }, 
+    },
     {
-      "value": "CL", 
+      "value": "Cyprus",
       "count": 7
-    }, 
+    },
     {
-      "value": "EE", 
+      "value": "Mauritius",
       "count": 7
-    }, 
+    },
     {
-      "value": "MU", 
+      "value": "Panama",
       "count": 7
-    }, 
+    },
     {
-      "value": "SK", 
+      "value": "Croatia",
       "count": 7
-    }, 
+    },
     {
-      "value": "AL", 
+      "value": "Estonia",
+      "count": 7
+    },
+    {
+      "value": "Paraguay",
+      "count": 7
+    },
+    {
+      "value": "Brazil",
       "count": 6
-    }, 
+    },
     {
-      "value": "BO", 
+      "value": "Bolivia (Plurinational State of)",
       "count": 6
-    }, 
+    },
     {
-      "value": "MV", 
+      "value": "Sierra Leone",
       "count": 6
-    }, 
+    },
     {
-      "value": "PA", 
+      "value": "Albania",
       "count": 6
-    }, 
+    },
     {
-      "value": "PT", 
-      "count": 6
-    }, 
-    {
-      "value": "PY", 
-      "count": 6
-    }, 
-    {
-      "value": "AM", 
+      "value": "Armenia",
       "count": 5
-    }, 
+    },
     {
-      "value": "CY", 
+      "value": "South Africa",
       "count": 5
-    }, 
+    },
     {
-      "value": "HR", 
-      "count": 5
-    }, 
-    {
-      "value": "RS", 
-      "count": 5
-    }, 
-    {
-      "value": "IS", 
+      "value": "Serbia,Federal Republic of Yugoslavia (Serbia and Montenegro)",
       "count": 4
-    }, 
+    },
     {
-      "value": "MD", 
+      "value": "Azerbaijan,Sweden",
       "count": 4
-    }, 
+    },
     {
-      "value": "MG", 
+      "value": "Angola",
       "count": 4
-    }, 
+    },
     {
-      "value": "ZA", 
+      "value": "Madagascar",
       "count": 4
-    }, 
+    },
     {
-      "value": "BB", 
+      "value": "Togo",
+      "count": 4
+    },
+    {
+      "value": "Iceland",
+      "count": 4
+    },
+    {
+      "value": "Namibia",
+      "count": 4
+    },
+    {
+      "value": "North Macedonia",
+      "count": 4
+    },
+    {
+      "value": "United Republic of Tanzania",
+      "count": 4
+    },
+    {
+      "value": "Senegal",
       "count": 3
-    }, 
+    },
     {
-      "value": "DO", 
+      "value": "Canada,Mexico",
       "count": 3
-    }, 
+    },
     {
-      "value": "GQ", 
+      "value": "Suriname",
       "count": 3
-    }, 
+    },
     {
-      "value": "NA", 
+      "value": "Dominican Republic",
       "count": 3
-    }, 
+    },
     {
-      "value": "NI", 
+      "value": "Costa Rica",
       "count": 3
-    }, 
+    },
     {
-      "value": "RO", 
+      "value": "Equatorial Guinea",
       "count": 3
-    }, 
+    },
     {
-      "value": "AO", 
+      "value": "Barbados",
+      "count": 3
+    },
+    {
+      "value": "Congo",
+      "count": 3
+    },
+    {
+      "value": "Saudi Arabia",
+      "count": 3
+    },
+    {
+      "value": "Yugoslavia",
       "count": 2
-    }, 
+    },
     {
-      "value": "CF", 
+      "value": "Sweden,Türkiye",
       "count": 2
-    }, 
+    },
     {
-      "value": "CI", 
+      "value": "Guinea,Netherlands",
       "count": 2
-    }, 
+    },
     {
-      "value": "CR", 
+      "value": "Romania",
       "count": 2
-    }, 
+    },
     {
-      "value": "GE", 
+      "value": "Seychelles",
       "count": 2
-    }, 
+    },
     {
-      "value": "GT", 
+      "value": "Nicaragua",
       "count": 2
-    }, 
+    },
     {
-      "value": "SN", 
+      "value": "Guatemala",
       "count": 2
-    }, 
+    },
     {
-      "value": "TG", 
+      "value": "Cambodia",
       "count": 2
-    }, 
+    },
     {
-      "value": "TN", 
+      "value": "Luxembourg",
       "count": 2
-    }, 
+    },
     {
-      "value": "BF", 
+      "value": "State of Palestine",
+      "count": 2
+    },
+    {
+      "value": "Bulgaria,Burundi,Canada,Finland,Kazakhstan,Morocco,Spain,Switzerland",
       "count": 1
-    }, 
+    },
     {
-      "value": "BJ", 
+      "value": "Denmark,Mexico,Morocco,Switzerland,Tunisia",
       "count": 1
-    }, 
+    },
     {
-      "value": "BR", 
+      "value": "Burundi,Canada,Denmark,Finland,Kazakhstan,Morocco",
       "count": 1
-    }, 
+    },
     {
-      "value": "CG", 
+      "value": "Denmark,Finland,Georgia,Kazakhstan,Mexico,Morocco,Switzerland",
       "count": 1
-    }, 
+    },
     {
-      "value": "CV", 
+      "value": "Australia,Mexico,Morocco,Switzerland",
       "count": 1
-    }, 
+    },
     {
-      "value": "DJ", 
+      "value": "Algeria,Australia,Canada,Mexico,Morocco",
       "count": 1
-    }, 
+    },
     {
-      "value": "GH", 
+      "value": "Australia,Canada,Denmark,Mexico,Morocco,Sweden,Switzerland",
       "count": 1
-    }, 
+    },
     {
-      "value": "LU", 
+      "value": "Argentina,Canada,Denmark,Mexico,Morocco,Switzerland",
       "count": 1
-    }, 
+    },
     {
-      "value": "MK", 
+      "value": "Argentina,Denmark,Mexico,Morocco,Switzerland",
       "count": 1
-    }, 
+    },
     {
-      "value": "MT", 
+      "value": "Argentina,Bosnia and Herzegovina,Denmark,Mexico,Morocco,Sweden,Switzerland",
       "count": 1
-    }, 
+    },
     {
-      "value": "SC", 
+      "value": "Australia,Bosnia and Herzegovina,Morocco,New Zealand,Russian Federation,Spain,Sweden,Switzerland",
       "count": 1
-    }, 
+    },
     {
-      "value": "SI", 
+      "value": "France,Tunisia",
       "count": 1
-    }, 
+    },
     {
-      "value": "SR", 
+      "value": "Canada,India",
       "count": 1
-    }, 
+    },
     {
-      "value": "TD", 
+      "value": "Algeria,Switzerland",
       "count": 1
-    }, 
+    },
     {
-      "value": "VC", 
+      "value": "Democratic Republic of the Congo,France",
+      "count": 1
+    },
+    {
+      "value": "Mauritania,Spain",
+      "count": 1
+    },
+    {
+      "value": "Bangladesh,Sweden",
+      "count": 1
+    },
+    {
+      "value": "Burundi,Canada",
+      "count": 1
+    },
+    {
+      "value": "Democratic Republic of the Congo,Sweden",
+      "count": 1
+    },
+    {
+      "value": "Canada,Uzbekistan",
+      "count": 1
+    },
+    {
+      "value": "Iran (Islamic Republic of),Norway",
+      "count": 1
+    },
+    {
+      "value": "Switzerland,Türkiye",
+      "count": 1
+    },
+    {
+      "value": "Denmark,Iran (Islamic Republic of)",
+      "count": 1
+    },
+    {
+      "value": "India,Switzerland",
+      "count": 1
+    },
+    {
+      "value": "Afghanistan,Sweden",
+      "count": 1
+    },
+    {
+      "value": "Monaco",
+      "count": 1
+    },
+    {
+      "value": "Democratic Republic of the Congo,Switzerland",
+      "count": 1
+    },
+    {
+      "value": "Sweden,Switzerland",
+      "count": 1
+    },
+    {
+      "value": "Morocco,Russian Federation",
+      "count": 1
+    },
+    {
+      "value": "Denmark,Ethiopia",
+      "count": 1
+    },
+    {
+      "value": "Democratic Republic of the Congo,Finland",
+      "count": 1
+    },
+    {
+      "value": "Kazakhstan,Uzbekistan",
+      "count": 1
+    },
+    {
+      "value": "Central African Republic",
+      "count": 1
+    },
+    {
+      "value": "Saint Vincent and the Grenadines",
+      "count": 1
+    },
+    {
+      "value": "Côte d'Ivoire",
+      "count": 1
+    },
+    {
+      "value": "Burkina Faso",
+      "count": 1
+    },
+    {
+      "value": "Kyrgyzstan,Uzbekistan",
+      "count": 1
+    },
+    {
+      "value": "India",
+      "count": 1
+    },
+    {
+      "value": "Guinea",
+      "count": 1
+    },
+    {
+      "value": "Pakistan",
+      "count": 1
+    },
+    {
+      "value": "Ivory Coast",
+      "count": 1
+    },
+    {
+      "value": "Benin",
+      "count": 1
+    },
+    {
+      "value": "Ghana",
+      "count": 1
+    },
+    {
+      "value": "Mongolia",
+      "count": 1
+    },
+    {
+      "value": "Malta",
+      "count": 1
+    },
+    {
+      "value": "Slovenia",
+      "count": 1
+    },
+    {
+      "value": "Djibouti",
+      "count": 1
+    },
+    {
+      "value": "Chad",
+      "count": 1
+    },
+    {
+      "value": "Cabo Verde",
+      "count": 1
+    },
+    {
+      "value": "United Kingdom of Great Britain and Northern Ireland (Hong Kong)",
+      "count": 1
+    },
+    {
+      "value": "United Kingdom of Great Britain and Northern Ireland (Crown Dependencies)",
+      "count": 1
+    },
+    {
+      "value": "Timor-Leste",
+      "count": 1
+    },
+    {
+      "value": "Montenegro,Serbia,Federal Republic of Yugoslavia (Serbia and Montenegro)",
+      "count": 1
+    },
+    {
+      "value": "Denmark,France,Paraguay,Switzerland",
+      "count": 1
+    },
+    {
+      "value": "United Kingdom of Great Britain and Northern Ireland (Overseas Territory)",
       "count": 1
     }
-  ], 
+  ],
   "labels": [
     {
-      "value": "Persons deprived of their liberty", 
-      "count": 8341
-    }, 
+      "value": "Persons deprived of their liberty",
+      "count": 9224
+    },
     {
-      "value": "Women/girls", 
-      "count": 7239
-    }, 
+      "value": "Children",
+      "count": 9112
+    },
     {
-      "value": "Children", 
-      "count": 5791
-    }, 
+      "value": "Women/girls",
+      "count": 8756
+    },
     {
-      "value": "Refugees & asylum-seekers", 
-      "count": 5708
-    }, 
+      "value": "Refugees & asylum-seekers",
+      "count": 8141
+    },
     {
-      "value": "Persons with disabilities", 
-      "count": 3347
-    }, 
+      "value": "Persons with disabilities",
+      "count": 4005
+    },
     {
-      "value": "Migrants", 
-      "count": 1352
-    }, 
+      "value": "LGBTI+",
+      "count": 848
+    },
     {
-      "value": "LGBTI+", 
-      "count": 687
-    }, 
+      "value": "Roma, Gypsies, Sinti and Travellers",
+      "count": 502
+    },
     {
-      "value": "Indigenous peoples", 
-      "count": 574
-    }, 
+      "value": "Persons affected by armed conflict",
+      "count": 461
+    },
     {
-      "value": "Non-citizens and stateless", 
-      "count": 451
-    }, 
+      "value": "Non-citizens and stateless",
+      "count": 419
+    },
     {
-      "value": "Persons living in poverty", 
-      "count": 396
-    }, 
+      "value": "Persons living in poverty",
+      "count": 374
+    },
     {
-      "value": "Persons affected by armed conflict", 
-      "count": 367
-    }, 
+      "value": "Migrants",
+      "count": 311
+    },
     {
-      "value": "Roma, Gypsies, Sinti and Travellers", 
-      "count": 352
-    }, 
+      "value": "Persons affected by natural disasters",
+      "count": 253
+    },
     {
-      "value": "Persons in street situations", 
-      "count": 308
-    }, 
+      "value": "Persons in street situations",
+      "count": 251
+    },
     {
-      "value": "Persons living with HIV/AIDS", 
-      "count": 233
-    }, 
+      "value": "Persons living with HIV/AIDS",
+      "count": 232
+    },
     {
-      "value": "Persons affected by natural disasters", 
-      "count": 111
-    }, 
+      "value": "Adolescents",
+      "count": 220
+    },
     {
-      "value": "Internally displaced persons", 
-      "count": 97
-    }, 
+      "value": "Indigenous peoples",
+      "count": 183
+    },
     {
-      "value": "Children in alternative care", 
-      "count": 80
-    }, 
+      "value": "Children in alternative care",
+      "count": 118
+    },
     {
-      "value": "Adolescents", 
-      "count": 75
-    }, 
+      "value": "Internally displaced persons",
+      "count": 118
+    },
     {
-      "value": "Persons living in rural/remote areas", 
-      "count": 55
+      "value": "Persons living in rural/remote areas",
+      "count": 31
     }
-  ], 
-  "rightsKeywords": [
-    {
-      "value": "Torture / ill-treatment", 
-      "count": 839
-    }, 
-    {
-      "value": "Fair trial", 
-      "count": 501
-    }, 
-    {
-      "value": "Effective remedy", 
-      "count": 400
-    }, 
-    {
-      "value": "Fair hearing", 
-      "count": 341
-    }, 
-    {
-      "value": "Equality before the law", 
-      "count": 332
-    }, 
-    {
-      "value": "Right to life", 
-      "count": 331
-    }, 
-    {
-      "value": "Freedom of expression", 
-      "count": 268
-    }, 
-    {
-      "value": "Conditions of detention", 
-      "count": 248
-    }, 
-    {
-      "value": "Deportation", 
-      "count": 211
-    }, 
-    {
-      "value": "Arbitrary detention", 
-      "count": 193
-    }, 
-    {
-      "value": "Non-discrimination", 
-      "count": 169
-    }, 
-    {
-      "value": "Privacy", 
-      "count": 158
-    }, 
-    {
-      "value": "Liberty and security of person", 
-      "count": 154
-    }, 
-    {
-      "value": "Respect for the inherent dignity of the human person", 
-      "count": 130
-    }, 
-    {
-      "value": "Right to appeal", 
-      "count": 128
-    }, 
-    {
-      "value": "Presumption of innocence", 
-      "count": 125
-    }, 
-    {
-      "value": "Freedom of assembly", 
-      "count": 111
-    }, 
-    {
-      "value": "Exhaustion of domestic remedies", 
-      "count": 108
-    }, 
-    {
-      "value": "Preparation of defence", 
-      "count": 101
-    }, 
-    {
-      "value": "Freedom of religion", 
-      "count": 93
-    }, 
-    {
-      "value": "Right to defence", 
-      "count": 90
-    }, 
-    {
-      "value": "Rights of the child", 
-      "count": 84
-    }, 
-    {
-      "value": "Protection of family", 
-      "count": 80
-    }, 
-    {
-      "value": "Arbitrary arrest", 
-      "count": 79
-    }, 
-    {
-      "value": "Expeditiousness of the trial", 
-      "count": 79
-    }, 
-    {
-      "value": "Non-refoulement", 
-      "count": 67
-    }, 
-    {
-      "value": "Freedom of association", 
-      "count": 64
-    }, 
-    {
-      "value": "Freedom of opinion", 
-      "count": 64
-    }, 
-    {
-      "value": "Access to witnesses", 
-      "count": 63
-    }, 
-    {
-      "value": "Right to family", 
-      "count": 60
-    }, 
-    {
-      "value": "Protection of minorities", 
-      "count": 59
-    }, 
-    {
-      "value": "Freedom of movement", 
-      "count": 58
-    }, 
-    {
-      "value": "Legal Personality", 
-      "count": 58
-    }, 
-    {
-      "value": "Self-incrimination", 
-      "count": 57
-    }, 
-    {
-      "value": "Participation in public affairs", 
-      "count": 54
-    }, 
-    {
-      "value": "Death penalty", 
-      "count": 52
-    }, 
-    {
-      "value": "Retroactivity of the law", 
-      "count": 48
-    }, 
-    {
-      "value": "Failure to substantiate claim", 
-      "count": 42
-    }, 
-    {
-      "value": "Information on charge", 
-      "count": 42
-    }, 
-    {
-      "value": "Right of peaceful assembly", 
-      "count": 42
-    }, 
-    {
-      "value": "Arbitrary interference with family", 
-      "count": 41
-    }, 
-    {
-      "value": "Right to legal assistance", 
-      "count": 40
-    }, 
-    {
-      "value": "Expulsion of aliens", 
-      "count": 38
-    }, 
-    {
-      "value": "Recognition as a person before the law", 
-      "count": 37
-    }, 
-    {
-      "value": "Access to public services", 
-      "count": 34
-    }, 
-    {
-      "value": "Freedom of thought, conscience and religion", 
-      "count": 29
-    }, 
-    {
-      "value": "Gender equality", 
-      "count": 29
-    }, 
-    {
-      "value": "Interference with one's home", 
-      "count": 29
-    }, 
-    {
-      "value": "Enforced disappearance", 
-      "count": 27
-    }, 
-    {
-      "value": "Asylum / refugee status determination", 
-      "count": 24
-    }, 
-    {
-      "value": "Independent and impartial tribunal", 
-      "count": 23
-    }, 
-    {
-      "value": "Prompt and impartial investigation", 
-      "count": 22
-    }, 
-    {
-      "value": "Right to vote", 
-      "count": 22
-    }, 
-    {
-      "value": "Imposition of a death sentence after unfair trial", 
-      "count": 21
-    }, 
-    {
-      "value": "Lack of proper investigation", 
-      "count": 18
-    }, 
-    {
-      "value": "Right to be elected", 
-      "count": 17
-    }, 
-    {
-      "value": "Right to liberty", 
-      "count": 17
-    }, 
-    {
-      "value": "Self-determination", 
-      "count": 16
-    }, 
-    {
-      "value": "Domestic implementation", 
-      "count": 15
-    }, 
-    {
-      "value": "Conscientious objection to military service", 
-      "count": 14
-    }, 
-    {
-      "value": "Equality of arms and fair hearing", 
-      "count": 14
-    }, 
-    {
-      "value": "Right to judicial review of detention", 
-      "count": 14
-    }, 
-    {
-      "value": "Access to court", 
-      "count": 13
-    }, 
-    {
-      "value": "Access to information", 
-      "count": 13
-    }, 
-    {
-      "value": "Confessions obtained under duress", 
-      "count": 12
-    }, 
-    {
-      "value": "Ethnic origin", 
-      "count": 12
-    }, 
-    {
-      "value": "Freedom to impart information", 
-      "count": 12
-    }, 
-    {
-      "value": "Review of conviction and sentence", 
-      "count": 12
-    }, 
-    {
-      "value": "Best interest of the child", 
-      "count": 11
-    }, 
-    {
-      "value": "Liberty of movement", 
-      "count": 10
-    }, 
-    {
-      "value": "Ne bis in idem", 
-      "count": 10
-    }, 
-    {
-      "value": "Right to seek information", 
-      "count": 10
-    }, 
-    {
-      "value": "Slavery / servitude", 
-      "count": 10
-    }, 
-    {
-      "value": "Limitation to rights", 
-      "count": 9
-    }, 
-    {
-      "value": "Effective legal protection", 
-      "count": 8
-    }, 
-    {
-      "value": "Equality of spouses", 
-      "count": 8
-    }, 
-    {
-      "value": "Freedom of conscience", 
-      "count": 8
-    }, 
-    {
-      "value": "Manifestation of religion or belief", 
-      "count": 8
-    }, 
-    {
-      "value": "Right to a hearing before a competent court", 
-      "count": 8
-    }, 
-    {
-      "value": "Arbitrary Expulsion", 
-      "count": 7
-    }, 
-    {
-      "value": "LGBTI", 
-      "count": 7
-    }, 
-    {
-      "value": "Incommunicado detention", 
-      "count": 6
-    }, 
-    {
-      "value": "Juvenile trials", 
-      "count": 6
-    }, 
-    {
-      "value": "Arbitrary execution", 
-      "count": 5
-    }, 
-    {
-      "value": "Child's right to a nationality", 
-      "count": 5
-    }, 
-    {
-      "value": "Disability", 
-      "count": 5
-    }, 
-    {
-      "value": "Forced labour", 
-      "count": 5
-    }, 
-    {
-      "value": "Honour and reputation", 
-      "count": 5
-    }, 
-    {
-      "value": "Right to enjoy one’s own culture", 
-      "count": 5
-    }, 
-    {
-      "value": "Right to enter one's own country", 
-      "count": 5
-    }, 
-    {
-      "value": "Right to impart information", 
-      "count": 5
-    }, 
-    {
-      "value": "Abortion", 
-      "count": 4
-    }, 
-    {
-      "value": "Compelling reasons of national security", 
-      "count": 4
-    }, 
-    {
-      "value": "Derogations", 
-      "count": 4
-    }, 
-    {
-      "value": "Incitement to discrimination", 
-      "count": 4
-    }, 
-    {
-      "value": "Defamation", 
-      "count": 3
-    }, 
-    {
-      "value": "Detention for debt", 
-      "count": 3
-    }, 
-    {
-      "value": "Extrajudicial executions", 
-      "count": 3
-    }, 
-    {
-      "value": "Right to choose residence", 
-      "count": 3
-    }, 
-    {
-      "value": "Right to marry", 
-      "count": 3
-    }, 
-    {
-      "value": "Arbitrary or unlawful interference", 
-      "count": 2
-    }, 
-    {
-      "value": "Due process in review of expulsion", 
-      "count": 2
-    }, 
-    {
-      "value": "Forced marriage", 
-      "count": 2
-    }, 
-    {
-      "value": "Interim Measures", 
-      "count": 2
-    }, 
-    {
-      "value": "Jurisdiction of the Committee", 
-      "count": 2
-    }, 
-    {
-      "value": "Principle of legality", 
-      "count": 2
-    }, 
-    {
-      "value": "Rape", 
-      "count": 2
-    }, 
-    {
-      "value": "Birth registration", 
-      "count": 1
-    }, 
-    {
-      "value": "Crime of genocide", 
-      "count": 1
-    }, 
-    {
-      "value": "Double sentencing", 
-      "count": 1
-    }, 
-    {
-      "value": "Extradition", 
-      "count": 1
-    }, 
-    {
-      "value": "Extraterritorial application of the ICCPR", 
-      "count": 1
-    }, 
-    {
-      "value": "Hate speech", 
-      "count": 1
-    }, 
-    {
-      "value": "Legal traditions", 
-      "count": 1
-    }, 
-    {
-      "value": "Right to shelter", 
-      "count": 1
-    }, 
-    {
-      "value": "Right to social security", 
-      "count": 1
-    }, 
-    {
-      "value": "Seizure of material", 
-      "count": 1
-    }, 
-    {
-      "value": "Terrorism", 
-      "count": 1
-    }, 
-    {
-      "value": "Trial by jury", 
-      "count": 1
-    }
-  ], 
+  ],
   "formats": [
     {
-      "value": "docx", 
-      "count": 99815
-    }, 
+      "value": "docx",
+      "count": 3237
+    },
     {
-      "value": "pdf", 
-      "count": 15202
-    }, 
+      "value": "pdf",
+      "count": 571
+    },
     {
-      "value": "pdf_ocr", 
-      "count": 5415
-    }, 
+      "value": "pdf_ocr",
+      "count": 170
+    },
     {
-      "value": "doc", 
-      "count": 622
-    }, 
+      "value": "doc",
+      "count": 16
+    },
     {
-      "value": "html", 
-      "count": 66
+      "value": "html",
+      "count": 1
     }
-  ], 
+  ],
   "years": {
-    "min": 1977, 
-    "max": 2026, 
+    "min": 1977,
+    "max": 2025,
     "histogram": [
       {
-        "year": 1977, 
-        "count": 165
-      }, 
+        "year": 1977,
+        "count": 8
+      },
       {
-        "year": 1978, 
-        "count": 180
-      }, 
+        "year": 1978,
+        "count": 8
+      },
       {
-        "year": 1979, 
-        "count": 462
-      }, 
+        "year": 1979,
+        "count": 16
+      },
       {
-        "year": 1980, 
-        "count": 274
-      }, 
+        "year": 1980,
+        "count": 10
+      },
       {
-        "year": 1981, 
-        "count": 477
-      }, 
+        "year": 1981,
+        "count": 19
+      },
       {
-        "year": 1982, 
-        "count": 168
-      }, 
+        "year": 1982,
+        "count": 10
+      },
       {
-        "year": 1983, 
-        "count": 332
-      }, 
+        "year": 1983,
+        "count": 14
+      },
       {
-        "year": 1984, 
-        "count": 465
-      }, 
+        "year": 1984,
+        "count": 19
+      },
       {
-        "year": 1985, 
-        "count": 229
-      }, 
+        "year": 1985,
+        "count": 9
+      },
       {
-        "year": 1986, 
-        "count": 333
-      }, 
+        "year": 1986,
+        "count": 14
+      },
       {
-        "year": 1987, 
-        "count": 987
-      }, 
+        "year": 1987,
+        "count": 43
+      },
       {
-        "year": 1988, 
-        "count": 1280
-      }, 
-      {
-        "year": 1989, 
-        "count": 605
-      }, 
-      {
-        "year": 1990, 
-        "count": 924
-      }, 
-      {
-        "year": 1991, 
-        "count": 990
-      }, 
-      {
-        "year": 1992, 
-        "count": 849
-      }, 
-      {
-        "year": 1993, 
-        "count": 1719
-      }, 
-      {
-        "year": 1994, 
-        "count": 1329
-      }, 
-      {
-        "year": 1995, 
-        "count": 2213
-      }, 
-      {
-        "year": 1996, 
-        "count": 1916
-      }, 
-      {
-        "year": 1997, 
-        "count": 1694
-      }, 
-      {
-        "year": 1998, 
-        "count": 1347
-      }, 
-      {
-        "year": 1999, 
-        "count": 1442
-      }, 
-      {
-        "year": 2000, 
-        "count": 1896
-      }, 
-      {
-        "year": 2001, 
-        "count": 2006
-      }, 
-      {
-        "year": 2002, 
-        "count": 2602
-      }, 
-      {
-        "year": 2003, 
-        "count": 2251
-      }, 
-      {
-        "year": 2004, 
-        "count": 1888
-      }, 
-      {
-        "year": 2005, 
-        "count": 3121
-      }, 
-      {
-        "year": 2006, 
-        "count": 3000
-      }, 
-      {
-        "year": 2007, 
-        "count": 3152
-      }, 
-      {
-        "year": 2008, 
-        "count": 4417
-      }, 
-      {
-        "year": 2009, 
-        "count": 2646
-      }, 
-      {
-        "year": 2010, 
-        "count": 3930
-      }, 
-      {
-        "year": 2011, 
-        "count": 4524
-      }, 
-      {
-        "year": 2012, 
-        "count": 4895
-      }, 
-      {
-        "year": 2013, 
-        "count": 5037
-      }, 
-      {
-        "year": 2014, 
-        "count": 8858
-      }, 
-      {
-        "year": 2015, 
-        "count": 8678
-      }, 
-      {
-        "year": 2016, 
-        "count": 10042
-      }, 
-      {
-        "year": 2017, 
-        "count": 7265
-      }, 
-      {
-        "year": 2018, 
-        "count": 7495
-      }, 
-      {
-        "year": 2019, 
-        "count": 5473
-      }, 
-      {
-        "year": 2020, 
-        "count": 2936
-      }, 
-      {
-        "year": 2021, 
-        "count": 2001
-      }, 
-      {
-        "year": 2022, 
-        "count": 998
-      }, 
-      {
-        "year": 2023, 
-        "count": 566
-      }, 
-      {
-        "year": 2024, 
-        "count": 242
-      }, 
-      {
-        "year": 2025, 
+        "year": 1988,
         "count": 62
-      }, 
+      },
       {
-        "year": 2026, 
-        "count": 239
+        "year": 1989,
+        "count": 28
+      },
+      {
+        "year": 1990,
+        "count": 39
+      },
+      {
+        "year": 1991,
+        "count": 34
+      },
+      {
+        "year": 1992,
+        "count": 32
+      },
+      {
+        "year": 1993,
+        "count": 39
+      },
+      {
+        "year": 1994,
+        "count": 30
+      },
+      {
+        "year": 1995,
+        "count": 60
+      },
+      {
+        "year": 1996,
+        "count": 59
+      },
+      {
+        "year": 1997,
+        "count": 68
+      },
+      {
+        "year": 1998,
+        "count": 62
+      },
+      {
+        "year": 1999,
+        "count": 66
+      },
+      {
+        "year": 2000,
+        "count": 70
+      },
+      {
+        "year": 2001,
+        "count": 80
+      },
+      {
+        "year": 2002,
+        "count": 108
+      },
+      {
+        "year": 2003,
+        "count": 80
+      },
+      {
+        "year": 2004,
+        "count": 67
+      },
+      {
+        "year": 2005,
+        "count": 97
+      },
+      {
+        "year": 2006,
+        "count": 102
+      },
+      {
+        "year": 2007,
+        "count": 94
+      },
+      {
+        "year": 2008,
+        "count": 118
+      },
+      {
+        "year": 2009,
+        "count": 80
+      },
+      {
+        "year": 2010,
+        "count": 112
+      },
+      {
+        "year": 2011,
+        "count": 124
+      },
+      {
+        "year": 2012,
+        "count": 129
+      },
+      {
+        "year": 2013,
+        "count": 141
+      },
+      {
+        "year": 2014,
+        "count": 261
+      },
+      {
+        "year": 2015,
+        "count": 266
+      },
+      {
+        "year": 2016,
+        "count": 272
+      },
+      {
+        "year": 2017,
+        "count": 232
+      },
+      {
+        "year": 2018,
+        "count": 244
+      },
+      {
+        "year": 2019,
+        "count": 202
+      },
+      {
+        "year": 2020,
+        "count": 130
+      },
+      {
+        "year": 2021,
+        "count": 98
+      },
+      {
+        "year": 2022,
+        "count": 42
+      },
+      {
+        "year": 2023,
+        "count": 23
+      },
+      {
+        "year": 2024,
+        "count": 8
+      },
+      {
+        "year": 2025,
+        "count": 1
       }
     ]
   }
