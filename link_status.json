@@ -1,41 +1,17 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-05-04T06:09:32.859184+00:00",
-  "finishedAt": "2026-05-04T06:13:06.634677+00:00",
+  "checkedAt": "2026-05-11T06:37:02.997105+00:00",
+  "finishedAt": "2026-05-11T06:41:52.561870+00:00",
   "totalUnique": 360,
   "totalRecords": 361,
-  "okCount": 334,
-  "brokenCount": 26,
+  "okCount": 324,
+  "brokenCount": 36,
   "broken": [
     {
-      "signature": "A/53/279",
-      "docName": "Interim report of the Special Rapporteur on freedom of religion or belief",
+      "signature": "A/61/340",
+      "docName": "Patterns and trends in freedom of religion or belief",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/53/279",
-      "status": 0,
-      "reason": "URLError: timed out"
-    },
-    {
-      "signature": "A/59/366",
-      "docName": "Communications; In situ visits; Prevention activities",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/59/366",
-      "status": 0,
-      "reason": "URLError: timed out"
-    },
-    {
-      "signature": "A/55/280",
-      "docName": "Contribution to the World Conference against Racism, Racial Discrimination, Xenophobia and Related Intolerance",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/55/280",
-      "status": 0,
-      "reason": "URLError: timed out"
-    },
-    {
-      "signature": "A/58/296",
-      "docName": "Summary of cases transmitted to Governments and replies received. Follow-up to the International Consultative Conference",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/58/296",
+      "link": "https://undocs.org/A/61/340",
       "status": 0,
       "reason": "URLError: timed out"
     },
@@ -48,10 +24,58 @@
       "reason": "URLError: timed out"
     },
     {
-      "signature": "A/61/340",
-      "docName": "Patterns and trends in freedom of religion or belief",
+      "signature": "A/51/542",
+      "docName": "Interim report of the Special Rapporteur on the elimination of all forms of religious intolerance",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/61/340",
+      "link": "https://undocs.org/A/51/542",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/55/280",
+      "docName": "Contribution to the World Conference against Racism, Racial Discrimination, Xenophobia and Related Intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/55/280",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/53/279",
+      "docName": "Interim report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/53/279",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/56/253",
+      "docName": "Interreligious dialogue; Cooperation with non-governmental organizations",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/56/253",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/54/386",
+      "docName": "Interim report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/54/386",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/60/399",
+      "docName": "The question of conversion; The freedom of religion or belief of detainees",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/60/399",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/59/366",
+      "docName": "Communications; In situ visits; Prevention activities",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/59/366",
       "status": 0,
       "reason": "URLError: timed out"
     },
@@ -64,34 +88,10 @@
       "reason": "URLError: timed out"
     },
     {
-      "signature": "A/64/159",
-      "docName": "Situation of persons in vulnerable situations, including persons deprived of their liberty, refugees, asylum-seekers and",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/64/159",
-      "status": 0,
-      "reason": "URLError: timed out"
-    },
-    {
       "signature": "A/65/207",
       "docName": "Efforts to protect and promote freedom of thought, conscience and religion or belief",
       "committee": "SR Freedom of Religion or Belief",
       "link": "https://undocs.org/A/65/207",
-      "status": 0,
-      "reason": "URLError: timed out"
-    },
-    {
-      "signature": "A/66/156",
-      "docName": "The role of the State in promotinginterreligious communication",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/66/156",
-      "status": 0,
-      "reason": "URLError: timed out"
-    },
-    {
-      "signature": "A/71/269",
-      "docName": "The broad range of violations of freedom of religion or belief, their root causes and variables",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/71/269",
       "status": 0,
       "reason": "URLError: timed out"
     },
@@ -104,18 +104,82 @@
       "reason": "URLError: timed out"
     },
     {
-      "signature": "A/70/286",
-      "docName": "The rights of the child and his or her parents in the area of freedom of religion or belief",
+      "signature": "A/CONF.189/PC.1/7",
+      "docName": "Preparatory Committee for the study entitled “Racial discrimination and religious discrimination: identification and mea",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/70/286",
+      "link": "https://undocs.org/A/CONF.189/PC.1/7",
       "status": 0,
       "reason": "URLError: timed out"
     },
     {
-      "signature": "A/CONF.211/PC/WG.1/5",
-      "docName": "Joint report pursuant to decision PC.1/10 of the Preparatory Committee of the Durban Review Conference",
+      "signature": "A/HRC/10/8",
+      "docName": "Discrimination based on religion or belief and its impact on the enjoyment of economic, social and cultural rights",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/CONF.211/PC/WG.1/5",
+      "link": "https://undocs.org/A/HRC/10/8",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/HRC/12/21",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/12/21",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/HRC/10/8/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/10/8/Add.1",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/HRC/13/40",
+      "docName": "Early warning signs of discrimination and violence on the grounds or in the name of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/13/40",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/HRC/16/53/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/16/53/Add.1",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/HRC/16/53",
+      "docName": "Freedom of religion or belief and school education",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/16/53",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/HRC/18/56",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/18/56",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/HRC/19/60",
+      "docName": "The freedom of religion or belief and recognition issues",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/19/60",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/HRC/21/58",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/21/58",
       "status": 0,
       "reason": "URLError: timed out"
     },
@@ -128,10 +192,10 @@
       "reason": "URLError: timed out"
     },
     {
-      "signature": "A/HRC/24/20",
-      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "signature": "A/HRC/2/3",
+      "docName": "Incitement to racial and religious hatred and the promotion of tolerance",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/HRC/24/20",
+      "link": "https://undocs.org/A/HRC/2/3",
       "status": 0,
       "reason": "URLError: timed out"
     },
@@ -152,10 +216,18 @@
       "reason": "URLError: timed out"
     },
     {
-      "signature": "E/CN.4/1987/35",
-      "docName": "Report of the Special Rapporteur on Religious Intolerance",
+      "signature": "A/HRC/6/5",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/E/CN.4/1987/35",
+      "link": "https://undocs.org/A/HRC/6/5",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "A/HRC/7/10/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/7/10/Add.1",
       "status": 0,
       "reason": "URLError: timed out"
     },
@@ -168,14 +240,6 @@
       "reason": "URLError: timed out"
     },
     {
-      "signature": "E/CN.4/1988/45/Add.1",
-      "docName": "Addendum to the report of the Special Rapporteur on Religious Intolerance",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/E/CN.4/1988/45/Add.1",
-      "status": 0,
-      "reason": "URLError: timed out"
-    },
-    {
       "signature": "E/CN.4/1989/44",
       "docName": "Report of the Special Rapporteur on Religious Intolerance",
       "committee": "SR Freedom of Religion or Belief",
@@ -184,34 +248,50 @@
       "reason": "URLError: timed out"
     },
     {
-      "signature": "E/CN.4/1991/56",
+      "signature": "E/CN.4/1992/52",
       "docName": "Report of the Special Rapporteur on Religious Intolerance",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/E/CN.4/1991/56",
+      "link": "https://undocs.org/E/CN.4/1992/52",
       "status": 0,
       "reason": "URLError: timed out"
     },
     {
-      "signature": "E/CN.4/1993/62",
-      "docName": "Report of the Special Rapporteur on Religious Intolerance",
+      "signature": "E/CN.4/1996/95",
+      "docName": "Report of the Special Rapporteur on religious intolerance",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/E/CN.4/1993/62",
+      "link": "https://undocs.org/E/CN.4/1996/95",
       "status": 0,
       "reason": "URLError: timed out"
     },
     {
-      "signature": "E/CN.4/1995/91",
-      "docName": "Report of the Special Rapporteur on Religious Intolerance",
+      "signature": "E/CN.4/2002/73/Add.2",
+      "docName": "Study on freedom of religion or belief and the status of women in the light of religion and traditions",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/E/CN.4/1995/91",
+      "link": "https://undocs.org/E/CN.4/2002/73/Add.2",
       "status": 0,
       "reason": "URLError: timed out"
     },
     {
-      "signature": "E/CN.4/2000/65",
-      "docName": "Follow-up to the World Conference Against Racism; Defamation of religions. Visit to the Holy Sea",
+      "signature": "E/CN.4/2005/61",
+      "docName": "Human rights violations committed because of religion or belief; Inter-religious violence and non-State actors; Conversi",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/E/CN.4/2000/65",
+      "link": "https://undocs.org/E/CN.4/2005/61",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "E/CN.4/2005/61/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/2005/61/Add.1",
+      "status": 0,
+      "reason": "URLError: timed out"
+    },
+    {
+      "signature": "E/CN.4/2006/5",
+      "docName": "Framework for communications. Display of religious symbols from an international human rights perspective",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/2006/5",
       "status": 0,
       "reason": "URLError: timed out"
     }
