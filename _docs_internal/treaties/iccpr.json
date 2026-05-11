@@ -38,7 +38,19 @@
         },
         {
           "num": "3",
-          "text": "Each State Party to the present Covenant undertakes: (a) To ensure that any person whose rights or freedoms as herein recognized are violated shall have an effective remedy, notwithstanding that the violation has been committed by persons acting in an official capacity; (b) To ensure that any person claiming such a remedy shall have his right thereto determined by competent judicial, administrative or legislative authorities, or by any other competent authority provided for by the legal system of the State, and to develop the possibilities of judicial remedy; (c) To ensure that the competent authorities shall enforce such remedies when granted."
+          "text": "Each State Party to the present Covenant undertakes:"
+        },
+        {
+          "num": null,
+          "text": "(a) To ensure that any person whose rights or freedoms as herein recognized are violated shall have an effective remedy, notwithstanding that the violation has been committed by persons acting in an official capacity;"
+        },
+        {
+          "num": null,
+          "text": "(b) To ensure that any person claiming such a remedy shall have his right thereto determined by competent judicial, administrative or legislative authorities, or by any other competent authority provided for by the legal system of the State, and to develop the possibilities of judicial remedy;"
+        },
+        {
+          "num": null,
+          "text": "(c) To ensure that the competent authorities shall enforce such remedies when granted."
         }
       ]
     },
@@ -55,8 +67,8 @@
       "number": "4",
       "paragraphs": [
         {
-          "num": "1",
-          "text": "In time of public emergency which threatens the life of the nation and the existence of which is officially proclaimed, the States Parties to the present Covenant may take measures derogating from their obligations under the present Covenant to the extent strictly required by the exigencies of the situation, provided that such measures are not inconsistent with their other obligations under international law and do not involve discrimination solely on the ground of race, colour, sex, language, religion or social origin."
+          "num": null,
+          "text": "1 . In time of public emergency which threatens the life of the nation and the existence of which is officially proclaimed, the States Parties to the present Covenant may take measures derogating from their obligations under the present Covenant to the extent strictly required by the exigencies of the situation, provided that such measures are not inconsistent with their other obligations under international law and do not involve discrimination solely on the ground of race, colour, sex, language, religion or social origin."
         },
         {
           "num": "2",
@@ -131,8 +143,36 @@
           "text": "No one shall be held in servitude."
         },
         {
-          "num": "3",
-          "text": "(a) No one shall be required to perform forced or compulsory labour; (b) Paragraph 3 (a) shall not be held to preclude, in countries where imprisonment with hard labour may be imposed as a punishment for a crime, the performance of hard labour in pursuance of a sentence to such punishment by a competent court; (c) For the purpose of this paragraph the term \"forced or compulsory labour\" shall not include: (i) Any work or service, not referred to in subparagraph (b), normally required of a person who is under detention in consequence of a lawful order of a court, or of a person during conditional release from such detention; (ii) Any service of a military character and, in countries where conscientious objection is recognized, any national service required by law of conscientious objectors; (iii) Any service exacted in cases of emergency or calamity threatening the life or well-being of the community; (iv) Any work or service which forms part of normal civil obligations."
+          "num": null,
+          "text": "3."
+        },
+        {
+          "num": null,
+          "text": "(a) No one shall be required to perform forced or compulsory labour;"
+        },
+        {
+          "num": null,
+          "text": "(b) Paragraph 3 (a) shall not be held to preclude, in countries where imprisonment with hard labour may be imposed as a punishment for a crime, the performance of hard labour in pursuance of a sentence to such punishment by a competent court;"
+        },
+        {
+          "num": null,
+          "text": "(c) For the purpose of this paragraph the term \"forced or compulsory labour\" shall not include:"
+        },
+        {
+          "num": null,
+          "text": "(i) Any work or service, not referred to in subparagraph (b), normally required of a person who is under detention in consequence of a lawful order of a court, or of a person during conditional release from such detention;"
+        },
+        {
+          "num": null,
+          "text": "(ii) Any service of a military character and, in countries where conscientious objection is recognized, any national service required by law of conscientious objectors;"
+        },
+        {
+          "num": null,
+          "text": "(iii) Any service exacted in cases of emergency or calamity threatening the life or well-being of the community;"
+        },
+        {
+          "num": null,
+          "text": "(iv) Any work or service which forms part of normal civil obligations."
         }
       ]
     },
@@ -169,8 +209,16 @@
           "text": "All persons deprived of their liberty shall be treated with humanity and with respect for the inherent dignity of the human person."
         },
         {
-          "num": "2",
-          "text": "(a) Accused persons shall, save in exceptional circumstances, be segregated from convicted persons and shall be subject to separate treatment appropriate to their status as unconvicted persons; (b) Accused juvenile persons shall be separated from adults and brought as speedily as possible for adjudication."
+          "num": null,
+          "text": "2."
+        },
+        {
+          "num": null,
+          "text": "(a) Accused persons shall, save in exceptional circumstances, be segregated from convicted persons and shall be subject to separate treatment appropriate to their status as unconvicted persons;"
+        },
+        {
+          "num": null,
+          "text": "(b) Accused juvenile persons shall be separated from adults and brought as speedily as possible for adjudication."
         },
         {
           "num": "3",
@@ -230,11 +278,31 @@
         },
         {
           "num": "3",
-          "text": "In the determination of any criminal charge against him, everyone shall be entitled to the following minimum guarantees, in full equality: (a) To be informed promptly and in detail in a language which he understands of the nature and cause of the charge against him; (b) To have adequate time and facilities for the preparation of his defence and to communicate with counsel of his own choosing; (c) To be tried without undue delay; (d) To be tried in his presence, and to defend himself in person or through legal assistance of his own choosing; to be informed, if he does not have legal assistance, of this right; and to have legal assistance assigned to him, in any case where the interests of justice so require, and without payment by him in any such case if he does not have sufficient means to pay for it; (e) To examine, or have examined, the witnesses against him and to obtain the attendance and examination of witnesses on his behalf under the same conditions as witnesses against him; (f) To have the free assistance of an interpreter if he cannot understand or speak the language used in court; (g) Not to be compelled to testify against himself or to confess guilt."
+          "text": "In the determination of any criminal charge against him, everyone shall be entitled to the following minimum guarantees, in full equality: (a) To be informed promptly and in detail in a language which he understands of the nature and cause of the charge against him;"
         },
         {
-          "num": "4",
-          "text": "In the case of juvenile persons, the procedure shall be such as will take account of their age and the desirability of promoting their rehabilitation."
+          "num": null,
+          "text": "(b) To have adequate time and facilities for the preparation of his defence and to communicate with counsel of his own choosing;"
+        },
+        {
+          "num": null,
+          "text": "(c) To be tried without undue delay;"
+        },
+        {
+          "num": null,
+          "text": "(d) To be tried in his presence, and to defend himself in person or through legal assistance of his own choosing; to be informed, if he does not have legal assistance, of this right; and to have legal assistance assigned to him, in any case where the interests of justice so require, and without payment by him in any such case if he does not have sufficient means to pay for it;"
+        },
+        {
+          "num": null,
+          "text": "(e) To examine, or have examined, the witnesses against him and to obtain the attendance and examination of witnesses on his behalf under the same conditions as witnesses against him;"
+        },
+        {
+          "num": null,
+          "text": "(f) To have the free assistance of an interpreter if he cannot understand or speak the language used in court;"
+        },
+        {
+          "num": null,
+          "text": "(g) Not to be compelled to testify against himself or to confess guilt."
         },
         {
           "num": "5",
@@ -254,8 +322,8 @@
       "number": "15",
       "paragraphs": [
         {
-          "num": "1",
-          "text": "No one shall be held guilty of any criminal offence on account of any act or omission which did not constitute a criminal offence, under national or international law, at the time when it was committed. Nor shall a heavier penalty be imposed than the one that was applicable at the time when the criminal offence was committed. If, subsequent to the commission of the offence, provision is made by law for the imposition of the lighter penalty, the offender shall benefit thereby."
+          "num": null,
+          "text": "1 . No one shall be held guilty of any criminal offence on account of any act or omission which did not constitute a criminal offence, under national or international law, at the time when it was committed. Nor shall a heavier penalty be imposed than the one that was applicable at the time when the criminal offence was committed. If, subsequent to the commission of the offence, provision is made by law for the imposition of the lighter penalty, the offender shall benefit thereby."
         },
         {
           "num": "2",
@@ -319,7 +387,15 @@
         },
         {
           "num": "3",
-          "text": "The exercise of the rights provided for in paragraph 2 of this article carries with it special duties and responsibilities. It may therefore be subject to certain restrictions, but these shall only be such as are provided by law and are necessary: (a) For respect of the rights or reputations of others; (b) For the protection of national security or of public order (ordre public), or of public health or morals."
+          "text": "The exercise of the rights provided for in paragraph 2 of this article carries with it special duties and responsibilities. It may therefore be subject to certain restrictions, but these shall only be such as are provided by law and are necessary:"
+        },
+        {
+          "num": null,
+          "text": "(a) For respect of the rights or reputations of others;"
+        },
+        {
+          "num": null,
+          "text": "(b) For the protection of national security or of public order (ordre public), or of public health or morals."
         }
       ]
     },
@@ -405,7 +481,19 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Every citizen shall have the right and the opportunity, without any of the distinctions mentioned in"
+          "text": "Every citizen shall have the right and the opportunity, without any of the distinctions mentioned in article 2 and without unreasonable restrictions:"
+        },
+        {
+          "num": null,
+          "text": "(a) To take part in the conduct of public affairs, directly or through freely chosen representatives;"
+        },
+        {
+          "num": null,
+          "text": "(b) To vote and to be elected at genuine periodic elections which shall be by universal and equal suffrage and shall be held by secret ballot, guaranteeing the free expression of the will of the electors;"
+        },
+        {
+          "num": null,
+          "text": "(c) To have access, on general terms of equality, to public service in his country."
         }
       ]
     },
@@ -448,8 +536,16 @@
       "number": "29",
       "paragraphs": [
         {
-          "num": null,
-          "text": "for the purpose of filling the vacancy. 2. The Secretary-General of the United Nations shall prepare a list in alphabetical order of the persons thus nominated and shall submit it to the States Parties to the present Covenant. The election to fill the vacancy shall then take place in accordance with the relevant provisions of this part of the present Covenant. 3. A member of the Committee elected to fill a vacancy declared in accordance with"
+          "num": "1",
+          "text": "The members of the Committee shall be elected by secret ballot from a list of persons possessing the qualifications prescribed in article 28 and nominated for the purpose by the States Parties to the present Covenant."
+        },
+        {
+          "num": "2",
+          "text": "Each State Party to the present Covenant may nominate not more than two persons. These persons shall be nationals of the nominating State."
+        },
+        {
+          "num": "3",
+          "text": "A person shall be eligible for renomination."
         }
       ]
     },
@@ -491,12 +587,8 @@
       "number": "32",
       "paragraphs": [
         {
-          "num": "1",
-          "text": "The members of the Committee shall be elected for a term of four years. They shall be eligible for re-election if renominated. However, the terms of nine of the members elected at the first election shall expire at the end of two years; immediately after the first election, the names of these nine members shall be chosen by lot by the Chairman of the meeting referred to in article 30, paragraph"
-        },
-        {
-          "num": "4",
-          "text": "2. Elections at the expiry of office shall be held in accordance with the preceding articles of this part of the present Covenant."
+          "num": "2",
+          "text": "Elections at the expiry of office shall be held in accordance with the preceding articles of this part of the present Covenant."
         }
       ]
     },
@@ -518,7 +610,15 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "When a vacancy is declared in accordance with"
+          "text": "When a vacancy is declared in accordance with article 33 and if the term of office of the member to be replaced does not expire within six months of the declaration of the vacancy, the Secretary-General of the United Nations shall notify each of the States Parties to the present Covenant, which may within two months submit nominations in accordance with article 29 for the purpose of filling the vacancy."
+        },
+        {
+          "num": "2",
+          "text": "The Secretary-General of the United Nations shall prepare a list in alphabetical order of the persons thus nominated and shall submit it to the States Parties to the present Covenant. The election to fill the vacancy shall then take place in accordance with the relevant provisions of this part of the present Covenant."
+        },
+        {
+          "num": "3",
+          "text": "A member of the Committee elected to fill a vacancy declared in accordance with article 33 shall hold office for the remainder of the term of the member who vacated the seat on the Committee under the provisions of that article."
         }
       ]
     },
@@ -536,7 +636,7 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "shall also service the commissions appointed under this article. 6. The information received and collated by the Committee shall be made available to the Commission and the Commission may call upon the States Parties concerned to supply any other relevant information. 7. When the Commission has fully considered the matter, but in any event not later than twelve months after having been seized of the matter, it shall submit to the Chairman of the Committee a report for communication to the States Parties concerned: (a) If the Commission is unable to complete its consideration of the matter within twelve months, it shall confine its report to a brief statement of the status of its consideration of the matter; (b) If an amicable solution to the matter on tie basis of respect for human rights as recognized in the present Covenant is reached, the Commission shall confine its report to a brief statement of the facts and of the solution reached; (c) If a solution within the terms of subparagraph (b) is not reached, the Commission's report shall embody its findings on all questions of fact relevant to the issues between the States Parties concerned, and its views on the possibilities of an amicable solution of the matter. This report shall also contain the written submissions and a record of the oral submissions made by the States Parties concerned; (d) If the Commission's report is submitted under subparagraph (c), the States Parties concerned shall, within three months of the receipt of the report, notify the Chairman of the Committee whether or not they accept the contents of the report of the Commission. 8. The provisions of this article are without prejudice to the responsibilities of the Committee under"
+          "text": "The Secretary-General of the United Nations shall provide the necessary staff and facilities for the effective performance of the functions of the Committee under the present Covenant."
         }
       ]
     },
@@ -575,7 +675,15 @@
         },
         {
           "num": "2",
-          "text": "The Committee shall establish its own rules of procedure, but these rules shall provide, inter alia, that: (a) Twelve members shall constitute a quorum; (b) Decisions of the Committee shall be made by a majority vote of the members present."
+          "text": "The Committee shall establish its own rules of procedure, but these rules shall provide, inter alia, that:"
+        },
+        {
+          "num": null,
+          "text": "(a) Twelve members shall constitute a quorum;"
+        },
+        {
+          "num": null,
+          "text": "(b) Decisions of the Committee shall be made by a majority vote of the members present."
         }
       ]
     },
@@ -584,7 +692,11 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "The States Parties to the present Covenant undertake to submit reports on the measures they have adopted which give effect to the rights recognized herein and on the progress made in the enjoyment of those rights: (a) Within one year of the entry into force of the present Covenant for the States Parties concerned; (b) Thereafter whenever the Committee so requests."
+          "text": "The States Parties to the present Covenant undertake to submit reports on the measures they have adopted which give effect to the rights recognized herein and on the progress made in the enjoyment of those rights: (a) Within one year of the entry into force of the present Covenant for the States Parties concerned;"
+        },
+        {
+          "num": null,
+          "text": "(b) Thereafter whenever the Committee so requests."
         },
         {
           "num": "2",
@@ -609,7 +721,47 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "A State Party to the present Covenant may at any time declare under this article that it recognizes the competence of the Committee to receive and consider communications to the effect that a State Party claims that another State Party is not fulfilling its obligations under the present Covenant. Communications under this article may be received and considered only if submitted by a State Party which has made a declaration recognizing in regard to itself the competence of the Committee. No communication shall be received by the Committee if it concerns a State Party which has not made such a declaration. Communications received under this article shall be dealt with in accordance with the following procedure: (a) If a State Party to the present Covenant considers that another State Party is not giving effect to the provisions of the present Covenant, it may, by written communication, bring the matter to the attention of that State Party. Within three months after the receipt of the communication the receiving State shall afford the State which sent the communication an explanation, or any other statement in writing clarifying the matter which should include, to the extent possible and pertinent, reference to domestic procedures and remedies taken, pending, or available in the matter; (b) If the matter is not adjusted to the satisfaction of both States Parties concerned within six months after the receipt by the receiving State of the initial communication, either State shall have the right to refer the matter to the Committee, by notice given to the Committee and to the other State; (c) The Committee shall deal with a matter referred to it only after it has ascertained that all available domestic remedies have been invoked and exhausted in the matter, in conformity with the generally recognized principles of international law. This shall not be the rule where the application of the remedies is unreasonably prolonged; (d) The Committee shall hold closed meetings when examining communications under this article; (e) Subject to the provisions of subparagraph (c), the Committee shall make available its good offices to the States Parties concerned with a view to a friendly solution of the matter on the basis of respect for human rights and fundamental freedoms as recognized in the present Covenant; (f) In any matter referred to it, the Committee may call upon the States Parties concerned, referred to in subparagraph (b), to supply any relevant information; (g) The States Parties concerned, referred to in subparagraph (b), shall have the right to be represented when the matter is being considered in the Committee and to make submissions orally and/or in writing; (h) The Committee shall, within twelve months after the date of receipt of notice under subparagraph (b), submit a report: (i) If a solution within the terms of subparagraph (e) is reached, the Committee shall confine its report to a brief statement of the facts and of the solution reached; (ii) If a solution within the terms of subparagraph (e) is not reached, the Committee shall confine its report to a brief statement of the facts; the written submissions and record of the oral submissions made by the States Parties concerned shall be attached to the report. In every matter, the report shall be communicated to the States Parties concerned."
+          "text": "A State Party to the present Covenant may at any time declare under this article that it recognizes the competence of the Committee to receive and consider communications to the effect that a State Party claims that another State Party is not fulfilling its obligations under the present Covenant. Communications under this article may be received and considered only if submitted by a State Party which has made a declaration recognizing in regard to itself the competence of the Committee. No communication shall be received by the Committee if it concerns a State Party which has not made such a declaration. Communications received under this article shall be dealt with in accordance with the following procedure:"
+        },
+        {
+          "num": null,
+          "text": "(a) If a State Party to the present Covenant considers that another State Party is not giving effect to the provisions of the present Covenant, it may, by written communication, bring the matter to the attention of that State Party. Within three months after the receipt of the communication the receiving State shall afford the State which sent the communication an explanation, or any other statement in writing clarifying the matter which should include, to the extent possible and pertinent, reference to domestic procedures and remedies taken, pending, or available in the matter;"
+        },
+        {
+          "num": null,
+          "text": "(b) If the matter is not adjusted to the satisfaction of both States Parties concerned within six months after the receipt by the receiving State of the initial communication, either State shall have the right to refer the matter to the Committee, by notice given to the Committee and to the other State;"
+        },
+        {
+          "num": null,
+          "text": "(c) The Committee shall deal with a matter referred to it only after it has ascertained that all available domestic remedies have been invoked and exhausted in the matter, in conformity with the generally recognized principles of international law. This shall not be the rule where the application of the remedies is unreasonably prolonged;"
+        },
+        {
+          "num": null,
+          "text": "(d) The Committee shall hold closed meetings when examining communications under this article;"
+        },
+        {
+          "num": null,
+          "text": "(e) Subject to the provisions of subparagraph (c), the Committee shall make available its good offices to the States Parties concerned with a view to a friendly solution of the matter on the basis of respect for human rights and fundamental freedoms as recognized in the present Covenant;"
+        },
+        {
+          "num": null,
+          "text": "(f) In any matter referred to it, the Committee may call upon the States Parties concerned, referred to in subparagraph (b), to supply any relevant information;"
+        },
+        {
+          "num": null,
+          "text": "(g) The States Parties concerned, referred to in subparagraph (b), shall have the right to be represented when the matter is being considered in the Committee and to make submissions orally and/or in writing;"
+        },
+        {
+          "num": null,
+          "text": "(h) The Committee shall, within twelve months after the date of receipt of notice under subparagraph (b), submit a report:"
+        },
+        {
+          "num": null,
+          "text": "(i) If a solution within the terms of subparagraph (e) is reached, the Committee shall confine its report to a brief statement of the facts and of the solution reached;"
+        },
+        {
+          "num": null,
+          "text": "(ii) If a solution within the terms of subparagraph (e) is not reached, the Committee shall confine its report to a brief statement of the facts; the written submissions and record of the oral submissions made by the States Parties concerned shall be attached to the report. In every matter, the report shall be communicated to the States Parties concerned."
         },
         {
           "num": "2",
@@ -621,8 +773,68 @@
       "number": "42",
       "paragraphs": [
         {
-          "num": "1",
-          "text": "(a) If a matter referred to the Committee in accordance with"
+          "num": null,
+          "text": "1."
+        },
+        {
+          "num": null,
+          "text": "(a) If a matter referred to the Committee in accordance with article 41 is not resolved to the satisfaction of the States Parties concerned, the Committee may, with the prior consent of the States Parties concerned, appoint an ad hoc Conciliation Commission (hereinafter referred to as the Commission). The good offices of the Commission shall be made available to the States Parties concerned with a view to an amicable solution of the matter on the basis of respect for the present Covenant;"
+        },
+        {
+          "num": null,
+          "text": "(b) The Commission shall consist of five persons acceptable to the States Parties concerned. If the States Parties concerned fail to reach agreement within three months on all or part of the composition of the Commission, the members of the Commission concerning whom no agreement has been reached shall be elected by secret ballot by a two-thirds majority vote of the Committee from among its members."
+        },
+        {
+          "num": "2",
+          "text": "The members of the Commission shall serve in their personal capacity. They shall not be nationals of the States Parties concerned, or of a State not Party to the present Covenant, or of a State Party which has not made a declaration under article 41."
+        },
+        {
+          "num": "3",
+          "text": "The Commission shall elect its own Chairman and adopt its own rules of procedure."
+        },
+        {
+          "num": "4",
+          "text": "The meetings of the Commission shall normally be held at the Headquarters of the United Nations or at the United Nations Office at Geneva. However, they may be held at such other convenient places as the Commission may determine in consultation with the Secretary-General of the United Nations and the States Parties concerned."
+        },
+        {
+          "num": "5",
+          "text": "The secretariat provided in accordance with article 36 shall also service the commissions appointed under this article."
+        },
+        {
+          "num": "6",
+          "text": "The information received and collated by the Committee shall be made available to the Commission and the Commission may call upon the States Parties concerned to supply any other relevant information."
+        },
+        {
+          "num": "7",
+          "text": "When the Commission has fully considered the matter, but in any event not later than twelve months after having been seized of the matter, it shall submit to the Chairman of the Committee a report for communication to the States Parties concerned:"
+        },
+        {
+          "num": null,
+          "text": "(a) If the Commission is unable to complete its consideration of the matter within twelve months, it shall confine its report to a brief statement of the status of its consideration of the matter;"
+        },
+        {
+          "num": null,
+          "text": "(b) If an amicable solution to the matter on tie basis of respect for human rights as recognized in the present Covenant is reached, the Commission shall confine its report to a brief statement of the facts and of the solution reached;"
+        },
+        {
+          "num": null,
+          "text": "(c) If a solution within the terms of subparagraph (b) is not reached, the Commission's report shall embody its findings on all questions of fact relevant to the issues between the States Parties concerned, and its views on the possibilities of an amicable solution of the matter. This report shall also contain the written submissions and a record of the oral submissions made by the States Parties concerned;"
+        },
+        {
+          "num": null,
+          "text": "(d) If the Commission's report is submitted under subparagraph (c), the States Parties concerned shall, within three months of the receipt of the report, notify the Chairman of the Committee whether or not they accept the contents of the report of the Commission."
+        },
+        {
+          "num": "8",
+          "text": "The provisions of this article are without prejudice to the responsibilities of the Committee under article 41."
+        },
+        {
+          "num": "9",
+          "text": "The States Parties concerned shall share equally all the expenses of the members of the Commission in accordance with estimates to be provided by the Secretary-General of the United Nations."
+        },
+        {
+          "num": "10",
+          "text": "The Secretary-General of the United Nations shall be empowered to pay the expenses of the members of the Commission, if necessary, before reimbursement by the States Parties concerned, in accordance with paragraph 9 of this article."
         }
       ]
     },
@@ -700,8 +912,12 @@
       "number": "49",
       "paragraphs": [
         {
-          "num": null,
-          "text": "Preamble The States Parties to the present Covenant, Considering that, in accordance with the principles proclaimed in the Charter of the United Nations, recognition of the inherent dignity and of the equal and inalienable rights of all members of the human family is the foundation of freedom, justice and peace in the world, Recognizing that these rights derive from the inherent dignity of the human person, Recognizing that, in accordance with the Universal Declaration of Human Rights, the ideal of free human beings enjoying civil and political freedom and freedom from fear and want can only be achieved if conditions are created whereby everyone may enjoy his civil and political rights, as well as his economic, social and cultural rights, Considering the obligation of States under the Charter of the United Nations to promote universal respect for, and observance of, human rights and freedoms, Realizing that the individual, having duties to other individuals and to the community to which he belongs, is under a responsibility to strive for the promotion and observance of the rights recognized in the present Covenant, Agree upon the following articles:"
+          "num": "1",
+          "text": "The present Covenant shall enter into force three months after the date of the deposit with the Secretary-General of the United Nations of the thirty-fifth instrument of ratification or instrument of accession."
+        },
+        {
+          "num": "2",
+          "text": "For each State ratifying the present Covenant or acceding to it after the deposit of the thirty-fifth instrument of ratification or instrument of accession, the present Covenant shall enter into force three months after the date of the deposit of its own instrument of ratification or instrument of accession."
         }
       ]
     },
@@ -723,11 +939,7 @@
         },
         {
           "num": "2",
-          "text": "Amendments shall come into force when they have been approved by the General Assembly of the United Nations and accepted by a two-thirds majority of the States Parties to the present Covenant in accordance with their respective constitutional processes."
-        },
-        {
-          "num": "3",
-          "text": "When amendments come into force, they shall be binding on those States Parties which have accepted them, other States Parties still being bound by the provisions of the present Covenant and any earlier amendment which they have accepted."
+          "text": "Amendments shall come into force when they have been approved by the General Assembly of the United Nations and accepted by a two-thirds majority of the States Parties to the present Covenant in accordance with their respective constitutional processes. 3. When amendments come into force, they shall be binding on those States Parties which have accepted them, other States Parties still being bound by the provisions of the present Covenant and any earlier amendment which they have accepted."
         }
       ]
     },
@@ -736,7 +948,15 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Irrespective of the notifications made under article 48, paragraph 5, the Secretary-General of the United Nations shall inform all States referred to in paragraph I of the same article of the following particulars: (a) Signatures, ratifications and accessions under article 48; (b) The date of the entry into force of the present Covenant under"
+          "text": "Irrespective of the notifications made under article 48, paragraph 5, the Secretary-General of the United Nations shall inform all States referred to in paragraph I of the same article of the following particulars:"
+        },
+        {
+          "num": null,
+          "text": "(a) Signatures, ratifications and accessions under article 48;"
+        },
+        {
+          "num": null,
+          "text": "(b) The date of the entry into force of the present Covenant under article 49 and the date of the entry into force of any amendments under article 51."
         }
       ]
     },
@@ -749,7 +969,7 @@
         },
         {
           "num": "2",
-          "text": "The Secretary-General of the United Nations shall transmit certified copies of the present Covenant to all States referred to in"
+          "text": "The Secretary-General of the United Nations shall transmit certified copies of the present Covenant to all States referred to in article 48."
         }
       ]
     }

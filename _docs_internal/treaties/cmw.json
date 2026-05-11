@@ -26,7 +26,59 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "For the purposes of the present Convention: 1. The term \"migrant worker\" refers to a person who is to be engaged, is engaged or has been engaged in a remunerated activity in a State of which he or she is not a national. 2. (a) The term \"frontier worker\" refers to a migrant worker who retains his or her habitual residence in a neighbouring State to which he or she normally returns every day or at least once a week; (b) The term \"seasonal worker\" refers to a migrant worker whose work by its character is dependent on seasonal conditions and is performed only during part of the year; (c) The term \"seafarer\", which includes a fisherman, refers to a migrant worker employed on board a vessel registered in a State of which he or she is not a national; (d) The term \"worker on an offshore installation\" refers to a migrant worker employed on an offshore installation that is under the jurisdiction of a State of which he or she is not a national; (e) The term \"itinerant worker'' refers to a migrant worker who, having his or her habitual residence in one State, has to travel to another State or States for short periods, owing to the nature of his or her occupation; (f) The term \"project-tied worker\" refers to a migrant worker admitted to a State of employment for a defined period to work solely on a specific project being carried out in that State by his or her employer; (g) The term \"specified-employment worker\" refers to a migrant worker: (i) Who has been sent by his or her employer for a restricted and defined period of time to a State of employment to undertake a specific assignment or duty; or (ii) Who engages for a restricted and defined period of time in work that requires professional, commercial, technical or other highly specialized skill; or (iii) Who, upon the request of his or her employer in the State of employment, engages for a restricted and defined period of time in work whose nature is transitory or brief; and who is required to depart from the State of employment either at the expiration of his or her authorized period of stay, or earlier if he or she no longer undertakes that specific assignment or duty or engages in that work; (h) The term \"self-employed worker\" refers to a migrant worker who is engaged in a remunerated activity otherwise than under acontract of employment and who earns his or her living through this activity normally working alone or together with members of his or her family, and to any other migrant worker recognized as self-employed by applicable legislation of the State of employment or bilateral or multilateral agreements."
+          "text": "For the purposes of the present Convention:"
+        },
+        {
+          "num": "1",
+          "text": "The term \"migrant worker\" refers to a person who is to be engaged, is engaged or has been engaged in a remunerated activity in a State of which he or she is not a national."
+        },
+        {
+          "num": null,
+          "text": "2."
+        },
+        {
+          "num": null,
+          "text": "(a) The term \"frontier worker\" refers to a migrant worker who retains his or her habitual residence in a neighbouring State to which he or she normally returns every day or at least once a week;"
+        },
+        {
+          "num": null,
+          "text": "(b) The term \"seasonal worker\" refers to a migrant worker whose work by its character is dependent on seasonal conditions and is performed only during part of the year;"
+        },
+        {
+          "num": null,
+          "text": "(c) The term \"seafarer\", which includes a fisherman, refers to a migrant worker employed on board a vessel registered in a State of which he or she is not a national;"
+        },
+        {
+          "num": null,
+          "text": "(d) The term \"worker on an offshore installation\" refers to a migrant worker employed on an offshore installation that is under the jurisdiction of a State of which he or she is not a national;"
+        },
+        {
+          "num": null,
+          "text": "(e) The term \"itinerant worker'' refers to a migrant worker who, having his or her habitual residence in one State, has to travel to another State or States for short periods, owing to the nature of his or her occupation;"
+        },
+        {
+          "num": null,
+          "text": "(f) The term \"project-tied worker\" refers to a migrant worker admitted to a State of employment for a defined period to work solely on a specific project being carried out in that State by his or her employer;"
+        },
+        {
+          "num": null,
+          "text": "(g) The term \"specified-employment worker\" refers to a migrant worker:"
+        },
+        {
+          "num": null,
+          "text": "(i) Who has been sent by his or her employer for a restricted and defined period of time to a State of employment to undertake a specific assignment or duty; or"
+        },
+        {
+          "num": null,
+          "text": "(ii) Who engages for a restricted and defined period of time in work that requires professional, commercial, technical or other highly specialized skill; or"
+        },
+        {
+          "num": null,
+          "text": "(iii) Who, upon the request of his or her employer in the State of employment, engages for a restricted and defined period of time in work whose nature is transitory or brief; and who is required to depart from the State of employment either at the expiration of his or her authorized period of stay, or earlier if he or she no longer undertakes that specific assignment or duty or engages in that work;"
+        },
+        {
+          "num": null,
+          "text": "(h) The term \"self-employed worker\" refers to a migrant worker who is engaged in a remunerated activity otherwise than under acontract of employment and who earns his or her living through this activity normally working alone or together with members of his or her family, and to any other migrant worker recognized as self-employed by applicable legislation of the State of employment or bilateral or multilateral agreements."
         }
       ]
     },
@@ -35,7 +87,31 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "The present Convention shall not apply to: (a) Persons sent or employed by international organizations and agencies or persons sent or employed by a State outside its territory to perform official functions, whose admission and status are regulated by general international law or by specific international agreements or conventions; (b) Persons sent or employed by a State or on its behalf outside its territory who participate in development programmes and other co-operation programmes, whose admission and status are regulated by agreement with the State of employment and who, in accordance with that agreement, are not considered migrant workers; (c) Persons taking up residence in a State different from their State of origin as investors; (d) Refugees and stateless persons, unless such application is provided for in the relevant national legislation of, or international instruments in force for, the State Party concerned; (e) Students and trainees; (f) Seafarers and workers on an offshore installation who have not been admitted to take up residence and engage in a remunerated activity in the State of employment."
+          "text": "The present Convention shall not apply to:"
+        },
+        {
+          "num": null,
+          "text": "(a) Persons sent or employed by international organizations and agencies or persons sent or employed by a State outside its territory to perform official functions, whose admission and status are regulated by general international law or by specific international agreements or conventions;"
+        },
+        {
+          "num": null,
+          "text": "(b) Persons sent or employed by a State or on its behalf outside its territory who participate in development programmes and other co-operation programmes, whose admission and status are regulated by agreement with the State of employment and who, in accordance with that agreement, are not considered migrant workers;"
+        },
+        {
+          "num": null,
+          "text": "(c) Persons taking up residence in a State different from their State of origin as investors;"
+        },
+        {
+          "num": null,
+          "text": "(d) Refugees and stateless persons, unless such application is provided for in the relevant national legislation of, or international instruments in force for, the State Party concerned;"
+        },
+        {
+          "num": null,
+          "text": "(e) Students and trainees;"
+        },
+        {
+          "num": null,
+          "text": "(f) Seafarers and workers on an offshore installation who have not been admitted to take up residence and engage in a remunerated activity in the State of employment."
         }
       ]
     },
@@ -53,7 +129,15 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "For the purposes of the present Convention, migrant workers and members of their families: (a) Are considered as documented or in a regular situation if they are authorized to enter, to stay and to engage in a remunerated activity in the State of employment pursuant to the law of that State and to international agreements to which that State is a party; (b) Are considered as non-documented or in an irregular situation if they do not comply with the conditions provided for in subparagraph (a) of the present article."
+          "text": "For the purposes of the present Convention, migrant workers and members of their families:"
+        },
+        {
+          "num": null,
+          "text": "(a) Are considered as documented or in a regular situation if they are authorized to enter, to stay and to engage in a remunerated activity in the State of employment pursuant to the law of that State and to international agreements to which that State is a party;"
+        },
+        {
+          "num": null,
+          "text": "(b) Are considered as non-documented or in an irregular situation if they do not comply with the conditions provided for in subparagraph (a) of the present article."
         }
       ]
     },
@@ -62,7 +146,19 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "For the purposes of the present Convention: (a) The term \"State of origin\" means the State of which the person concerned is a national; (b) The term \"State of employment\" means a State where the migrant worker is to be engaged, is engaged or has been engaged in a remunerated activity, as the case may be; (c) The term \"State of transit,' means any State through which the person concerned passes on any journey to the State of employment or from the State of employment to the State of origin or the State of habitual residence. : Non-discrimination with Respect to Rights"
+          "text": "For the purposes of the present Convention:"
+        },
+        {
+          "num": null,
+          "text": "(a) The term \"State of origin\" means the State of which the person concerned is a national;"
+        },
+        {
+          "num": null,
+          "text": "(b) The term \"State of employment\" means a State where the migrant worker is to be engaged, is engaged or has been engaged in a remunerated activity, as the case may be;"
+        },
+        {
+          "num": null,
+          "text": "(c) The term \"State of transit,' means any State through which the person concerned passes on any journey to the State of employment or from the State of employment to the State of origin or the State of habitual residence."
         }
       ]
     },
@@ -71,7 +167,7 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "States Parties undertake, in accordance with the international instruments concerning human rights, to respect and to ensure to all migrant workers and members of their families within their territory or subject to their jurisdiction the rights provided for in the present Convention without distinction of any kind such as to sex, race, colour, language, religion or conviction, political or other opinion, national, ethnic or social origin, nationality, age, economic position, property, marital status, birth or other status. : Human Rights of All Migrant Workers and Members of their Families"
+          "text": "States Parties undertake, in accordance with the international instruments concerning human rights, to respect and to ensure to all migrant workers and members of their families within their territory or subject to their jurisdiction the rights provided for in the present Convention without distinction of any kind such as to sex, race, colour, language, religion or conviction, political or other opinion, national, ethnic or social origin, nationality, age, economic position, property, marital status, birth or other status."
         }
       ]
     },
@@ -123,7 +219,19 @@
         },
         {
           "num": "4",
-          "text": "For the purpose of the present article the term \"forced or compulsory labour\" shall not include: (a) Any work or service not referred to in paragraph 3 of the present article normally required of a person who is under detention in consequence of a lawful order of a court or of a person during conditional release from such detention; (b) Any service exacted in cases of emergency or calamity threatening the life or well-being of the community; (c) Any work or service that forms part of normal civil obligations so far as it is imposed also on citizens of the State concerned."
+          "text": "For the purpose of the present article the term \"forced or compulsory labour\" shall not include:"
+        },
+        {
+          "num": null,
+          "text": "(a) Any work or service not referred to in paragraph 3 of the present article normally required of a person who is under detention in consequence of a lawful order of a court or of a person during conditional release from such detention;"
+        },
+        {
+          "num": null,
+          "text": "(b) Any service exacted in cases of emergency or calamity threatening the life or well-being of the community;"
+        },
+        {
+          "num": null,
+          "text": "(c) Any work or service that forms part of normal civil obligations so far as it is imposed also on citizens of the State concerned."
         }
       ]
     },
@@ -161,7 +269,23 @@
         },
         {
           "num": "3",
-          "text": "The exercise of the right provided for in paragraph 2 of the present article carries with it special duties and responsibilities. It may therefore be subject to certain restrictions, but these shall only be such as are provided by law and are necessary: (a) For respect of the rights or reputation of others; (b) For the protection of the national security of the States concerned or of public order (ordre public) or of public health or morals; (c) For the purpose of preventing any propaganda for war; (d) For the purpose of preventing any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence."
+          "text": "The exercise of the right provided for in paragraph 2 of the present article carries with it special duties and responsibilities. It may therefore be subject to certain restrictions, but these shall only be such as are provided by law and are necessary:"
+        },
+        {
+          "num": null,
+          "text": "(a) For respect of the rights or reputation of others;"
+        },
+        {
+          "num": null,
+          "text": "(b) For the protection of the national security of the States concerned or of public order (ordre public) or of public health or morals;"
+        },
+        {
+          "num": null,
+          "text": "(c) For the purpose of preventing any propaganda for war;"
+        },
+        {
+          "num": null,
+          "text": "(d) For the purpose of preventing any advocacy of national, racial or religious hatred that constitutes incitement to discrimination, hostility or violence."
         }
       ]
     },
@@ -212,7 +336,19 @@
         },
         {
           "num": "7",
-          "text": "When a migrant worker or a member of his or her family is arrested or committed to prison or custody pending trial or is detained in any other manner: (a) The consular or diplomatic authorities of his or her State of origin or of a State representing the interests of that State shall, if he or she so requests, be informed without delay of his or her arrest or detention and of the reasons therefor; (b) The person concerned shall have the right to communicate with the said authorities. Any communication by the person concerned to the said authorities shall be forwarded without delay, and he or she shall also have the right to receive communications sent by the said authorities without delay; (c) The person concerned shall be informed without delay of this right and of rights deriving from relevant treaties, if any, applicable between the States concerned, to correspond and to meet with representatives of the said authorities and to make arrangements with them for his or her legal representation."
+          "text": "When a migrant worker or a member of his or her family is arrested or committed to prison or custody pending trial or is detained in any other manner:"
+        },
+        {
+          "num": null,
+          "text": "(a) The consular or diplomatic authorities of his or her State of origin or of a State representing the interests of that State shall, if he or she so requests, be informed without delay of his or her arrest or detention and of the reasons therefor;"
+        },
+        {
+          "num": null,
+          "text": "(b) The person concerned shall have the right to communicate with the said authorities. Any communication by the person concerned to the said authorities shall be forwarded without delay, and he or she shall also have the right to receive communications sent by the said authorities without delay;"
+        },
+        {
+          "num": null,
+          "text": "(c) The person concerned shall be informed without delay of this right and of rights deriving from relevant treaties, if any, applicable between the States concerned, to correspond and to meet with representatives of the said authorities and to make arrangements with them for his or her legal representation."
         },
         {
           "num": "8",
@@ -274,7 +410,35 @@
         },
         {
           "num": "3",
-          "text": "In the determination of any criminal charge against them, migrant workers and members of their families shall be entitled to the following minimum guarantees: (a) To be informed promptly and in detail in a language they understand of the nature and cause of the charge against them; (b) To have adequate time and facilities for the preparation of their defence and to communicate with counsel of their own choosing; (c) To be tried without undue delay; (d) To be tried in their presence and to defend themselves in person or through legal assistance of their own choosing; to be informed, if they do not have legal assistance, of this right; and to have legal assistance assigned to them, in any case where the interests of justice so require and without payment by them in any such case if they do not have sufficient means to pay; (e) To examine or have examined the witnesses against them and to obtain the attendance and examination of witnesses on their behalf under the same conditions as witnesses against them; (f) To have the free assistance of an interpreter if they cannot understand or speak the language used in court; (g) Not to be compelled to testify against themselves or to confess guilt."
+          "text": "In the determination of any criminal charge against them, migrant workers and members of their families shall be entitled to the following minimum guarantees:"
+        },
+        {
+          "num": null,
+          "text": "(a) To be informed promptly and in detail in a language they understand of the nature and cause of the charge against them;"
+        },
+        {
+          "num": null,
+          "text": "(b) To have adequate time and facilities for the preparation of their defence and to communicate with counsel of their own choosing;"
+        },
+        {
+          "num": null,
+          "text": "(c) To be tried without undue delay;"
+        },
+        {
+          "num": null,
+          "text": "(d) To be tried in their presence and to defend themselves in person or through legal assistance of their own choosing; to be informed, if they do not have legal assistance, of this right; and to have legal assistance assigned to them, in any case where the interests of justice so require and without payment by them in any such case if they do not have sufficient means to pay;"
+        },
+        {
+          "num": null,
+          "text": "(e) To examine or have examined the witnesses against them and to obtain the attendance and examination of witnesses on their behalf under the same conditions as witnesses against them;"
+        },
+        {
+          "num": null,
+          "text": "(f) To have the free assistance of an interpreter if they cannot understand or speak the language used in court;"
+        },
+        {
+          "num": null,
+          "text": "(g) Not to be compelled to testify against themselves or to confess guilt."
         },
         {
           "num": "4",
@@ -393,7 +557,15 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Migrant workers shall enjoy treatment not less favourable than that which applies to nationals of the State of employment in respect of remuneration and: (a) Other conditions of work, that is to say, overtime, hours of work, weekly rest, holidays with pay, safety, health, termination of the employment relationship and any other conditions of work which, according to national law and practice, are covered by these terms; (b) Other terms of employment, that is to say, minimum age of employment, restriction on work and any other matters which, according to national law and practice, are considered a term of employment."
+          "text": "Migrant workers shall enjoy treatment not less favourable than that which applies to nationals of the State of employment in respect of remuneration and:"
+        },
+        {
+          "num": null,
+          "text": "(a) Other conditions of work, that is to say, overtime, hours of work, weekly rest, holidays with pay, safety, health, termination of the employment relationship and any other conditions of work which, according to national law and practice, are covered by these terms;"
+        },
+        {
+          "num": null,
+          "text": "(b) Other terms of employment, that is to say, minimum age of employment, restriction on work and any other matters which, according to national law and practice, are considered a term of employment."
         },
         {
           "num": "2",
@@ -410,7 +582,19 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "States Parties recognize the right of migrant workers and members of their families: (a) To take part in meetings and activities of trade unions and of any other associations established in accordance with law, with a view to protecting their economic, social, cultural and other interests, subject only to the rules of the organization concerned; (b) To join freely any trade union and any such association as aforesaid, subject only to the rules of the organization concerned; (c) To seek the aid and assistance of any trade union and of any such association as aforesaid."
+          "text": "States Parties recognize the right of migrant workers and members of their families:"
+        },
+        {
+          "num": null,
+          "text": "(a) To take part in meetings and activities of trade unions and of any other associations established in accordance with law, with a view to protecting their economic, social, cultural and other interests, subject only to the rules of the organization concerned;"
+        },
+        {
+          "num": null,
+          "text": "(b) To join freely any trade union and any such association as aforesaid, subject only to the rules of the organization concerned;"
+        },
+        {
+          "num": null,
+          "text": "(c) To seek the aid and assistance of any trade union and of any such association as aforesaid."
         },
         {
           "num": "2",
@@ -463,11 +647,7 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "States Parties shall ensure respect for the cultural identity of migrant workers and members of their families and shall not prevent them from maintaining their cultural links with their State of origin."
-        },
-        {
-          "num": "2",
-          "text": "States Parties may take appropriate measures to assist and encourage efforts in this respect."
+          "text": "States Parties shall ensure respect for the cultural identity of migrant workers and members of their families and shall not prevent them from maintaining their cultural links with their State of origin. 2. States Parties may take appropriate measures to assist and encourage efforts in this respect."
         }
       ]
     },
@@ -485,11 +665,15 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Migrant workers and members of their families shall have the right to be informed by the State of origin, the State of employment or the State of transit as the case may be concerning: (a) Their rights arising out of the present Convention; (b) The conditions of their admission, their rights and obligations under the law and practice of the State concerned and such other matters as will enable them to comply with administrative or other formalities in that State."
+          "text": "Migrant workers and members of their families shall have the right to be informed by the State of origin, the State of employment or the State of transit as the case may be concerning:"
         },
         {
-          "num": "2",
-          "text": "States Parties shall take all measures they deem appropriate to disseminate the said information or to ensure that it is provided by employers, trade unions or other appropriate bodies or institutions. As appropriate, they shall co-operate with other States concerned."
+          "num": null,
+          "text": "(a) Their rights arising out of the present Convention;"
+        },
+        {
+          "num": null,
+          "text": "(b) The conditions of their admission, their rights and obligations under the law and practice of the State concerned and such other matters as will enable them to comply with administrative or other formalities in that State. 2. States Parties shall take all measures they deem appropriate to disseminate the said information or to ensure that it is provided by employers, trade unions or other appropriate bodies or institutions. As appropriate, they shall co-operate with other States concerned."
         },
         {
           "num": "3",
@@ -511,7 +695,7 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Nothing in the present part of the Convention shall be interpreted as implying the regularization of the situation of migrant workers or members of their families who are non-documented or in an irregular situation or any right to such regularization of their situation, nor shall it prejudice the measures intended to ensure sound and equitable-conditions for international migration as provided in of the present Convention. : Other Rights of Migrant Workers and Members of their Families who are Documented or in a Regular Situation"
+          "text": "Nothing in the present part of the Convention shall be interpreted as implying the regularization of the situation of migrant workers or members of their families who are non-documented or in an irregular situation or any right to such regularization of their situation, nor shall it prejudice the measures intended to ensure sound and equitable-conditions for international migration as provided in part VI of the present Convention."
         }
       ]
     },
@@ -520,7 +704,11 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Migrant workers and members of their families who are documented or in a regular situation in the State of employment shall enjoy the rights set forth in the present part of the Convention in addition to those set forth in ."
+          "text": "&nbsp;"
+        },
+        {
+          "num": null,
+          "text": "Migrant workers and members of their families who are documented or in a regular situation in the State of employment shall enjoy the rights set forth in the present part of the Convention in addition to those set forth in part III."
         }
       ]
     },
@@ -607,7 +795,35 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Migrant workers shall enjoy equality of treatment with nationals of the State of employment in relation to: (a) Access to educational institutions and services subject to the admission requirements and other regulations of the institutions and services concerned; (b) Access to vocational guidance and placement services; (c) Access to vocational training and retraining facilities and institutions; (d) Access to housing, including social housing schemes, and protection against exploitation in respect of rents; (e) Access to social and health services, provided that the requirements for participation in the respective schemes are met; (f) Access to co-operatives and self-managed enterprises, which shall not imply a change of their migration status and shall be subject to the rules and regulations of the bodies concerned; (g) Access to and participation in cultural life."
+          "text": "Migrant workers shall enjoy equality of treatment with nationals of the State of employment in relation to:"
+        },
+        {
+          "num": null,
+          "text": "(a) Access to educational institutions and services subject to the admission requirements and other regulations of the institutions and services concerned;"
+        },
+        {
+          "num": null,
+          "text": "(b) Access to vocational guidance and placement services;"
+        },
+        {
+          "num": null,
+          "text": "(c) Access to vocational training and retraining facilities and institutions;"
+        },
+        {
+          "num": null,
+          "text": "(d) Access to housing, including social housing schemes, and protection against exploitation in respect of rents;"
+        },
+        {
+          "num": null,
+          "text": "(e) Access to social and health services, provided that the requirements for participation in the respective schemes are met;"
+        },
+        {
+          "num": null,
+          "text": "(f) Access to co-operatives and self-managed enterprises, which shall not imply a change of their migration status and shall be subject to the rules and regulations of the bodies concerned;"
+        },
+        {
+          "num": null,
+          "text": "(g) Access to and participation in cultural life."
         },
         {
           "num": "2",
@@ -615,7 +831,7 @@
         },
         {
           "num": "3",
-          "text": "States of employment shall not prevent an employer of migrant workers from establishing housing or social or cultural facilities for them. Subject to"
+          "text": "States of employment shall not prevent an employer of migrant workers from establishing housing or social or cultural facilities for them. Subject to article 70 of the present Convention, a State of employment may make the establishment of such facilities subject to the requirements generally applied in that State concerning their installation."
         }
       ]
     },
@@ -641,7 +857,23 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Members of the families of migrant workers shall, in the State of employment, enjoy equality of treatment with nationals of that State in relation to: (a) Access to educational institutions and services, subject to the admission requirements and other regulations of the institutions and services concerned; (b) Access to vocational guidance and training institutions and services, provided that requirements for participation are met; (c) Access to social and health services, provided that requirements for participation in the respective schemes are met; (d) Access to and participation in cultural life."
+          "text": "Members of the families of migrant workers shall, in the State of employment, enjoy equality of treatment with nationals of that State in relation to:"
+        },
+        {
+          "num": null,
+          "text": "(a) Access to educational institutions and services, subject to the admission requirements and other regulations of the institutions and services concerned;"
+        },
+        {
+          "num": null,
+          "text": "(b) Access to vocational guidance and training institutions and services, provided that requirements for participation are met;"
+        },
+        {
+          "num": null,
+          "text": "(c) Access to social and health services, provided that requirements for participation in the respective schemes are met;"
+        },
+        {
+          "num": null,
+          "text": "(d) Access to and participation in cultural life."
         },
         {
           "num": "2",
@@ -662,7 +894,23 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Migrant workers and members of their families shall, subject to the applicable legislation of the States concerned, as well as relevant international agreements and the obligations of the States concerned arising out of their participation in customs unions, enjoy exemption from import and export duties and taxes in respect of their personal and household effects as well as the equipment necessary to engage in the remunerated activity for which they were admitted to the State of employment: (a) Upon departure from the State of origin or State of habitual residence; (b) Upon initial admission to the State of employment; (c) Upon final departure from the State of employment; (d) Upon final return to the State of origin or State of habitual residence."
+          "text": "Migrant workers and members of their families shall, subject to the applicable legislation of the States concerned, as well as relevant international agreements and the obligations of the States concerned arising out of their participation in customs unions, enjoy exemption from import and export duties and taxes in respect of their personal and household effects as well as the equipment necessary to engage in the remunerated activity for which they were admitted to the State of employment:"
+        },
+        {
+          "num": null,
+          "text": "(a) Upon departure from the State of origin or State of habitual residence;"
+        },
+        {
+          "num": null,
+          "text": "(b) Upon initial admission to the State of employment;"
+        },
+        {
+          "num": null,
+          "text": "(c) Upon final departure from the State of employment;"
+        },
+        {
+          "num": null,
+          "text": "(d) Upon final return to the State of origin or State of habitual residence."
         }
       ]
     },
@@ -684,11 +932,15 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Without prejudice to applicable double taxation agreements, migrant workers and members of their families shall, in the matter of earnings in the State of employment: (a) Not be liable to taxes, duties or charges of any description higher or more onerous than those imposed on nationals in similar circumstances; (b) Be entitled to deductions or exemptions from taxes of any description and to any tax allowances applicable to nationals in similar circumstances, including tax allowances for dependent members of their families."
+          "text": "Without prejudice to applicable double taxation agreements, migrant workers and members of their families shall, in the matter of earnings in the State of employment:"
         },
         {
-          "num": "2",
-          "text": "States Parties shall endeavour to adopt appropriate measures to avoid double taxation of the earnings and savings of migrant workers and members of their families."
+          "num": null,
+          "text": "(a) Not be liable to taxes, duties or charges of any description higher or more onerous than those imposed on nationals in similar circumstances;"
+        },
+        {
+          "num": null,
+          "text": "(b) Be entitled to deductions or exemptions from taxes of any description and to any tax allowances applicable to nationals in similar circumstances, including tax allowances for dependent members of their families. 2. States Parties shall endeavour to adopt appropriate measures to avoid double taxation of the earnings and savings of migrant workers and members of their families."
         }
       ]
     },
@@ -744,11 +996,27 @@
         },
         {
           "num": "2",
-          "text": "For any migrant worker a State of employment may: (a) Restrict access to limited categories of employment, functions, services or activities where this is necessary in the interests of this State and provided for by national legislation; (b) Restrict free choice of remunerated activity in accordance with its legislation concerning recognition of occupational qualifications acquired outside its territory. However, States Parties concerned shall endeavour to provide for recognition of such qualifications."
+          "text": "For any migrant worker a State of employment may:"
+        },
+        {
+          "num": null,
+          "text": "(a) Restrict access to limited categories of employment, functions, services or activities where this is necessary in the interests of this State and provided for by national legislation;"
+        },
+        {
+          "num": null,
+          "text": "(b) Restrict free choice of remunerated activity in accordance with its legislation concerning recognition of occupational qualifications acquired outside its territory. However, States Parties concerned shall endeavour to provide for recognition of such qualifications."
         },
         {
           "num": "3",
-          "text": "For migrant workers whose permission to work is limited in time, a State of employment may also: (a) Make the right freely to choose their remunerated activities subject to the condition that the migrant worker has resided lawfully in its territory for the purpose of remunerated activity for a period of time prescribed in its national legislation that should not exceed two years; (b) Limit access by a migrant worker to remunerated activities in pursuance of a policy of granting priority to its nationals or to persons who are assimilated to them for these purposes by virtue of legislation or bilateral or multilateral agreements. Any such limitation shall cease to apply to a migrant worker who has resided lawfully in its territory for the purpose of remunerated activity for a period of time prescribed in its national legislation that should not exceed five years."
+          "text": "For migrant workers whose permission to work is limited in time, a State of employment may also:"
+        },
+        {
+          "num": null,
+          "text": "(a) Make the right freely to choose their remunerated activities subject to the condition that the migrant worker has resided lawfully in its territory for the purpose of remunerated activity for a period of time prescribed in its national legislation that should not exceed two years;"
+        },
+        {
+          "num": null,
+          "text": "(b) Limit access by a migrant worker to remunerated activities in pursuance of a policy of granting priority to its nationals or to persons who are assimilated to them for these purposes by virtue of legislation or bilateral or multilateral agreements. Any such limitation shall cease to apply to a migrant worker who has resided lawfully in its territory for the purpose of remunerated activity for a period of time prescribed in its national legislation that should not exceed five years."
         },
         {
           "num": "4",
@@ -761,7 +1029,11 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Members of a migrant worker's family who have themselves an authorization of residence or admission that is without limit of time or is automatically renewable shall be permitted freely to choose their remunerated activity under the same conditions as are applicable to the said migrant worker in accordance with"
+          "text": "Members of a migrant worker's family who have themselves an authorization of residence or admission that is without limit of time or is automatically renewable shall be permitted freely to choose their remunerated activity under the same conditions as are applicable to the said migrant worker in accordance with article 52 of the present Convention."
+        },
+        {
+          "num": "2",
+          "text": "With respect to members of a migrant worker's family who are not permitted freely to choose their remunerated activity, States Parties shall consider favourably granting them priority in obtaining permission to engage in a remunerated activity over other workers who seek admission to the State of employment, subject to applicable bilateral and multilateral agreements."
         }
       ]
     },
@@ -770,7 +1042,27 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Without prejudice to the terms of their authorization of residence or their permission to work and the rights provided for in articles 25 and 27 of the present Convention, migrant workers shall enjoy equality of treatment with nationals of the State of employment in respect of: (a) Protection against dismissal; (b) Unemployment benefits; (c) Access to public work schemes intended to combat unemployment; (d) Access to alternative employment in the event of loss of work or termination of other remunerated activity, subject to"
+          "text": "Without prejudice to the terms of their authorization of residence or their permission to work and the rights provided for in articles 25 and 27 of the present Convention, migrant workers shall enjoy equality of treatment with nationals of the State of employment in respect of:"
+        },
+        {
+          "num": null,
+          "text": "(a) Protection against dismissal;"
+        },
+        {
+          "num": null,
+          "text": "(b) Unemployment benefits;"
+        },
+        {
+          "num": null,
+          "text": "(c) Access to public work schemes intended to combat unemployment;"
+        },
+        {
+          "num": null,
+          "text": "(d) Access to alternative employment in the event of loss of work or termination of other remunerated activity, subject to article 52 of the present Convention."
+        },
+        {
+          "num": "2",
+          "text": "If a migrant worker claims that the terms of his or her work contract have been violated by his or her employer, he or she shall have the right to address his or her case to the competent authorities of the State of employment, on terms provided for in article 18, paragraph 1, of the present Convention."
         }
       ]
     },
@@ -788,7 +1080,7 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Migrant workers and members of their families referred to in the present part of the Convention may not be expelled from a State of employment, except for reasons defined in the national legislation of that State, and subject to the safeguards established in ."
+          "text": "Migrant workers and members of their families referred to in the present part of the Convention may not be expelled from a State of employment, except for reasons defined in the national legislation of that State, and subject to the safeguards established in part III."
         },
         {
           "num": "2",
@@ -796,7 +1088,7 @@
         },
         {
           "num": "3",
-          "text": "In considering whether to expel a migrant worker or a member of his or her family, account should be taken of humanitarian considerations and of the length of time that the person concerned has already resided in the State of employment. : Provisions Applicable to Particular Categories of Migrant Workers and Members of their Families"
+          "text": "In considering whether to expel a migrant worker or a member of his or her family, account should be taken of humanitarian considerations and of the length of time that the person concerned has already resided in the State of employment."
         }
       ]
     },
@@ -805,7 +1097,7 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "The particular categories of migrant workers and members of their families specified in the present part of the Convention who are documented or in a regular situation shall enjoy the rights set forth in and, except as modified below, the rights set forth in ."
+          "text": "The particular categories of migrant workers and members of their families specified in the present part of the Convention who are documented or in a regular situation shall enjoy the rights set forth in part m and, except as modified below, the rights set forth in part IV."
         }
       ]
     },
@@ -814,7 +1106,7 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Frontier workers, as defined in article 2, paragraph 2 (a), of the present Convention, shall be entitled to the rights provided for in that can be applied to them by reason of their presence and work in the territory of the State of employment, taking into account that they do not have their habitual residence in that State."
+          "text": "Frontier workers, as defined in article 2, paragraph 2 (a), of the present Convention, shall be entitled to the rights provided for in part IV that can be applied to them by reason of their presence and work in the territory of the State of employment, taking into account that they do not have their habitual residence in that State."
         },
         {
           "num": "2",
@@ -827,7 +1119,7 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Seasonal workers, as defined in article 2, paragraph 2 (b), of the present Convention, shall be entitled to the rights provided for in that can be applied to them by reason of their presence and work in the territory of the State of employment and that are compatible with their status in that State as seasonal workers, taking into account the fact that they are present in that State for only part of the year."
+          "text": "Seasonal workers, as defined in article 2, paragraph 2 (b), of the present Convention, shall be entitled to the rights provided for in part IV that can be applied to them by reason of their presence and work in the territory of the State of employment and that are compatible with their status in that State as seasonal workers, taking into account the fact that they are present in that State for only part of the year."
         },
         {
           "num": "2",
@@ -840,7 +1132,7 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Itinerant workers, as defined in article 2, paragraph 2 (A), of the present Convention, shall be entitled to the rights provided for in that can be granted to them by reason of their presence and work in the territory of the State of employment and that are compatible with their status as itinerant workers in that State."
+          "text": "Itinerant workers, as defined in article 2, paragraph 2 (A), of the present Convention, shall be entitled to the rights provided for in part IV that can be granted to them by reason of their presence and work in the territory of the State of employment and that are compatible with their status as itinerant workers in that State."
         }
       ]
     },
@@ -849,11 +1141,11 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Project-tied workers, as defined in article 2, paragraph 2 (of the present Convention, and members of their families shall be entitled to the rights provided for in except the provisions of article 43, paragraphs I (b) and (c), article 43, paragraph I (d), as it pertains to social housing schemes, article 45, paragraph I (b), and articles 52 to"
+          "text": "Project-tied workers, as defined in article 2, paragraph 2 (of the present Convention, and members of their families shall be entitled to the rights provided for in part IV except the provisions of article 43, paragraphs I (b) and (c), article 43, paragraph I (d), as it pertains to social housing schemes, article 45, paragraph I (b), and articles 52 to 55."
         },
         {
-          "num": "55",
-          "text": "2. If a project-tied worker claims that the terms of his or her work contract have been violated by his or her employer, he or she shall have the right to address his or her case to the competent authorities of the State which has jurisdiction over that employer, on terms provided for in article 18, paragraph 1, of the present Convention."
+          "num": "2",
+          "text": "If a project-tied worker claims that the terms of his or her work contract have been violated by his or her employer, he or she shall have the right to address his or her case to the competent authorities of the State which has jurisdiction over that employer, on terms provided for in article 18, paragraph 1, of the present Convention."
         },
         {
           "num": "3",
@@ -861,7 +1153,7 @@
         },
         {
           "num": "4",
-          "text": "Without prejudice to the provisions of"
+          "text": "Without prejudice to the provisions of article 47 of the present Convention and to relevant bilateral or multilateral agreements, States Parties concerned shall permit payment of the earnings of project-tied workers in their State of origin or habitual residence."
         }
       ]
     },
@@ -870,11 +1162,11 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Specified-employment workers as defined in article 2, paragraph 2 (g), of the present Convention, shall be entitled to the rights provided for in , except the provisions of article 43, paragraphs I (b) and (c), article 43, paragraph I (d), as it pertains to social housing schemes, article 52, and article 54, paragraph 1 (d)."
+          "text": "Specified-employment workers as defined in article 2, paragraph 2 (g), of the present Convention, shall be entitled to the rights provided for in part IV, except the provisions of article 43, paragraphs I (b) and (c), article 43, paragraph I (d), as it pertains to social housing schemes, article 52, and article 54, paragraph 1 (d)."
         },
         {
           "num": "2",
-          "text": "Members of the families of specified-employment workers shall be entitled to the rights relating to family members of migrant workers provided for in of the present Convention, except the provisions of"
+          "text": "Members of the families of specified-employment workers shall be entitled to the rights relating to family members of migrant workers provided for in part IV of the present Convention, except the provisions of article 53."
         }
       ]
     },
@@ -883,11 +1175,24 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Self-employed workers, as defined in article 2, paragraph 2 (h), of the pre sent Convention , shall be entitled to the rights provided for in with the exception of those rights which are exclusively applicable to workers having a contract of employment."
+          "text": "Self-employed workers, as defined in article 2, paragraph 2 (h), of the pre sent Convention , shall be entitled to the rights provided for in part IV with the exception of those rights which are exclusively applicable to workers having a contract of employment."
         },
         {
           "num": "2",
-          "text": "Without prejudice to articles 52 and 79 of the present Convention, the termination of the economic activity of the self-employed workers shall not in itself imply the withdrawal of the authorization for them or for the members of their families to stay or to engage in a remunerated activity in the State of employment except where the authorization of residence is expressly dependent upon the specific remunerated activity for which they were admitted. : Promotion of sound, equitable, humane and lawful conditions in connection with international migration of workers and members of their families"
+          "text": "Without prejudice to articles 52 and 79 of the present Convention, the termination of the economic activity of the self-employed workers shall not in itself imply the withdrawal of the authorization for them or for the members of their families to stay or to engage in a remunerated activity in the State of employment except where the authorization of residence is expressly dependent upon the specific remunerated activity for which they were admitted."
+        }
+      ]
+    },
+    {
+      "number": "64",
+      "paragraphs": [
+        {
+          "num": "1",
+          "text": "Without prejudice to article 79 of the present Convention, the States Parties concerned shall as appropriate consult and co-operate with a view to promoting sound, equitable and humane conditions in connection with international migration of workers and members of their families."
+        },
+        {
+          "num": "2",
+          "text": "In this respect, due regard shall be paid not only to labour needs and resources, but also to the social, economic, cultural and other needs of migrant workers and members of their families involved, as well as to the consequences of such migration for the communities concerned."
         }
       ]
     },
@@ -896,7 +1201,23 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "States Parties shall maintain appropriate services to deal with questions concerning international migration of workers and members of their families. Their functions shall include, inter alia : (a) The formulation and implementation of policies regarding such migration; (b) An exchange of information. consultation and co-operation with the competent authorities of other States Parties involved in such migration; (c) The provision of appropriate information, particularly to employers, workers and their organizations on policies, laws and regulations relating to migration and employment, on agreements concluded with other States concerning migration and on other relevant matters; (d) The provision of information and appropriate assistance to migrant workers and members of their families regarding requisite authorizations and formalities and arrangements for departure, travel, arrival, stay, remunerated activities, exit and return, as well as on conditions of work and life in the State of employment and on customs, currency, tax and other relevant laws and regulations."
+          "text": "States Parties shall maintain appropriate services to deal with questions concerning international migration of workers and members of their families. Their functions shall include, inter alia :"
+        },
+        {
+          "num": null,
+          "text": "(a) The formulation and implementation of policies regarding such migration;"
+        },
+        {
+          "num": null,
+          "text": "(b) An exchange of information. consultation and co-operation with the competent authorities of other States Parties involved in such migration;"
+        },
+        {
+          "num": null,
+          "text": "(c) The provision of appropriate information, particularly to employers, workers and their organizations on policies, laws and regulations relating to migration and employment, on agreements concluded with other States concerning migration and on other relevant matters;"
+        },
+        {
+          "num": null,
+          "text": "(d) The provision of information and appropriate assistance to migrant workers and members of their families regarding requisite authorizations and formalities and arrangements for departure, travel, arrival, stay, remunerated activities, exit and return, as well as on conditions of work and life in the State of employment and on customs, currency, tax and other relevant laws and regulations."
         },
         {
           "num": "2",
@@ -909,7 +1230,19 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Subject to paragraph 2 of the present article, the right to undertake operations with a view to the recruitment of workers for employment in another State shall be restricted to: ( a ) Public services or bodies of the State in which such operations take place; ( b ) Public services or bodies of the State of employment on the basis of agreement between the States concerned; ( c ) A body established by virtue of a bilateral or multilateral agreement."
+          "text": "Subject to paragraph 2 of the present article, the right to undertake operations with a view to the recruitment of workers for employment in another State shall be restricted to:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Public services or bodies of the State in which such operations take place;"
+        },
+        {
+          "num": null,
+          "text": "( b ) Public services or bodies of the State of employment on the basis of agreement between the States concerned;"
+        },
+        {
+          "num": null,
+          "text": "( c ) A body established by virtue of a bilateral or multilateral agreement."
         },
         {
           "num": "2",
@@ -935,7 +1268,19 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "States Parties, including States of transit, shall collaborate with a view to preventing and eliminating illegal or clandestine movements and employment of migrant workers in an irregular situation. The measures to be taken to this end within the jurisdiction of each State concerned shall include: (a) Appropriate measures against the dissemination of misleading information relating to emigration and immigration; (b) Measures to detect and eradicate illegal or clandestine movements of migrant workers and members of their families and to impose effective sanctions on persons, groups or entities which organize, operate or assist in organizing or operating such movements; (c) Measures to impose effective sanctions on persons, groups or entities which use violence, threats or intimidation against migrant workers or members of their families in an irregular situation."
+          "text": "States Parties, including States of transit, shall collaborate with a view to preventing and eliminating illegal or clandestine movements and employment of migrant workers in an irregular situation. The measures to be taken to this end within the jurisdiction of each State concerned shall include:"
+        },
+        {
+          "num": null,
+          "text": "(a) Appropriate measures against the dissemination of misleading information relating to emigration and immigration;"
+        },
+        {
+          "num": null,
+          "text": "(b) Measures to detect and eradicate illegal or clandestine movements of migrant workers and members of their families and to impose effective sanctions on persons, groups or entities which organize, operate or assist in organizing or operating such movements;"
+        },
+        {
+          "num": null,
+          "text": "(c) Measures to impose effective sanctions on persons, groups or entities which use violence, threats or intimidation against migrant workers or members of their families in an irregular situation."
         },
         {
           "num": "2",
@@ -974,7 +1319,7 @@
         },
         {
           "num": "2",
-          "text": "As regards compensation matters relating to the death of a migrant worker or a member of his or her family, States Parties shall, as appropriate, provide assistance to the persons concerned with a view to the prompt settlement of such matters. Settlement of these matters shall be carried out on the basis of applicable national law in accordance with the provisions of the present Convention and any relevant bilateral or multilateral agreements. : Application of the Convention"
+          "text": "As regards compensation matters relating to the death of a migrant worker or a member of his or her family, States Parties shall, as appropriate, provide assistance to the persons concerned with a view to the prompt settlement of such matters. Settlement of these matters shall be carried out on the basis of applicable national law in accordance with the provisions of the present Convention and any relevant bilateral or multilateral agreements."
         }
       ]
     },
@@ -982,12 +1327,28 @@
       "number": "72",
       "paragraphs": [
         {
-          "num": "1",
-          "text": "(a) For the purpose of reviewing the application of the present Convention, there shall be established a Committee on the Protection of the Rights of All Migrant Workers and Members of Their Families (hereinafter referred to as \"the Committee\"); (b) The Committee shall consist, at the time of entry into force of the present Convention, of ten and, after the entry into force of the Convention for the forty-first State Party, of fourteen experts of high moral standing, impartiality and recognized competence in the field covered by the Convention."
+          "num": null,
+          "text": "1."
         },
         {
-          "num": "2",
-          "text": "(a) Members of the Committee shall be elected by secret ballot by the States Parties from a list of persons nominated by the States Parties, due consideration being given to equitable geographical distribution, including both States of origin and States of employment, and to the representation of the principal legal systems. Each State Party may nominate one person from among its own nationals; (b) Members shall be elected and shall serve in their personal capacity."
+          "num": null,
+          "text": "(a) For the purpose of reviewing the application of the present Convention, there shall be established a Committee on the Protection of the Rights of All Migrant Workers and Members of Their Families (hereinafter referred to as \"the Committee\");"
+        },
+        {
+          "num": null,
+          "text": "(b) The Committee shall consist, at the time of entry into force of the present Convention, of ten and, after the entry into force of the Convention for the forty-first State Party, of fourteen experts of high moral standing, impartiality and recognized competence in the field covered by the Convention."
+        },
+        {
+          "num": null,
+          "text": "2."
+        },
+        {
+          "num": null,
+          "text": "(a) Members of the Committee shall be elected by secret ballot by the States Parties from a list of persons nominated by the States Parties, due consideration being given to equitable geographical distribution, including both States of origin and States of employment, and to the representation of the principal legal systems. Each State Party may nominate one person from among its own nationals;"
+        },
+        {
+          "num": null,
+          "text": "(b) Members shall be elected and shall serve in their personal capacity."
         },
         {
           "num": "3",
@@ -998,8 +1359,20 @@
           "text": "Elections of members of the Committee shall be held at a meeting of States Parties convened by the Secretary-General at United Nations Headquarters. At that meeting, for which two thirds of the States Parties shall constitute a quorum, the persons elected to the Committee shall be those nominees who obtain the largest number of votes and an absolute majority of the votes of the States Parties present and voting."
         },
         {
-          "num": "5",
-          "text": "(a) The members of the Committee shall serve for a term of four years. However, the terms of five of the members elected in the first election shall expire at the end of two years; immediately after the first election, the names of these five members shall be chosen by lot by the Chairman of the meeting of States Parties; (b) The election of the four additional members of the Committee shall be held in accordance with the provisions of paragraphs 2, 3 and 4 of the present article, following the entry into force of the Convention for the forty-first State Party. The term of two of the additional members elected on this occasion shall expire at the end of two years; the names of these members shall be chosen by lot by the Chairman of the meeting of States Parties; (c) The members of the Committee shall be eligible for re-election if renominated."
+          "num": null,
+          "text": "5."
+        },
+        {
+          "num": null,
+          "text": "(a) The members of the Committee shall serve for a term of four years. However, the terms of five of the members elected in the first election shall expire at the end of two years; immediately after the first election, the names of these five members shall be chosen by lot by the Chairman of the meeting of States Parties;"
+        },
+        {
+          "num": null,
+          "text": "(b) The election of the four additional members of the Committee shall be held in accordance with the provisions of paragraphs 2, 3 and 4 of the present article, following the entry into force of the Convention for the forty-first State Party. The term of two of the additional members elected on this occasion shall expire at the end of two years; the names of these members shall be chosen by lot by the Chairman of the meeting of States Parties;"
+        },
+        {
+          "num": null,
+          "text": "(c) The members of the Committee shall be eligible for re-election if renominated."
         },
         {
           "num": "6",
@@ -1024,7 +1397,15 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "States Parties undertake to submit to the Secretary-General of the United Nations for consideration by the Committee a report on the legislative, judicial, administrative and other measures they have taken to give effect to the provisions of the present Convention: (a) Within one year after the entry into force of the Convention for the State Party concerned; (b) Thereafter every five years and whenever the Committee so requests."
+          "text": "States Parties undertake to submit to the Secretary-General of the United Nations for consideration by the Committee a report on the legislative, judicial, administrative and other measures they have taken to give effect to the provisions of the present Convention:"
+        },
+        {
+          "num": null,
+          "text": "(a) Within one year after the entry into force of the Convention for the State Party concerned;"
+        },
+        {
+          "num": null,
+          "text": "(b) Thereafter every five years and whenever the Committee so requests."
         },
         {
           "num": "2",
@@ -1103,7 +1484,51 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "A State Party to the present Convention may at any time declare under this article that it recognizes the competence of the Committee to receive and consider communications to the effect that a State Party claims that another State Party is not fulfilling its obligations under the present Convention. Communications under this article may be received and considered only if submitted by a State Party that has made a declaration recognizing in regard to itself the competence of the Committee. No communication shall be received by the Committee if it concerns a State Party which has not made such a declaration. Communications received under this article shall be dealt with in accordance with the following procedure: (a) If a State Party to the present Convention considers that another State Party is not fulfilling its obligations under the present Convention, it may, by written communication, bring the matter to the attention of that State Party. The State Party may also inform the Committee of the matter. Within three months after the receipt of the communication the receiving State shall afford the State that sent the communication an explanation, or any other statement in writing clarifying the matter which should include, to the extent possible and pertinent, reference to domestic procedures and remedies taken, pending or available in the matter; (b) If the matter is not adjusted to the satisfaction of both States Parties concerned within six months after the receipt by the receiving State of the initial communication, either State shall have the right to refer the matter to the Committee, by notice given to the Committee and to the other State; (c) The Committee shall deal with a matter referred to it only after it has ascertained that all available domestic remedies have been invoked and exhausted in the matter, in conformity with the generally recognized principles of international law. This shall not be the rule where, in the view of the Committee, the application of the remedies is unreasonably prolonged; (d) Subject to the provisions of subparagraph ( c ) of the present paragraph, the Committee shall make available its good offices to the States Parties concerned with a view to a friendly solution of the matter on the basis of the respect for the obligations set forth in the present Convention; (e) The Committee shall hold closed meetings when examining communications under the present article; (f) In any matter referred to it in accordance with subparagraph ( b ) of the present paragraph, the Committee may call upon the States Parties concerned, referred to in subparagraph ( b ), to supply any relevant information; (g) The States Parties concerned, referred to in subparagraph ( b ) of the present paragraph, shall have the right to be represented when the matter is being considered by the Committee and to make submissions orally and/or in writing; (h) The Committee shall, within twelve months after the date of receipt of notice under subparagraph (b) of the present paragraph, submit a report, as follows: (i) If a solution within the terms of subparagraph (d) of the present paragraph is reached, the Committee shall confine its report to a brief statement of the facts and of the solution reached; (ii) If a solution within the terms of subparagraph (d) is not reached, the Committee shall, in its report, set forth the relevant facts concerning the issue between the States Parties concerned. The written submissions and record of the oral submissions made by the States Parties concerned shall be attached to the report. The Committee may also communicate only to the States Parties concerned any views that it may consider relevant to the issue between them. In every matter, the report shall be communicated to the States Parties concerned."
+          "text": "A State Party to the present Convention may at any time declare under this article that it recognizes the competence of the Committee to receive and consider communications to the effect that a State Party claims that another State Party is not fulfilling its obligations under the present Convention. Communications under this article may be received and considered only if submitted by a State Party that has made a declaration recognizing in regard to itself the competence of the Committee. No communication shall be received by the Committee if it concerns a State Party which has not made such a declaration. Communications received under this article shall be dealt with in accordance with the following procedure:"
+        },
+        {
+          "num": null,
+          "text": "(a) If a State Party to the present Convention considers that another State Party is not fulfilling its obligations under the present Convention, it may, by written communication, bring the matter to the attention of that State Party. The State Party may also inform the Committee of the matter. Within three months after the receipt of the communication the receiving State shall afford the State that sent the communication an explanation, or any other statement in writing clarifying the matter which should include, to the extent possible and pertinent, reference to domestic procedures and remedies taken, pending or available in the matter;"
+        },
+        {
+          "num": null,
+          "text": "(b) If the matter is not adjusted to the satisfaction of both States Parties concerned within six months after the receipt by the receiving State of the initial communication, either State shall have the right to refer the matter to the Committee, by notice given to the Committee and to the other State;"
+        },
+        {
+          "num": null,
+          "text": "(c) The Committee shall deal with a matter referred to it only after it has ascertained that all available domestic remedies have been invoked and exhausted in the matter, in conformity with the generally recognized principles of international law. This shall not be the rule where, in the view of the Committee, the application of the remedies is unreasonably prolonged;"
+        },
+        {
+          "num": null,
+          "text": "(d) Subject to the provisions of subparagraph ( c ) of the present paragraph, the Committee shall make available its good offices to the States Parties concerned with a view to a friendly solution of the matter on the basis of the respect for the obligations set forth in the present Convention;"
+        },
+        {
+          "num": null,
+          "text": "(e) The Committee shall hold closed meetings when examining communications under the present article;"
+        },
+        {
+          "num": null,
+          "text": "(f) In any matter referred to it in accordance with subparagraph ( b ) of the present paragraph, the Committee may call upon the States Parties concerned, referred to in subparagraph ( b ), to supply any relevant information;"
+        },
+        {
+          "num": null,
+          "text": "(g) The States Parties concerned, referred to in subparagraph ( b ) of the present paragraph, shall have the right to be represented when the matter is being considered by the Committee and to make submissions orally and/or in writing;"
+        },
+        {
+          "num": null,
+          "text": "(h) The Committee shall, within twelve months after the date of receipt of notice under subparagraph (b) of the present paragraph, submit a report, as follows:"
+        },
+        {
+          "num": null,
+          "text": "(i) If a solution within the terms of subparagraph (d) of the present paragraph is reached, the Committee shall confine its report to a brief statement of the facts and of the solution reached;"
+        },
+        {
+          "num": null,
+          "text": "(ii) If a solution within the terms of subparagraph (d) is not reached, the Committee shall, in its report, set forth the relevant facts concerning the issue between the States Parties concerned. The written submissions and record of the oral submissions made by the States Parties concerned shall be attached to the report. The Committee may also communicate only to the States Parties concerned any views that it may consider relevant to the issue between them."
+        },
+        {
+          "num": null,
+          "text": "In every matter, the report shall be communicated to the States Parties concerned."
         },
         {
           "num": "2",
@@ -1124,7 +1549,15 @@
         },
         {
           "num": "3",
-          "text": "The Committee shall not consider any communication from an individual under the present article unless it has ascertained that: (a) The same matter has not been, and is not being, examined under another procedure of international investigation or settlement; (b) The individual has exhausted all available domestic remedies; this shall not be the rule where, in the view of the Committee, the application of the remedies is unreasonably prolonged or is unlikely to bring effective relief to that individual."
+          "text": "The Committee shall not consider any communication from an individual under the present article unless it has ascertained that:"
+        },
+        {
+          "num": null,
+          "text": "(a) The same matter has not been, and is not being, examined under another procedure of international investigation or settlement;"
+        },
+        {
+          "num": null,
+          "text": "(b) The individual has exhausted all available domestic remedies; this shall not be the rule where, in the view of the Committee, the application of the remedies is unreasonably prolonged or is unlikely to bring effective relief to that individual."
         },
         {
           "num": "4",
@@ -1149,11 +1582,20 @@
       ]
     },
     {
+      "number": "78",
+      "paragraphs": [
+        {
+          "num": null,
+          "text": "The provisions of article 76 of the present Convention shall be applied without prejudice to any procedures for settling disputes or complaints in the field covered by the present Convention laid down in the constituent instruments of, or in conventions adopted by, the United Nations and the specialized agencies and shall not prevent the States Parties from having recourse to any procedures for settling a dispute in accordance with international agreements in force between them."
+        }
+      ]
+    },
+    {
       "number": "79",
       "paragraphs": [
         {
           "num": null,
-          "text": "of the present Convention, the States Parties concerned shall as appropriate consult and co-operate with a view to promoting sound, equitable and humane conditions in connection with international migration of workers and members of their families. 2. In this respect, due regard shall be paid not only to labour needs and resources, but also to the social, economic, cultural and other needs of migrant workers and members of their families involved, as well as to the consequences of such migration for the communities concerned."
+          "text": "Nothing in the present Convention shall affect the right of each State Party to establish the criteria governing admission of migrant workers and members of their families. Concerning other matters related to their legal situation and treatment as migrant workers and members of their families, States Parties shall be subject to the limitations set forth in the present Convention."
         }
       ]
     },
@@ -1171,7 +1613,15 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Nothing in the present Convention shall affect more favourable rights or freedoms granted to migrant workers and members of their families by virtue of: (a) The law or practice of a State Party; or (b) Any bilateral or multilateral treaty in force for the State Party concerned."
+          "text": "Nothing in the present Convention shall affect more favourable rights or freedoms granted to migrant workers and members of their families by virtue of:"
+        },
+        {
+          "num": null,
+          "text": "(a) The law or practice of a State Party; or"
+        },
+        {
+          "num": null,
+          "text": "(b) Any bilateral or multilateral treaty in force for the State Party concerned."
         },
         {
           "num": "2",
@@ -1193,7 +1643,19 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Each State Party to the present Convention undertakes: (a) To ensure that any person whose rights or freedoms as herein recognized are violated shall have an effective remedy, notwithstanding that the violation has been committed by persons acting in an official capacity; (b) To ensure that any persons seeking such a remedy shall have his or her claim reviewed and decided by competent judicial, administrative or legislative authorities, or by any other competent authority provided for by the legal system of the State, and to develop the possibilities of judicial remedy; (c) To ensure that the competent authorities shall enforce such remedies when granted."
+          "text": "Each State Party to the present Convention undertakes:"
+        },
+        {
+          "num": null,
+          "text": "(a) To ensure that any person whose rights or freedoms as herein recognized are violated shall have an effective remedy, notwithstanding that the violation has been committed by persons acting in an official capacity;"
+        },
+        {
+          "num": null,
+          "text": "(b) To ensure that any persons seeking such a remedy shall have his or her claim reviewed and decided by competent judicial, administrative or legislative authorities, or by any other competent authority provided for by the legal system of the State, and to develop the possibilities of judicial remedy;"
+        },
+        {
+          "num": null,
+          "text": "(c) To ensure that the competent authorities shall enforce such remedies when granted."
         }
       ]
     },
@@ -1202,7 +1664,7 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Each State Party undertakes to adopt the legislative and other measures that are necessary to implement the provisions of the present Convention. : Final provisions"
+          "text": "Each State Party undertakes to adopt the legislative and other measures that are necessary to implement the provisions of the present Convention."
         }
       ]
     },
@@ -1330,8 +1792,16 @@
       "number": "93",
       "paragraphs": [
         {
+          "num": "1",
+          "text": "The present Convention, of which the Arabic, Chinese, English, French, Russian and Spanish texts are equally authentic, shall be deposited with the Secretary-General of the United Nations."
+        },
+        {
+          "num": "2",
+          "text": "The Secretary-General of the United Nations shall transmit certified copies of the present Convention to all States."
+        },
+        {
           "num": null,
-          "text": "Entry into force: 1 July 2003, in accordance with article 87(1) Preamble The States Parties to the present Convention, Taking into account the principles embodied in the basic instruments of the United Nations concerning human rights, in particular the Universal Declaration of Human Rights, the International Covenant on Economic, Social and Cultural Rights, the International Covenant on Civil and Political Rights, the International Convention on the Elimination of All Forms of Racial Discrimination, the Convention on the Elimination of All Forms of Discrimination against Women and the Convention on the Rights of the Child, Taking into account also the principles and standards set forth in the relevant instruments elaborated within the framework of the International Labour Organisation, especially the Convention concerning Migration for Employment (No. 97), the Convention concerning Migrations in Abusive Conditions and the Promotion of Equality of Opportunity and Treatment of Migrant Workers (No.143), the Recommendation concerning Migration for Employment (No. 86), the Recommendation concerning Migrant Workers (No.151), the Convention concerning Forced or Compulsory Labour (No. 29) and the Convention concerning Abolition of Forced Labour (No. 105), Reaffirming the importance of the principles contained in the Convention against Discrimination in Education of the United Nations Educational, Scientific and Cultural Organization, Recalling the Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment, the Declaration of the Fourth United Nations Congress on the Prevention of Crime and the Treatment of Offenders, the Code of Conduct for Law Enforcement Officials, and the Slavery Conventions, Recalling that one of the objectives of the International Labour Organisation, as stated in its Constitution, is the protection of the interests of workers when employed in countries other than their own, and bearing in mind the expertise and experience of that organization in matters related to migrant workers and members of their families, Recognizing the importance of the work done in connection with migrant workers and members of their families in various organs of the United Nations, in particular in the Commission on Human Rights and the Commission for Social Development, and in the Food and Agriculture Organization of the United Nations, the United Nations Educational, Scientific and Cultural Organization and the World Health Organization, as well as in other international organizations, Recognizing also the progress made by certain States on a regional or bilateral basis towards the protection of the rights of migrant workers and members of their families, as well as the importance and usefulness of bilateral and multilateral agreements in this field, Realizing the importance and extent of the migration phenomenon, which involves millions of people and affects a large number of States in the international community, Aware of the impact of the flows of migrant workers on States and people concerned, and desiring to establish norms which may contribute to the harmonization of the attitudes of States through the acceptance of basic principles concerning the treatment of migrant workers and members of their families, Considering the situation of vulnerability in which migrant workers and members of their families frequently-find themselves owing, among other things, to their absence from their State of origin and to the difficulties they may encounter arising from their presence in the State of employment, Convinced that the rights of migrant workers and members of their families have not been sufficiently recognized everywhere and therefore require appropriate international protection, Taking into account the fact that migration is often the cause of serious problems for the members of the families of migrant workers as well as for the workers themselves, in particular because of the scattering of the family, Bearing in mind that the human problems involved in migration are even more serious in the case of irregular migration and convinced therefore that appropriate action should be encouraged in order to prevent and eliminate clandestine movements and trafficking in migrant workers, while at the same time assuring the protection of their fundamental human rights, Considering that workers who are non-documented or in an irregular situation are frequently employed under less favourable conditions of work than other workers and that certain employers find this an inducement to seek such labour in order to reap the benefits of unfair competition, Considering also that recourse to the employment of migrant workers who are in an irregular situation will be discouraged if the fundamental human rights of all migrant workers are more widely recognized and, moreover, that granting certain additional rights to migrant workers and members of their families in a regular situation will encourage all migrants and employers to respect and comply with the laws and procedures established by the States concerned, Convinced, therefore, of the need to bring about the international protection of the rights of all migrant workers and members of their families, reaffirming and establishing basic norms in a comprehensive convention which could be applied universally, Have agreed as follows: : Scope and Definitions"
+          "text": "In witness whereof the undersigned plenipotentiaries, being duly authorized thereto by their respective Governments, have signed the present Convention."
         }
       ]
     }

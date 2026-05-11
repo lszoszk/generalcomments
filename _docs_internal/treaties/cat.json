@@ -56,7 +56,7 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "shall be deemed to be included as extraditable offences in any extradition treaty existing between States Parties. States Parties undertake to include such offences as extraditable offences in every extradition treaty to be concluded between them. 2. If a State Party which makes extradition conditional on the existence of a treaty receives a request for extradition from another State Party with which it has no extradition treaty, it may consider this Convention as the legal basis for extradition in respect of such offences. Extradition shall be subject to the other conditions provided by the law of the requested State. 3. States Parties which do not make extradition conditional on the existence of a treaty shall recognize such offences as extraditable offences between themselves subject to the conditions provided by the law of the requested State. 4. Such offences shall be treated, for the purpose of extradition between States Parties, as if they had been committed not only in the place in which they occurred but also in the territories of the States required to establish their jurisdiction in accordance with article 5, paragraph 1."
+          "text": "1. Each State Party shall ensure that all acts of torture are offences under its criminal law. The same shall apply to an attempt to commit torture and to an act by any person which constitutes complicity or participation in torture. 2. Each State Party shall make these offences punishable by appropriate penalties which take into account their grave nature."
         }
       ]
     },
@@ -64,8 +64,24 @@
       "number": "5",
       "paragraphs": [
         {
-          "num": "1",
-          "text": "Each State Party shall take such measures as may be necessary to establish its jurisdiction over the offences referred to in"
+          "num": null,
+          "text": "(a) When the offences are committed in any territory under its jurisdiction or on board a ship or aircraft registered in that State;"
+        },
+        {
+          "num": null,
+          "text": "(b) When the alleged offender is a national of that State;"
+        },
+        {
+          "num": null,
+          "text": "(c) When the victim is a national of that State if that State considers it appropriate."
+        },
+        {
+          "num": "2",
+          "text": "Each State Party shall likewise take such measures as may be necessary to establish its jurisdiction over such offences in cases where the alleged offender is present in any territory under its jurisdiction and it does not extradite him pursuant to article 8 to any of the States mentioned in paragraph I of this article."
+        },
+        {
+          "num": "3",
+          "text": "This Convention does not exclude any criminal jurisdiction exercised in accordance with internal law."
         }
       ]
     },
@@ -74,7 +90,19 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Upon being satisfied, after an examination of information available to it, that the circumstances so warrant, any State Party in whose territory a person alleged to have committed any offence referred to in"
+          "text": "Upon being satisfied, after an examination of information available to it, that the circumstances so warrant, any State Party in whose territory a person alleged to have committed any offence referred to in article 4 is present shall take him into custody or take other legal measures to ensure his presence. The custody and other legal measures shall be as provided in the law of that State but may be continued only for such time as is necessary to enable any criminal or extradition proceedings to be instituted."
+        },
+        {
+          "num": "2",
+          "text": "Such State shall immediately make a preliminary inquiry into the facts."
+        },
+        {
+          "num": "3",
+          "text": "Any person in custody pursuant to paragraph I of this article shall be assisted in communicating immediately with the nearest appropriate representative of the State of which he is a national, or, if he is a stateless person, with the representative of the State where he usually resides."
+        },
+        {
+          "num": "4",
+          "text": "When a State, pursuant to this article, has taken a person into custody, it shall immediately notify the States referred to in article 5, paragraph 1, of the fact that such person is in custody and of the circumstances which warrant his detention. The State which makes the preliminary inquiry contemplated in paragraph 2 of this article shall promptly report its findings to the said States and shall indicate whether it intends to exercise jurisdiction."
         }
       ]
     },
@@ -82,8 +110,16 @@
       "number": "7",
       "paragraphs": [
         {
-          "num": null,
-          "text": "of the International Covenant on Civil and Political Rights, both of which provide that no one shall be subjected to torture or to cruel, inhuman or degrading treatment or punishment, Having regard also to the Declaration on the Protection of All Persons from Being Subjected to Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment, adopted by the General Assembly on 9 December 1975, Desiring to make more effective the struggle against torture and other cruel, inhuman or degrading treatment or punishment throughout the world, Have agreed as follows:"
+          "num": "1",
+          "text": "The State Party in the territory under whose jurisdiction a person alleged to have committed any offence referred to in article 4 is found shall in the cases contemplated in article 5, if it does not extradite him, submit the case to its competent authorities for the purpose of prosecution."
+        },
+        {
+          "num": "2",
+          "text": "These authorities shall take their decision in the same manner as in the case of any ordinary offence of a serious nature under the law of that State. In the cases referred to in article 5, paragraph 2, the standards of evidence required for prosecution and conviction shall in no way be less stringent than those which apply in the cases referred to in article 5, paragraph 1."
+        },
+        {
+          "num": "3",
+          "text": "Any person regarding whom proceedings are brought in connection with any of the offences referred to in article 4 shall be guaranteed fair treatment at all stages of the proceedings."
         }
       ]
     },
@@ -91,8 +127,20 @@
       "number": "8",
       "paragraphs": [
         {
-          "num": null,
-          "text": "to any of the States mentioned in paragraph I of this article. 3. This Convention does not exclude any criminal jurisdiction exercised in accordance with internal law."
+          "num": "1",
+          "text": "The offences referred to in article 4 shall be deemed to be included as extraditable offences in any extradition treaty existing between States Parties. States Parties undertake to include such offences as extraditable offences in every extradition treaty to be concluded between them."
+        },
+        {
+          "num": "2",
+          "text": "If a State Party which makes extradition conditional on the existence of a treaty receives a request for extradition from another State Party with which it has no extradition treaty, it may consider this Convention as the legal basis for extradition in respect of such offences. Extradition shall be subject to the other conditions provided by the law of the requested State."
+        },
+        {
+          "num": "3",
+          "text": "States Parties which do not make extradition conditional on the existence of a treaty shall recognize such offences as extraditable offences between themselves subject to the conditions provided by the law of the requested State."
+        },
+        {
+          "num": "4",
+          "text": "Such offences shall be treated, for the purpose of extradition between States Parties, as if they had been committed not only in the place in which they occurred but also in the territories of the States required to establish their jurisdiction in accordance with article 5, paragraph 1."
         }
       ]
     },
@@ -226,7 +274,15 @@
         },
         {
           "num": "2",
-          "text": "The Committee shall establish its own rules of procedure, but these rules shall provide, inter alia, that: (a) Six members shall constitute a quorum; (b) Decisions of the Committee shall be made by a majority vote of the members present."
+          "text": "The Committee shall establish its own rules of procedure, but these rules shall provide, inter alia, that:"
+        },
+        {
+          "num": null,
+          "text": "(a) Six members shall constitute a quorum;"
+        },
+        {
+          "num": null,
+          "text": "(b) Decisions of the Committee shall be made by a majority vote of the members present."
         },
         {
           "num": "3",
@@ -259,7 +315,7 @@
         },
         {
           "num": "4",
-          "text": "The Committee may, at its discretion, decide to include any comments made by it in accordance with paragraph 3 of this article, together with the observations thereon received from the State Party concerned, in its annual report made in accordance with"
+          "text": "The Committee may, at its discretion, decide to include any comments made by it in accordance with paragraph 3 of this article, together with the observations thereon received from the State Party concerned, in its annual report made in accordance with article 24. If so requested by the State Party concerned, the Committee may also include a copy of the report submitted under paragraph I of this article."
         }
       ]
     },
@@ -284,7 +340,7 @@
         },
         {
           "num": "5",
-          "text": "All the proceedings of the Committee referred to in paragraphs I to 4 of th is article s hall be con fidential , and at all stages of the proceedings the co-operation of the State Party shall be sought. After such proceedings have been completed with regard to an inquiry made in accordance with paragraph 2, the Committee may, after consultations with the State Party concerned, decide to include a summary account of the results of the proceedings in its annual report made in accordance with"
+          "text": "All the proceedings of the Committee referred to in paragraphs I to 4 of th is article s hall be con fidential , and at all stages of the proceedings the co-operation of the State Party shall be sought. After such proceedings have been completed with regard to an inquiry made in accordance with paragraph 2, the Committee may, after consultations with the State Party concerned, decide to include a summary account of the results of the proceedings in its annual report made in accordance with article 24."
         }
       ]
     },
@@ -292,8 +348,48 @@
       "number": "21",
       "paragraphs": [
         {
-          "num": "1",
-          "text": "A State Party to this Convention may at any time declare under this article that it recognizes the competence of the Committee to receive and consider communications to the effect that a State Party claims that another State Party is not fulfilling its obligations under this Convention. Such communications may be received and considered according to the procedures laid down in this article only if submitted by a State Party which has made a declaration recognizing in regard to itself the competence of the Committee. No communication shall be dealt with by the Committee under this article if it concerns a State Party which has not made such a declaration. Communications received under this article shall be dealt with in accordance with the following procedure; (a) If a State Party considers that another State Party is not giving effect to the provisions ofthis Convention, it may, by written communication, bring the matter to the attention of that State Party. Within three months after the receipt of the communication the receiving State shall afford the State which sent the communication an explanation or any other statement in writing clarifying the matter, which should include, to the extent possible and pertinent, reference to domestic procedures and remedies taken, pending or available in the matter; (b) If the matter is not adjusted to the satisfaction of both States Parties concerned within six months after the receipt by the receiving State of the initial communication, either State shall have the right to refer the matter to the Committee, by notice given to the Committee and to the other State; (c) The Committee shall deal with a matter referred to it under this article only after it has ascertained that all domestic remedies have been invoked and exhausted in the matter, in conformity with the generally recognized principles of international law. This shall not be the rule where the application of the remedies is unreasonably prolonged or is unlikely to bring effective relief to the person who is the victim of the violation of this Convention; (d) The Committee shall hold closed meetings when examining communications under this article; (e) Subject to the provisions of subparagraph (e), the Committee shall make available its good offices to the States Parties concerned with a view to a friendly solution of the matter on the basis of respect for the obligations provided for in this Convention. For this purpose, the Committee may, when appropriate, set up an ad hoc conciliation commission; (f) In any matter referred to it under this article, the Committee may call upon the States Parties concerned, referred to in subparagraph (b), to supply any relevant information; (g) The States Parties concerned, referred to in subparagraph (b), shall have the right to be represented when the matter is being considered by the Committee and to make submissions orally and/or in writing; (h) The Committee shall, within twelve months after the date of receipt of notice under subparagraph (b), submit a report: (i) If a solution within the terms of subparagraph (e) is reached, the Committee shall confine its report to a brief statement of the facts and of the solution reached; (ii) If a solution within the terms of subparagraph (e) is not reached, the Committee shall confine its report to a brief statement of the facts; the written submissions and record of the oral submissions made by the States Parties concerned shall be attached to the report. In every matter, the report shall be communicated to the States Parties concerned."
+          "num": null,
+          "text": "(a) If a State Party considers that another State Party is not giving effect to the provisions ofthis Convention, it may, by written communication, bring the matter to the attention of that State Party. Within three months after the receipt of the communication the receiving State shall afford the State which sent the communication an explanation or any other statement in writing clarifying the matter, which should include, to the extent possible and pertinent, reference to domestic procedures and remedies taken, pending or available in the matter;"
+        },
+        {
+          "num": null,
+          "text": "(b) If the matter is not adjusted to the satisfaction of both States Parties concerned within six months after the receipt by the receiving State of the initial communication, either State shall have the right to refer the matter to the Committee, by notice given to the Committee and to the other State;"
+        },
+        {
+          "num": null,
+          "text": "(c) The Committee shall deal with a matter referred to it under this article only after it has ascertained that all domestic remedies have been invoked and exhausted in the matter, in conformity with the generally recognized principles of international law. This shall not be the rule where the application of the remedies is unreasonably prolonged or is unlikely to bring effective relief to the person who is the victim of the violation of this Convention;"
+        },
+        {
+          "num": null,
+          "text": "(d) The Committee shall hold closed meetings when examining communications under this article; (e) Subject to the provisions of subparagraph"
+        },
+        {
+          "num": null,
+          "text": "(e), the Committee shall make available its good offices to the States Parties concerned with a view to a friendly solution of the matter on the basis of respect for the obligations provided for in this Convention. For this purpose, the Committee may, when appropriate, set up an ad hoc conciliation commission;"
+        },
+        {
+          "num": null,
+          "text": "(f) In any matter referred to it under this article, the Committee may call upon the States Parties concerned, referred to in subparagraph (b), to supply any relevant information;"
+        },
+        {
+          "num": null,
+          "text": "(g) The States Parties concerned, referred to in subparagraph (b), shall have the right to be represented when the matter is being considered by the Committee and to make submissions orally and/or in writing;"
+        },
+        {
+          "num": null,
+          "text": "(h) The Committee shall, within twelve months after the date of receipt of notice under subparagraph (b), submit a report:"
+        },
+        {
+          "num": null,
+          "text": "(i) If a solution within the terms of subparagraph (e) is reached, the Committee shall confine its report to a brief statement of the facts and of the solution reached;"
+        },
+        {
+          "num": null,
+          "text": "(ii) If a solution within the terms of subparagraph (e) is not reached, the Committee shall confine its report to a brief statement of the facts; the written submissions and record of the oral submissions made by the States Parties concerned shall be attached to the report."
+        },
+        {
+          "num": null,
+          "text": "In every matter, the report shall be communicated to the States Parties concerned."
         },
         {
           "num": "2",
@@ -318,11 +414,15 @@
         },
         {
           "num": "4",
-          "text": "The Committee shall consider communications received under this article in the light of all information made available to it by or on behalf of the individual and by the State Party concerned."
+          "text": "The Committee shall consider communications received under this article in the light of all information made available to it by or on behalf of the individual and by the State Party concerned. 5. The Committee shall not consider any communications from an individual under this article unless it has ascertained that:"
         },
         {
-          "num": "5",
-          "text": "The Committee shall not consider any communications from an individual under this article unless it has ascertained that: (a) The same matter has not been, and is not being, examined under another procedure of international investigation or settlement; (b) The individual has exhausted all available domestic remedies; this shall not be the rule where the application of the remedies is unreasonably prolonged or is unlikely to bring effective reliefto the person who is the victim of the violation of this Convention."
+          "num": null,
+          "text": "(a) The same matter has not been, and is not being, examined under another procedure of international investigation or settlement;"
+        },
+        {
+          "num": null,
+          "text": "(b) The individual has exhausted all available domestic remedies; this shall not be the rule where the application of the remedies is unreasonably prolonged or is unlikely to bring effective reliefto the person who is the victim of the violation of this Convention."
         },
         {
           "num": "6",
@@ -360,12 +460,8 @@
       "number": "25",
       "paragraphs": [
         {
-          "num": "1",
-          "text": "This Convention is open for signature by all States."
-        },
-        {
-          "num": "2",
-          "text": "This Convention is subject to ratification. Instruments of ratification shall be deposited with the Secretary-General of the United Nations."
+          "num": null,
+          "text": "1. This Convention is open for signature by all States. 2. This Convention is subject to ratification. Instruments of ratification shall be deposited with the Secretary-General of the United Nations."
         }
       ]
     },
@@ -382,8 +478,12 @@
       "number": "27",
       "paragraphs": [
         {
-          "num": null,
-          "text": "(1) The States Parties to this Convention, Considering that, in accordance with the principles proclaimed in the Charter of the United Nations, recognition of the equal and inalienable rights of all members of the human family is the foundation of freedom, justice and peace in the world, Recognizing that those rights derive from the inherent dignity of the human person, Considering the obligation of States under the Charter, in particular Article 55, to promote universal respect for, and observance of, human rights and fundamental freedoms, Having regard to"
+          "num": "1",
+          "text": "This Convention shall enter into force on the thirtieth day after the date of the deposit with the Secretary-General of the United Nations of the twentieth instrument of ratification or accession."
+        },
+        {
+          "num": "2",
+          "text": "For each State ratifying this Convention or acceding to it after the deposit of the twentieth instrument of ratification or accession, the Convention shall enter into force onthe thirtieth day after the date of the deposit of its own instrument of ratification or accession."
         }
       ]
     },
@@ -392,7 +492,11 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Each State may, at the time of signature or ratification of this Convention or accession thereto, declare that it does not recognize the competence of the Committee provided for in"
+          "text": "Each State may, at the time of signature or ratification of this Convention or accession thereto, declare that it does not recognize the competence of the Committee provided for in article 20."
+        },
+        {
+          "num": "2",
+          "text": "Any State Party having made a reservation in accordance with paragraph I of this article may, at any time, withdraw this reservation by notification to the Secretary-General of the United Nations."
         }
       ]
     },
@@ -400,8 +504,8 @@
       "number": "29",
       "paragraphs": [
         {
-          "num": "1",
-          "text": "Any State Party to this Convention may propose an amendment and file it with the Secretary-General of the United Nations. The SecretaryGeneral shall thereupon communicate the proposed amendment to the States Parties with a request that they notify him whether they favour a conference of States Parties for the purpose of considering an d voting upon the proposal. In the event that within four months from the date of such communication at least one third of the States Parties favours such a conference, the SecretaryGeneral shall convene the conference under the auspices of the United Nations. Any amendment adopted by a majority of the States Parties present and voting at the conference shall be submitted by the Secretary-General to all the States Parties for acceptance."
+          "num": null,
+          "text": "1 . Any State Party to this Convention may propose an amendment and file it with the Secretary-General of the United Nations. The SecretaryGeneral shall thereupon communicate the proposed amendment to the States Parties with a request that they notify him whether they favour a conference of States Parties for the purpose of considering an d voting upon the proposal. In the event that within four months from the date of such communication at least one third of the States Parties favours such a conference, the SecretaryGeneral shall convene the conference under the auspices of the United Nations. Any amendment adopted by a majority of the States Parties present and voting at the conference shall be submitted by the Secretary-General to all the States Parties for acceptance."
         },
         {
           "num": "2",
@@ -452,7 +556,11 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "The Secretary-General of the United Nations shall inform all States Members of the United Nations and all States which have signed this Convention or acceded to it of the following: (a) Signatures, ratifications and accessions under articles 25 and 26; (b) The date of entry into force of this Convention under"
+          "text": "(a) Signatures, ratifications and accessions under articles 25 and 26;"
+        },
+        {
+          "num": null,
+          "text": "(b) The date of entry into force of this Convention under article 27 and the date of the entry into force of any amendments under article 29;"
         }
       ]
     },
@@ -465,7 +573,7 @@
         },
         {
           "num": "2",
-          "text": "The Secretary-General of the United Nations shall transmit certified copies of this Convention to all States. Tags Torture and inhuman treatment VIEW THIS PAGE IN: العربية 中文 Français русский Español Back to top Our Work The Office of the High Commissioner for Human Rights is the leading United Nations entity in the field of human rights, with a unique mandate to promote and protect all human rights for all people. © OHCHR 1996-2026 Latest Feature Stories Media Center Meetings & Events Resources Databases Library Publications Connect Contact Us Follow us Work With Us Global Social Channels Facebook Twitter Instagram YouTube WhatsApp LinkedIn TikTok Contact Copyrights Privacy Terms of use Human rights don’t protect themselves. Your donation protects the essentials we all rely on. Learn more DONATE NOW"
+          "text": "The Secretary-General of the United Nations shall transmit certified copies of this Convention to all States."
         }
       ]
     }

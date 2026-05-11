@@ -26,7 +26,40 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "The Committee shall consider a communication inadmissible when: (a) The communication is anonymous; (b) The communication constitutes an abuse of the right of submission of such communications or is incompatible with the provisions of the Convention; (c) The same matter has already been examined by the Committee or has been or is being examined under another procedure of international investigation or settlement; (d) All available domestic remedies have not been exhausted. This shall not be the rule where the application of the remedies is unreasonably prolonged or unlikely to bring effective relief; (e) It is manifestly ill-founded or not sufficiently substantiated; or when (f) The facts that are the subject of the communication occurred prior to the entry into force of the present Protocol for the State Party concerned unless those facts continued after that date."
+          "text": "The Committee shall consider a communication inadmissible when:"
+        },
+        {
+          "num": null,
+          "text": "(a) The communication is anonymous;"
+        },
+        {
+          "num": null,
+          "text": "(b) The communication constitutes an abuse of the right of submission of such communications or is incompatible with the provisions of the Convention;"
+        },
+        {
+          "num": null,
+          "text": "(c) The same matter has already been examined by the Committee or has been or is being examined under another procedure of international investigation or settlement;"
+        },
+        {
+          "num": null,
+          "text": "(d) All available domestic remedies have not been exhausted. This shall not be the rule where the application of the remedies is unreasonably prolonged or unlikely to bring effective relief;"
+        },
+        {
+          "num": null,
+          "text": "(e) It is manifestly ill-founded or not sufficiently substantiated; or when"
+        },
+        {
+          "num": null,
+          "text": "(f) The facts that are the subject of the communication occurred prior to the entry into force of the present Protocol for the State Party concerned unless those facts continued after that date."
+        }
+      ]
+    },
+    {
+      "number": "3",
+      "paragraphs": [
+        {
+          "num": null,
+          "text": "Subject to the provisions of article 2 of the present Protocol, the Committee shall bring any communications submitted to it confidentially to the attention of the State Party. Within six months, the receiving State shall submit to the Committee written explanations or statements clarifying the matter and the remedy, if any, that may have been taken by that State."
         }
       ]
     },
@@ -82,7 +115,11 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "The Committee may invite the State Party concerned to include in its report under"
+          "text": "The Committee may invite the State Party concerned to include in its report under article 35 of the Convention details of any measures taken in response to an inquiry conducted under article 6 of the present Protocol."
+        },
+        {
+          "num": "2",
+          "text": "The Committee may, if necessary, after the end of the period of six months referred to in article 6.4, invite the State Party concerned to inform it of the measures taken in response to such an inquiry."
         }
       ]
     },
@@ -205,7 +242,11 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "The Arabic, Chinese, English, French, Russian and Spanish texts of the present Protocol shall be equally authentic. In witness thereof the undersigned plenipotentiaries, being duly authorized thereto by their respective Governments, have signed the present Protocol. Tags Persons with disabilities VIEW THIS PAGE IN: العربية 中文 Français русский Español Back to top Our Work The Office of the High Commissioner for Human Rights is the leading United Nations entity in the field of human rights, with a unique mandate to promote and protect all human rights for all people. © OHCHR 1996-2026 Latest Feature Stories Media Center Meetings & Events Resources Databases Library Publications Connect Contact Us Follow us Work With Us Global Social Channels Facebook Twitter Instagram YouTube WhatsApp LinkedIn TikTok Contact Copyrights Privacy Terms of use Human rights don’t protect themselves. Your donation protects the essentials we all rely on. Learn more DONATE NOW"
+          "text": "The Arabic, Chinese, English, French, Russian and Spanish texts of the present Protocol shall be equally authentic."
+        },
+        {
+          "num": null,
+          "text": "In witness thereof the undersigned plenipotentiaries, being duly authorized thereto by their respective Governments, have signed the present Protocol."
         }
       ]
     }

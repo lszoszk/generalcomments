@@ -35,7 +35,7 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Each State Party shall take appropriate measures to investigate acts defined in"
+          "text": "Each State Party shall take appropriate measures to investigate acts defined in article 2 committed by persons or groups of persons acting without the authorization, support or acquiescence of the State and to bring those responsible to justice."
         }
       ]
     },
@@ -62,7 +62,31 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Each State Party shall take the necessary measures to hold criminally responsible at least: ( a ) Any person who commits, orders, solicits or induces the commission of, attempts to commit, is an accomplice to or participates in an enforced disappearance; ( b ) A superior who: (i) Knew, or consciously disregarded information which clearly indicated, that subordinates under his or her effective authority and control were committing or about to commit a crime of enforced disappearance; (ii) Exercised effective responsibility for and control over activities which were concerned with the crime of enforced disappearance; and (iii) Failed to take all necessary and reasonable measures within his or her power to prevent or repress the commission of an enforced disappearance or to submit the matter to the competent authorities for investigation and prosecution; ( c ) Subparagraph ( b ) above is without prejudice to the higher standards of responsibility applicable under relevant international law to a military commander or to a person effectively acting as a military commander."
+          "text": "Each State Party shall take the necessary measures to hold criminally responsible at least:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Any person who commits, orders, solicits or induces the commission of, attempts to commit, is an accomplice to or participates in an enforced disappearance;"
+        },
+        {
+          "num": null,
+          "text": "( b ) A superior who:"
+        },
+        {
+          "num": null,
+          "text": "(i) Knew, or consciously disregarded information which clearly indicated, that subordinates under his or her effective authority and control were committing or about to commit a crime of enforced disappearance;"
+        },
+        {
+          "num": null,
+          "text": "(ii) Exercised effective responsibility for and control over activities which were concerned with the crime of enforced disappearance; and"
+        },
+        {
+          "num": null,
+          "text": "(iii) Failed to take all necessary and reasonable measures within his or her power to prevent or repress the commission of an enforced disappearance or to submit the matter to the competent authorities for investigation and prosecution;"
+        },
+        {
+          "num": null,
+          "text": "( c ) Subparagraph ( b ) above is without prejudice to the higher standards of responsibility applicable under relevant international law to a military commander or to a person effectively acting as a military commander."
         },
         {
           "num": "2",
@@ -79,7 +103,15 @@
         },
         {
           "num": "2",
-          "text": "Each State Party may establish: ( a ) Mitigating circumstances, in particular for persons who, having been implicated in the commission of an enforced disappearance, effectively contribute to bringing the disappeared person forward alive or make it possible to clarify cases of enforced disappearance or to identify the perpetrators of an enforced disappearance; ( b ) Without prejudice to other criminal procedures, aggravating circumstances, in particular in the event of the death of the disappeared person or the commission of an enforced disappearance in respect of pregnant women, minors, persons with disabilities or other particularly vulnerable persons."
+          "text": "Each State Party may establish:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Mitigating circumstances, in particular for persons who, having been implicated in the commission of an enforced disappearance, effectively contribute to bringing the disappeared person forward alive or make it possible to clarify cases of enforced disappearance or to identify the perpetrators of an enforced disappearance;"
+        },
+        {
+          "num": null,
+          "text": "( b ) Without prejudice to other criminal procedures, aggravating circumstances, in particular in the event of the death of the disappeared person or the commission of an enforced disappearance in respect of pregnant women, minors, persons with disabilities or other particularly vulnerable persons."
         }
       ]
     },
@@ -88,7 +120,23 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Without prejudice to article 5, 1. A State Party which applies a statute of limitations in respect of enforced disappearance shall take the necessary measures to ensure that the term of limitation for criminal proceedings: ( a ) Is of long duration and is proportionate to the extreme seriousness of this offence; ( b ) Commences from the moment when the offence of enforced disappearance ceases, taking into account its continuous nature. 2. Each State Party shall guarantee the right of victims of enforced disappearance to an effective remedy during the term of limitation."
+          "text": "Without prejudice to article 5,"
+        },
+        {
+          "num": "1",
+          "text": "A State Party which applies a statute of limitations in respect of enforced disappearance shall take the necessary measures to ensure that the term of limitation for criminal proceedings:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Is of long duration and is proportionate to the extreme seriousness of this offence;"
+        },
+        {
+          "num": null,
+          "text": "( b ) Commences from the moment when the offence of enforced disappearance ceases, taking into account its continuous nature."
+        },
+        {
+          "num": "2",
+          "text": "Each State Party shall guarantee the right of victims of enforced disappearance to an effective remedy during the term of limitation."
         }
       ]
     },
@@ -97,7 +145,19 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Each State Party shall take the necessary measures to establish its competence to exercise jurisdiction over the offence of enforced disappearance: ( a ) When the offence is committed in any territory under its jurisdiction or on board a ship or aircraft registered in that State; ( b ) When the alleged offender is one of its nationals; ( c ) When the disappeared person is one of its nationals and the State Party considers it appropriate."
+          "text": "Each State Party shall take the necessary measures to establish its competence to exercise jurisdiction over the offence of enforced disappearance:"
+        },
+        {
+          "num": null,
+          "text": "( a ) When the offence is committed in any territory under its jurisdiction or on board a ship or aircraft registered in that State;"
+        },
+        {
+          "num": null,
+          "text": "( b ) When the alleged offender is one of its nationals;"
+        },
+        {
+          "num": null,
+          "text": "( c ) When the disappeared person is one of its nationals and the State Party considers it appropriate."
         },
         {
           "num": "2",
@@ -135,7 +195,11 @@
         },
         {
           "num": "2",
-          "text": "These authorities shall take their decision in the same manner as in the case of any ordinary offence of a serious nature under the law of that State Party. In the cases referred to in article 9, paragraph 2, the standards of evidence required for prosecution and conviction shall in no way be less stringent than those which apply in the cases referred to in article 9, paragraph"
+          "text": "These authorities shall take their decision in the same manner as in the case of any ordinary offence of a serious nature under the law of that State Party. In the cases referred to in article 9, paragraph 2, the standards of evidence required for prosecution and conviction shall in no way be less stringent than those which apply in the cases referred to in article 9, paragraph 1."
+        },
+        {
+          "num": "3",
+          "text": "Any person against whom proceedings are brought in connection with an offence of enforced disappearance shall be guaranteed fair treatment at all stages of the proceedings. Any person tried for an offence of enforced disappearance shall benefit from a fair trial before a competent, independent and impartial court or tribunal established by law."
         }
       ]
     },
@@ -152,7 +216,15 @@
         },
         {
           "num": "3",
-          "text": "Each State Party shall ensure that the authorities referred to in paragraph 1 of this article: ( a ) Have the necessary powers and resources to conduct the investigation effectively, including access to the documentation and other information relevant to their investigation; ( b ) Have access, if necessary with the prior authorization of a judicial authority, which shall rule promptly on the matter, to any place of detention or any other place where there are reasonable grounds to believe that the disappeared person may be present."
+          "text": "Each State Party shall ensure that the authorities referred to in paragraph 1 of this article:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Have the necessary powers and resources to conduct the investigation effectively, including access to the documentation and other information relevant to their investigation;"
+        },
+        {
+          "num": null,
+          "text": "( b ) Have access, if necessary with the prior authorization of a judicial authority, which shall rule promptly on the matter, to any place of detention or any other place where there are reasonable grounds to believe that the disappeared person may be present."
         },
         {
           "num": "4",
@@ -237,11 +309,67 @@
         },
         {
           "num": "2",
-          "text": "Without prejudice to other international obligations of the State Party with regard to the deprivation of liberty, each State Party shall, in its legislation: ( a ) Establish the conditions under which orders of deprivation of liberty may be given; ( b ) Indicate those authorities authorized to order the deprivation of liberty; ( c ) Guarantee that any person deprived of liberty shall be held solely in officially recognized and supervised places of deprivation of liberty; ( d ) Guarantee that any person deprived of liberty shall be authorized to communicate with and be visited by his or her family, counsel or any other person of his or her choice, subject only to the conditions established by law, or, if he or she is a foreigner, to communicate with his or her consular authorities, in accordance with applicable international law; ( e ) Guarantee access by the competent and legally authorized authorities and institutions to the places where persons are deprived of liberty, if necessary with prior authorization from a judicial authority; ( f ) Guarantee that any person deprived of liberty or, in the case of a suspected enforced disappearance, since the person deprived of liberty is not able to exercise this right, any persons with a legitimate interest, such as relatives of the person deprived of liberty, their representatives or their counsel, shall, in all circumstances, be entitled to take proceedings before a court, in order that the court may decide without delay on the lawfulness of the deprivation of liberty and order the person's release if such deprivation of liberty is not lawful."
+          "text": "Without prejudice to other international obligations of the State Party with regard to the deprivation of liberty, each State Party shall, in its legislation:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Establish the conditions under which orders of deprivation of liberty may be given;"
+        },
+        {
+          "num": null,
+          "text": "( b ) Indicate those authorities authorized to order the deprivation of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( c ) Guarantee that any person deprived of liberty shall be held solely in officially recognized and supervised places of deprivation of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( d ) Guarantee that any person deprived of liberty shall be authorized to communicate with and be visited by his or her family, counsel or any other person of his or her choice, subject only to the conditions established by law, or, if he or she is a foreigner, to communicate with his or her consular authorities, in accordance with applicable international law;"
+        },
+        {
+          "num": null,
+          "text": "( e ) Guarantee access by the competent and legally authorized authorities and institutions to the places where persons are deprived of liberty, if necessary with prior authorization from a judicial authority;"
+        },
+        {
+          "num": null,
+          "text": "( f ) Guarantee that any person deprived of liberty or, in the case of a suspected enforced disappearance, since the person deprived of liberty is not able to exercise this right, any persons with a legitimate interest, such as relatives of the person deprived of liberty, their representatives or their counsel, shall, in all circumstances, be entitled to take proceedings before a court, in order that the court may decide without delay on the lawfulness of the deprivation of liberty and order the person's release if such deprivation of liberty is not lawful."
         },
         {
           "num": "3",
-          "text": "Each State Party shall assure the compilation and maintenance of one or more up-to-date official registers and/or records of persons deprived of liberty, which shall be made promptly available, upon request, to any judicial or other competent authority or institution authorized for that purpose by the law of the State Party concerned or any relevant international legal instrument to which the State concerned is a party. The information contained therein shall include, as a minimum: ( a ) The identity of the person deprived of liberty; ( b ) The date, time and place where the person was deprived of liberty and the identity of the authority that deprived the person of liberty; ( c ) The authority that ordered the deprivation of liberty and the grounds for the deprivation of liberty; ( d ) The authority responsible for supervising the deprivation of liberty; ( e ) The place of deprivation of liberty, the date and time of admission to the place of deprivation of liberty and the authority responsible for the place of deprivation of liberty; ( f ) Elements relating to the state of health of the person deprived of liberty; ( g ) In the event of death during the deprivation of liberty, the circumstances and cause of death and the destination of the remains; ( h ) The date and time of release or transfer to another place of detention, the destination and the authority responsible for the transfer."
+          "text": "Each State Party shall assure the compilation and maintenance of one or more up-to-date official registers and/or records of persons deprived of liberty, which shall be made promptly available, upon request, to any judicial or other competent authority or institution authorized for that purpose by the law of the State Party concerned or any relevant international legal instrument to which the State concerned is a party. The information contained therein shall include, as a minimum:"
+        },
+        {
+          "num": null,
+          "text": "( a ) The identity of the person deprived of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( b ) The date, time and place where the person was deprived of liberty and the identity of the authority that deprived the person of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( c ) The authority that ordered the deprivation of liberty and the grounds for the deprivation of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( d ) The authority responsible for supervising the deprivation of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( e ) The place of deprivation of liberty, the date and time of admission to the place of deprivation of liberty and the authority responsible for the place of deprivation of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( f ) Elements relating to the state of health of the person deprived of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( g ) In the event of death during the deprivation of liberty, the circumstances and cause of death and the destination of the remains;"
+        },
+        {
+          "num": null,
+          "text": "( h ) The date and time of release or transfer to another place of detention, the destination and the authority responsible for the transfer."
         }
       ]
     },
@@ -250,7 +378,35 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Subject to articles 19 and 20, each State Party shall guarantee to any person with a legitimate interest in this information, such as relatives of the person deprived of liberty, their representatives or their counsel, access to at least the following information: ( a ) The authority that ordered the deprivation of liberty; ( b ) The date, time and place where the person was deprived of liberty and admitted to the place of deprivation of liberty; ( c ) The authority responsible for supervising the deprivation of liberty; ( d ) The whereabouts of the person deprived of liberty, including, in the event of a transfer to another place of deprivation of liberty, the destination and the authority responsible for the transfer; ( e ) The date, time and place of release; ( f ) Elements relating to the state of health of the person deprived of liberty; ( g ) In the event of death during the deprivation of liberty, the circumstances and cause of death and the destination of the remains."
+          "text": "Subject to articles 19 and 20, each State Party shall guarantee to any person with a legitimate interest in this information, such as relatives of the person deprived of liberty, their representatives or their counsel, access to at least the following information:"
+        },
+        {
+          "num": null,
+          "text": "( a ) The authority that ordered the deprivation of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( b ) The date, time and place where the person was deprived of liberty and admitted to the place of deprivation of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( c ) The authority responsible for supervising the deprivation of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( d ) The whereabouts of the person deprived of liberty, including, in the event of a transfer to another place of deprivation of liberty, the destination and the authority responsible for the transfer;"
+        },
+        {
+          "num": null,
+          "text": "( e ) The date, time and place of release;"
+        },
+        {
+          "num": null,
+          "text": "( f ) Elements relating to the state of health of the person deprived of liberty;"
+        },
+        {
+          "num": null,
+          "text": "( g ) In the event of death during the deprivation of liberty, the circumstances and cause of death and the destination of the remains."
         },
         {
           "num": "2",
@@ -276,7 +432,11 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Only where a person is under the protection of the law and the deprivation of liberty is subject to judicial control may the right to information referred to in"
+          "text": "Only where a person is under the protection of the law and the deprivation of liberty is subject to judicial control may the right to information referred to in article 18 be restricted, on an exceptional basis, where strictly necessary and where provided for by law, and if the transmission of the information would adversely affect the privacy or safety of the person, hinder a criminal investigation, or for other equivalent reasons in accordance with the law, and in conformity with applicable international law and with the objectives of this Convention. In no case shall there be restrictions on the right to information referred to in article 18 that could constitute conduct defined in article 2 or be in violation of article 17, paragraph 1."
+        },
+        {
+          "num": "2",
+          "text": "Without prejudice to consideration of the lawfulness of the deprivation of a person's liberty, States Parties shall guarantee to the persons referred to in article 18, paragraph 1, the right to a prompt and effective judicial remedy as a means of obtaining without delay the information referred to in article 18, paragraph 1. This right to a remedy may not be suspended or restricted in any circumstances."
         }
       ]
     },
@@ -294,7 +454,19 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Without prejudice to article 6, each State Party shall take the necessary measures to prevent and impose sanctions for the following conduct: ( a ) Delaying or obstructing the remedies referred to in article 17, paragraph 2 ( f ), and article 20, paragraph 2; ( b ) Failure to record the deprivation of liberty of any person, or the recording of any information which the official responsible for the official register knew or should have known to be inaccurate; ( c ) Refusal to provide information on the deprivation of liberty of a person, or the provision of inaccurate information, even though the legal requirements for providing such information have been met."
+          "text": "Without prejudice to article 6, each State Party shall take the necessary measures to prevent and impose sanctions for the following conduct:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Delaying or obstructing the remedies referred to in article 17, paragraph 2 ( f ), and article 20, paragraph 2;"
+        },
+        {
+          "num": null,
+          "text": "( b ) Failure to record the deprivation of liberty of any person, or the recording of any information which the official responsible for the official register knew or should have known to be inaccurate;"
+        },
+        {
+          "num": null,
+          "text": "( c ) Refusal to provide information on the deprivation of liberty of a person, or the provision of inaccurate information, even though the legal requirements for providing such information have been met."
         }
       ]
     },
@@ -303,7 +475,19 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Each State Party shall ensure that the training of law enforcement personnel, civil or military, medical personnel, public officials and other persons who may be involved in the custody or treatment of any person deprived of liberty includes the necessary education and information regarding the relevant provisions of this Convention, in order to: ( a ) Prevent the involvement of such officials in enforced disappearances; ( b ) Emphasize the importance of prevention and investigations in relation to enforced disappearances; ( c ) Ensure that the urgent need to resolve cases of enforced disappearance is recognized."
+          "text": "Each State Party shall ensure that the training of law enforcement personnel, civil or military, medical personnel, public officials and other persons who may be involved in the custody or treatment of any person deprived of liberty includes the necessary education and information regarding the relevant provisions of this Convention, in order to:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Prevent the involvement of such officials in enforced disappearances;"
+        },
+        {
+          "num": null,
+          "text": "( b ) Emphasize the importance of prevention and investigations in relation to enforced disappearances;"
+        },
+        {
+          "num": null,
+          "text": "( c ) Ensure that the urgent need to resolve cases of enforced disappearance is recognized."
         },
         {
           "num": "2",
@@ -336,7 +520,23 @@
         },
         {
           "num": "5",
-          "text": "The right to obtain reparation referred to in paragraph 4 of this article covers material and moral damages and, where appropriate, other forms of reparation such as: ( a ) Restitution; ( b ) Rehabilitation; ( c ) Satisfaction, including restoration of dignity and reputation; ( d ) Guarantees of non-repetition."
+          "text": "The right to obtain reparation referred to in paragraph 4 of this article covers material and moral damages and, where appropriate, other forms of reparation such as:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Restitution;"
+        },
+        {
+          "num": null,
+          "text": "( b ) Rehabilitation;"
+        },
+        {
+          "num": null,
+          "text": "( c ) Satisfaction, including restoration of dignity and reputation;"
+        },
+        {
+          "num": null,
+          "text": "( d ) Guarantees of non-repetition."
         },
         {
           "num": "6",
@@ -353,7 +553,15 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Each State Party shall take the necessary measures to prevent and punish under its criminal law: ( a ) The wrongful removal of children who are subjected to enforced disappearance, children whose father, mother or legal guardian is subjected to enforced disappearance or children born during the captivity of a mother subjected to enforced disappearance; ( b ) The falsification, concealment or destruction of documents attesting to the true identity of the children referred to in subparagraph ( a ) above."
+          "text": "Each State Party shall take the necessary measures to prevent and punish under its criminal law:"
+        },
+        {
+          "num": null,
+          "text": "( a ) The wrongful removal of children who are subjected to enforced disappearance, children whose father, mother or legal guardian is subjected to enforced disappearance or children born during the captivity of a mother subjected to enforced disappearance;"
+        },
+        {
+          "num": null,
+          "text": "( b ) The falsification, concealment or destruction of documents attesting to the true identity of the children referred to in subparagraph ( a ) above."
         },
         {
           "num": "2",
@@ -466,7 +674,31 @@
         },
         {
           "num": "2",
-          "text": "If the Committee considers that a request for urgent action submitted in pursuance of paragraph 1 of this article: ( a ) Is not manifestly unfounded; ( b ) Does not constitute an abuse of the right of submission of such requests; ( c ) Has already been duly presented to the competent bodies of the State Party concerned, such as those authorized to undertake investigations, where such a possibility exists; ( d ) Is not incompatible with the provisions of this Convention; and ( e ) The same matter is not being examined under another procedure of international investigation or settlement of the same nature; it shall request the State Party concerned to provide it with information on the situation of the persons sought, within a time limit set by the Committee."
+          "text": "If the Committee considers that a request for urgent action submitted in pursuance of paragraph 1 of this article:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Is not manifestly unfounded;"
+        },
+        {
+          "num": null,
+          "text": "( b ) Does not constitute an abuse of the right of submission of such requests;"
+        },
+        {
+          "num": null,
+          "text": "( c ) Has already been duly presented to the competent bodies of the State Party concerned, such as those authorized to undertake investigations, where such a possibility exists;"
+        },
+        {
+          "num": null,
+          "text": "( d ) Is not incompatible with the provisions of this Convention; and"
+        },
+        {
+          "num": null,
+          "text": "( e ) The same matter is not being examined under another procedure of international investigation or settlement of the same nature;"
+        },
+        {
+          "num": null,
+          "text": "it shall request the State Party concerned to provide it with information on the situation of the persons sought, within a time limit set by the Committee."
         },
         {
           "num": "3",
@@ -487,7 +719,23 @@
         },
         {
           "num": "2",
-          "text": "The Committee shall consider a communication inadmissible where: ( a ) The communication is anonymous; ( b ) The communication constitutes an abuse of the right of submission of such communications or is incompatible with the provisions of this Convention; ( c ) The same matter is being examined under another procedure of international investigation or settlement of the same nature; or where ( d ) All effective available domestic remedies have not been exhausted. This rule shall not apply where the application of the remedies is unreasonably prolonged."
+          "text": "The Committee shall consider a communication inadmissible where:"
+        },
+        {
+          "num": null,
+          "text": "( a ) The communication is anonymous;"
+        },
+        {
+          "num": null,
+          "text": "( b ) The communication constitutes an abuse of the right of submission of such communications or is incompatible with the provisions of this Convention;"
+        },
+        {
+          "num": null,
+          "text": "( c ) The same matter is being examined under another procedure of international investigation or settlement of the same nature; or where"
+        },
+        {
+          "num": null,
+          "text": "( d ) All effective available domestic remedies have not been exhausted. This rule shall not apply where the application of the remedies is unreasonably prolonged."
         },
         {
           "num": "3",
@@ -577,7 +825,15 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Nothing in this Convention shall affect any provisions which are more conducive to the protection of all persons from enforced disappearance and which may be contained in: ( a ) The law of a State Party; ( b ) International law in force for that State."
+          "text": "Nothing in this Convention shall affect any provisions which are more conducive to the protection of all persons from enforced disappearance and which may be contained in:"
+        },
+        {
+          "num": null,
+          "text": "( a ) The law of a State Party;"
+        },
+        {
+          "num": null,
+          "text": "( b ) International law in force for that State."
         }
       ]
     },
@@ -585,8 +841,16 @@
       "number": "38",
       "paragraphs": [
         {
-          "num": null,
-          "text": "Tags Enforced and involuntary disappearances VIEW THIS PAGE IN: العربية 中文 Français русский Español Back to top Our Work The Office of the High Commissioner for Human Rights is the leading United Nations entity in the field of human rights, with a unique mandate to promote and protect all human rights for all people. © OHCHR 1996-2026 Latest Feature Stories Media Center Meetings & Events Resources Databases Library Publications Connect Contact Us Follow us Work With Us Global Social Channels Facebook Twitter Instagram YouTube WhatsApp LinkedIn TikTok Contact Copyrights Privacy Terms of use Human rights don’t protect themselves. Your donation protects the essentials we all rely on. Learn more DONATE NOW"
+          "num": "1",
+          "text": "This Convention is open for signature by all Member States of the United Nations."
+        },
+        {
+          "num": "2",
+          "text": "This Convention is subject to ratification by all Member States of the United Nations. Instruments of ratification shall be deposited with the Secretary-General of the United Nations."
+        },
+        {
+          "num": "3",
+          "text": "This Convention is open to accession by all Member States of the United Nations. Accession shall be effected by the deposit of an instrument of accession with the Secretary-General."
         }
       ]
     },
@@ -608,7 +872,15 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "The Secretary-General of the United Nations shall notify all States Members of the United Nations and all States which have signed or acceded to this Convention of the following: ( a ) Signatures, ratifications and accessions under article 38; ( b ) The date of entry into force of this Convention under"
+          "text": "The Secretary-General of the United Nations shall notify all States Members of the United Nations and all States which have signed or acceded to this Convention of the following:"
+        },
+        {
+          "num": null,
+          "text": "( a ) Signatures, ratifications and accessions under article 38;"
+        },
+        {
+          "num": null,
+          "text": "( b ) The date of entry into force of this Convention under article 39."
         }
       ]
     },
@@ -672,8 +944,12 @@
       "number": "45",
       "paragraphs": [
         {
-          "num": null,
-          "text": "Entry into force: 23 December 2010, in accordance with article 39(1) which reads as follows: “This Convention shall enter into force on the thirtieth day after the date of deposit with the Secretary-General of the United Nations of the twentieth instrument of ratification or accession.”. Preamble The States Parties to this Convention , Considering the obligation of States under the Charter of the United Nations to promote universal respect for, and observance of, human rights and fundamental freedoms, Having regard to the Universal Declaration of Human Rights, Recalling the International Covenant on Economic, Social and Cultural Rights, the International Covenant on Civil and Political Rights and the other relevant international instruments in the fields of human rights, humanitarian law and international criminal law, Also recalling the Declaration on the Protection of All Persons from Enforced Disappearance adopted by the General Assembly of the United Nations in its resolution 47/133 of 18 December 1992 , Aware of the extreme seriousness of enforced disappearance, which constitutes a crime and, in certain circumstances defined in international law, a crime against humanity, Determined to prevent enforced disappearances and to combat impunity for the crime of enforced disappearance, Considering the right of any person not to be subjected to enforced disappearance, the right of victims to justice and to reparation, Affirming the right of any victim to know the truth about the circumstances of an enforced disappearance and the fate of the disappeared person, and the right to freedom to seek, receive and impart information to this end, Have agreed on the following articles:"
+          "num": "1",
+          "text": "This Convention, of which the Arabic, Chinese, English, French, Russian and Spanish texts are equally authentic, shall be deposited with the Secretary-General of the United Nations."
+        },
+        {
+          "num": "2",
+          "text": "The Secretary-General of the United Nations shall transmit certified copies of this Convention to all States referred to in article 38."
         }
       ]
     }

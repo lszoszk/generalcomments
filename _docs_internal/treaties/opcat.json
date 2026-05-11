@@ -52,8 +52,12 @@
       "number": "4",
       "paragraphs": [
         {
-          "num": null,
-          "text": "and make recommendations to States Parties concerning the protection of persons deprived of their liberty against torture and other cruel, inhuman or degrading treatment or punishment; (b) In regard to the national preventive mechanisms: (i) Advise and assist States Parties, when necessary, in their establishment; (ii) Maintain direct, and if necessary confidential, contact with the national preventive mechanisms and offer them training and technical assistance with a view to strengthening their capacities; (iii) Advise and assist them in the evaluation of the needs and the means necessary to strengthen the protection of persons deprived of their liberty against torture and other cruel, inhuman or degrading treatment or punishment; (iv) Make recommendations and observations to the States Parties with a view to strengthening the capacity and the mandate of the national preventive mechanisms for the prevention of torture and other cruel, inhuman or degrading treatment or punishment; (c) Cooperate, for the prevention of torture in general, with the relevant United Nations organs and mechanisms as well as with the international, regional and national institutions or organizations working towards the strengthening of the protection of all persons against torture and other cruel, inhuman or degrading treatment or punishment."
+          "num": "1",
+          "text": "Each State Party shall allow visits, in accordance with the present Protocol, by the mechanisms referred to in articles 2 and 3 to any place under its jurisdiction and control where persons are or may be deprived of their liberty, either by virtue of an order given by a public authority or at its instigation or with its consent or acquiescence (hereinafter referred to as places of detention). These visits shall be undertaken with a view to strengthening, if necessary, the protection of these persons against torture and other cruel, inhuman or degrading treatment or punishment."
+        },
+        {
+          "num": "2",
+          "text": "For the purposes of the present Protocol, deprivation of liberty means any form of detention or imprisonment or the placement of a person in a public or private custodial setting which that person is not permitted to leave at will by order of any judicial, administrative or other authority."
         }
       ]
     },
@@ -61,8 +65,28 @@
       "number": "5",
       "paragraphs": [
         {
-          "num": null,
-          "text": "of the present Protocol; (b) The initial election shall be held no later than six months after the entry into force of the present Protocol; (c) The States Parties shall elect the members of the Subcommittee on Prevention by secret ballot; (d) Elections of the members of the Subcommittee on Prevention shall be held at biennial meetings of the States Parties convened by the Secretary-General of the United Nations. At those meetings, for which two thirds of the States Parties shall constitute a quorum, the persons elected to the Subcommittee on Prevention shall be those who obtain the largest number of votes and an absolute majority of the votes of the representatives of the States Parties present and voting. 2. If during the election process two nationals of a State Party have become eligible to serve as members of the Subcommittee on Prevention, the candidate receiving the higher number of votes shall serve as the member of the Subcommittee on Prevention. Where nationals have received the same number of votes, the following procedure applies: (a) Where only one has been nominated by the State Party of which he or she is a national, that national shall serve as the member of the Subcommittee on Prevention; (b) Where both candidates have been nominated by the State Party of which they are nationals, a separate vote by secret ballot shall be held to determine which national shall become the member; (c) Where neither candidate has been nominated by the State Party of which he or she is a national, a separate vote by secret ballot shall be held to determine which candidate shall be the member."
+          "num": "1",
+          "text": "The Subcommittee on Prevention shall consist of ten members. After the fiftieth ratification of or accession to the present Protocol, the number of the members of the Subcommittee on Prevention shall increase to twenty-five."
+        },
+        {
+          "num": "2",
+          "text": "The members of the Subcommittee on Prevention shall be chosen from among persons of high moral character, having proven professional experience in the field of the administration of justice, in particular criminal law, prison or police administration, or in the various fields relevant to the treatment of persons deprived of their liberty."
+        },
+        {
+          "num": "3",
+          "text": "In the composition of the Subcommittee on Prevention due consideration shall be given to equitable geographic distribution and to the representation of different forms of civilization and legal systems of the States Parties."
+        },
+        {
+          "num": "4",
+          "text": "In this composition consideration shall also be given to balanced gender representation on the basis of the principles of equality and non-discrimination."
+        },
+        {
+          "num": "5",
+          "text": "No two members of the Subcommittee on Prevention may be nationals of the same State."
+        },
+        {
+          "num": "6",
+          "text": "The members of the Subcommittee on Prevention shall serve in their individual capacity, shall be independent and impartial and shall be available to serve the Subcommittee on Prevention efficiently."
         }
       ]
     },
@@ -74,8 +98,24 @@
           "text": "Each State Party may nominate, in accordance with paragraph 2 of the present article, up to two candidates possessing the qualifications and meeting the requirements set out in article 5, and in doing so shall provide detailed information on the qualifications of the nominees."
         },
         {
-          "num": "2",
-          "text": "(a) The nominees shall have the nationality of a State Party to the present Protocol; (b) At least one of the two candidates shall have the nationality of the nominating State Party; (c) No more than two nationals of a State Party shall be nominated; (d) Before a State Party nominates a national of another State Party, it shall seek and obtain the consent of that State Party."
+          "num": null,
+          "text": "2."
+        },
+        {
+          "num": null,
+          "text": "(a) The nominees shall have the nationality of a State Party to the present Protocol;"
+        },
+        {
+          "num": null,
+          "text": "(b) At least one of the two candidates shall have the nationality of the nominating State Party;"
+        },
+        {
+          "num": null,
+          "text": "(c) No more than two nationals of a State Party shall be nominated;"
+        },
+        {
+          "num": null,
+          "text": "(d) Before a State Party nominates a national of another State Party, it shall seek and obtain the consent of that State Party."
         },
         {
           "num": "3",
@@ -88,7 +128,39 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "The members of the Subcommittee on Prevention shall be elected in the following manner: (a) Primary consideration shall be given to the fulfilment of the requirements and criteria of"
+          "text": "The members of the Subcommittee on Prevention shall be elected in the following manner:"
+        },
+        {
+          "num": null,
+          "text": "(a) Primary consideration shall be given to the fulfilment of the requirements and criteria of article 5 of the present Protocol;"
+        },
+        {
+          "num": null,
+          "text": "(b) The initial election shall be held no later than six months after the entry into force of the present Protocol;"
+        },
+        {
+          "num": null,
+          "text": "(c) The States Parties shall elect the members of the Subcommittee on Prevention by secret ballot;"
+        },
+        {
+          "num": null,
+          "text": "(d) Elections of the members of the Subcommittee on Prevention shall be held at biennial meetings of the States Parties convened by the Secretary-General of the United Nations. At those meetings, for which two thirds of the States Parties shall constitute a quorum, the persons elected to the Subcommittee on Prevention shall be those who obtain the largest number of votes and an absolute majority of the votes of the representatives of the States Parties present and voting."
+        },
+        {
+          "num": "2",
+          "text": "If during the election process two nationals of a State Party have become eligible to serve as members of the Subcommittee on Prevention, the candidate receiving the higher number of votes shall serve as the member of the Subcommittee on Prevention. Where nationals have received the same number of votes, the following procedure applies:"
+        },
+        {
+          "num": null,
+          "text": "(a) Where only one has been nominated by the State Party of which he or she is a national, that national shall serve as the member of the Subcommittee on Prevention;"
+        },
+        {
+          "num": null,
+          "text": "(b) Where both candidates have been nominated by the State Party of which they are nationals, a separate vote by secret ballot shall be held to determine which national shall become the member;"
+        },
+        {
+          "num": null,
+          "text": "(c) Where neither candidate has been nominated by the State Party of which he or she is a national, a separate vote by secret ballot shall be held to determine which candidate shall be the member."
         }
       ]
     },
@@ -119,17 +191,95 @@
         },
         {
           "num": "2",
-          "text": "The Subcommittee on Prevention shall establish its own rules of procedure. These rules shall provide, inter alia, that: (a) Half the members plus one shall constitute a quorum; (b) Decisions of the Subcommittee on Prevention shall be made by a majority vote of the members present; (c) The Subcommittee on Prevention shall meet in camera."
+          "text": "The Subcommittee on Prevention shall establish its own rules of procedure. These rules shall provide, inter alia, that:"
+        },
+        {
+          "num": null,
+          "text": "(a) Half the members plus one shall constitute a quorum;"
+        },
+        {
+          "num": null,
+          "text": "(b) Decisions of the Subcommittee on Prevention shall be made by a majority vote of the members present;"
+        },
+        {
+          "num": null,
+          "text": "(c) The Subcommittee on Prevention shall meet in camera."
         },
         {
           "num": "3",
-          "text": "The Secretary-General of the United Nations shall convene the initial meeting of the Subcommittee on Prevention. After its initial meeting, the Subcommittee on Prevention shall meet at such times as shall be provided by its rules of procedure. The Subcommittee on Prevention and the Committee against Torture shall hold their sessions simultaneously at least once a year. — Mandate of the Subcommittee on Prevention"
+          "text": "The Secretary-General of the United Nations shall convene the initial meeting of the Subcommittee on Prevention. After its initial meeting, the Subcommittee on Prevention shall meet at such times as shall be provided by its rules of procedure. The Subcommittee on Prevention and the Committee against Torture shall hold their sessions simultaneously at least once a year."
         }
       ]
     },
     {
       "number": "11",
       "paragraphs": [
+        {
+          "num": "1",
+          "text": "The Subcommittee on Prevention shall:"
+        },
+        {
+          "num": null,
+          "text": "(a) Visit the places referred to in article 4 and make recommendations to States Parties concerning the protection of persons deprived of their liberty against torture and other cruel, inhuman or degrading treatment or punishment;"
+        },
+        {
+          "num": null,
+          "text": "(b) In regard to the national preventive mechanisms:"
+        },
+        {
+          "num": null,
+          "text": "(i) Advise and assist States Parties, when necessary, in their establishment;"
+        },
+        {
+          "num": null,
+          "text": "(ii) Maintain direct, and if necessary confidential, contact with the national preventive mechanisms and offer them training and technical assistance with a view to strengthening their capacities;"
+        },
+        {
+          "num": null,
+          "text": "(iii) Advise and assist them in the evaluation of the needs and the means necessary to strengthen the protection of persons deprived of their liberty against torture and other cruel, inhuman or degrading treatment or punishment;"
+        },
+        {
+          "num": null,
+          "text": "(iv) Make recommendations and observations to the States Parties with a view to strengthening the capacity and the mandate of the national preventive mechanisms for the prevention of torture and other cruel, inhuman or degrading treatment or punishment;"
+        },
+        {
+          "num": null,
+          "text": "(c) Cooperate, for the prevention of torture in general, with the relevant United Nations organs and mechanisms as well as with the international, regional and national institutions or organizations working towards the strengthening of the protection of all persons against torture and other cruel, inhuman or degrading treatment or punishment."
+        }
+      ]
+    },
+    {
+      "number": "12",
+      "paragraphs": [
+        {
+          "num": null,
+          "text": "In order to enable the Subcommittee on Prevention to comply with its mandate as laid down in article 11, the States Parties undertake:"
+        },
+        {
+          "num": null,
+          "text": "(a) To receive the Subcommittee on Prevention in their territory and grant it access to the places of detention as defined in article 4 of the present Protocol;"
+        },
+        {
+          "num": null,
+          "text": "(b) To provide all relevant information the Subcommittee on Prevention may request to evaluate the needs and measures that should be adopted to strengthen the protection of persons deprived of their liberty against torture and other cruel, inhuman or degrading treatment or punishment;"
+        },
+        {
+          "num": null,
+          "text": "(c) To encourage and facilitate contacts between the Subcommittee on Prevention and the national preventive mechanisms;"
+        },
+        {
+          "num": null,
+          "text": "(d) To examine the recommendations of the Subcommittee on Prevention and enter into dialogue with it on possible implementation measures."
+        }
+      ]
+    },
+    {
+      "number": "13",
+      "paragraphs": [
+        {
+          "num": "1",
+          "text": "The Subcommittee on Prevention shall establish, at first by lot, a programme of regular visits to the States Parties in order to fulfil its mandate as established in article 11."
+        },
         {
           "num": "2",
           "text": "After consultations, the Subcommittee on Prevention shall notify the States Parties of its programme in order that they may, without delay, make the necessary practical arrangements for the visits to be conducted."
@@ -145,29 +295,31 @@
       ]
     },
     {
-      "number": "12",
-      "paragraphs": [
-        {
-          "num": null,
-          "text": "In order to enable the Subcommittee on Prevention to comply with its mandate as laid down in article 11, the States Parties undertake: (a) To receive the Subcommittee on Prevention in their territory and grant it access to the places of detention as defined in"
-        }
-      ]
-    },
-    {
-      "number": "13",
-      "paragraphs": [
-        {
-          "num": "1",
-          "text": "The Subcommittee on Prevention shall establish, at first by lot, a programme of regular visits to the States Parties in order to fulfil its mandate as established in"
-        }
-      ]
-    },
-    {
       "number": "14",
       "paragraphs": [
         {
           "num": "1",
-          "text": "In order to enable the Subcommittee on Prevention to fulfil its mandate, the States Parties to the present Protocol undertake to grant it: (a) Unrestricted access to all information concerning the number of persons deprived of their liberty in places of detention as defined in article 4, as well as the number of places and their location; (b) Unrestricted access to all information referring to the treatment of those persons as well as their conditions of detention; (c) Subject to paragraph 2 below, unrestricted access to all places of detention and their installations and facilities; (d) The opportunity to have private interviews with the persons deprived of their liberty without witnesses, either personally or with a translator if deemed necessary, as well as with any other person who the Subcommittee on Prevention believes may supply relevant information; (e) The liberty to choose the places it wants to visit and the persons it wants to interview."
+          "text": "In order to enable the Subcommittee on Prevention to fulfil its mandate, the States Parties to the present Protocol undertake to grant it:"
+        },
+        {
+          "num": null,
+          "text": "(a) Unrestricted access to all information concerning the number of persons deprived of their liberty in places of detention as defined in article 4, as well as the number of places and their location;"
+        },
+        {
+          "num": null,
+          "text": "(b) Unrestricted access to all information referring to the treatment of those persons as well as their conditions of detention;"
+        },
+        {
+          "num": null,
+          "text": "(c) Subject to paragraph 2 below, unrestricted access to all places of detention and their installations and facilities;"
+        },
+        {
+          "num": null,
+          "text": "(d) The opportunity to have private interviews with the persons deprived of their liberty without witnesses, either personally or with a translator if deemed necessary, as well as with any other person who the Subcommittee on Prevention believes may supply relevant information;"
+        },
+        {
+          "num": null,
+          "text": "(e) The liberty to choose the places it wants to visit and the persons it wants to interview."
         },
         {
           "num": "2",
@@ -201,7 +353,7 @@
         },
         {
           "num": "4",
-          "text": "If the State Party refuses to cooperate with the Subcommittee on Prevention according to articles 12 and 14, or to take steps to improve the situation in the light of the recommendations of the Subcommittee on Prevention, the Committee against Torture may, at the request of the Subcommittee on Prevention, decide, by a majority of its members, after the State Party has had an opportunity to make its views known, to make a public statement on the matter or to publish the report of the Subcommittee on Prevention. — National preventive mechanisms"
+          "text": "If the State Party refuses to cooperate with the Subcommittee on Prevention according to articles 12 and 14, or to take steps to improve the situation in the light of the recommendations of the Subcommittee on Prevention, the Committee against Torture may, at the request of the Subcommittee on Prevention, decide, by a majority of its members, after the State Party has had an opportunity to make its views known, to make a public statement on the matter or to publish the report of the Subcommittee on Prevention."
         }
       ]
     },
@@ -240,7 +392,19 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "The national preventive mechanisms shall be granted at a minimum the power: (a) To regularly examine the treatment of the persons deprived of their liberty in places of detention as defined in article 4, with a view to strengthening, if necessary, their protection against torture and other cruel, inhuman or degrading treatment or punishment; (b) To make recommendations to the relevant authorities with the aim of improving the treatment and the conditions of the persons deprived of their liberty and to prevent torture and other cruel, inhuman or degrading treatment or punishment, taking into consideration the relevant norms of the United Nations; (c) To submit proposals and observations concerning existing or draft legislation."
+          "text": "The national preventive mechanisms shall be granted at a minimum the power:"
+        },
+        {
+          "num": null,
+          "text": "(a) To regularly examine the treatment of the persons deprived of their liberty in places of detention as defined in article 4, with a view to strengthening, if necessary, their protection against torture and other cruel, inhuman or degrading treatment or punishment;"
+        },
+        {
+          "num": null,
+          "text": "(b) To make recommendations to the relevant authorities with the aim of improving the treatment and the conditions of the persons deprived of their liberty and to prevent torture and other cruel, inhuman or degrading treatment or punishment, taking into consideration the relevant norms of the United Nations;"
+        },
+        {
+          "num": null,
+          "text": "(c) To submit proposals and observations concerning existing or draft legislation."
         }
       ]
     },
@@ -249,7 +413,31 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "In order to enable the national preventive mechanisms to fulfil their mandate, the States Parties to the present Protocol undertake to grant them: (a) Access to all information concerning the number of persons deprived of their liberty in places of detention as defined in article 4, as well as the number of places and their location; (b) Access to all information referring to the treatment of those persons as well as their conditions of detention; (c) Access to all places of detention and their installations and facilities; (d) The opportunity to have private interviews with the persons deprived of their liberty without witnesses, either personally or with a translator if deemed necessary, as well as with any other person who the national preventive mechanism believes may supply relevant information; (e) The liberty to choose the places they want to visit and the persons they want to interview; (f) The right to have contacts with the Subcommittee on Prevention, to send it information and to meet with it."
+          "text": "In order to enable the national preventive mechanisms to fulfil their mandate, the States Parties to the present Protocol undertake to grant them:"
+        },
+        {
+          "num": null,
+          "text": "(a) Access to all information concerning the number of persons deprived of their liberty in places of detention as defined in article 4, as well as the number of places and their location;"
+        },
+        {
+          "num": null,
+          "text": "(b) Access to all information referring to the treatment of those persons as well as their conditions of detention;"
+        },
+        {
+          "num": null,
+          "text": "(c) Access to all places of detention and their installations and facilities;"
+        },
+        {
+          "num": null,
+          "text": "(d) The opportunity to have private interviews with the persons deprived of their liberty without witnesses, either personally or with a translator if deemed necessary, as well as with any other person who the national preventive mechanism believes may supply relevant information;"
+        },
+        {
+          "num": null,
+          "text": "(e) The liberty to choose the places they want to visit and the persons they want to interview;"
+        },
+        {
+          "num": null,
+          "text": "(f) The right to have contacts with the Subcommittee on Prevention, to send it information and to meet with it."
         }
       ]
     },
@@ -280,7 +468,7 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "The States Parties to the present Protocol undertake to publish and disseminate the annual reports of the national preventive mechanisms. — Declaration"
+          "text": "The States Parties to the present Protocol undertake to publish and disseminate the annual reports of the national preventive mechanisms."
         }
       ]
     },
@@ -289,11 +477,11 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "Upon ratification, States Parties may make a declaration postponing the implementation of their obligations under either or of the present Protocol."
+          "text": "Upon ratification, States Parties may make a declaration postponing the implementation of their obligations under either part III or part IV of the present Protocol."
         },
         {
           "num": "2",
-          "text": "This postponement shall be valid for a maximum of three years. After due representations made by the State Party and after consultation with the Subcommittee on Pre vention, the Committee against Torture may extend that period for an additional two years. — Financial provisions"
+          "text": "This postponement shall be valid for a maximum of three years. After due representations made by the State Party and after consultation with the Subcommittee on Pre vention, the Committee against Torture may extend that period for an additional two years."
         }
       ]
     },
@@ -319,7 +507,7 @@
         },
         {
           "num": "2",
-          "text": "The Special Fund may be financed through voluntary contributions made by Governments, intergovernmental and non-governmental organizations and other private or public entities. — Final provisions"
+          "text": "The Special Fund may be financed through voluntary contributions made by Governments, intergovernmental and non-governmental organizations and other private or public entities."
         }
       ]
     },
@@ -445,7 +633,15 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "When visiting a State Party, the members of the Subcommittee on Prevention shall, without prejudice to the provisions and purposes of the present Protocol and such privileges and immunities as they may enjoy: (a) Respect the laws and regulations of the visited State; (b) Refrain from any action or activity incompatible with the impartial and international nature of their duties."
+          "text": "When visiting a State Party, the members of the Subcommittee on Prevention shall, without prejudice to the provisions and purposes of the present Protocol and such privileges and immunities as they may enjoy:"
+        },
+        {
+          "num": null,
+          "text": "(a) Respect the laws and regulations of the visited State;"
+        },
+        {
+          "num": null,
+          "text": "(b) Refrain from any action or activity incompatible with the impartial and international nature of their duties."
         }
       ]
     },
@@ -453,8 +649,12 @@
       "number": "37",
       "paragraphs": [
         {
-          "num": null,
-          "text": "Entry into force: 22 June 2006 Preamble The States Parties to the present Protocol, Reaffirming that torture and other cruel, inhuman or degrading treatment or punishment are prohibited and constitute serious violations of human rights, Convinced that further measures are necessary to achieve the purposes of the Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment (hereinafter referred to as the Convention) and to strengthen the protection of persons deprived of their liberty against torture and other cruel, inhuman or degrading treatment or punishment, Recalling that articles 2 and 16 of the Convention oblige each State Party to take effective measures to prevent acts of torture and other cruel, inhuman or degrading treatment or punishment in any territory under its jurisdiction, Recognizing that States have the primary responsibility for implementing those articles, that strengthening the protection of people deprived of their liberty and the full respect for their human rights is a common responsibility shared by all and that international implementing bodies complement and strengthen national measures, Recalling that the effective prevention of torture and other cruel, inhuman or degrading treatment or punishment requires education and a combination of various legislative, administrative, judicial and other measures, Recalling also that the World Conference on Human Rights firmly declared that efforts to eradicate torture should first and foremost be concentrated on prevention and called for the adoption of an optional protocol to the Convention, intended to establish a preventive system of regular visits to places of detention, Convinced that the protection of persons deprived of their liberty against torture and other cruel, inhuman or degrading treatment or punishment can be strengthened by non-judicial means of a preventive nature, based on regular visits to places of detention, Have agreed as follows: — General principles"
+          "num": "1",
+          "text": "The present Protocol, of which the Arabic, Chinese, English, French, Russian and Spanish texts are equally authentic, shall be deposited with the Secretary-General of the United Nations."
+        },
+        {
+          "num": "2",
+          "text": "The Secretary-General of the United Nations shall transmit certified copies of the present Protocol to all States."
         }
       ]
     }

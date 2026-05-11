@@ -21,6 +21,63 @@
       "number": "2",
       "paragraphs": [
         {
+          "num": null,
+          "text": "For the purposes of the present Protocol:"
+        },
+        {
+          "num": null,
+          "text": "(a) Sale of children means any act or transaction whereby a child is transferred by any person or group of persons to another for remuneration or any other consideration;"
+        },
+        {
+          "num": null,
+          "text": "(b) Child prostitution means the use of a child in sexual activities for remuneration or any other form of consideration;"
+        },
+        {
+          "num": null,
+          "text": "(c) Child pornography means any representation, by whatever means, of a child engaged in real or simulated explicit sexual activities or any representation of the sexual parts of a child for primarily sexual purposes."
+        }
+      ]
+    },
+    {
+      "number": "3",
+      "paragraphs": [
+        {
+          "num": "1",
+          "text": "Each State Party shall ensure that, as a minimum, the following acts and activities are fully covered under its criminal or penal law, whether such offences are committed domestically or transnationally or on an individual or organized basis:"
+        },
+        {
+          "num": null,
+          "text": "(a) In the context of sale of children as defined in article 2:"
+        },
+        {
+          "num": null,
+          "text": "(i) Offering, delivering or accepting, by whatever means, a child for the purpose of:"
+        },
+        {
+          "num": null,
+          "text": "a. Sexual exploitation of the child;"
+        },
+        {
+          "num": null,
+          "text": "b. Transfer of organs of the child for profit;"
+        },
+        {
+          "num": null,
+          "text": "c. Engagement of the child in forced labour;"
+        },
+        {
+          "num": null,
+          "text": "(ii) Improperly inducing consent, as an intermediary, for the adoption of a child in violation of applicable international legal instruments on adoption;"
+        },
+        {
+          "num": null,
+          "text": "(b) Offering, obtaining, procuring or providing a child for child prostitution, as defined in article 2;"
+        },
+        {
+          "num": null,
+          "text": "(c) Producing, distributing, disseminating, importing, exporting, offering, selling or possessing for the above purposes child pornography as defined in article 2."
+        },
+        {
           "num": "2",
           "text": "Subject to the provisions of the national law of a State Party, the same shall apply to an attempt to commit any of the said acts and to complicity or participation in any of the said acts."
         },
@@ -39,15 +96,6 @@
       ]
     },
     {
-      "number": "3",
-      "paragraphs": [
-        {
-          "num": "1",
-          "text": "Each State Party shall ensure that, as a minimum, the following acts and activities are fully covered under its criminal or penal law, whether such offences are committed domestically or transnationally or on an individual or organized basis: (a) In the context of sale of children as defined in article 2: (i) Offering, delivering or accepting, by whatever means, a child for the purpose of: a. Sexual exploitation of the child; b. Transfer of organs of the child for profit; c. Engagement of the child in forced labour; (ii) Improperly inducing consent, as an intermediary, for the adoption of a child in violation of applicable international legal instruments on adoption; (b) Offering, obtaining, procuring or providing a child for child prostitution, as defined in article 2; (c) Producing, distributing, disseminating, importing, exporting, offering, selling or possessing for the above purposes child pornography as defined in"
-        }
-      ]
-    },
-    {
       "number": "4",
       "paragraphs": [
         {
@@ -56,7 +104,15 @@
         },
         {
           "num": "2",
-          "text": "Each State Party may take such measures as may be necessary to establish its jurisdiction over the offences referred to in article 3, paragraph 1, in the following cases: (a) When the alleged offender is a national of that State or a person who has his habitual residence in its territory; (b) When the victim is a national of that State."
+          "text": "Each State Party may take such measures as may be necessary to establish its jurisdiction over the offences referred to in article 3, paragraph 1, in the following cases:"
+        },
+        {
+          "num": null,
+          "text": "(a) When the alleged offender is a national of that State or a person who has his habitual residence in its territory;"
+        },
+        {
+          "num": null,
+          "text": "(b) When the victim is a national of that State."
         },
         {
           "num": "3",
@@ -85,7 +141,11 @@
         },
         {
           "num": "4",
-          "text": "Such offences shall be treated, for the purpose of extradition between States Parties, as if they had been committed not only in the place in which they occurred but also in the territories of the States required to establish their jurisdiction in accordance with"
+          "text": "Such offences shall be treated, for the purpose of extradition between States Parties, as if they had been committed not only in the place in which they occurred but also in the territories of the States required to establish their jurisdiction in accordance with article 4."
+        },
+        {
+          "num": "5",
+          "text": "If an extradition request is made with respect to an offence described in article 3, paragraph 1, and the requested State Party does not or will not extradite on the basis of the nationality of the offender, that State shall take suitable measures to submit the case to its competent authorities for the purpose of prosecution."
         }
       ]
     },
@@ -107,7 +167,27 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "States Parties shall, subject to the provisions of their national law: (a) Take measures to provide for the seizure and confiscation, as appropriate, of: (i) Goods, such as materials, assets and other instrumentalities used to commit or facilitate offences under the present protocol; (ii) Proceeds derived from such offences; (b) Execute requests from another State Party for seizure or confiscation of goods or proceeds referred to in subparagraph (a); (c) Take measures aimed at closing, on a temporary or definitive basis, premises used to commit such offences."
+          "text": "States Parties shall, subject to the provisions of their national law:"
+        },
+        {
+          "num": null,
+          "text": "(a) Take measures to provide for the seizure and confiscation, as appropriate, of:"
+        },
+        {
+          "num": null,
+          "text": "(i) Goods, such as materials, assets and other instrumentalities used to commit or facilitate offences under the present protocol;"
+        },
+        {
+          "num": null,
+          "text": "(ii) Proceeds derived from such offences;"
+        },
+        {
+          "num": null,
+          "text": "(b) Execute requests from another State Party for seizure or confiscation of goods or proceeds referred to in subparagraph (a);"
+        },
+        {
+          "num": null,
+          "text": "(c) Take measures aimed at closing, on a temporary or definitive basis, premises used to commit such offences."
         }
       ]
     },
@@ -116,7 +196,35 @@
       "paragraphs": [
         {
           "num": "1",
-          "text": "States Parties shall adopt appropriate measures to protect the rights and interests of child victims of the practices prohibited under the present Protocol at all stages of the criminal justice process, in particular by: (a) Recognizing the vulnerability of child victims and adapting procedures to recognize their special needs, including their special needs as witnesses; (b) Informing child victims of their rights, their role and the scope, timing and progress of the proceedings and of the disposition of their cases; (c) Allowing the views, needs and concerns of child victims to be presented and considered in proceedings where their personal interests are affected, in a manner consistent with the procedural rules of national law; (d) Providing appropriate support services to child victims throughout the legal process; (e) Protecting, as appropriate, the privacy and identity of child victims and taking measures in accordance with national law to avoid the inappropriate dissemination of information that could lead to the identification of child victims; (f) Providing, in appropriate cases, for the safety of child victims, as well as that of their families and witnesses on their behalf, from intimidation and retaliation; (g) Avoiding unnecessary delay in the disposition of cases and the execution of orders or decrees granting compensation to child victims."
+          "text": "States Parties shall adopt appropriate measures to protect the rights and interests of child victims of the practices prohibited under the present Protocol at all stages of the criminal justice process, in particular by:"
+        },
+        {
+          "num": null,
+          "text": "(a) Recognizing the vulnerability of child victims and adapting procedures to recognize their special needs, including their special needs as witnesses;"
+        },
+        {
+          "num": null,
+          "text": "(b) Informing child victims of their rights, their role and the scope, timing and progress of the proceedings and of the disposition of their cases;"
+        },
+        {
+          "num": null,
+          "text": "(c) Allowing the views, needs and concerns of child victims to be presented and considered in proceedings where their personal interests are affected, in a manner consistent with the procedural rules of national law;"
+        },
+        {
+          "num": null,
+          "text": "(d) Providing appropriate support services to child victims throughout the legal process;"
+        },
+        {
+          "num": null,
+          "text": "(e) Protecting, as appropriate, the privacy and identity of child victims and taking measures in accordance with national law to avoid the inappropriate dissemination of information that could lead to the identification of child victims;"
+        },
+        {
+          "num": null,
+          "text": "(f) Providing, in appropriate cases, for the safety of child victims, as well as that of their families and witnesses on their behalf, from intimidation and retaliation;"
+        },
+        {
+          "num": null,
+          "text": "(g) Avoiding unnecessary delay in the disposition of cases and the execution of orders or decrees granting compensation to child victims."
         },
         {
           "num": "2",
@@ -191,7 +299,15 @@
       "paragraphs": [
         {
           "num": null,
-          "text": "Nothing in the present Protocol shall affect any provisions that are more conducive to the realization of the rights of the child and that may be contained in: (a) The law of a State Party; (b) International law in force for that State."
+          "text": "Nothing in the present Protocol shall affect any provisions that are more conducive to the realization of the rights of the child and that may be contained in:"
+        },
+        {
+          "num": null,
+          "text": "(a) The law of a State Party;"
+        },
+        {
+          "num": null,
+          "text": "(b) International law in force for that State."
         }
       ]
     },
@@ -204,7 +320,11 @@
         },
         {
           "num": "2",
-          "text": "Following the submission of the comprehensive report, each State Party shall include in the reports they submit to the Committee on the Rights of the Child, in accordance with"
+          "text": "Following the submission of the comprehensive report, each State Party shall include in the reports they submit to the Committee on the Rights of the Child, in accordance with article 44 of the Convention, any further information with respect to the implementation of the present Protocol. Other States Parties to the Protocol shall submit a report every five years."
+        },
+        {
+          "num": "3",
+          "text": "The Committee on the Rights of the Child may request from States Parties further information relevant to the implementation of the present Protocol."
         }
       ]
     },
@@ -268,8 +388,12 @@
       "number": "17",
       "paragraphs": [
         {
-          "num": null,
-          "text": "Entry into force: 18 January 2002 The States Parties to the present Protocol, Considering that, in order further to achieve the purposes of the Convention on the Rights of the Child and the implementation of its provisions, especially articles 1, 11, 21, 32, 33, 34, 35 and 36, it would be appropriate to extend the measures that States Parties should undertake in order to guarantee the protection of the child from the sale of children, child prostitution and child pornography, Considering also that the Convention on the Rights of the Child recognizes the right of the child to be protected from economic exploitation and from performing any work that is likely to be hazardous or to interfere with the child's education, or to be harmful to the child's health or physical, mental, spiritual, moral or social development, Gravely concerned at the significant and increasing international traffic in children for the purpose of the sale of children, child prostitution and child pornography, Deeply concerned at the widespread and continuing practice of sex tourism, to which children are especially vulnerable, as it directly promotes the sale of children, child prostitution and child pornography, Recognizing that a number of particularly vulnerable groups, including girl children, are at greater risk of sexual exploitation and that girl children are disproportionately represented among the sexually exploited, Concerned about the growing availability of child pornography on the Internet and other evolving technologies, and recalling the International Conference on Combating Child Pornography on the Internet, held in Vienna in 1999, in particular its conclusion calling for the worldwide criminalization of the production, distribution, exportation, transmission, importation, intentional possession and advertising of child pornography, and stressing the importance of closer cooperation and partnership between Governments and the Internet industry, Believing that the elimination of the sale of children, child prostitution and child pornography will be facilitated by adopting a holistic approach, addressing the contributing factors, including underdevelopment, poverty, economic disparities, inequitable socio-economic structure, dysfunctioning families, lack of education, urban-rural migration, gender discrimination, irresponsible adult sexual behaviour, harmful traditional practices, armed conflicts and trafficking in children, Believing also that efforts to raise public awareness are needed to reduce consumer demand for the sale of children, child prostitution and child pornography, and believing further in the importance of strengthening global partnership among all actors and of improving law enforcement at the national level, Noting the provisions of international legal instruments relevant to the protection of children, including the Hague Convention on Protection of Children and Cooperation in Respect of Intercountry Adoption, the Hague Convention on the Civil Aspects of International Child Abduction, the Hague Convention on Jurisdiction, Applicable Law, Recognition, Enforcement and Cooperation in Respect of Parental Responsibility and Measures for the Protection of Children, and International Labour Organization Convention No. 182 on the Prohibition and Immediate Action for the Elimination of the Worst Forms of Child Labour, Encouraged by the overwhelming support for the Convention on the Rights of the Child, demonstrating the widespread commitment that exists for the promotion and protection of the rights of the child, Recognizing the importance of the implementation of the provisions of the Programme of Action for the Prevention of the Sale of Children, Child Prostitution and Child Pornography and the Declaration and Agenda for Action adopted at the World Congress against Commercial Sexual Exploitation of Children, held in Stockholm from 27 to 31 August 1996, and the other relevant decisions and recommendations of pertinent international bodies, Taking due account of the importance of the traditions and cultural values of each people for the protection and harmonious development of the child, Have agreed as follows:"
+          "num": "1",
+          "text": "The present Protocol, of which the Arabic, Chinese, English, French, Russian and Spanish texts are equally authentic, shall be deposited in the archives of the United Nations."
+        },
+        {
+          "num": "2",
+          "text": "The Secretary-General of the United Nations shall transmit certified copies of the present Protocol to all States Parties to the Convention and all States that have signed the Convention."
         }
       ]
     }
