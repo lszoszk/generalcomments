@@ -102,8 +102,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260511-iosguard" />
-<link rel="stylesheet" href="assets/app.css?v=20260511-iosguard" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260511-faithfulness" />
+<link rel="stylesheet" href="assets/app.css?v=20260511-faithfulness" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -597,12 +597,12 @@
       no paraphrase, no AI-generated answer text, no hallucination.
     </p>
     <p class="ask-beta-meta">
-      Active development; quality benchmarks cleared (100% docHit@5,
-      81% paraHit@5 on a 30-question commentary-grounded eval). You may
-      still see wrong-treaty links or off-by-one paragraph matches —
-      verify against the source GC before quoting. See
-      <a href="#about" class="about-link">methodology</a> for the full
-      pipeline. Need exact wording or Boolean operators? Use
+      Active development; quality gates cleared on a 30-question
+      commentary-grounded eval (100% docHit@5, 81% paraHit@5,
+      <a href="#about" class="about-link">0.88 answerScore@1</a>). You
+      may still see wrong-treaty links or off-by-one paragraph matches
+      — verify against the source GC before quoting. Need exact wording
+      or Boolean operators? Use
       <a href="#search" class="about-link">Search</a>.
     </p>
   </div>
@@ -925,6 +925,14 @@
                     paragraph is in the first 5 (the 3 misses are off-by-one in the
                     correct GC, i.e., adjacent paragraphs in the same section)</li>
                 <li><strong>paraHit@10: 87.5%</strong></li>
+                <li><strong>answerScore@1: 0.888 ± 0.017</strong> — separate
+                    faithfulness eval (Gemini Flash-Lite as judge, 3 runs ×
+                    30 questions) asking <em>"does the top-1 paragraph directly
+                    answer the question?"</em>. Scored yes / partial / no →
+                    1.0 / 0.5 / 0. The gap above paraHit@5 reflects cases where
+                    the system surfaces a different paragraph than the
+                    commentary author picked but one that nonetheless answers
+                    the question — a legitimate alternative, not a miss.</li>
                 <li>Latency: median ~3.9s, p95 ~6.1s end-to-end</li>
               </ul>
               <p class="serif">
@@ -1237,6 +1245,6 @@
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260511-iosguard"></script>
+<script type="module" src="assets/app.js?v=20260511-faithfulness"></script>
 </body>
 </html>
