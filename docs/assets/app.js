@@ -1853,27 +1853,12 @@ function paintDocReaderBody(doc, paraId) {
        </details>`
     : '';
 
-  // v19.47: multilingual document-link strip. CCPR Centre supplied direct
-  // PDF/DOCX URLs in EN + ES + FR + AR + RU + ZH for 2,539 of our CCPR
-  // cases. Surface them as a discoverable "Read in:" row so non-English-
-  // speaking researchers can grab their working language in one click.
-  const docLinks = doc.documentLinks || [];
-  const langOrder = ['en', 'es', 'fr', 'ar', 'ru', 'zh'];
-  const langLabel = { en: 'EN', es: 'ES', fr: 'FR', ar: 'AR', ru: 'RU', zh: 'ZH' };
-  const langName = { en: 'English', es: 'Español', fr: 'Français', ar: 'العربية', ru: 'Русский', zh: '中文' };
-  const sortedLinks = [...docLinks].sort((a, b) =>
-    (langOrder.indexOf(a.lang) + 100) - (langOrder.indexOf(b.lang) + 100));
-  const langStripHtml = sortedLinks.length >= 2
-    ? `<div class="docs-reader-langs">
-         <span class="folio">Read in:</span>
-         ${sortedLinks.map(L => `
-           <a class="lang-chip lang-chip-${escape(L.lang)}" href="${escape(L.url)}"
-              target="_blank" rel="noopener"
-              title="${escape(langName[L.lang] || L.lang.toUpperCase())} (.${escape(L.extension || 'pdf')})">
-             ${escape(langLabel[L.lang] || L.lang.toUpperCase())}
-           </a>`).join('')}
-       </div>`
-    : '';
+  // v19.56: documentLinks "Read in:" strip retired from the UI until parity
+  // with the non-CCPR committees is achieved (data ingested only for CCPR
+  // via the v19.47 CCPR-Centre batch). The field is still on documents —
+  // re-enable by restoring the langStripHtml block once CAT/CRC/CEDAW/etc.
+  // are tagged.
+  const langStripHtml = '';
 
   const head = `
     <header class="docs-reader-head">
@@ -1882,7 +1867,7 @@ function paintDocReaderBody(doc, paraId) {
       <div class="docs-reader-meta mono">
         ${doc.signature ? `<span>${escape(doc.signature)}</span>` : ''}
         ${doc.adoptionDate ? `<span>${escape(doc.adoptionDate)}</span>` : (doc.year ? `<span>${doc.year}</span>` : '')}
-        ${doc.country ? `<span>${escape(doc.country)}</span>` : ''}
+        ${doc.country ? `<span>${escape(doc.country)}${doc.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''}
         ${doc.committee || doc.treaty ? `<span>${escape(doc.committee || doc.treaty)}</span>` : ''}
         <span>${paragraphs.length} paragraphs</span>
         ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener" class="docs-reader-source">↗ original</a>` : ''}
@@ -5910,7 +5895,7 @@ function paintDossier() {
         ? `<a class="dossier-sig-link" href="${escape(doc.link)}" target="_blank" rel="noopener" title="Open original document on un.org">${escape(doc?.signature || '—')} <span class="dossier-sig-arrow" aria-hidden="true">↗</span></a>`
         : escape(doc?.signature || '')
     }${
-      isJurDoc && doc?.country ? ` · <span class="dossier-country">${escape(doc.country)}</span>` : ''
+      isJurDoc && doc?.country ? ` · <span class="dossier-country">${escape(doc.country)}${doc?.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''
     }</div>
     ${abstractHtml}
     <div class="dossier-grid">
@@ -8695,12 +8680,44 @@ async function _loadTreaties() {
 //   text — the rendered text/HTML fragment
 //   committee — code of the committee that issued the source GC; used
 //     to resolve "the Covenant"/"the Convention" to the right treaty
-function annotateTreatyText(html, committee) {
+// `citedArticles` (v19.55.5): per-paragraph pre-tagged references coming
+// from the 4-stage pipeline (regex → Gemini → Sonnet → Opus). Shape:
+//   [{ treaty: "CEDAW", article: "28", paragraph: "2" }, ...]
+// When provided, it acts as the AUTHORITATIVE treaty resolver: each
+// article number in the rendered text is matched (in order of occurrence)
+// against this list and rendered with the correct treaty abbr — solving
+// joint-GC paragraphs (CEDAW+CRC, CRC+CMW, CMW+CERD), explicit cross-
+// treaty refs ("article 17 of the Covenant" in a CESCR GC = ICCPR), and
+// Optional Protocol disambig ("article 6 of that Protocol" → ICCPR-OP2).
+// Falls back to the home-treaty regex behaviour when citedArticles is
+// absent (backward compat for paragraphs without pre-tagged metadata).
+function annotateTreatyText(html, committee, citedArticles) {
   if (!html || !committee || !_treatiesCache) return html;
   const treaty = _treatiesByCommittee[String(committee).toUpperCase()];
   if (!treaty) return html;
   const term = treaty.term || 'Covenant';
   const abbr = treaty.abbr;
+
+  // Build a per-article queue from citedArticles so the n-th occurrence
+  // of "article N" in the text grabs the n-th cited treaty for that
+  // article number. This handles same-number-different-treaty cases
+  // (e.g., joint GC mentioning both CEDAW art 2 and CRC art 2).
+  const refQueue = new Map();   // article# → [{treaty, paragraph}, ...]
+  if (Array.isArray(citedArticles) && citedArticles.length) {
+    for (const ref of citedArticles) {
+      if (!ref || !ref.article) continue;
+      const key = String(ref.article);
+      if (!refQueue.has(key)) refQueue.set(key, []);
+      refQueue.get(key).push({
+        treaty: String(ref.treaty || '').toUpperCase(),
+        paragraph: ref.paragraph ? String(ref.paragraph) : null,
+      });
+    }
+  }
+  const consumeRef = (artNum) => {
+    const arr = refQueue.get(String(artNum));
+    return arr && arr.length ? arr.shift() : null;
+  };
 
   // HTML-aware: split into tag/text segments so we never inject a
   // <button> inside another tag's attribute. Footnote buttons emitted
@@ -8764,13 +8781,12 @@ function annotateTreatyText(html, committee) {
     t = t.replace(artListPat, (match, prefix, ws, body, offset, fullStr) => {
       // Look ~50 chars after the match for a Protocol trailer.
       const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 60);
-      if (PROTOCOL_TRAILING_RE.test(tail)) {
-        return match;  // leave as plain text — see comment above
-      }
+      const hasProtocolTail = PROTOCOL_TRAILING_RE.test(tail);
       let out = prefix + ws;
       let lastIdx = 0;
       let m;
       itemPat.lastIndex = 0;
+      let renderedAny = false;
       while ((m = itemPat.exec(body)) !== null) {
         out += body.slice(lastIdx, m.index);
         const art = m[1];
@@ -8779,13 +8795,40 @@ function annotateTreatyText(html, committee) {
         // ("(2)" / "(paragraph 2)"). Complex forms ("paragraphs 1 and 2",
         // sub-letters, etc.) fall back to whole-article popover.
         const paraMatch = qualifier ? qualifier.match(/^(?:paragraphs?\s+)?(\d+)$/i) : null;
-        const para = paraMatch ? paraMatch[1] : null;
-        const attrs = `data-treaty="${abbr}" data-article="${art}"` +
-                      (para ? ` data-paragraph="${para}"` : '');
+        const inlinePara = paraMatch ? paraMatch[1] : null;
+
+        // Resolve treaty: prefer pre-tagged citedArticles when present.
+        // Falls back to home-committee treaty otherwise. For paragraphs
+        // ending with "of that Protocol" we previously left the ref as
+        // plain text — but with citedArticles we can now route to the
+        // correct OP code (ICCPR-OP1/OP2, CRC-OPSC, OPCAT, etc.).
+        const cited = consumeRef(art);
+        let targetAbbr, targetPara;
+        if (cited && cited.treaty) {
+          targetAbbr = cited.treaty;
+          targetPara = inlinePara || cited.paragraph;
+        } else if (hasProtocolTail) {
+          // No pre-tagged ref AND text has "of that Protocol" suffix —
+          // keep historical safety behaviour: render this article list
+          // as plain text rather than wrong-link to the main treaty.
+          out += m[0];
+          lastIdx = m.index + m[0].length;
+          continue;
+        } else {
+          targetAbbr = abbr;
+          targetPara = inlinePara;
+        }
+        const attrs = `data-treaty="${targetAbbr}" data-article="${art}"` +
+                      (targetPara ? ` data-paragraph="${targetPara}"` : '');
         out += `<button type="button" class="treaty-article-ref" ${attrs}>${m[0]}</button>`;
+        renderedAny = true;
         lastIdx = m.index + m[0].length;
       }
       out += body.slice(lastIdx);
+      // If we hit a Protocol tail and nothing was rendered (no
+      // citedArticles to override), revert to leaving the whole match
+      // as plain text — preserves the v19.55.x safety contract.
+      if (hasProtocolTail && !renderedAny) return match;
       return out;
     });
     return t;
@@ -9031,7 +9074,7 @@ function _askRenderSourceCards(data, userQuery, opts = {}) {
       const rawText = localPara && typeof renderParagraphHtml === 'function'
         ? renderParagraphHtml(localPara.text, localPara.footnotes)
         : askEscape(s.text || '');
-      const text = annotateTreatyText(rawText, s.committee);
+      const text = annotateTreatyText(rawText, s.committee, s.citedArticles);
       const why = _askRenderWhyMatched(userQuery, s, ret.articleBoost);
       const actions = _askRenderSourceActions(s);
       return `
@@ -9268,7 +9311,7 @@ function renderAskResult(primaryData, counterData) {
          <div class="ask-answer-title">Top match · verbatim</div>
          <div class="ask-answer-hint">First-ranked paragraph below. Read all sources for context — General Comments rarely give a single answer.</div>
          ${buildSourceContext(topSource)}
-         <div class="ask-answer-body">${annotateTreatyText(askEscape(data.answer), topSource?.committee)}</div>
+         <div class="ask-answer-body">${annotateTreatyText(askEscape(data.answer), topSource?.committee, topSource?.citedArticles)}</div>
        </div>`
     : '';
 
