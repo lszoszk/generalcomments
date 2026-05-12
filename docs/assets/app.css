@@ -3266,6 +3266,9 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   border-bottom: 1px solid var(--rule);
   padding-bottom: 14px;
   margin-bottom: 24px;
+  /* v19.56.5: sticky pinning reverted — the left rail already shows the
+     active document name, so duplicating it at the top of the reader
+     pane is redundant. Reclaim vertical space for the actual prose. */
 }
 .docs-reader-head .folio { display: block; margin-bottom: 4px; }
 .docs-reader-title {
@@ -3417,6 +3420,20 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   margin-left: 6px;
   font-weight: 600;
   white-space: nowrap;
+}
+/* v19.56.2: raw-OCR variant — stronger amber tone to signal "no cleanup,
+   verify before citing". Distinguishes the 12 raw-OCR 1990s CAT cases
+   from the 170 CCPR cases that went through the v19.47 cleanup pipeline. */
+.docs-reader-ocr-banner.ocr-banner-raw {
+  border-left-color: #c8741a;
+  background: #fff5e6;
+}
+.docs-reader-ocr-banner.ocr-banner-raw .ocr-banner-tag {
+  background: #c8741a;
+}
+.docs-reader-ocr-banner.ocr-banner-raw .ocr-banner-body a {
+  color: #a85a0a;
+  border-bottom-color: #a85a0a;
 }
 
 /* v19.45: small "OCR" pill on result-list rows. Renders next to the
@@ -5490,29 +5507,15 @@ body[data-active-view="ask"] section[data-view="ask"] {
 }
 
 /* v19.55.10 Phase 1.5: inline treaty annotations + popover.
-   "the Covenant" becomes "the Covenant[ICCPR]" — verbatim text is
-   never modified, only annotated.  "article 4(2)" becomes a clickable
-   button that opens a popover with the actual treaty article text. */
-.treaty-term {
-  /* purely a wrapper for the inline abbr badge — no border/background
-     so verbatim text reads unchanged */
-}
-.treaty-term-abbr {
-  display: inline-block;
-  margin-left: 0.15em;
-  padding: 0 0.32em;
-  background: var(--paper-2, #f4eee5);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  font-family: var(--display);
-  font-size: 0.62em;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--ink-2);
-  vertical-align: super;
-  line-height: 1.2;
-  text-transform: none;
-}
+   Only article-number citations now get visible treatment ("article 4(2)"
+   becomes a clickable button that opens a popover with the actual treaty
+   article text). The "the Covenant[ICCPR]" sup-abbr badge was removed
+   in v19.56.5 — it looked like edited text, and the committee column
+   on the dossier already tells the reader which convention they're in.
+   Rules kept commented for the historical record. */
+/* .treaty-term { } */
+/* .treaty-term-abbr { display: inline-block; vertical-align: super;
+     ...see git history at v19.56.4 for the original rule. } */
 .treaty-article-ref {
   display: inline;
   padding: 0 0.18em;
@@ -5553,6 +5556,15 @@ body[data-active-view="ask"] section[data-view="ask"] {
   background: var(--paper-2);
   border-bottom: 1px solid var(--rule);
   font-family: var(--display);
+  /* v19.56.6: pin the header to the top of the scrollable popover so
+     the user always sees which treaty + article the body refers to,
+     even after scrolling through a long article (e.g. ICCPR art. 14
+     which has many paragraphs). The popover container itself is the
+     scroll-y container (overflow-y: auto + max-height: 60vh on
+     .treaty-popover), so position:sticky / top:0 is anchored to it. */
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 .treaty-popover-abbr {
   font-weight: 700;
@@ -5594,6 +5606,13 @@ body[data-active-view="ask"] section[data-view="ask"] {
   font-size: 0.75rem;
   color: var(--ink-3);
   font-style: italic;
+  /* v19.56.6: pin the source line to the bottom of the scrollable
+     popover so the treaty's full name remains visible while the user
+     scrolls through long articles. Mirrors the sticky header. */
+  position: sticky;
+  bottom: 0;
+  background: var(--paper, #fbf7f0);
+  z-index: 2;
 }
 .ask-sources-title {
   font-family: var(--display); font-weight: 700; font-size: 1.05rem;

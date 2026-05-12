@@ -25,7 +25,14 @@ const state = {
   docsActiveDocId: null,        // v17: currently-open document in the reader
   docsActiveParaId: null,       // v17: currently-active ¶ inside the reader (for highlight)
   docsDrawerCollapsed: false,   // v17: right drawer collapsed?
-  docsRailCollapsed: new Set(), // v17: collapsed body groups in the rail
+  // v19.56.5: semantic flipped. Was `docsRailCollapsed` (set of keys that
+  // are explicitly collapsed; default open). Now `docsRailExpanded` (set
+  // of keys that are explicitly expanded; default collapsed) — user
+  // feedback was that the rail forces them to manually fold each body
+  // before they can scan the list of committees. With everything closed
+  // by default, the rail becomes a short list of committee summaries the
+  // user can drill into one at a time.
+  docsRailExpanded: new Set(), // v19.56.5: which committee groups the user opened
   scope: 'gc',         // 'gc' | 'jur' | 'sp' | 'all'
   resultSort: 'relevance',      // 'relevance' | 'date'
   resultGroup: 'paragraphs',    // 'paragraphs' | 'documents'
@@ -1631,12 +1638,35 @@ function paintDocsRail() {
       const docId = a.dataset.docId;
       if (docId) openDocReader(docId);
     });
+    // v19.56.5: persist user expand/collapse on each <details> toggle so
+    // the choice survives across re-renders (filter typing, doc opening,
+    // scope switches all rebuild innerHTML). The `toggle` event does not
+    // bubble — must use capture phase to delegate from the host.
+    host.addEventListener('toggle', (e) => {
+      const det = e.target;
+      if (!det || !det.matches?.('.docs-rail-committee')) return;
+      const key = det.dataset.collapseKey;
+      if (!key) return;
+      if (det.open) state.docsRailExpanded.add(key);
+      else state.docsRailExpanded.delete(key);
+    }, true);
   }
 }
 
 function renderRailCommittee(committee, list, type) {
   const collapseKey = `${type}::${committee}`;
-  const open = !state.docsRailCollapsed.has(collapseKey);
+  // v19.56.5: default-collapsed. Three reasons we force-open anyway:
+  //  (a) user has explicitly toggled this group open (persisted in
+  //      state.docsRailExpanded).
+  //  (b) the active document lives in this committee — collapsing would
+  //      hide the row we're currently reading, which is disorienting.
+  //  (c) a filter narrows the rail to a small number of docs — auto-
+  //      expanding while filtering avoids the "empty list" puzzle where
+  //      the only matching doc is hidden behind a collapsed body.
+  const isActiveCommittee = state.docsActiveDocId
+    && list.some(d => d.docId === state.docsActiveDocId);
+  const isFiltered = (state.docsFilter || '').trim().length > 0;
+  const open = state.docsRailExpanded.has(collapseKey) || isActiveCommittee || isFiltered;
   const rows = list.map(d => {
     const isActive = state.docsActiveDocId === d.docId;
     const statusBadge = d.status === 'superseded' ? '<span class="docs-status superseded">superseded</span>'
@@ -1772,8 +1802,19 @@ function paintDocReaderBody(doc, paraId) {
   // takes over the centre pane and the user loses the eye-anchor that
   // brought them here. Empty query → terms is `[]`, no-op in
   // renderParagraphHtml's fast path.
-  const ast = state.query ? parseQuery(state.query) : null;
-  const readerTerms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
+  //
+  // v19.56.7: highlighting suppressed in the document reader.
+  // Reason: the `<mark class="hl">…</mark>` wrappers around individual
+  // search-term tokens (e.g., "article" and "6" wrapped separately)
+  // split the input that annotateTreatyText scans for "article N"
+  // patterns — the regex requires `articles? \s+ \d+` contiguously,
+  // and the intervening `</mark> <mark>` tags break that. The
+  // clickable article-reference popover is a stronger affordance for
+  // a researcher reading the full text than fading search highlights;
+  // the dossier in the Search tab still highlights matches there.
+  // Search query state is otherwise preserved (returning to Search
+  // restores the filter + result list).
+  const readerTerms = [];
 
   // v19.51 (audit Classes A + B): filter out metadata-as-paragraph
   // noise (Class B) and duplicate-preamble paragraphs (Class A).
@@ -1822,17 +1863,33 @@ function paintDocReaderBody(doc, paraId) {
     `**Original PDF:** ${doc.link || '(link to source)'}\n`
   );
   const issueUrl = `https://github.com/lszoszk/generalcomments/issues/new?labels=ocr-error&title=${issueTitle}&body=${issueBody}`;
+  // v19.56.2: OCR banner now distinguishes two provenance tiers:
+  //   ocrStatus="pass"           → CCPR Cat-Z OCR: 5-stage cleanup + confidence
+  //   ocrStatus="tesseract_eng"  → raw Tesseract (1990s scanned CAT cases);
+  //                                no post-processing, no confidence numbers,
+  //                                stronger "verify before citing" warning.
+  const ocrCleaned = doc.ocrStatus === 'pass';
+  const ocrTone = ocrCleaned ? 'cleaned' : 'raw';
   const ocrBanner = isOcrDoc
-    ? `<aside class="docs-reader-ocr-banner">
-         <span class="ocr-banner-tag">OCR</span>
+    ? `<aside class="docs-reader-ocr-banner ocr-banner-${ocrTone}">
+         <span class="ocr-banner-tag">OCR · ${ocrCleaned ? 'CLEANED' : 'RAW'}</span>
          <div class="ocr-banner-body">
-           <strong>Recovered from a scanned PDF via OCR${ocrConf ? ` (mean confidence ${ocrConf}%)` : ''}.</strong>
-           Text passed through Tesseract + a 5-stage corpus cleanup pipeline
-           (mechanical fn-marker repairs, Tesseract TSV-leak strip, ~80 letter-
-           substitution rules, hand-vetted mangled-word audit). Residual
-           character-level errors may remain — please cite cautiously and
-           verify against the
-           ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF'}.
+           ${ocrCleaned
+             ? `<strong>Recovered from a scanned PDF via OCR${ocrConf ? ` (mean confidence ${ocrConf}%)` : ''}.</strong>
+               Text passed through Tesseract + a 5-stage corpus cleanup pipeline
+               (mechanical fn-marker repairs, Tesseract TSV-leak strip, ~80
+               letter-substitution rules, hand-vetted mangled-word audit).
+               Residual character-level errors may remain — please cite
+               cautiously and verify against the
+               ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF'}.`
+             : `<strong>⚠ Recovered from a scanned PDF via raw OCR (Tesseract eng).</strong>
+               This document came from a 1990s scanned image with no embedded
+               text layer. Output is the direct Tesseract result — no
+               post-cleanup, no confidence audit. Expect noticeable
+               character-level errors (especially with diacritics, footnote
+               markers, and proper names). <strong>Do not cite without
+               verifying against the
+               ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF'}.</strong>`}
            <a class="ocr-banner-report" href="${issueUrl}" target="_blank" rel="noopener" title="Open a pre-filled GitHub issue">↗ report an OCR error</a>
          </div>
        </aside>`
@@ -1931,7 +1988,7 @@ function paintDocReaderBody(doc, paraId) {
           </button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">✎</span>' : ''}
         </div>
-        <p class="docs-reader-para-text serif">${emphasiseTrailingSubhead(renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms }))}</p>
+        <p class="docs-reader-para-text serif">${annotateTreatyText(emphasiseTrailingSubhead(renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms })), doc?.committee, p?.citedArticles)}</p>
       </div>`;
   }).join('');
 
@@ -1948,6 +2005,16 @@ function paintDocReaderBody(doc, paraId) {
         e.stopPropagation();
         e.preventDefault();
         openFnPopover(fn);
+        return;
+      }
+      // v19.56.6: treaty article-reference button — same popover UX
+      // that Search dossier and Ask answer already use. Swallow the
+      // click so the paragraph isn't promoted to active underneath.
+      const tArt = e.target.closest('button.treaty-article-ref');
+      if (tArt) {
+        e.stopPropagation();
+        e.preventDefault();
+        showTreatyPopover(tArt);
         return;
       }
       const btn = e.target.closest('button[data-act]');
@@ -2775,7 +2842,21 @@ function _flushRecentQuery() {
   _recentQPending = null;
   if (!q) return;
   const list = _lsGet(_LS.recentQ, []);
-  const filtered = list.filter(r => r && r.q !== q);
+  // v19.56.1: prefix-collapse. The 2 s debounce alone still records each
+  // partial when the user pauses to think (e.g. "harmful pr" → wait →
+  // "harmful practice"). Drop any existing entry that is a strict prefix
+  // of the new query, or where the new query is a strict prefix of the
+  // existing one — they're the same search, just at different keystroke
+  // depths. Case-insensitive, normalised whitespace.
+  const norm = s => (s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const qNorm = norm(q);
+  const filtered = list.filter(r => {
+    if (!r) return false;
+    const rNorm = norm(r.q);
+    if (rNorm === qNorm) return false;
+    if (qNorm.startsWith(rNorm) || rNorm.startsWith(qNorm)) return false;
+    return true;
+  });
   filtered.unshift({ q, ts: Date.now() });
   _lsSet(_LS.recentQ, filtered.slice(0, RECENT_Q_MAX));
   const panel = document.getElementById('q-recent');
@@ -5303,9 +5384,17 @@ function renderResult(p, rank, terms, opts = {}) {
   // never appear in snippets. The full marker text is only used inside the
   // documents reader.
   const bareText = stripFnMarkers(p.text);
+  // v19.56.8: pass an `annotate` callback so smartSnippet inserts
+  // treaty-article-ref buttons BEFORE the highlight marks land. Without
+  // this the same "article 6" appears unlinked in the result list (only
+  // the dossier annotated it). Click handler is wired by setupResultDelegation
+  // below — same showTreatyPopover that powers Search dossier + Documents.
   const snippet = opts.snippetHtml
     ? { html: opts.snippetHtml, isKwic: false, isTruncated: false, fullLen: bareText.length }
-    : smartSnippet(bareText, terms);
+    : smartSnippet(bareText, terms, {
+        annotate: (escapedHtml) =>
+          annotateTreatyText(escapedHtml, doc?.committee, p?.citedArticles),
+      });
   const kwicBadge = snippet.isKwic
     ? `<span class="kwic-badge" title="Keyword-in-context · paragraph is long — click Expand to read in full">◎ KWIC · ${snippet.fullLen.toLocaleString()} chars</span>`
     : '';
@@ -5406,6 +5495,16 @@ function renderResult(p, rank, terms, opts = {}) {
     // also flip while the user is just chasing a citation.
     if (e.target.closest('.sig-link[data-no-dossier="1"]')) {
       e.stopPropagation();
+      return;
+    }
+    // v19.56.8: treaty article-reference inside the snippet → open the
+    // treaty popover, swallow further handling so the row doesn't
+    // also "open dossier" on the same click.
+    const tArt = e.target.closest('button.treaty-article-ref');
+    if (tArt) {
+      e.stopPropagation();
+      e.preventDefault();
+      showTreatyPopover(tArt);
       return;
     }
     // Workspace marks click: don't open the dossier, just toggle the action
@@ -5934,12 +6033,22 @@ function paintDossier() {
       // budget for sibling-paragraph context anyway, and the heavy
       // DOM mutation of mounting a full-screen overlay + 5 ¶ of
       // formatted text was OOM-crashing iOS Safari on first tap.
+      // v19.56.8: order swapped — render WITHOUT highlight terms first
+      // so annotateTreatyText sees clean "article N" patterns (the
+      // <mark class="hl">…</mark> wrappers used to split "article" from
+      // "6" and broke the regex), then apply highlightTagAware on top.
+      // Result: every article-ref + every search-term highlight, no
+      // conflict between them.
       if (isMobileViewport()) {
-        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p></blockquote>`;
+        const rendered = renderParagraphHtml(para.text, para.footnotes);
+        const annotated = annotateTreatyText(rendered, doc?.committee, para?.citedArticles);
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p></blockquote>`;
       }
       const ctx = getDossierContext(para, { expanded: state.dossierExpanded });
       if (!ctx) {
-        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p></blockquote>`;
+        const rendered = renderParagraphHtml(para.text, para.footnotes);
+        const annotated = annotateTreatyText(rendered, doc?.committee, para?.citedArticles);
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p></blockquote>`;
       }
 
       // Section heading row — only when this paragraph belongs to a
@@ -5962,16 +6071,21 @@ function paintDossier() {
       const renderContextPara = (p) => `
         <div class="dossier-context-para" data-context-id="${escape(p.id)}">
           <span class="dossier-context-num mono">¶ ${escape(String(p.n ?? p.idx ?? '—'))}</span>
-          <p class="dossier-context-prose">${escape(stripFnMarkers(p.text || ''))}</p>
+          <p class="dossier-context-prose">${annotateTreatyText(escape(stripFnMarkers(p.text || '')), doc?.committee, p?.citedArticles)}</p>
         </div>`;
 
       // Active paragraph keeps the full <blockquote> treatment with
       // rendered footnote markers and search-term highlighting.
+      // v19.56.8: annotate FIRST (clean text → all article refs caught),
+      // highlight SECOND (tag-aware → marks layer on top without
+      // breaking the now-existing button boundaries).
+      const _activeRendered = renderParagraphHtml(para.text, para.footnotes);
+      const _activeAnnotated = annotateTreatyText(_activeRendered, doc?.committee, para?.citedArticles);
       const activeBlock = `
         <div class="dossier-context-para dossier-context-active" data-context-id="${escape(para.id)}" id="dossier-active-anchor">
           <blockquote>
             <span class="pn">¶ ${para.n ?? para.idx}</span>
-            <p>${renderParagraphHtml(para.text, para.footnotes, { terms })}</p>
+            <p>${highlightTagAware(_activeAnnotated, terms)}</p>
           </blockquote>
         </div>`;
 
@@ -6061,6 +6175,19 @@ function paintDossier() {
       e.stopPropagation();
       e.preventDefault();
       openFnPopover(btn);
+    });
+  });
+
+  // v19.56.4: treaty article-reference click → showTreatyPopover. Same
+  // logic as the Ask tab's #ask-output delegation (line ~9846) but
+  // scoped to the dossier host, since the Search-tab dossier sits
+  // outside #ask-output. Without this wiring the buttons render but
+  // do nothing when clicked in Search view.
+  host.querySelectorAll('button.treaty-article-ref').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      showTreatyPopover(btn);
     });
   });
 
@@ -8216,6 +8343,44 @@ function highlight(text, terms) {
   return escaped.replace(re, '<mark class="hl">$1</mark>');
 }
 
+// v19.56.8: tag-aware highlight — apply search-term <mark> wrappers to
+// HTML that *already contains tags* without injecting marks inside tag
+// attributes or splitting button boundaries. We split the input on tag
+// boundaries (same trick annotateTreatyText uses), apply highlight on
+// each text segment, and stitch back. Used when an annotation pass has
+// already run (footnote markers + treaty-article-ref buttons) and we
+// just want to layer in the search-term highlights on top.
+// Critically: text inside a button's display content (between <button …>
+// and </button>) still gets highlighted, so "article 6" → button with
+// "<mark>6</mark>" inside it. The button still works because its
+// click handler reads data-treaty / data-article from the *attributes*,
+// not the text.
+function highlightTagAware(html, terms) {
+  if (!html) return html;
+  const cleanTerms = [...new Set((terms || []).filter(Boolean))]
+    .sort((a, b) => b.length - a.length);
+  if (!cleanTerms.length) return html;
+  const re = new RegExp(
+    '(' + cleanTerms.map(t => accentInsensitivePattern(t)).join('|') + ')',
+    'gi'
+  );
+  const tagRe = /<[^>]*>/g;
+  let result = '';
+  let lastIdx = 0;
+  let m;
+  while ((m = tagRe.exec(html)) !== null) {
+    if (m.index > lastIdx) {
+      result += html.slice(lastIdx, m.index).replace(re, '<mark class="hl">$1</mark>');
+    }
+    result += m[0];
+    lastIdx = m.index + m[0].length;
+  }
+  if (lastIdx < html.length) {
+    result += html.slice(lastIdx).replace(re, '<mark class="hl">$1</mark>');
+  }
+  return result;
+}
+
 // ─────────── Footnote helpers (v19.8) ───────────
 //
 // Convention: paragraph.text may contain marker tokens of the form `[[fn:N]]`
@@ -8488,19 +8653,32 @@ const KWIC_PRE_CHARS  = 200;   // chars before the matched cluster
 const KWIC_POST_CHARS = 360;   // chars after the matched cluster
 const KWIC_FADE_FOLD  = 500;   // isKwic badge — match was deep in the text
 
-function smartSnippet(text, terms) {
+function smartSnippet(text, terms, opts = {}) {
   const t = String(text || '');
   const fullLen = t.length;
   const cleanTerms = (terms || []).filter(Boolean);
+  // v19.56.8: optional `annotate` callback lets the caller insert
+  // treaty-article-ref buttons before the highlight marks land — that's
+  // the only order that preserves both clickable articles AND
+  // search-term highlights when the same word ("article", "6") matches
+  // both. Body is built as: escape → annotate → highlightTagAware.
+  // When `annotate` is omitted, fall back to legacy single-pass highlight.
+  const buildBody = (raw) => {
+    if (opts.annotate) {
+      const annotated = opts.annotate(escape(raw));
+      return highlightTagAware(annotated, cleanTerms);
+    }
+    return highlight(raw, cleanTerms);
+  };
   if (!cleanTerms.length || fullLen <= KWIC_TRUNCATE) {
-    return { html: highlight(t, cleanTerms), isKwic: false, isTruncated: false, fullLen };
+    return { html: buildBody(t), isKwic: false, isTruncated: false, fullLen };
   }
   // Always truncate long paragraphs and centre on the best term cluster.
   const idx = _findBestCluster(t, cleanTerms);
   if (idx < 0) {
     // Stem-only match — no literal hit position: show the opening text.
     const head = t.slice(0, KWIC_PRE_CHARS + KWIC_POST_CHARS);
-    return { html: highlight(head, cleanTerms) + ' …', isKwic: false, isTruncated: true, fullLen };
+    return { html: buildBody(head) + ' …', isKwic: false, isTruncated: true, fullLen };
   }
   // Anchor a window roughly one sentence before + one after the cluster.
   let start = Math.max(0, idx - KWIC_PRE_CHARS);
@@ -8513,7 +8691,7 @@ function smartSnippet(text, terms) {
   const prefix = start > 0 ? '… ' : '';
   const suffix = end < fullLen ? ' …' : '';
   return {
-    html: prefix + highlight(snippet, cleanTerms) + suffix,
+    html: prefix + buildBody(snippet) + suffix,
     isKwic: idx >= KWIC_FADE_FOLD,   // badge only when match was deep in text
     isTruncated: true,
     fullLen,
@@ -8763,9 +8941,15 @@ function annotateTreatyText(html, committee, citedArticles) {
   return segments.map(seg => {
     if (seg.tag) return seg.value;
     let t = seg.value;
-    t = t.replace(termPat, (mm) =>
-      `<span class="treaty-term" data-treaty="${abbr}">${mm}<sup class="treaty-term-abbr">${abbr}</sup></span>`
-    );
+    // v19.56.5: treaty-term sup abbr removed at user's request — the
+    // inline "[ICCPR]" badge after every "the Covenant" looked like we
+    // were silently editing the original GC text. The committee badge
+    // on the dossier header already tells the reader which convention
+    // they're looking at, so the inline badge was double signaling.
+    // Article-number citations stay clickable (treaty-article-ref) —
+    // those add genuine utility (pop the actual article text).
+    // (termPat replacement intentionally a no-op; pattern kept for
+    // future use or in case we want to gate it on a setting.)
     // Detect Protocol context palliative: when "article N" is followed
     // by "of (that|the|its) (Optional) Protocol", the citation refers to
     // an Optional Protocol's article — not the main treaty's. Without
@@ -8814,6 +8998,24 @@ function annotateTreatyText(html, committee, citedArticles) {
         } else {
           targetAbbr = abbr;
           targetPara = inlinePara;
+        }
+        // v19.56.9: explicit non-renderable markers (set by the LLM
+        // pipeline). The cited_articles record exists so we know the
+        // reference is real and what *kind* it is, but the runtime
+        // renders it as plain text:
+        //   "?"          — non-treaty instrument (UDHR, UNDRIP, UN Charter,
+        //                  regional convention). Leaving un-buttoned avoids
+        //                  wrong-linking to the issuing committee's home
+        //                  treaty.
+        //   "AMBIGUOUS"  — cross-treaty cited ambiguously ("in the two
+        //                  Covenants"). Same rationale — until we add the
+        //                  multi-target popover UI, plain text is safer.
+        // Both markers are preserved in citedArticles so a future
+        // iteration (e.g. UDHR popover) can light them up.
+        if (!targetAbbr || targetAbbr === '?' || targetAbbr === 'AMBIGUOUS') {
+          out += m[0];
+          lastIdx = m.index + m[0].length;
+          continue;
         }
         const attrs = `data-treaty="${targetAbbr}" data-article="${art}"` +
                       (targetPara ? ` data-paragraph="${targetPara}"` : '');
