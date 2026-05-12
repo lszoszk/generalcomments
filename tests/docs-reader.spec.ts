@@ -35,6 +35,10 @@ test('R1. railRenders · rail has 100+ rows, scope tabs visible', async ({ page 
 test('R2. clickRowOpensDoc · rail click → reader paints + hash', async ({ page }) => {
   await bootApp(page, '/index.html#documents');
   await page.waitForTimeout(800);
+  // v19.56: rail bodies default to collapsed — expand CRPD before
+  // clicking the GC6 row inside it.
+  await page.locator('.docs-rail-committee[data-collapse-key="gc::CRPD"] summary').click();
+  await page.waitForTimeout(200);
   // Click the CRPD GC6 row
   await page.locator('.docs-rail-row[data-doc-id="crpd-c-gc-6"]').click();
   await page.waitForTimeout(500);
