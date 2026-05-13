@@ -1093,7 +1093,20 @@ function viewFromHash() {
   // v17: "#documents/<docId>" → still the documents view; the deep-link
   // segment is stripped here and re-parsed inside paintDocumentsView.
   const root = h.split('/')[0];
-  return VIEWS.includes(root) ? root : 'search';
+  if (VIEWS.includes(root)) return root;
+  // v19.56.10: in-page anchor on the About view (Methodology TOC links
+  // like #m-ocr, #m-layers, #m-ask). The previous fallback bounced any
+  // unknown hash to 'search', so clicking a TOC link dropped the user
+  // back at the home view. Now: if the hash points to an existing DOM
+  // element AND we're already on a non-search view, stay there; on
+  // initial load with such an anchor default to 'about' since every
+  // documented in-page anchor (Methodology + Sources) lives in that
+  // section.
+  if (root && typeof document !== 'undefined' && document.getElementById(root)) {
+    if (state?.view && state.view !== 'search') return state.view;
+    return 'about';
+  }
+  return 'search';
 }
 
 function setView(view) {
@@ -1507,7 +1520,24 @@ function maybeShowWelcomeCard() {
 }
 
 function bindRouter() {
-  window.addEventListener('hashchange', () => setView(viewFromHash()));
+  window.addEventListener('hashchange', () => {
+    setView(viewFromHash());
+    // v19.56.10: auto-open the targeted <details> when an in-page
+    // anchor (e.g. #m-ocr) points to one. Browser scrolls there
+    // natively but the section content stays collapsed otherwise,
+    // which makes the "redirect" feel like the click did nothing.
+    const id = window.location.hash.replace(/^#/, '').split('/')[0];
+    if (id) {
+      const el = document.getElementById(id);
+      if (el && el.tagName === 'DETAILS' && !el.open) {
+        el.open = true;
+        // Browser scroll happens before we open the details, so
+        // re-align after expansion so the content (not just the
+        // summary) is on screen.
+        requestAnimationFrame(() => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
+      }
+    }
+  });
 }
 
 // ─────────── Documents view (v17 · 3-pane reader: rail · body · drawer) ───────────

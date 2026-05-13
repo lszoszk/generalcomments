@@ -4700,7 +4700,11 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 
 .about-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* v19.56.10: bumped from 320px → 400px. With the previous floor we got
+     3-4 cramped columns on a 1280-wide viewport, each ~320px (too narrow
+     for the dense Jurisprudence / Methodology paragraphs to breathe).
+     400px floors at 2 columns on standard laptops, 3 on ultra-wide. */
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 32px 48px;
   margin-top: 16px;
 }
@@ -4827,6 +4831,30 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   padding: 4px 0 8px 26px;       /* indent under the chevron */
 }
 .about-method-body p { margin-top: 0; }
+/* v19.56.10: 2-column flow for long methodology bodies on wide screens.
+   The detail bodies (Ask pipeline, OCR cleanup, etc.) average 400–800
+   words. At single-column 78ch they form a long vertical wall; flowed
+   into 2 columns the reader gets a magazine-style spread that fits
+   above the fold on a typical laptop. Falls back to single column
+   below 1100px where the column-rule would crowd the prose. */
+@media (min-width: 1100px) {
+  .about-method-body {
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px solid var(--rule);
+  }
+  /* Lists in the Ask body (paraHit, docHit numbers) read more cleanly
+     when not split across columns — let them span both. */
+  .about-method-body ul,
+  .about-method-body ol {
+    column-span: all;
+    margin: 0.6rem 0;
+  }
+  /* Avoid orphaning a heading-like paragraph at column bottom. */
+  .about-method-body p {
+    break-inside: avoid-column;
+  }
+}
 
 /* ─────────────  v19.43-fix15: corpus-loading shield  ─────────────
    While ensureCorpusReady() is in flight (heavy 25 MB JSON.parse +

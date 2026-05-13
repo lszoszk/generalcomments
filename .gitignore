@@ -142,6 +142,10 @@ node_modules/
 test-results/
 playwright-report/
 .playwright-cache/
+# v19.56.10: keep the whole _docs_internal folder local — methodology
+# notes, build scripts, treaty bundles, audit reports. Everything that
+# ships to GitHub Pages or the API runs out of docs/ + api/.
+_docs_internal/
 _docs_internal/hf-build/
 
 # Local Claude Code session config — not deployment-relevant.

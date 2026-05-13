@@ -738,8 +738,9 @@
             expansion streams, clearly marked as previews while those collections
             are still under development. The General Comments corpus remains the
             priority; preview material is loaded lazily on demand.
-            Across the current published build, <strong>38,492 paragraphs</strong> are searchable,
-            filterable and citable down to their number.
+            Across the current published build, <strong>178,659 paragraphs</strong> across
+            <strong>4,687 documents</strong> are searchable, filterable and citable down to
+            their number.
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule); font-style: italic; color: var(--ink-3);">
             This is an <strong style="font-style:normal;">independent academic project</strong>, not affiliated
@@ -750,12 +751,16 @@
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule);">
             <strong class="folio">Dataset snapshot:</strong> last synchronised with
             <a class="about-link" href="https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/TBSearch.aspx?Lang=en" target="_blank" rel="noopener">OHCHR Treaty Body Database</a>
-            on <strong>28 April 2026</strong>. The most recent General Comment is
+            on <strong>12 May 2026</strong>.
+            <strong>4,687 documents · 178,659 paragraphs</strong> total —
+            <strong>187 General Comments</strong> (all 10 treaty bodies),
+            <strong>4,327 jurisprudence cases</strong> (8 bodies: CCPR, CAT, CEDAW, CESCR, CRC, CRPD, CERD, CED),
+            <strong>173 Special Procedures reports</strong> (4 mandates).
+            The most recent General Comment is
             <em>CEDAW/C/GC/30/Add.1</em> (Women, Peace and Security addendum, 18 February 2026);
             the most recent Special Procedures report is
             <em>A/80/170</em> (SR Disability, 25 September 2025).
-            All <strong>359</strong> Link fields were last verified on this date
-            (338/338 unique URLs OK). Daily link checks run on
+            Daily link checks run on
             <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/.github/workflows/link-check.yml" target="_blank" rel="noopener">GitHub Actions</a>.
             See <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/METHODOLOGY.md#9-versions-and-revision-history" target="_blank" rel="noopener">change log</a>
             for previous snapshots.
@@ -765,10 +770,10 @@
         <div class="about-block">
           <h3 class="folio">Treaty Body General Comments</h3>
           <p class="serif">
-            This is the completed and more authoritative part of the app:
-            <strong>186 General Comments</strong> issued by the nine UN human rights
-            treaty bodies. The collection is exhaustive as of build date, sourced
-            primarily from
+            This is the completed and most authoritative part of the app:
+            <strong>187 General Comments</strong> issued by the ten UN human rights
+            treaty bodies (CEDAW, CCPR, CERD, CESCR, CRC, CRPD, CMW, CAT, CAT-OP, CED).
+            The collection is exhaustive as of build date, sourced primarily from
             <a class="about-link" href="https://tbinternet.ohchr.org/" target="_blank" rel="noopener">tbinternet.ohchr.org</a>,
             and annotated for concerned groups such as children, women, migrants
             and persons with disabilities.
@@ -778,15 +783,17 @@
         <div class="about-block">
           <h3 class="folio">Jurisprudence</h3>
           <p class="serif">
-            <strong>3,176 CCPR/CEDAW/CRPD jurisprudence documents</strong> ·
-            <strong>116,656 paragraphs</strong> are included as a
-            preview. They are published as separate shards under
-            <code class="mono">docs/jur/</code>, so the main General Comments
-            interface stays lightweight while the full Treaty Body jurisprudence
-            corpus is still being prepared. CCPR now includes OCR-recovered
-            scanned legacy cases; a small number of CCPR records remain pending
-            because their English source files still need repair or manual
-            verification.
+            <strong>4,327 individual-communication cases</strong> ·
+            <strong>152,734 paragraphs</strong> from all 8 OP / individual-complaint
+            mechanisms — CCPR (2,862), CAT (832), CEDAW (172), CESCR (154),
+            CRC (147), CRPD (95), CERD (58), CED (7). Published as separate
+            shards under <code class="mono">docs/jur/</code> so the main General
+            Comments interface stays lightweight; the shard for a case is
+            fetched lazily when the user opens it. CCPR and CAT include
+            OCR-recovered scanned legacy cases (some from the early 1990s with
+            no embedded text layer); the reader-pane displays a provenance
+            banner on every OCR-recovered document with a one-click
+            report-issue link to the GitHub tracker.
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px dotted var(--rule); font-size: 13px;">
             <strong class="folio">Sources &amp; cross-checks.</strong> Primary
@@ -798,31 +805,6 @@
             <a class="about-link" href="https://ccprcentre.org/database-decisions" target="_blank" rel="noopener">CCPR Centre</a>'s
             decisions digest and the
             <a class="about-link" href="http://hrlibrary.umn.edu/" target="_blank" rel="noopener">University of Minnesota Human Rights Library</a>.
-            Their work focuses on specific subsets (CCPR jurisprudence,
-            treaty-text reference). Our scope is broader — covering all UN
-            treaty bodies' General Comments and Recommendations, all bodies'
-            individual-communications jurisprudence, and Special Procedures
-            mandate-holder reports — so use of these external resources was
-            complementary, not foundational. Per-document provenance is
-            tracked in <code class="mono">metadataSources</code> so any field's
-            origin is auditable.
-          </p>
-          <p class="serif" style="margin-top: 0.4rem; font-size: 13px;">
-            <strong class="folio">What we add on top.</strong>
-            Paragraph-level full-text search across the entire corpus;
-            <strong>~99 %</strong> submission-date coverage; aggressive OCR
-            cleanup for 170 scanned-PDF legacy cases (1,388 fixes across five
-            categories, documented at
-            <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/_docs_internal/JUR_OCR_AUDIT_REPORT.md" target="_blank" rel="noopener">JUR_OCR_AUDIT_REPORT.md</a>);
-            re-extraction of 352 docs whose paragraphs had collapsed into a
-            single 1-paragraph blob during our initial ingest (added 3,123
-            paragraphs, ~91&nbsp;K words); clean year-field repair across
-            1,260 docs; diacritic-insensitive search; smart "First applicant
-            et al. v. State" display for 165 compound joint-communication case
-            names; and a reader-pane provenance banner on every OCR-recovered
-            document with a one-click report-issue link to the GitHub tracker.
-            Our corpus also retains corrigenda, revisions and procedural items
-            where useful.
           </p>
         </div>
 
@@ -1008,9 +990,7 @@
                 on every scanned-PDF case with a one-click
                 <a class="about-link" href="https://github.com/lszoszk/generalcomments/issues/new?labels=ocr-error" target="_blank" rel="noopener">report-issue link</a>.
                 If you spot one in your research, please file it — the cleanup
-                pipeline is open to community contributions and audit. Full
-                methodology and per-rule breakdown:
-                <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/_docs_internal/JUR_OCR_AUDIT_REPORT.md" target="_blank" rel="noopener">JUR_OCR_AUDIT_REPORT.md</a>.
+                pipeline is open to community contributions and audit.
               </p>
             </div>
           </details>
@@ -1095,9 +1075,6 @@
                 including one verifiable typo (<code class="mono">E/C.12/77/D/82/018</code>,
                 year missing the leading 2). Coverage is therefore
                 <strong>59&nbsp;% full text, 41&nbsp;% catalog-only</strong>.
-                Full sourcing notes, fallback sources tested, and the
-                bundle-cross-linking analysis live in
-                <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/_docs_internal/cescr/METHODOLOGY.md" target="_blank" rel="noopener">_docs_internal/cescr/METHODOLOGY.md</a>.
               </p>
             </div>
           </details>
