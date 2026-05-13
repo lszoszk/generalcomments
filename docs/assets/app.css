@@ -4831,28 +4831,69 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   padding: 4px 0 8px 26px;       /* indent under the chevron */
 }
 .about-method-body p { margin-top: 0; }
-/* v19.56.10: 2-column flow for long methodology bodies on wide screens.
-   The detail bodies (Ask pipeline, OCR cleanup, etc.) average 400–800
-   words. At single-column 78ch they form a long vertical wall; flowed
-   into 2 columns the reader gets a magazine-style spread that fits
-   above the fold on a typical laptop. Falls back to single column
-   below 1100px where the column-rule would crowd the prose. */
-@media (min-width: 1100px) {
-  .about-method-body {
-    column-count: 2;
-    column-gap: 40px;
-    column-rule: 1px solid var(--rule);
-  }
-  /* Lists in the Ask body (paraHit, docHit numbers) read more cleanly
-     when not split across columns — let them span both. */
-  .about-method-body ul,
-  .about-method-body ol {
-    column-span: all;
-    margin: 0.6rem 0;
-  }
-  /* Avoid orphaning a heading-like paragraph at column bottom. */
-  .about-method-body p {
-    break-inside: avoid-column;
+.about-method-body > p + p { margin-top: 0.7em; }
+
+/* v19.56.12: deliberate semantic columns. Earlier we tried
+   `column-count: 2` for magazine-style flow but it snaked the prose
+   awkwardly — the reader couldn't tell whether to read down the left
+   column first or jump to the right paragraph that started a new
+   topic, and the full-width bullet lists fractured the reading
+   order into 4 disconnected zones. Now: each accordion body uses
+   either a single readable column (≤78ch, centred) or an explicit
+   .method-grid for content that's naturally paired
+   (Pipeline ↔ Quality gates; Known limitations ↔ Grounding). The
+   grid is two equal-weight cells; on narrow viewports it collapses
+   to one column so mobile reading order stays predictable. */
+.about-method-body > p,
+.about-method-body > ul,
+.about-method-body > ol {
+  max-width: 78ch;
+}
+.about-method-body .method-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 40px;
+  margin: 0.8em 0;
+}
+.about-method-body .method-grid > * {
+  margin: 0;
+  max-width: none;
+}
+.about-method-body .method-grid h4 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.95em;
+  color: var(--garnet);
+  margin: 0 0 0.4em;
+  letter-spacing: 0.02em;
+}
+.about-method-body .method-grid ul,
+.about-method-body .method-grid ol {
+  margin: 0.4em 0 0;
+  padding-left: 1.2em;
+}
+.about-method-body .method-grid li + li { margin-top: 0.35em; }
+.about-method-body .method-metrics {
+  list-style: none;
+  padding-left: 0;
+}
+.about-method-body .method-metrics li {
+  position: relative;
+  padding-left: 1.1em;
+}
+.about-method-body .method-metrics li::before {
+  content: '●';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--garnet);
+  font-size: 0.7em;
+  line-height: 1.6;
+}
+@media (max-width: 900px) {
+  .about-method-body .method-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 

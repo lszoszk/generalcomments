@@ -884,60 +884,67 @@
                 an <em>extractive</em> RAG — fundamentally different from the chatbot
                 style that synthesises answers and may hallucinate citations.
               </p>
-              <p class="serif">
-                <strong>Pipeline:</strong> question →
-                Gemini Flash-Lite HyDE rewrite →
-                BM25 (SQLite FTS5) + Voyage law-2 dense embeddings retrieved in parallel →
-                Reciprocal Rank Fusion (k=60) →
-                Voyage rerank-2 cross-encoder against the original question →
-                Gemini Flash-Lite second-stage <em>judge</em> over top-10 candidates,
-                augmented with the actual treaty article text from the relevant treaty
-                JSON bundle (covers all 9 core treaties + 9 optional protocols) →
-                final ordered top-10.
-              </p>
-              <p class="serif">
-                <strong>Quality gates</strong> — measured against a 30-question
-                commentary-anchored benchmark (Saul on ICESCR, Joseph &amp; Castan
-                on ICCPR; 16 of 30 questions carry paragraph-level expected IDs):
-              </p>
-              <ul class="serif">
-                <li><strong>docHit@5: 100%</strong> — every question's expected
-                    document is in the first 5 results</li>
-                <li><strong>paraHit@5: 81.2%</strong> — the canonical expected
-                    paragraph is in the first 5 (the 3 misses are off-by-one in the
-                    correct GC, i.e., adjacent paragraphs in the same section)</li>
-                <li><strong>paraHit@10: 87.5%</strong></li>
-                <li><strong>answerScore@1: 0.906 ± 0.010</strong> — separate
-                    faithfulness eval (Gemini Flash-Lite as judge, 3 runs ×
-                    30 questions) asking <em>"does the top-1 paragraph directly
-                    answer the question?"</em>. Scored yes / partial / no →
-                    1.0 / 0.5 / 0. The gap above paraHit@5 reflects cases where
-                    the system surfaces a different paragraph than the
-                    commentary author picked but one that nonetheless answers
-                    the question — a legitimate alternative, not a miss.</li>
-                <li>Latency: median ~3.9s, p95 ~6.1s end-to-end</li>
-              </ul>
-              <p class="serif">
-                <strong>Known limitations.</strong> Cross-treaty references inside GCs
-                — when a CERD/CRC/CEDAW GC mentions "the Covenant" or "article 4(2)"
-                referring to ICCPR — are partially handled by a defensive fallback
-                ("article N <em>of that Protocol</em>" left as plain text rather
-                than wrong-linked). Full disambiguation requires pre-tagging the
-                corpus with explicit <code>cited_articles</code> metadata, deferred
-                to a later pipeline. Some lay queries surface adjacent-but-not-canonical
-                paragraphs from the right document — usable, sometimes confusing.
-                Per-IP rate limit (15 q/min) caps token costs from automated traffic;
-                researchers running heavy iteration may briefly hit it.
-              </p>
-              <p class="serif">
-                <strong>Grounding.</strong> The treaty-text augmentation, the LLM-judge
-                stage, and the rerank cross-encoder all operate on actual paragraph
-                text, not on summaries. Every visible citation is traceable: signature
-                + GC number + paragraph number → click <em>Open dossier</em> for full
-                context. The Ask tab augments — it does <em>not</em> replace —
-                <a class="about-link" href="#search">paragraph-level Search</a>,
-                which remains the source of truth for exact wording or Boolean queries.
-              </p>
+
+              <div class="method-grid">
+                <div>
+                  <h4>Pipeline</h4>
+                  <ol class="serif">
+                    <li>Gemini Flash-Lite HyDE rewrite of the question</li>
+                    <li>BM25 (SQLite FTS5) + Voyage law-2 dense embeddings, retrieved in parallel</li>
+                    <li>Reciprocal Rank Fusion (k = 60)</li>
+                    <li>Voyage rerank-2 cross-encoder against the original question</li>
+                    <li>Gemini Flash-Lite second-stage <em>judge</em> over top-10 candidates, augmented with the actual treaty article text (all 9 core treaties + 9 optional protocols)</li>
+                    <li>Final ordered top-10</li>
+                  </ol>
+                </div>
+                <div>
+                  <h4>Quality gates</h4>
+                  <p class="serif" style="font-size: 0.92em; color: var(--ink-2); margin-bottom: 0.6em;">
+                    30-question commentary-anchored benchmark
+                    (Saul on ICESCR, Joseph &amp; Castan on ICCPR;
+                    16/30 carry paragraph-level expected IDs).
+                  </p>
+                  <ul class="serif method-metrics">
+                    <li><strong>docHit@5: 100%</strong> — every expected document in the first 5 results</li>
+                    <li><strong>paraHit@5: 81.2%</strong> — canonical paragraph in the first 5 (3 misses are off-by-one in the correct GC)</li>
+                    <li><strong>paraHit@10: 87.5%</strong></li>
+                    <li><strong>answerScore@1: 0.906 ± 0.010</strong> — Gemini-as-judge faithfulness (yes/partial/no → 1/0.5/0, 3 runs × 30 q)</li>
+                    <li>Latency: median ~3.9 s, p95 ~6.1 s end-to-end</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="method-grid">
+                <div>
+                  <h4>Known limitations</h4>
+                  <p class="serif">
+                    Cross-treaty references inside GCs (a CERD/CRC/CEDAW GC mentioning
+                    "the Covenant" or "article 4(2)" meaning ICCPR) are handled by a
+                    defensive fallback: <em>"article N of that Protocol"</em> is left
+                    as plain text rather than wrong-linked. Full disambiguation needs
+                    the corpus pre-tagged with explicit <code>cited_articles</code>
+                    metadata — deferred to a later pipeline. Some lay queries surface
+                    adjacent-but-not-canonical paragraphs from the right document —
+                    usable, sometimes confusing. Per-IP rate limit (15 q/min) caps
+                    token costs from automated traffic; researchers running heavy
+                    iteration may briefly hit it.
+                  </p>
+                </div>
+                <div>
+                  <h4>Grounding</h4>
+                  <p class="serif">
+                    Treaty-text augmentation, the LLM-judge stage, and the rerank
+                    cross-encoder all operate on actual paragraph text, not on
+                    summaries. Every visible citation is traceable:
+                    <strong>signature + GC number + paragraph number</strong> →
+                    click <em>Open dossier</em> for full context. The Ask tab
+                    augments — it does <em>not</em> replace —
+                    <a class="about-link" href="#search">paragraph-level Search</a>,
+                    which remains the source of truth for exact wording or Boolean
+                    queries.
+                  </p>
+                </div>
+              </div>
             </div>
           </details>
 
