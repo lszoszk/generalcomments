@@ -820,41 +820,46 @@
             <div class="folio garnet" style="margin-bottom: 0.4rem;">Coverage vs OHCHR JURIS — 13 May 2026</div>
             <p style="margin: 0 0 0.5rem;">
               We match
-              <strong>3,943 of the 4,015 unique case symbols</strong>
-              (<strong>98.2&nbsp;%</strong>) listed in the
+              <strong>3,950 of the 4,015 unique case symbols</strong>
+              (<strong>98.4&nbsp;%</strong>) listed in the
               <a class="about-link" href="https://juris.ohchr.org" target="_blank" rel="noopener">OHCHR JURIS authority catalogue</a>.
-              The 72 catalogue entries we don't yet cover fall into a
-              few well-understood buckets:
+              The 65 catalogue entries we don't yet cover fall into a
+              few well-understood buckets — when we audited the missing
+              list, <strong>43 had no PDF available in any language</strong>
+              on OHCHR's own download surface (empty <code class="mono">downloads</code>
+              dict on the catalogue entry), so they're not recoverable from
+              OHCHR; the rest split across:
             </p>
             <ul style="margin: 0 0 0.5rem 1.1rem; padding: 0;">
-              <li><strong>1990s scanned PDFs without text layer</strong> (36/72) —
-                  some recoverable via further OCR work, some are image-only
+              <li><strong>1990s scanned PDFs without text layer</strong> — some
+                  recoverable via further OCR work, some are image-only
                   legacy files where no fallback source returns text.</li>
-              <li><strong>"Sorry, there is no files available"</strong> rows
-                  (CCPR follow-ups, CESCR mass-discontinuance bundles) where
-                  OHCHR's own download surface returns nothing.</li>
+              <li><strong>Non-English-only sources</strong> (~21 cases) where
+                  the case is publicly available but only in French,
+                  Spanish or Russian — flagged for translation/cross-check
+                  rather than ingest, to keep the corpus monolingual.</li>
               <li><strong>Joint communications</strong> the catalogue lists as
                   separate symbols; we merge them under a single document,
                   so the headline miss-count slightly overstates unique cases.</li>
             </ul>
             <p style="margin: 0 0 0.4rem; font-size: 12px; color: var(--ink-2);">
               Per-treaty coverage:
-              <strong>CCPR</strong> 98.4 % ·
-              <strong>CAT</strong> 98.5 % ·
-              <strong>CEDAW</strong> 98.0 % ·
-              <strong>CRC</strong> 97.4 % ·
-              <strong>CESCR</strong> 97.6 % ·
               <strong>CRPD</strong> 100 % ·
-              <strong>CERD</strong> 75.4 % ·
-              <strong>CED</strong> 100 %.
+              <strong>CED</strong> 100 % ·
+              <strong>CRC</strong> 99.3 % ·
+              <strong>CAT</strong> 98.8 % ·
+              <strong>CCPR</strong> 98.4 % ·
+              <strong>CESCR</strong> 98.4 % ·
+              <strong>CEDAW</strong> 98.0 % ·
+              <strong>CERD</strong> 75.4 %.
             </p>
             <p style="margin: 0; font-size: 12px; color: var(--ink-3); font-style: italic;">
               The audit script + the per-case CSV of every missing record
               live in <code class="mono">_docs_internal/jur_coverage_audit/</code>
               (maintainer-side). Email
               <a class="about-link" href="mailto:l.szoszkiewicz@amu.edu.pl">l.szoszkiewicz@amu.edu.pl</a>
-              for the full list of 81 catalogue rows we're still working to
-              recover.
+              for the current 65-case miss list — most are 1990s scanned-only
+              records and OHCHR follow-up reports without published source files.
             </p>
           </div>
         </div>

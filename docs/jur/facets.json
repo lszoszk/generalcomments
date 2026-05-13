@@ -6,7 +6,7 @@
     },
     {
       "value": "CAT",
-      "count": 832
+      "count": 835
     },
     {
       "value": "CEDAW",
@@ -14,11 +14,11 @@
     },
     {
       "value": "CESCR",
-      "count": 154
+      "count": 155
     },
     {
       "value": "CRC",
-      "count": 147
+      "count": 150
     },
     {
       "value": "CRPD",
@@ -36,11 +36,11 @@
   "outcomes": [
     {
       "value": "violation_found",
-      "count": 1284
+      "count": 1285
     },
     {
       "value": "inadmissible",
-      "count": 979
+      "count": 980
     },
     {
       "value": "discontinued",
@@ -48,7 +48,7 @@
     },
     {
       "value": "other",
-      "count": 518
+      "count": 523
     },
     {
       "value": "merits_no_violation",
@@ -66,7 +66,7 @@
   "countries": [
     {
       "value": "Spain",
-      "count": 350
+      "count": 353
     },
     {
       "value": "Canada",
@@ -82,7 +82,7 @@
     },
     {
       "value": "Sweden",
-      "count": 274
+      "count": 276
     },
     {
       "value": "Australia",
@@ -489,6 +489,10 @@
       "count": 2
     },
     {
+      "value": "Algeria,Australia,Bulgaria,Burundi,Germany,Kazakhstan,Russian Federation,Switzerland",
+      "count": 1
+    },
+    {
       "value": "Bulgaria,Burundi,Canada,Finland,Kazakhstan,Morocco,Spain,Switzerland",
       "count": 1
     },
@@ -717,6 +721,10 @@
       "count": 1
     },
     {
+      "value": "Finland,Spain,Switzerland",
+      "count": 1
+    },
+    {
       "value": "Denmark,France,Paraguay,Switzerland",
       "count": 1
     },
@@ -740,23 +748,23 @@
   "labels": [
     {
       "value": "Children",
-      "count": 9324
+      "count": 9326
     },
     {
       "value": "Persons deprived of their liberty",
-      "count": 9233
+      "count": 9242
     },
     {
       "value": "Women/girls",
-      "count": 8812
+      "count": 8819
     },
     {
       "value": "Refugees & asylum-seekers",
-      "count": 8179
+      "count": 8188
     },
     {
       "value": "Persons with disabilities",
-      "count": 4022
+      "count": 4028
     },
     {
       "value": "LGBTI+",
@@ -780,7 +788,7 @@
     },
     {
       "value": "Migrants",
-      "count": 324
+      "count": 326
     },
     {
       "value": "Persons affected by natural disasters",
@@ -822,7 +830,7 @@
     },
     {
       "value": "pdf",
-      "count": 585
+      "count": 592
     },
     {
       "value": "pdf_ocr",
@@ -943,7 +951,7 @@
       },
       {
         "year": 2002,
-        "count": 108
+        "count": 110
       },
       {
         "year": 2003,
