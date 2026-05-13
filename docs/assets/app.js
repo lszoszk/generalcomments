@@ -1168,6 +1168,28 @@ function trackPageView(extraPath = null, extraTitle = null) {
   } catch (e) { /* analytics failure is never fatal */ }
 }
 
+// v19.56.11: typed event tracker. Sends GA4 events for key user
+// actions (search, ask, doc-open) so usage patterns surface in the
+// behaviour reports alongside the SPA page_view stream. All events
+// follow GA4 recommended-event vocabulary where possible (`search`,
+// `select_content`) so they land in the standard reports without
+// custom dimensions. Debounced via the optional `dedupeKey` so a
+// re-render or duplicate handler doesn't double-count.
+const _gaDedupe = new Map();
+function trackEvent(name, params = {}, opts = {}) {
+  if (typeof window.gtag !== 'function') return;
+  const { dedupeKey, dedupeMs = 500 } = opts;
+  if (dedupeKey) {
+    const last = _gaDedupe.get(dedupeKey) || 0;
+    const now = Date.now();
+    if (now - last < dedupeMs) return;
+    _gaDedupe.set(dedupeKey, now);
+  }
+  try {
+    window.gtag('event', name, params);
+  } catch (e) { /* analytics failure is never fatal */ }
+}
+
 // ─────────── v19.43: First-visit tour ───────────
 //
 // Lightweight 6-step spotlight tour. Triggered by:
@@ -1765,6 +1787,16 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
     console.warn('[openDocReader] unknown docId', docId);
     return;
   }
+  // v19.56.11: GA4 doc-open event. Dedupe per (docId + paraId) so a
+  // double-click or re-mount doesn't double-count. Captures the doc
+  // type (gc/jur/sp) and committee for cohort-breakdown reports.
+  trackEvent('document_open', {
+    doc_id: docId,
+    doc_type: doc.type || 'unknown',
+    committee: doc.committee || '',
+    para_id: paraId || undefined,
+    from_url: fromUrl ? 1 : 0,
+  }, { dedupeKey: `doc_open:${docId}:${paraId || ''}`, dedupeMs: 500 });
 
   // v19.48: JUR paragraphs live in lazy shards. Pull ONLY the shard
   // this doc lives in (~1-3 MB) instead of the whole corpus
@@ -2389,10 +2421,20 @@ function paintCommitteeChips(container, items, toneClass = '') {
   }
 }
 
+// v19.56.11: labels that exist in the data but should NOT appear as
+// concerned-group filter chips. "preamble" is a structural marker
+// (paragraph appears in a preamble block) — it's not a concerned-
+// group taxonomy entry and was confusing users who expected to filter
+// by group affiliation. The label stays on paragraphs (the search
+// toggle "search in preambles" still uses it), only the filter chip
+// is suppressed.
+const LABEL_FILTER_EXCLUDE = new Set(['preamble']);
+
 function paintLabelFilter() {
   const lblHost = $('#filter-labels');
   lblHost.innerHTML = '';
   for (const { value, count } of state.facets.labels) {
+    if (LABEL_FILTER_EXCLUDE.has(String(value).toLowerCase())) continue;
     const id = `lbl-${value.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
     const wrap = document.createElement('label');
     wrap.innerHTML = `
@@ -2765,7 +2807,15 @@ function paintArticleFilter() {
 function syncArticleFilterVisibility() {
   const block = $('#filter-block-articles');
   if (!block) return;
-  block.hidden = state.scope !== 'jur';
+  // v19.56.11: filter retired from the UI. articlesCited coverage is
+  // CCPR-only (≈70% of JUR), so the chip list misrepresents the
+  // corpus when the user is browsing CAT / CEDAW / CRPD / CRC cases
+  // — selecting any chip silently drops every non-CCPR case from
+  // the results, which the user couldn't tell from the UI. Until the
+  // articlesCited backfill covers all 8 OP committees, keep the
+  // filter hidden. The underlying data + sanitizer stay in place
+  // so re-enabling is a one-line change once coverage catches up.
+  block.hidden = true;
 }
 
 function initYearRange() {
@@ -4464,6 +4514,19 @@ function paintShortQueryHint(v) {
 async function runSearch() {
   const runId = ++state.searchRun;
   scheduleUrlUpdate();
+  // v19.56.11: GA4 search event. Skip for empty queries (those are
+  // "clear" actions, not user-initiated searches) and dedupe on
+  // (scope + query) so a result-list re-render doesn't double-count.
+  // The query text is sent — that's standard GA4 `search` event
+  // vocabulary; reports tab in GA shows top search terms.
+  const q = (state.query || '').trim();
+  if (q.length >= 2) {
+    trackEvent('search', {
+      search_term: q.slice(0, 200),    // GA caps at ~100; trim defensively
+      scope: state.scope,
+      committees: [...state.filters.committees].slice(0, 8).join(',') || undefined,
+    }, { dedupeKey: `search:${state.scope}:${q}`, dedupeMs: 1500 });
+  }
 
   // If the boot-time ping is still in flight when JUR/all needs
   // to choose between API vs local, give it a brief grace window. This
@@ -7697,16 +7760,69 @@ function computeDynamicFacetCounts() {
   return { committeeCounts, labelCounts, yearCounts };
 }
 
+// v19.56.11: state.results-backed facet counts. When the API path is
+// active for JUR / scope=all, computeDynamicFacetCounts() can't iterate
+// paragraphs (only GC + SP live in state.paragraphs locally), so we
+// derive committee + label counts from what the search actually
+// returned. For the API top-200 slice this gives the visible-window
+// count, which is what the user sees in the result list anyway.
+// When state.apiTotal exceeds the rendered set and the result is the
+// FULL dataset (no query, no filter), we restore the baseline counts
+// from state.baseFacets so the rail goes back to its corpus snapshot
+// instead of showing only the page-1 subset.
+function computeResultsBasedFacetCounts() {
+  const committeeCounts = new Map();
+  const labelCounts = new Map();
+  for (const item of state.results || []) {
+    const p = item.p || item;
+    if (!p) continue;
+    const committees = p.committees || (p.committee ? [p.committee] : []);
+    for (const c of committees) {
+      if (c) committeeCounts.set(c, (committeeCounts.get(c) || 0) + 1);
+    }
+    const labels = p.labels || [];
+    for (const l of labels) {
+      labelCounts.set(l, (labelCounts.get(l) || 0) + 1);
+    }
+  }
+  return { committeeCounts, labelCounts, yearCounts: new Map() };
+}
+
+function hasAnyQueryOrFilter() {
+  return !!state.query
+    || state.filters.committees.size
+    || state.filters.labels.size
+    || state.filters.outcomes?.size
+    || state.filters.rightsKeywords?.size
+    || state.filters.articles?.size
+    || state.filters.countries?.size
+    || state.filters.reportTypes?.size
+    || (state.filters.yearMin != null && state.facets?.years && state.filters.yearMin > state.facets.years.min)
+    || (state.filters.yearMax != null && state.facets?.years && state.filters.yearMax < state.facets.years.max);
+}
+
 // In-place facet count refresher. Runs after each paintResults.
 // Updates the .dim count span on each committee chip + the .count
 // span on each label checkbox. The histogram repaints fully (its
 // bar heights change with counts).
 function paintFacetCounts() {
-  // Skip on API path — server doesn't expose facet breakdowns yet.
-  // The baseline static counts stay visible.
-  if (apiActive(state.scope)) return;
-
-  const counts = computeDynamicFacetCounts();
+  const usingApi = apiActive(state.scope);
+  let counts = null;
+  if (usingApi) {
+    // v19.56.11: API path used to early-return here, leaving JUR chips
+    // frozen on their static corpus counts even when the user typed a
+    // query or cleared one. Now: when nothing is narrowing, repaint the
+    // committee filter so chips show the baseline (full-corpus) counts;
+    // otherwise derive counts from the just-returned result set.
+    if (!hasAnyQueryOrFilter()) {
+      paintCommitteeFilter(state.scope);
+      paintLabelFilter();
+      return;
+    }
+    counts = computeResultsBasedFacetCounts();
+  } else {
+    counts = computeDynamicFacetCounts();
+  }
   if (!counts) return;
   const hasQueryOrFilter = !!state.query
                           || state.filters.committees.size
@@ -9620,6 +9736,11 @@ async function runAsk() {
   if (_askInFlight) _askInFlight.abort();
   const ctrl = new AbortController();
   _askInFlight = ctrl;
+  // v19.56.11: GA4 ask event. Records what users actually ask the
+  // RAG layer so we can compare topic distribution against /search.
+  trackEvent('ask', {
+    search_term: q.slice(0, 200),
+  }, { dedupeKey: `ask:${q}`, dedupeMs: 1500 });
 
   out.innerHTML = '<div class="ask-loading">Searching General Comments and reranking…</div>';
   if (goBtn) {

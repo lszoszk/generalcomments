@@ -148,6 +148,14 @@ playwright-report/
 _docs_internal/
 _docs_internal/hf-build/
 
+# v19.56.11: audit reports stay local. The audits drove specific
+# cleanup work but the records themselves don't need to ship to GH
+# Pages — they're internal notebooks. The cleanup *outcomes* are
+# already reflected in the corpus and methodology page.
+AUDIT-*.md
+METADATA_AUDIT.md
+docs/_audit/
+
 # Local Claude Code session config — not deployment-relevant.
 .claude/
 
