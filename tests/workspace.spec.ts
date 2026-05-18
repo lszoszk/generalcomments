@@ -123,12 +123,15 @@ test('W6. exportJson · JSON download fires', async ({ page }) => {
 });
 
 test('W7. saveSearch · current query persists', async ({ page }) => {
-  // The save-search flow uses window.prompt() for the name. Auto-accept
-  // it with a fixed value so the test isn't gated on a UI dialog.
-  page.on('dialog', (d) => d.accept('My saved search'));
+  // v19.57: save-search opens an in-app modal (replaced window.prompt —
+  // un-themeable, and throws in sandboxed/embedded browsers, silently
+  // dropping the save). Drive it: open the modal, then confirm with the
+  // Save button. The name input is pre-filled, so no typing is needed.
   await bootApp(page, '/index.html?q=disability&scope=gc');
   await page.locator('#save-search').click();
-  await page.waitForTimeout(400);
+  await page.locator('#ss-modal-input').waitFor({ state: 'visible' });
+  await page.locator('.ss-modal-save').click();
+  await page.locator('#save-search-modal').waitFor({ state: 'detached' });
   const saved = await page.evaluate(() =>
     JSON.parse(localStorage.getItem('unhrdb_searches_v1') || '[]')
   );
