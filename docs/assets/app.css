@@ -6548,3 +6548,16 @@ body[data-active-view="ask"] section[data-view="ask"] {
   border-radius: 3px;
   padding: 2px 5px;
 }
+
+/* ─────────── v19.59 — Hick's-law mobile declutter ───────────
+   The mobile search view stacked ~20 equal-weight choices above the
+   first result. These rules trim the secondary/duplicate ones so the
+   primary task (search → read) leads. */
+
+/* (1) The searchbar already carries the result count ("633 ¶"); the
+   results lede repeats it verbatim ("633 passages — …"). On the narrow
+   single-column mobile layout both sit on one screen — drop the
+   searchbar copy there, keep the richer lede line. */
+@media (max-width: 700px) {
+  #result-count { display: none; }
+}

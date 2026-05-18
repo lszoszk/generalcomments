@@ -392,6 +392,13 @@ function adaptApiDoc(h) {
   };
 }
 
+// v19.59: ?debug=1 keeps the API badge visible in its happy state
+// (developer diagnostics). Read once at module-eval time — boot's
+// encodeUrlState() strips unknown query params before later reads.
+const _URL_DEBUG = (() => {
+  try { return new URLSearchParams(location.search).get('debug') === '1'; }
+  catch { return false; }
+})();
 function paintApiBadge(online, ms) {
   const host = $('#result-breakdown');
   if (!host) return;
@@ -408,6 +415,11 @@ function paintApiBadge(online, ms) {
     ? `Connected to ${API_BASE}. JUR queries route through the API for instant search. Add ?api=0 to the URL to force local mode.`
     : `${API_BASE} unreachable. Using local FlexSearch (the JUR corpus is ~125 MB; first search may take ~60 s while it indexes).`;
   badge.classList.toggle('rb-api-offline', !online);
+  // v19.59 (Hick's-law declutter): the "API · N ms" happy state is
+  // developer diagnostics, not user-facing signal. Show the badge ONLY
+  // when the API is offline — i.e. search silently fell back to local,
+  // which the user genuinely should know. ?debug=1 forces it always.
+  badge.hidden = online && !_URL_DEBUG;
 }
 // First-page render budget. v19.10: trimmed from 50 → 20 because each
 // jurisprudence row carries enriched metadata (case name, articles, issues),
