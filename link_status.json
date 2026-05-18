@@ -1,10 +1,19 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-05-18T07:18:35.890826+00:00",
-  "finishedAt": "2026-05-18T07:31:36.462343+00:00",
-  "totalUnique": 360,
-  "totalRecords": 361,
-  "okCount": 360,
-  "brokenCount": 0,
-  "broken": []
+  "checkedAt": "2026-05-18T21:09:25.997316+00:00",
+  "finishedAt": "2026-05-18T21:41:58.692126+00:00",
+  "totalUnique": 410,
+  "totalRecords": 411,
+  "okCount": 409,
+  "brokenCount": 1,
+  "broken": [
+    {
+      "signature": "A/56/253",
+      "docName": "Interreligious dialogue; Cooperation with non-governmental organizations",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/56/253",
+      "status": 0,
+      "reason": "URLError: timed out"
+    }
+  ]
 }
