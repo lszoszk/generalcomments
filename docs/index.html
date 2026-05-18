@@ -87,14 +87,23 @@
       "@type": "Dataset",
       "@id": "https://lszoszk.github.io/generalcomments/#dataset",
       "name": "UN Treaty Body General Comments and Special Procedures reports",
-      "description": "Paragraph-level corpus of UN Treaty Body General Comments, CCPR/CEDAW/CRPD jurisprudence preview and Special Procedures reports, indexed for search.",
+      "description": "Paragraph-level corpus of UN Treaty Body General Comments, individual-communications jurisprudence and Special Procedures reports, indexed for search.",
       "url": "https://lszoszk.github.io/generalcomments/",
+      "sameAs": "https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments",
       "creator": [
         { "@type": "Person", "name": "Łukasz Szoszkiewicz" },
         { "@type": "Person", "name": "Zuzanna Kowalska" }
       ],
       "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-      "keywords": ["human rights", "UN treaty bodies", "general comments", "jurisprudence", "special procedures", "international law"]
+      "keywords": ["human rights", "UN treaty bodies", "general comments", "jurisprudence", "special procedures", "international law"],
+      "distribution": [
+        {
+          "@type": "DataDownload",
+          "name": "Treaty Bodies General Comments — paragraph-level dataset (Hugging Face)",
+          "encodingFormat": "application/parquet",
+          "contentUrl": "https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments"
+        }
+      ]
     }
   ]
 }
@@ -1153,6 +1162,33 @@
             Citations of individual paragraphs should reference the original UN
             document by its signature (e.g. <code class="mono">CRC/C/GC/25 ¶12</code>),
             not this database.
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h3 class="folio">Open data — Hugging Face</h3>
+          <p class="serif">
+            The General Comments corpus is published as a paragraph-level
+            dataset on Hugging Face:
+            <a class="about-link" href="https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments" target="_blank" rel="noopener">lszoszk/treaty-bodies-general-comments</a>.
+            Every row is one paragraph from a Treaty Body General Comment or
+            General Recommendation, carrying its section path, footnotes (with
+            cross-reference resolutions), preamble flag, concerned-group labels,
+            and — new in the v3 release — <code class="mono">cited_articles</code>,
+            per-paragraph treaty-article references resolved to a specific
+            convention. 187 documents · 7,216 paragraphs · parquet, loadable
+            directly with the <code class="mono">datasets</code> library:
+          </p>
+          <pre class="serif" style="margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; background: var(--paper-3); border-left: 3px solid var(--garnet); border-radius: 2px; font-family: var(--mono, monospace); font-size: 12.5px; white-space: pre-wrap; word-break: break-word;"><code>from datasets import load_dataset
+ds = load_dataset(
+    "lszoszk/treaty-bodies-general-comments",
+    split="train")</code></pre>
+          <p class="serif" style="margin-top: 0.5rem; font-size: 13px; color: var(--ink-2);">
+            The dataset (curation, segmentation, annotation) is released under
+            CC&nbsp;BY-NC-SA&nbsp;4.0; the jurisprudence and Special Procedures
+            collections are not yet part of the Hugging Face package — see the
+            <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/docs/jur-coverage/" target="_blank" rel="noopener">coverage notes</a>
+            for their status.
           </p>
         </div>
 
