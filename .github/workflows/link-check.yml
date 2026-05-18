@@ -42,9 +42,18 @@ jobs:
           # has the metadata files under mysite_pythonanywhere/ (matching local
           # development), but the validator's defaults already match.
           python3 validate_links.py --workers 12 --timeout 20 --out link_status.json
-          echo "broken=$(python3 -c 'import json; print(json.load(open(\"link_status.json\"))[\"brokenCount\"])')" >> $GITHUB_OUTPUT
-          echo "ok=$(python3 -c 'import json; print(json.load(open(\"link_status.json\"))[\"okCount\"])')" >> $GITHUB_OUTPUT
-          echo "total=$(python3 -c 'import json; print(json.load(open(\"link_status.json\"))[\"totalUnique\"])')" >> $GITHUB_OUTPUT
+          # Emit the broken/ok/total counts to GITHUB_OUTPUT. A quoted
+          # heredoc keeps the JSON-key strings intact — the previous
+          # inline `python3 -c '... \"key\" ...'` form had the double
+          # quotes mangled by the shell, so the commands errored and the
+          # commit message showed empty counts ("— / OK,  broken").
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          s = json.load(open("link_status.json"))
+          print(f"broken={s['brokenCount']}")
+          print(f"ok={s['okCount']}")
+          print(f"total={s['totalUnique']}")
+          PY
 
       - name: Commit lastVerifiedAt updates
         if: github.event_name != 'pull_request'
@@ -58,7 +67,17 @@ jobs:
                     mysite_pythonanywhere/specialprocedures_info.json \
                     link_status.json
             git commit -m "chore(links): weekly validation — ${{ steps.validate.outputs.ok }}/${{ steps.validate.outputs.total }} OK, ${{ steps.validate.outputs.broken }} broken"
-            git push
+            # The scheduled run checks out main at trigger time; a manual
+            # push can land while the validator is running (it takes a few
+            # minutes). Without a rebase the plain `git push` is rejected
+            # non-fast-forward and the whole job fails even though no link
+            # is broken. link_status.json + the two metadata files are
+            # touched ONLY by this workflow, so the rebase is always clean.
+            for attempt in 1 2 3; do
+              git pull --rebase origin main && git push && break
+              echo "push attempt $attempt failed — retrying after rebase"
+              sleep 5
+            done
           fi
 
       - name: Open issue if broken links found
