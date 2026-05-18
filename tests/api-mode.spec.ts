@@ -189,11 +189,16 @@ test('A7. paginateAcrossApi · second-page fetch on scroll', async ({ page }) =>
   // doesn't run forever.
   for (let i = 0; i < 20 && !pages.includes(2); i++) {
     await page.evaluate(() => {
+      // Desktop: the .results pane is the scroll container. Mobile
+      // (single-column): the whole page scrolls instead. Drive both so
+      // the infinite-scroll sentinel enters the viewport either way.
       const sec = document.querySelector('.results') as HTMLElement | null;
       if (sec) {
         sec.scrollTop = sec.scrollHeight;
         sec.dispatchEvent(new Event('scroll', { bubbles: true }));
       }
+      window.scrollTo(0, document.body.scrollHeight);
+      window.dispatchEvent(new Event('scroll'));
     });
     await page.waitForTimeout(500);
   }

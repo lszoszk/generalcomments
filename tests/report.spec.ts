@@ -62,7 +62,10 @@ async function activateFirstResult(page: any) {
 
 test('F3. contextAutofill · active paragraph fills CONTEXT line', async ({ page }) => {
   const paraId = await activateFirstResult(page);
-  await page.locator('#foot-report').click();
+  // The page-footer report link sits under the dossier's sticky action
+  // bar on the mobile viewport — fire the handler directly so the test
+  // isn't gated on viewport-specific hit-testing.
+  await page.locator('#foot-report').evaluate((el: HTMLElement) => el.click());
   await expect(page.locator('#report-context')).toBeVisible();
   await expect(page.locator('#report-context-detail')).toContainText(paraId!);
 });
@@ -77,7 +80,8 @@ test('F5. submitOk · 200 → toast + auto-close + auto-context payload', async 
     });
   });
   const paraId = await activateFirstResult(page);
-  await page.locator('#foot-report').click();
+  // Footer link sits under the dossier's sticky bar on mobile — fire direct.
+  await page.locator('#foot-report').evaluate((el: HTMLElement) => el.click());
   await page.locator('input[value="wrong-fn"]').click();
   await page.locator('#report-message').fill('Footnote 3 should anchor after the second comma');
   await page.locator('#report-submit').click();

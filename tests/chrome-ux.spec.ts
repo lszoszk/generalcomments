@@ -89,6 +89,11 @@ test('UX3. complexSearchFlows · GC SP and ALL searches stay useful', async ({ p
     await expect(page.locator('#result-count'), q).toContainText(/¶/);
   }
 
+  // On the mobile viewport the scope selector sits inside the filters
+  // pane, which boots collapsed behind a toggle pill — expand it first
+  // (no-op on desktop, where the toggle is hidden).
+  const filtersToggle = page.locator('.mobile-filters-toggle');
+  if (await filtersToggle.isVisible().catch(() => false)) await filtersToggle.click();
   await page.locator('.scope-opt[data-scope="sp"]').click();
   await typeQuery(page, '"will and preferences"');
   await expect(page.locator('.result').first()).toBeVisible();

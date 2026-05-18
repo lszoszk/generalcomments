@@ -15,7 +15,14 @@ import { bootApp, resetWorkspace, typeQuery } from './_helpers';
  */
 
 test.beforeEach(async ({ page, context }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  // `clipboard-read` / `clipboard-write` are not valid permission names
+  // on WebKit — the `mobile` project runs WebKit, where grantPermissions
+  // throws "Unknown permission" and kills every test in this file before
+  // its body runs. Guard it: the clipboard-dependent tests (D3/D5/D8)
+  // test.skip on webkit anyway, and the rest don't touch the clipboard.
+  try {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  } catch { /* WebKit: unsupported permission names — ignore */ }
   await resetWorkspace(page);
 });
 
@@ -47,8 +54,11 @@ test('D1. saveToggles · bookmark on/off survives reload', async ({ page }) => {
 
 test('D2. pinTwoForCompare · 2 pins surface the diff tray', async ({ page }) => {
   // v19.15 removed the dossier-toolbar #ws-pin; pinning lives only on
-  // the per-result-row 📌 affordance in the mid-panel now.
-  await openDossier(page);
+  // the per-result-row 📌 affordance in the mid-panel now. No dossier
+  // is opened — on the mobile viewport an open dossier covers the
+  // result column, hiding the very pins this test clicks.
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'disability');
   await page.locator('.result .ws-mark-pin').nth(0).click();
   await page.locator('.result .ws-mark-pin').nth(1).click();
   await expect(page.locator('.diff-tray')).toBeVisible();
