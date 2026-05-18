@@ -71,11 +71,14 @@ const MOCK_STATS = {
             sp: { documents: 173, paragraphs: 18740 } },
 };
 
-test('A1. badgeAppears · pingApi paints "API · NN ms" pill', async ({ page }) => {
+test('A1. badgeAppears · pingApi paints "API · NN ms" pill (debug only)', async ({ page }) => {
   await page.route('**/unhrdb-api/api/stats', (route) =>
     route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
   );
-  await bootApp(page, '/index.html?api=1');
+  // v19.59: the happy-state API badge is developer diagnostics — hidden
+  // by default (Hick's-law declutter), surfaced with ?debug=1. pingApi()
+  // still paints it; boot with the flag so the assertion can see it.
+  await bootApp(page, '/index.html?api=1&debug=1');
   // pingApi() runs at the end of boot (after FlexSearch index build); on
   // CI with the v19.9-enriched JUR catalog this can take longer than the
   // default 5 s assertion timeout. Wait explicitly.
