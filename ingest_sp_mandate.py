@@ -101,7 +101,74 @@ MANDATES: dict[str, dict] = {
             (2015, 'A/HRC/28/58',  'HRC 28th session', 'Vision report of the Special Rapporteur on the rights of persons with disabilities, Catalina Devandas-Aguilar'),
         ],
     },
-    # Future mandates go here (SR Torture, SR Health, SR Indigenous, …)
+    'health': {
+        'committee_label': 'SR Health',
+        'full_name': 'Special Rapporteur on the right of everyone to the enjoyment of the highest attainable standard of physical and mental health',
+        'mandate_holders': [
+            (2008, 'Paul Hunt'),
+            (2014, 'Anand Grover'),
+            (2020, 'Dainius Pūras'),
+            (9999, 'Tlaleng Mofokeng'),
+        ],
+        # Catalogue transcribed from OHCHR's "Annual thematic reports" page:
+        # https://www.ohchr.org/en/special-procedures/sr-health/annual-thematic-reports
+        # Thematic reports only — communications reports + addenda (Add.1,
+        # Corr.1) excluded. Pre-2007 reports went to the Commission on
+        # Human Rights (E/CN.4 symbols); the UN ODS serves those too.
+        'reports': [
+            (2025, 'A/80/184',      'GA 80th session',  'Health and care workers: the oath takers and defenders of the right to health'),
+            (2025, 'A/HRC/59/48',   'HRC 59th session', 'Health and care workers as defenders of the right to health'),
+            (2024, 'A/79/177',      'GA 79th session',  'Harm reduction for sustainable peace and development'),
+            (2024, 'A/HRC/56/52',   'HRC 56th session', 'Drug use, harm reduction and the right to health'),
+            (2023, 'A/78/185',      'GA 78th session',  'Food, nutrition and the right to health'),
+            (2023, 'A/HRC/53/65',   'HRC 53rd session', 'Digital innovation, technologies and the right to health'),
+            (2022, 'A/77/197',      'GA 77th session',  'Racism and the right to health'),
+            (2022, 'A/HRC/50/28',   'HRC 50th session', 'Violence and its impact on the right to health'),
+            (2021, 'A/76/172',      'GA 76th session',  'Sexual and reproductive health rights: challenges and opportunities during COVID-19'),
+            (2021, 'A/HRC/47/28',   'HRC 47th session', 'Strategic priorities of work'),
+            (2020, 'A/75/163',      'GA 75th session',  'Commentary on the COVID-19 pandemic'),
+            (2020, 'A/HRC/44/48',   'HRC 44th session', 'Mental health and human rights: setting a rights-based global agenda'),
+            (2019, 'A/74/174',      'GA 74th session',  'A human rights-based approach to health workforce education'),
+            (2019, 'A/HRC/41/34',   'HRC 41st session', 'The role of the determinants of health in advancing the right to mental health'),
+            (2018, 'A/73/216',      'GA 73rd session',  'Right to mental health of people on the move'),
+            (2018, 'A/HRC/38/36',   'HRC 38th session', 'Deprivation of liberty and the right to health'),
+            (2017, 'A/72/137',      'GA 72nd session',  'Corruption and the right to health'),
+            (2017, 'A/HRC/35/21',   'HRC 35th session', 'The right to mental health'),
+            (2016, 'A/71/304',      'GA 71st session',  'The right to health and the 2030 Agenda for Sustainable Development'),
+            (2016, 'A/HRC/32/32',   'HRC 32nd session', 'The right to health of adolescents'),
+            (2016, 'A/HRC/32/33',   'HRC 32nd session', 'Sport and healthy lifestyles as contributing factors to the right to health'),
+            (2015, 'A/70/213',      'GA 70th session',  'The right to health in early childhood'),
+            (2015, 'A/HRC/29/33',   'HRC 29th session', 'Work of the mandate and priorities of the Special Rapporteur'),
+            (2014, 'A/69/299',      'GA 69th session',  'Implementation of the right to health framework'),
+            (2014, 'A/HRC/26/31',   'HRC 26th session', 'Unhealthy foods and non-communicable diseases'),
+            (2013, 'A/68/297',      'GA 68th session',  'The right to health in conflict situations'),
+            (2013, 'A/HRC/23/41',   'HRC 23rd session', "Migrant workers' right to health"),
+            (2013, 'A/HRC/23/42',   'HRC 23rd session', 'Access to medicines in the context of the right to health'),
+            (2012, 'A/67/302',      'GA 67th session',  'Health financing in the context of the right to health'),
+            (2012, 'A/HRC/20/15',   'HRC 20th session', 'Occupational health and the right to health'),
+            (2011, 'A/66/254',      'GA 66th session',  'Criminalization of sexual and reproductive health'),
+            (2011, 'A/HRC/18/37',   'HRC 18th session', 'The right to health of older persons'),
+            (2011, 'A/HRC/17/43',   'HRC 17th session', 'Expert consultation on access to medicines'),
+            (2011, 'A/HRC/17/25',   'HRC 17th session', 'The right to health and development'),
+            (2010, 'A/65/255',      'GA 65th session',  'The right to health and international drug control'),
+            (2010, 'A/HRC/14/20',   'HRC 14th session', 'Criminalization, the right to health and sexual orientation'),
+            (2009, 'A/64/272',      'GA 64th session',  'The right to health and informed consent'),
+            (2009, 'A/HRC/11/12',   'HRC 11th session', 'Access to medicines and intellectual property rights'),
+            (2008, 'A/63/263',      'GA 63rd session',  'Annual report to the General Assembly (2008)'),
+            (2008, 'A/HRC/7/11',    'HRC 7th session',  'Health systems and the right to the highest attainable standard of health'),
+            (2007, 'A/62/214',      'GA 62nd session',  'Water, sanitation and the right to the highest attainable standard of health'),
+            (2007, 'A/HRC/4/28',    'HRC 4th session',  'The health and human rights movement'),
+            (2006, 'A/61/338',      'GA 61st session',  'The right to health and the reduction of maternal mortality'),
+            (2006, 'E/CN.4/2006/48', 'Commission on Human Rights 2006', 'A human rights-based approach to health indicators'),
+            (2005, 'A/60/348',      'GA 60th session',  'Health professionals and human rights education'),
+            (2005, 'E/CN.4/2005/51', 'Commission on Human Rights 2005', 'Mental disability and the right to health'),
+            (2004, 'A/59/422',      'GA 59th session',  'Health-related Millennium Development Goals'),
+            (2004, 'E/CN.4/2004/49', 'Commission on Human Rights 2004', 'The right to sexual and reproductive health'),
+            (2003, 'A/58/427',      'GA 58th session',  'Right to health indicators'),
+            (2003, 'E/CN.4/2003/58', 'Commission on Human Rights 2003', 'Defining the human right to health'),
+        ],
+    },
+    # Future mandates go here (SR Torture, SR Indigenous, …)
 }
 
 
@@ -217,13 +284,31 @@ def discover_pdf_url(signature: str) -> str | None:
     """Find a working PDF URL for a UN document signature.
 
     Strategy (first hit wins):
-      1. daccess-ods.un.org/access.nsf/Get?Open&DS={SIG}&Lang=E
-         — the Official Document System; returns the actual PDF for most
-         A/, A/HRC/, E/CN.4/ signatures going back ~25 years.
-      2. OHCHR Download.aspx (treaty-body-only; useful for joint GCs).
-      3. None — caller logs and skips.
+      1. documents.un.org/api/symbol/access?s={SIG}&l=en&t=pdf
+         — the modern UN documents portal API; serves the actual PDF
+         directly (Content-Type: application/pdf) for A/, A/HRC/, E/CN.4/
+         signatures going back to at least 2003. This is the primary route.
+      2. daccess-ods.un.org/access.nsf/Get?Open&DS={SIG}&Lang=E
+         — the legacy Official Document System (slow / can hang).
+      3. OHCHR Download.aspx (treaty-body-only; useful for joint GCs).
+      4. None — caller logs and skips.
     """
-    # 1. ODS — primary route for SR/SP reports.
+    # 1. documents.un.org symbol-access API — primary route for SR/SP reports.
+    docs_url = (
+        'https://documents.un.org/api/symbol/access'
+        f'?s={signature}&l=en&t=pdf'
+    )
+    try:
+        req = urllib.request.Request(docs_url, headers={'User-Agent': USER_AGENT})
+        with urllib.request.urlopen(req, timeout=30, context=SSL_CTX) as resp:
+            ctype = resp.headers.get('Content-Type', '')
+            head = resp.read(8)
+            if head.startswith(b'%PDF') or 'application/pdf' in ctype:
+                return docs_url
+    except Exception:
+        pass
+
+    # 2. ODS — legacy fallback route for SR/SP reports.
     ods_url = f'https://daccess-ods.un.org/access.nsf/Get?Open&DS={signature}&Lang=E'
 
     # 2. OHCHR (treaty body) Download.aspx — used by ingest_new_gcs.py for GCs.

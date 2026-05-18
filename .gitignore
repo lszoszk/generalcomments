@@ -202,6 +202,14 @@ _docs_internal/cescr/__pycache__/
 # extraction output) ARE tracked; docx cache is not.
 _docs_internal/footnotes/gc-docx/
 
+# SP mandate ingestion (ingest_sp_mandate.py) PDF cache — fetched
+# documents.un.org PDFs, rebuildable from each report's signature.
+# The labelled paragraph JSON (json_labeled_v2/) IS tracked; PDFs are not.
+sp_ingest_pdfs/
+
+# Stale corpus.json backups left by build/append scripts.
+docs/corpus.json.bak.*
+
 # Secrets — Ask backend lives on a separate VM, but a stray .env
 # file in this repo would still leak via git. Belt-and-braces.
 .env

@@ -1,0 +1,657 @@
+[
+  {
+    "ID": "1.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "In its resolution 6/29 of 14 December 2007, the Human Rights Council extended the mandate of the Special Rapporteur on the right of everyone to the highest attainable standard of physical and mental health (the right to health) for an additional three years. At its seventh session, held in June 2008, the Council nominated Anand Grover as the Special Rapporteur. He assumed his duties on 1 August 2008, succeeding Paul Hunt."
+  },
+  {
+    "ID": "2.",
+    "Labels": [],
+    "Text": "In accordance with his mandate, the Special Rapporteur will continue to further develop cooperation with relevant national and international actors, such as Governments, national human rights institutions, United Nations treaty bodies, international institutions, agencies, programmes, and independent experts, as well as with health professionals, academics, civil society organizations, community-based organizations of affected peoples and other stakeholders. The Special Rapporteur hopes to develop close cooperation with relevant government bodies to help them identify policies and programmes promoting the right to health."
+  },
+  {
+    "ID": "3.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Since March 2009, the Special Rapporteur has had fruitful discussions with numerous State representatives, the Joint United Nations Programme on HIV/AIDS (UNAIDS), the Global Fund to Fight AIDS, tuberculosis and Malaria, civil society organizations and other Special Procedures mandate holders."
+  },
+  {
+    "ID": "4.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "The Special Rapporteur has participated in numerous consultations and conferences on the right to health, including interventions at: the Erasmus Observatory on Health Law in Rotterdam, the Netherlands; the National Law School of India University in Bangalore, India; meetings on maternal mortality in Geneva and New Delhi; the Asian and the Pacific Regional Consultation on Maternal Health in Bali; the International Congress on AIDS in Asia and the Pacific in Bali; the Global Mental Health Summit in Athens; and the Global Conference on Meeting Nutritional Challenges in New Delhi. The Special Rapporteur also organized a consultation in Kathmandu, on the right to health involving civil society organizations in the countries of the South Asian Association for Regional Cooperation."
+  },
+  {
+    "ID": "5.",
+    "Labels": [],
+    "Text": "In the present report, the Special Rapporteur examines the fundamental role that informed consent plays in respecting, protecting and fulfilling the right to health, discussing specifically the areas of clinical practice, public health and medical research."
+  },
+  {
+    "ID": "6.",
+    "Labels": [],
+    "Text": "This report discusses the need for laws and international instruments to take into account the vulnerability of certain individuals whose rights are compromised owing to deeply rooted power imbalances and structural inequalities, presenting particular responsibilities to States and health-care providers to protect the human dignity and autonomy of all persons."
+  },
+  {
+    "ID": "7.",
+    "Labels": [],
+    "Text": "In the recommendations, the Special Rapporteur urges: (a) States to meet their obligations to safeguard informed consent through legislative, political and administrative mechanisms; (b) health-care providers to be cognizant that, according to their duty to act in the best interests of the patient, they are key players in protecting informed consent; (c) national and international bodies to emphasize the importance of informed consent as a fundamental aspect of the right to health in relevant policy and practice. A/64/272 09-45087 II. Background"
+  },
+  {
+    "ID": "8.",
+    "Labels": [],
+    "Text": "The concept of consent has evolved for centuries to arrive at its current meaning. In the aftermath of the Nuremberg Trials, increased international recognition of patients’ rights developed in the twentieth century,1 defining the responsibility of health-care providers and States responsibilities to the patient.2 In 1947, the Nuremberg Code asserted that the voluntary consent of the human subject to medical research is necessary under all circumstances. The Declaration of Helsinki (1964) further developed the Code principles and tied them to the ethical duties of physicians, as outlined in the Declaration of Geneva (1948). In 1994, the World Health Organization Amsterdam Declaration on Patients’ Rights required informed consent as a prerequisite for any medical intervention, guaranteeing also the right to refuse or halt medical interventions.3"
+  },
+  {
+    "ID": "9.",
+    "Labels": [],
+    "Text": "Informed consent is not mere acceptance of a medical intervention, but a voluntary and sufficiently informed decision, protecting the right of the patient to be involved in medical decision-making, and assigning associated duties and obligations to health-care providers. Its ethical and legal normative justifications stem from its promotion of patient autonomy, self-determination, bodily integrity and well-being.4 Important components of informed consent are discussed below. A. Respect for legal capacity"
+  },
+  {
+    "ID": "10.",
+    "Labels": [],
+    "Text": "Competency to consent is a status known as legal capacity generally determined by the ability to comprehend, retain, believe and weigh information provided in arriving at a decision.5 Legal capacity is presumed in adult persons and renders them the right to consent to, refuse or choose an alternative medical intervention. A patient’s actual decision — however contrary to professional advice — has no bearing on legal capacity."
+  },
+  {
+    "ID": "11.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Children’s legal capacity is approached differently throughout the world, such as by use of a competency test to establish the sufficient maturity to provide consent or requirements for parental consent."
+  },
+  {
+    "ID": "12.",
+    "Labels": [],
+    "Text": "Supportive measures (such as alternative and augmentative communication) may be required to assist the exercise of legal capacity and respect the wishes of persons who, temporarily (owing to transitory states such as loss of consciousness, panic, fear or confusion) or permanently, are not able to exercise legal capacity. Only in a life-threatening emergency in which there is no disagreement regarding absence of legal capacity6 may a health-care provider proceed without informed consent to perform a life-saving procedure. __________________ 1 See, e.g., Schloendorff v. Society of New York Hospital, 211 NY 125 (1914) (USA). 2 See article 7, International Covenant on Civil and Political Rights. 3 See article 3, Amsterdam Declaration on patients’ rights, ICP/HLE 121 (1994). 4 See J. W. Berg et al., Informed consent: legal theory and clinical practice (2001). 5 See, e.g., Re C [1994] 1 All ER 819 (UK). Also applied in Re C [1997] 2 FLR 180 (UK). 6 See, e.g., Re T [1992] 4 All ER 649 (UK). A/64/272 09-45087 B. Respect for personal autonomy"
+  },
+  {
+    "ID": "13.",
+    "Labels": [],
+    "Text": "Informed consent is valid only when documented prior to a medical procedure and provided voluntarily, meaning without coercion, undue influence or misrepresentation. While consent for simple procedures may sometimes be implied by a patient, more complex, invasive treatments require explicit consent."
+  },
+  {
+    "ID": "14.",
+    "Labels": [],
+    "Text": "Coercion includes conditions of duress such as fatigue or stress.7 Undue influences include situations in which the patient perceives there may be an unpleasant consequence associated with refusal of consent.8 C. Completeness of information"
+  },
+  {
+    "ID": "15.",
+    "Labels": [],
+    "Text": "Informed consent requires disclosure of the associated benefits, risks and alternatives to a medical procedure. Just as a patient has the right to receive information in giving consent, a patient has the right to refuse such information in giving consent, providing disclosure of such information has been appropriately offered."
+  },
+  {
+    "ID": "16.",
+    "Labels": [],
+    "Text": "The concept of the “prudent patient” finds its legal origins in the Canterbury doctrine developed in the United States which requires disclosure of all aforementioned information to the patient prior to obtaining consent. Modified objective consent, developed in Canada,9 additionally accounts for the patient’s subjective perspective in ensuring that information is accessible and acceptable to the patient’s specific circumstances and is most conducive to respecting the rights of the patient."
+  },
+  {
+    "ID": "17.",
+    "Labels": [],
+    "Text": "The power imbalance created by reposing trust and unequal levels of knowledge and experience inherent in the doctor-patient relationship — owing especially to the complexities of modern medicine — makes effective communication especially challenging. This is exacerbated by the power imbalances resulting from class, gender, ethnicity and other socio-economic factors. III. Right to health and informed consent"
+  },
+  {
+    "ID": "18.",
+    "Labels": [
+      "Children",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "Guaranteeing informed consent is a fundamental feature of respecting an individual’s autonomy, self-determination and human dignity in an appropriate continuum of voluntary health-care services. Informed consent in health, including (but not limited to) clinical practice, public health and medical research, is an integral part of respecting, protecting and fulfilling the enjoyment of the right to health as elaborated in article 12 of the International Covenant on Economic, Social and Cultural Rights and enshrined in numerous international and regional human rights treaties and national constitutions.10 __________________ 7 See Beausoleil v. The Sisters of Charity (1964), 53 DLR 65 (Canada). 8 See K. Forrester and D. Griffiths, Essentials of Law for Health Professionals (2005). 9 See Reibl v. Hughes (1980) 2 S.C.R. 880 (Canada). 10 See article 25, Universal Declaration of Human Rights; article 12, International Covenant on Economic, Social and Cultural Rights; Convention on the Elimination of All Forms of Discrimination against Women; Convention on the Rights of the Child and Convention on the Rights of Persons with Disabilities. A/64/272 09-45087"
+  },
+  {
+    "ID": "19.",
+    "Labels": [],
+    "Text": "Informed consent invokes several elements of human rights that are indivisible, interdependent and interrelated. In addition to the right to health, these include the right to self-determination, freedom from discrimination, freedom from non-consensual experimentation, security and dignity of the human person, recognition before the law, freedom of thought and expression and reproductive self-determination.11 All States parties to the International Covenant on Economic, Social and Cultural Rights have a legal obligation not to interfere with the rights conferred under the Covenant, including the right to health.12 Safeguarding an individual’s ability to exercise informed consent in health, and protecting individuals against abuses (including those associated with traditional practices) is fundamental to protecting these rights."
+  },
+  {
+    "ID": "20.",
+    "Labels": [],
+    "Text": "Several regional instruments protect the right to informed consent. These include: the Council of Europe’s Convention on Human Rights and Biomedicine (Oviedo Convention) adopted in 1997, and its Additional Protocol concerning Biomedical Research (European Treaty Series (ETS) 195); the Charter of Fundamental Rights of the European Union;13 and the European Council’s and Parliament’s Clinical Trials Directive.14"
+  },
+  {
+    "ID": "21.",
+    "Labels": [],
+    "Text": "The Committee on Economic, Social and Cultural Rights, the World Health Organization (WHO), the first Special Rapporteur, and many others have developed an analysis of the right to health to make it easier to understand and apply.15 Committee on Economic, Social and Cultural Rights general comment No. 14 elucidates the requirements of respecting, protecting and fulfilling the right to health, encompassing both freedoms and entitlements. The entitlements include services that are available, accessible, acceptable and of good quality. The freedoms include the right to control one’s health and body, and freedom from non-consensual interference.16"
+  },
+  {
+    "ID": "22.",
+    "Labels": [],
+    "Text": "Key elements of the analytical framework relevant to this report include the propositions that: (a) all health services, including information, should be available, acceptable, accessible, and of good quality. States must ensure a culturally and ethically acceptable health-care continuum; (b) participation in all health-related decision-making is critical at the community, national and international levels; States are obligated to support individuals and community networks in ensuring that health services are provided on the basis of informed consent; (c) States have a duty to respect, protect and fulfil the enjoyment of the right to health of all persons. The duty to protect is greater when persons are vulnerable due to health, social, economic and political status.17"
+  },
+  {
+    "ID": "23.",
+    "Labels": [
+      "Persons living in poverty",
+      "Women/girls"
+    ],
+    "Text": "Crucially, a rights-based approach in the context of informed consent addresses structural inequalities, which can significantly impact mental or physical __________________ 11 See articles 2, 3, 5, 6 and 16, Universal Declaration of Human Rights; articles 1, 2, 3, 7, 9, 10, 16, 18, 19, 24, 25, 26 and 27, International Covenant on Civil and Political Rights. 12 See article 30, Universal Declaration of Human Rights; article 5, International Covenant on Economic, Social and Cultural Rights. 13 See article 3, European Union Charter of Fundamental Rights (2000). 14 See directive 2001/20/EC of the European Parliament and of the Council of 4 April 2001. 15 See E/CN.4/2003/58, A/58/427; WHO, Human Rights, Health and Poverty Reduction Strategies (2005); Physicians for Human Rights, Deadly Delays: Maternal Mortality in Peru (2007). 16 See Committee on Economic, Social and Cultural Rights, general comment No. 14, para. 8. 17 See Committee on Economic, Social and Cultural Rights, general comment No. 14, paras. 12 and 17. A/64/272 09-45087 conditions or the relationship with the health-care provider. Barriers in the communication of information demand counselling services and community involvement supporting adequate comprehension and decision-making. Health information needs to be of the highest quality, freely available on a non-discriminatory basis, accessible to the individual’s particular communication needs (including special physical or cultural circumstances), and presented in a manner culturally and otherwise acceptable to the person consenting. Communication should be cognizant of varying levels of comprehension and not be too technical, complex, hasty, or in a language, manner or context that the patient does not understand. A. Clinical practice"
+  },
+  {
+    "ID": "24.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "A rights-based approach in the clinical setting means that counselling, testing and treatment must be treated as a voluntary health-care continuum. The process of achieving informed consent links available, acceptable, accessible and quality information to similar services in a voluntary testing and treatment continuum facilitated by appropriate counselling. Prioritizing the importance of patient autonomy and dignity in achieving informed consent through proper counselling is the first step in linking to, for example, HIV-testing to the delivery of services on a voluntary, non-discriminatory basis. This is imperative in yielding the greatest individual and public health benefits owing to the direct correlation between patient trust and cooperation and medical efficacy."
+  },
+  {
+    "ID": "25.",
+    "Labels": [],
+    "Text": "The role of the health-care provider in providing information, as well as being cognizant of and minimizing threats to voluntary decision-making, is critical in achieving the right to health.18 However, this role in promoting a health-care continuum on the basis of informed consent is often compromised in settings where staff and resources are inadequate."
+  },
+  {
+    "ID": "26.",
+    "Labels": [],
+    "Text": "Importantly, a rights-based approach addresses structural barriers to achieving informed consent within the appropriate health-care continuum. Such an approach is especially cognizant of the power imbalances resulting from inequalities in knowledge, experience and trust between the health-care provider and the individual, particularly those from vulnerable groups. Importantly, stigma and discrimination serve as disincentives for such patients to seek out services and providers to treat patients equally."
+  },
+  {
+    "ID": "27.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Compulsory, and, at times, routine testing is disempowering and frequently compromises human rights. Such testing is coercive and generally results in inadequate provision of information and counselling, compromising informed consent and deterring individuals from accessing test results and appropriate services. A community-mobilizing environment that links testing to treatment and care services, conversely, encourages voluntary testing while decreasing stigma and discrimination.19 __________________ 18 See Physicians for Human Rights, General Guideline 13, Dual Loyalty and Human Rights in Health Professional Practice: Proposed Guidelines and Institutional Mechanisms (2003). 19 See UNAIDS, HIV voluntary counselling and testing: gateway to prevention and care (2002). A/64/272 09-45087"
+  },
+  {
+    "ID": "28.",
+    "Labels": [],
+    "Text": "The right to consent to treatment also includes the right to refuse treatment,20 regardless of a procedure’s advisability.21 However, health-care providers should discourage patients from refusing life-saving procedures by emphatically highlighting the medical consequences."
+  },
+  {
+    "ID": "29.",
+    "Labels": [],
+    "Text": "A patient, or a patient’s permanent legal representative, may authorize a health-care proxy to provide consent when the patient is unable to do so. In the absence of a proxy, if a person is authoritatively judged not to have legal capacity due to a transitory physical or mental state such as unconsciousness, a health-care provider may resort only to a life-saving emergency procedure,22 and only in the absence of a clear prior or immediate indication of refusal.23 Unless previously authorized as a proxy, the next-of-kin cannot consent on behalf of the patient but ought to be consulted for relevant, albeit non-binding, information that may illuminate the preferences of the patient.24 Safeguards against abuse, such as requirements for a third party medical opinion, should be in place. B. Public health"
+  },
+  {
+    "ID": "30.",
+    "Labels": [],
+    "Text": "Public health measures should always strive for voluntary participation to be fully effective and minimize compromising the rights to privacy and selfdetermination of the person. According to the 1985 Siracusa Principles, any restriction from the International Covenant on Civil and Political Rights must be non-discriminatory; in accordance with the law, legitimate and necessary; and the least restrictive reasonably available alternative.25 Importantly, restrictions must be fully respectful of dignity, human rights and fundamental freedoms.26 Interference with freedom of movement should be used only as a last resort,27 when voluntary measures cannot reasonably be expected to succeed.28 The recent severe acute respiratory syndrome (SARS) and influenza A(H1N1) pandemics have raised concerns about the extent to which individual rights have been compromised by quarantine measures.29"
+  },
+  {
+    "ID": "31.",
+    "Labels": [],
+    "Text": "A rights-based approach to public health requires that any restrictions give the utmost attention to a continuous process of counselling, testing and treatment within an optimally healthful environment. Any limitations of informed consent must be __________________ 20 See, e.g., Malette v. Shulman et al., (1990) 67 D.L.R. (4th) 321 (Canada). 21 See CEDAW/C/36/D/4/2004. 22 See Moore v. Webb, 345 S.W.2d 239 (Mo.App. 1961) (US). 23 See Public Health Trust of Dade County v. Wons, 541So. 2d 96 (Fla. 1989) (US); Re T [1992] 4 All ER 649 (UK). 24 See Re T [1992] 4 All ER 649 (UK). 25 See E/CN.4/1984/4. 26 See article 3, WHO International Health Regulations (2005). 27 See WHO, WHO Guidance on human rights and involuntary detention for xdr-tb control (2007). 28 See WHO, Ethical considerations in developing a public health response to pandemic influenza. Ethics, equity, trade and human rights (2007). 29 See G. L. Burci and R. Koskenmaki, “Human Rights Implications of Governance Responses to Public Health Emergencies: The Case of Major Infectious Disease Outbreaks”, Realizing the Right to Health (2009), pp. 346-358. A/64/272 09-45087 substantiated by scientific evidence and implemented with participation, transparency and accountability on the principles of gradualism and proportionality.30"
+  },
+  {
+    "ID": "32.",
+    "Labels": [],
+    "Text": "Any protocols for routine testing should require informed consent and be accompanied by anti-stigma sensitization to avoid exacerbating conditions of marginalization. Compulsory testing, unless justified by public health requirements, must never be used as a means of policing private behaviour. Criminalizing behaviour that is harmful to one’s health is counter-productive to achieving a voluntary counselling, testing and treatment continuum."
+  },
+  {
+    "ID": "33.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Successful HIV/AIDS testing is underpinned by conditions of counselling, informed consent and confidentiality.31 International guidelines recommend that public health legislation demand that HIV/AIDS testing be performed only on the basis of individual informed consent32 and grounded in an approach protecting human rights.33 However, current guidelines for provider-initiated testing and counselling, which do not make testing conditional on the availability of treatment, undermine the testing-treatment continuum and long-term prevention. The “simplified pre-test information” prescribed by provider-initiated testing and counselling revokes one of the most important HIV/AIDS-related interventions — comprehensive, individualized pre-test counselling and information — thereby forgoing an important opportunity for prevention information and services for those who test negative. In addition, the routine offer of provider-initiated HIV testing and counselling on an “opt-out” basis — inferring consent in the absence of explicit refusal (rather than seeking voluntarily initiated consent) — has been recommended for settings with generalized HIV/AIDS epidemics.34 However, those tested under provider-initiated testing and counselling, particularly when from marginalized groups,35 often feel compelled to accept.36 The scale-up of testing services without pre-test counselling has the potential to further marginalize these groups and thwart long-term prevention measures and need re-examination."
+  },
+  {
+    "ID": "34.",
+    "Labels": [
+      "Children",
+      "Persons deprived of their liberty",
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "Just as linking appropriate counselling and treatment to voluntary testing serves as an enabling incentive for testing, compulsory treatment measures are a disincentive. Policies of compulsory confinement are therefore often medically unsound, failing to acknowledge that ventilated confinement is conducive to transmission of airborne illness; consensual, community-based care models lead to __________________ 30 See L. O. Gostin, “Public Health Strategies for Pandemic Influenza: Ethics and the Law”, JAMA, vol. 295, issue 14 (2006), pp. 1700-1704; S. Gruskin and B. Loff, “Do Human Rights have a Role in Public Health Work?” The Lancet, vol. 360 (2002), p. 1880. 31 See UNAIDS/WHO, “UNAIDS/WHO Policy Statement on HIV Testing” (2004). 32 See OHCHR and UNAIDS, International Guidelines on HIV/AIDS and Human Rights (2006). 33 See UNFPA and WHO, Sexual and Reproductive Health of Women Living with HIV/AIDS: Guidelines on care, treatment and support for women living with HIV/AIDS and their children in resource-constrained settings (2006), para. 9. 34 See WHO/UNAIDS, WHO/UNAIDS Guidance on provider-initiated HIV testing and counselling in health facilities (2007). 35 See S. Weiser et al., “Routine HIV testing in Botswana: a population-based study on attitudes, practices, and human rights concerns”, PLoS Medicine, vol. 3, issue 7 (2006), p. 395. 36 A report from Botswana found that two thirds of women felt they could not decline. Physicians for Human Rights, Epidemic of Inequality: Women’s Rights and HIV/AIDS in Botswana and Swaziland (2007). See also S. Weiser et al. (2006), “Routine HIV testing in Botswana: a population-based study on attitudes, practices, and human rights concerns”, PLoS Medicine, vol. 3, issue 7 (2006); A. Welbourn, “Into the Firing Line: Placing young women and girls at greater risk”, AIDS Legal Network (2008). A/64/272 09-45087 better treatment outcomes.37 Nevertheless, non-infectious tuberculosis-positive individuals have been forcibly detained, sometimes even in prisons.38 In accordance with the principles of proportionality and gradualism, any confinement measure should be as least restrictive as possible, favouring, for instance, home — over hospital — confinement.39 Informed consent should be applied to treatment administered in any isolation and quarantine approaches, supporting and encouraging the completion of therapy on a voluntary basis.40 C. Medical research"
+  },
+  {
+    "ID": "35.",
+    "Labels": [],
+    "Text": "Informed consent of participants is imperative for conducting medical research, and is thus mandated by international standards.41 Each potential subject must be adequately informed of the aims, methods, anticipated benefits and potential risks of the research. Consent may be withdrawn at any time, so the informed consent process must be continuous, inclusive of new adverse developments.42 Concerns that results will be consequently undermined cannot justify withholding of information, and researchers must be cognizant of the “therapeutic misconception” leading the patient to expect medical benefit despite the possibility of placebo.43"
+  },
+  {
+    "ID": "36.",
+    "Labels": [],
+    "Text": "A rights-based approach to medical research means that special protections must be in place to ensure that the autonomy of potential participants, particularly those from vulnerable groups, is not compromised as a result of power imbalances inherent in the researcher-subject relationships. Research conducted in low-literacy populations requires additional efforts to facilitate comprehension of technical concepts. Research involving individuals from vulnerable groups should seek the participation of a representative organization that may be able to assist participants throughout the process. Special considerations must also be made regarding undue incentives, clinical vulnerability, language and cultural barriers, double standards, unnecessary risk, and collection of tissue samples."
+  },
+  {
+    "ID": "37.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Persons with disabilities"
+    ],
+    "Text": "Incentives offered for participation in research must be limited to adequate compensation for time, effort and adverse consequences of participation. In limitedresource settings, access to financial or medical resources often becomes an undue incentive to consent or disincentive to withdraw consent.44 Researchers and review boards should be particularly cognizant of such circumstances. __________________ 37 See Rio Communities’ Declaration at the 3rd Stop TB Partners Forum, March 2009. 38 See R. Coker, “Detention and mandatory treatment for tuberculosis patients in Russia”, The Lancet, vol. 358, issue 9279 (2001), pp. 349-350. 39 See A. Boggio et al., “Limitations on human rights: Are they justifiable to reduce the burden of TB in the era of MDR- and XDR-TB?” Health and Human Rights, vol. 10, issue 2 (2008), pp. 121-126. 40 See WHO, Good Practice in Legislation and Regulations for TB Control: An Indicator of Political Will (2001). 41 See article 7, International Covenant on Civil and Political Rights. 42 See article 24, European Treaty Series 195. 43 See P. S. Appelbaum et al., “The therapeutic misconception: informed consent in psychiatric research”, International Journal of Law and Psychiatry, vol. 5 (1982), pp. 319-329. 44 See F. van Loggerenberg et al., “Ethical challenges in undertaking HIV/AIDS research in resource constrained settings: Experiences with sex workers at truck stops in South Africa”, International Conference on AIDS (2002), p. 14. A/64/272 09-45087"
+  },
+  {
+    "ID": "38.",
+    "Labels": [
+      "Children",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "Vulnerable individuals, such as persons with severe disabilities, pregnant and breastfeeding women, children, persons in life-threatening emergencies, and elderly persons, require special protections. Consent for medical research participation must only be sought from such individuals in the absence of any comparably effective alternative research population, and only if participation risks are minimized and benefits are conferred on group members.45 Authorized proxies providing consent for individuals unable to exercise legal capacity must not be offered incentives beyond appropriate compensation for time and effort. Research on persons lacking the ability to exercise legal capacity or otherwise unable to consent is permissible “only if the physical or mental condition that prevents giving informed consent is a necessary characteristic of the research population”.46 If medical experimentation is required for life-saving treatment of an individual deemed unable to provide consent, the consent of a legally authorized representative must be sought, and any assent or dissent communicated by the patient respected.47"
+  },
+  {
+    "ID": "39.",
+    "Labels": [],
+    "Text": "Language and cultural barriers often limit communication and comprehension of information.48 Information must be provided in a comprehensible fashion, which may require that additional services (such as an interpreter) be provided by the researcher.49 Where more appropriate, the Declaration of Helsinki allows for formally documented and witnessed non-written consent."
+  },
+  {
+    "ID": "40.",
+    "Labels": [],
+    "Text": "Research conducted in developing countries by researchers from developed countries warrants additional safeguards.50 Unsafe clinical trials have been conducted in developing countries due to acceptance of double standards for informed consent.51 It continues to be questioned whether conducting clinical trials in developing countries can ever be considered ethical, especially when using placebos despite the existence of appropriate non-placebo interventions.52 Ethics review boards must eliminate double standards applied to developing countries, as conditions of deprivation do not lessen the importance of ensuring the voluntary nature of informed consent. When international research results in varying requirements for informed consent, the most protective standards must be applied.53 To ensure that potential research subjects are the primary beneficiaries of the research, participants in clinical trials should always be informed of the intended benefits and beneficiaries of the research."
+  },
+  {
+    "ID": "41.",
+    "Labels": [
+      "Refugees & asylum-seekers"
+    ],
+    "Text": "In the interests of minimizing the risks associated with clinical research, consent should not be sought for medically unnecessary clinical trials, such as when the prior existence of safety and efficacy information obviates the need for additional research. International regulations should protect producers of generic __________________ 45 See articles 18, 19 and 20, European Treaty Series 195. 46 See Declaration of Helsinki, paras. 27, 28 and 29. 47 See Declaration of Helsinki, para. 29. 48 See P. A. Marshall, Ethical challenges in study design and informed consent for health research in resource-poor settings, WHO (2007). 49 See WHO, Indigenous peoples and participatory health research (2009). 50 Guidelines concerning the application of the Declaration of Helsinki in developing countries have been issued by the Council for International Organizations of Medical Sciences in collaboration with WHO (1982 and 2002). 51 See Kano Trovan Case in Nigeria (1996). 52 See R. Macklin, Double Standards in Medical Research in Developing Countries (2004). 53 See J. Leaning, “Ethics of research in refugee populations”, The Lancet, vol. 357, issue 9266 (2001), pp. 1432-1433. A/64/272 09-45087 medicines against scientifically unjustifiable data exclusivity, which results in known information regarding potential risks and benefits being withheld from patients, obviating informed consent."
+  },
+  {
+    "ID": "42.",
+    "Labels": [],
+    "Text": "Researchers seeking permission for future use of identifiable DNA tissue samples must inform individuals of all possible uses.54 Guidelines for approval of modified informed consent requirements for any testing of anonymous tissue samples should make allowances based only on clear scientific evidence regarding public health benefits.55 IV. Vulnerable groups and informed consent"
+  },
+  {
+    "ID": "43.",
+    "Labels": [],
+    "Text": "Informed consent, as an integral part of the right to health, must be guaranteed with every protection against stigmatization or discrimination on any grounds, as provided by article 2 of the Universal Declaration of Human Rights and article 2, paragraph 2, of the International Covenant on Economic, Social and Cultural Rights, and reinforced by article 11 of the United Nations Educational, Scientific and Cultural Organization Universal Declaration on Bioethics and Human Rights (2005)."
+  },
+  {
+    "ID": "44.",
+    "Labels": [],
+    "Text": "The Committee on Economic, Social and Cultural Rights has recently reiterated the imperative of non-discrimination in its general comment No. 20,56 articulating especially the importance of taking a flexible approach in addressing discrimination based on “other status” reflecting the experience of marginalized social groups. It emphasizes further the important role of supportive, and permanent, when necessary, measures to ensure non-discrimination."
+  },
+  {
+    "ID": "45.",
+    "Labels": [],
+    "Text": "In addition to the imbalance of power, experience and trust inherently present in the doctor-patient relationship, structural inequalities can result in the voluntary or informed nature of consent being significantly compromised. Appropriate support mechanisms to help overcome subsequent challenges to achieving informed consent, including community involvement and comprehensive counselling along the healthcare continuum, are critical in protecting the rights of vulnerable groups."
+  },
+  {
+    "ID": "46.",
+    "Labels": [
+      "Children",
+      "LGBTI+",
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Certain groups deserve special consideration regarding the protection of informed consent as a result of vulnerabilities stemming from economic, social and cultural circumstances. Principles 17 and 18 of the Yogyakarta Principles, for instance, highlight the importance of safeguarding informed consent of sexual minorities. Health-care providers must be cognizant of and adapt to the specific needs of lesbian, gay, bisexual, transgender and intersex persons. Such elements of vulnerability significantly overlap and exacerbate inequalities; however, certain groups are addressed separately below for the purposes of this report. __________________ 54 See P. A. Marshall, Ethical challenges in study design and informed consent for health research in resource-poor settings, WHO (2007). 55 See, e.g., L. M. Kopelman, “Informed consent and anonymous tissue samples: The case of HIV seroprevalence studies”, Journal of Medicine and Philosophy, vol. 19, issue 6 (1994), pp. 525-552. 56 See E/C.12/GC/20. A/64/272 09-45087 A. Children"
+  },
+  {
+    "ID": "47.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "The Convention on the Rights of the Child demands respect for the child’s evolving capacities and due weight to be given to the child’s views according to age and maturity.57 Risks and benefits of medical interventions must be adequately conveyed to the child, and, given sufficient maturity, the child’s informed consent should be sought.58 The recently adopted general comment on article 12 of the Convention on the Rights of the Child, stipulates that “States Parties need to introduce legislation or regulations to ensure that children have access to confidential medical counselling and advice without parental consent, irrespective of the child’s age, where this is needed for the child’s safety or well-being.... The right to counselling and advice is distinct from the right to give medical consent and should not be subject to any age limit.”59"
+  },
+  {
+    "ID": "48.",
+    "Labels": [
+      "Children",
+      "Women/girls"
+    ],
+    "Text": "As “minors” before the law, children often have their rights relegated to a legal guardian, compromising their exercise of autonomy; varying maturity levels makes appropriately assessing legal capacity very difficult. Children from marginalized communities and those in institutional care are particularly vulnerable to being subjected to non-consensual medical interventions.60 Social preconceptions among adults can present barriers to children’s right to sexual and reproductive health services and information, and while some countries protect it,61 in many countries, parental consent requirements impede access.62 States must ensure that adolescents have access to appropriate health information and services regardless of parental consent,63 particularly those concerning sexual and reproductive health.64 Given sufficient maturity, adolescents may request confidential health services65 and information.66"
+  },
+  {
+    "ID": "49.",
+    "Labels": [
+      "Adolescents",
+      "Children",
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "Health-care providers should strive to postpone non-emergency invasive and irreversible interventions until the child is sufficiently mature to provide informed __________________ 57 See articles 5 and 12(1), Convention on the Rights of the Child. 58 See articles 3, 13 and 17, Convention on the Rights of the Child; Convention on the Rights of the Child general comments No. 3, para. 20. 59 See Convention on the Rights of the Child, general comment No. 12, para. 101. 60 See A/61/299; WHO/SEARO, “Synthesizing experiences from countries in the region: Similarities, differences, lessons learnt”, Increasing adolescents’ access to health services for HIV and Adolescent Sexual and Reproductive Health (2006). 61 In the United States, the Public Health Service Act (Title 42 of the United States Code (1946)) requires that federally funded family planning clinics provide confidential services without parental consent to all minors. However, some state level laws continue to limit access; T. J. Valvano, “Legal Issues in sexual and reproductive health care for adolescents”, Clinical Pediatric Emergency Medicine, vol. 10 (2009), pp. 60-65. 62 See UNFPA et al., “Report Card, HIV Prevention for Girls and Young Women: India (2007), Kenya (2008), Swaziland (2007), Thailand (2006), and Peru (2006)”; K. L. Dehne and G. Riedner, Sexually transmitted infections among young people. The need for adequate health services, WHO CAH (2005); P. Mahery, “Consent laws influencing children’s access to health care services”, South African Health Review (2006), pp. 167-180; American Psychological Association, Parental Consent and Adolescent Reproductive Health (2000). 63 See Convention on the Rights of the Child, general comment No. 4; A/CONF.171/13, para. 7. 64 See CRC/C/KEN/CO/2, para. 49. 65 See Convention on the Rights of the Child, general comment No. 4. 66 See article 16, Convention on the Rights of the Child. A/64/272 09-45087 consent.67 Safeguards should be in place to protect children from parents withholding consent for a necessary emergency procedure."
+  },
+  {
+    "ID": "50.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Even where laws are supportive, appropriate training of health workers is necessary to avoid continued denial of services to adolescents without parental consent.68 Additional efforts must be made to ensure that information and services are child-friendly and age-accessible through appropriate opening hours, staff training and sensitization, and special considerations for information sources and presentation, such as peer health approaches.69 B. Elderly persons"
+  },
+  {
+    "ID": "51.",
+    "Labels": [],
+    "Text": "Although the ageing population continues to grow worldwide, policies and support structures protecting the rights of elderly persons are grossly inadequate.70 Elderly persons are taken advantage of due to perceived ignorance and helplessness, as well as actual physical or mental frailty such as that caused by degenerative disease resulting in decreased ability to provide informed consent. Elderly persons in hospice care are especially vulnerable to denial of autonomy and dignity71 due to the absence of appropriate oversight, particularly in cases of non-consensual drug therapy.72"
+  },
+  {
+    "ID": "52.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "States must ensure that elderly persons enjoy the right to health, including informed consent, at the same level as any other person.73 As guaranteed by article 12 of the Convention on the Rights of Persons with Disabilities, disability, including age-related, cannot itself justify limitation of legal capacity. Research conducted on persons suffering from degenerative disease must be in accordance with the requirements of the Declaration of Helsinki for such research.74"
+  },
+  {
+    "ID": "53.",
+    "Labels": [
+      "Adolescents",
+      "LGBTI+",
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "Supportive measures, such as public initiatives to improve elderly persons’ access to relevant information in easy-to-understand formats and through established channels of communication such as social security networks, should be implemented. International guidelines and national systems should be developed to regulate and monitor hospice care practices to ensure that the elderly are supported in making informed health-care decisions, and that their human dignity and autonomy are not neglected due to their vulnerability. __________________ 67 This is particularly problematic in the case of intersex genital surgery, which is a painful and high-risk procedure with no proven medical benefits; see, e.g., Colombian Constitutional Court, Sentencia SU-337/99 and Sentencia T-551/99. 68 WHO/SEARO, “Synthesizing experiences from countries in the region: Similarities, differences, lessons learnt”, Increasing adolescents’ access to health services for HIV and Adolescent Sexual and Reproductive Health (2006). 69 Family Health International, “Making reproductive health services youth-friendly” (1999). 70 See WHO and the International Network for the Prevention of Elderly Abuse, Missing Voices: Views of older persons on elder abuse (2002). 71 See WHO, “Abuse of the elderly”, World Report on Violence and Health (2002). 72 See United Kingdom House of Commons Health Committee, Elder Abuse (2004). 73 See Convention on Economic, Social and Cultural Rights, general comment No. 6, paras. 34 and 35; Convention on Economic, Social and Cultural Rights, general comment No. 20, para. 29. 74 See Declaration of Helsinki, paras. 27 and 28. A/64/272 09-45087 C. Women"
+  },
+  {
+    "ID": "54.",
+    "Labels": [
+      "Children",
+      "Women/girls"
+    ],
+    "Text": "Gender inequalities reinforced by political, economic and social structures result in women being routinely coerced and denied information and autonomy in the health-care setting. Women’s sexual and reproductive health rights demand special considerations; pregnant women are at times denied consent along an appropriate health-care continuum justified by the best interests of the unborn child."
+  },
+  {
+    "ID": "55.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Persons with disabilities",
+      "Roma, Gypsies, Sinti and Travellers",
+      "Women/girls"
+    ],
+    "Text": "Social and legal norms limit women’s independent access to sexual and reproductive health services.75 Evidence76 reveals that women are often entirely excluded from decision-making in health care. Women are often coerced into “routine” HIV/AIDS testing in ante-natal care settings without links to counselling and treatment.77 Forced sterilization or contraception continues to affect women,78 injuring their physical and mental health and violating their right to reproductive self-determination,79 physical integrity and security.80 Women are often provided inadequate time81 and information82 to consent to sterilization procedures, or are never told or discover later that they have been sterilized. Numerous countries have taken inadequate action against individuals who perform non-consensual sterilizations, and some have even sanctioned such procedures in national “family planning” initiatives with anti-natalist undertones based on racial or ethnic discrimination. Stigma and discrimination against women from marginalized communities, including indigenous women, women with disabilities and women living with HIV/AIDS, have made women from these communities particularly vulnerable to such abuses.83 __________________ 75 See Rajalakshmi, “Reducing reproductive rights: spousal consent for abortion and sterilization”, Indian Journal of Medical Ethics, vol. 3 (2007); Family Health International, “Reproductive health providers routinely face ethical issues, including those with conflicting principles”, Network, vol. 21, issue 2 (2002); WHO Regional Office for the Eastern Mediterranean, Crosscutting gender issues in women’s health in the Eastern Mediterranean region (2007). 76 See U. Senarath, “Women’s autonomy in decision-making for health care in South Asia”, Asia Pacific Journal of Public Health, vol. 21, issue 2 (2009), pp. 137-143; N. Qureshi and B. T. Shaikh, “Women’s empowerment and health: the role of institutions of power in Pakistan”, Eastern Mediterranean Health Journal, vol. 13, issue 6 (2007). 77 See C. Eyakuze et al., “From PMTCT to a more comprehensive AIDS response for women: a much-needed shift”, Developing World Bioethics, vol. 8, issue 1 (2008), pp. 33-42. 78 See E/CN.4/1999/68/Add.4. 79 See Convention on the Elimination of All Forms of Discrimination against Women, general recommendation 19. 80 See IRIN, Office for the Coordination of Humanitarian Affairs, Africa: When Culture Harms The Girls — The Globalization of Female Genital Mutilation (2005). 81 See Inter-American Commission on Human Rights, María Mamerita Mestanza Chávez v. Peru, Case 12.191, 2000. 82 See CEDAW/C/36/D/4/2004; Center for Reproductive Rights, Body and Soul: Forced Sterilization and Other Assaults on Roma Reproductive Freedom (2003). 83 See, e.g., K. H. and Others v. Slovakia, Appl. No. 32881/04, European Court of Human Rights, 2009; International Community of Women Living with HIV/AIDS, “The forced and coerced sterilization of HIV positive women in Namibia” (2009); L. Dowse, “Moving Forward or Losing Ground? The Sterilization of Women and Girls with Disabilities in Australia”, paper presented to Disabled Peoples’ International World Summit, Winnipeg, 8-10 September 2004. A/64/272 09-45087"
+  },
+  {
+    "ID": "56.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Regrettably, female genital mutilation continues to be performed throughout the world, even on two-year-old girls.84 It is physically and mentally injurious,85 has no health benefits, and is a violation of bodily integrity and personal autonomy of the girl/woman. Female genital mutilation is virtually never a woman’s independent decision, owing to its strong cultural significance concerning virginity, marriage eligibility and social status.86"
+  },
+  {
+    "ID": "57.",
+    "Labels": [
+      "Children",
+      "Women/girls"
+    ],
+    "Text": "The need for special protections guaranteeing a woman’s right to informed consent is reinforced by the Beijing Declaration.87 Women have the right to freely consent to or refuse services (including sterilization services) that are non-coercive and respectful of autonomy, privacy and confidentiality;88 and information provided by properly trained personnel.89 Any requirement for preliminary authorization by a third party is a violation of a woman’s autonomy.90 Sexual and reproductive health services must be free from coercion, discrimination or lack of information.91 States must ensure absence of any form of coercion in reproductive health services, including testing procedures for sexually transmitted infections or pregnancy as a pre-condition of employment.92 The Beijing Platform highlights the right of a woman to make reproductive decisions free of discrimination, coercion and violence; and the International Conference on Population and Development (ICPD) Programme of Action protects the right to decide freely and responsibly the number and spacing of one’s children.93 Forced sterilization, when committed as part of a widespread or systematic attack, is a crime against humanity.94"
+  },
+  {
+    "ID": "58.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "Reproductive freedom should never be limited by individuals or States as a family planning method, HIV/AIDS prevention, or any other public health agenda. States should ensure that laws respect the woman’s right to autonomy and decision-making and do not support substituted consent by spouses and that harmful traditional practices like female genital mutilation are eliminated as a matter of urgency.95"
+  },
+  {
+    "ID": "59.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Health-care providers are critical actors in ensuring that women are provided adequate information, especially information regarding reversible family planning __________________ 84 Estimates suggest that 3 million girls in sub-Saharan Africa, Egypt, and the Sudan are subjected to female genital mutilation each year. UNICEF, “Changing a Harmful Social Convention: Female Genital Mutilation/Cutting”, Innocenti Digest, vol. 12 (2005). 85 See WHO, “Female genital mutilation and other harmful practices”, Factsheet No. 241 (2008). 86 Noteworthy is the case of a Kenyan MP whose political opponents opposed her running for office during the 2002 elections on the grounds that she had not been circumcised. IRIN (2005), Office for the Coordination of Humanitarian Affairs, Africa: When Culture Harms The Girls — The Globalization of Female Genital Mutilation (2005). 87 See A/CONF.177/20, para. 89. 88 See views of the Committee on the Elimination of Discrimination against Women, CEDAW/C/36/D/4/2004; K. H. and Others v. Slovakia, Appl. No. 32881/04, European Court of Human Rights, 2009. 89 See A/54/38, paras. 20 and 31. 90 See A/54/38, para. 21. 91 See A/CONF.171/13. 92 See A/54/38, para. 22. 93 See A/CONF.171/13. 94 See article 7(1)(6), A/CONF.183/9 Rome Statute of the ICC. 95 See article 5, Convention on the Elimination of All Forms of Discrimination against Women; Convention on the Elimination of All Forms of Discrimination against Women, general recommendation 14. A/64/272 09-45087 options,96 and personnel must be adequately trained and sensitized in this respect. Health-care providers should strive to collaborate with women’s groups that provide support at the community level in the provision of information, counselling, empowerment and social sensitization to gender equality."
+  },
+  {
+    "ID": "60.",
+    "Labels": [
+      "Children",
+      "Women/girls"
+    ],
+    "Text": "Guidance concerning situations of maternal-foetal conflict should capitalize on the potential of proper counselling and comprehensive support services through women’s networks to mitigate restrictions of autonomous decision-making of the woman and any potentially harmful effects to the child.97 D. Ethnic minorities"
+  },
+  {
+    "ID": "61.",
+    "Labels": [],
+    "Text": "Ethnic minorities, as well as migrants, can be at particular risk of having their exercise of autonomy compromised owing to language and cultural barriers. Having lost the protection of their State of origin, refugees and asylum-seekers are especially vulnerable."
+  },
+  {
+    "ID": "62.",
+    "Labels": [
+      "Internally displaced persons",
+      "Migrants",
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Compulsory, or routine, HIV/AIDS testing of asylum-seekers, refugees, IDPs and other persons of concern is a violation of human rights and unjustifiable through public health standards.98 Any such testing discourages immigrants from seeking timely and appropriate health care owing to fears of deportation and discrimination. Mandatory human papillomavirus (HPV) vaccination of immigrant women99 similarly constitutes a discriminatory practice. Any such procedures may only be applied to migrants according to standards applied to naturalized citizens in a non-discriminatory manner."
+  },
+  {
+    "ID": "63.",
+    "Labels": [
+      "Migrants"
+    ],
+    "Text": "All minorities, including refugees and migrant workers, are protected against discrimination in health care.100"
+  },
+  {
+    "ID": "64.",
+    "Labels": [],
+    "Text": "States should take steps to make health-care information and services specifically accessible, acceptable and available to all minorities through translation services, culturally friendly services and anti-discrimination sensitization.101 E. Indigenous peoples"
+  },
+  {
+    "ID": "65.",
+    "Labels": [
+      "Internally displaced persons",
+      "Migrants",
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "Traditional norms concerning collective autonomy, as well as the language and cultural barriers addressed above, necessitate additional considerations regarding the informed consent of indigenous peoples. Indigenous peoples are especially vulnerable __________________ 96 See FIGO Committee for the Study of Ethical Aspects of Human Reproduction and Women’s Health, “Ethical considerations in sterilization”, Recommendations on Ethical Issues in Obstetrics and Gynaecology (2006), p. 74. 97 See e.g. Open Society Institute, Women, Harm Reduction and HIV (2007). 98 See UNHCR, “10 Key Points on HIV/AIDS and the Protection of Refugees, IDPs, and Other Persons of Concern”. 99 See United States Citizenship and Immigration Services, I-693, Report of Medical Examination and Vaccination Record. 100 See 1951 Convention Relating to the Status of Refugees and its 1967 Protocol; 1990 International Convention on the Protection of the Rights of All Migrant Workers and their Families; Convention on Economic, Social and Cultural Rights, general comment 20, para. 15. 101 See, e.g., European Centre for Social Welfare Policy and Research, Access to health care for migrants, ethnic minorities, and asylum seekers in Europe (2009). A/64/272 09-45087 in medical research involving their communities owing to undue incentives and significant power imbalances."
+  },
+  {
+    "ID": "66.",
+    "Labels": [],
+    "Text": "The informed consent of indigenous peoples is protected by their equal right to health enshrined in all relevant human rights treaties and explicitly also in article 24, paragraph 2 of the United Nations Declaration on the Rights of Indigenous Peoples."
+  },
+  {
+    "ID": "67.",
+    "Labels": [],
+    "Text": "In communities where promoting individual consent over traditional collective consent would be detrimental to the provision of health-care services, considerations must be made to respect traditional practice, provided individual consent to any such practice is explicitly taken. In communities where the positioning of trust to a single health-care provider is highly valued, minimizing the turnover of health-care providers should become a priority."
+  },
+  {
+    "ID": "68.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "For medical research, WHO principles require that the consent of recognized representatives of the community be sought — and periodically reaffirmed — according to the community’s leadership protocols.102 However, this is distinctive and secondary to individual consent.103 Any problems that arise must be addressed at both levels.104 Assistance from an umbrella organization to which the community freely belongs — if available and without conflict of interest — should be sought. F. Persons with disabilities"
+  },
+  {
+    "ID": "69.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Persons with disabilities often suffer from unjustified perception of being incompetent or dangerous to themselves or others. Such prejudices, coupled with existing laws and practices limiting legal capacity, often compromise their informed consent.105"
+  },
+  {
+    "ID": "70.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Many States, with or without a legal basis, continue to allow for the prolonged detention of persons with mental disabilities in institutions without their free and informed consent.106"
+  },
+  {
+    "ID": "71.",
+    "Labels": [
+      "Children",
+      "Persons with disabilities"
+    ],
+    "Text": "Forced sterilization of girls107 and women108 with disabilities has been documented internationally and is even being currently proposed in Rwanda.109 Persons with disabilities, including children, continue to be exposed to non-consensual medical experimentation.110"
+  },
+  {
+    "ID": "72.",
+    "Labels": [
+      "Children",
+      "Persons living with HIV/AIDS",
+      "Persons with disabilities"
+    ],
+    "Text": "The Convention on the Rights of Persons with Disabilities reaffirms that the existence of a disability is not a lawful justification for any deprivation of liberty, including denial of informed consent.111 States must provide persons with __________________ 102 See WHO, Indigenous peoples and participatory health research (2009). 103 See Canadian Institutes for Health Research, CIHR Guidelines for Health Research Involving Aboriginal People (2007). 104 See WHO, Indigenous peoples and participatory health research (2009). 105 See A/58/181. 106 See A/63/175. 107 See Independent Expert for the Secretary-General’s Study on Violence against Children, World Report on Violence against Children (2009). 108 See United Nations Enable, “Factsheet on Persons with Disabilities” (2009). 109 See Human Rights Watch, “Compulsory HIV testing, sterilization of disabled violate rights”, Human Rights Watch Press Release (2009). 110 See A/63/175, para. 40. 111 See articles 14 and 25, Convention on the Rights of Persons with Disabilities. A/64/272 09-45087 disabilities equal recognition of legal capacity, care on the basis of informed consent, and protection against non-consensual experimentation; as well as prohibit exploitation and respect physical and mental integrity.112 States have the obligation to provide (on a permanent basis if necessary) any appropriate supports, including total support, for persons with disabilities to exercise their legal capacity to the greatest possible extent.113 This is particularly relevant in the provision and comprehension of information, as underlined by Convention on Economic, Social and Cultural Rights general comment No. 20, which emphasizes the importance of implementing supportive measures for persons with sensory impairments.114"
+  },
+  {
+    "ID": "73.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Policies and legislation sanctioning non-consensual treatments lacking therapeutic purpose or aimed at correcting or alleviating a disability, including sterilizations, abortions, electro-convulsive therapy and unnecessarily invasive psychotropic therapy, violate the right to physical and mental integrity and may constitute torture and ill-treatment.115"
+  },
+  {
+    "ID": "74.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Persons with disabilities"
+    ],
+    "Text": "Persons with disabilities who are not able to exercise their legal capacity must be treated according to the standards acceptable for those with disabilities in equal circumstances. Mechanisms for total support for decision-making and consent (as in all other cases) should come into effect only when a person is authoritatively determined to require it in order to exercise legal capacity. G. Persons living with HIV/AIDS"
+  },
+  {
+    "ID": "75.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "As discussed in section III, people living with HIV/AIDS often discover their status as the result of involuntary testing procedures. They subsequently face stigma and can be deterred from accessing appropriate services, undermining long-term prevention and treatment efforts.116 Lack of information and the relative powerlessness of communities involved in HIV/AIDS clinical trials (especially when vulnerable groups are targeted) further compromise informed consent."
+  },
+  {
+    "ID": "76.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "Examples of violations include non-consensual testing, sterilizations and abortions, and compromised confidentiality of women living with HIV/AIDS,117 HIV/AIDS-related clinical trials conducted among pregnant women, sex workers and people who use drugs have raised a number of ethical concerns118 relating to, among other things, the inadequate provision of information. __________________ 112 See articles 12, 15, 16, 17 and 25, Convention on the Rights of Persons with Disabilities. 113 See A/HRC/10/48, para. 43. 114 See E/C.12/GC/20. 115 See A/63/175, paras. 40 and 48. 116 See, e.g., P. Nieburg et al., Expanded HIV Testing, Center for Strategic and International Studies (2005); A. Welbourn, “Into the Firing Line: Placing young women and girls at greater risk”, AIDS Legal Network (2008); S. Maman et al., “High rates and positive outcomes of HIVserostatus disclosure to sexual partners … in Dar es Salaam, Tanzania”, AIDS and Behavior, vol. 7, issue 4 (2003), pp. 373-382. 117 See International Community of Women living with HIV/AIDS, The forced and coerced sterilization of HIV positive woman in Namibia (2009); Centre for Reproductive Rights, Forcibly sterilized woman files international case against Chile (2009). 118 See UNAIDS, “Meeting ethical concerns over HIV trials”, (2007); E. J. Mills et al., “Designing research in vulnerable populations: lessons from HIV prevention trials stopped early”, BMJ, vol. 33 (2005), pp. 1403-1406. A/64/272 09-45087"
+  },
+  {
+    "ID": "77.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "The International Guidelines on HIV/AIDS and Human Rights emphasize the need to protect the informed consent of persons living with HIV/AIDS, especially with regards to sexual and reproductive health.119 Guidelines for HIV-related research clearly require proper informed consent, including any testing involved.120"
+  },
+  {
+    "ID": "78.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Appropriate provision of information in obtaining consent for voluntary HIV/AIDS treatment extends to supportive counselling to facilitate understanding the importance of adherence to long-term treatment. Networks of people living with HIV/AIDS should be meaningfully involved in the planning and delivery of services and in facilitating achievement of informed consent. H. Persons deprived of liberty"
+  },
+  {
+    "ID": "79.",
+    "Labels": [
+      "Persons deprived of their liberty",
+      "Persons with disabilities"
+    ],
+    "Text": "Persons deprived of liberty are often subjected to violations of rights that go beyond the scope necessary for the purposes of confinement; such risks are exacerbated by high incidence of mental illness and drug dependence. Conditions of deprivation and the inherent imbalance of power between prison staff and prisoner can contribute to undue influences in decision-making. The permissibility of medical experimentation on prisoners has been an issue of serious concern since the Nuremberg Trials, particularly concerning offers of amnesty as incentive. Prisoners of conscience require additional protections, as they may wish to surrender their rights as a legitimate form of protest."
+  },
+  {
+    "ID": "80.",
+    "Labels": [
+      "Persons deprived of their liberty"
+    ],
+    "Text": "Prisoners’ rights may not be limited beyond what is necessitated by the condition of incarceration, including the right to health enjoyed by free persons, and freedom from medically harmful research.121 Prisoners of war are likewise afforded “every guarantee of hygiene and healthfulness” extending to informed consent.122 Medically unjustified experimentation is never allowed on prisoners of war.123"
+  },
+  {
+    "ID": "81.",
+    "Labels": [
+      "Persons deprived of their liberty"
+    ],
+    "Text": "Despite legislative compliance, most countries continue to allow compulsory testing in practice, such as drug testing through the Prisons Act in the United Kingdom.124 Such testing is usually not linked to treatment, and States must reverse such measures and ensure adherence to legislation protecting prisoners’ rights."
+  },
+  {
+    "ID": "82.",
+    "Labels": [
+      "Persons deprived of their liberty",
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Prisoners participating in HIV/AIDS research trials face the threat of stigma and discrimination owing to a lack of confidentiality in the prison setting.125 Guidelines for the ethical review of research in prisons should be cognizant of coercive realities in the prison setting."
+  },
+  {
+    "ID": "83.",
+    "Labels": [
+      "Persons deprived of their liberty",
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Hunger strikers are often subjected to force-feeding and restraint.126 The World Medical Association Declaration of Tokyo (1975) and Declaration of Malta __________________ 119 See OHCHR and UNAIDS, International Guidelines on HIV/AIDS and Human Rights (2006). 120 See UNAIDS/WHO, Ethical considerations in HIV prevention trials (2007). 121 See principles 5 and 9, “Basic Principles for the Treatment of Prisoners” (General Assembly resolution 45/111); General Assembly resolution 43/173. 122 See article 22, Third Geneva Convention (1949). 123 See Article 130, Third Geneva Convention (1949); General Assembly resolution 61/30. 124 See UK Prisons Act (1994). 125 See N. N. Dubler and V. W. Sidel, “On research on HIV infection and AIDS in correctional institutions”, The Milbank Quarterly, vol. 67, issue 2 (1989), pp. 171-207. 126 See D. J. Nicholl et al., “Forcefeeding and restraint of Guantanamo Bay hunger strikers”, The Lancet, vol. 367 (2006), p. 811. A/64/272 09-45087 (1991) prohibit the use of non-consensual force-feeding of hunger strikers, including prisoners."
+  },
+  {
+    "ID": "84.",
+    "Labels": [
+      "Persons deprived of their liberty"
+    ],
+    "Text": "The organs of executed prisoners are sometimes removed without prior consent, particularly where consent for organ donation is presumed if the body is not collected by the family.127 The World Medical Association has condemned this practice,128 and States should take immediate action to end it. I. Sex workers"
+  },
+  {
+    "ID": "85.",
+    "Labels": [],
+    "Text": "Sex workers and their families are often denied basic civil rights and subjected to forced testing and treatment often as a consequence of stigma, discrimination and stereotypes that label them as vectors of disease. Mandatory, compulsory and, in some circumstances, routine testing and treatment approaches fail to address the effects of stigma, discrimination, violence and power imbalances on a sex worker’s ability to negotiate protection during sex or seek health services. Rather than changing or even challenging the subordinate position of sex workers, mandatory testing and treatment can reinforce their stigmatization."
+  },
+  {
+    "ID": "86.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Public health rationales have in some instances led to mandatory sexually transmitted infection and HIV/AIDS testing and treatment, accompanied by punitive measures in the case of a positive result.129 Sex workers from some countries report refusal of health services without mandatory HIV/AIDS testing.130 Such circumstances can often serve as disincentives for use of testing and health services as an entry point to treatment and care.131"
+  },
+  {
+    "ID": "87.",
+    "Labels": [
+      "Persons deprived of their liberty",
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "Relevant protocols and practices should be reviewed to ensure that health information and services are available to sex workers through support and peer networks that can ensure confidentiality and informed consent, as well as strengthen sex workers community networks in protecting the enjoyment of the right to health.132 __________________ 127 See Human Rights Watch-Asia, “Transplant organs removed without executed prisoners’ consent”, 20 April 2006; T. Diflo, “Use of organs from executed prisoners”, The Lancet, vol. 364 (2004), pp. 30-31. 128 See World Medical Association Resolution on Physicians’ Conduct Concerning Human Organ Transplantation, adopted by the forty-sixth World Medical Association General Assembly (1994). 129 See International Gay and Lesbian Human Rights Commission, Transvestite Sex Workers suffer Arbitrary Arrest, Forced HIV testing and other Indignities (2000); Center for Advocacy on Stigma and Marginalization, Rights-based sex worker empowerment guidelines? An Alternative HIV/AIDS Intervention Approach to the 100% Condom Use Programme (2008). 130 See WHO and the Global Coalition on Women and AIDS, Violence against sex workers and HIV prevention (2005). 131 See Center for Advocacy on Stigma and Marginalization (2008), Rights-based sex worker empowerment guidelines? An Alternative HIV/AIDS Intervention Approach to the 100% Condom Use Programme (2008). 132 See WHO and the Global Coalition on Women and AIDS (2005), Violence against sex workers and HIV prevention (2005). A/64/272 09-45087 J. Persons who use drugs"
+  },
+  {
+    "ID": "88.",
+    "Labels": [],
+    "Text": "Persons who use drugs are often perceived as being dangerous to themselves and unable to make the “right” decision. Prohibitions against their behaviour threaten their ability to refuse testing and treatment. Informed consent is obviated by compulsory drug and alcohol testing when such testing is linked to non-consensual treatment consequences."
+  },
+  {
+    "ID": "89.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "In addition to being generally ineffective,133 largely conducive to relapse134 and demotivating,135 compulsory drug dependence treatment is often associated with prolonged isolation,136 detention without judicial oversight and government registrations constituting violations of the right to privacy.137 In some countries, persons who use drugs are subjected to compulsory treatment and HIV/AIDS testing,138 and to “therapy” constituting cruel, inhuman or degrading treatment or punishment nationally endorsed by existing legal frameworks for drug control.139 Persons undergoing drug dependence treatment are often unaware of its nature, duration or experimental status.140 Conditions in compulsory treatment centres often present additional health risks owing to exposure to infectious diseases141 and lack of qualified staff able to address emergencies or provide medically managed drug treatment.142"
+  },
+  {
+    "ID": "90.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Treating persons who use drugs as criminals is counterproductive from a right to health perspective. States should change legislation that supports criminalization based on non-consensual testing. Any routine drug or alcohol testing should be consensual to encourage appropriate conditions of counselling and treatment, and implemented in a non-discriminatory, transparent and inclusive way. Testing and __________________ 133 See Health Services Assessment Collaboration, “The Effectiveness of Compulsory, Residential Treatment of Chronic Alcohol or Drug Addiction in Non-Offenders”, INAHTA Briefs, issue 38 (2008). 134 See M.-L. Brecht et al., “Coerced treatment for methamphetamine abuse: differential patient characteristics and outcomes”, The American Journal of Drug and Alcohol Abuse, vol. 3 (2005), pp. 337-356. 135 See, e.g., T. Wild et al., “Perceived coercion among clients entering substance abuse treatment: structural and psychological determinants”, Addictive Behaviours, vol. 23, issue 1 (1998), pp. 81-95; J. Platt et al., “The prospects and limitations of compulsory treatment of drug addiction”, Journal of Drug Issues, vol. 18, issue 4 (1988), pp. 505-525; A. Stevens et al., “Quasicompulsory treatment of drug dependent offenders: an international literature review”, Substance Use and Misuse, vol. 40 (2005), pp. 269-283. 136 See WHO Western Pacific Region, Assessment of compulsory treatment of people who use drugs in Cambodia, China, Malaysia and Viet Nam: An application of selected human rights principles (2009). 137 See Open Society Institute, Human rights abuses in the name of drug treatment: Reports from the field (2009). 138 See J. E. Cohen and J. J. Amon, “Health and Human Rights Concerns of Drug Users in Detention in Guangxi Province, China”, PLoS Med, vol. 5, issue 12 (2008), p. 234. 139 See R. Pearshouse, “Patients, not criminals? An assessment of Thailand’s compulsory drug dependence treatment system”, HIV/AIDS Policy and Law Review, vol. 14, issue 1 (2009). 140 See Open Society Institute, Human rights abuses in the name of drug treatment: Reports from the field (2009). 141 See R. Pearshouse, “Patients, not criminals? An assessment of Thailand’s compulsory drug dependence treatment system”, HIV/AIDS Policy and Law Review, vol. 14, issue 1 (2009). 142 See WHO Western Pacific Region, Assessment of compulsory treatment of people who use drugs in Cambodia, China, Malaysia and Viet Nam: An application of selected human rights principles (2009). A/64/272 09-45087 treatment protocols should treat drug dependence like any other health-care condition.143"
+  },
+  {
+    "ID": "91.",
+    "Labels": [],
+    "Text": "Guidelines for drug dependence treatment should endorse only voluntary evidence-based treatment (such as opioid substitution therapy) and provide for adequate training of staff. Treatment that is not evidence-based should never be used, and voluntary treatment services should be scaled up and accessible to marginalized groups. V. Conclusions and recommendations"
+  },
+  {
+    "ID": "92.",
+    "Labels": [],
+    "Text": "While informed consent is commonly enshrined in the legal framework at the national level, it continues to be compromised in the health-care setting, and thus compromise the voluntary health-care continuum, as a result of the power imbalance created by reposing trust and unequal levels of knowledge and experience inherent in doctor-patient and researcher-subject relationships. Structural inequalities exacerbated by stigma and discrimination result in individuals from certain groups being disproportionately vulnerable to having informed consent compromised."
+  },
+  {
+    "ID": "93.",
+    "Labels": [],
+    "Text": "Guaranteeing informed consent is a fundamental dimension of the right to health and requires adopting policies, practice and protocols that are respectful of autonomy, self-determination and human dignity. An enabling environment that prioritizes informed consent links counselling, testing and treatment in an effective health-care continuum. Such continuum, in turn, is a primary feature of the rights-based approach to health. Consequently, safeguarding informed consent along the health-care continuum is an obligation placed on States and third parties engaged in respecting, promoting and fulfilling the right to health. This requires States to ensure that health information is: (a) fully available, acceptable, accessible, and of good quality; and (b) imparted and comprehended by means of supportive and protective measures such as counselling and involvement of community networks."
+  },
+  {
+    "ID": "94.",
+    "Labels": [
+      "Children",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "The Special Rapporteur therefore recommends that States consider whether they are meeting their obligations to safeguard informed consent as a critical element of the right to health through their legal framework and judicial and administrative mechanisms, including policies and practices to protect against abuses. Specifically, States should ensure the protection of vulnerable groups, required, inter alia, by the Geneva Conventions, the Convention on the Rights of the Child, the Convention on the Elimination of All Forms of Discrimination against Women, and the Convention on the Rights of Persons with Disabilities. Particular attention should be given to the protection of the rights of persons with disabilities regarding recognition of legal capacity."
+  },
+  {
+    "ID": "95.",
+    "Labels": [],
+    "Text": "States should ensure the implementation and monitoring of legal and administrative frameworks, policies and practices and relevant capacity-building for health-care providers, research institutions and other stakeholders in this regard. This includes addressing implementation barriers at the community level and those entrenched in social and cultural norms and practices, especially gender inequalities. __________________ 143 See A/HRC/10/44. A/64/272 09-45087"
+  },
+  {
+    "ID": "96.",
+    "Labels": [],
+    "Text": "Any limitations on informed consent and associated elements of the health-care continuum required for public health should be critically examined to ensure that they: (a) are fully respectful of individual rights and liberties; and (b) pay the utmost attention to supporting a continuous process of counselling, testing and treatment."
+  },
+  {
+    "ID": "97.",
+    "Labels": [],
+    "Text": "States should ensure that informed consent is given priority in medical research, with relevant protocols requiring mechanisms to support the continuous provision and comprehension of information, as well as withdrawal of consent. Ethics review boards must develop, as a matter of urgency, additional safeguards to prevent double standards that can compromise informed consent in developing countries."
+  },
+  {
+    "ID": "98.",
+    "Labels": [],
+    "Text": "The particular needs of vulnerable groups should be given special consideration and information and interventions adapted accordingly, through the meaningful participation of those concerned and their representative organizations in all processes. To ensure non-discrimination, States must: (a) actively identify and overcome structural sources of vulnerability and stigma and discrimination; and (b) subsequently develop and provide the tools and mechanisms necessary for the protection of vulnerable groups. The Special Rapporteur draws attention to the recommendations made throughout the report in this respect."
+  },
+  {
+    "ID": "99.",
+    "Labels": [],
+    "Text": "The protection of informed consent within the health-care continuum should be considered as an essential component in the evaluation of the evidence used to inform policy and practice in the delivery of health-care services and public health goals."
+  },
+  {
+    "ID": "100.",
+    "Labels": [],
+    "Text": "All policies guiding distribution of global health financing and technical assistance in the context of multi- and bilateral cooperation should emphasize the importance of, and require, informed consent within the health-care continuum and support the establishment of relevant mechanisms for its protection."
+  },
+  {
+    "ID": "101.",
+    "Labels": [],
+    "Text": "Monitoring mechanisms to identify situations compromising informed consent within the health-care continuum need to be established. Mechanisms for redress should be made available at the local, regional and international levels to ensure that those whose actions threaten human dignity and autonomy in the health-care setting are held accountable for their actions and further violations are prevented."
+  }
+]

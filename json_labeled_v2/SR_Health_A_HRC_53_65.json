@@ -1,0 +1,638 @@
+[
+  {
+    "ID": "1.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "The growth of technological innovation is rapidly redefining and reshaping the right to the highest attainable standard of physical and mental health. In a growing number of countries, it has strengthened the ability of Governments to respect, protect and fulfil this fundamental human right by ensuring that all health facilities, goods and services are available, accessible, acceptable and of good quality.1 New technologies can foster greater inclusion and participation, and compensate for weaknesses in existing health systems.2 They also offer opportunities to improve access to underlying determinants of health, including producing new economic opportunities and rapidly increasing the growing global circulation of health-related information."
+  },
+  {
+    "ID": "2.",
+    "Labels": [],
+    "Text": "The Secretary-General has recognized that new technologies, including digital technologies, can advance universal health coverage and thus play an important role in the realization of the right to health for everyone.3 Respect for human rights, including economic, social, cultural, civil and political rights, has proven yet again to be fundamental to the success of public health responses and recovery, as shown by the coronavirus disease (COVID-19) pandemic."
+  },
+  {
+    "ID": "3.",
+    "Labels": [],
+    "Text": "To help Member States in their response to COVID-19, the Office of the United Nations High Commissioner for Human Rights (OHCHR) has issued policy guidance on different topics.4 The Special Rapporteur draws attention to this guidance. At the beginning of the pandemic, the then Special Rapporteur on the promotion and protection of the right to freedom of opinion and expression stressed that “the pandemic … serves as a jolting wakeup call to all Governments and politicians, and to all relevant players in the digital age, demonstrating to them that censorship of all sorts interferes with a range of human rights, that promoting access to information bolsters the promotion of health, life, autonomy and good governance” and “the pandemic and the importance of digital access to health-care information, highlights the profound need for expanding infrastructure to allow for access in the first place. The challenges arise in contexts of both the digital divide between developed and developing nations and that within developing nations.”5 It was estimated in 2021 that 2.9 billion people were still offline and that 96 per cent of them lived in developing countries.6"
+  },
+  {
+    "ID": "4.",
+    "Labels": [],
+    "Text": "The present report is based on an analysis of the submissions received from different stakeholders and experts and the relevant literature on digital innovation, technologies and the right to health.7 The Special Rapporteur expresses her appreciation to all who contributed to the report.8"
+  },
+  {
+    "ID": "5.",
+    "Labels": [],
+    "Text": "The acute stages of the pandemic saw unprecedented use of digital technologies by Governments and members of society, which was also brought to the attention of the Special Rapporteur by stakeholders.9 Of note is the rapid acceptability of the so-called working from home arrangements by business and labour in order to maintain a certain level of economic activity during the pandemic response through reliance on digital tools. Similarly digital health tools were adopted in the health sector as a means of improving access to information, in diagnostics, telemedicine, monitoring and health surveillance. Social media became a prominent tool around digital communication, opening up channels to provide information on national and global COVID-19 developments."
+  },
+  {
+    "ID": "6.",
+    "Labels": [],
+    "Text": "The Special Rapporteur echoes numerous concerns raised about the ways that digital transformation may also undermine economic, social and cultural rights, as well as civil and 1 World Health Organization, “Classification of digital health interventions” (2018), available at https://apps.who.int/iris/bitstream/handle/10665/260480/WHO-RHR-18.06-eng.pdf. 2 See A/HRC/47/52. 3 See A/HRC/43/29. 4 See https://www.ohchr.org/en/covid-19/covid-19-guidance. 5 A/HRC/44/49. 6 See https://www.itu.int/hub/2021/11/facts-and-figures-2021-2-9-billion-people-still-offline/. 7 All submissions are available on the website of the Special Rapporteur. 8 She wishes also to thank the researchers on the topic. 9 See, among others, submissions from Armenia, Brunei Darussalam, Ecuador, Malaysia, Sharifa Sekalala and Benjamin Mason Meier. GE.23-06593 political rights, including the right to health, if they are developed, used and regulated without consideration for their human rights impact.10 The speed of the digital transformation has outpaced the ability of States to effectively safeguard human rights. States and stakeholders also lack the willingness to apply human rights frameworks to the development, use and regulation of digital technologies."
+  },
+  {
+    "ID": "7.",
+    "Labels": [],
+    "Text": "The use of digital technologies, including in the context of the right to health, can entail data collection and surveillance in ways that impinge on a range of rights, including the right to privacy.11 In addition, the High Commissioner for Human Rights has noted that the operation of artificial intelligence systems may expand, intensify or incentivize interference with the right to privacy, particularly collection and use of personal data.12"
+  },
+  {
+    "ID": "8.",
+    "Labels": [
+      "Persons living in poverty"
+    ],
+    "Text": "Consequently, the use and development of technologies, including artificial intelligence, can negatively impact the enjoyment of human rights. While artificial intelligence can be used to assist in the diagnosis of diseases, among other things, a number of United Nations human rights experts have tried to address this issue as raising both opportunities for and complex new challenges to governance. Special Rapporteurs have highlighted concerns related to the enjoyment of different rights, such as the right to development, the right to education, the right to freedom of opinion and expression, extreme poverty and human rights, the right to privacy and the rights of older persons, among others.13"
+  },
+  {
+    "ID": "9.",
+    "Labels": [
+      "Persons living in poverty"
+    ],
+    "Text": "The right to health relies on public participation in health-related decision-making at community, national and international levels, but this is increasingly challenging given private sector influence over these processes and the technical knowledge needed to effectively participate in decision-making, as well as to effectively design digital technologies from a human rights-based approach. The Special Rapporteur on extreme poverty and human rights notes that the rise of digital technology has led to the privatization of public services, as private companies are given power to manage public services digitally, increasing corporate capture of decision-making. 14 The complexity with which digital technologies are designed make it difficult for civil society and the public to understand, preventing an adequate and timely participation in the design of digital health systems. It also creates challenges to accountability.15"
+  },
+  {
+    "ID": "10.",
+    "Labels": [],
+    "Text": "Together with international human rights instruments, the Guiding Principles on Business and Human Rights set out a global, authoritative framework for the duties and responsibilities of States and businesses to prevent, address and remedy human rights abuses in the context of business operations. The OHCHR B-Tech project provides authoritative guidance and resources for civil society, States and businesses in the technology sector.16"
+  },
+  {
+    "ID": "11.",
+    "Labels": [
+      "LGBTI+",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "The Special Rapporteur shares the concerns brought to her attention that digital technologies can perpetuate racism, sexism, ableism or discrimination based on sexual orientation or gender identity, among others.17 As noted by the Special Rapporteur on the rights of persons with disabilities, data sets that reflect human biases, predictions based on biased data sets and automated decision-making may inadvertently result in discriminatory 10 See, for example, A/HRC/42/59, A/HRC/47/25, A/HRC/47/39/Add.2, A/HRC/48/31, A/HRC/49/52, A/73/271, A/74/255 and A/74/493. See also Human Rights Council resolution 32/13 and “The age of digital interdependence: report of the UN Secretary-General’s High-Level Panel on Digital Cooperation” (2019). 11 See GSMA, “Connected women, the mobile gender gap report 2020” (March 2020). 12 See A/HRC/48/31. 13 See, for example, A/HRC/26/36, A/HRC/29/37, A/HRC/32/37, A/HRC/42/38, A/HRC/42/44, A/HRC/45/14, A/HRC/46/37, A/HRC/48/76, A/73/348, A/74/493 and A/75/590. 14 See A/74/493. 15 See A/HRC/48/31. 16 See https://www.ohchr.org/en/business-and-human-rights/b-tech-project. 17 See, among others, submissions from Australia, Malaysia, Mauritius, the United Nations Development Programme (UNDP), Fundación RASA, Privacy International and STOPAIDS, Center for Reproductive Rights, the Alan Turing Institute, Aix Global Justice doctoral clinic, Sharifa Sekalala and Benjamin Mason Meier. GE.23-06593 outcomes. 18 The Special Rapporteur reaffirms the key principles of non-discrimination, equality, participation, accountability, reparations and privacy, among others."
+  },
+  {
+    "ID": "12.",
+    "Labels": [],
+    "Text": "The seventy-fifth anniversary of the Universal Declaration of Human Rights will be observed on 10 December 2023. It remains a compass for human rights and the foundation for lasting peace, security and development. In addition, Our Common Agenda and the key proposals across the 12 commitments are essential to ensuring the implementation of the existing agreements, in particular the Sustainable Development Goals and “leaving no one behind”."
+  },
+  {
+    "ID": "13.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Digital health innovation and technologies should improve the availability, accessibility, acceptability and quality of health services for all. In the present report, in an effort to strengthen global and national governance, the Special Rapporteur introduces the issues that are emerging in the rapid digital transformation of health facilities, goods and services that impact on the right to the highest attainable standard of physical and mental health. II. Normative framework"
+  },
+  {
+    "ID": "14.",
+    "Labels": [
+      "Children",
+      "LGBTI+",
+      "Persons living with HIV/AIDS",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "The right of everyone to the enjoyment of the highest attainable standard of physical and mental health is recognized in article 25 of the Universal Declaration of Human Rights. Articles 2.2 and 12 of the International Covenant on Economic, Social and Cultural Rights proscribe any discrimination in access to health care and underlying determinants of health, as well as to the means and entitlements for their procurement, on the grounds of race, colour, sex, language, religion, political or other opinion, national or social origin, property, birth, physical or mental disability, health status (including HIV/AIDS), sexual orientation and civil, political, social or other status, which has the intention or effect of nullifying or impairing the equal enjoyment or exercise of the right to health.19 Furthermore, the right to health is recognized in article 24 of the Convention on the Rights of the Child, article 12 of the Convention on the Elimination of all Forms of Discrimination against Women and article 25 of the Convention on the Rights of Persons with Disabilities.20 The Special Rapporteur wishes also to recall the other existing international instruments related to the right to health, including those adopted by the World Health Organization (WHO), as well as the legal frameworks developed in her previous thematic reports, including on sexual and reproductive health rights and a non-binary approach in the analysis of violence and racism and its impact on the right to health."
+  },
+  {
+    "ID": "15.",
+    "Labels": [
+      "Children",
+      "Persons living with HIV/AIDS",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "The Committee on Economic, Social and Cultural Rights states that functioning public health and health-care facilities, goods, services and programmes must be available in sufficient quantity within a State party.21 The precise nature of the facilities, goods and services will vary, depending on numerous factors. Information and communications technology can allow for more points of contact between health-care providers and patients, thereby expanding the availability of health services.22 The right to health requires that health facilities, goods and services must be within safe physical reach for all sections of the population, especially for vulnerable or marginalized groups, such as ethnic minorities and indigenous populations, women, children, adolescents, older persons, persons with disabilities and persons with HIV/AIDS.23 In addition, the element of economic accessibility requires that health facilities, goods and services must be affordable for all.24"
+  },
+  {
+    "ID": "16.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "The right to health additionally requires States to provide a safe and supportive environment for adolescents and ensure that they have the opportunity to participate in 18 A/HRC/47/52. See also submissions from Ecuador, Mexico, the Kenya Legal and Ethical Issues Network for HIV and AIDS, Women’s Link Worldwide and Aix Global Justice doctoral clinic. 19 See Committee on Economic, Social and Cultural Rights, general comment No. 14 (2000). 20 See A/76/172, A/HRC/50/28 and A/77/197. 21 General comment No. 14 (2000), para. 12. 22 A/HRC/43/29, para. 19. 23 Committee on Economic, Social and Cultural Rights, general comment No. 14 (2000), para. 12. 24 Ibid. GE.23-06593 decisions affecting their health, acquire appropriate information and negotiate the healthbehaviour choices they make.25"
+  },
+  {
+    "ID": "17.",
+    "Labels": [],
+    "Text": "To guarantee the enjoyment of the right to health for all, States must ensure that all health facilities, goods and services are respectful of medical ethics and culturally appropriate, namely respectful of the culture of individuals, minorities, peoples and communities, sensitive to gender and life-cycle requirements, and designed to respect confidentiality and improve the health status of those concerned.26"
+  },
+  {
+    "ID": "18.",
+    "Labels": [
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "The right to sexual and reproductive health is an integral part of the right of everyone to the enjoyment of the highest attainable standard of physical and mental health.27 At a minimum, levels of satisfaction of the right to sexual and reproductive health should “be guided by contemporary human rights instruments and jurisprudence, well as the most current international guidelines and protocols established by United Nations agencies, in particular the World Health Organization (WHO) and the United Nations Population Fund”.28"
+  },
+  {
+    "ID": "19.",
+    "Labels": [],
+    "Text": "The right to privacy is protected under article 17 of the International Covenant on Civil and Political Rights. Any interference with privacy must meet standards of legality, necessity and proportionality.29 States must not engage in interference that is inconsistent with article 17 and should provide a legislative framework prohibiting such acts by natural or legal persons.30 The Special Rapporteur further stresses the Human Rights Committee’s general comment No. 16 (1988), in which it indicates the need for “States to ensure that information concerning a person’s private life does not reach the hands of persons who are not authorized by law to receive, process and use it, and is never used for purposes incompatible with the Covenant”, adding that every person should “be able to ascertain which public authorities or private individuals or bodies control or may control their files”.31"
+  },
+  {
+    "ID": "20.",
+    "Labels": [],
+    "Text": "The Special Rapporteur recalls the numerous resolutions adopted by the Human Rights Council and the General Assembly, among others, which stress that the same rights protected offline must be protected online, including the right to privacy.32 She stresses that a precondition for the use of digital technologies, including in relation to the right to health, is to have connectivity, including connectivity to an open Internet.33"
+  },
+  {
+    "ID": "21.",
+    "Labels": [],
+    "Text": "The Special Rapporteur also recalls Human Rights Council resolution 47/16 on the promotion, protection and enjoyment of human rights on the Internet to promote affordable and reliable connectivity, digital access and digital inclusion, and the expansion of accessible and inclusive public services, distance-learning solutions and digital health services, as well as to maintain efforts to promote access to information on the Internet, facilitate “affordable and inclusive education, health, justice and other public services globally, underlying the need to address digital literacy and digital divides”."
+  },
+  {
+    "ID": "22.",
+    "Labels": [
+      "LGBTI+"
+    ],
+    "Text": "The Special Rapporteur also recalls the recommendation made by the Special Rapporteur on the right to privacy on the protection and use of health-related data, which establishes the legal conditions for data processing of such information. 34 He also recommended that “all necessary administrative and other measures must be taken to manage health-related data so as to ensure enjoyment of the right to the highest attainable standard of health, without discrimination on the basis of gender, gender identity or gender expression.35 He stressed that “intersectionality in health care applies to practitioners and those seeking health care” and that: “Regardless of any or all of the social group an individual is part of, 25 Ibid., para. 23. 26 Ibid., para. 12. 27 Committee on Economic, Social and Cultural Rights, general comment No. 22 (2016), paras. 1 and"
+  },
+  {
+    "ID": "25.",
+    "Labels": [
+      "LGBTI+"
+    ],
+    "Text": "28 Ibid., para. 49. See also WHO, Abortion Care Guideline (2022). 29 See A/HRC/27/37 and Human Rights Council resolution 34/7. 30 See Human Rights Committee, general comment No. 16 (1988), para. 9. 31 Ibid., para. 10. 32 See, among others, Human Rights Council resolutions 20/8, 28/16, 34/7, 38/7, 42/15 and 50/15 and General Assembly resolutions 68/167, 69/166, 71/199, 73/179 and 75/176. 33 See A/HRC/50/55. 34 See A/74/277. 35 Ibid., para. 41.1. GE.23-06593 every individual should be provided with the same standards of health care.”36 In that regard, the Special Rapporteur agrees with the Special Rapporteur on the right to privacy, who stresses that: “Everyone, irrespective of their biological sex, sex characteristics, sexual orientation or gender identity or expression, is entitled to the full enjoyment of the right to privacy”.37 The Special Rapporteur also agrees with the Special Rapporteur on the right to freedom of opinion and expression, who indicates that “all technologies must be designed, developed and deployed so as to be consistent with the obligations of States and the responsibilities of private actors under international human rights law”.38"
+  },
+  {
+    "ID": "23.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Information accessibility includes the right to seek, receive and impart information and ideas concerning health issues,39 which requires States parties to guarantee it.40 The obligation to fulfil the right to health requires States to provide for information campaigns and dissemination of appropriate information relating to health.41 The obligation to respect the right to health requires States to refrain from withholding or intentionally misrepresenting health-related information, which must be both acceptable and of good quality.42 In addition, the right to health includes access to health-related education and information, including on sexual and reproductive health. On the latter issue, in March 2023 the Special Rapporteur and other mandate holders issued a compendium on comprehensive sexuality education.43"
+  },
+  {
+    "ID": "24.",
+    "Labels": [],
+    "Text": "States and businesses have, respectively, the duty to protect and the responsibility to respect all human rights in the context of business operations, including in the technology sector.44 For States, that includes the protection of individuals from infringing acts committed by private parties. 45 Businesses have responsibilities under human rights law that are independent from State obligations and therefore beyond compliance with national laws and the capacity and willingness of States to take action. In that regard, they should guide their construction, adoption and mobilization of digital technologies and artificial intelligence technologies with regard to the responsibilities companies have to fulfil in accordance with international human rights law and standards.46"
+  },
+  {
+    "ID": "25.",
+    "Labels": [],
+    "Text": "The Guiding Principles on Business and Human Rights provide a “global standard of expected conduct for all businesses”, including social media and search companies and the OHCHR note on key characteristics of business respect for human rights should guide tech companies in their international responsibilities. In order to meet their responsibility to respect human rights, businesses are expected to take a number of measures, including the adoption of policy commitments to meet that responsibility, putting in place an effective human rights due diligence process to identify, prevent, mitigate and account for how they address their impacts on human rights and have in place processes to enable the remediation of any adverse human rights impact they cause or to which they have contributed or been linked.47 III. Digital innovation and technologies and the right to health"
+  },
+  {
+    "ID": "26.",
+    "Labels": [],
+    "Text": "Colonial dynamics in technology and digital tools continue into the present. The extraction of data from the so-called global South to the global North, with more than 40 million health data harvested by private companies are a worrying trend.48 There is often a lack of consent when server migration occurs, no recourse when data leaks and the 36 Ibid., para. 42.1. 37 A/HRC/43/52, para. 15. 38 A/73/348, para. 19. 39 Committee on Economic, Social and Cultural Rights, general comment No. 14 (2000), para. 12. 40 Human Rights Committee, general comment No. 34 (2011), para. 11. 41 Committee on Economic, Social and Cultural Rights, general comment No. 14 (2000), para. 36. 42 Ibid., para. 50. 43 Available at https://www.ohchr.org/en/documents/tools-and-resources/compendium-comprehensivesexuality-education. 44 See A/73/348. 45 Article 2 (1) of the International Covenant on Civil and Political Rights. 46 Ibid. See also A/HRC/38/35, para. 10. 47 See, for example, A/73/348. 48 See https://warwick.ac.uk/newsandevents/pressreleases/innovative_solutions_to/. GE.23-06593 involvement of third parties in the form of a private sector that is profit-seeking leads to discrimination and enables an environment of poor data protection, privacy, transparency and accountability. A. Availability of health facilities, goods and services supported by digital innovation and technologies"
+  },
+  {
+    "ID": "27.",
+    "Labels": [],
+    "Text": "By reducing the need for physical assessment, remote care can shore up health-care human resources. Telehealth services can help health systems overcome such barriers as shortages of health-care providers in low- and middle-income countries due to “brain drain”.49 Primary care patients can answer clinical queries via email or secure messaging systems to receive written health advice and clarification of medication or treatment plans.50 Research suggests that digital technologies can improve the availability of health care for vulnerable individuals on waiting lists for in-person care.51 Digital technologies can also increase the availability of technologically advanced treatment for individuals living in countries where such treatment may be otherwise unavailable.52"
+  },
+  {
+    "ID": "28.",
+    "Labels": [
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "Digital technologies have been used extensively to manage the health needs presented by the COVID-19 pandemic.53 Through digital tools, States can quickly educate the public about the virus, assist with symptom recognition and reporting, and with contact tracing. Information received by the Special Rapporteur indicates that in India, digital technology allowed for real-time monitoring of the vaccine supply across the country.54 While many individuals experienced social isolation and other mental health harms during the isolation imposed to prevent COVID-19 transmission, notwithstanding the previously mentioned concerns digital health offers important positive opportunities to actively address and overcome social inequalities by empowering women and marginalized groups and addressing their real needs. The Special Rapporteur joins the United Nations Educational, Scientific and Cultural Organization (UNESCO) in encouraging States to establish research “on the effects and regulation of potential harms to mental health related to artificial intelligence systems, such as higher degrees of depression, anxiety, social isolation, developing addiction, trafficking, radicalization and misinformation, among others”.55 A growing body of studies shows that mobile health can extend health service coverage, helping those groups that face difficulties in accessing the formal health system, including through offering sexual and reproductive health-related information via text messages, building trust and relationships with health providers, documenting rights violations and establishing peer networks for mutual support.56"
+  },
+  {
+    "ID": "29.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "As noted by the Special Rapporteur, the global digital divide mirrors broader socioeconomic inequalities: gaps that exist between and within countries, between men and women, between generations, across social groups and between those with different levels of access to education.57 In addition to those identified above, specific groups that may lack 49 See submissions by the Centre for Health Equity, Law and Policy and the Kenya Legal and Ethical Issues Network for HIV and AIDS. 50 See Claudia Pagliari, “Digital health and primary care: past, pandemic and prospects”, Journal of Global Health, vol. 11, No. 01005 (2021). 51 See submission by the Alan Turing Institute. 52 See submission by the Kenya Legal and Ethical Issues Network for HIV and AIDS. 53 See, among others, submissions by Armenia, Australia, Brunei Darussalam, Malaysia, Mauritius, Mexico, Poland, Switzerland, Fundación RASA, the Center for Reproductive Rights, the Alan Turing Institute, Centre for Health Equity, Law and Policy and Aix Global Justice doctoral clinic. 54 See submissions by the Centre for Health Equity, Law and Policy and UNDP. 55 See UNESCO, recommendation on the ethics of artificial intelligence, available at: https://unesdoc.unesco.org/ark:/48223/pf0000380455. 56 See A/76/172. 57 Ibid. GE.23-06593 access to smartphones, Wi-Fi, or airtime include people living in rural areas, visually impaired people, older adults and ethnic minorities.58 B. Accessibility of health facilities, goods and services supported by digital innovation and technologies"
+  },
+  {
+    "ID": "30.",
+    "Labels": [],
+    "Text": "Accessibility should be considered within the four dimensions of non-discrimination, physical accessibility, economic accessibility and information accessibility. Non-discrimination"
+  },
+  {
+    "ID": "31.",
+    "Labels": [
+      "Adolescents",
+      "LGBTI+",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "Telemedicine and other digital forms of health care can improve the accessibility of health facilities, goods and services, especially for individuals who are living with disabilities or experience a lack of mobility, and other groups who are hard to reach.59 It was brought to the attention of the Special Rapporteur that when connected with services that makes conditional the presentation of a national identity document, digital health can exclude some groups of the population, including poor and disadvantaged people, women, older persons, members of some occupational groups, people with disabilities and people whose name and gender are not properly reflected in the national identity system.60 The Special Rapporteur was also informed that young adults in Ghana, Kenya and Viet Nam who say they have previously experienced discrimination in the health sector, for example in clinics due to age, adolescent sexual activity or sexual orientation, report that their ability to access health information and services anonymously online has helped to fulfil their right to health.61 The Ministry of Health of Brazil reports that it has used digital technologies in treatment initiatives for persons with disabilities.62"
+  },
+  {
+    "ID": "32.",
+    "Labels": [
+      "Adolescents",
+      "Persons with disabilities"
+    ],
+    "Text": "The Government of Australia has indicated that digital mental health services have increased accessibility and reduced barriers to mental health care in particular, adding that it provides specific mental health support through digital technologies for young people, Aboriginal and Torres Strait Islander youth and people with severe mental health needs.63 According to a research paper, young people value “online families” and “safe spaces” amid mental health challenges, for example those stemming from the COVID-19 pandemic.64"
+  },
+  {
+    "ID": "33.",
+    "Labels": [
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "The right to health includes access to health-related education and information, including on sexual and reproductive health. Relying on digital technologies as a primary system or strategy, the health sector may inadvertently impede access to health information and services due to existing systemic inequalities, in particular negatively impacting women and populations who are traditionally hard to reach, such as those who are older, lack access to advanced education or who reside in rural areas.65 Research has shown that digitization of mental health services creates problems for students who cannot access digital technology, as they lack safe spaces in which they can connect to digital mental health services.66"
+  },
+  {
+    "ID": "34.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "For many older persons, the rise of digital technologies and digital identities to promote social inclusion in health creates barriers to accessing care, due to lack of access to 58 See Louise Moody and others, “Identifying individual enablers and barriers to the use of digital technology for the self-management of long-term conditions by older adults”, Journal of Medical Engineering & Technology, vol. 46, No. 6 (2022) and submissions by Poland, the Internet Governance Forum Dynamic Coalition on Data Driven Health Technologies, AIX Global Justice doctoral clinic and the Global Network of People Living with HIV. 59 See submissions by Ecuador and Poland. 60 See submission by Privacy International. 61 See Digital Health and Rights Project Consortium, “Digital health and human rights of young adults in Ghana, Kenya, and Vietnam: final project report” (November 2022). 62 See submission by Brazil. 63 See submission by Australia. 64 See Digital Health and Rights Project Consortium, “Digital health and human rights of young adults in Ghana, Kenya, and Vietnam”. 65 See submissions by Armenia, Australia, Ecuador and the Alan Turing Institute. See also WHO, Equity within Digital Health within the WHO European Region: a Scoping Review (2022). 66 Research by the Alan Turing Institute. GE.23-06593 smartphones, lack of digital literacy or challenges with viewing and navigating online platforms.67 Barriers to the digital inclusion of older persons include low digital literacy and connectivity differentials, as well as uneven power relations within households that may deny older persons access to digital devices, but also hearing, visual and cognitive impairments and mental conditions, such as dementia. Any decision-making based on such data is likely to overlook the more vulnerable members of an age group. There is a risk, furthermore, of algorithms reproducing the underlying lack of understanding of ageing and human bias visà-vis older persons.68 On the other hand, the opposite may be true in older adults experiencing cognitive decline, for whom the online environment may provide a new source of positive cognitive stimulation.69"
+  },
+  {
+    "ID": "35.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Digital technologies offer significant opportunities for reaching out to children in disadvantaged or vulnerable situations, or in remote communities, and offer multiple opportunities for them to improve their health and well-being.70 However, along with the substantial opportunities the digital age brings comes a range of risks and harms to children. For example, digital technologies have reportedly increased the scale of child sexual abuse and exploitation.71 An increasing number of children’s activities seem now to take place online, a transition that was accelerated during the COVID-19 pandemic.72 Although children are particularly affected by the rise of digital technologies, engagement of children and youth in the governance of digital transformations and health is rare or even non-existent. 73 UNESCO recommends that Member States ensure “that the development of AI systems related to health … paying due attention to children and youth, is regulated to the effect that they are safe, effective, efficient, scientifically and medically proven and enable evidencebased information and medical progress”.74"
+  },
+  {
+    "ID": "36.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "The Special Rapporteur notes with continued concern the “digital gender divide”, the measurable gap between women and men in their access to, use of and ability to influence, contribute to and benefit from information and communications technologies.75 The digital literacy of women and girls is lower than that of their male counterparts owing to societal biases against women in technology and a lack of access to advanced education.76 Women are thus less likely than men to use the Internet to download software or engage online.77 They are also less likely to have technology-related employment owing to the gender pay gap, persistent gender biases and a lack of female role models in senior positions, among other factors. 78 All these factors create profound gender inequalities in the digital transformation. Physical accessibility"
+  },
+  {
+    "ID": "37.",
+    "Labels": [
+      "Adolescents",
+      "Children",
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "Digital innovation and technologies offer great potential for scaling up. However, the Special Rapporteur cautions that their adoption should not lead to divestment in medical facilities, services and underlying determinants of health, including in rural areas. Accessibility must be analysed in more granular detail than simply adequate access to 67 See Center for Human Rights and Global Justice, Initiative for Social and Economic Rights and Unwanted Witness, Chased Away and Left to Die: How a National Security Approach to Uganda’s National Digital ID Has Led to Wholesale Exclusion of Women and Older Persons (June 2021). 68 See A/HRC/45/14. 69 See Joseph Firth and others, “The ‘online brain’: how the Internet may be changing our cognition”, World Psychiatry, vol. 18, No. 2 (June 2019). 70 See Committee on the Rights of the Child, general comment No. 25 (2021) paras. 93 and 98. See also submission by Enhancing Children’s Lives. 71 “Growing up in a digital world: benefits and risks”, The Lancet Child & Adolescent Health, vol. 2 No. 2 (February 2018). 72 Louise Holly, “Health in the digital age: where do children’s rights fit in?”, Health and Human Rights, vol. 22, No. 2 (December 2020). 73 See submission by UNDP. 74 UNESCO, recommendation on the ethics of artificial intelligence. 75 See A/HRC/35/9. 76 Organisation for Economic Co-operation and Development, Bridging the Digital Gender Divide, Include, Upskill, Innovate (2018). 77 GSMA, “Connected women: the mobile gender gap report 2020”. 78 Ipsos, “Women in tech survey” (February 2022). GE.23-06593 buildings for persons with disabilities. Digital tools may assist facilities to survey the population they serve, with the aim of understanding the types of impairments and the needs of people who require reasonable accommodation and audiovisual and mobility assistance tools. Economic accessibility"
+  },
+  {
+    "ID": "38.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Digital technologies, including mobile phones, have allowed people to seek care remotely, removing geographic barriers to health services.79 With regard to affordability, telemedicine and other types of remote health care can be less expensive than in-person health care and can lower the direct and indirect costs of clinic visits, travel or unpaid time off work.80 The Special Rapporteur regrets that, according to the information available, women’s lower economic status gives them less access to hardware, such as smart phones or airtime: 300 million fewer women than men access the Internet through a mobile phone.81 Information accessibility"
+  },
+  {
+    "ID": "39.",
+    "Labels": [
+      "Adolescents",
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "Young people in particular are keen to engage with digital technologies, which can overcome some of the biases present in traditional forms of accessing health care and information. Digital technology can give young people anonymous access to HIV and sexual and reproductive health information.82"
+  },
+  {
+    "ID": "40.",
+    "Labels": [
+      "LGBTI+",
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "The Special Rapporteur emphasizes that accessibility of information should not impair the right to have personal health data treated with confidentiality, especially in cases of criminalization of health status, migrants, adolescents and those who may be discriminated against based on real or imputed sexual orientation or gender identity. It was brought to the attention of the Special Rapporteur that on some occasions the sharing of sensitive data can be problematic and potentially dangerous in specific contexts where certain sexual orientations or practices of health-care procedures are criminalized, or health status could lead to stigmatization.83 Regarding the latter, the Special Rapporteur was informed that some people stopped looking for treatment for HIV/AIDS after the treatment was linked to a biometric identity system.84"
+  },
+  {
+    "ID": "41.",
+    "Labels": [
+      "Persons living with HIV/AIDS",
+      "Women/girls"
+    ],
+    "Text": "In the context of the COVID-19 pandemic, some States and private actors have continued to disseminate unverified claims about the origins of the virus responsible for COVID-19, deny the spread of the disease or provide false information on infection rates, fatality figures, vaccinations and treatment. 85 Misinformation related to abortion is also increasing as anti-abortion organizations propagate falsehoods online.86 To protect the right to health and access to information, Governments can undertake sustained information campaigns and educational activities through digital platforms.87 79 WHO, Recommendations on Digital Interventions for Health System Strengthening (2019). 80 See Claudia Pagliari, “Digital health and primary care: past, pandemic and prospects”, Journal of Global Health, and submissions by Australia and Mexico. 81 See GSMA, “Connected Women: the mobile gender gap report 2020”. 82 See submission by the Global Network of People Living with HIV. 83 See submissions by the Swedish Association for Sexuality Education (RFSU), Fundación RASA and Frontline AIDS. 84 See submission by Privacy International. 85 See A/HRC/47/25 and, among others, submissions from Cyprus, Switzerland and UNDP. 86 See submission by Women’s Link Worldwide: Claire Provost and Nandini Archer, “Exclusive: Trump-linked religious ‘extremists’ target women with disinformation worldwide”, OpenDemocracy, 10 February 2020. 87 See submissions by Australia and Avert. GE.23-06593 C. Digital technologies and the acceptability of health facilities, goods and services"
+  },
+  {
+    "ID": "42.",
+    "Labels": [
+      "Adolescents",
+      "Persons living with HIV/AIDS",
+      "Persons with disabilities"
+    ],
+    "Text": "The Special Rapporteur echoes the many young people who have called for digital health to meet the needs of young people, including young people living with HIV, young people who use drugs, sex workers, persons with disabilities, and LGBTIQ+ persons.88"
+  },
+  {
+    "ID": "43.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "For people who speak a language other than the official (or dominant) national language, translation of online information and telemedicine services into diverse languages can remove geographic, cultural and linguistic barriers to health care.89 In Ghana, one nongovernmental organization (NGO) reported that it provided sexual and reproductive health information through a free hotline in nine national languages, which was developed based on consultation with local young adults.90"
+  },
+  {
+    "ID": "44.",
+    "Labels": [],
+    "Text": "To address the inequalities and forms of discrimination that may be perpetuated in the design and implementation of digital health tools, due to the lack of gender, racial and cultural diversity in the innovation and technology sectors, some experts call for “design justice”, in which technology is designed through diverse and inclusive processes to meet diverse local needs.91 D. Digital technologies and the quality of digital health facilities, goods, and services"
+  },
+  {
+    "ID": "45.",
+    "Labels": [],
+    "Text": "Innovation and new digital technologies have grown at unprecedented speed, which has highlighted how they can rapidly improve the quality of health services, enabling some countries to leapfrog over stages of technological development. Their application in the health sector demands an analysis of the need for guiding principles to protect human rights in the delivery of quality digital innovation and technology."
+  },
+  {
+    "ID": "46.",
+    "Labels": [],
+    "Text": "New technologies can improve the quality of many essential services for the realization of economic, social, cultural, civil and political rights, including the right to health. 92 Digital health tools can also automate symptom-based case identification, accelerating reporting to public health databases and supplementing clinical and laboratory notification, thus revolutionizing the way in which public health systems identify and respond to outbreaks of infectious diseases. 93 As noted by WHO, the increased use of artificial intelligence could lead to the delivery of health-care services in unregulated contexts and by unregulated providers, which would create challenges for government oversight of health care.94 In that regard the Special Rapporteur calls for coding and artificial intelligence tools used in medical diagnostics, treatment, monitoring, reporting and information to adhere to principles of non-discrimination, in part to ensure quality."
+  },
+  {
+    "ID": "47.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "The use of artificial intelligence and machine learning has allowed for the analysis of large data sets for prediction, forecasting, and drug and vaccine development.95 The Special Rapporteur was informed that in the United Kingdom of Great Britain and Northern Ireland artificial intelligence and machine learning have been used in early diagnosis; for example they have been employed in rural networks, supported by the National Health Service, to recognize signs of cancer.96 Wearables and in-home surveillance have made it possible for individuals to get emergency help.97 In its submission, the Government of Armenia indicated 88 See submission by the Global Network of People Living with HIV. 89 WHO, Recommendations on Digital Interventions for Health System Strengthening. 90 See https://savsign.org/she-helpline/. 91 Sasha Costanza-Chock, Design Justice: Community-led Practices to Build the Worlds We Need, (Cambridge, Massachusetts, MIT Press, 2020). 92 See A/HRC/43/29. 93 See submission by Sharifa Sekalala and Benjamin Mason Meier. 94 WHO, Ethics and Governance of Artificial Intelligence for Health (2021). 95 Nina Sun and others, “Human rights and digital health technologies”, Health and Human Rights, vol. 22 No. 2 (December 2020). 96 See submission by the Alan Turing Institute. 97 Submission by AIX Global Justice doctoral clinic. GE.23-06593 that its electronic health information system, in place since 2017, has enabled the consolidation of patient health data, resulting in improved health-care, transparency of the performance of the health-care system and a high level of patient satisfaction."
+  },
+  {
+    "ID": "48.",
+    "Labels": [],
+    "Text": "However, despite the justifiable optimism about the potential of digital tools, in practice their application to health facilities, goods and services is not consistent and quality not always guaranteed."
+  },
+  {
+    "ID": "49.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Human contact may be important for primary care.98 Concerns remain that the digital delivery of mental health services has been found to be an inferior form of health care in comparison to in-person treatment.99"
+  },
+  {
+    "ID": "50.",
+    "Labels": [],
+    "Text": "In the context of the COVID-19 pandemic, digital contact tracing was an illuminating case study of the ways in which lack of quality evidence, concerns about the right to privacy, accuracy and value of early disease detection and the need for public trust intersect."
+  },
+  {
+    "ID": "51.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Despite the widespread promotion of digital contact tracing methods to track infections at the onset of the COVID-19 pandemic in 2020, there was a dearth of empirical evidence supporting its efficacy before these new tools were implemented widely. Instead, health officials relied on mathematical models to predict their efficacy. Two years later, the results in the literature are mixed, with some studies finding that digitalized contact tracing can be beneficial for impeding the progress of outbreaks and others concluding there is no evidence for its effectiveness.100 IV. Digital innovation and technologies and the right to sexual and reproductive health"
+  },
+  {
+    "ID": "52.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "With regard to sexual and reproductive health rights, digital innovation and technologies offer important positive opportunities to actively address and overcome social inequalities by empowering women and marginalized groups to better meet their sexual and reproductive health needs."
+  },
+  {
+    "ID": "53.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "The use of digital technologies has allowed for the expansion of sexual and reproductive health services and expanded access to more remote areas and underserved communities, particularly during the COVID-19 pandemic.101 The provision of sexual and reproductive health services through digital technologies can also help to overcome the stigma and taboos faced by patients and providers.102"
+  },
+  {
+    "ID": "54.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Digital communication platforms have allowed for expanded access to medical abortion through telemedicine and self-managed abortion, two methods of abortion that are recommended by WHO.103 The expansion of telemedicine abortion was accelerated due to the pandemic – in response to it, a number of Governments lifted unnecessary restrictions on telemedicine abortion. 104 In addition, an increasing number of networks, groups and individuals are using social media and other web platforms, mobile phone applications and other digital sources to provide information and support for people wishing to self-manage 98 See Claudia Pagliari, “Digital health and primary care: past, pandemic and prospects”, Journal of Global Health. 99 See Christopher Burr and Rosamund Powell, “Trustworthy assurance of digital mental healthcare”, Alan Turing Institute (November 2022). 100 See Ahmad Nabeel and others, “Digital contact tracing applications against COVID-19: a systematic review”, Medical Principles and Practice, vol. 31, No. 5 (2022); and Isobel Braithwaite and others, “Automated and partly automated contact tracing: a systematic review to inform the control of COVID-19”, The Lancet Digital Health, vol. 2, No. 11 (2020). 101 See submission by the Center for Reproductive Rights. 102 See submission by Ipas Latin America and the Caribbean. 103 See WHO, Abortion Care Guideline. 104 Patty Skuster, Jina Dhillon and Jessica Li, “Easing of regulatory barriers to telemedicine abortion in response to COVID-19”, Frontiers in Global Women’s Health, vol. 2 (November 2021) and International Federation of Gynecology and Obstetrics (FIGO), “Telemedicine: unleashing its potential”, available from https://www.figo.org/telemedicine-unleashing-its-potential. GE.23-06593 their abortion.105 In this way, informal groups and NGOs fill the gap left by States in the provision of abortion services. For pregnant people living in places where abortion is highly restricted, digital platforms may be among the only sources of information and support on medical abortion.106"
+  },
+  {
+    "ID": "55.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "The use of digital technology for sexual and reproductive health does come with risks, particularly with regard to surveillance by both State and non-State actors in the context of criminalized health services, such as abortion. Where people who seek abortion and individuals who help them face risk of arrest or prosecution, Internet communications on abortion and location and search data from mobile applications can be used as evidence against people accused of having, providing or assisting in an abortion. 107 The Special Rapporteur recognizes that some social media use categorization as a method of gatekeeping, for example information on abortion tagged as explicit material."
+  },
+  {
+    "ID": "56.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Intrusive data collection, such as gathering menstrual information, tracking trends in the purchase of pregnancy tests and fertility-tracking, has the potential to be done without consent and sharing such personal data by profit-seeking parties, without consent, exposes people to harassment, intimidation and violence, for example for those seeking abortion in highly restricted countries or in areas where hostile abortion laws are implemented. Datamining information relevant to pregnancy is an invasion of the right to privacy of women and girls and can be a powerful disincentive to seeking health-care services. Furthermore, technologies such as Google Street View can affect health-service usage by women through concerns about being identified as using certain health services.108"
+  },
+  {
+    "ID": "57.",
+    "Labels": [
+      "Migrants",
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "HIV molecular surveillance raises important human rights issues of bodily autonomy, medical ethics, privacy and participation that provides an opt-out option without impacting on an individual’s access to treatment. Private ownership of personal medical data, in a low data privacy setting and with limited oversight, intensifies concerns as to how this genomic data can be used in policing and law enforcement, further criminalizes certain groups of people, for example those with HIV, migrant populations and LGBTIQ+ communities, and contributes to heightened online and offline stigma. V. Digital innovation, technologies and privacy"
+  },
+  {
+    "ID": "58.",
+    "Labels": [],
+    "Text": "By significantly expanding the quantity and quality of data gathered through digital platforms and technologies, digital transformation offers new potential to use health data, including big data, to promote fulfilment of the right to health. One study by a former Special Rapporteur on health finds that in well-resourced settings, big data could enhance Sustainable Development Goal accountability mechanisms by providing a consistent focus across all Goal targets on populations who are being left behind. 109 Improved data on health can facilitate improved resource allocation, coordination and accountability for progressive realization of the right to health."
+  },
+  {
+    "ID": "59.",
+    "Labels": [
+      "Children",
+      "Migrants",
+      "Women/girls"
+    ],
+    "Text": "At the same time, the rise of digital health innovation and technologies poses unprecedented risks to the right to be free from arbitrary or unlawful interference with one’s privacy.110 Risks arise from the collection, sharing, storage, use and processing of personal health data, which can be utilized in particular to inform training and improve artificial 105 Lucía Berro Pizzarossa and Rishita Nandagiri, “Self-managed abortion: a constellation of actions, a cacophony of laws?”, Sexual and Reproductive Health Matters, vol. 29, No. 1 (2021). 106 Ibid. 107 Ibid. See also submission by the Center for Reproductive Rights. 108 See A/HRC/40/63. 109 Carmel Williams and others, “Using big data to demonstrate indivisibility of rights and promote cross-sectoral responses to the Sustainable Development Goals.” Journal of Human Rights Practice, vol. 11, No. 1 (2019). 110 See International Covenant on Civil and Political Rights, Convention on the Rights of the Child, and International Convention on the Protection of the Rights of All Migrant Workers and Members of Their Families, art. 14. See also submissions by UNDP and Sharifah Sekalala and Benjamin Mason Meier. GE.23-06593 intelligence systems. 111 The role of private actors also poses risks to privacy, as the proliferation of personal health data gives rise to the risk of security systems being breached through malware and hackers, as well as the risk that personal data will be sold to third parties for uses not originally consented to.112 There are reports of an overall absence of human rights and privacy considerations in the design and implementation of digital health technologies.113 States have a duty to regulate the collection and storage of personal information, and prevent the unauthorized disclosure or use of it and individuals have the right to know what personal data is stored in databases and the purposes of such storage.114"
+  },
+  {
+    "ID": "60.",
+    "Labels": [],
+    "Text": "Individuals may not have the opportunity to give full consent for the way personal health data is used and shared.115 One study of mobile health applications found that even when individual users opted out of data-sharing, the actual handling of user data by those applications might not respect that choice and in fact opting out might not always be possible.116"
+  },
+  {
+    "ID": "61.",
+    "Labels": [
+      "LGBTI+",
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "That is particularly a concern when information such as gender identity, sexuality, location or HIV status is leaked.117 The importance of stringent privacy protections in digital health, in particular to address the needs of key populations, was brought to the attention of the Special Rapporteur.118"
+  },
+  {
+    "ID": "62.",
+    "Labels": [],
+    "Text": "Insufficient protection for digital health data can leave marginalized groups vulnerable to criminalization, stigma, discrimination and violence. In certain circumstances, and depending on the legal framework in place, companies and even public sector bodies can be compelled by law enforcement bodies or courts to hand over personal data for criminal investigation purposes, without sufficient safeguards.119 Poor, minority racial and ethnic communities are disproportionately targeted and subject to surveillance, which could be exacerbated where health status is criminalized. That leads to them being disproportionately represented in the criminal justice systems of States and such individuals often face harsher punishments as a result of racial profiling and overpolicing compared to more affluent communities.120"
+  },
+  {
+    "ID": "63.",
+    "Labels": [],
+    "Text": "As reported by NGOs, individuals and State agents have used networking applications to criminalize, bribe, blackmail or physically assault LGBTIQ+ individuals.121 The Special Rapporteur views these methods as a violation of rights facilitated by technology. VI. Good practices A. Global, regional and national digital health governance"
+  },
+  {
+    "ID": "64.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "A number of global and national efforts are now under way to strengthen the governance of digital health. The WHO Global Strategy on Digital Health 2020–25 encourages States to develop national digital health strategies that consider the challenges posed. WHO and UNDP, respectively, have promulgated ethical principles for the use of 111 See A/HRC/48/31. 112 Nina Sun and others, “Human rights and digital health technologies”. See also submissions by the Kenya Legal and Ethical Issues Network for HIV and AIDS and Aix Global Justice doctoral clinic. 113 See submission by Privacy International. 114 See Human Rights Committee, general comment No. 16 (1988). 115 See submission by the Global Network of People Living with HIV. 116 Adi Kuntsman, Esperanza Miyake and Sam Martin, “Re-thinking digital health: data, appisation and the (im)possibility of ‘opting out’”, Digital Health, vol. 5 (2019). 117 See submission by Frontline AIDS. 118 Global Commission on HIV and the Law, “Risks, rights and health. Supplement” (July 2018). 119 Submission by Privacy International. 120 See submission by the Center for Reproductive Rights. See also, for example, A/HRC/51/37, paras. 37–39 and 63, Council of Europe, report of the Commissioner for Human Rights following his visit to France from 22 to 26 September 2014 (February 2015) and https://www.coe.int/en/web/commissioner/-/afrophobia-europe-should-confront-this-legacy-ofcolonialism-and-the-slave-trade. 121 Submission by Frontline AIDS. GE.23-06593 artificial intelligence for health and rights-based principles for the use of digital technologies for HIV and health programmes.122"
+  },
+  {
+    "ID": "65.",
+    "Labels": [
+      "Adolescents",
+      "Children"
+    ],
+    "Text": "In its report, the Lancet and Financial Times Commission on governing health futures framed an initial analysis of the convergence of digital health, artificial intelligence and universal health coverage, with a focus on improving and safeguarding the health and wellbeing of children and young people by addressing the inequities of the digital divide and ensuring data and child protection, digital safety and a human-rights based approach to digital health.123"
+  },
+  {
+    "ID": "66.",
+    "Labels": [],
+    "Text": "United Nations Member States are expected to agree to a digital compact at the Summit of the Future in 2024, which aims to unite States and other actors in outlining shared principles for an open, free and secure digital future for all. Other new global guidance will continue to emerge; for example, the Transform Health coalition is leading a global campaign to press for the World Health Assembly to address health data governance.124"
+  },
+  {
+    "ID": "67.",
+    "Labels": [],
+    "Text": "Regional bodies are increasingly active in promoting the safeguarding of human rights in relation to digital technologies, health and development. The first intergovernmental standard on artificial intelligence was adopted by the 36 member States of the Organisation for Economic Co-operation and Development (OECD) and includes principles grounded in human rights.125"
+  },
+  {
+    "ID": "68.",
+    "Labels": [],
+    "Text": "The European Union has proposed an artificial intelligence act to ensure that the use of artificial intelligence systems is safe and respect existing laws, including human rights."
+  },
+  {
+    "ID": "69.",
+    "Labels": [],
+    "Text": "A proposed European Union digital services act aims to address harms, including cyberviolence, misinformation and disinformation, on social media. Among the most comprehensive directives for the protection of personal data is the general data protection regulation of the European Union,126 which came into force in May 2018 to harmonize and unify legal regulation across the European Union. It offers rules designed to give European Union citizens more control over their personal data and sets out rules for the protection and processing of personal data.127"
+  },
+  {
+    "ID": "70.",
+    "Labels": [],
+    "Text": "At the national level, States have taken steps to regulate artificial intelligence. For example, WHO has indicated that Japan has issued several guidelines on the use of artificial intelligence, including on research and development and utilization.128 The Government of Australia informed the Special Rapporteur that it was among the first countries to develop and release artificial intelligence ethics principles to support its international commitment to the OECD artificial intelligence principles.129 The Government of Israel indicated that its Ministry of Health was in the process of formulating a regulatory outline and suitable wording for guidelines.130"
+  },
+  {
+    "ID": "71.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "Over 150 countries around the world have adopted comprehensive data protection laws to protect people and their data.131 The Special Rapporteur received reports that 25 countries in sub-Saharan Africa have developed comprehensive personal data protection legislation.132 However, where regulatory frameworks for digital technologies are in place, 122 See WHO, Ethics and Governance of Artificial Intelligence for Health and UNDP, “Guidance on the rights-based and ethical use of digital technologies in HIV and health programmes” (2021). 123 See Brian Li Han Wong and others, “Growing up in a digital world 2030. Youth statement + call to action” (October 2021). 124 Transform Health, “Growing demand for action on health data governance: will the World Health Assembly respond?”, 19 September 2022. 125 OECD legal instruments, “Recommendation of the Council on artificial Intelligence” (2022). 126 See Giorgia Brambilla Pisoni and Mariarosaria Taddeo, “Apropos data sharing: abandon the distrust and embrace the opportunity”, DNA and Cell Biology, vol. 41, No. 1 (January 2022). 127 See Katarzyna Kolasa and others, “Future of data analytics in the era of the general data protection regulation in Europe”, Pharmacoeconomics, vol. 38, No. 10 (2020). 128 See WHO, Ethics and Governance of Artificial Intelligence for Health. 129 See submission by Australia. 130 See submission by Israel. 131 See David Banisar, “National comprehensive data protection laws and bills 2023”, available at: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1951416. 132 See submission by the Kenya Legal and Ethical Issues Network for HIV and AIDS. GE.23-06593 enforcement must be adequately resourced and public education undertaken to ensure the public are informed about their data rights.133"
+  },
+  {
+    "ID": "72.",
+    "Labels": [],
+    "Text": "To counter the growing complexity and opacity of the global data environment, including its vast information asymmetries, some countries have appointed independent health data privacy oversight bodies.134 For example, a patient advocacy group reviews requests for access to National Health Service Scotland data by weighing the public interest against the privacy implications.135"
+  },
+  {
+    "ID": "73.",
+    "Labels": [],
+    "Text": "States and businesses should ensure that comprehensive human rights due diligence is conducted when new digital technologies and artificial intelligence systems are acquired, developed, deployed and operated, and before big data is shared or used.136 In that regard, the Special Rapporteur agrees with UNDP that health technology assessment is an important tool, a multidisciplinary process that evaluates the “value of health technology at different points in its lifecycle”, including the properties, effects and impacts of the technology. Health technology assessment aims to inform policymakers and influence decision-making in health care, with a focus on how best to allocate funding for health programmes and technologies.137"
+  },
+  {
+    "ID": "74.",
+    "Labels": [],
+    "Text": "Governments can additionally ensure that individuals or groups retain ownership of their personal health data. In its submission, the Government of Switzerland indicated that its national law ensured that health data belonged to patients."
+  },
+  {
+    "ID": "75.",
+    "Labels": [],
+    "Text": "The courts are already playing and will continue to play an important role in defining human rights in digital health. Several important cases relating to digital identity have begun to touch on this area. The growing number of such cases indicate the gaps that regulation may need to address. B. Participation"
+  },
+  {
+    "ID": "76.",
+    "Labels": [
+      "Adolescents"
+    ],
+    "Text": "A rights-based approach must also ensure the meaningful participation of civil society and communities in national and global governance of digital health, including the participation of young people.138 There is a need for opportunities for participation in digital health governance and individuals must be educated on their human rights related to digital technology, including privacy and security, so that they are empowered to participate meaningfully in the development of governance frameworks. Steps should be taken towards improving the digital literacy of users and subjects of digital technologies to further enable their meaningful participation."
+  },
+  {
+    "ID": "77.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Obstacles related specifically to sexual and reproductive health rights are interrelated, having an impact on rights holders in clinical care, at the level of health systems, and in the underlying determinants of health. The Special Rapporteur reiterates the importance of a policy approach to the right to health, especially in this connection, and in digital innovation and technology, to allow for transparency, accountability and recourse when rights are violated. VII. Conclusions and recommendations"
+  },
+  {
+    "ID": "78.",
+    "Labels": [
+      "Persons living with HIV/AIDS"
+    ],
+    "Text": "It is important to adopt a comprehensive approach that includes all stakeholders; there must be investment in improving literacy regarding the data pipeline, data systems, data curation, data tools and data protections and safety. The Special 133 Digital Health and Rights Project Consortium, “Digital health and human rights of young adults in Ghana, Kenya, and Vietnam: final project report”. 134 See A/HRC/48/31. 135 See https://www.informationgovernance.scot.nhs.uk/pbpphsc/test-phase-1-pbpp-why-does-it-exist/. 136 Ibid. 137 See UNDP, “Guidance on the rights-based and ethical use of digital technologies in HIV and health programmes”. 138 See Galen E. B. Wright and others, “Ethical and legal implications of whole genome and whole exome sequencing in African populations”, BMC Medical Ethics, vol. 14, (2013). See also submission by the Global Network of People Living with HIV. GE.23-06593 Rapporteur agrees with the Secretary-General that a concerted global effort must be undertaken to encourage and invest in the creation of digital public goods: open-source software, open data, open artificial intelligence models, open standards and open content. Digital public goods should adhere to privacy and other applicable laws and best practices, do no harm and help attain the Sustainable Development Goals.139"
+  },
+  {
+    "ID": "79.",
+    "Labels": [],
+    "Text": "Technology companies, including social media companies play a vital role in enabling the right to information, an important component of the right to health.140 Existing policy frameworks must be considered, for example criminalization of certain populations and how technology and innovative tools in health run the risk of exposing marginalized groups beyond the intended digital or social media tool."
+  },
+  {
+    "ID": "80.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Regrettably, women and girls continue to be infantilized as a result of patriarchal control, continue to be discriminated against and are impacted by the extent to which they can realize their civil, political, economic, social and cultural rights. Technology and digital tools have the potential to provide information and offer a way of making informed decisions concerning the lives of women and girls, especially regarding their sexual and reproductive health rights."
+  },
+  {
+    "ID": "81.",
+    "Labels": [],
+    "Text": "Online spaces, enabled by access to mobile phones and connectivity, have ensured that LGBTIQ+ communities have more validated spaces and opportunities for focused work. Surveillance impacts the uptake of tools and services. The lack of safety impacts the quality of the data available and analysed and the lack of trust from these communities leads to their invisibility in the digital sphere."
+  },
+  {
+    "ID": "82.",
+    "Labels": [
+      "LGBTI+",
+      "Persons with disabilities"
+    ],
+    "Text": "Biases reflected in coding and artificial intelligence in digital tools used in the provision of health care are historical and carry forward institutional biases in medical training, diagnostics, clinical care and patient monitoring. Those biases are reflected in data sets, which may lead to the data invisibility of groups of people marginalized by race, gender, class, migration status, disability, sexual orientation and gender identity."
+  },
+  {
+    "ID": "83.",
+    "Labels": [],
+    "Text": "Digital innovation and technologies are an asset when they are utilized to realize the right to health. The reality is that digital tools and innovation present multi-faceted experiences, not all good and not all bad."
+  },
+  {
+    "ID": "84.",
+    "Labels": [],
+    "Text": "States parties to the International Covenant on Economic, Social and Cultural Rights commit to dedicating the maximum available resources to meeting the highest attainable standard of health for all. Digital technologies can enable States to employ resources to greater effect towards the realization of the right to health. However, while the embrace of digital technologies is often presented as a net benefit, digitization can be expensive, can shift funds away from other important priorities and has often been accompanied by deep reductions in overall welfare budgets.141"
+  },
+  {
+    "ID": "85.",
+    "Labels": [],
+    "Text": "Digital technologies can improve access for individuals who face discrimination and/or who otherwise lack access to health facilities, goods and services. However, the use of digital technologies, without sufficient human rights safeguards, also deepens and exacerbates existing inequalities. Vulnerable groups who face multiple forms of discrimination and oppression in some cases lack access to digital technology and face criminalization, stigmatization and State surveillance."
+  },
+  {
+    "ID": "86.",
+    "Labels": [],
+    "Text": "In advance of the adoption or expanded use of digital technology, there is a need to develop a regulatory environment with the participation of users and subjects of digital technology. Regulatory environments must maximize the benefits of digital technology for all, while addressing the risks to specific groups and ensuring accountability for Governments and private actors. Digital health governance must ensure transparency and explainability toward harnessing the benefits of digital technology to promote the right to health for everyone, without discrimination. 139 See “Report of the Secretary-General. Roadmap for digital cooperation” (June 2020). 140 See A/HRC/47/39/Add.2. 141 See A/74/493. GE.23-06593"
+  },
+  {
+    "ID": "87.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "The tremendous opportunities and risks that accompany rapid growth in digital technologies demand updated and strengthened governance to ensure that States, the private sector and other third parties respect, protect and fulfil their duties regarding the right of everyone to the highest attainable standard of physical and mental health. Further coordinated action is needed to progress and operationalize the right to health in the digital age."
+  },
+  {
+    "ID": "88.",
+    "Labels": [],
+    "Text": "That will include more robust regulation at global, regional and national levels, more robust protection of personal health data and more inclusive and participatory approaches to digital health governance at all levels. To facilitate meaningful public participation, States, civil society, business and other relevant actors will need to invest in and support digital literacy and education, as well as human rights approaches to digital innovation and technologies."
+  },
+  {
+    "ID": "89.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Digital tools, health innovation and technology can improve access to healthrelated education and information, including on sexual and reproductive health."
+  },
+  {
+    "ID": "90.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "The realization of the right to health of adolescents is dependent on the development of youth-friendly health care that respects confidentiality and privacy and includes appropriate sexual and reproductive health services."
+  },
+  {
+    "ID": "91.",
+    "Labels": [],
+    "Text": "The Special Rapporteur recalls that the obligation to protect includes, inter alia, the duties of States to adopt legislation or take other measures to ensure equal access to health care and health-related services provided by third parties. States should also ensure that third parties do not limit access to health-related information and services."
+  },
+  {
+    "ID": "92.",
+    "Labels": [],
+    "Text": "States should provide a safe and supportive environment for adolescents that ensures they have the opportunity to participate in decisions affecting their health, build life skills, acquire appropriate information, receive counselling and negotiate the health-behaviour choices they make."
+  },
+  {
+    "ID": "93.",
+    "Labels": [],
+    "Text": "In translating global initiatives at the national level, States must be proactive in assessing the evidence-based information, innovations and technologies in health and ensure that there are adequate regulatory frameworks in place for the protection of the right to health that support national and local priorities."
+  },
+  {
+    "ID": "94.",
+    "Labels": [],
+    "Text": "The Special Rapporteur underscores the need to fully implement international human rights legal obligations on the provision of reparations and access to reparative justice for human rights violations in the context of digital innovation, technology and the right to health."
+  },
+  {
+    "ID": "95.",
+    "Labels": [],
+    "Text": "Public investment in national networks, coverage and connectivity must be ensured. Trust must be built by adopting a bottom-up approach respecting the leadership and expertise of community networks and fostering trust, transparency and accountability."
+  },
+  {
+    "ID": "96.",
+    "Labels": [],
+    "Text": "Impact assessments must be embedded and reviews of designs, development and implementation of the right to health must be binding. The processes involving the entire technology, innovation and data pipeline must be participatory and ensure the meaningful engagement of stakeholders."
+  },
+  {
+    "ID": "97.",
+    "Labels": [],
+    "Text": "A multidisciplinary and multisectoral process must inform policymakers and influence decision-making regarding such issues as populations in need, budgeting and resource allocation, in the design and implementation of both new and existing health programmes."
+  },
+  {
+    "ID": "98.",
+    "Labels": [],
+    "Text": "Investing in the development of a guiding transnational code that regulates private ownership, data extraction and databanks so as to hold technology companies and States accountable beyond national borders will contribute to ensuring full enjoyment of the right to health."
+  },
+  {
+    "ID": "99.",
+    "Labels": [],
+    "Text": "States must embed human rights principles of equality, non-discrimination, participation, transparency and accountability in implementation, in order to meet their obligations to respect, protect and fulfil the right to health in relation to digital innovation and technologies. GE.23-06593"
+  },
+  {
+    "ID": "100.",
+    "Labels": [],
+    "Text": "An intersectional rights-based approach to digital innovation and technologies must be adopted to move towards substantive equality and create the conditions conducive to a life of dignity."
+  }
+]
