@@ -1088,6 +1088,17 @@ function syncPreambleToggleControl() {
 // ─────────── Hash router (Search / Ask / Documents / About) ───────────
 const VIEWS = ['search', 'ask', 'documents', 'about', 'workspace'];
 
+// v19.56.14 (audit): explicit allowlist of in-page anchors that live
+// inside the About view (the Methodology accordion TOC). The router
+// keeps the user on About — instead of bouncing to Search — when the
+// hash is one of these. Earlier the check was "any DOM element with
+// id == hash root", which would have mis-routed a future hash like
+// `#search-tips` (no slash, element id exists) to About. An explicit
+// set is unambiguous; extend it when new About anchors are added.
+const ABOUT_ANCHORS = new Set([
+  'm-ask', 'm-ocr', 'm-layers', 'm-conservatism', 'm-cescr', 'm-ai',
+]);
+
 function viewFromHash() {
   const h = window.location.hash.replace(/^#/, '');
   // v17: "#documents/<docId>" → still the documents view; the deep-link
@@ -1097,12 +1108,10 @@ function viewFromHash() {
   // v19.56.10: in-page anchor on the About view (Methodology TOC links
   // like #m-ocr, #m-layers, #m-ask). The previous fallback bounced any
   // unknown hash to 'search', so clicking a TOC link dropped the user
-  // back at the home view. Now: if the hash points to an existing DOM
-  // element AND we're already on a non-search view, stay there; on
-  // initial load with such an anchor default to 'about' since every
-  // documented in-page anchor (Methodology + Sources) lives in that
-  // section.
-  if (root && typeof document !== 'undefined' && document.getElementById(root)) {
+  // back at the home view. Stay on About for any known About anchor;
+  // if the user is already in a non-search view (and the anchor
+  // exists on that page) keep them put.
+  if (ABOUT_ANCHORS.has(root)) {
     if (state?.view && state.view !== 'search') return state.view;
     return 'about';
   }
@@ -1184,6 +1193,16 @@ function trackEvent(name, params = {}, opts = {}) {
     const now = Date.now();
     if (now - last < dedupeMs) return;
     _gaDedupe.set(dedupeKey, now);
+    // v19.56.14 (audit): the dedupe map keeps one entry per unique
+    // search/ask string. Over a long research session that's an
+    // unbounded slow leak. Once it crosses 200 entries, drop anything
+    // whose last-fire is older than the longest dedupe window we use
+    // (1.5 s) — those keys can never suppress a future event anyway.
+    if (_gaDedupe.size > 200) {
+      for (const [k, t] of _gaDedupe) {
+        if (now - t > 1500) _gaDedupe.delete(k);
+      }
+    }
   }
   try {
     window.gtag('event', name, params);
@@ -9203,6 +9222,23 @@ function showTreatyPopover(button) {
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') popover.style.display = 'none';
+    });
+    // v19.56.14 (a11y audit): the popover is position:fixed and its
+    // coordinates are computed once from the trigger button's rect.
+    // If the user scrolls the dossier / document reader while it's
+    // open, the popover stays put and detaches from its anchor —
+    // floating mid-screen. Close it on any scroll that isn't the
+    // popover's OWN body scrolling (the article text overflows and
+    // scrolls internally), and on resize. `scroll` doesn't bubble, so
+    // the listener is registered in the capture phase.
+    window.addEventListener('scroll', (e) => {
+      if (popover.style.display === 'none') return;
+      const t = e.target;
+      if (t === popover || (t && t.nodeType === 1 && popover.contains(t))) return;
+      popover.style.display = 'none';
+    }, true);
+    window.addEventListener('resize', () => {
+      popover.style.display = 'none';
     });
   }
   const articleLabel = button.dataset.paragraph

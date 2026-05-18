@@ -1239,9 +1239,15 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
 }
 .chip.on .chip-count { color: var(--paper); }
 /* v19.43-fix16: zero-hit chip — same convention as the checkbox
-   list above. */
-.chip.is-zero { opacity: 0.45; }
-.chip.is-zero .dim { font-style: italic; }
+   list above.
+   v19.56.14 (a11y audit): was `opacity: 0.45`, which faded the chip
+   label to #9e9d9e on the cream panel — 2.48:1 contrast, below the
+   WCAG AA 4.5:1 floor for the 10px chip text. Opacity dims the text
+   AND the border together with no contrast control. Replaced with an
+   explicit mid-grey that still reads as clearly de-emphasised next to
+   the near-black active chips but stays AA-legible. */
+.chip.is-zero { color: #6b6b6b; border-color: var(--rule-soft); }
+.chip.is-zero .dim { font-style: italic; color: #6b6b6b; }
 
 /* Collapsible filter blocks (details/summary) */
 .filter-collapsible summary {
@@ -1368,8 +1374,10 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
    or filter is active. Doesn't disable — researcher can still un-
    filter and re-pick — just reads as "this won't get you anything
    right now". */
-.checkbox-list label.is-zero { opacity: 0.45; }
-.checkbox-list label.is-zero .count { font-style: italic; }
+/* v19.56.14 (a11y audit): same opacity → explicit-grey fix as
+   `.chip.is-zero` above — keep the de-emphasis, keep AA contrast. */
+.checkbox-list label.is-zero { color: #6b6b6b; }
+.checkbox-list label.is-zero .count { font-style: italic; color: #6b6b6b; }
 .checkbox-list input[type=checkbox] { accent-color: var(--garnet); }
 .checkbox-list .count {
   margin-left: auto;
@@ -4858,6 +4866,12 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 .about-method-body .method-grid > * {
   margin: 0;
   max-width: none;
+  /* v19.56.14 (a11y audit): grid items default to min-width:auto,
+     which refuses to shrink below their content's intrinsic width.
+     A long unbreakable token (a URL, a "docHit@5"-style metric)
+     would then push the cell — and the 2-col grid — wider than the
+     viewport. min-width:0 lets the cell shrink and the text wrap. */
+  min-width: 0;
 }
 .about-method-body .method-grid h4 {
   font-family: var(--display);
@@ -5866,7 +5880,12 @@ body[data-active-view="ask"] section[data-view="ask"] {
   display: inline-block;
   flex-shrink: 0;
   padding: 0.18rem 0.55rem;
-  background: #b8861f;
+  /* v19.56.14 (a11y audit): was #b8861f — white text on it gave only
+     3.24:1, below the WCAG AA 4.5:1 floor. Darkened the gold to
+     #8a6410 (white now ~5.4:1) — still recognisably the amber BETA
+     accent, just a shade deeper. The banner's 4px border-left accent
+     keeps the lighter #b8861f (non-text, no contrast requirement). */
+  background: #8a6410;
   color: white;
   font-family: var(--mono, monospace);
   font-size: 0.72rem;
