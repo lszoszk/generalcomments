@@ -165,6 +165,32 @@ def run(args) -> int:
                 ok = sum(1 for s, _ in results.values() if 200 <= s < 300)
                 print(f'  [{i}/{total}] checked · ok={ok} · {elapsed:.0f}s elapsed')
 
+    # Serial re-check pass for anything that came back non-2xx. The
+    # parallel pass hits some UN hosts (notably undocs.org) hard enough
+    # that they throttle the runner IP — the requests come back as
+    # status 0 (connection reset / timeout), NOT genuine link rot. A
+    # single-threaded re-check with a longer timeout and a polite delay
+    # recovers those false positives; anything that fails the slow pass
+    # too is reported broken. Without this, the weekly CI run flags
+    # ~30 working SP-report links every time it runs from GitHub
+    # Actions (local runs from a residential IP see 360/360).
+    recheck = [u for u, (s, _) in results.items() if not (200 <= s < 300)]
+    if recheck:
+        slow_timeout = max(args.timeout * 2, 40.0)
+        print(f'\n  Re-checking {len(recheck)} non-2xx URL(s) serially '
+              f'(timeout={slow_timeout:.0f}s)...')
+        recovered = 0
+        for j, url in enumerate(recheck, 1):
+            status, reason = check_url(url, slow_timeout)
+            results[url] = (status, reason)
+            if 200 <= status < 300:
+                recovered += 1
+            time.sleep(1.0)   # be polite — throttle was the problem
+            if j % 10 == 0 or j == len(recheck):
+                print(f'    [{j}/{len(recheck)}] re-checked · recovered={recovered}')
+        print(f'  Re-check recovered {recovered}/{len(recheck)} '
+              f'(transient throttle/timeout, not link rot).')
+
     # Build the report
     broken: list[dict] = []
     n_ok = 0
