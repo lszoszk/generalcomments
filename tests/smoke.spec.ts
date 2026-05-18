@@ -305,3 +305,17 @@ test('16b. recentQueries debounces partial typings', async ({ page }) => {
   expect(recent.length).toBe(1);
   expect(recent[0].q).toBe('children');
 });
+
+// v19.58: lite mode — memory-constrained / iOS devices skip the
+// FlexSearch index (its build OOM-crashed iOS Safari, surfacing as
+// "A problem repeatedly occurred") and search via a linear scan.
+// ?lite=1 forces that path on any browser, so it's gated here too.
+test('17. liteMode · ?lite=1 runs index-free search', async ({ page }) => {
+  await bootApp(page, '/index.html?lite=1');
+  await expect(page.locator('body')).toHaveClass(/is-lite-mode/);
+  await expect(page.locator('#lite-note')).toBeVisible();
+  // Search still returns results with no FlexSearch index built.
+  await typeQuery(page, 'torture');
+  await expect(page.locator('.result').first()).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator('#result-count')).toContainText(/¶/);
+});

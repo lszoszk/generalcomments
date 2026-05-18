@@ -16,6 +16,8 @@ const state = {
   facets: null,
   baseFacets: null,
   searchIndex: null,            // FlexSearch.Document instance, populated after boot
+  liteMode: false,              // v19.58: memory-constrained device (iOS / low-RAM) —
+                                // skip the FlexSearch index, use a linear scan instead
   // Ternary online status. null = ping not yet returned, true = API
   // reachable, false = unreachable (local fallback engaged for the session).
   apiOnline: null,
@@ -622,14 +624,23 @@ async function boot() {
     // above (which we just called to honor the URL hash). Subsequent
     // navigations are tracked from setView + the hashchange listener.
 
-    // Device-memory fallback. <2 GB devices (legacy
-    // Android phones, low-end laptops) can't safely parse the 25 MB
-    // corpus + build the FlexSearch index without OOM-crashing.
-    // Replace the search shell with a clear "use desktop" message
-    // and skip the corpus load entirely.
-    if (isLowMemoryDevice()) {
+    // v19.58: memory tiers.
+    //  • <1 GB devices can't run even the lightweight path → hard
+    //    "use a desktop" fallback, skip the corpus load entirely.
+    //  • iOS / <2 GB devices → lite mode: load the corpus but SKIP the
+    //    FlexSearch index (its hundreds-of-MB build OOM-crashed the tab
+    //    — "A problem repeatedly occurred" on iOS Safari) and use a
+    //    linear-scan search instead. Set before ensureCorpusReady().
+    if (isTinyMemoryDevice()) {
       paintLowMemoryFallback();
       return;
+    }
+    state.liteMode = isLiteSearchDevice();
+    if (state.liteMode) {
+      document.body.classList.add('is-lite-mode');
+      const liteNote = document.getElementById('lite-note');
+      if (liteNote) liteNote.hidden = false;
+      console.info('[unhrdb] lite mode — FlexSearch index skipped, linear-scan search active');
     }
 
     // Corpus pre-warm. Desktop uses requestIdleCallback
@@ -1368,11 +1379,43 @@ function startTour(fromStep = 0, opts = {}) {
 function isMobileViewport() {
   return window.matchMedia('(max-width: 900px)').matches;
 }
-function isLowMemoryDevice() {
-  // navigator.deviceMemory is an approximate GB count (Chrome / Edge /
-  // recent Firefox). Safari doesn't ship it, so treat absent as "ok".
+// iOS / iPadOS detection. All iOS browsers are WebKit, and WebKit's
+// per-tab memory budget is what OOM-crashes the full FlexSearch index
+// build ("A problem repeatedly occurred with this page"). iPadOS 13+
+// reports as a desktop "MacIntel" but is touch-capable — catch that.
+function isIOS() {
+  const ua = navigator.userAgent || '';
+  if (/iPhone|iPad|iPod/.test(ua)) return true;
+  return navigator.platform === 'MacIntel'
+    && typeof navigator.maxTouchPoints === 'number'
+    && navigator.maxTouchPoints > 1;
+}
+// Truly tiny devices (<1 GB) can't run even the lightweight path —
+// keep the hard "use a desktop" fallback for them.
+function isTinyMemoryDevice() {
   const dm = navigator.deviceMemory;
-  return typeof dm === 'number' && dm > 0 && dm < 2;
+  return typeof dm === 'number' && dm > 0 && dm < 1;
+}
+// v19.58: devices that must skip the in-browser FlexSearch index
+// (hundreds of MB for ~26k paragraphs) and use the linear-scan path
+// instead. Triggered by navigator.deviceMemory < 2 GB, OR by iOS —
+// where deviceMemory is never exposed AND the index build reliably
+// crashes the tab. `?lite=1` / `?lite=0` force it for testing, same
+// pattern as `?api`.
+// Captured at module-eval time: boot's encodeUrlState() rewrites the
+// URL from known state and drops unknown query params, so the ?lite
+// override must be read here — before any boot code runs — or it's
+// already gone by the time isLiteSearchDevice() is called.
+const _URL_LITE_FLAG = (() => {
+  try { return new URLSearchParams(location.search).get('lite'); }
+  catch { return null; }
+})();
+function isLiteSearchDevice() {
+  if (_URL_LITE_FLAG === '1') return true;   // ?lite=1 — force on (testing/preview)
+  if (_URL_LITE_FLAG === '0') return false;  // ?lite=0 — force off
+  const dm = navigator.deviceMemory;
+  if (typeof dm === 'number' && dm > 0 && dm < 2) return true;
+  return isIOS();
 }
 
 // One-line mobile orientation toast — replaces the desktop tour on
@@ -4027,12 +4070,41 @@ function dumpIndex() {
   });
 }
 
+// v19.58: linear-scan search for liteMode (no FlexSearch index — see
+// isLiteSearchDevice / ensureCorpusReady). `query` is one bare term,
+// possibly *-suffixed. Substring match on the diacritic-folded,
+// marker-stripped paragraph text — looser than FlexSearch's
+// forward-token match (it also hits mid-word) and without stemming.
+// The folded text is memoised per paragraph on first use. The
+// downstream BM25 re-rank still runs over the matched set, so result
+// ORDERING is unchanged — only the matching step is simpler.
+function liteSearchIds(query) {
+  if (!query) return null;
+  const term = foldDiacritics(String(query).replace(/\*+$/, '').toLowerCase());
+  if (!term) return null;
+  const inFn = state.searchInFootnotes !== false;
+  const ids = new Set();
+  for (const p of state.paragraphs) {
+    if (p._lcText === undefined) {
+      p._lcText = foldDiacritics(stripFnMarkers(p.text || '').toLowerCase());
+      p._lcFn = (p.footnotes && p.footnotes.length)
+        ? foldDiacritics(p.footnotes.map(f => f.text || '').join(' ').toLowerCase())
+        : '';
+    }
+    if (p._lcText.includes(term) || (inFn && p._lcFn && p._lcFn.includes(term))) {
+      ids.add(p.id);
+    }
+  }
+  return ids;
+}
+
 // Run one FlexSearch term and return matching paragraph ids.
 // Boolean query semantics are composed below so OR always means a true union.
 // When state.searchInFootnotes is false, restrict the index to the
 // `text` field so footnote text never matches. Default behaviour is to
 // query both fields (text + fnText) for citation-aware coverage.
 function flexSearchIds(query) {
+  if (state.liteMode) return liteSearchIds(query);
   if (!state.searchIndex || !query) return null;
   const opts = { limit: 5000, suggest: false };
   if (state.searchInFootnotes === false) opts.field = ['text'];
@@ -4258,7 +4330,8 @@ async function ensureScopeLoaded(scope) {
 // of mobile OOM crashes on click). Idempotent — second call returns
 // the in-flight or completed promise.
 async function ensureCorpusReady() {
-  if (state.paragraphs.length && state.searchIndex) return;
+  // liteMode is "ready" once the corpus is parsed — it builds no index.
+  if (state.paragraphs.length && (state.searchIndex || state.liteMode)) return;
   if (state._corpusLoadPromise) return state._corpusLoadPromise;
 
   state._corpusLoadPromise = (async () => {
@@ -4277,7 +4350,11 @@ async function ensureCorpusReady() {
       // build → 3-5 s on desktop, 8-15 s on mobile. The latter is the
       // step that historically OOM'd on first run; we now do it after
       // paint so the browser has memory headroom.
-      if (!state.searchIndex) {
+      // v19.58: skip the FlexSearch index on memory-constrained
+      // devices — building it for ~26k paragraphs is the step that
+      // OOM-crashes iOS Safari. liteMode search uses a linear scan
+      // (see liteSearchIds), so the index is never created.
+      if (!state.searchIndex && !state.liteMode) {
         paintCorpusLoadingState('index');
         await ensureSearchIndex();
       }
@@ -4315,8 +4392,10 @@ function paintCorpusLoadingState(phase) {
   if (state.results && state.results.length) return;
   if (phase === 'fetch') {
     count.textContent = '— loading';
-    if (title) title.textContent = 'Setting up local search…';
-    sub.textContent = `First visit: indexing 7,077 paragraphs locally so search runs entirely in your browser. Search will be ready in ~10 s on a fast connection.`;
+    if (title) title.textContent = 'Setting up search…';
+    sub.textContent = state.liteMode
+      ? `Loading the paragraph corpus for on-device search. This is the lightweight mobile build — it skips the heavy in-browser index.`
+      : `First visit: building the local search index so search runs entirely in your browser. Ready in a few seconds on a fast connection.`;
   } else if (phase === 'index') {
     count.textContent = '— indexing';
     if (title) title.textContent = 'Building search index…';
@@ -7789,7 +7868,8 @@ function showFeedbackToast(reply) {
 // breakdowns yet, and the static baseline counts are still correct
 // for the API result set.
 function computeDynamicFacetCounts() {
-  if (!state.paragraphs.length || !state.searchIndex) return null;
+  // liteMode has no index but flexSearchIds() still works (linear scan).
+  if (!state.paragraphs.length || (!state.searchIndex && !state.liteMode)) return null;
 
   // Apply scope filter (GC-only / SP-only / all) — committees/labels
   // don't span scopes so this gates the universe.

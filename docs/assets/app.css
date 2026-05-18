@@ -6518,3 +6518,33 @@ body[data-active-view="ask"] section[data-view="ask"] {
     opacity: 0.45;
   }
 }
+
+/* v19.58: lite-mode marker — shown in the results lede on
+   memory-constrained / iOS devices that run the linear-scan search
+   instead of the full FlexSearch index. Subtle but always visible. */
+.lite-note {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-soft);
+  font-family: var(--body);
+  font-style: normal;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+.lite-note-badge {
+  flex: 0 0 auto;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--garnet);
+  background: var(--garnet-soft);
+  border: 1px solid var(--garnet-edge);
+  border-radius: 3px;
+  padding: 2px 5px;
+}
