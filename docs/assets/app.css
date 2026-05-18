@@ -6602,19 +6602,17 @@ body[data-active-view="ask"] section[data-view="ask"] {
 }
 
 /* (3) Example queries ("Try …") teach the search syntax on a first
-   visit; once a query is entered they're stale noise. On the mobile
-   layout, hide them when #q is non-empty (placeholder no longer
-   shown). Desktop keeps them — ample room there. The wrapper is
-   display:contents so it doesn't disturb the .searchbar-hint flow.
+   visit; once a query is entered they're stale noise — they were even
+   echoing the user's own just-run query back. v19.59.1: hide them at
+   ALL widths once #q is non-empty (placeholder no longer shown), not
+   just on mobile — the desktop/mobile asymmetry was itself a snag.
+   The hint strip now carries only the examples (the search-scope
+   toggles moved to FILTERS), so the whole strip collapses. The wrapper
+   is display:contents so it doesn't disturb the .searchbar-hint flow.
    ("Reset filters" visibility is handled in JS — paintResetVisibility.) */
 .searchbar-examples { display: contents; }
-@media (max-width: 700px) {
-  /* The hint strip now carries only the examples (the search-scope
-     toggles moved to the FILTERS pane) — collapse the whole strip once
-     a query is entered so no empty padded row lingers. */
-  .searchbar:has(#q:not(:placeholder-shown)) .searchbar-hint {
-    display: none;
-  }
+.searchbar:has(#q:not(:placeholder-shown)) .searchbar-hint {
+  display: none;
 }
 
 /* (4) Footnote/preamble search-scope toggles, relocated into the
