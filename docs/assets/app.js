@@ -286,6 +286,12 @@ async function runSearchViaApi(runId) {
   // this when running through the API — without it, the GC/JUR/SP
   // pills under the searchbar showed only what was rendered.
   state.apiBreakdown = body.breakdown || null;
+  // v19.57: server-side per-treaty-body facet counts over the FULL
+  // match-set. paintFacetCounts uses this so the rail's committee
+  // counts are accurate even though we only render a ≤200-row page.
+  // Older API builds omit `facets` — null then, and the frontend
+  // falls back to counting the rendered window.
+  state.apiFacets = body.facets || null;
   // Stash the params + page cursor so the IntersectionObserver
   // can fetch /api/search?page=N+1 when the user scrolls past 200.
   state.apiPage = 1;
@@ -3283,21 +3289,28 @@ function bindUI() {
     const defaultName = state.query
       ? `"${state.query.slice(0, 40)}${state.query.length > 40 ? '…' : ''}"`
       : `${state.scope.toUpperCase()} search`;
-    const name = window.prompt('Name this saved search:', defaultName);
-    if (!name) return;
-    // Persist the URL with #search so that a direct browser-history visit
-    // also lands on the search view (the workspace renderer intercepts the
-    // click in-app, but the saved entry should also be a valid bookmark URL).
-    ssAdd(name, window.location.pathname + window.location.search + '#search');
-    const btn = $('#save-search');
-    if (btn) {
-      const lbl = btn.querySelector('.copy-link-label');
+    // v19.57: replaced window.prompt() — a blocking native dialog that
+    // can't be themed and that THROWS ("prompt() is not supported")
+    // inside sandboxed iframes / some embedded browsers, silently
+    // aborting the save with no feedback. In-app modal instead.
+    openSaveSearchModal(defaultName, (name) => {
+      // Persist the URL with #search so a direct browser-history visit
+      // also lands on the search view (the workspace renderer intercepts
+      // the click in-app, but the entry should be a valid bookmark URL).
+      ssAdd(name, window.location.pathname + window.location.search + '#search');
+      showFeedbackToast({
+        _msg: 'Search saved to your workspace.',
+        _mark: '★',
+        _linkHref: '#workspace',
+        _linkText: 'View in Workspace',
+      });
+      const lbl = $('#save-search')?.querySelector('.copy-link-label');
       if (lbl) {
         const orig = lbl.textContent;
         lbl.textContent = 'Saved ✓';
         setTimeout(() => { lbl.textContent = orig; }, 1500);
       }
-    }
+    });
   });
 
   // Dual-range year slider — swap-on-cross strategy
@@ -4747,6 +4760,7 @@ async function runSearch() {
   state.alsoTry = [];                       // v19: local path doesn't have synonyms
   state.apiTotal = null;                    // local path: state.results.length is the truth
   state.apiBreakdown = null;                // v19.6 (U2): same — count from results
+  state.apiFacets = null;                   // v19.57: local path counts facets from results
   state.apiHasMore = false;                 // v19.2: no API pagination on the local path
   state.apiPageInflight = null;
   sortResults();
@@ -4902,6 +4916,7 @@ function paintResults() {
   // first, then facets settle.
   paintFacetCounts();
   paintYearHistogram();
+  paintActiveFilters();
 
   // Empty state — render in place of the list. Provides one of three
   // tailored hints depending on what's narrowing the result set:
@@ -7424,6 +7439,62 @@ function ssRemove(idx) {
   paintWorkspaceBadge();
 }
 
+// v19.57: in-app "name this saved search" modal. Replaces window.prompt()
+// — a blocking native dialog that can't be themed and that THROWS
+// ("prompt() is not supported") inside sandboxed iframes / some embedded
+// browsers, where it silently aborted the save with no feedback.
+// Calls onConfirm(name) only when the user supplies a non-empty name.
+function openSaveSearchModal(defaultName, onConfirm) {
+  document.getElementById('save-search-modal')?.remove();
+  const backdrop = document.createElement('div');
+  backdrop.id = 'save-search-modal';
+  backdrop.className = 'ss-modal-backdrop';
+  backdrop.innerHTML = `
+    <div class="ss-modal" role="dialog" aria-modal="true" aria-labelledby="ss-modal-title">
+      <h3 class="serif ss-modal-title" id="ss-modal-title">Save this search</h3>
+      <p class="ss-modal-hint">Name it so you can find it again in your Workspace.</p>
+      <input type="text" class="ss-modal-input" id="ss-modal-input"
+             maxlength="80" autocomplete="off" spellcheck="false"
+             aria-labelledby="ss-modal-title" />
+      <div class="ss-modal-actions">
+        <button type="button" class="btn btn-ghost ss-modal-cancel">Cancel</button>
+        <button type="button" class="btn btn-garnet ss-modal-save">Save search</button>
+      </div>
+    </div>`;
+  document.body.appendChild(backdrop);
+  const input = backdrop.querySelector('#ss-modal-input');
+  input.value = defaultName || '';
+  const close = () => {
+    backdrop.remove();
+    document.removeEventListener('keydown', onKey, true);
+  };
+  const submit = () => {
+    const name = input.value.trim();
+    if (!name) { input.classList.add('is-invalid'); input.focus(); return; }
+    close();
+    onConfirm(name);
+  };
+  function onKey(e) {
+    if (e.key === 'Escape') { e.preventDefault(); close(); }
+    else if (e.key === 'Enter' && document.activeElement === input) {
+      e.preventDefault();
+      submit();
+    }
+  }
+  document.addEventListener('keydown', onKey, true);
+  backdrop.addEventListener('mousedown', (e) => { if (e.target === backdrop) close(); });
+  backdrop.querySelector('.ss-modal-cancel').addEventListener('click', close);
+  backdrop.querySelector('.ss-modal-save').addEventListener('click', submit);
+  input.addEventListener('input', () => input.classList.remove('is-invalid'));
+  // Focus + select synchronously — the element is already in the DOM and
+  // visible, so no paint wait is needed. (requestAnimationFrame would be
+  // throttled/skipped while the tab is backgrounded, leaving the modal
+  // unfocused.) Selecting the text lets the user replace the default
+  // name just by typing.
+  input.focus();
+  input.select();
+}
+
 // ─────────── Diff tray (B3 visual) ───────────
 //
 // Bottom-right tray that shows up whenever 1+ pin exists. Click → opens
@@ -7682,8 +7753,13 @@ function showFeedbackToast(reply) {
   const issueLink = reply && reply.issueUrl
     ? ` · <a href="${escape(reply.issueUrl)}" target="_blank" rel="noopener">issue #${escape(String(reply.issueNumber))}</a>`
     : '';
+  // v19.57: optional in-app action link (e.g. "View in Workspace" after a
+  // save). Same-tab — these are hash routes inside the app.
+  const actionLink = reply && reply._linkHref
+    ? ` <a href="${escape(reply._linkHref)}" class="feedback-toast-link">${escape(reply._linkText || 'Open')}</a>`
+    : '';
   const msg = reply && reply._msg
-    ? escape(reply._msg)
+    ? escape(reply._msg) + actionLink
     : `Thanks — report filed${issueLink}.`;
   const mark = reply && reply._mark ? escape(reply._mark) : '⚐';
   toast.innerHTML = `
@@ -7807,6 +7883,23 @@ function computeResultsBasedFacetCounts() {
   return { committeeCounts, labelCounts, yearCounts: new Map() };
 }
 
+// v19.57: build facet counts from the API's server-side aggregation
+// (state.apiFacets — see runSearchViaApi). Accurate over the FULL
+// match set, unlike computeResultsBasedFacetCounts which only sees the
+// rendered ≤200-row page. Fixes the rail showing e.g. "CRPD 0" for a
+// "disability" jurisprudence search that actually has 1,339 CRPD hits.
+function computeApiFacetCounts() {
+  const committeeCounts = new Map();
+  const cf = state.apiFacets?.committees || {};
+  for (const key of Object.keys(cf)) {
+    if (key) committeeCounts.set(key, cf[key]);
+  }
+  // The API doesn't aggregate concerned-group labels yet, so leave
+  // labelCounts empty — identical to the window path (adaptApiHit
+  // returns no per-paragraph labels for API hits).
+  return { committeeCounts, labelCounts: new Map(), yearCounts: new Map() };
+}
+
 function hasAnyQueryOrFilter() {
   return !!state.query
     || state.filters.committees.size
@@ -7838,7 +7931,14 @@ function paintFacetCounts() {
       paintLabelFilter();
       return;
     }
-    counts = computeResultsBasedFacetCounts();
+    // v19.57: prefer the server's full-match-set facet aggregation.
+    // computeResultsBasedFacetCounts only sees the rendered ≤200-row
+    // page, so a "disability" JUR search showed CRPD 0 even though
+    // 1,339 CRPD paragraphs match. Fall back to the window count when
+    // an older API build doesn't send `facets`.
+    counts = state.apiFacets
+      ? computeApiFacetCounts()
+      : computeResultsBasedFacetCounts();
   } else {
     counts = computeDynamicFacetCounts();
   }
@@ -7950,6 +8050,45 @@ function paintYearHistogram() {
       paintYearHistogram();
       runSearch();
     });
+  });
+}
+
+// v19.57: removable "active filter" chips shown above the result list.
+// Currently surfaces the year filter — when a user clicks a histogram
+// bar (or drags the year slider) results can collapse sharply, and it
+// wasn't obvious WHY. A chip near the results makes the narrowing
+// visible and one-click removable.
+function paintActiveFilters() {
+  const host = document.getElementById('active-filters');
+  if (!host) return;
+  const chips = [];
+  const yMin = state.facets?.years?.min;
+  const yMax = state.facets?.years?.max;
+  const fMin = state.filters.yearMin;
+  const fMax = state.filters.yearMax;
+  // Only show a chip when the year range is genuinely narrower than the
+  // full corpus span (i.e. the user has actually filtered).
+  if (yMin != null && yMax != null && fMin != null && fMax != null
+      && (fMin > yMin || fMax < yMax)) {
+    const label = fMin === fMax ? `Year ${fMin}` : `Years ${fMin}–${fMax}`;
+    chips.push(`<button type="button" class="active-filter-chip" data-clear="year"
+      aria-label="Remove year filter (${escape(label)})">
+      <span class="active-filter-label">${escape(label)}</span>
+      <span class="active-filter-x" aria-hidden="true">×</span></button>`);
+  }
+  if (!chips.length) { host.hidden = true; host.innerHTML = ''; return; }
+  host.hidden = false;
+  host.innerHTML = `<span class="folio active-filter-lead">Filtered to</span>${chips.join('')}`;
+  host.querySelector('[data-clear="year"]')?.addEventListener('click', () => {
+    state.filters.yearMin = state.facets.years.min;
+    state.filters.yearMax = state.facets.years.max;
+    const yi = document.getElementById('year-min');
+    const ya = document.getElementById('year-max');
+    if (yi) yi.value = state.filters.yearMin;
+    if (ya) ya.value = state.filters.yearMax;
+    paintYearFill();
+    paintYearHistogram();
+    runSearch();
   });
 }
 
@@ -9730,6 +9869,53 @@ function renderAskResult(primaryData, counterData) {
   }${counterBlock}${citedFooter}`;
 }
 
+// v19.57: animated, staged progress indicator for the Ask tab.
+// A /api/ask call runs retrieval + cross-encoder rerank + LLM-judge +
+// answer synthesis server-side and routinely takes 20–40s. The old
+// static "Searching…" line gave no sign of life, so the page looked
+// frozen. This renders a moving indeterminate bar, a live elapsed-time
+// counter, and steps through the real pipeline stages. The backend is
+// NOT a stream, so stage timings are estimates — the final stage simply
+// holds until the real response lands; we never claim "done" early.
+// Returns a controller with stop() — call it in runAsk's finally block.
+function startAskProgress(out, opts = {}) {
+  const counter = !!opts.counterEvidence;
+  out.innerHTML = `
+    <div class="ask-progress" role="status" aria-live="polite">
+      <div class="ask-progress-track" aria-hidden="true">
+        <div class="ask-progress-indeterminate"></div>
+      </div>
+      <div class="ask-progress-line">
+        <span class="ask-progress-stage">Searching the corpus…</span>
+        <span class="ask-progress-elapsed" aria-hidden="true">0s</span>
+      </div>
+      <div class="ask-progress-hint">Neural retrieval, cross-encoder
+        re-ranking${counter ? ', a counter-evidence pass' : ''} and answer
+        synthesis — this usually takes 20–40&nbsp;seconds. The page is
+        working, not stuck.</div>
+    </div>`;
+  const stageEl = out.querySelector('.ask-progress-stage');
+  const elapsedEl = out.querySelector('.ask-progress-elapsed');
+  const stages = [
+    'Re-ranking the strongest passages…',
+    'Weighing relevance with the LLM judge…',
+    'Composing the verbatim answer…',
+  ];
+  const stageAt = [3500, 10000, 18000];   // ms offsets — estimates, not real progress
+  const timers = stageAt.map((ms, i) =>
+    setTimeout(() => { if (stageEl) stageEl.textContent = stages[i]; }, ms));
+  const t0 = Date.now();
+  const ticker = setInterval(() => {
+    if (elapsedEl) elapsedEl.textContent = `${Math.round((Date.now() - t0) / 1000)}s`;
+  }, 1000);
+  return {
+    stop() {
+      timers.forEach(clearTimeout);
+      clearInterval(ticker);
+    },
+  };
+}
+
 async function runAsk() {
   const input = document.getElementById('ask-q');
   const out = document.getElementById('ask-output');
@@ -9778,7 +9964,11 @@ async function runAsk() {
     search_term: q.slice(0, 200),
   }, { dedupeKey: `ask:${q}`, dedupeMs: 1500 });
 
-  out.innerHTML = '<div class="ask-loading">Searching General Comments and reranking…</div>';
+  // v19.57: animated, staged progress indicator — replaces the static
+  // "Searching…" line that made a 20–40s /api/ask call look frozen.
+  const askProgress = startAskProgress(out, {
+    counterEvidence: _askFilters.counterEvidence,
+  });
   if (goBtn) {
     goBtn.disabled = true;
     goBtn.dataset.prevText = goBtn.textContent;
@@ -9832,9 +10022,9 @@ async function runAsk() {
         )
       : null;
 
-    out.innerHTML = counterUrl
-      ? '<div class="ask-loading">Searching General Comments and reranking — including counter-evidence pass…</div>'
-      : '<div class="ask-loading">Searching General Comments and reranking…</div>';
+    // v19.57: no static loading line here — startAskProgress (above)
+    // already runs the animated indicator and reflects the
+    // counter-evidence case in its hint text.
 
     // 95s wall-clock timeout — slightly longer than nginx's 90s
     // proxy_read_timeout so the server-side error surfaces first when
@@ -9909,6 +10099,7 @@ async function runAsk() {
     }
   } finally {
     clearTimeout(timeoutId);
+    askProgress.stop();   // v19.57: clear the progress timers/ticker
     if (_askInFlight === ctrl) _askInFlight = null;
     if (goBtn) {
       goBtn.disabled = false;

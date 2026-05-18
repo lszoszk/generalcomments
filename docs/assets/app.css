@@ -5072,19 +5072,18 @@ body.is-corpus-loading #q { cursor: progress; }
     flex-direction: column;     /* brand top, nav directly below — guaranteed visible */
     align-items: stretch;
   }
-  /* v19.44-fix24: mobile nav was tap-blocked on iOS Safari because
-     the link tap targets were ~22 px tall (font 13 px + 2 px padding-
-     bottom). Below 700 px the nav now renders as a horizontal scroll-
-     able pill row with 44 px-tall taps (Apple HIG minimum), separated
-     from the title block by a hairline. */
+  /* v19.44-fix24 / v19.57: mobile nav. Tap targets are ≥36 px tall
+     (font 13 px + 8 px padding) for comfortable taps. The nav WRAPS
+     onto a second row when needed instead of scrolling horizontally —
+     the old scroll strip pushed Workspace/About off-screen with no
+     affordance, so phone users couldn't tell more destinations existed.
+     Separated from the title block by a hairline. */
   .mast-nav {
-    gap: 6px;
+    gap: 4px 6px;
     font-size: 13px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     padding-top: 8px;
     border-top: 1px solid var(--rule);
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
   .mast-nav a {
     flex: 0 0 auto;
@@ -5101,11 +5100,11 @@ body.is-corpus-loading #q { cursor: progress; }
     color: var(--garnet);
   }
   .mast-tour-btn { display: none; }       /* save space; tour still reachable from welcome card */
-  .mast-sep { display: none; }            /* nav is one row, no need for the separator */
+  .mast-sep { display: none; }            /* nav wraps freely, no need for the separator */
   #theme-toggle {
     flex: 0 0 auto;
     min-height: 36px;
-    margin-left: auto;
+    margin-left: 0;                        /* v19.57: flow inline as the nav wraps */
   }
   .searchbar { padding: 12px 20px; }
   .searchbar-inner { gap: 8px; flex-wrap: wrap; }
@@ -6329,4 +6328,193 @@ body[data-active-view="ask"] section[data-view="ask"] {
   letter-spacing: 0.04em;
   margin-left: 0.35em;
   vertical-align: baseline;
+}
+
+/* ──────────────────── v19.57 UX improvements ────────────────────
+   (1) Save-search in-app modal — replaces window.prompt(), which is
+       un-themeable and throws in sandboxed/embedded browsers.
+   (2) Toast in-app action link ("View in Workspace").
+   (3) Removable active-filter chips above the result list.          */
+
+/* (1) Save-search modal */
+.ss-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9200;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: ss-modal-fade 140ms ease;
+}
+@keyframes ss-modal-fade { from { opacity: 0; } to { opacity: 1; } }
+.ss-modal {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 5px;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.30);
+  width: 100%;
+  max-width: 420px;
+  padding: 22px 22px 18px;
+  animation: ss-modal-pop 160ms ease;
+}
+@keyframes ss-modal-pop {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ss-modal-title {
+  margin: 0 0 4px;
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.ss-modal-hint {
+  margin: 0 0 14px;
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.ss-modal-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--body);
+  font-size: 14px;
+  padding: 9px 11px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.ss-modal-input:focus {
+  outline: 2px solid var(--garnet);
+  outline-offset: 1px;
+  border-color: var(--garnet);
+}
+.ss-modal-input.is-invalid {
+  border-color: var(--garnet);
+  outline: 2px solid var(--garnet);
+  outline-offset: 1px;
+}
+.ss-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ss-modal-backdrop,
+  .ss-modal { animation: none; }
+}
+@media (max-width: 480px) {
+  .ss-modal-backdrop { padding: 14px; }
+}
+
+/* (2) Toast in-app action link ("View in Workspace") */
+.feedback-toast-link {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* (3) Removable active-filter chips above the result list */
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 2px;
+}
+.active-filter-lead {
+  color: var(--ink-3);
+}
+.active-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--display);
+  font-size: 12px;
+  color: var(--ink);
+  background: var(--paper-3);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 4px 7px 4px 9px;
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+.active-filter-chip:hover {
+  border-color: var(--garnet);
+  color: var(--garnet);
+}
+.active-filter-x {
+  font-size: 15px;
+  line-height: 1;
+  color: var(--ink-3);
+}
+.active-filter-chip:hover .active-filter-x { color: var(--garnet); }
+
+/* (4) Ask-tab progress indicator — the /api/ask call (retrieval +
+   rerank + LLM judge + answer synthesis) runs 20–40s with no stream,
+   so a static line looked frozen. A moving indeterminate bar + live
+   elapsed counter + staged text show it is alive and roughly how far
+   along it is. */
+.ask-progress {
+  padding: 1.8rem 1.5rem 1.6rem;
+  max-width: 560px;
+  margin: 1rem auto;
+}
+.ask-progress-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--rule-soft);
+  overflow: hidden;
+  position: relative;
+}
+.ask-progress-indeterminate {
+  position: absolute;
+  top: 0;
+  left: -40%;
+  height: 100%;
+  width: 38%;
+  border-radius: 2px;
+  background: var(--garnet);
+  animation: ask-progress-slide 1.35s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes ask-progress-slide {
+  0%   { left: -40%; }
+  100% { left: 100%; }
+}
+.ask-progress-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 12px;
+}
+.ask-progress-stage {
+  font-family: var(--body);
+  font-size: 14px;
+  color: var(--ink);
+}
+.ask-progress-elapsed {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.ask-progress-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+@media (prefers-reduced-motion: reduce) {
+  /* No sliding bar — show a calm static fill; the elapsed counter
+     (a text update, not motion) carries the "still working" signal. */
+  .ask-progress-indeterminate {
+    animation: none;
+    left: 0;
+    width: 100%;
+    opacity: 0.45;
+  }
 }

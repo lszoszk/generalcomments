@@ -111,8 +111,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260518-audit-fixes" />
-<link rel="stylesheet" href="assets/app.css?v=20260518-audit-fixes" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260518-ux-improvements" />
+<link rel="stylesheet" href="assets/app.css?v=20260518-ux-improvements" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -480,6 +480,9 @@
       <h2 class="serif results-title" id="results-title">Loading corpus…</h2>
       <p class="serif results-sub" id="results-sub">Reading the paragraph-level corpus from your archive.</p>
     </div>
+    <!-- v19.57: removable active-filter chips (currently the year filter) —
+         makes histogram/slider narrowing visible next to the result count. -->
+    <div class="active-filters" id="active-filters" hidden></div>
     <div class="results-tools" id="results-tools" aria-label="Result controls">
       <div class="result-control">
         <span class="folio">Sort</span>
@@ -1303,6 +1306,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260518-audit-fixes"></script>
+<script type="module" src="assets/app.js?v=20260518-ux-improvements"></script>
 </body>
 </html>
