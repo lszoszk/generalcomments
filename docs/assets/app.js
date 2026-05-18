@@ -3368,6 +3368,27 @@ function bindUI() {
     });
   });
 
+  // v19.59: ⋯ overflow toggle — collapses the post-search actions
+  // (export / copy-link / save) on the mobile layout. The toggle is
+  // CSS-hidden on desktop, where the actions stay inline.
+  $('#results-more-toggle')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = document.body.classList.toggle('results-more-open');
+    $('#results-more-toggle')?.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  const _closeResultsMore = () => {
+    if (!document.body.classList.contains('results-more-open')) return;
+    document.body.classList.remove('results-more-open');
+    $('#results-more-toggle')?.setAttribute('aria-expanded', 'false');
+  };
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#results-more') || e.target.closest('#results-more-toggle')) return;
+    _closeResultsMore();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') _closeResultsMore();
+  });
+
   // Dual-range year slider — swap-on-cross strategy
   bindYearSlider();
 
@@ -5008,6 +5029,7 @@ function paintResults() {
   paintFacetCounts();
   paintYearHistogram();
   paintActiveFilters();
+  paintResetVisibility();
 
   // Empty state — render in place of the list. Provides one of three
   // tailored hints depending on what's narrowing the result set:
@@ -8182,6 +8204,28 @@ function paintActiveFilters() {
     paintYearHistogram();
     runSearch();
   });
+}
+
+// v19.59 (Hick's-law declutter): the "Reset filters" button is hidden
+// until at least one filter is actually active — otherwise it's a
+// prominent full-width control that does nothing. Query alone doesn't
+// count: reset clears the filters, not the query.
+function paintResetVisibility() {
+  const btn = document.getElementById('reset-filters');
+  if (!btn) return;
+  const f = state.filters;
+  const yrs = state.facets?.years;
+  const active = !!(
+    f.committees.size || f.labels.size ||
+    (f.reportTypes && f.reportTypes.size) ||
+    (f.countries && f.countries.size) ||
+    (f.outcomes && f.outcomes.size) ||
+    (f.rightsKeywords && f.rightsKeywords.size) ||
+    (f.articles && f.articles.size) ||
+    (yrs && f.yearMin != null && f.yearMin > yrs.min) ||
+    (yrs && f.yearMax != null && f.yearMax < yrs.max)
+  );
+  btn.hidden = !active;
 }
 
 // ─────────── Workspace view + nav badge ───────────

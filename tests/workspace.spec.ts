@@ -128,6 +128,11 @@ test('W7. saveSearch · current query persists', async ({ page }) => {
   // dropping the save). Drive it: open the modal, then confirm with the
   // Save button. The name input is pre-filled, so no typing is needed.
   await bootApp(page, '/index.html?q=disability&scope=gc');
+  // v19.59: on the mobile layout, post-search actions (incl. save) are
+  // collapsed behind a ⋯ menu — open it first (no-op on desktop, where
+  // the toggle is CSS-hidden and the actions render inline).
+  const moreToggle = page.locator('#results-more-toggle');
+  if (await moreToggle.isVisible().catch(() => false)) await moreToggle.click();
   await page.locator('#save-search').click();
   await page.locator('#ss-modal-input').waitFor({ state: 'visible' });
   await page.locator('.ss-modal-save').click();

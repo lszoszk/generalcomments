@@ -111,8 +111,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260518-declutter" />
-<link rel="stylesheet" href="assets/app.css?v=20260518-declutter" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260518-hicks" />
+<link rel="stylesheet" href="assets/app.css?v=20260518-hicks" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -260,61 +260,65 @@
       <span class="rb-pill rb-jur" id="rb-jur" hidden></span>
       <span class="rb-pill rb-sp" id="rb-sp" hidden></span>
     </span>
-    <details class="export-menu" id="export-menu">
-      <summary class="btn btn-ghost export-btn" title="Export current results">
-        <span class="export-glyph">↓</span>
-        <span class="export-label">Export</span>
-      </summary>
-      <div class="export-pop">
-        <button type="button" data-format="xlsx" class="export-opt">
-          <span class="export-fmt">XLSX</span>
-          <span class="export-hint">Excel · uses SheetJS</span>
-        </button>
-        <button type="button" data-format="csv" class="export-opt">
-          <span class="export-fmt">CSV</span>
-          <span class="export-hint">UTF-8, comma-separated</span>
-        </button>
-        <button type="button" data-format="json" class="export-opt">
-          <span class="export-fmt">JSON</span>
-          <span class="export-hint">Full structured records</span>
-        </button>
-        <button type="button" data-format="bibtex" class="export-opt">
-          <span class="export-fmt">BibTeX</span>
-          <span class="export-hint">Document-level, for citations</span>
-        </button>
-      </div>
-    </details>
-    <button id="copy-link" class="btn btn-ghost copy-link-btn" type="button" title="Copy a permanent link to this search">
-      <span class="copy-link-glyph">⌥</span>
-      <span class="copy-link-label">Copy link</span>
-    </button>
-    <button id="save-search" class="btn btn-ghost copy-link-btn" type="button" title="Save this query + filter combination to your workspace">
-      <span class="copy-link-glyph">💾</span>
-      <span class="copy-link-label">Save search</span>
-    </button>
+    <!-- v19.59 (Hick's-law declutter): export / copy-link / save are
+         post-search actions — they only matter once the user has
+         results worth acting on. On the narrow mobile layout they
+         collapse behind a ⋯ menu so they don't crowd the searchbar;
+         inline on desktop (.results-more is display:contents there). -->
+    <button id="results-more-toggle" type="button" class="results-more-toggle"
+            aria-haspopup="true" aria-expanded="false" aria-controls="results-more"
+            title="Export, copy a link, or save this search" aria-label="More actions">⋯</button>
+    <div class="results-more" id="results-more">
+      <details class="export-menu" id="export-menu">
+        <summary class="btn btn-ghost export-btn" title="Export current results">
+          <span class="export-glyph">↓</span>
+          <span class="export-label">Export</span>
+        </summary>
+        <div class="export-pop">
+          <button type="button" data-format="xlsx" class="export-opt">
+            <span class="export-fmt">XLSX</span>
+            <span class="export-hint">Excel · uses SheetJS</span>
+          </button>
+          <button type="button" data-format="csv" class="export-opt">
+            <span class="export-fmt">CSV</span>
+            <span class="export-hint">UTF-8, comma-separated</span>
+          </button>
+          <button type="button" data-format="json" class="export-opt">
+            <span class="export-fmt">JSON</span>
+            <span class="export-hint">Full structured records</span>
+          </button>
+          <button type="button" data-format="bibtex" class="export-opt">
+            <span class="export-fmt">BibTeX</span>
+            <span class="export-hint">Document-level, for citations</span>
+          </button>
+        </div>
+      </details>
+      <button id="copy-link" class="btn btn-ghost copy-link-btn" type="button" title="Copy a permanent link to this search">
+        <span class="copy-link-glyph">⌥</span>
+        <span class="copy-link-label">Copy link</span>
+      </button>
+      <button id="save-search" class="btn btn-ghost copy-link-btn" type="button" title="Save this query + filter combination to your workspace">
+        <span class="copy-link-glyph">💾</span>
+        <span class="copy-link-label">Save search</span>
+      </button>
+    </div>
   </div>
   <div class="searchbar-hint">
-    <!-- v19.18: operator chips removed — the ? popover next to #q now
-         covers them with prose + clickable examples + tip. The strip
-         here is reserved for actionable controls (#fn-toggle) and
-         quick-test examples (.suggest). -->
-    <button id="fn-toggle" class="op-toggle is-on" type="button"
-            aria-pressed="true"
-            title="Include footnote text in search. Click to toggle off and search paragraph bodies only.">
-      <span class="op-toggle-mark" aria-hidden="true">✓</span>
-      <span class="op-toggle-label">search in footnotes</span>
-    </button>
-    <button id="pre-toggle" class="op-toggle is-on" type="button"
-            aria-pressed="true"
-            title="Include preamble text in search. Click to toggle off and search paragraph bodies only.">
-      <span class="op-toggle-mark" aria-hidden="true">✓</span>
-      <span class="op-toggle-label">search in preambles</span>
-    </button>
-    <span class="folio">Try</span>
-    <button class="suggest" data-q='"best interests of the child"'>"best interests of the child"</button>
-    <button class="suggest" data-q='trafficking AND children NOT (sexual)'>trafficking AND children NOT (sexual)</button>
-    <button class="suggest" data-q='surveillance OR interception'>surveillance OR interception</button>
-    <button class="suggest" data-q='discriminat*'>discriminat*</button>
+    <!-- v19.59: the footnotes/preambles search-scope toggles moved into
+         the FILTERS pane ("Search in" block) — they're scope
+         refinements, so they belong with the other (collapsible)
+         filters rather than crowding the search bar. This strip now
+         carries only the first-visit example queries. -->
+    <!-- v19.59: example queries teach the syntax on a first visit;
+         once a query is entered they're stale noise. CSS hides this
+         block on mobile when #q is non-empty (see .searchbar-examples). -->
+    <span class="searchbar-examples">
+      <span class="folio">Try</span>
+      <button class="suggest" data-q='"best interests of the child"'>"best interests of the child"</button>
+      <button class="suggest" data-q='trafficking AND children NOT (sexual)'>trafficking AND children NOT (sexual)</button>
+      <button class="suggest" data-q='surveillance OR interception'>surveillance OR interception</button>
+      <button class="suggest" data-q='discriminat*'>discriminat*</button>
+    </span>
   </div>
 </section>
 
@@ -358,6 +362,30 @@
       <div class="scope-banner" id="scope-banner" hidden>
         <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
         <span class="folio">SOFT-LAW PREVIEW</span>Special Procedures are reports by independent UN mandate-holders. Currently only a few mandates are indexed; the General Comments collection is exhaustive while this is a curated preview that will grow.
+      </div>
+    </div>
+
+    <!-- v19.59: footnote/preamble search-scope toggles — moved here
+         from under the search bar. They control which text the search
+         covers, so they belong with the filters (collapsed by default
+         on mobile). Same #fn-toggle / #pre-toggle ids → JS unchanged. -->
+    <div class="filter-block" id="filter-block-textscope">
+      <div class="filter-head">
+        <span class="folio">Search in</span>
+      </div>
+      <div class="text-scope-toggles">
+        <button id="fn-toggle" class="op-toggle is-on" type="button"
+                aria-pressed="true"
+                title="Include footnote text in search. Click to toggle off and search paragraph bodies only.">
+          <span class="op-toggle-mark" aria-hidden="true">✓</span>
+          <span class="op-toggle-label">footnotes</span>
+        </button>
+        <button id="pre-toggle" class="op-toggle is-on" type="button"
+                aria-pressed="true"
+                title="Include preamble text in search. Click to toggle off and search paragraph bodies only.">
+          <span class="op-toggle-mark" aria-hidden="true">✓</span>
+          <span class="op-toggle-label">preambles</span>
+        </button>
       </div>
     </div>
 
@@ -470,7 +498,10 @@
       </label>
     </div>
 
-    <button id="reset-filters" class="btn btn-ghost btn-block">Reset filters</button>
+    <!-- v19.59: hidden until at least one filter is active — a reset
+         button with nothing to reset is a choice that does nothing.
+         paintResetVisibility() toggles it. -->
+    <button id="reset-filters" class="btn btn-ghost btn-block" hidden>Reset filters</button>
   </aside>
 
   <!-- CENTER: results -->
@@ -1313,6 +1344,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260518-declutter"></script>
+<script type="module" src="assets/app.js?v=20260518-hicks"></script>
 </body>
 </html>

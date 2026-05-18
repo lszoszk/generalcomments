@@ -155,6 +155,10 @@ test('F8. dossierPopover · marker click in dossier opens the popover', async ({
 
 test('F9. fnToggle · default ON, click flips to OFF, persists across reload', async ({ page }) => {
   await bootApp(page, '/index.html');
+  // v19.59: #fn-toggle moved into the FILTERS pane — on mobile that pane
+  // boots collapsed behind a toggle pill; expand it (no-op on desktop).
+  const filtersToggle = page.locator('.mobile-filters-toggle');
+  if (await filtersToggle.isVisible().catch(() => false)) await filtersToggle.click();
   const toggle = page.locator('#fn-toggle');
   await expect(toggle).toBeVisible();
   await expect(toggle).toHaveClass(/is-on/);
@@ -181,6 +185,10 @@ test('F10. fnToggleHidesPill · OFF state suppresses match-in-citation hits', as
   // search returns zero results — the index never queried fnText.
   await bootApp(page, '/index.html');
   await page.waitForTimeout(800);
+  // v19.59: #fn-toggle lives in the FILTERS pane now — expand it on
+  // mobile (collapsed by default); no-op on desktop.
+  const filtersToggle = page.locator('.mobile-filters-toggle');
+  if (await filtersToggle.isVisible().catch(() => false)) await filtersToggle.click();
   // Flip toggle OFF first
   await page.locator('#fn-toggle').click();
   await typeQuery(page, 'Cuscumigratoria');
