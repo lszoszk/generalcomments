@@ -1,6 +1,6 @@
 {
-  "version": "20260518",
-  "builtAt": "2026-05-18T20:32:57+00:00",
+  "version": "20260519",
+  "builtAt": "2026-05-19T06:58:35+00:00",
   "counts": {
     "documents": 410,
     "paragraphs": 30698,
@@ -17,8 +17,8 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "1d5149c6ba15f474",
-      "bytes": 34006118
+      "sha": "b837b20dc9cf8073",
+      "bytes": 34804601
     },
     "documents.json": {
       "sha": "da754dc2011081f2",
@@ -29,5 +29,5 @@
       "bytes": 7174
     }
   },
-  "note": "Incremental append (append_sr_health.py): +50 SR Health docs."
+  "note": "Incremental append + SR Health footnote repair (clean_sp_bodies_from_docx.py)."
 }
