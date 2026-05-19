@@ -1,15 +1,15 @@
 {
   "version": "20260519",
-  "builtAt": "2026-05-19T11:52:47+00:00",
+  "builtAt": "2026-05-19T12:47:19+00:00",
   "counts": {
-    "documents": 453,
-    "paragraphs": 35296,
+    "documents": 522,
+    "paragraphs": 46400,
     "gcDocuments": 187,
     "gcParagraphs": 7216,
-    "spDocuments": 266,
-    "spParagraphs": 28080,
+    "spDocuments": 335,
+    "spParagraphs": 39184,
     "labels": 20,
-    "committees": 16,
+    "committees": 17,
     "yearRange": [
       1960,
       2026
@@ -17,17 +17,17 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "e799d56a33fbfa5e",
-      "bytes": 38603481
+      "sha": "f5bb2c71632ba6dd",
+      "bytes": 50018029
     },
     "documents.json": {
-      "sha": "9e0f10d25a1f7457",
-      "bytes": 399739
+      "sha": "4acc2cb597e1a724",
+      "bytes": 441454
     },
     "facets.json": {
-      "sha": "214660031850c1ab",
-      "bytes": 7426
+      "sha": "8f0467dce813b5dd",
+      "bytes": 7736
     }
   },
-  "note": "SR Education: 43 reports ingested + footnote repair + section headings."
+  "note": "SR Torture: 69 reports ingested + footnote repair + section headings."
 }
