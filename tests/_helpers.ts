@@ -72,7 +72,12 @@ export async function bootApp(
       return ready && viewSet;
     },
     null,
-    { timeout: 15_000 }
+    // Cold boot (IndexedDB cache wiped) parses the ~48 MB corpus.json
+    // and builds the FlexSearch index — ~13 s idle, more under
+    // parallel-suite load. Warm-cache boots still finish in well under
+    // a second, so the generous ceiling only ever bites a genuine
+    // cold start; it is a max, not a delay.
+    { timeout: 30_000 }
   );
 }
 
