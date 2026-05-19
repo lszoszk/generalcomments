@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-05-18T21:09:25.997316+00:00",
-  "finishedAt": "2026-05-18T21:41:58.692126+00:00",
-  "totalUnique": 410,
-  "totalRecords": 411,
-  "okCount": 409,
+  "checkedAt": "2026-05-19T12:04:37.984977+00:00",
+  "finishedAt": "2026-05-19T12:16:06.509775+00:00",
+  "totalUnique": 453,
+  "totalRecords": 454,
+  "okCount": 452,
   "brokenCount": 1,
   "broken": [
     {
-      "signature": "A/56/253",
-      "docName": "Interreligious dialogue; Cooperation with non-governmental organizations",
+      "signature": "A/59/366",
+      "docName": "Communications; In situ visits; Prevention activities",
       "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/56/253",
+      "link": "https://undocs.org/A/59/366",
       "status": 0,
       "reason": "URLError: timed out"
     }
