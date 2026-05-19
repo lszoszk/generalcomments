@@ -1,0 +1,855 @@
+[
+  {
+    "ID": "1.",
+    "Labels": [],
+    "Text": "In the present report, submitted pursuant to Human Rights Council resolutions 8/4 and 53/7, the Special Rapporteur on the right to education, Farida Shaheed, addresses the use of artificial intelligence (AI) in education from the perspective of the human right to education. Artificial intelligence (AI) is recognized as an accelerator of progress across many sectors, including education. 1 However, the rapidly expanding use of AI tools and systems in education, often with limited oversight or regulation, merits urgent examination through the lens of the human right to education."
+  },
+  {
+    "ID": "2.",
+    "Labels": [],
+    "Text": "In the report, artificial intelligence is understood as “a machine-based system that, for explicit or implicit objectives, infers, from the input it receives, how to generate outputs such as predictions, content, recommendations or decisions that can influence physical or virtual environments”.2"
+  },
+  {
+    "ID": "3.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Educational technology is not new, and the recommendations relating to the digitalization of education made by the Special Rapporteur on the right to education, 3 other special rapporteurs,4 the Office of the United Nations High Commissioner for Human Rights (OHCHR),5 the United Nations Educational, Scientific and Cultural Organization (UNESCO), 6 the United Nations Children’s Fund (UNICEF), 7 the Committee on the Rights of the Child,8 the International Telecommunication Union (ITU)9 and other United Nations mechanisms are equally pertinent for AI. The Special Rapporteur reiterates that digitalization in education should never replace on-site schooling with teachers,10 that education is a collective and social endeavour and that schools are venues for children to socialize and learn to live together. 11"
+  },
+  {
+    "ID": "4.",
+    "Labels": [],
+    "Text": "AI presents unique challenges that necessitate the rethinking of all three foundational pillars of education: curriculum, pedagogy and assessment. The question is: can AI be harnessed to advance the right to education and accelerate progress towards achieving Sustainable Development Goal 4 and, if so, under what conditions? As a response, the present report formulates recommendations from a human rightsbased approach and its core principles of participation, accountability, non-discrimination and transparency."
+  },
+  {
+    "ID": "5.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "To prepare the report, the Special Rapporteur held an experts’ consultation in June 2024 in Geneva, organized by OHCHR, on specific dimensions of the use of AI __________________ 1 General Assembly resolution 77/320. See also, resolution 79/1 (Pact for the Future), para. 53. 2 Marko Grobelnik, Karine Perset and Stuart Russell, “What is AI? Can you make a clear distinction between AI and non-AI systems?”, OECD.AI, 6 March 2024. Information on uniform resource locators and links to websites contained in the present publication are provided for the convenience of the reader and are correct at the time of issuance. The United Nations takes no responsibility for the continued accuracy of that information or for the content of any external website. 3 See A/HRC/50/32; A/HRC/44/39; and A/HRC/32/37. 4 See A/HRC/51/17. 5 See A/HRC/57/28; A/HRC/54/49; and A/HRC/50/55. See also, Human Rights Council resolution 54/7. 6 Mark West, An Ed-Tech Tragedy? Educational Technologies and School Closures in the Time of COVID-19 (Paris, United Nations Educational, Scientific and Cultural Organization (UNESCO), 2023); and UNESCO, Global Education Monitoring Report 2023: Technology in Education – A Tool on Whose Terms? (Paris, 2023). 7 See www.unicef.org/digitaleducation/reimagine-education. 8 Committee on the Rights of the Child, general comment No. 25 (2021). 9 Houlin Zhao, “The power of ICT education”, International Telecommunication Union (ITU), 19 September 2022. 10 A/HRC/44/39, para. 47. 11 UNESCO, “Use of AI in education: deciding on the future we want”, 29 May 2024. A/79/520 5/29 24-18961 in education. Views and experiences were collected through a questionnaire receiving 83 responses.12 The Special Rapporteur warmly thanks all contributors and experts. II. Opportunities for artificial intelligence to advance the right to education"
+  },
+  {
+    "ID": "6.",
+    "Labels": [],
+    "Text": "Submissions for the present report contain references to some 80 distinct AI- powered applications and platforms used in education. New AI applications emerge daily, and students, teachers and administrators continuously adapt generalpurpose AI for educational use. Tracking developments is difficult as many uses do not require official permission or endorsement, and usage is decided by institutions and individuals.13"
+  },
+  {
+    "ID": "7.",
+    "Labels": [],
+    "Text": "AI applications in education can be categorized by function into generative AI,14 intelligent tutoring systems, writing support and assessment and immersive learning,15 or by user into learner-centred, teacher-led and institutional tools.16 They can also be categorized by theme: learning with AI, using AI to learn about learning, learning about AI and preparing for AI.17"
+  },
+  {
+    "ID": "8.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "The actual impact of AI tools on learners, teachers or education systems, especially over time, is unclear. Problematically, the overwhelming majority of the claimed evidence of impact is produced by the developers of the tool studied. 18 Studies on the long-term effects of the use of AI in education will take years to complete. For example, it was not until 2024 that the first comprehensive studies appeared, measuring the effect of smartphones and social media on children’s wellbeing after their large-scale introduction in most Western countries in the period 2010–2015.19"
+  },
+  {
+    "ID": "9.",
+    "Labels": [],
+    "Text": "A tool’s effectiveness when used by ordinary teachers in conventional classrooms is rarely studied, nor is its safety and impact on the educational ecosystem as a whole. In the absence of independent research on the short-term and long-term impact of AI in education, only the claimed purpose of AI tools and potential implications can be reviewed in the present report."
+  },
+  {
+    "ID": "10.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "This is achieved through the lens of the right to education framework, which includes the “4 As” necessary for quality education: accessibility, availability, acceptability and adaptability, adding to this the concept of accountability. __________________ 12 The present report is based on an analysis of the information contained in the responses received. All contributions are available at www.ohchr.org/en/calls-for-input/2024/call-contributionsartificial-intelligence-education-and-its-human-rights. 13 See United Kingdom of Great Britain and Northern Ireland, Department for Education, “Generative AI in education: call for evidence – summary of responses”, November 2023; and United Kingdom, Department for Education, “Baseline views on AI and its uses”, in Research on Public Attitudes towards the Use of AI in Education (2024). See also, United States of America, Department of Education, Artificial Intelligence and the Future of Teaching and Learning: Insights and Recommendations (Washington, D.C., 2023). 14 UNESCO, Guidance for Generative AI in Education and Research (Paris, 2023). 15 UNESCO, Global Education Monitoring Report 2023, p. 12. 16 Wayne Holmes and Ilkka Tuomi, “State of the art and practice in AI in education”, European Journal of Education Research, Development and Policy, vol. 57, No. 4 (December 2022). 17 Wayne Holmes and others, Artificial Intelligence and Education: A Critical View through the Lens of Human Rights, Democracy and the Rule of Law (Strasbourg, Council of Europe, 2022). 18 Submissions by Wayne Holmes, Campaña Latinoamericana por el Derecho a la Educación, Global Initiative for Economic, Social and Cultural Rights and Right to Education Initiative. See also, UNESCO, Global Education Monitoring Report 2023, p. 3. 19 Jonathan Haidt, The Anxious Generation: How the Great Rewiring of Childhood is Causing an Epidemic of Mental Illness (New York, Penguin Press, 2024). A/79/520 24-18961 6/29 A. Personalized learning to advance availability of education"
+  },
+  {
+    "ID": "11.",
+    "Labels": [],
+    "Text": "Personalized learning AI tools use adaptive technologies to adjust the difficulty and pace of lessons based on a student’s progress, allowing learners to focus on areas where they need support. Examples include AI-powered learning platforms, more complex learning management systems, intelligent (or adaptive) tutoring systems and AI-powered learning assistants or chatbots either as separate products or integrated with other tools."
+  },
+  {
+    "ID": "12.",
+    "Labels": [],
+    "Text": "These AI tools can support course management, content delivery, assessments and communication and aim to create tailored, engaging experiences in diverse inperson, hybrid or online learning environments. Features such as automated grading and real-time feedback allow educators to focus on other tasks, while personalized learning assistants are designed to guide students through problem-solving. Some engage students in question-driven interactions that prompt them to explore and reason through problems without providing direct answers, simultaneously providing teachers with real-time reports about the student’s progress and engagement. 20"
+  },
+  {
+    "ID": "13.",
+    "Labels": [],
+    "Text": "AI tools may enhance availability by making personalized education available anytime, anywhere and allowing learners to access high-quality, individualized instruction regardless of location."
+  },
+  {
+    "ID": "14.",
+    "Labels": [],
+    "Text": "However, AI-powered learning platforms cannot replicate the emotional support, motivation and interpersonal connection essential for many learners provided by human teachers and tutors. Thus, hybrid human-AI tutoring, leveraging the strengths of both, is recommended.21"
+  },
+  {
+    "ID": "15.",
+    "Labels": [],
+    "Text": "In addition, as noted in several submissions, AI-driven tools require devices, stable electricity supply and Internet connectivity. Their cost remains another barrier, as they are usually produced and marketed by private actors. B. Assistive technologies and accessibility"
+  },
+  {
+    "ID": "1.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Students with special learning needs or disabilities"
+  },
+  {
+    "ID": "16.",
+    "Labels": [],
+    "Text": "Ethically developed and implemented assistive technologies can create more accessible learning places with, for instance, facial and sign recognition for sign languages, computer vision algorithms that interpret images and videos then translate information into Braille or audio output, bionic and rehabilitation technologies and algorithms that augment existing tools.22"
+  },
+  {
+    "ID": "17.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "The Ministry of Education of France, for example, has piloted a public-private partnership to improve accessibility for blind and partially-sighted people,23 using a programme that converts digital information into haptic feedback enabling users to “see with their fingers”.24"
+  },
+  {
+    "ID": "18.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Social robotics and algorithms can support the education of students with neurodisabilities and those with psychoemotional disorders or anxiety-related __________________ 20 Khan Academy, “AI for education”, online course. Available at www.khanacademy.org/collegecareers-more/ai-for-education. 21 Danielle R. Thomas and others, “Improving student learning with hybrid human-AI tutoring: a three-study quasi-experimental investigation”, in LAK ’24: Proceedings of the 14th Learning Analytics and Knowledge Conference, (New York, Association for Computing Machinery, 2024). 22 Submission by Yonah Welker. 23 See https://keynoa.com/. 24 Submission by Morocco. A/79/520 7/29 24-18961 learning disabilities.25 There are emotion recognition tools for students with autism and adaptive platforms supporting students who struggle with writing owing to dyslexia, dyspraxia, attention deficit or hyperactivity disorders. 26"
+  },
+  {
+    "ID": "19.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Greater support for students with profound and multiple learning disabilities are being explored.27 In the United Kingdom of Great Britain and Northern Ireland, a “smart” students’ residence has voice activation of appliances. 28 A learning disability group at Swindon Borough Council developed a generative AI tool that converts documents into the easy-to-read format,29 which is cost-effective, open-sourced and convertible into 75 languages.30"
+  },
+  {
+    "ID": "20.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Given the historical discrimination against individuals with disabilities, it is essential that assistive technology solutions are safe, human-centred, developed in consultation with intended users and include disability-specific impact assessment, terminology and knowledge frameworks.31"
+  },
+  {
+    "ID": "21.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "The Special Rapporteur on the rights of persons with disabilities 32 and the European Disability Forum,33 inter alia, are concerned that AI systems discriminate against individuals with asymmetrical or atypical facial features and different gestures, speech impairment and divergent communication patterns, as well as physical disabilities, cognitive and sensory impairments and autism spectrum disorders.34 This stems from lack of data for intended beneficiaries who are excluded from research and statistics; simplification and generalization of intended users’ parameters; and unconscious and conscious societal biases that translate into algorithms. Categorizing disability-specific issues and assessing potential risks, especially in education, is essential."
+  },
+  {
+    "ID": "22.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Also of concern is the increasing tendency to rely on technological solutionism for learners with disabilities: AI-based assistive technology can help but can never replace human interaction for anyone, and can be dangerously segregationist for students with disabilities.35"
+  },
+  {
+    "ID": "2.",
+    "Labels": [],
+    "Text": "Linguistic skills and diversity"
+  },
+  {
+    "ID": "23.",
+    "Labels": [
+      "Children",
+      "Migrants",
+      "Persons with disabilities",
+      "Refugees & asylum-seekers",
+      "Women/girls"
+    ],
+    "Text": "International, refugee and migrant students or those speaking minority languages may benefit from AI-powered simultaneous translation and transcription tools which display subtitles in real time in different languages, 36 albeit, to date, with different proficiencies. AI-based language learning apps and platforms offer interactive, personalized exercises, correct pronunciation and provide recommendations. __________________ 25 Submission by Xin Zhao and Andrew Cox. 26 See https://ludinautes.com/legal/about/. 27 Jerneja Turin, “Artificial intelligence and its impact on the human rights of persons with disabilities”, European Network of National Human Rights Institutions, 3 December 2023. 28 Matt Walsh, “New student accommodation officially opened by long-term supporters”, National Star, 26 October 2023. 29 Swindon Borough Council, “Council using AI to help people with learning disabilities”, 30 November 2023. 30 Submission by Pompeu Fabra University. 31 United Nations Children’s Fund (UNICEF), “Accessible and inclusive digital solutions for girls with disabilities”, 2022; and www.unicef.org/innocenti/projects/ai-for-children. 32 See A/77/203. 33 Andre Felix, “Resolution on the EU Artificial intelligence Act for the inclusion of persons with disabilities”, 1 April 2023. 34 Meredith Whittaker and others, “Disability, bias, and AI”, AI Now, November 2019. 35 Submission by Education International. 36 See www.microsoft.com/en-us/translator/apps/presentation-translator/. A/79/520 24-18961 8/29"
+  },
+  {
+    "ID": "24.",
+    "Labels": [],
+    "Text": "In Morocco, to reduce learning disparities, the Language and AI Project makes AI tools available to students and teachers, particularly in rural areas, to facilitate language learning at their own pace. 37 In India, a voice-assisted AI-powered educational technology facilitates international-standard English proficiency for all ages38 aligned to the Common European Framework of Reference for Languages. 39"
+  },
+  {
+    "ID": "25.",
+    "Labels": [],
+    "Text": "The Travis Foundation is digitizing resources for underrepresented languages, hiring native speakers, collecting digital corpora and engaging people worldwide to translate texts. The Global Digital Library platform is increasing the availability of high-quality, early-grade reading resources, including reading instruction books and storybooks, in underserved languages worldwide.40"
+  },
+  {
+    "ID": "26.",
+    "Labels": [],
+    "Text": "Greater linguistic representation in AI training data and algorithm development is necessary to make digital ecosystems inclusive. Most AI tools are either only available in English or have a limited functionality in other languages. The Swedish school system, for example, has been unable to review the full range of AI tools as few are available in Swedish. 41 Submissions highlighted the absence of Arabic content and training data. 42 To be accessible and inclusive, AI tools, especially generative AI, must be developed using native languages and dialects, rather than relying only on English for natural language processing. C. Adaptability and acceptability"
+  },
+  {
+    "ID": "27.",
+    "Labels": [],
+    "Text": "AI-powered content creation and presentation tools can quickly incorporate new information in curricula and make education more responsive to diverse learning styles and requirements."
+  },
+  {
+    "ID": "28.",
+    "Labels": [],
+    "Text": "Teachers stress that, although time is invested in adapting AI-generated lessons, AI tools do save time on routine activities such as lesson planning, content creation or assessments.43 AI tools offer easy-to-use interfaces and design suggestions, for example image-generation, creating videos from scripts, quizzes and dynamic presentations which can help teachers explain complex or abstract topics, gamify existing curricula and keep students engaged.44 Some tools offer real-time insights into student performances, enabling adaptive lesson planning and customized educational experiences to improve outcomes."
+  },
+  {
+    "ID": "29.",
+    "Labels": [],
+    "Text": "For students, high-quality graphics, multimedia content and interactive elements of AI tools can increase motivation and participation. Some tools facilitate the understanding of complex texts through video summaries, interactive diagrams and visually rich presentations, facilitating learning for students with attention deficit or those who struggle with traditional text-based learning."
+  },
+  {
+    "ID": "30.",
+    "Labels": [],
+    "Text": "In higher education, AI-powered research and academic tools assist literature management and analysis, for example, visualizing connections between academic papers, automating data extraction, finding relevant literature based on specific queries. Some serve as reference managers or academic social networks, recommending articles and facilitating collaboration; others support drafting with __________________ 37 Submission by Morocco. 38 See https://learningmatters.ai/solutions/tara. 39 Submission by Project Saathi. 40 Submission by UNESCO-International Bureau of Education. 41 Submission by Swedish Teacher Union, annex. 42 Submission by European Institute of the Mediterranean. 43 Submission by NASUWT. 44 Submission by Pedagogy.Cloud. A/79/520 9/29 24-18961 citation and text improvement suggestions and analyse citation contexts to assess the impact and validity of research findings."
+  },
+  {
+    "ID": "31.",
+    "Labels": [],
+    "Text": "Popular AI-powered writing assistants and grammar tools offer a range of functionalities, including style checks, suggested corrections and explanations and paraphrasing to improve readability. Some, tailored specifically for academic and technical writing, help ensure compliance with scientific standards and offer language feedback and suggestions. D. Accountability and data analytics"
+  },
+  {
+    "ID": "32.",
+    "Labels": [],
+    "Text": "Learners’ interaction with education hardware and software generates vast amounts of data, which, when properly curated and analysed, help teachers understand student progress and support better decision-making by school leaders. By analysing educational data, AI algorithms identify patterns, trends and correlations to inform instructional strategies, curriculum design and student interventions."
+  },
+  {
+    "ID": "33.",
+    "Labels": [],
+    "Text": "Learning analytics fall into three categories: (a) descriptive analytics using dashboards, visualizations and customized reports monitor and manage student performance; (b) predictive analytics combine student data and learning management systems usage to predict trajectories and design interventions; and (c) adaptive learning software supports curriculum design."
+  },
+  {
+    "ID": "34.",
+    "Labels": [],
+    "Text": "School support management information systems use AI to streamline administrative tasks such as budgeting, scheduling and responding to routine inquiries through chatbots. They may enhance efficiency in the use of school facilities and help educators make data-driven decisions to improve both management and student outcomes. School support management information systems track student progress, predict outcomes, identify at-risk students and recommend targeted interventions. By monitoring behavioural patterns such as absences or changes in performance, school support management information systems can alert teachers, enabling timely support and intervention."
+  },
+  {
+    "ID": "35.",
+    "Labels": [],
+    "Text": "Several submissions highlighted the use of AI in nationwide education system management. Ecuador is piloting an AI platform to improve the allocation of school places by incorporating family preferences. 45 Morocco uses AI-based predictive modelling to reduce dropouts by identifying at-risk students for timely interventions. In Paraná, Brazil, an AI-powered content recommendation system tailors learning based on student profiles. In Mexico, the Guanajuato region launched a prediction and early intervention system in 2022 to prevent school dropout. 46 In South Africa, institutions such as Eduvos, using AI for real-time insights, have streamlined operations and enrolment procedures and cut costs by 90 per cent, significantly increasing student enrolment.47"
+  },
+  {
+    "ID": "36.",
+    "Labels": [],
+    "Text": "The Special Rapporteur stresses the need for caution, however, as the effects of predictive analytics on the right to education have not been studied thoroughly, 48 and examples of AI being unequitable have emerged. For example, the algorithm for grading exit examinations during the coronavirus disease (COVID-19) pandemic in __________________ 45 See https://fairlac.iadb.org/piloto/asignacion-estudiantes-instituciones-educacionales. 46 Guanajuato, “SEG presenta avances en la implementación del Sistema de Actuación Temprana para la permanencia escolar”, 4 May 2023. 47 Microsoft, AI in Africa: Meeting the Opportunity (2024). 48 Ben Williamson, Alex Molnar and Faith Boninger, Time for a Pause: Without Effective Public Oversight, AI in Schools will Do More Harm Than Good (Boulder, Colorado, National Education Policy Centre, 2024). A/79/520 24-18961 10/29 the United Kingdom disadvantaged poorer students.49 Problems surfaced in a dropout early warning system in Wisconsin using machine learning algorithms to make assessments based on test scores, disciplinary records, lunch price status and race. 50 A study analysing millions of predictions over a decade found that the system may be wrongly and negatively influencing teachers’ impressions of students, especially those of colour: compared with white students, false alarms were 42 percentage points higher for black students and 18 points higher for Hispanic students, and the system had not reduced graduation risks for students dubbed “high risk”. 51 In Nevada, an AI algorithm used to redefine criteria to determine pre-K–12 school funding 52 dramatically reduced the number of students defined as “at risk” and eligible for supplemental State funding from 288,000 in 2022–2023 to 63,000 the following year.53 III. Risks and challenges of artificial intelligence in education A. Privatization and platformization of education"
+  },
+  {
+    "ID": "37.",
+    "Labels": [],
+    "Text": "The impact of privatization on realizing the right to education has already been addressed by the Special Rapporteur for education. 54 The use of commercial AI services and platforms adds a new problematic layer."
+  },
+  {
+    "ID": "38.",
+    "Labels": [],
+    "Text": "A UNESCO report, An ed-tech tragedy?, highlights how, among other negative impacts, ed-tech has empowered and enriched already powerful private sector actors, enabled new invasive forms of surveillance and control and ushered in often overlooked environmental impacts, especially electricity and water consumption.55 Expansion of AI in education is likely to accelerate privatization and further reframe education as a private and commercial good, jeopardizing its special status as a human right and public good.56"
+  },
+  {
+    "ID": "39.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Reportedly, commercial enterprises aggressively push AI into classrooms, promoting digital systems for analysing institutional and student data or adding AI features to products that schools already use and cannot easily replace. Ed-tech is a lucrative market: in 2019, $3.67 billion was invested in AI ed-tech start-ups, a 78 per cent rise from 2018.57 The market is estimated to be worth $20 billion by 2027.58 With data becoming “the new oil”,59 the education sector opens up an enormous amount of previously unexploited personal data. On average, by a child’s thirteenth birthday, advertisers will have gathered more than 72 million data points about them. 60 Another __________________ 49 Submission by Education International. 50 Submission by Privacy International. 51 Todd Feathers, “False alarm: how Wisconsin uses race and income to label students ‘high risk’”, The Markup, 27 April 2023. 52 Jordan Abbott, “When students get lost in the algorithm: the problems with Nevada’s AI school funding experiment”, New America, blog, 3 April 2024. 53 Submission by National Education Association. 54 See A/HRC/41/37; A/70/342; A/HRC/29/30; and A/69/402. See also, West, An Ed-Tech Tragedy?. 55 Shaolei Ren, “How much water does AI consume? The public deserves to know”, OECD.AI, 30 November 2023; and West, An Ed-Tech Tragedy?, p. 253. 56 West, An Ed-Tech Tragedy?, p. 261. 57 Jisc, “AI in tertiary education: a summary of the current state of play”, September 2023. 58 Holmes and Tuomi, “State of the art”. 59 Nisha Talagal, “Data as the new oil is not enough: four principles for avoiding data fires”, Forbes, 2 March 2022. 60 Australian Human Rights Commission, “Protect children from data surveillance”, 27 July 2021. A/79/520 11/29 24-18961 incentive for big tech companies providing schools services is building trust in their products to gain lifelong customers.61"
+  },
+  {
+    "ID": "40.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "As schools experience growing pressure for “digital transformation” in the name of improving efficiency, accountability and performance monitoring while cutting costs, 62 commercial AI providers increasingly become private actors in public education, with schools and Governments relinquishing key functions and responsibilities to third-party technology vendors. 63 As the commercial sector is inevitably driven by profit, digital education content and platforms become shaped by profit objectives rather than children’s best interests and right to education, 64 with judgments about educational requirements made by tech companies rather than education professionals."
+  },
+  {
+    "ID": "41.",
+    "Labels": [],
+    "Text": "International law requires States to deliver free education of the highest attainable quality for all to the maximum of its available resources. 65 However, school budgets, which are largely public funds intended for public education, are being channelled to private tech companies."
+  },
+  {
+    "ID": "42.",
+    "Labels": [],
+    "Text": "Concerns about delegating certain functions to commercial AI systems include, for example, students being obliged to open accounts with some big tech firms to participate in compulsory public education. 66 Terms and conditions are non-negotiable, and Google, for example, included clauses in its user agreements to classify the company as a “school official” for decision-making purposes.67"
+  },
+  {
+    "ID": "43.",
+    "Labels": [],
+    "Text": "Publicly funded schools, teachers and students become increasingly dependent on services provided by unaccountable technology companies. 68 Dependency is also problematic when private companies go bankrupt and leave schools with no school management system, data or sustainable replacement. 69"
+  },
+  {
+    "ID": "44.",
+    "Labels": [],
+    "Text": "Datafication increases the power of technology companies over educational infrastructure and decisions reducing the autonomy of traditional education actors. 70 The transfer of educational decisions to national and international tech companies, the lack of transparency and participation in strategic decisions on AI use in education and the general opacity in AI-mediated systems in educational processes are elements of datafication. AI intrusion into school pedagogy and administrative processes and embedment in all school routines poses a direct and significant threat to the democratic governance of schools.71"
+  },
+  {
+    "ID": "45.",
+    "Labels": [],
+    "Text": "Technology production need not be based on proprietary and commercial models, however. For example, public ed-tech development through the free and open-source software model of software production prioritizes community-driven __________________ 61 Laura H. Chapman, “Making schools business-like: Google in classrooms (part 2)”, Larry Cuban, 27 April 2019. 62 Williamson, Molnar and Boninger, Time for a Pause. 63 Ibid. 64 A/HRC/57/28, para. 8. 65 International Covenant on Economic, Social and Cultural Rights, art. 2(1); and E/C.12/2007/1. 66 Bettina Berendt, Allison Littlejohn and Mike Blakemore, “AI in education: learner choice and fundamental rights”, Learning, Media and Technology, vol. 45, No. 3 (2020). 67 See https://workspace.google.com/terms/education_terms/, para. 7.3. 68 Axel Rivas, “The platformization of education: a framework to map the new directions of hybrid education systems”, In-Progress Reflection, No. 46 (UNESCO, International Bureau of Education, 2021). 69 MSN, “Byju’s, once most-valued startup, enters bankruptcy”, 16 July 2024. 70 Submission by Derechos Digitales. 71 Williamson, Molnar and Boninger, Time for a Pause. A/79/520 24-18961 12/29 innovation and the common good over proprietary interests, as implemented in Kerala, India, since 2002.72 B. Digital tools and inequalities"
+  },
+  {
+    "ID": "46.",
+    "Labels": [],
+    "Text": "Submissions highlighted the digital divide in education. One third of the global population remains unconnected or lacks basic digital infrastructure. 73 Limited access to Internet and digital devices in schools and homes affects both developed and developing regions. In many areas, particularly in rural and low-income communities, schools lack reliable Internet (34 per cent–58 per cent) and functional computers (21 per cent–65 per cent), while households in low-income or rural settings have no access to computers or the Internet."
+  },
+  {
+    "ID": "47.",
+    "Labels": [],
+    "Text": "Rapid advancements in AI are widening the digital divide,74 between and within States. 75 Income, geography, culture, gender, educational attainment and family structure,76 as well as race, language and urban/rural location, inadequate connectivity, limited access and insufficient digital literacy, all exacerbate the risk of falling further behind for learners without high-speed Internet or personal devices. 77 Therefore, in 2019, UNESCO proposed that access to the Internet and AI technologies be considered as fundamental human rights.78 C. Changing nature of learning, teaching and assessment"
+  },
+  {
+    "ID": "48.",
+    "Labels": [],
+    "Text": "AI changes the way that education is delivered and assessed, diverting traditional classroom methods towards personalized learning, automated assessments and data-driven learning analytics. However, overreliance on technology can encourage students to rely on AI formulaic answers, limiting active participation in the learning process, inhibit critical thinking and reduce reasoning and synthesis skills."
+  },
+  {
+    "ID": "49.",
+    "Labels": [],
+    "Text": "Academic integrity is a critical issue.79 The ease with which essays and other creative works can be produced using generative AI tools increases the risks of intellectual dishonesty.80 Around the world, schools and universities initially banned these technologies. Today there is growing recognition that an absolute ban is both unworkable and disadvantageous."
+  },
+  {
+    "ID": "50.",
+    "Labels": [],
+    "Text": "The boundary between using AI to support learning and to cheat is sometimes unclear.81 Staff may suspect that some students use AI to breach academic integrity __________________ 72 Submission by IT for Change. 73 Dig Watch, “ITU report: one-third of the global population remains unconnected”, 14 September 2023. 74 Susan Gonzales, “AI literacy and the new digital divide: a global call for action”, UNESCO, 6 August 2024. 75 See www.coe.int/en/web/education/artificial-intelligence-and-education. 76 Organisation for Economic Co-operation and Development (OECD) “Understanding the digital divide”, OECD Digital Economy Papers, No. 49 (Paris, 2021). 77 Aaron Gifford, “Will AI in schools widen the digital divide?, Government Technology, September 2023. 78 UNESCO, Artificial Intelligence for Sustainable Development: Synthesis Report – Mobile Learning Week 2019 (Paris, 2019), p. 26. 79 Ian Bogost, “AI cheating is getting worse”, The Atlantic, 19 August 2024. 80 Tess Bennett, “This program can tell if ChatGPT did your homework”, Australian Financial Review, 12 January 2023. 81 Submission by Xin Zhao and Andrew Cox. A/79/520 13/29 24-18961 but are themselves not well informed and trust entirely the AI-detection software,82 which is not always accurate or reliable.83 AI tools can lead to unfair bias towards non-native English-speakers, for example.84"
+  },
+  {
+    "ID": "51.",
+    "Labels": [],
+    "Text": "The responsible and ethical use of generative AI tools in education must be encouraged among both students and teachers in ways that build creativity and critical thinking and facilitate the human production of ideas. 85 Clear guidelines are needed for the appropriate use of AI-generated content and citation practices."
+  },
+  {
+    "ID": "52.",
+    "Labels": [],
+    "Text": "There is an urgent need to rethink assessment.86 AI easily generates credible college papers because these tend to follow a rigid, almost algorithmic format. So too does the highly standardized feedback that students receive. The risk is real of students generating assignments with AI to which teachers respond with AI-generated comments."
+  },
+  {
+    "ID": "53.",
+    "Labels": [],
+    "Text": "Student assessments should value and stress originality. Teachers could also mitigate risks by increasing class-based work, introducing competency-based curricula and emphasizing oral or other interactive assessment methods. In Switzerland, for example, universities encourage exchange and socialization, with AI complementing the formative aspect of critical discussion and debate of ideas between students and faculty.87"
+  },
+  {
+    "ID": "54.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "A shift from the heavy reliance on high-stake testing towards continuous assessment is advisable. Students’ individual learning journeys and progress captured by digital learning systems could be used to assess learning and competencies more accurately than examinations ever can. Continuous AI assessments raise significant ethical issues,88 however, and there is no compelling evidence that the use of AI and data processing is fair, transparent and in children’s best interests. 89 Recently, for example, the United Kingdom clarified that using AI as a sole marker of students’ work is against the law and problematic, owing to the potential for bias, inaccuracies and lack of human judgment.90 D. Deprofessionalization of teaching"
+  },
+  {
+    "ID": "55.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "AI tools can automate tasks, freeing up teachers’ time for more student engagement in a way that teachers deem necessary and appropriate, especially in publicly funded schools with high student-teacher ratios. Simultaneously, there are concerns about AI tools disempowering teachers and deprofessionalizing teaching, especially when pedagogical decisions are heavily influenced by algorithms. 91 The danger is transforming teachers into mere facilitators in a narrow, technocratic __________________ 82 Xin Zhao, Jiahong Xu and Andrew Cox, “Incorporating artificial intelligence into student academic writing in higher education: the use of wordtune by Chinese international students”, Proceedings of the 57th Hawaii International Conference on System Sciences (2024). 83 Submissions by Digital Futures for Children Centre and Lithuanian National Union of Students. 84 Andrew Myers, “AI-detectors biased against non-native English writers”, Stanford University, Human-Centred Artificial Intelligence, 15 May 2023. 85 Submission by Education International. 86 Joint Council for Qualifications, “AI use in assessments: protecting the integrity of qualifications”, 2 February 2024. 87 Swiss Universities, “Les hautes écoles suisses et l’intelligence artificielle”, 5 March 2024. 88 UNESCO, Artificial Intelligence for Sustainable Development. 89 Joint Council for Qualifications, “AI use in assessments”. 90 United Kingdom, Office of Qualifications and Examinations Regulation, “Ofqual’s approach to regulating the use of artificial intelligence in the qualifications sector”, 24 April 2024. 91 Submission by NASUWT. A/79/520 24-18961 14/29 approach to education that reduces human interaction and undermines teacher-student relationships."
+  },
+  {
+    "ID": "56.",
+    "Labels": [],
+    "Text": "Delegating tasks to a tutor-bot inserts a digital intermediary between students and teachers who are pedagogical experts in their fields, know their students and understand their contexts. 92 Hence, teachers are reluctant to consign pupil assessment to an algorithm, preferring to monitor pupils’ progress themselves, especially for pupils with higher needs.93 Teachers’ professional judgment should remain central in assessments."
+  },
+  {
+    "ID": "57.",
+    "Labels": [],
+    "Text": "Excessive dependence on AI platforms can undermine academic freedom and teachers’ autonomy regarding professional decisions about pedagogical practices. 94 In England, for instance, there are concerns about the atomization of education through the decision-making powers of multi-academy trusts, which run groups of schools. 95 Some multi-academy trusts use AI to “rationalize the workforce” and require subject teachers to work across a group of schools, deliver teaching remotely or simply deliver multi-academy-prepared lessons, with serious implications for learners with special learning needs."
+  },
+  {
+    "ID": "58.",
+    "Labels": [],
+    "Text": "Furthermore, increased digitalization can lead to “technology clutter” and loss of time as poor networks and lack of information technology support present new disruptive factors. Sometimes, digital learning platforms increase documentation, forcing teachers to double document when platforms are not fit for purpose. 96 Teachers’ workload increases when burdened by multiple applications that do not dovetail.97 AI may also generate new tasks for which teachers are unprepared, such as analysing large amounts of AI-generated data about learners."
+  },
+  {
+    "ID": "59.",
+    "Labels": [],
+    "Text": "There is also concern that widespread AI adoption and automation in education could lead to large-scale job losses,98 especially in low-income countries and areas already facing difficulties in recruiting and retaining qualified teachers. 99"
+  },
+  {
+    "ID": "60.",
+    "Labels": [],
+    "Text": "The role of teachers encompasses supporting students through personal and academic challenges. 100 AI systems cannot provide the emotional support and mentorship that human educators offer in building cognitive and socioemotional development, critical thinking, empathetic connections and deeper learning. 101"
+  },
+  {
+    "ID": "61.",
+    "Labels": [],
+    "Text": "The use of technology must be balanced with the preservation of the essence of teaching, which encompasses dialogue, debate and the nurturing of critical thinking. Teachers should be supported to acquire the skills necessary for using AI and consulted in developing materials and content evaluation, to ensure the effective and responsible application of AI tools in schools. E. Privacy and data protection"
+  },
+  {
+    "ID": "62.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "The right to privacy encompasses multiple aspects of a person’s physical and psychological integrity. The Committee on the Rights of the Child underlined that children have a right to privacy in digital spaces too. 102 AI systems, too often __________________ 92 Williamson, Molnar and Boninger, Time for a Pause. 93 Submission by National Education Association. 94 Williamson, Molnar and Boninger, Time for a Pause. 95 Submission by NASUWT. 96 Submission by Swedish Teacher Union, annex. 97 Submission by NASUWT. 98 Submissions by the Russian Federation, the National Confederation of Education Workers – CNTE/Brazil and Facts and Norms Institute. 99 Submission by NASUWT. 100 Submission by Interpaz – Institute of Interdisciplinary Research for Peace. 101 Submission by Hamid Alaghehband and Mona Junger Aghababaie. 102 Committee on the Rights of the Child, general comment No. 25 (2021). A/79/520 15/29 24-18961 introduced without any impact assessment, appropriate legal frameworks and safeguards, generate, collect, process, retain and use mass amounts of personal data to make inferences about students.103"
+  },
+  {
+    "ID": "63.",
+    "Labels": [],
+    "Text": "Some AI systems automatically collect data from websites (web scraping), including sensitive data, often without a person’s knowledge or consent. Domestic devices connected to the Internet provide AI systems with real-time data from homes, workplaces and public spaces, revealing details of everyday life in a continuous information stream. The large data sets that AI requires to function effectively increase the risk of personal data disclosure and can attract cybercriminals."
+  },
+  {
+    "ID": "64.",
+    "Labels": [],
+    "Text": "Unauthorized surveillance and loss of anonymity as AI technologies become more integrated into everyday life are troubling. Datafication implies access to personal data by companies and Governments, including from education-specific platforms, school management systems, social networks and messaging applications."
+  },
+  {
+    "ID": "65.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "The increasing reliance on tick-the-box consent as a legal basis for processing data in educational settings, combined with lack of age verification, is worrying. 104 Children should not be asked to exchange their privacy for access to education. Meaningful consent is extremely difficult and potentially impossible in an educational setting. In Sweden, for example, the Data Protection Authority fined a municipality for violating the European Union General Data Protection Regulation regarding consent, noting that the power imbalance between students, their guardians and the school meant that the consent could not be deemed to have been given freely. 105"
+  },
+  {
+    "ID": "66.",
+    "Labels": [
+      "Children",
+      "Women/girls"
+    ],
+    "Text": "The use of generative AI tools in the education system, where many users are children obliged to use the technology adopted by their schools, raises serious concerns about data ownership,106 the use of children’s personal information for thirdparty marketing, potential authoritarian abuses through digital surveillance, cyberattacks and exploitation of student data for cyberbullying and identity theft, such as harassment through circulation of deep-fake pornographic images, especially of female students and teachers.107"
+  },
+  {
+    "ID": "67.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Also troubling is the intrusive nature of AI-driven facial recognition technology in educational settings, increasingly used in a growing number of countries, 108 despite persistent evidence of facial recognition technology biases, especially against students with disabilities 109 and Black students. 110 Facial recognition technology leads to privacy issues because, in extracting biometric facial data, it creates a digital signature of each face, stores it and searches databases or watch lists for matches. 111 Some legal frameworks prohibit such untargeted scraping of facial images. 112 The Special Rapporteur has previously recommended banning from educational __________________ 103 Submission by Privacy International. 104 See A/79/122. 105 European Data Protection Board, “Facial recognition in school renders Sweden’s first GDPR fine”, 22 August 2019. 106 Submission by Education International. 107 Ibid. 108 See https://privacyinternational.org/learn/facial-recognition. 109 Submission by National Education Association. 110 Tom Simonite, “The best algorithms struggle to recognize black faces equally”, Wired, 22 July 2019. 111 See Privacy International and Liberty’s flyer on facial recognition, entitled, “Neighbourhood watched: how policing surveillance technology impacts your rights”. Available at https://privacyinternational.org/sites/default/files/2019-02/Explainers-Facial%20Recognition.pdf. 112 European Union, Artificial Intelligence Act, Regulation (EU) 2024/1689, art. 5.1(e). A/79/520 24-18961 16/29 institutions all facial recognition technologies which facilitate surveillance and threaten academic freedom.113"
+  },
+  {
+    "ID": "68.",
+    "Labels": [],
+    "Text": "Deployed in a regulatory void, facial recognition technology is not subject to public scrutiny. 114 Many educational institutions worldwide implement such technology without the appropriate oversight, transparency or review. 115 For example, in Brazil, the government of Paraná introduced facial recognition technology systems to register school attendance in more than 1,500 publicly funded schools, to “modernize public education”. 116 Teachers and experts stress multiple errors in identification, particularly for dark-skinned students.117 No human rights impact studies appear to have been conducted prior to the facial recognition technology deployment. 118"
+  },
+  {
+    "ID": "69.",
+    "Labels": [],
+    "Text": "The increasing trend of biometric surveillance technologies in education is worrying. The facial recognition technology variant, e-proctoring, is often used in higher education for remotely conducted examinations to verify student identities and monitor examination environments for suspicious activity. This technology has reportedly been used in Argentina, Chile and Peru by both public and private universities with little, if any, observance of applicable data protection rules. 119"
+  },
+  {
+    "ID": "70.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "There are parallel concerns about emotion recognition and social media surveillance. For example, educational institutions throughout Hong Kong use emotion recognition software to monitor facial expressions to determine children’s moods and motivational levels, gauge progress and even predict their scores. 120"
+  },
+  {
+    "ID": "71.",
+    "Labels": [
+      "LGBTI+"
+    ],
+    "Text": "Social media surveillance software also increasingly uses AI to flag purportedly harmful, inappropriate or concerning messages in student’s texts, social media or browsing history. From algorithms blocking or inappropriately flagging LGBTQ+ content121 and allegedly outing students to their parents,122 to “forestalling” protests,123 the software is used in ways that undermine students’ academic freedom, 124 freedom of expression and right to non-discrimination. In the United States of America, these products may be exacerbating the school-to-prison pipeline by increasing law enforcement interactions with students.125 F. Algorithmic biases, discrimination and misinformation"
+  },
+  {
+    "ID": "72.",
+    "Labels": [
+      "LGBTI+"
+    ],
+    "Text": "Artificial intelligence is based on the use of algorithms and the large-scale harvesting of publicly available data from which they “learn”. There is wide __________________ 113 A/HRC/56/58, para. 84 (j). 114 Privacy International, “UK MPs asleep at the wheel as facial recognition technology spells the end of privacy in public”, 7 November 2023. 115 Internet Lab, Surveillance Technologies and Education: Mapping Facial Recognition Policies in Brazil Public Schools – Diagnosis and Recommendation No. 8 (2023). 116 Submission by Derechos Digitales. 117 Amanda Audi, “Facial recognition in Paraná imposes emotion monitoring in schools”, Pública, 27 October 2023. Available at https://apublica.org/2023/10/reconhecimento-facial-no-paranaimpoe-monitoramento-de-emocoes-em-escolas/. 118 Internet Lab, Surveillance Technologies and Education. 119 Submission by Derechos Digitales. 120 Submission by Privacy International. 121 Todd Feathers, “Schools use software that blocks LGBTQ+ content, but not white supremacists”, Vice, 28 April 2021. 122 James Factora, “Surveillance programs are reportedly targeting, outing LGBTQ+ students”, Them, 19 October 2021. 123 See https://pulitzercenter.org/stories/tracked-how-colleges-use-ai-monitor-student-protests. 124 See A/HRC/56/58. 125 Elizabeth Warren and Ed Markey, “Constant surveillance: implications of around-the-clock online student activity monitoring”, March 2022. A/79/520 17/29 24-18961 recognition that algorithms are not neutral,126 but neither is the Internet as a database. The data of marginalized groups without digital access are not in the training data sets. There are also biases due to the identity and backgrounds of programmers developing algorithms and those used to test algorithms."
+  },
+  {
+    "ID": "73.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Particularly worrying are reported cases of “algorithmic discrimination”, in particular, sexism, disability,127 racism128 and heterosexism, in the initial clearing of data for training AI models. The process involves human workers – rarely if ever trained in human rights, equality and non-discrimination – manually tagging or identifying the content of a document or image using keywords. Unfair, discriminatory or biased identification, profiling and automated decision-making can lead to the temporary or permanent exclusion of particular learners."
+  },
+  {
+    "ID": "74.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "As general-purpose AI systems can amplify misinformation and provide output that is simply wrong, using generative AI or conversational tutor-bots in education without critical oversight may impact the type of information and disinformation to which learners and educators are exposed.129 Education-specific tools generally have in-built safeguards and offer peer-reviewed content. Nonetheless, caution is needed in customizing educational content to guard against artificially limiting the diversity of perspectives. Heavy reliance on generative AI to standardize curricula can perpetuate cultural biases, reinforce curricula based on Western ideals and privilege white and male perspectives. The risk increases with development assistance for education in low-income countries or in areas of conflict. G. Student well-being and mental health"
+  },
+  {
+    "ID": "75.",
+    "Labels": [
+      "Persons with disabilities"
+    ],
+    "Text": "Integrating AI in education may decrease face-to-face interactions, impeding the development of social, emotional and communication skills necessary to build healthy social relationships, with mental health implications for students. Generative AI and AI recommender systems pushing information to learners produce an information overload which impacts students’ concentration and, in turn, their behaviour in class."
+  },
+  {
+    "ID": "76.",
+    "Labels": [
+      "Adolescents",
+      "Children",
+      "Persons with disabilities"
+    ],
+    "Text": "Young people’s mental health crisis – a rise in anxiety, depression and selfharm – is often linked to the increased use of social media130 and the widespread adoption of smartphones and social media starting in the early 2010s. 131 While there is not yet a consensus on the exact causation and extent of harm, the primary question should be whether there is sufficient evidence to deem AI, smartphones and social media technologies safe for children and adolescents. A precautionary approach is necessary, particularly within educational settings. 132 __________________ 126 Finn Lattimore and others, Using Artificial Intelligence to Make Decisions: Addressing the Problem of Algorithmic Bias: Technical Paper (Sydney, Australian Human Rights Commission, 2020). 127 Pranav Narayanan Venkit, Mukund Srinath and Shomir Wilson, “Automated ableism: an exploration of explicit disability biases in sentiment and toxicity analysis models”, in Proceedings of the 3rd Workshop on Trustworthy Natural Language Processing (Toronto, Association for Computational Linguistics, 2023). 128 See A/HRC/57/70. 129 Gary Marcus, “AI platforms like ChatGPT are easy to use but also potentially dangerous”, Scientific American, 19 December 2022. 130 Eric Levitz, “What the evidence really says about social media’s impact on teens’ mental health”, Vox, 12 April 2024; and Candice L. Odgers, “The great rewiring: is social media really behind an epidemic of teenage mental illness?”, Nature, vol. 628 (4 April 2024). 131 Haidt, The Anxious Generation. 132 Submission by Facts and Norms Institute. A/79/520 24-18961 18/29 IV. Strategies for aligning artificial intelligence in education with human rights frameworks and principles"
+  },
+  {
+    "ID": "77.",
+    "Labels": [],
+    "Text": "The 10 key strategies suggested below, based on the Global Digital Compact adopted at the Summit of the Future in 2024, are aimed at assisting States and other stakeholders to ensure that AI in education operates within the established human rights frameworks and principles. The Compact contains a call for a responsible, accountable, transparent and human-centric approach at the pre-design, design, development, evaluation, testing, deployment, use, sale, procurement, operation and decommissioning stages, with effective human oversight of emerging technologies, including AI.133"
+  },
+  {
+    "ID": "78.",
+    "Labels": [],
+    "Text": "From the right to education perspective, technological solutionism is not always realistic, however. It is still unclear how AI can address the most persistent global challenges in education, such as basic illiteracy, teacher shortages, low enrolment and high dropouts and gender and other stereotypes and discrimination. Technological breakthroughs in the field of AI in education could be an opportunity to improve access to education for the most vulnerable groups in the spirit of leaving no one behind. 134 Eventually, however, it is human capacity and collective action, not technology, which are the determining factors in effective solutions to fundamental and long-standing educational issues.135 A. Adhere to human rights principles"
+  },
+  {
+    "ID": "79.",
+    "Labels": [],
+    "Text": "AI in education must be framed around the right of every person to public, free, quality education and States’ commitments under international human rights law and Sustainable Development Goal 4 to ensure lifelong learning opportunities for all. 136 States have an obligation to progressively realize this right using all available resources, ensuring at least minimum essential levels of education. 137"
+  },
+  {
+    "ID": "80.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "In 2012, for the first time, the Human Rights Council adopted a resolution in which it affirmed that human rights apply both offline and online. 138 This normative equivalency means that a human rights-based approach is essential in the use of AI in education,139 including: the principles of meaningful and inclusive participation in decision-making on the use of AI in education, especially of students, teachers, parents and communities; non-discrimination and equality, including in access to the technology and in the application of its algorithms;140 accountability of designers and deployers of AI used in education for risks and harms; availability of reliable remedies; access to information and transparency in the design, development and deployment of AI in education;141 and privacy and data protection. A human rights__________________ 133 See also www.un.org/en/ai-advisory-body. 134 UNESCO, Beijing Consensus on Artificial Intelligence and Education (Paris, 2019), para. 22. 135 Fengchun Miao and Wayne Holmes, Guidance for Generative AI in Education and Research (Paris, UNESCO, 2023) p. 7. 136 International Covenant on Economic, Social and Cultural Rights, arts. 13 and 14; and Convention on the Rights of the Child, art. 28. 137 For a detailed analysis of the right to education framework, see A/HRC/53/27; and UNESCO, Right to Education Handbook (Paris, 2019). 138 Human Rights Council resolution 20/8. 139 See A/HRC/43/29. 140 On the emerging “law of algorithms”, see Jędrzej Niklas, “Human rights-based approach to AI and algorithms”, in The Cambridge Handbook of the Law of Algorithms, Woodrow Barfield, ed. (Cambridge University Press, 2020). 141 See A/78/310; and Maria Paz Canales, Ian Barber and Jacqueline Rowe, “What would a human rights-based approach to AI governance look like?”, 19 September 2023. A/79/520 19/29 24-18961 based approach to data encompasses the principles of self-identification of personal characteristics at the individual’s discretion142 and data sovereignty.143 It is vital to ensure that data are owned and managed locally, by those that they concern. 144 In its 2021 Recommendation on the Ethics of Artificial Intelligence, UNESCO calls for AI systems which do not undermine freedom and autonomous decision-making;145 the UNESCO guidelines on open data for AI highlight the value of open data, setting standards on Indigenous data and data sovereignty.146"
+  },
+  {
+    "ID": "81.",
+    "Labels": [],
+    "Text": "Primarily States, but also international organizations, civil society actors, business enterprises, including technological companies, and individuals are responsible for ensuring a human rights-based approach to AI in education. Educational institutions have a special role. They provide optimal environments for cross-disciplinary engagement and are perfectly placed to promote a “human rights by design” mindset among future AI developers and young entrepreneurs, produce vital research to inform the development and deployment of emerging digital technologies and contribute to capacity-building to improve digital literacy and skills.147 B. Close all digital divides as a matter of priority"
+  },
+  {
+    "ID": "82.",
+    "Labels": [],
+    "Text": "The growing deployment of AI in education exacerbates existing digital divides, deepening inequalities. 148 Closing digital divides in education entails not only addressing access, including Internet connectivity and device availability, but also instructional design and how students use AI tools."
+  },
+  {
+    "ID": "83.",
+    "Labels": [
+      "Refugees & asylum-seekers"
+    ],
+    "Text": "International projects such as the UNICEF- and ITU-led Giga149 are aimed at connecting every school to the Internet. National initiatives to supply personal devices to every student intensified during the COVID-19 pandemic.150 Submissions reveal an array of methods to address the digital divide, such as equipping all students with connected laptops or purchasing devices at least for teachers and underprivileged students, ensuring Internet access in all educational institutions, extending electricity hours in refugee camps, establishing national online knowledge banks, broadcasting educational lessons on national media or enabling access to online learning platforms through mobile telephones."
+  },
+  {
+    "ID": "84.",
+    "Labels": [],
+    "Text": "Infrastructural measures require investments, currently mostly made possible through partnerships with private companies that, inter alia, create free online learning platforms or provide extra data for home bundles, high-speed Internet for rural schools and free or low-cost licensing of AI-based educational software."
+  },
+  {
+    "ID": "85.",
+    "Labels": [],
+    "Text": "Developing technology is not enough. It is essential that instructional designs ensure that all students are able to engage in active, critical and creative AI use, especially those from marginalized backgrounds. __________________ 142 United Nations, “A human rights-based approach to data: guidance note to data collection and disaggregation”, 2018. 143 Michael Webb, “What is AI sovereignty and why does it matter for education?”, Jisc, 2 August 2024. 144 UNESCO, “New report and guidelines for indigenous data sovereignty in artificial intelligence developments”, 11 December 2023. 145 Available at https://unesdoc.unesco.org/ark:/48223/pf0000381137. 146 Soenke Ziesche, Open Data for AI: What Now? (Paris, 2023). 147 Universal Rights Group and others, Towards a Human Rights-Based Approach to New and Emerging Technologies (Geneva, 2022), pp. 94 and 95. 148 Submission by TeachAI. 149 See https://giga.global/. 150 For side effects, see West, An Ed-Tech Tragedy?. A/79/520 24-18961 20/29"
+  },
+  {
+    "ID": "86.",
+    "Labels": [],
+    "Text": "Education providers should not invest more in technology than in pedagogy and corresponding teacher training. 151 Closing the digital divide in education must go hand in hand with States fulfilling their obligation to provide quality education for all, while ensuring that digital tools complement rather than replace face-to-face teaching with educators. C. Engage stakeholders"
+  },
+  {
+    "ID": "87.",
+    "Labels": [],
+    "Text": "Teachers are insufficiently included in decisions on technology: 45 per cent of teachers in 94 countries reported not being consulted about new technology that they had to work with.152 Students and parents are consulted even less."
+  },
+  {
+    "ID": "88.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "To ensure that diverse perspectives are considered, especially of groups that might be adversely affected, it is vital to involve educators, students, parents and other stakeholders, with particular attention to women and girls, in the design, implementation and regulation of AI systems used in education. Mechanisms for the meaningful participation of diverse stakeholders are essential to gather feedback and address concerns, such as public consultations, surveys, focus groups and workshops."
+  },
+  {
+    "ID": "89.",
+    "Labels": [],
+    "Text": "At the global level, the Organisation for Economic Co-operation and Development (OECD), in its 2019 recommendation on artificial intelligence, 153 for example, integrated input from a broad range of stakeholders. The High-Level Expert Group on Artificial Intelligence of the European Commission included representatives from civil society organizations and education stakeholders in developing its 2019 Ethics Guidelines for Trustworthy AI.154 The Council of Europe intends to involve students, parents, teachers, civil society representatives, policymakers and ed-tech industry developers as part of the refinement process of its legal instrument to regulate the use of AI systems in education. 155 In its Framework Convention on Artificial Intelligence, Human Rights, Democracy and the Rule of Law, adopted in April 2024,156 it specifically requires States parties to ensure that questions raised in relation to AI systems are duly considered through public discussion and multi-stakeholder consultation.157"
+  },
+  {
+    "ID": "90.",
+    "Labels": [],
+    "Text": "Submissions highlight successful national stakeholder engagements on AI in education. In countries such as Canada, Ecuador, Saudi Arabia, Singapore and Uruguay, feedback from teachers, students and parents shaped regulations on ethics, data privacy, bias and automation. Lithuania and Uruguay consulted students and youth, while the Department for Education of the United Kingdom gathered input from teachers, parents and students which provided valuable insights from practitioners across all educational stages regarding AI use.158 Of critical importance is ensuring that the voices of the most vulnerable and marginalized are fully reflected in design and deployment. __________________ 151 Submission by Swedish Teacher Union. 152 Submission by UNESCO-International Bureau of Education. 153 OECD, document OECD/LEGAL/0449. 154 Available at https://digital-strategy.ec.europa.eu/en/policies/expert-group-ai. 155 Submission by the Council of Europe. See also, Council of Europe, document DGII/EDU/AIED (2024)01. 156 Available at www.coe.int/en/web/artificial-intelligence/the-framework-convention-on-artificialintelligence. 157 Ibid., art. 19. 158 United Kingdom, Department for Education, “Generative AI in education”. A/79/520 21/29 24-18961 D. Ensure artificial intelligence alignment with educational goals"
+  },
+  {
+    "ID": "91.",
+    "Labels": [],
+    "Text": "AI in education should not be merely for “digital transformation”. Its use should be pedagogically justified and aligned with the overarching goal of promoting quality education for all, particularly for marginalized students, as outlined in Sustainable Development Goal 4. To this end, in national policies, AI should enhance learning outcomes without threatening to replace human educators. For example, the Ministry of Education of Ecuador suggests that AI should be seen “as a complement to the pedagogical approaches, curricular and didactic elements involved in the teachinglearning process, to develop key skills, such as critical thinking, creativity, collaboration and communication”.159"
+  },
+  {
+    "ID": "92.",
+    "Labels": [],
+    "Text": "Some policymakers adopt special measures to ensure access to trustworthy and pedagogically appropriate AI tools. In Ontario, for example, schools can use resources only from a list of AI educational tools vetted for quality and pedagogical appropriateness.160 In Luxembourg, the EduMedia website offers a wide range of teaching resources, a media passport for documenting students’ skills and in-service training for teachers.161 In Türkiye, the Trustworthy AI Trust Stamp162 is an example of vetting through quality labels and certification. E. Implement ethical artificial intelligence frameworks"
+  },
+  {
+    "ID": "93.",
+    "Labels": [],
+    "Text": "Implementing ethical AI frameworks in education demands adherence to established international, national and sometimes institutional guidelines which emphasize transparency, accountability, inclusivity and respect for human rights in line with the first United Nations resolution on AI for sustainable development adopted by the General Assembly in March 2024.163"
+  },
+  {
+    "ID": "94.",
+    "Labels": [
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "At the global level, in its 2021 Recommendation on the Ethics of Artificial Intelligence, the first global instrument of its kind, UNESCO recommends that States encourage research on ethical AI and ensure that private sector companies facilitate access of the scientific community to their data for research. It calls for leadership of girls and women, diverse ethnicities and cultures, persons with disabilities and vulnerable people and for the development of AI ethics curricula for all levels of education.164"
+  },
+  {
+    "ID": "95.",
+    "Labels": [],
+    "Text": "The Special Rapporteur appreciates that many States have issued guidance and codes of conduct to ensure the ethical use of AI in education and other sectors. This includes developing tools such as self-assessment checklists, portfolios of use cases and AI assurance repositories to support transparency and responsible AI governance. Many place human rights, freedoms and autonomy at the forefront of AI development, with guidelines inspired by global standards such as those of OECD 165 and the European Union.166 Various nations have also developed specific ethical guidelines for using AI in teaching and learning. __________________ 159 Submission by Ecuador. 160 Submission by Knowledgeflow Cybersafety Foundation. 161 See https://www.edumedia.lu/. 162 OECD, document C/MIN(2024)17. 163 General Assembly resolution 78/265. For comments, see Annika Knauer, “The first United Nations General Assembly resolution on artificial intelligence”, 2 April 2024. 164 Available at https://unesdoc.unesco.org/ark:/48223/pf0000381137. 165 See https://oecd.ai/en/ai-principles. 166 European Union, Ethical Guidelines on the Use of Artificial Intelligence (AI) and Data in the Teaching and Learning for Educators (Luxembourg, 2022). A/79/520 24-18961 22/29"
+  },
+  {
+    "ID": "96.",
+    "Labels": [],
+    "Text": "Universities have also developed policies on the ethical use of AI to mitigate bias and maintain academic integrity. F. Establish robust legal and policy frameworks"
+  },
+  {
+    "ID": "97.",
+    "Labels": [],
+    "Text": "The importance of regulation is globally recognized. The High-level Advisory Body on Artificial Intelligence, 167 in its final report, 168 highlighted the global governance deficit with respect to AI and lack of enforceable accountability for deploying non-explainable AI systems. In this regard, the proliferation of national and international ethical AI frameworks is welcome but far from sufficient, as their non-binding nature often provides only idealistic principles without adequate accountability, effective enforcement or redress mechanisms, which can create leeway to escape regulation.169 Ethics frameworks cannot be a substitute for a human rightsbased approach170 because, unlike AI ethics frameworks, human rights are enforceable in law and hence more appropriate for governing AI usage, including in education. 171"
+  },
+  {
+    "ID": "98.",
+    "Labels": [],
+    "Text": "Binding legal norms based on international human rights law framework are essential to safeguard the rights of students and educators in the context of the turbulent development of AI in education."
+  },
+  {
+    "ID": "99.",
+    "Labels": [],
+    "Text": "Adopting regulation takes time and consensus-building through representation and coordination. At present, coordination is lacking even within the United Nations system. While many United Nations entities touch upon AI governance, expanding the number of global principles and guidelines, none does so in a comprehensive manner.172"
+  },
+  {
+    "ID": "100.",
+    "Labels": [],
+    "Text": "Nevertheless, it is encouraging that principles and recommendations suggested by global actors are being translated into a growing number of policies and domestic legislation. In 2017, only a few countries had national AI strategies. By September 2024, the OECD Artificial Intelligence Policy Observatory had more than 1,000 AI policy initiatives from 69 countries and territories, 173 including 319 national AI strategies.174 The database provides more than 60 policies specifically on AI skills and education.175"
+  },
+  {
+    "ID": "101.",
+    "Labels": [],
+    "Text": "Most countries have general data protection laws and privacy laws that are applicable to the use of AI in education. In addition, several initiatives are specifically focused on AI in education and help teachers use AI tools responsibly, especially to prevent and detect malpractice in assessments. Professional associations have also issued advice on how to reflect AI use in education in binding collective agreements.176"
+  },
+  {
+    "ID": "102.",
+    "Labels": [],
+    "Text": "Europe has the most advanced legal regulation to date. The European Union adopted the Artificial Intelligence Act, the world’s first comprehensive AI law, in March 2024. It considers AI systems applied in education and vocational training as __________________ 167 See A/74/821. 168 Governing AI for Humanity (United Nations publication, 2024). 169 United Nations System Chief Executives Board for Coordination, “United Nations system white paper on AI governance: an analysis of the UN system’s institutional models, functions, and existing international normative frameworks applicable to AI governance”, 2 May 2024, p. 37. 170 Canales, Barber and Rowe, “What would a human rights-based approach” (see footnote 141). 171 Council of Europe, document DGII/EDU/AIED(2024)01, p. 22. 172 CEB, “United Nations system white paper on AI governance”. 173 See https://oecd.ai/en/dashboards/overview. 174 OECD, document C/MIN(2024)17. 175 See https://oecd.ai. 176 See www.nasuwt.org.uk/advice/in-the-classroom/artificial-intelligence-and-digitaltechnologies.html. A/79/520 23/29 24-18961 high risk and requires them to be assessed prior to being put on the market and subsequently throughout their life cycle. It guarantees the right to file complaints about AI systems used in education to designated national authorities. 177 The Council of Europe Convention on AI is open for accession by non-members.178 The Council is now working on a legally binding instrument on artificial intelligence and education.179 G. Promote and facilitate artificial intelligence literacy"
+  },
+  {
+    "ID": "103.",
+    "Labels": [],
+    "Text": "As AI becomes more prevalent in education, it is crucial to equip both students and teachers with the knowledge necessary to critically assess and responsibly use AI tools and prepare them to navigate a technology-driven future, emphasizing not just technical skills but also ethical considerations. Programmes should also engage communities, including parents and families, in understanding AI, as exemplified by Morocco. 180 Comprehensive digital literacy programmes must be focused on evaluating AI-generated content, recognizing biases and ensuring academic integrity."
+  },
+  {
+    "ID": "104.",
+    "Labels": [],
+    "Text": "In its 2021 Recommendation on the Ethics of Artificial Intelligence, UNESCO notably recommends that States provide adequate AI literacy education to the public, including awareness programmes on data, while prioritizing the participation of marginalized groups. In September 2024, UNESCO issued authoritative guidelines on competencies needed for students and teachers,181 grounded in a vision of teachers and students as AI co-creators and responsible citizens. In the guidelines, it emphasizes critically assessing AI solutions, awareness of citizenship responsibilities in the era of AI, foundational AI knowledge for lifelong learning and inclusive and sustainable AI design. The Council of Europe is also developing a policy toolbox on teaching and learning with and about AI encompassing both the technological and human dimensions of AI.182"
+  },
+  {
+    "ID": "105.",
+    "Labels": [],
+    "Text": "Governments acknowledged the urgent need to develop AI literacy and more advanced AI competencies across all layers of society as early as 2019 in the Beijing Consensus on Artificial Intelligence and Education. Nonetheless, in 2022, a UNESCO survey of 190 countries showed that only some 15 countries were developing or implementing AI curricula in school education.183 Submissions for the present report highlight a growing number of programmes and various approaches to integrating AI into school curricula: from incorporating AI into existing subjects while emphasizing critical thinking and ethics to developing unique initiatives that go beyond traditional classroom settings."
+  },
+  {
+    "ID": "106.",
+    "Labels": [],
+    "Text": "Higher education institutions offer graduate and undergraduate degrees exploring both the technical foundations of AI and the broader societal implications or incorporate AI education into academic and vocational training in a variety of fields."
+  },
+  {
+    "ID": "107.",
+    "Labels": [],
+    "Text": "The success of any curriculum depends on skilled educators. This requires prioritizing the development of human resources. Teacher education must include safe and effective integration of AI tools in teaching not only through initial and __________________ 177 European Parliament, “EU AI Act: first regulation on artificial intelligence”, 18 June 2024. 178 European Union, Artificial Intelligence Act, Regulation (EU) 2024/1689, art. 30. 179 Council of Europe, “Regulating artificial intelligence in education”, 2023. 180 Submission by Morocco. 181 Fengchun Miao and Kelly Shiohira, AI Competency Framework for Students (Paris, UNESCO, 2024); and Fengchun Miao and Mutlu Cukurova, AI Competency Framework for Teachers (Paris, UNESCO, 2024). 182 Council of Europe, “Council of Europe’s new Policy Toolbox aims to support education systems to integrate artificial intelligence”, 5 April 2024. 183 UNESCO, K-12 AI Curricula: A Mapping of Government-Endorsed AI Curricula (Paris, 2024). A/79/520 24-18961 24/29 continuous professional education but also through ongoing support and troubleshooting mechanisms to assist teachers in resolving technical issues as they arise. Critically, more than half of teachers surveyed in a study reported that they lacked the time needed to attend professional development courses.184 Organizational measures are needed that give teachers both opportunities and incentives to participate in such courses.185 In addition, it is vital to ensure that the school culture enables teachers to use AI effectively and provides them with scope to innovate. Submissions provide examples of professional development courses that support educators in understanding and teaching AI, university degrees on AI in education or dedicated AI institutes for teachers.186"
+  },
+  {
+    "ID": "108.",
+    "Labels": [],
+    "Text": "Education authorities in several countries have produced guidelines and dedicated portals and offer other online resources for teachers on how to use AI in classrooms. These are complemented by academic, corporate or cross-border multistakeholder initiatives, such as Erasmus+ AI4T, 187 AI4Good Lab, 188 Classroom Network Project, 189 the International Society for Technology in Education, 190 Socrat.ai, Pedagog.ai and TeachAI. Various courses on the practical application of AI for teachers are also offered by the major developers of educational AI. H Recognize the right to due process in artificial intelligence-informed decision-making"
+  },
+  {
+    "ID": "109.",
+    "Labels": [],
+    "Text": "Individuals affected by decisions made or influenced by AI systems need to be treated fairly, with transparency and accountability. In education, this means guaranteeing students the opportunity to understand, challenge and seek redress for decisions made by AI systems, especially when those decisions significantly impact their right to education, such as suspensions, expulsions, dropouts, high-stake testing or recommendations concerning career choice. In essence, such decisions need human oversight and legal safeguards, 191 ensuring that automated systems are subject to review and correction when necessary and that AI systems do not displace human responsibility.192"
+  },
+  {
+    "ID": "110.",
+    "Labels": [],
+    "Text": "The Guiding Principles on Business and Human Rights already offer a road map for delivering remedy to victims of business-related human rights harms, including harms that may arise from the use of AI developed by corporate actors in education. 193"
+  },
+  {
+    "ID": "111.",
+    "Labels": [],
+    "Text": "There is an emerging recognition of the right to human decision under international human rights law194 concerning, in particular, decisions facilitated or informed by AI embedded in educational platforms. 195 Appeal mechanisms with human oversight should be accessible, equitable, effective, maintained and accompanied by appropriate operator training and should not impose an unreasonable burden on the public. __________________ 184 OECD, TALIS 2018 Results (Volume 1): Teachers and School Leaders as Lifelong Learners (Paris, 2019). 185 A/78/364, para. 85. 186 See https://mississippi.ai/. 187 See www.ai4t.eu/resources/. 188 See https://mila.quebec/en/ai4humanity/learning/ai4good-lab. 189 See https://asef.org/programmes/asef-classroom-network-asef-classnet/. 190 See https://iste.org/courses/artificial-intelligence-explorations-for-educators. 191 Universal Rights Group and others, Towards a Human Rights-Based Approach. 192 Available at https://unesdoc.unesco.org/ark:/48223/pf0000381137. 193 See A/HRC/50/56. See also www.ohchr.org/en/business-and-human-rights/b-tech-project. 194 Submission by New Humanity. 195 Rivas, “The platformization of education”. A/79/520 25/29 24-18961"
+  },
+  {
+    "ID": "112.",
+    "Labels": [],
+    "Text": "The Council of Europe Convention on AI requires State Parties to ensure the availability of accessible and effective remedies for violations of human rights resulting from activities within the life cycle of AI systems. 196 This includes a possibility to lodge a complaint to competent authorities. The recent United States “Blueprint for an AI bill of rights: making automated systems work for the American people”197 suggests that the right to human decision includes the possibility to opt out from automated decision-making and to have access to a person who can consider and address each individual case. The European Union General Data Protection Regulation (art. 22) and the African Union Convention on Cyber Security and Personal Data Protection (art. 14 (5)) also recognize the right not to be subject to a decision based solely on automated processing. I. Monitor and evaluate artificial intelligence impact"
+  },
+  {
+    "ID": "113.",
+    "Labels": [],
+    "Text": "To ensure the responsible use of AI in education, it is essential to regularly monitor and evaluate its impact through consistent independent audits, human rights impact assessments, certification of ed-tech providers and the establishment of AI oversight bodies."
+  },
+  {
+    "ID": "114.",
+    "Labels": [],
+    "Text": "Regular audits of AI systems should be conducted at all stages of design development and usage to identify and mitigate biases in algorithms and data sets. This is essential to prevent discriminatory outcomes in critical areas such as student evaluations, admissions and access to educational resources and to align AI tools and systems with human rights standards and educational objectives, enabling timely adjustments to policies and practices. The UNESCO readiness assessment methodology is aimed at helping States develop a road map towards ethical development and use of AI,198 while its ethical impact assessment helps AI project teams, in collaboration with the affected communities, to identify and assess the impacts of AI systems. 199"
+  },
+  {
+    "ID": "115.",
+    "Labels": [],
+    "Text": "At the national level, mandatory human rights impact assessments and, specifically, algorithmic impact assessments, can proactively identify and mitigate potential risks of the use of AI in the public sector. 200 The certification of ed-tech providers is another monitoring process requiring companies to demonstrate educational benefit and strong student protections before being allowed to operate in schools.201"
+  },
+  {
+    "ID": "116.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Independent child rights impact assessment frameworks are particularly relevant to confirm that the claimed educational benefits of specific AI systems and data processing are evidence-based and support children’s development and right to education.202 Educational AI systems should be designed with children’s needs in mind, incorporating safety and restriction features from the start. Design choices __________________ 196 Council of Europe, Framework Convention on Artificial Intelligence and Human Rights, Democracy and the Rule of Law (2024), art. 14. 197 United States, Office of Science and Technology, Blueprint for an AI Bill of Rights Making Automated Systems Work for the American People (2022). 198 UNESCO, “Readiness assessment methodology: a tool of the recommendation on the ethics of artificial intelligence”, 2023; and UNESCO, “Country profiles”, Global AI Ethics and Governance Observatory database. Available at www.unesco.org/ethics-ai/en/global-hub. 199 UNESCO, Ethical Impact Assessment: A Tool of the Recommendation on the Ethics of Artificial Intelligence (Paris, 2023). 200 OECD, document C/MIN(2024)17. 201 Ayça Atabey, Sonia Livingstone and Kruakae Pothong, “How do our EdTech certification criteria emerge from our work at the Digital Futures Commission?”, Digital Futures Commission, 22 May 2023. 202 UNICEF – United Kingdom, “Child rights impact assessment: template and guidance for local authorities”, July 2021. A/79/520 24-18961 26/29 should involve input from children themselves. 203 Existing child-rights-specific algorithmic oversight frameworks can be used by actors in the education sector to safeguard children from potentially harmful impacts of AI systems. 204"
+  },
+  {
+    "ID": "117.",
+    "Labels": [],
+    "Text": "Supervisory agencies and oversight bodies play an increasing role in ensuring the responsible use of AI, such as the Spanish Agency for the Supervision of AI or the Department for the Coordination of Algorithmic Oversight of the Kingdom of the Netherlands. J. Engage in international cooperation and sharing of best practices"
+  },
+  {
+    "ID": "118.",
+    "Labels": [],
+    "Text": "Given the transboundary nature of AI development and usage, engaging in international cooperation is vital for establishing global standards which ensure that AI in education aligns with human rights principles and standards. Collaborating with organizations such as UNESCO, UNICEF, ITU and OHCHR can help establish these standards, fostering consistency across nations."
+  },
+  {
+    "ID": "119.",
+    "Labels": [],
+    "Text": "Participating in international forums and initiatives further enables the sharing of best practices and lessons learned, promoting ethical and rights-respecting use of AI in education worldwide. Good starting points are UNESCO 205 and OECD, 206 which have the most comprehensive collections of policies, practices and AI use cases, containing country profiles based on voluntary monitoring and available online data."
+  },
+  {
+    "ID": "120.",
+    "Labels": [],
+    "Text": "Moving forward, it is important that global governance initiatives are shaped with the active engagement of a range of global South actors, including Governments, companies, all levels of educators, academics and civil society. In July 2024, the African Union endorsed the Continental Artificial Intelligence Strategy, 207 promoting leadership by Africa in inclusive, development-focused and responsible AI development. The African Commission on Human and People’s Rights contributed to its development, emphasizing the alignment of AI technologies with human rights law and standards.208 V. Conclusions and recommendations"
+  },
+  {
+    "ID": "121.",
+    "Labels": [],
+    "Text": "When developed responsibly and within a human rights framework, AI can promote social good, peace and development. However, unregulated AI adoption in education poses risks to democratic values and individual freedoms, while unequal access to AI tools within and between countries worsens educational disparities."
+  },
+  {
+    "ID": "122.",
+    "Labels": [],
+    "Text": "AI-powered tools and systems should be embraced and promoted in education only if they are integrated within the broader framework of the right to education, ensuring that States meet their obligations to respect, protect and fulfil this right. __________________ 203 Governing AI for Humanity (United Nations publication), p. 32. 204 5 Rights Foundation, “Shedding light on AI: a framework for algorithmic oversight”, June 2022. 205 See www.unesco.org/artificial-intelligence. 206 See https://oecd.ai/en/. 207 African Union, Continental Artificial Intelligence Strategy: Harnessing AI for Africa’s Development and Prosperity (2024). 208 Sorina Teleanu and others, Stronger Digital Voices from Africa: Building African Digital Foreign Policy and Diplomacy (Diplo, 2022); and Centre for Intellectual Property and Information Technology Law, “The state of AI in Africa report 2023”, 2023. A/79/520 27/29 24-18961"
+  },
+  {
+    "ID": "123.",
+    "Labels": [
+      "Children",
+      "Persons with disabilities"
+    ],
+    "Text": "The use of AI should bring added value to quality education for all, without discrimination; it should be accessible to all, regardless of nationality, culture, gender, disability or age, location or other factors. Almost half the global population requires accessibility solutions, including children with special learning needs, those from disadvantaged backgrounds and older adults. AI should support, not replace, well-trained educators and face-to-face learning and the best interests of students and families must be prioritized while democratic principles in education are upheld. Strengthening trust between schools and families is vital to fostering a supportive learning environment. Recommendations for States"
+  },
+  {
+    "ID": "124.",
+    "Labels": [],
+    "Text": "Implement the 10 key strategies to ensure that AI in education operates within the established human rights frameworks and principles provided above, including by closing all digital divides – both through infrastructural developments and AI literacy, engaging all stakeholders in meaningful ways, ensuring AI alignment with pedagogical goals, implementing robust ethical and legal frameworks, establishing human rights due diligence and impact assessment mechanisms and sharing best practices."
+  },
+  {
+    "ID": "125.",
+    "Labels": [],
+    "Text": "Recognize the essential role of teachers in creating caring, human-centred education experience in all AI policy development and ensure that: (a) Teachers are involved in the entire digitalization process from development and acquisition to use and adaptation to schools through collegial discussions on digital working methods; (b) Teachers are provided with opportunities and incentives for pre- and in-service continuous skills development on how to responsibly and effectively use AI to complement teaching and learning, to critically assess AI system outputs, to understand why AI systems risk reinforcing dominant worldviews and further marginalizing others; (c) Teachers have access to resources and conditions for practice-oriented research on AI-based teaching methods and continuous support in usage."
+  },
+  {
+    "ID": "126.",
+    "Labels": [],
+    "Text": "Assert the State’s regulatory role to ensure that AI technologies respect human rights and serve the public good, inter alia: (a) Ensure that AI in education adheres to ethics-, privacy- and transparency-by-design principles, with a focus on protecting human rights, in particular the right to education. Align AI systems with existing legal frameworks related to the right to education – availability, accessibility, acceptability and adaptability – as well as accountability, while supporting digital rights and data sovereignty. Robust regulatory measures should ensure the accountability and active involvement of all stakeholders in AI development and deployment. Legislation should mandate algorithmic transparency, ensuring that developers are accountable for how data is collected, processed and used, with no personal student data collected or sold to third parties; (b) Recognize that application of AI in education is a high-risk area, especially when AI systems are used to determine access or admission, assign students to educational and vocational training institutions, evaluate learning outcomes, assess the appropriate level of education that an individual will receive or will be able to access and monitor behaviour of students during tests and other assessments; (c) Increase budget for inclusive digital development, especially for disadvantaged communities. A/79/520 24-18961 28/29"
+  },
+  {
+    "ID": "127.",
+    "Labels": [],
+    "Text": "Create spaces for meaningful inclusive societal dialogues on the set of emerging twenty-first century fundamental human rights, such as safe and equitable access to the Internet and AI technologies, the right to opt out and disconnect and the right not to be subject to a decision based solely on automated processing."
+  },
+  {
+    "ID": "128.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Mandate compliance with human rights standards in the deployment of AI tools and systems in the best interests of the child, to ensure that these support children’s development and well-being while creating an enabling learning environment and preparing children for present and future developments in AI."
+  },
+  {
+    "ID": "129.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Establish specific oversight mechanisms for AI in education, including human rights and child rights impact assessments prior to deployment."
+  },
+  {
+    "ID": "130.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Empower parents and students by equipping them with the information necessary to make informed decisions about data use and privacy, to counterbalance the unequal power relationship between minors and big tech."
+  },
+  {
+    "ID": "131.",
+    "Labels": [],
+    "Text": "Create platforms for meaningful participation and multi-stakeholder collaboration on the use of AI in education, involving key actors, such as teachers, students, parents, local communities and education authorities, public and private educational institutions, ed-tech and start-ups, academia and civil society."
+  },
+  {
+    "ID": "132.",
+    "Labels": [],
+    "Text": "Ensure human oversight of AI-based decisions concerning students to safeguard fairness, correct errors and prevent the displacement of teachers’ roles."
+  },
+  {
+    "ID": "133.",
+    "Labels": [],
+    "Text": "Support independent, interdisciplinary research on the short-term and long-term effects of AI in education, free from commercial influence."
+  },
+  {
+    "ID": "134.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "Address the adverse effects of screen time and AI on children’s physical, mental and emotional well-being."
+  },
+  {
+    "ID": "135.",
+    "Labels": [],
+    "Text": "Prevent and manage ecological impacts of AI by prioritizing data-, energy- and resource-efficient AI methods."
+  },
+  {
+    "ID": "136.",
+    "Labels": [],
+    "Text": "Counteract the negative effects of privatization of public education systems, inter alia, by: (a) Encouraging tech companies to reinvest profits into the education system, while incentivizing them to develop better, more ethical AI tools; (b) Promoting open-source, interoperable, community-driven and owned educational technologies to combat the oligopoly of large corporations and enhance local innovation; (c) Empowering teachers and students to be co-producers of technologies; (d) Requiring companies providing AI systems to educational institutions to waive commercial confidentiality and make their technologies fully auditable by any third party. Recommendations for the private sector"
+  },
+  {
+    "ID": "137.",
+    "Labels": [],
+    "Text": "Comply with the Business and Human Rights Framework."
+  },
+  {
+    "ID": "138.",
+    "Labels": [
+      "Persons with disabilities",
+      "Women/girls"
+    ],
+    "Text": "Ensure that AI tools address inclusion for students with disabilities, promote gender equality, cultural and linguistic diversity and eliminate biases from data sets and algorithms."
+  },
+  {
+    "ID": "139.",
+    "Labels": [],
+    "Text": "Increase funding for digital inclusion initiatives, capacity-building, internships and mentorships, especially for disadvantaged communities. A/79/520 29/29 24-18961"
+  },
+  {
+    "ID": "140.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Partner with non-governmental organizations to address cultural barriers to women’s access to technology."
+  },
+  {
+    "ID": "141.",
+    "Labels": [],
+    "Text": "Fund surveys to understand youth perspectives on AI and digital transformation in education."
+  },
+  {
+    "ID": "142.",
+    "Labels": [],
+    "Text": "Provide free or low-cost devices to tech-disadvantaged teachers and learners. Recommendations for educational institutions"
+  },
+  {
+    "ID": "143.",
+    "Labels": [],
+    "Text": "Prioritize human-centric, transparent collaboration among all stakeholders to ensure equitable and informed AI adoption in education."
+  },
+  {
+    "ID": "144.",
+    "Labels": [],
+    "Text": "Invest in professional development to help educators explore AI impacts through inquiry-based approaches, avoiding reliance on AI detection tools."
+  },
+  {
+    "ID": "145.",
+    "Labels": [],
+    "Text": "Redesign pedagogical approaches to enhance critical thinking, creativity and ethical reasoning, critical skills that AI cannot replicate."
+  },
+  {
+    "ID": "146.",
+    "Labels": [],
+    "Text": "Support research on the impact of AI in education and gather empirical evidence to inform policy."
+  },
+  {
+    "ID": "147.",
+    "Labels": [],
+    "Text": "Encourage faculty to work with students on thoughtful AI use, embracing cooperative frameworks such as Open Pedagogy to co-create knowledge. Recommendations for the international community"
+  },
+  {
+    "ID": "148.",
+    "Labels": [],
+    "Text": "Advocate for a human rights-based approach to AI, ensuring that regulations align with international human rights standards and protect the right to education."
+  },
+  {
+    "ID": "149.",
+    "Labels": [],
+    "Text": "Strengthen cross-agency collaboration to create cohesive global AI strategies and standards in education."
+  },
+  {
+    "ID": "150.",
+    "Labels": [],
+    "Text": "Develop joint capacity-building frameworks to equip populations with essential AI literacy skills."
+  },
+  {
+    "ID": "151.",
+    "Labels": [],
+    "Text": "Establish and harmonize global standards for data protection."
+  }
+]
