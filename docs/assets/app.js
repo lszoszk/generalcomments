@@ -18,6 +18,11 @@ const state = {
   searchIndex: null,            // FlexSearch.Document instance, populated after boot
   liteMode: false,              // v19.58: memory-constrained device (iOS / low-RAM) —
                                 // skip the FlexSearch index, use a linear scan instead
+  // v19.60: SP paragraphs were split out of corpus.json into the lazy,
+  // un-indexed sp-corpus.json. SP search routes through the API; the
+  // SP corpus is fetched only when the document reader opens an SP doc.
+  spCorpusLoaded: false,
+  spCorpusPromise: null,
   // Ternary online status. null = ping not yet returned, true = API
   // reachable, false = unreachable (local fallback engaged for the session).
   apiOnline: null,
@@ -121,17 +126,22 @@ function apiEnabled() {
   return true;
 }
 function apiActive(scope) {
-  // Hybrid mode: only JUR + all routes through the API; GC + SP stay
-  // local because their corpora are small and the keystroke-fast
-  // in-browser FlexSearch path beats any round-trip. If the API was
-  // probed at boot and is unreachable, fall back to local —
-  // `state.apiOnline === false` blocks subsequent attempts so a single
-  // failure doesn't cause an infinite recursion via runSearch. While
-  // the ping is in flight (`state.apiOnline === null`) we OPTIMISTICALLY
-  // try the API; runSearchViaApi has its own catch that flips to local
-  // and the timeout means we fail fast.
+  // Hybrid mode: JUR, SP and "all" route through the API; only GC
+  // stays local (its ~7 k-paragraph FlexSearch index builds in ~1 s
+  // and keystroke search beats any round-trip). v19.60: SP joined the
+  // API set — its paragraphs were split out of corpus.json, so the
+  // API is the only SP search path. If the API was probed at boot and
+  // is unreachable, fall back to local — `state.apiOnline === false`
+  // blocks subsequent attempts so a single failure doesn't cause an
+  // infinite recursion via runSearch. While the ping is in flight
+  // (`state.apiOnline === null`) we OPTIMISTICALLY try the API;
+  // runSearchViaApi has its own catch that flips to local.
   if (!apiEnabled()) return false;
   if (state.apiOnline === false) return false;
+  // SP has no local corpus to fall back to — always use the API
+  // (even with an SP report-type filter the API can't narrow yet;
+  // an unfiltered API result still beats the empty local one).
+  if (scope === 'sp') return true;
   if (!(scope === 'jur' || scope === 'all')) return false;
   // v19.50: JUR-only client filters that the API doesn't support yet
   // (rights-keywords, articles-cited, country, outcome, report-type).
@@ -955,7 +965,15 @@ function paintScopeCounts() {
   $('#count-jur').textContent = state.jur.manifest
     ? `${state.jur.manifest.counts.documents} · ${jurTreatyLabel({ compact: true })}`
     : '—';
-  $('#count-sp').textContent = `${m.spDocuments} · 4 mandates`;
+  // Mandate count is derived from the loaded catalogue — documents.json
+  // carries every SP doc's committee — so it never goes stale as new
+  // Special Procedures mandates are ingested.
+  const spMandates = new Set();
+  for (const d of state.documents.values()) {
+    if (d.type === 'sp' && d.committee) spMandates.add(d.committee);
+  }
+  $('#count-sp').textContent =
+    `${m.spDocuments} · ${spMandates.size} mandate${spMandates.size === 1 ? '' : 's'}`;
 }
 
 // ─────────── State restoration from URL ───────────
@@ -1899,17 +1917,22 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
     }
   }
 
-  // v19.50: GC + SP paragraphs live in corpus.json, loaded lazily by
-  // ensureCorpusReady(). On a cold deep-link load (#documents/<gc-id>),
-  // setView fires before the background corpus pre-warm finishes, so
-  // paintDocReaderBody would hit "DOCUMENT BODY UNAVAILABLE" because
-  // state.paragraphs is still empty. Await the loader here so the deep
-  // link case behaves like a click-after-warm-up. No-op if already loaded.
-  if (doc.type !== 'jur' && !state.paragraphs.length) {
+  // v19.60: a doc's body comes from the corpus matching its type —
+  // GC from corpus.json (ensureCorpusReady), SP from the lazy
+  // sp-corpus.json (ensureSpCorpusReady). Both loaders are idempotent,
+  // so awaiting them unconditionally also covers the cold deep-link
+  // case (#documents/<id> opened before any background pre-warm).
+  if (doc.type === 'gc') {
     try {
       $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading document corpus…</div>';
       await ensureCorpusReady();
     } catch (e) { console.warn('[corpus load failed]', e); }
+    if (runId !== state.docsOpenRun) return;
+  } else if (doc.type === 'sp') {
+    try {
+      $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading Special Procedures corpus…</div>';
+      await ensureSpCorpusReady();
+    } catch (e) { console.warn('[sp corpus load failed]', e); }
     if (runId !== state.docsOpenRun) return;
   }
 
@@ -4404,6 +4427,35 @@ async function ensureCorpusReady() {
     }
   })();
   return state._corpusLoadPromise;
+}
+
+// v19.60: lazy loader for the Special Procedures corpus.
+// SP paragraphs were split out of corpus.json into sp-corpus.json
+// (~40 MB) so the boot-time FlexSearch index stays GC-only and small.
+// SP *search* runs through the API; the ONLY consumer of these
+// paragraphs is the document reader, when the user opens an SP report
+// and needs its full body. They are pushed into state.paragraphs /
+// paragraphById for the reader + drawer to filter, but are NEVER added
+// to the FlexSearch index. Coalesces concurrent calls; idempotent.
+async function ensureSpCorpusReady() {
+  if (state.spCorpusLoaded) return;
+  if (state.spCorpusPromise) return state.spCorpusPromise;
+  state.spCorpusPromise = (async () => {
+    const arr = await fetchJson(`${DATA_BASE}sp-corpus.json`);
+    for (const p of arr) {
+      if (!state.paragraphById.has(p.id)) {
+        state.paragraphs.push(p);
+        state.paragraphById.set(p.id, p);
+      }
+    }
+    state.spCorpusLoaded = true;
+    // Scoring caches mix in the new paragraphs' doc-frequencies /
+    // lengths; drop them so the next search recomputes (scope filters
+    // keep GC-scope search unaffected either way).
+    _flushDfCache();
+    _avgDocLen = null;
+  })().finally(() => { state.spCorpusPromise = null; });
+  return state.spCorpusPromise;
 }
 
 // Warmer first-visit messaging. The earlier copy was

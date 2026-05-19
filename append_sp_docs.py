@@ -45,9 +45,12 @@ def main():
     report: list[str] = []
     all_docs, all_paras = bc.collect_documents(SP_PARA_DIR, sp_meta, "sp", report)
 
-    # 2. Load existing artifacts.
-    corpus = load(DOCS / "corpus.json")        # flat paragraph list
-    documents = load(DOCS / "documents.json")  # doc records
+    # 2. Load existing artifacts. v19.60: SP paragraphs live in their
+    #    own sp-corpus.json (split out of corpus.json — corpus.json is
+    #    GC-only now). New SP docs append there; GC corpus is untouched.
+    gc_corpus = load(DOCS / "corpus.json")     # GC paragraphs only
+    sp_corpus = load(DOCS / "sp-corpus.json")  # SP paragraphs
+    documents = load(DOCS / "documents.json")  # doc records (GC+SP+JUR)
     existing_doc_ids = {d["docId"] for d in documents}
 
     # 3. Keep only docs not already merged.
@@ -67,7 +70,7 @@ def main():
         return 0
 
     # 4. Collision guard on paragraph ids.
-    existing_para_ids = {p["id"] for p in corpus}
+    existing_para_ids = {p["id"] for p in gc_corpus} | {p["id"] for p in sp_corpus}
     pclashes = [p["id"] for p in new_paras if p["id"] in existing_para_ids]
     if pclashes:
         sys.exit(f"ERROR: paragraph id collision: {pclashes[:5]} …")
@@ -76,11 +79,11 @@ def main():
         print("\nDry-run — re-run with --apply to write docs/.")
         return 0
 
-    # 5. Merge + rebuild facets.
+    # 5. Merge SP into sp-corpus.json; rebuild facets over GC + SP.
     documents = documents + new_docs
-    corpus = corpus + new_paras
-    facets = bc.build_facets(documents, corpus)
-    bc.write_json(DOCS / "corpus.json", corpus)
+    sp_corpus = sp_corpus + new_paras
+    facets = bc.build_facets(documents, gc_corpus + sp_corpus)
+    bc.write_json(DOCS / "sp-corpus.json", sp_corpus)
     bc.write_json(DOCS / "documents.json", documents)
     bc.write_json(DOCS / "facets.json", facets)
 
@@ -88,14 +91,14 @@ def main():
     build_iso = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     gc_docs = [d for d in documents if d["type"] == "gc"]
     sp_docs = [d for d in documents if d["type"] == "sp"]
-    gc_paras = [p for p in corpus if p["type"] == "gc"]
-    sp_paras = [p for p in corpus if p["type"] == "sp"]
+    gc_paras = gc_corpus
+    sp_paras = sp_corpus
     manifest = {
         "version": build_iso.split("T")[0].replace("-", ""),
         "builtAt": build_iso,
         "counts": {
             "documents": len(documents),
-            "paragraphs": len(corpus),
+            "paragraphs": len(gc_paras) + len(sp_paras),
             "gcDocuments": len(gc_docs),
             "gcParagraphs": len(gc_paras),
             "spDocuments": len(sp_docs),
@@ -109,7 +112,7 @@ def main():
                 "sha": bc.sha256_file(DOCS / fn),
                 "bytes": (DOCS / fn).stat().st_size,
             }
-            for fn in ("corpus.json", "documents.json", "facets.json")
+            for fn in ("corpus.json", "sp-corpus.json", "documents.json", "facets.json")
         },
         "note": f"Incremental append (append_sp_docs.py): +{len(new_docs)} SP docs.",
     }
@@ -117,9 +120,9 @@ def main():
 
     print()
     print(f"Documents:  {len(documents):>6}  ({len(gc_docs)} GC + {len(sp_docs)} SP)")
-    print(f"Paragraphs: {len(corpus):>6}  ({len(gc_paras)} GC + {len(sp_paras)} SP)")
+    print(f"Paragraphs: {len(gc_paras) + len(sp_paras):>6}  ({len(gc_paras)} GC + {len(sp_paras)} SP)")
     print(f"Committees: {len(facets['committees']):>6}")
-    print(f"  ✅ wrote corpus.json / documents.json / facets.json / manifest.json")
+    print(f"  ✅ wrote sp-corpus.json / documents.json / facets.json / manifest.json")
     return 0
 
 

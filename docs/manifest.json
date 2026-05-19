@@ -1,6 +1,6 @@
 {
   "version": "20260519",
-  "builtAt": "2026-05-19T12:47:19+00:00",
+  "builtAt": "2026-05-19T15:08:57+00:00",
   "counts": {
     "documents": 522,
     "paragraphs": 46400,
@@ -17,8 +17,12 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "f5bb2c71632ba6dd",
-      "bytes": 50018029
+      "sha": "2429d3e9f6f90e20",
+      "bytes": 8288183
+    },
+    "sp-corpus.json": {
+      "sha": "a850aeb235ac210c",
+      "bytes": 42804765
     },
     "documents.json": {
       "sha": "4acc2cb597e1a724",
@@ -29,5 +33,5 @@
       "bytes": 7736
     }
   },
-  "note": "SR Torture: 69 reports ingested + footnote repair + section headings."
+  "note": "corpus.json split: GC indexed locally, SP served by the API."
 }

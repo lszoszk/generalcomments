@@ -76,43 +76,20 @@ test('UX2. jurApiSearchDoesNotFetchShards · API route stays server-backed', asy
 });
 
 test('UX3. complexSearchFlows · GC SP and ALL searches stay useful', async ({ page }) => {
-  await bootApp(page, '/index.html?scope=gc');
-
-  for (const q of [
-    'trafficking AND children NOT (sexual)',
-    '"reasonable accommodation" NOT children',
-    '(women OR girls) AND violence',
-    'child* AND traffic*',
-  ]) {
-    await typeQuery(page, q);
-    await expect(page.locator('.result').first(), q).toBeVisible();
-    await expect(page.locator('#result-count'), q).toContainText(/¶/);
-  }
-
-  // On the mobile viewport the scope selector sits inside the filters
-  // pane, which boots collapsed behind a toggle pill — expand it first
-  // (no-op on desktop, where the toggle is hidden).
-  const filtersToggle = page.locator('.mobile-filters-toggle');
-  if (await filtersToggle.isVisible().catch(() => false)) await filtersToggle.click();
-  await page.locator('.scope-opt[data-scope="sp"]').click();
-  await typeQuery(page, '"will and preferences"');
-  await expect(page.locator('.result').first()).toBeVisible();
-  await expect(page.locator('#result-count')).toContainText(/¶/);
-
-  await typeQuery(page, 'will and preferences');
-  await expect(page.locator('.result').first()).toBeVisible();
-
+  // v19.60: SP paragraphs were split out of corpus.json — SP (and
+  // "all") search now routes through the API, only GC stays local.
+  // Mock the API endpoints so SP/ALL searches resolve here; boot with
+  // ?api=1 so apiActive() engages. GC searches still run locally.
+  await page.route('**/unhrdb-api/api/stats', route =>
+    route.fulfill({ status: 200, body: JSON.stringify(
+      { version: 'mock', totalParagraphs: 188090, byType: {} }) })
+  );
   await page.route('**/unhrdb-api/api/search**', route =>
     route.fulfill({
       status: 200,
       body: JSON.stringify({
-        query: 'trafficking AND children NOT (sexual)',
-        ftsExpr: '"trafficking" AND "children" NOT ("sexual")',
-        scope: 'all',
-        total: 1,
-        page: 1,
-        pageSize: 200,
-        tookMs: 25,
+        query: 'mock', ftsExpr: '"mock"', scope: 'all',
+        total: 1, page: 1, pageSize: 200, tookMs: 25,
         breakdown: { gc: 1, jur: 0, sp: 0 },
         hits: [{
           rowid: 1,
@@ -140,6 +117,34 @@ test('UX3. complexSearchFlows · GC SP and ALL searches stay useful', async ({ p
       }),
     })
   );
+  await bootApp(page, '/index.html?api=1&scope=gc');
+
+  for (const q of [
+    'trafficking AND children NOT (sexual)',
+    '"reasonable accommodation" NOT children',
+    '(women OR girls) AND violence',
+    'child* AND traffic*',
+  ]) {
+    await typeQuery(page, q);
+    await expect(page.locator('.result').first(), q).toBeVisible();
+    await expect(page.locator('#result-count'), q).toContainText(/¶/);
+  }
+
+  // On the mobile viewport the scope selector sits inside the filters
+  // pane, which boots collapsed behind a toggle pill — expand it first
+  // (no-op on desktop, where the toggle is hidden).
+  const filtersToggle = page.locator('.mobile-filters-toggle');
+  if (await filtersToggle.isVisible().catch(() => false)) await filtersToggle.click();
+  // SP scope → API (mocked above).
+  await page.locator('.scope-opt[data-scope="sp"]').click();
+  await typeQuery(page, '"will and preferences"');
+  await expect(page.locator('.result').first()).toBeVisible();
+  await expect(page.locator('#result-count')).toContainText(/¶/);
+
+  await typeQuery(page, 'will and preferences');
+  await expect(page.locator('.result').first()).toBeVisible();
+
+  // ALL scope → API (mocked above).
   await page.locator('.scope-opt[data-scope="all"]').click();
   await typeQuery(page, 'trafficking AND children NOT (sexual)');
   await expect(page.locator('.result').first()).toBeVisible();
@@ -179,7 +184,34 @@ test('UX5. jurLiteCatalogInvariant · no public English Title placeholders', asy
 
 test('UX6. mobileSmoke · search scope result dossier flow fits narrow viewport', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await bootApp(page, '/index.html?scope=gc');
+  // v19.60: SP search routes through the API — mock it so the SP-scope
+  // step below resolves; boot with ?api=1 so apiActive() engages.
+  await page.route('**/unhrdb-api/api/stats', route =>
+    route.fulfill({ status: 200, body: JSON.stringify(
+      { version: 'mock', totalParagraphs: 188090, byType: {} }) })
+  );
+  await page.route('**/unhrdb-api/api/search**', route =>
+    route.fulfill({
+      status: 200,
+      body: JSON.stringify({
+        query: 'mock', ftsExpr: '"mock"', scope: 'sp',
+        total: 1, page: 1, pageSize: 200, tookMs: 25,
+        breakdown: { gc: 0, jur: 0, sp: 1 },
+        hits: [{
+          rowid: 1, para_id: 'a-hrc-43-49-0001', doc_id: 'a-hrc-43-49',
+          idx: 1, n: '1', section: 'I. Introduction',
+          text: 'The Special Rapporteur addresses the will and preferences of the person.',
+          type: 'sp', treaty: null, committee: 'SR Torture',
+          mandate: 'Nils Melzer', country: null, year: 2020,
+          adoption_date: '2020', signature: 'A/HRC/43/49', outcome: null,
+          name: 'Psychological torture', name_short: 'Psychological torture',
+          snippet: '<mark>will</mark> and <mark>preferences</mark>', score: -1,
+        }],
+        alsoTry: [],
+      }),
+    })
+  );
+  await bootApp(page, '/index.html?api=1&scope=gc');
   await typeQuery(page, 'disability');
   const first = page.locator('.result').first();
   await expect(first).toBeVisible();
