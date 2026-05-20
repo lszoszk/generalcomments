@@ -3257,6 +3257,26 @@ function bindUI() {
     if (moreViews) moreViews.open = false;
   }));
 
+  // v19.62: mobile dropdown mirrors. The <select>s in index.html proxy
+  // their picked value to the matching segmented button so the existing
+  // state/persist/paint logic above runs unchanged. syncResultsControls()
+  // writes select.value back when state changes from elsewhere.
+  const sortSelect = document.getElementById('result-sort-select');
+  if (sortSelect) sortSelect.addEventListener('change', () => {
+    const btn = document.querySelector(
+      `#result-sort .result-opt[data-sort="${sortSelect.value}"]`
+    );
+    if (btn && !btn.disabled) btn.click();
+  });
+  const groupSelect = document.getElementById('result-group-select');
+  if (groupSelect) groupSelect.addEventListener('change', () => {
+    const btn = document.querySelector(
+      `#result-group .result-opt[data-group="${groupSelect.value}"],` +
+      ` .result-more-views-pop .result-opt[data-group="${groupSelect.value}"]`
+    );
+    if (btn && !btn.disabled) btn.click();
+  });
+
   $('#expand-groups').addEventListener('click', () => {
     if (state.resultGroup === 'paragraphs') {
       // In paragraph view, expand every truncated snippet at once.
@@ -5002,6 +5022,18 @@ function syncResultsControls() {
     b.classList.toggle('is-active', on);
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
+
+  // v19.62: keep the mobile <select> mirrors aligned with the active
+  // sort/group state. Disable "Relevance" in the sort select when there
+  // is no query, matching the disabled state on the chip.
+  const sortSelect = document.getElementById('result-sort-select');
+  if (sortSelect) {
+    sortSelect.value = activeSort;
+    const relevanceOpt = sortSelect.querySelector('option[value="relevance"]');
+    if (relevanceOpt) relevanceOpt.disabled = !hasSearchQuery();
+  }
+  const groupSelect = document.getElementById('result-group-select');
+  if (groupSelect) groupSelect.value = state.resultGroup;
   // When the active group is one of the disclosure-hidden
   // options ("bodies"), mark the parent <details> with .has-active-child
   // so the … chip turns garnet ✓ — gives the user feedback that their

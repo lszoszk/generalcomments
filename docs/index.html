@@ -528,6 +528,14 @@
           <button class="result-opt is-active" data-sort="relevance" type="button" aria-pressed="true">Relevance</button>
           <button class="result-opt" data-sort="date" type="button" aria-pressed="false">Date</button>
         </div>
+        <!-- v19.62: mobile-only dropdown mirror. Native <select> avoids the
+             cramped segmented chips; JS in syncResultsControls() keeps
+             this in sync and a change handler proxies the click back to
+             the buttons above so existing state logic runs unchanged. -->
+        <select class="result-select" id="result-sort-select" aria-label="Sort results">
+          <option value="relevance">Sort: Relevance</option>
+          <option value="date">Sort: Date</option>
+        </select>
       </div>
       <div class="result-control">
         <span class="folio">Group</span>
@@ -541,6 +549,11 @@
             </div>
           </details>
         </div>
+        <select class="result-select" id="result-group-select" aria-label="Group results">
+          <option value="paragraphs">Group: Paragraphs</option>
+          <option value="documents">Group: Documents</option>
+          <option value="bodies">Group: By treaty body</option>
+        </select>
       </div>
       <div class="result-actions" aria-label="Document group controls">
         <button id="expand-groups" class="btn btn-ghost result-tool-btn" type="button">Expand all</button>

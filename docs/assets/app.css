@@ -1550,6 +1550,11 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   background: transparent;
   color: var(--ink-2);
 }
+/* v19.62: mobile-only dropdown mirrors of the Sort/Group segmented
+   controls. Hidden on desktop (segmented chips are nicer there); on
+   phones the chips are hidden instead — see the @media (max-width:700px)
+   override further down in this file. */
+.result-select { display: none; }
 .result-actions {
   display: inline-flex;
   gap: 8px;
@@ -5202,9 +5207,33 @@ body.is-corpus-loading #q { cursor: progress; }
     margin: 8px 0 4px;
     padding: 6px 0;
   }
+  /* v19.62: on mobile, swap segmented chips for native dropdowns.
+     Each <select> shows the full picked-option name (e.g. "Sort:
+     Relevance", "Group: By treaty body") and is wide enough that the
+     two controls fit comfortably side-by-side on a 390 px iPhone. */
   .results-tools .result-control .folio { display: none; }
-  .results-tools .result-control { gap: 0; }
-  .results-tools .result-opt { padding: 5px 8px; }
+  .results-tools .result-segmented { display: none; }
+  .results-tools .result-control { flex: 1 1 0; gap: 0; min-width: 0; }
+  .results-tools .result-select {
+    display: block;
+    width: 100%;
+    min-height: 34px;
+    padding: 6px 28px 6px 10px;
+    font-family: var(--display);
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink-3) 50%),
+                      linear-gradient(135deg, var(--ink-3) 50%, transparent 50%);
+    background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
   .results-tools .result-actions { display: none; }
   #results-more-toggle { display: none !important; }
   .result-actions {
