@@ -4921,6 +4921,15 @@ async function runSearch() {
   // updateDocumentTitle on top of the just-painted "Keep typing" hint.
   if (runId !== state.searchRun) return;
   state.results = matched;
+  // v19.60: snapshot the full set of ¶ ids that passed the AST + filter
+  // pipeline so the facet sidebar can count over the EXACT same set the
+  // result list paints. Without this, computeDynamicFacetCounts fell
+  // back to flexSearchIds(state.query) — a loose token match that
+  // counted paragraphs failing the parsed AST (e.g. paragraphs with the
+  // separate words but not the "phrase", or with the NOT branch
+  // matching). Resulted in chips/year-bars showing more hits than the
+  // result list actually had.
+  state.matchedIds = new Set(matched.map(m => m.p.id));
   state.alsoTry = [];                       // v19: local path doesn't have synonyms
   state.apiTotal = null;                    // local path: state.results.length is the truth
   state.apiBreakdown = null;                // v19.6 (U2): same — count from results
@@ -7966,9 +7975,16 @@ function computeDynamicFacetCounts() {
     return true;
   };
 
-  // Query filter — paragraphs whose ID is in the FlexSearch result.
-  // null when no query (everything matches the query bucket).
-  const queryIds = state.query ? flexSearchIds(state.query) : null;
+  // Query filter — paragraphs whose ID survived the AST + body-filter
+  // pipeline in runSearch (state.matchedIds, populated at the end of
+  // the matching loop). Falling back to flexSearchIds(state.query) is
+  // a LOOSE token match — it counted paragraphs that ultimately failed
+  // the strict AST (missing phrase, NOT clause, etc.), so the
+  // committee chips and year histogram over-counted vs the result
+  // list. null when no query OR when no search has run yet.
+  const queryIds = state.query
+    ? (state.matchedIds || flexSearchIds(state.query))
+    : null;
   const queryOk = (p) => !queryIds || queryIds.has(p.id);
 
   // Helper predicates per filter category. `except` skips the
