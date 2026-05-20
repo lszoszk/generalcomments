@@ -5072,26 +5072,28 @@ body.is-corpus-loading #q { cursor: progress; }
     flex-direction: column;     /* brand top, nav directly below — guaranteed visible */
     align-items: stretch;
   }
-  /* v19.44-fix24 / v19.57: mobile nav. Tap targets are ≥36 px tall
-     (font 13 px + 8 px padding) for comfortable taps. The nav WRAPS
-     onto a second row when needed instead of scrolling horizontally —
-     the old scroll strip pushed Workspace/About off-screen with no
-     affordance, so phone users couldn't tell more destinations existed.
-     Separated from the title block by a hairline. */
+  /* v19.44-fix24 / v19.57 / v19.61: mobile nav. Single row — Search,
+     Ask β, Documents, Workspace, About all fit on a 390 px iPhone with
+     room to spare. Theme toggle pulled out of the nav strip and pinned
+     to the top-right corner of the masthead (see #theme-toggle rule
+     below) so it never costs nav width. Tap targets stay ≥34 px tall. */
+  .mast { position: relative; }
   .mast-nav {
-    gap: 4px 6px;
+    gap: 2px;
     font-size: 13px;
-    padding-top: 8px;
+    padding-top: 6px;
     border-top: 1px solid var(--rule);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: space-between;
   }
   .mast-nav a {
-    flex: 0 0 auto;
-    min-height: 36px;
-    padding: 8px 10px;
+    flex: 0 1 auto;
+    min-height: 34px;
+    padding: 8px 4px;
     line-height: 1;
     display: inline-flex;
     align-items: center;
+    white-space: nowrap;
   }
   .mast-nav a.active {
     background: var(--paper-3);
@@ -5099,12 +5101,26 @@ body.is-corpus-loading #q { cursor: progress; }
     border-radius: 3px;
     color: var(--garnet);
   }
+  .mast-nav .nav-beta-badge {
+    margin-left: 0.15em;
+    padding: 0 0.25em;
+    font-size: 0.6rem;
+  }
+  /* v19.61: hide the workspace counter pill on mobile — it could push
+     the nav past the viewport when the count grows to 2+ digits, and
+     the count is already visible inside the Workspace view itself. */
+  .mast-nav .workspace-badge { display: none; }
   .mast-tour-btn { display: none; }       /* save space; tour still reachable from welcome card */
-  .mast-sep { display: none; }            /* nav wraps freely, no need for the separator */
+  .mast-sep { display: none; }            /* nav is its own row, no separator needed */
   #theme-toggle {
-    flex: 0 0 auto;
-    min-height: 36px;
-    margin-left: 0;                        /* v19.57: flow inline as the nav wraps */
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    min-height: 28px;
+    padding: 2px 8px;
+    font-size: 13px;
+    margin-left: 0;
+    z-index: 2;
   }
   .searchbar { padding: 12px 20px; }
   .searchbar-inner { gap: 8px; flex-wrap: wrap; }
@@ -5845,14 +5861,14 @@ body[data-active-view="ask"] section[data-view="ask"] {
    2. tab-level banner above the ask form — wider, more visible */
 .nav-beta-badge {
   display: inline-block;
-  margin-left: 0.35em;
-  padding: 0.05em 0.4em;
+  margin-left: 0.25em;
+  padding: 0.05em 0.3em;
   background: var(--garnet, #9b1d1d);
   color: white;
   font-family: var(--mono, monospace);
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
   border-radius: 3px;
   vertical-align: super;
   line-height: 1.4;
