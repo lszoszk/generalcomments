@@ -1,6 +1,6 @@
 {
   "version": "20260520",
-  "builtAt": "2026-05-20T10:46:51+00:00",
+  "builtAt": "2026-05-20T19:27:19+00:00",
   "counts": {
     "documents": 566,
     "paragraphs": 50508,
@@ -17,12 +17,12 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "38f255f86e86a8e1",
-      "bytes": 8288244
+      "sha": "bf0f2ff5c643295e",
+      "bytes": 7940662
     },
     "sp-corpus.json": {
-      "sha": "b78508f010aef281",
-      "bytes": 47048285
+      "sha": "2040b8fe382a6131",
+      "bytes": 44462808
     },
     "documents.json": {
       "sha": "8745955e1ee81696",
