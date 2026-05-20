@@ -5173,7 +5173,40 @@ body.is-corpus-loading #q { cursor: progress; }
   .dossier-icon-btn { width: 40px; height: 40px; font-size: 18px; }
 }
 @media (max-width: 700px) {
-  .results-tools { align-items: flex-start; }
+  /* v19.61: mobile chrome diet for the results page. The old stack —
+     lede + LIGHT note + "Sort/Group/Expand" tools row — pushed the
+     first result off the iPhone first screen. Now:
+       · headline shrinks (28 → 20 px) and margins tighten
+       · LIGHT note collapses to one line, no top rule
+       · Sort + Group share one row, "Sort"/"Group" labels dropped
+       · Expand all / Collapse hidden on phones (only meaningful in
+         Documents-grouped view; default is Paragraphs)
+       · ⋯ post-search overflow in the searchbar hidden — Export /
+         Copy-link / Save are desktop research actions
+     Net effect: ~180 px of vertical chrome reclaimed above the first
+     result on a 390 px iPhone. */
+  .results { padding: 12px 16px 80px; }
+  .results-title { font-size: 20px; margin: 2px 0 0; }
+  .results-sub { font-size: 12px; margin: 4px 0 0; }
+  .lite-note {
+    margin: 6px 0 0;
+    padding-top: 6px;
+    border-top: 0;
+    font-size: 11px;
+    gap: 6px;
+    line-height: 1.35;
+  }
+  .results-tools {
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0 4px;
+    padding: 6px 0;
+  }
+  .results-tools .result-control .folio { display: none; }
+  .results-tools .result-control { gap: 0; }
+  .results-tools .result-opt { padding: 5px 8px; }
+  .results-tools .result-actions { display: none; }
+  #results-more-toggle { display: none !important; }
   .result-actions {
     width: 100%;
     margin-left: 0;
