@@ -1,15 +1,15 @@
 {
-  "version": "20260519",
-  "builtAt": "2026-05-19T15:08:57+00:00",
+  "version": "20260520",
+  "builtAt": "2026-05-20T10:46:51+00:00",
   "counts": {
-    "documents": 522,
-    "paragraphs": 46400,
+    "documents": 566,
+    "paragraphs": 50508,
     "gcDocuments": 187,
     "gcParagraphs": 7216,
-    "spDocuments": 335,
-    "spParagraphs": 39184,
+    "spDocuments": 379,
+    "spParagraphs": 43292,
     "labels": 20,
-    "committees": 17,
+    "committees": 18,
     "yearRange": [
       1960,
       2026
@@ -17,20 +17,20 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "2429d3e9f6f90e20",
-      "bytes": 8288183
+      "sha": "38f255f86e86a8e1",
+      "bytes": 8288244
     },
     "sp-corpus.json": {
-      "sha": "a850aeb235ac210c",
-      "bytes": 42804765
+      "sha": "b78508f010aef281",
+      "bytes": 47048285
     },
     "documents.json": {
-      "sha": "4acc2cb597e1a724",
-      "bytes": 441454
+      "sha": "8745955e1ee81696",
+      "bytes": 470316
     },
     "facets.json": {
-      "sha": "8f0467dce813b5dd",
-      "bytes": 7736
+      "sha": "b2b0ae6d3aeed5b6",
+      "bytes": 7961
     }
   },
   "note": "corpus.json split: GC indexed locally, SP served by the API."

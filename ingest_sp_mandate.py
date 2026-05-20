@@ -324,7 +324,69 @@ MANDATES: dict[str, dict] = {
             (1986, 'E/CN.4/1986/15', 'Commission on Human Rights 1986', 'Activities report (1986)'),
         ],
     },
-    # Future mandates go here (SR Indigenous, SR Food, …)
+    'indigenous': {
+        'committee_label': 'SR Indigenous Peoples',
+        'full_name': 'Special Rapporteur on the rights of indigenous peoples',
+        'mandate_holders': [
+            (2007, 'Rodolfo Stavenhagen'),
+            (2013, 'James Anaya'),
+            (2019, 'Victoria Tauli-Corpuz'),
+            (9999, 'José Francisco Calí Tzay'),
+        ],
+        # Catalogue transcribed from OHCHR's "Annual thematic reports"
+        # page: ohchr.org/en/special-procedures/sr-indigenous-peoples/
+        #       annual-thematic-reports
+        # HRC + GA thematic reports + the pre-2007 Commission on Human
+        # Rights reports. Communications-observation addenda (Add.N)
+        # excluded. No GA report for 2008 or 2010 (none was issued).
+        'reports': [
+            (2025, 'A/HRC/60/29',   'HRC 60th session', 'Recognition of Indigenous Peoples'),
+            (2024, 'A/HRC/57/47',   'HRC 57th session', 'Indigenous persons with disabilities'),
+            (2023, 'A/HRC/54/31',   'HRC 54th session', 'Green financing: a just transition to protect the rights of Indigenous Peoples'),
+            (2022, 'A/HRC/51/28',   'HRC 51st session', 'Indigenous women and scientific and technical knowledge'),
+            (2021, 'A/HRC/48/54',   'HRC 48th session', 'Indigenous peoples and COVID-19 recovery'),
+            (2020, 'A/HRC/45/34',   'HRC 45th session', 'Mandate impacts and observations on consultation processes'),
+            (2019, 'A/HRC/42/37',   'HRC 42nd session', 'Access to justice in ordinary and indigenous justice systems'),
+            (2018, 'A/HRC/39/17',   'HRC 39th session', 'Attacks and criminalization of indigenous human rights defenders'),
+            (2017, 'A/HRC/36/46',   'HRC 36th session', "Impacts of climate change and climate finance on indigenous peoples' rights"),
+            (2016, 'A/HRC/33/42',   'HRC 33rd session', "International investment agreements and indigenous peoples' rights"),
+            (2015, 'A/HRC/30/41',   'HRC 30th session', 'Rights of indigenous women and girls'),
+            (2014, 'A/HRC/27/52',   'HRC 27th session', "Obstacles to the realization of indigenous peoples' rights"),
+            (2013, 'A/HRC/24/41',   'HRC 24th session', 'Extractive industries and indigenous peoples'),
+            (2012, 'A/HRC/21/47',   'HRC 21st session', 'Annual report on the rights of indigenous peoples (2012)'),
+            (2011, 'A/HRC/18/35',   'HRC 18th session', 'Extractive industries operating within or near indigenous territories'),
+            (2010, 'A/HRC/15/37',   'HRC 15th session', 'The situation of human rights and fundamental freedoms of indigenous people'),
+            (2009, 'A/HRC/12/34',   'HRC 12th session', 'The duty of States to consult with indigenous peoples'),
+            (2008, 'A/HRC/9/9',     'HRC 9th session',  'The United Nations Declaration on the Rights of Indigenous Peoples: implementation'),
+            (2007, 'A/HRC/4/32',    'HRC 4th session',  'Recent trends concerning the rights of indigenous peoples'),
+            (2025, 'A/80/181',      'GA 80th session',  "Identification, demarcation, registration and titling of Indigenous Peoples' lands"),
+            (2024, 'A/79/160',      'GA 79th session',  'Mobile Indigenous Peoples'),
+            (2023, 'A/78/162',      'GA 78th session',  'Tourism and the rights of Indigenous Peoples'),
+            (2022, 'A/77/238',      'GA 77th session',  "Protected areas and indigenous peoples' rights"),
+            (2021, 'A/76/202',      'GA 76th session',  'The rights of indigenous peoples living in urban areas'),
+            (2020, 'A/75/185',      'GA 75th session',  'The impact of COVID-19 on the rights of indigenous peoples'),
+            (2019, 'A/74/149',      'GA 74th session',  'The right of indigenous peoples to autonomy or self-government'),
+            (2018, 'A/73/176',      'GA 73rd session',  'Indigenous peoples and self-governance'),
+            (2017, 'A/72/186',      'GA 72nd session',  'Assessment of the implementation of the UN Declaration on the Rights of Indigenous Peoples'),
+            (2016, 'A/71/229',      'GA 71st session',  "Conservation measures and their impact on indigenous peoples' rights"),
+            (2015, 'A/70/301',      'GA 70th session',  'Impact of international investment and free trade on the human rights of indigenous peoples'),
+            (2014, 'A/69/267',      'GA 69th session',  'Economic, social and cultural rights of indigenous peoples in the post-2015 development framework'),
+            (2013, 'A/68/317',      'GA 68th session',  'Challenges to implement the UN Declaration on the Rights of Indigenous Peoples'),
+            (2012, 'A/67/301',      'GA 67th session',  'Harmonizing activities affecting indigenous peoples within the United Nations system'),
+            (2011, 'A/66/288',      'GA 66th session',  'Activities of the mandate and thematic issues examined'),
+            (2009, 'A/64/338',      'GA 64th session',  "The Second International Decade of the World's Indigenous People"),
+            (2007, 'A/62/286',      'GA 62nd session',  'Situation of the rights of indigenous peoples in Asia'),
+            (2006, 'A/61/490',      'GA 61st session',  'Remarks on the UN Declaration on the Rights of Indigenous Peoples'),
+            (2005, 'A/60/358',      'GA 60th session',  'Major human rights problems affecting indigenous peoples: poverty, education and armed conflict'),
+            (2004, 'A/59/258',      'GA 59th session',  'Progress and major human rights problems affecting indigenous peoples'),
+            (2006, 'E/CN.4/2006/78', 'Commission on Human Rights 2006', 'Implementation of norms concerning the rights of indigenous peoples'),
+            (2005, 'E/CN.4/2005/88', 'Commission on Human Rights 2005', 'Indigenous peoples and education systems'),
+            (2004, 'E/CN.4/2004/80', 'Commission on Human Rights 2004', 'Administration of justice, indigenous peoples and human rights'),
+            (2003, 'E/CN.4/2003/90', 'Commission on Human Rights 2003', 'The impact of large-scale development projects on the human rights of indigenous peoples'),
+            (2002, 'E/CN.4/2002/97', 'Commission on Human Rights 2002', 'International norms regarding the rights of indigenous peoples'),
+        ],
+    },
+    # Future mandates go here (SR Food, SR Housing, …)
 }
 
 
