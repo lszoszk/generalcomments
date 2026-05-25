@@ -9663,9 +9663,24 @@ function annotateTreatyText(html, committee, citedArticles) {
     // not ICCPR art 6).
     const PROTOCOL_TRAILING_RE = /^[\s,]*(?:as\s+\w+\s+(?:in|under)\s+)?(?:of|in|under)\s+(?:that|the|its)\s+(?:(?:First|Second|Third)\s+)?(?:Optional\s+)?Protocol\b/i;
     t = t.replace(artListPat, (match, prefix, ws, body, offset, fullStr) => {
-      // Look ~50 chars after the match for a Protocol trailer.
-      const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 60);
+      // Look ~80 chars after the match for a trailing instrument name.
+      const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 80);
       const hasProtocolTail = PROTOCOL_TRAILING_RE.test(tail);
+      // v19.63: external-instrument guard. When the article list is
+      // followed by "of [the] <Instrument>" and <Instrument> is NOT this
+      // committee's own treaty term (and not a Protocol — handled above),
+      // the articles belong to that OTHER instrument and must not link to
+      // the home treaty. Catches e.g. "articles 10, 11, 12, 19, 20 and 22
+      // of the Standard Minimum Rules for the Treatment of Prisoners" in a
+      // CCPR case, which previously wrong-linked to the ICCPR. The common
+      // "article 6 of the Covenant" / bare "under article 6" cases are
+      // unaffected (instrument word matches the home term, or no "of …"
+      // trailer at all → home-treaty link as before).
+      const homeWord = String(term).replace(/^the\s+/i, '').trim().split(/\s+/)[0].toLowerCase();
+      const ofOther = tail.match(/^[\s,]*(?:of|in|under)\s+(?:the\s+|that\s+|its\s+)?([A-Z][A-Za-z'’.\-]+)/);
+      const hasExternalInstrumentTail = !!ofOther
+        && ofOther[1].toLowerCase() !== homeWord
+        && ofOther[1].toLowerCase() !== 'protocol';
       let out = prefix + ws;
       let lastIdx = 0;
       let m;
@@ -9691,10 +9706,11 @@ function annotateTreatyText(html, committee, citedArticles) {
         if (cited && cited.treaty) {
           targetAbbr = cited.treaty;
           targetPara = inlinePara || cited.paragraph;
-        } else if (hasProtocolTail) {
-          // No pre-tagged ref AND text has "of that Protocol" suffix —
-          // keep historical safety behaviour: render this article list
-          // as plain text rather than wrong-link to the main treaty.
+        } else if (hasProtocolTail || hasExternalInstrumentTail) {
+          // No pre-tagged ref AND the text points at a Protocol or a
+          // different instrument ("of the Standard Minimum Rules", "of the
+          // Universal Declaration", …) — render as plain text rather than
+          // wrong-link to this committee's home treaty.
           out += m[0];
           lastIdx = m.index + m[0].length;
           continue;
@@ -9727,10 +9743,10 @@ function annotateTreatyText(html, committee, citedArticles) {
         lastIdx = m.index + m[0].length;
       }
       out += body.slice(lastIdx);
-      // If we hit a Protocol tail and nothing was rendered (no
-      // citedArticles to override), revert to leaving the whole match
-      // as plain text — preserves the v19.55.x safety contract.
-      if (hasProtocolTail && !renderedAny) return match;
+      // If we hit a Protocol / external-instrument tail and nothing was
+      // rendered (no citedArticles to override), revert to leaving the
+      // whole match as plain text — preserves the safety contract.
+      if ((hasProtocolTail || hasExternalInstrumentTail) && !renderedAny) return match;
       return out;
     });
     return t;
