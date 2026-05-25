@@ -801,8 +801,8 @@
             expansion streams, clearly marked as previews while those collections
             are still under development. The General Comments corpus remains the
             priority; preview material is loaded lazily on demand.
-            Across the current published build, <strong>178,659 paragraphs</strong> across
-            <strong>4,687 documents</strong> are searchable, filterable and citable down to
+            Across the current published build, <strong>203,302 paragraphs</strong> across
+            <strong>4,900 documents</strong> are searchable, filterable and citable down to
             their number.
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule); font-style: italic; color: var(--ink-3);">
@@ -814,15 +814,15 @@
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule);">
             <strong class="folio">Dataset snapshot:</strong> last synchronised with
             <a class="about-link" href="https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/TBSearch.aspx?Lang=en" target="_blank" rel="noopener">OHCHR Treaty Body Database</a>
-            on <strong>12 May 2026</strong>.
-            <strong>4,687 documents · 178,659 paragraphs</strong> total —
+            on <strong>20 May 2026</strong>.
+            <strong>4,900 documents · 203,302 paragraphs</strong> total —
             <strong>187 General Comments</strong> (all 10 treaty bodies),
-            <strong>4,327 jurisprudence cases</strong> (8 bodies: CCPR, CAT, CEDAW, CESCR, CRC, CRPD, CERD, CED),
-            <strong>173 Special Procedures reports</strong> (4 mandates).
+            <strong>4,334 jurisprudence cases</strong> (8 bodies: CCPR, CAT, CEDAW, CESCR, CRC, CRPD, CERD, CED),
+            <strong>379 Special Procedures reports</strong> (8 mandates).
             The most recent General Comment is
             <em>CEDAW/C/GC/30/Add.1</em> (Women, Peace and Security addendum, 18 February 2026);
             the most recent Special Procedures report is
-            <em>A/80/170</em> (SR Disability, 25 September 2025).
+            <em>A/HRC/61/42</em> (SR Torture, <em>Charter of Rights of Victims and Survivors of Torture</em>, May 2026).
             Daily link checks run on
             <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/.github/workflows/link-check.yml" target="_blank" rel="noopener">GitHub Actions</a>.
             See <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/METHODOLOGY.md#9-versions-and-revision-history" target="_blank" rel="noopener">change log</a>
@@ -846,10 +846,10 @@
         <div class="about-block">
           <h3 class="folio">Jurisprudence</h3>
           <p class="serif">
-            <strong>4,327 individual-communication cases</strong> ·
-            <strong>152,734 paragraphs</strong> from all 8 OP / individual-complaint
-            mechanisms — CCPR (2,862), CAT (832), CEDAW (172), CESCR (154),
-            CRC (147), CRPD (95), CERD (58), CED (7). Published as separate
+            <strong>4,334 individual-communication cases</strong> ·
+            <strong>152,794 paragraphs</strong> from all 8 OP / individual-complaint
+            mechanisms — CCPR (2,862), CAT (835), CEDAW (172), CESCR (155),
+            CRC (150), CRPD (95), CERD (58), CED (7). Published as separate
             shards under <code class="mono">docs/jur/</code> so the main General
             Comments interface stays lightweight; the shard for a case is
             fetched lazily when the user opens it. CCPR and CAT include
@@ -931,10 +931,12 @@
         <div class="about-block">
           <h3 class="folio">Special Procedures</h3>
           <p class="serif">
-            <strong>173 Special Procedures reports</strong> from four mandates are
+            <strong>379 Special Procedures reports</strong> from eight mandates are
             included as a curated preview: SR Freedom of Religion or Belief (88),
-            SR Freedom of Expression (46), SR Disability (22) and SR Privacy (19). The collection is under
-            active development; further mandates are added through a
+            SR Torture (69), SR Health (50), SR Freedom of Expression (45),
+            SR Indigenous Peoples (44), SR Education (43), SR Disability (22)
+            and SR Privacy (18). The collection is under active development;
+            further mandates are added through a
             <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/ingest_sp_mandate.py" target="_blank" rel="noopener">generic ingestion pipeline</a>
             and these results should be read as exploratory rather than exhaustive.
           </p>
