@@ -2109,6 +2109,21 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   color: var(--paper);
   outline: none;
 }
+/* v19.62: secondary "Open document" CTA. Promoted from the ⋯ menu to the
+   footer toolbar so opening the full reader is one obvious click. Ink
+   outline (not garnet) keeps Cite as the primary action; doesn't grow,
+   so Cite still absorbs the free width. */
+.dossier-cta-ghost {
+  flex: 0 0 auto;
+  border-color: var(--rule);
+  color: var(--ink);
+}
+.dossier-cta-ghost:hover,
+.dossier-cta-ghost:focus-visible {
+  background: var(--paper-3);
+  border-color: var(--ink-3);
+  color: var(--ink);
+}
 .dossier-cta-icon { font-style: italic; font-size: 14px; line-height: 1; }
 .dossier-cta-label { font-weight: 500; }
 .dossier-cta-fmt {
@@ -3248,11 +3263,78 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
 
 /* CENTRE: document body ──────────────────────────────────────── */
 .docs-reader-body {
-  padding: 24px 56px 80px;
+  /* v19.62: no top padding — the in-reader find bar sticks at top:0 and a
+     padding-top would leave a band above it where scrolling text shows
+     through. Top breathing room lives on .docs-reader-head instead. */
+  padding: 0 56px 80px;
   overflow-y: auto;
   min-height: 0;
   scroll-padding-top: 80px;
 }
+.docs-reader-body > .docs-reader-head { padding-top: 24px; }
+/* v19.62: in-reader find bar — sticky flush to the top of the scroll pane,
+   broken out of the body's 56px side padding so it spans full width. */
+.reader-find {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin: 0 -56px 4px;
+  padding: 10px 56px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: 0 4px 8px -6px rgba(0, 0, 0, 0.25);
+}
+.reader-find-icon { color: var(--ink-3); font-size: 14px; flex: 0 0 auto; }
+.reader-find-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-family: var(--display);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--paper-2);
+}
+.reader-find-input:focus { outline: none; border-color: var(--garnet); }
+.reader-find-count {
+  flex: 0 0 auto;
+  min-width: 60px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.reader-find-nav,
+.reader-find-close {
+  flex: 0 0 auto;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-2);
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 3px 8px;
+  font-size: 13px;
+  line-height: 1;
+}
+.reader-find-nav:hover,
+.reader-find-close:hover { background: var(--paper-3); color: var(--ink); }
+.docs-reader-find-toggle {
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-2);
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-family: var(--display);
+  font-size: 12px;
+}
+.docs-reader-find-toggle:hover { background: var(--paper-3); color: var(--ink); }
+/* CSS Custom Highlight API targets (no DOM mutation). */
+::highlight(reader-find) { background: rgba(155, 29, 29, 0.18); }
+::highlight(reader-find-current) { background: var(--garnet); color: #fff; }
 /* v19.43-fix16: reading-line constraint. The grid cell can be 1000+
    px wide on a 27" monitor, but a single text column at 17 px serif
    becomes unreadable past ~75 chars. Cap the head + stream at 760 px

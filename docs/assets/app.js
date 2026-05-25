@@ -1957,6 +1957,141 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
   document.querySelector('.docs-rail-row.is-active')?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
 }
 
+// ===== In-reader find-in-document (v19.62) =====
+// Native Cmd/Ctrl+F cannot reach text inside the reader's nested
+// overflow:auto pane (the app shell locks html,body to 100vh/hidden), so
+// matches below the fold are unreachable. This provides find scoped to
+// the reader: highlights every match via the CSS Custom Highlight API
+// (zero DOM mutation — doesn't disturb footnote markers / treaty refs)
+// and navigates between them. Degrades to scroll-into-view only where
+// the Highlight API is unavailable.
+const _readerFind = {
+  q: '', ranges: [], idx: -1,
+  supported: typeof CSS !== 'undefined' && !!CSS.highlights && typeof Highlight !== 'undefined',
+};
+
+function _readerFindClearHighlights() {
+  if (!_readerFind.supported) return;
+  CSS.highlights.delete('reader-find');
+  CSS.highlights.delete('reader-find-current');
+}
+
+function computeReaderFind(query) {
+  _readerFind.q = query;
+  _readerFind.ranges = [];
+  _readerFind.idx = -1;
+  _readerFindClearHighlights();
+  const stream = document.querySelector('#docs-reader-body .docs-reader-stream');
+  const count = document.getElementById('reader-find-count');
+  const q = (query || '').trim().toLowerCase();
+  if (!stream || q.length < 2) { if (count) count.textContent = ''; return; }
+
+  const walker = document.createTreeWalker(stream, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      // Skip the marker column (¶N, cite/copy buttons) — match body text only.
+      if (node.parentElement && node.parentElement.closest('.docs-reader-para-marker')) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    },
+  });
+  const ranges = [];
+  let node;
+  while ((node = walker.nextNode())) {
+    const hay = node.nodeValue.toLowerCase();
+    let from = 0, i;
+    while ((i = hay.indexOf(q, from)) !== -1) {
+      const r = document.createRange();
+      r.setStart(node, i);
+      r.setEnd(node, i + q.length);
+      ranges.push(r);
+      from = i + q.length;
+    }
+  }
+  _readerFind.ranges = ranges;
+  if (_readerFind.supported && ranges.length) {
+    CSS.highlights.set('reader-find', new Highlight(...ranges.map(r => r.cloneRange())));
+  }
+  if (count) count.textContent = ranges.length ? `1 / ${ranges.length}` : 'no matches';
+  if (ranges.length) gotoReaderFind(0);
+}
+
+function gotoReaderFind(target) {
+  const n = _readerFind.ranges.length;
+  if (!n) return;
+  _readerFind.idx = ((target % n) + n) % n;
+  const r = _readerFind.ranges[_readerFind.idx];
+  const count = document.getElementById('reader-find-count');
+  if (count) count.textContent = `${_readerFind.idx + 1} / ${n}`;
+  if (_readerFind.supported) {
+    CSS.highlights.set('reader-find-current', new Highlight(r.cloneRange()));
+  }
+  const anchor = r.startContainer.parentElement;
+  if (anchor && anchor.scrollIntoView) {
+    anchor.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }
+}
+
+function openReaderFind() {
+  const bar = document.getElementById('reader-find');
+  if (!bar) return;
+  bar.hidden = false;
+  const input = document.getElementById('reader-find-input');
+  if (input) { input.focus(); input.select(); }
+}
+
+function closeReaderFind() {
+  _readerFind.q = '';
+  _readerFind.ranges = [];
+  _readerFind.idx = -1;
+  _readerFindClearHighlights();
+  const bar = document.getElementById('reader-find');
+  const input = document.getElementById('reader-find-input');
+  const count = document.getElementById('reader-find-count');
+  if (input) input.value = '';
+  if (count) count.textContent = '';
+  if (bar) bar.hidden = true;
+}
+
+// Wire the find bar after each reader repaint. Uses on* assignment (not
+// addEventListener) so re-running on repaint is idempotent. Restores an
+// in-progress query if the reader repainted (e.g. after a bookmark toggle).
+function setupReaderFind() {
+  const input = document.getElementById('reader-find-input');
+  if (!input) return;
+  input.oninput = () => computeReaderFind(input.value);
+  input.onkeydown = (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); gotoReaderFind(_readerFind.idx + (e.shiftKey ? -1 : 1)); }
+    else if (e.key === 'Escape') { e.preventDefault(); closeReaderFind(); }
+  };
+  const prev = document.getElementById('reader-find-prev');
+  const next = document.getElementById('reader-find-next');
+  const close = document.getElementById('reader-find-close');
+  const toggle = document.getElementById('docs-reader-find-toggle');
+  if (prev)  prev.onclick  = () => gotoReaderFind(_readerFind.idx - 1);
+  if (next)  next.onclick  = () => gotoReaderFind(_readerFind.idx + 1);
+  if (close) close.onclick = () => closeReaderFind();
+  if (toggle) toggle.onclick = () => openReaderFind();
+  if (_readerFind.q) {
+    document.getElementById('reader-find').hidden = false;
+    input.value = _readerFind.q;
+    computeReaderFind(_readerFind.q);
+  }
+}
+
+// Cmd/Ctrl+F → open the in-reader find, but ONLY when the documents
+// reader is the visible view (otherwise leave native find alone).
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'f') {
+    const body = document.getElementById('docs-reader-body');
+    if (body && body.offsetParent !== null) {
+      e.preventDefault();
+      openReaderFind();
+    }
+  }
+});
+
 function paintDocReaderBody(doc, paraId) {
   const host = $('#docs-reader-body');
   if (!host) return;
@@ -2090,6 +2225,7 @@ function paintDocReaderBody(doc, paraId) {
         ${doc.committee || doc.treaty ? `<span>${escape(doc.committee || doc.treaty)}</span>` : ''}
         <span>${paragraphs.length} paragraphs</span>
         ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener" class="docs-reader-source">↗ original</a>` : ''}
+        <button type="button" class="docs-reader-find-toggle" id="docs-reader-find-toggle" title="Find in document (⌘F / Ctrl+F)" aria-label="Find in document">⌕ Find</button>
       </div>
       ${langStripHtml}
       ${fullCaseHtml}
@@ -2151,13 +2287,31 @@ function paintDocReaderBody(doc, paraId) {
           <button class="docs-para-act docs-para-act-copy" data-act="copy" title="Copy paragraph text to clipboard" aria-label="Copy paragraph text">
             <span class="mono">copy</span>
           </button>
+          <button class="docs-para-act docs-para-act-flag" data-act="flag" title="Report a problem with this paragraph (wrong article link, OCR, metadata…)" aria-label="Report a problem with this paragraph">
+            <span class="mono">flag</span>
+          </button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">✎</span>' : ''}
         </div>
         <p class="docs-reader-para-text serif">${annotateTreatyText(emphasiseTrailingSubhead(renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms })), doc?.committee, p?.citedArticles)}</p>
       </div>`;
   }).join('');
 
-  host.innerHTML = head + `<div class="docs-reader-stream">${body}</div>`;
+  // v19.62: in-reader find bar. Native Cmd/Ctrl+F cannot reach text in
+  // this nested overflow:auto pane (the shell locks html,body), so we
+  // ship our own. Sticky at the top of the scroll pane; opened via the
+  // ⌕ toggle or Cmd/Ctrl+F (see setupReaderFind / the global handler).
+  const findBar = `
+    <div class="reader-find" id="reader-find" hidden role="search">
+      <span class="reader-find-icon" aria-hidden="true">⌕</span>
+      <input type="search" id="reader-find-input" class="reader-find-input"
+             placeholder="Find in document…" aria-label="Find in document" autocomplete="off" />
+      <span class="reader-find-count mono" id="reader-find-count" aria-live="polite"></span>
+      <button type="button" class="reader-find-nav" id="reader-find-prev" title="Previous match (Shift+Enter)" aria-label="Previous match">↑</button>
+      <button type="button" class="reader-find-nav" id="reader-find-next" title="Next match (Enter)" aria-label="Next match">↓</button>
+      <button type="button" class="reader-find-close" id="reader-find-close" title="Close (Esc)" aria-label="Close find">✕</button>
+    </div>`;
+  host.innerHTML = findBar + head + `<div class="docs-reader-stream">${body}</div>`;
+  setupReaderFind();
 
   // Per-paragraph click handlers (delegated by data-act).
   host.querySelectorAll('.docs-reader-para').forEach(el => {
@@ -2200,6 +2354,13 @@ function paintDocReaderBody(doc, paraId) {
           // reads cleanly without UI artifacts.
           const para = state.paragraphById.get(id);
           if (para) copyParagraphText(btn, para);
+          return;
+        }
+        if (btn.dataset.act === 'flag') {
+          // v19.62: report a problem with this exact paragraph. Opens the
+          // existing report modal pre-filled with paraId + docId; submits
+          // to /api/feedback (feedback.jsonl on the VM) for weekly triage.
+          openReportModal({ paraId: id, docId: doc.docId });
           return;
         }
         // pin/flag/link actions removed in v19.43 — moved to workspace
@@ -6455,6 +6616,12 @@ function paintDossier() {
         <span class="dossier-cta-label">Cite</span>
         <span class="dossier-cta-fmt mono">${escape(prefFmt.fmt)}</span>
       </button>
+      <button class="dossier-cta dossier-cta-ghost" id="ws-read" type="button"
+              title="Open the full document in the reader"
+              aria-label="Open the full document in the reader">
+        <span class="dossier-cta-icon" aria-hidden="true">▦</span>
+        <span class="dossier-cta-label">Document</span>
+      </button>
       <button class="dossier-icon-btn ${bmHas(para.id) ? 'on' : ''}" id="ws-bookmark" type="button"
               title="${bmHas(para.id) ? 'Remove bookmark' : 'Save to bookmarks'}"
               aria-label="${bmHas(para.id) ? 'Remove bookmark' : 'Save'}"
@@ -6474,10 +6641,6 @@ function paintDossier() {
           <button type="button" id="ws-permalink" class="dossier-more-opt" role="menuitem">
             <span class="dossier-more-icon" aria-hidden="true">§</span>
             <span>Copy permalink to this paragraph</span>
-          </button>
-          <button type="button" id="ws-read" class="dossier-more-opt" role="menuitem">
-            <span class="dossier-more-icon" aria-hidden="true">▦</span>
-            <span>Open in document reader</span>
           </button>
           <button type="button" id="cite-other-trigger" class="dossier-more-opt" role="menuitem"
                   aria-haspopup="menu" aria-expanded="false">
