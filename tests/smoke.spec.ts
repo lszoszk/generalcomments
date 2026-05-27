@@ -263,11 +263,14 @@ test('14. apiBreakdownPills · server total wins over page-slice (v19.6 U2)', as
 // v19.51.7 (Tier B.3): keyboard shortcut overlay
 test('15. shortcutsOverlay · `?` opens the shortcuts dialog', async ({ page }) => {
   await bootApp(page, '/index.html');
-  // Move focus off the search input so the global keydown handler fires.
-  // The app auto-focuses #q at boot (app.js ~698), and `body.focus()` is
-  // a no-op on the non-focusable <body>, leaving #q focused — which makes
-  // the handler correctly ignore `?` as typing. Blur the active element
-  // so the keypress lands on a non-editable target.
+  // The global `?` handler ignores the key while an editable element is
+  // focused. The app auto-focuses #q via a ONE-SHOT setTimeout that fires
+  // only while document.activeElement === <body> (app.js ~698) — so simply
+  // blurring to <body> *re-triggers* that focus and the keypress lands in
+  // the input. Instead: wait for that one-shot focus to have happened, THEN
+  // blur. Because the timer only fires once, focus now stays off the input
+  // and the keypress reaches the handler.
+  await page.waitForFunction(() => document.activeElement?.id === 'q', null, { timeout: 5_000 });
   await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
   await page.keyboard.press('Shift+Slash');
   await expect(page.locator('#shortcuts-modal')).toBeVisible();
