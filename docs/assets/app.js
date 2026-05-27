@@ -43,7 +43,7 @@ const state = {
   scope: 'gc',         // 'gc' | 'jur' | 'sp' | 'all'
   resultSort: 'relevance',      // 'relevance' | 'date'
   resultGroup: 'paragraphs',    // 'paragraphs' | 'documents'
-  searchInFootnotes: true,      // v19.12: include fnText field in FlexSearch query
+  searchInFootnotes: false,     // v19.61: footnote search is opt-in (default OFF — body only)
   searchInPreamble:  true,      // v19.43: include preamble paragraphs (isPreamble=true) in search
   collapsedDocGroups: new Set(),
   query: '',
@@ -258,6 +258,10 @@ async function runSearchViaApi(runId) {
   }
   if (f.yearMin && f.yearMin !== state.facets?.years?.min) params.year_from = f.yearMin;
   if (f.yearMax && f.yearMax !== state.facets?.years?.max) params.year_to   = f.yearMax;
+  // Footnote search is opt-in (default OFF). Forward the toggle so the
+  // server column-filters the FTS match to body columns unless ON. Sent
+  // explicitly both ways so a mid-session toggle always round-trips.
+  params.footnotes = state.searchInFootnotes ? 1 : 0;
 
   // UI-side loading hint (kept short so the badge keeps reflecting reality).
   paintApiBadge(true, '…');
@@ -495,8 +499,8 @@ function encodeUrlState() {
   if (state.filters.rightsKeywords.size) u.set(URL_KEYS.rk, [...state.filters.rightsKeywords].join('|'));
   if (state.filters.articles.size) u.set(URL_KEYS.ar, [...state.filters.articles].join('|'));
   if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
-  // Only emit fn=0 when toggle is OFF (default ON keeps URLs short).
-  if (state.searchInFootnotes === false) u.set(URL_KEYS.fn, '0');
+  // Only emit fn=1 when toggle is ON (default OFF keeps URLs short).
+  if (state.searchInFootnotes === true) u.set(URL_KEYS.fn, '1');
   // Same convention for preamble search ('pre=0' when OFF).
   if (state.searchInPreamble === false) u.set(URL_KEYS.pre, '0');
   const qs = u.toString();
@@ -531,8 +535,8 @@ function decodeUrlState() {
     rightsKeywords: split('rk'),
     articles: split('ar'),
     showSuperseded: u.get(URL_KEYS.sup) === '1',
-    // Omitted/anything-but-'0' = ON (default). 'fn=0' = OFF.
-    searchInFootnotes: u.get(URL_KEYS.fn) !== '0',
+    // Omitted = OFF (default). Only 'fn=1' turns footnote search ON.
+    searchInFootnotes: u.get(URL_KEYS.fn) === '1',
     searchInFootnotesUrl: u.has(URL_KEYS.fn),     // explicit URL signal
     // Same semantics for preambles.
     searchInPreamble: u.get(URL_KEYS.pre) !== '0',
@@ -1065,15 +1069,15 @@ function applyUrlState(parsed) {
   }
   syncResultsControls();
 
-  // Search-in-footnotes preference. URL > localStorage > default(ON).
+  // Search-in-footnotes preference. URL > localStorage > default(OFF).
   if (parsed.searchInFootnotesUrl) {
     state.searchInFootnotes = parsed.searchInFootnotes;
   } else {
     // localStorage stores the raw string '0' or '1' (no JSON wrapping) so
-    // a fresh user with no key reads as `null`, which we treat as ON.
+    // a fresh user with no key reads as `null`, which we treat as OFF.
     let ls = null;
     try { ls = localStorage.getItem(_LS.searchInFn); } catch {}
-    state.searchInFootnotes = ls !== '0';
+    state.searchInFootnotes = ls === '1';
   }
   syncFnToggleControl();
 
@@ -1298,7 +1302,7 @@ const TOUR_STEPS = [
     selector: '#fn-toggle, #pre-toggle',
     view: 'search',
     title: 'Search options',
-    body: 'Toggle whether the search index includes footnote text and preamble paragraphs. Both default ON. Useful for excluding citation-heavy docs or focusing only on numbered substantive paragraphs.',
+    body: 'Toggle whether the search includes footnote text (default OFF — body only) and preamble paragraphs (default ON). Turn footnotes ON to also match citations and cross-references held in footnotes.',
   },
   // Drawer step. The dossier only renders after a ¶ is
   // clicked, so this step pre-clicks the first result so the user

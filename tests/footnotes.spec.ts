@@ -104,7 +104,9 @@ test('F5. citationMatchPill · query matching only a footnote shows the pill', a
   // it must produce at least one hit (the seeded paragraph) and that
   // result row must carry the .match-in-citation pill because the visible
   // snippet doesn't contain the token.
-  await bootApp(page, '/index.html');
+  // v19.61: footnote search now defaults OFF, so enable it via ?fn=1 to
+  // surface the footnote-only token.
+  await bootApp(page, '/index.html?fn=1');
   await page.waitForTimeout(800);
   await typeQuery(page, 'Cuscumigratoria');
   // The result row for the seeded paragraph should be visible somewhere.
@@ -128,7 +130,8 @@ test('F7. dossierRendersMarkers · clicking a result paints buttons in the dossi
   // tokens as raw text. v19.12 wires renderParagraphHtml() into the
   // paintDossier path. Open the seeded paragraph via the dossier and
   // confirm the body paragraph carries a clickable marker.
-  await bootApp(page, '/index.html');
+  // v19.61: footnote search defaults OFF — enable via ?fn=1.
+  await bootApp(page, '/index.html?fn=1');
   await page.waitForTimeout(800);
   await typeQuery(page, 'Cuscumigratoria');
   const result = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
@@ -141,7 +144,8 @@ test('F7. dossierRendersMarkers · clicking a result paints buttons in the dossi
 });
 
 test('F8. dossierPopover · marker click in dossier opens the popover', async ({ page }) => {
-  await bootApp(page, '/index.html');
+  // v19.61: footnote search defaults OFF — enable via ?fn=1.
+  await bootApp(page, '/index.html?fn=1');
   await page.waitForTimeout(800);
   await typeQuery(page, 'Cuscumigratoria');
   const result = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
@@ -153,7 +157,9 @@ test('F8. dossierPopover · marker click in dossier opens the popover', async ({
   await expect(pop.locator('.fn-popover-body')).toContainText(/Blanco Domínguez/);
 });
 
-test('F9. fnToggle · default ON, click flips to OFF, persists across reload', async ({ page }) => {
+test('F9. fnToggle · default OFF, click flips to ON, persists across reload', async ({ page }) => {
+  // v19.61: footnote search now defaults OFF (body-only). The toggle
+  // starts unpressed; clicking turns it ON and emits ?fn=1.
   await bootApp(page, '/index.html');
   // v19.59: #fn-toggle moved into the FILTERS pane — on mobile that pane
   // boots collapsed behind a toggle pill; expand it (no-op on desktop).
@@ -161,40 +167,41 @@ test('F9. fnToggle · default ON, click flips to OFF, persists across reload', a
   if (await filtersToggle.isVisible().catch(() => false)) await filtersToggle.click();
   const toggle = page.locator('#fn-toggle');
   await expect(toggle).toBeVisible();
-  await expect(toggle).toHaveClass(/is-on/);
-  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
-  await toggle.click();
   await expect(toggle).not.toHaveClass(/is-on/);
   await expect(toggle).toHaveAttribute('aria-pressed', 'false');
-  // Wait for the 250 ms URL-debounce to fire so ?fn=0 is in the address
+  await toggle.click();
+  await expect(toggle).toHaveClass(/is-on/);
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  // Wait for the 250 ms URL-debounce to fire so ?fn=1 is in the address
   // bar BEFORE we reload — the init script reads the URL param and skips
-  // the localStorage wipe that would reset the toggle back to ON.
-  await page.waitForURL(/fn=0/, { timeout: 3_000 });
+  // the localStorage wipe that would reset the toggle back to OFF.
+  await page.waitForURL(/fn=1/, { timeout: 3_000 });
   // Reload — preference persists via localStorage + URL param.
   await page.reload();
   await page.waitForFunction(() => {
     const folio = document.getElementById('mast-folio')?.textContent || '';
     return /\d+\s*¶/.test(folio);
   }, null, { timeout: 15_000 });
-  await expect(page.locator('#fn-toggle')).not.toHaveClass(/is-on/);
+  await expect(page.locator('#fn-toggle')).toHaveClass(/is-on/);
 });
 
 test('F10. fnToggleHidesPill · OFF state suppresses match-in-citation hits', async ({ page }) => {
-  // With the toggle ON, "Cuscumigratoria" finds the seeded paragraph
-  // (footnote-only match) and the pill renders. Flip OFF and the same
-  // search returns zero results — the index never queried fnText.
-  await bootApp(page, '/index.html');
+  // Boot with footnote search ON (?fn=1) so "Cuscumigratoria" (a
+  // footnote-only token) finds the seeded paragraph and the pill renders.
+  // Flipping the toggle OFF must make the same search return zero results —
+  // the index never queries footnote text.
+  await bootApp(page, '/index.html?fn=1');
   await page.waitForTimeout(800);
+  await typeQuery(page, 'Cuscumigratoria');
+  const seeded = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
+  await expect(seeded).toHaveCount(1, { timeout: 6_000 });
   // v19.59: #fn-toggle lives in the FILTERS pane now — expand it on
   // mobile (collapsed by default); no-op on desktop.
   const filtersToggle = page.locator('.mobile-filters-toggle');
   if (await filtersToggle.isVisible().catch(() => false)) await filtersToggle.click();
-  // Flip toggle OFF first
+  // Flip footnote search OFF — same query should now return nothing.
   await page.locator('#fn-toggle').click();
-  await typeQuery(page, 'Cuscumigratoria');
   await page.waitForTimeout(400);
-  // Should be no result for the seeded paragraph anymore.
-  const seeded = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
   await expect(seeded).toHaveCount(0);
   // And no match-in-citation pill anywhere.
   await expect(page.locator('.match-in-citation')).toHaveCount(0);
