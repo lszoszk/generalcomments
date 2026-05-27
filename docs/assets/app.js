@@ -126,9 +126,13 @@ function apiEnabled() {
   return true;
 }
 function apiActive(scope) {
-  // Hybrid mode: JUR, SP and "all" route through the API; only GC
-  // stays local (its ~7 k-paragraph FlexSearch index builds in ~1 s
-  // and keystroke search beats any round-trip). v19.60: SP joined the
+  // Hybrid mode: GC, JUR, SP and "all" route through the server FTS5
+  // API. GC was previously kept local (its ~7 k-paragraph FlexSearch
+  // index builds in ~1 s), but the local engine's phrase recall diverged
+  // from the server (candidate-narrowing dropped legitimate matches), so
+  // GC now rides the same API as everything else for exact parity — with
+  // the built-in fall-back to the local FlexSearch index when the API is
+  // unreachable. v19.60: SP joined the
   // API set — its paragraphs were split out of corpus.json, so the
   // API is the only SP search path. If the API was probed at boot and
   // is unreachable, fall back to local — `state.apiOnline === false`
@@ -142,7 +146,7 @@ function apiActive(scope) {
   // (even with an SP report-type filter the API can't narrow yet;
   // an unfiltered API result still beats the empty local one).
   if (scope === 'sp') return true;
-  if (!(scope === 'jur' || scope === 'all')) return false;
+  if (!(scope === 'gc' || scope === 'jur' || scope === 'all')) return false;
   // v19.50: JUR-only client filters that the API doesn't support yet
   // (rights-keywords, articles-cited, country, outcome, report-type).
   // Without this gate the user toggled a chip and saw NO change in
@@ -4910,7 +4914,7 @@ async function runSearch() {
   // avoids speculatively firing an API search that times out 5 s later
   // when the VM is actually unreachable. We race against a 1.5 s wall
   // so a slow ping doesn't punish the first keystroke either way.
-  if (state.apiPingPromise && (state.scope === 'jur' || state.scope === 'all') && state.apiOnline === null) {
+  if (state.apiPingPromise && (state.scope === 'gc' || state.scope === 'jur' || state.scope === 'all') && state.apiOnline === null) {
     try {
       await Promise.race([
         state.apiPingPromise,
@@ -4921,8 +4925,9 @@ async function runSearch() {
   }
 
   // When the API is active for this scope, bypass local FlexSearch
-  // entirely. GC stays local because GC corpus fits in the browser and
-  // beats any round-trip; JUR + scope=all ride the SQLite FTS5 server.
+  // entirely. GC, JUR and scope=all all ride the SQLite FTS5 server for
+  // result parity; the local FlexSearch path remains as the offline
+  // fall-back when the API is unreachable (see runSearchViaApi's catch).
   if (apiActive(state.scope)) {
     return runSearchViaApi(runId);
   }
