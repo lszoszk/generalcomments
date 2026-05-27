@@ -120,9 +120,12 @@ test('8. dossierFooter · primary Cite + 3 quick-icons + More menu', async ({ pa
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
-  // Primary CTA visible + carries a Cite label.
-  await expect(page.locator('.dossier-cta')).toBeVisible();
-  await expect(page.locator('.dossier-cta-label')).toContainText(/Cite/i);
+  // Primary CTA visible + carries a Cite label. The footer now also
+  // renders a second `.dossier-cta` (the ghost "Document" button), so
+  // both `.dossier-cta` and `.dossier-cta-label` match two elements —
+  // scope the assertions to the primary CTA by id to stay unambiguous.
+  await expect(page.locator('#ws-cite-primary')).toBeVisible();
+  await expect(page.locator('#ws-cite-primary .dossier-cta-label')).toContainText(/Cite/i);
   // Three quick-action icon buttons by id (matches the markup).
   for (const id of ['#ws-bookmark', '#ws-note-toggle', '#ws-copy']) {
     await expect(page.locator(id)).toBeVisible();
@@ -261,7 +264,11 @@ test('14. apiBreakdownPills · server total wins over page-slice (v19.6 U2)', as
 test('15. shortcutsOverlay · `?` opens the shortcuts dialog', async ({ page }) => {
   await bootApp(page, '/index.html');
   // Move focus off the search input so the global keydown handler fires.
-  await page.locator('body').focus();
+  // The app auto-focuses #q at boot (app.js ~698), and `body.focus()` is
+  // a no-op on the non-focusable <body>, leaving #q focused — which makes
+  // the handler correctly ignore `?` as typing. Blur the active element
+  // so the keypress lands on a non-editable target.
+  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
   await page.keyboard.press('Shift+Slash');
   await expect(page.locator('#shortcuts-modal')).toBeVisible();
   await expect(page.locator('#shortcuts-modal')).toContainText(/show this overlay/);
