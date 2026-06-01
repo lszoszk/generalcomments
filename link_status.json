@@ -1,19 +1,10 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-05-25T07:12:47.705177+00:00",
-  "finishedAt": "2026-05-25T07:19:01.553545+00:00",
+  "checkedAt": "2026-06-01T08:32:32.250206+00:00",
+  "finishedAt": "2026-06-01T08:42:08.286651+00:00",
   "totalUnique": 566,
   "totalRecords": 567,
-  "okCount": 565,
-  "brokenCount": 1,
-  "broken": [
-    {
-      "signature": "A/70/286",
-      "docName": "The rights of the child and his or her parents in the area of freedom of religion or belief",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/70/286",
-      "status": 0,
-      "reason": "URLError: timed out"
-    }
-  ]
+  "okCount": 566,
+  "brokenCount": 0,
+  "broken": []
 }
