@@ -59,8 +59,11 @@ test('3. fourCharGate · 1-3 chars show the "keep typing" hint', async ({ page }
   await page.waitForTimeout(400);
   await expect(page.locator('#results-title')).toContainText(/Keep typing/i);
   await expect(page.locator('#result-count')).toContainText(/chars/);
-  // No rows rendered yet
-  expect(await page.locator('.result').count()).toBe(0);
+  // No rows rendered yet. Use a retrying assertion: when the gate trips it
+  // clears any prior rows asynchronously, and under full-suite parallel load
+  // a one-shot count() can read the list mid-clear (flaky). toHaveCount(0)
+  // polls until the clear settles.
+  await expect(page.locator('.result')).toHaveCount(0);
 });
 
 test('4. boolean · trafficking AND children NOT (sexual)', async ({ page }) => {
