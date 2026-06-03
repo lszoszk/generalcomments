@@ -5878,13 +5878,16 @@ function renderResult(p, rank, terms, opts = {}) {
         <span class="folio">${doc?.year ?? ''}</span>
       `;
 
-  // Build a KWIC window when the keyword falls past the visible fold; for
-  // short paragraphs and queries with no hits, smartSnippet returns the full
-  // text (highlighted) untouched. When the API supplied its own snippet
-  // (FTS5's snippet() with <mark> tags), prefer it — the server already
-  // chose the best 24-token window around the highest-scoring match.
-  // SmartSnippet receives marker-stripped text so [[fn:N]] tokens
-  // never appear in snippets. The full marker text is only used inside the
+  // v19.62: always build the snippet locally via smartSnippet so result cards
+  // obey KWIC_TRUNCATE — paragraphs at or below the threshold render in full,
+  // longer ones get a sentence-snapped KWIC window with an Expand button. The
+  // API still returns a 24-token FTS5 snippet() string in `opts.snippetHtml`
+  // (kept for backwards compat / wire format), but it's intentionally ignored
+  // here: that window is too tight for legal research, and p.text already
+  // carries the full paragraph. smartSnippet's _findBestCluster gives an
+  // equivalent best-match window when truncation is needed.
+  // SmartSnippet receives marker-stripped text so [[fn:N]] tokens never
+  // appear in snippets. The full marker text is only used inside the
   // documents reader.
   const bareText = stripFnMarkers(p.text);
   // v19.56.8: pass an `annotate` callback so smartSnippet inserts
@@ -5892,12 +5895,10 @@ function renderResult(p, rank, terms, opts = {}) {
   // this the same "article 6" appears unlinked in the result list (only
   // the dossier annotated it). Click handler is wired by setupResultDelegation
   // below — same showTreatyPopover that powers Search dossier + Documents.
-  const snippet = opts.snippetHtml
-    ? { html: opts.snippetHtml, isKwic: false, isTruncated: false, fullLen: bareText.length }
-    : smartSnippet(bareText, terms, {
-        annotate: (escapedHtml) =>
-          annotateTreatyText(escapedHtml, doc?.committee, p?.citedArticles),
-      });
+  const snippet = smartSnippet(bareText, terms, {
+    annotate: (escapedHtml) =>
+      annotateTreatyText(escapedHtml, doc?.committee, p?.citedArticles),
+  });
   const kwicBadge = snippet.isKwic
     ? `<span class="kwic-badge" title="Keyword-in-context · paragraph is long — click Expand to read in full">◎ KWIC · ${snippet.fullLen.toLocaleString()} chars</span>`
     : '';
@@ -9360,7 +9361,7 @@ function formatOutcome(value) {
 // Returns { html, isKwic, isTruncated, fullLen }.
 // Bumped from 600/140/240/400 — earlier limits felt cramped on
 // the mid-pane and clipped paragraphs that read naturally at 800-900 chars.
-const KWIC_TRUNCATE   = 900;   // paragraphs longer than this are always capped
+const KWIC_TRUNCATE   = 1500;  // v19.62: bumped 900 → 1500 — 93% of GC paragraphs now show in full inline (was ~77%); legal research scans benefit from seeing the whole doctrinal unit without clicking Expand
 const KWIC_PRE_CHARS  = 200;   // chars before the matched cluster
 const KWIC_POST_CHARS = 360;   // chars after the matched cluster
 const KWIC_FADE_FOLD  = 500;   // isKwic badge — match was deep in the text
