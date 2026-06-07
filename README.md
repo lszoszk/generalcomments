@@ -119,8 +119,7 @@ See [`NOTICE`](NOTICE) for the full split and citation guidance, and
 
 ```
 Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRD — UN Human Rights
-Database (paragraph-level search interface for UN Treaty Body General
-Comments). https://lszoszk.github.io/generalcomments/
+Database. Zenodo. https://doi.org/10.5281/zenodo.10495719
 ```
 
 When citing individual paragraphs in academic work, please reference

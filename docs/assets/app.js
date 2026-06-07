@@ -3688,7 +3688,7 @@ function bindUI() {
   // Footer "Cite this database" — one-click copy of the suggested citation.
   // Mirrors the form in CITATION.cff and the XLSX export's Info sheet.
   $('#foot-cite')?.addEventListener('click', () => {
-    const cite = 'Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRD — UN Human Rights Database (paragraph-level search interface for UN Treaty Body General Comments). https://lszoszk.github.io/generalcomments/';
+    const cite = 'Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRD — UN Human Rights Database. Zenodo. https://doi.org/10.5281/zenodo.10495719';
     navigator.clipboard?.writeText(cite)
       .then(() => showFeedbackToast({ ok: true, _msg: 'Citation copied to clipboard', _mark: '❝' }))
       .catch(() => showFeedbackToast({ ok: true, _msg: 'Copy failed — citation is in the About tab', _mark: '⚠' }));
@@ -3924,7 +3924,7 @@ async function exportXlsx(rows, busyButton) {
     ['Total results',     rows.length],
     [],
     ['Suggested citation:'],
-    ['Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRD — UN Human Rights Database (paragraph-level search interface for UN Treaty Body General Comments).'],
+    ['Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRD — UN Human Rights Database. Zenodo. https://doi.org/10.5281/zenodo.10495719'],
     ['When citing individual paragraphs use the original UN document signature (e.g. CRC/C/GC/25 ¶12), not this database.'],
   ];
   const wb = XLSX.utils.book_new();
