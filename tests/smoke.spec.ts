@@ -55,14 +55,15 @@ test('2. searchWired · typing 4+ chars renders rows', async ({ page }) => {
 
 test('3. fourCharGate · 1-3 chars show the "keep typing" hint', async ({ page }) => {
   await bootApp(page, '/index.html');
+  // Boot fires an empty-query search that paints the full browse list
+  // (~7k passages). Wait for it to SETTLE before typing — otherwise, under
+  // parallel load, that in-flight search can re-paint rows just after the
+  // short-query gate clears them, leaving stray .result nodes (the flake).
+  // Once boot has settled, the gate's synchronous clear is the final state.
+  await expect(page.locator('#results-title')).toContainText(/passages from/i, { timeout: 15_000 });
   await page.locator('#q').fill('di');           // 2 chars
-  await page.waitForTimeout(400);
   await expect(page.locator('#results-title')).toContainText(/Keep typing/i);
   await expect(page.locator('#result-count')).toContainText(/chars/);
-  // No rows rendered yet. Use a retrying assertion: when the gate trips it
-  // clears any prior rows asynchronously, and under full-suite parallel load
-  // a one-shot count() can read the list mid-clear (flaky). toHaveCount(0)
-  // polls until the clear settles.
   await expect(page.locator('.result')).toHaveCount(0);
 });
 
