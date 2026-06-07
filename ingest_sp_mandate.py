@@ -63,6 +63,72 @@ USER_AGENT = (
 # Mandate registry. Add new mandates here.
 # ---------------------------------------------------------------------------
 MANDATES: dict[str, dict] = {
+    'housing': {
+        'committee_label': 'SR Adequate Housing',
+        'full_name': 'Special Rapporteur on adequate housing as a component of the right to an adequate standard of living, and on the right to non-discrimination in this context',
+        # (year_max, name) — pick the first row whose year_max >= report year.
+        # NB: transition-year reports A/63/275 (2008, Rolnik), A/69/274 (2014,
+        # Farha) and A/75/148 (2020, Rajagopal) map to the predecessor by this
+        # year-only rule; corrected in specialprocedures_info.json post-ingest.
+        'mandate_holders': [
+            (2008, 'Miloon Kothari'),
+            (2014, 'Raquel Rolnik'),
+            (2020, 'Leilani Farha'),
+            (9999, 'Balakrishnan Rajagopal'),
+        ],
+        # Catalogue transcribed from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-housing/annual-thematic-reports
+        # Thematic reports only — country/mission addenda, communications
+        # reports and corrigenda excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/61/43',       'HRC 61st session', 'Guiding Principles on Resettlement'),
+            (2025, 'A/80/351',          'GA 80th session',  'Land and the right to adequate housing'),
+            (2025, 'A/HRC/58/50',       'HRC 58th session', 'Towards a just approach to the global housing crisis and migrants'),
+            (2024, 'A/79/317',          'GA 79th session',  'Towards guiding principles on resettlement: a review and assessment of current laws, policies and practices'),
+            (2024, 'A/HRC/56/61/Add.3', 'HRC 56th session', 'Breaking the cycle: ending the criminalization of homelessness and poverty'),
+            (2024, 'A/HRC/55/53',       'HRC 55th session', 'Resettlement after eviction and displacement: addressing a human rights crisis'),
+            (2023, 'A/78/192',          'GA 78th session',  'A place to live in dignity for all: make housing affordable'),
+            (2023, 'A/HRC/52/28',       'HRC 52nd session', 'Towards a just transformation: climate crisis and the right to housing'),
+            (2022, 'A/77/190',          'GA 77th session',  'The right to adequate housing during violent conflict'),
+            (2022, 'A/HRC/49/48',       'HRC 49th session', 'Spatial segregation and the right to adequate housing'),
+            (2021, 'A/76/408',          'GA 76th session',  'Discrimination in the context of housing'),
+            (2021, 'A/HRC/47/43',       'HRC 47th session', 'Twenty years of the mandate: taking stock, moving forward'),
+            (2020, 'A/75/148',          'GA 75th session',  'COVID-19 and the right to adequate housing'),
+            (2020, 'A/HRC/43/43',       'HRC 43rd session', 'Guidelines for the implementation of the right to adequate housing'),
+            (2019, 'A/74/183',          'GA 74th session',  'The right to housing for indigenous peoples'),
+            (2019, 'A/HRC/40/61',       'HRC 40th session', 'Access to justice for the right to housing'),
+            (2018, 'A/73/310/Rev.1',    'GA 73rd session',  'The right to housing for residents of informal settlements'),
+            (2018, 'A/HRC/37/53',       'HRC 37th session', 'Human rights-based national housing strategies'),
+            (2017, 'A/72/128',          'GA 72nd session',  'The right to adequate housing of persons with disabilities'),
+            (2017, 'A/HRC/34/51',       'HRC 34th session', 'Financialization of housing and the right to adequate housing'),
+            (2016, 'A/71/310',          'GA 71st session',  'The right to life and the right to adequate housing: indivisibility and interdependence'),
+            (2016, 'A/HRC/31/54',       'HRC 31st session', 'Homelessness as a global human rights crisis that demands an urgent global response'),
+            (2015, 'A/70/270',          'GA 70th session',  'Centrality of the right to adequate housing for the New Urban Agenda'),
+            (2015, 'A/HRC/28/62',       'HRC 28th session', 'Responsibilities of local and other subnational governments in relation to the right to adequate housing'),
+            (2014, 'A/69/274',          'GA 69th session',  'Preliminary thoughts and priority areas of work of the new mandate-holder'),
+            (2014, 'A/HRC/25/54',       'HRC 25th session', 'Guiding principles on security of tenure for the urban poor'),
+            (2013, 'A/68/289',          'GA 68th session',  'Analysis of two alternative housing policies: rental and collective housing'),
+            (2013, 'A/HRC/22/46',       'HRC 22nd session', 'Mapping and framing security of tenure'),
+            (2012, 'A/67/286',          'GA 67th session',  'The impact of housing finance policies on the right to adequate housing of those living in poverty'),
+            (2012, 'A/HRC/19/53',       'HRC 19th session', 'Women and their right to adequate housing'),
+            (2011, 'A/66/270',          'GA 66th session',  'The right to adequate housing in disaster relief efforts'),
+            (2011, 'A/HRC/16/42',       'HRC 16th session', 'Post-conflict and post-disaster reconstruction and the right to adequate housing'),
+            (2010, 'A/65/261',          'GA 65th session',  'Migration and the right to adequate housing'),
+            (2010, 'A/HRC/13/20',       'HRC 13th session', 'The impact of mega-events on the realization of the right to adequate housing'),
+            (2009, 'A/64/255',          'GA 64th session',  'Climate change and the right to adequate housing'),
+            (2009, 'A/HRC/10/7',        'HRC 10th session', 'The financial crisis and its causes'),
+            (2008, 'A/63/275',          'GA 63rd session',  'Areas of work in the coming years and justiciability of the right to adequate housing'),
+            (2008, 'A/HRC/7/16',        'HRC 7th session',  'Overview of the work of the first Special Rapporteur on the right to adequate housing'),
+            (2007, 'A/HRC/4/18',        'HRC 5th session',  'Basic principles and guidelines on development-based evictions and displacement'),
+            (2006, 'E/CN.4/2006/41',    'CHR 62nd session', 'The right to housing and the indivisibility of human rights'),
+            (2005, 'E/CN.4/2005/48',    'CHR 61st session', 'Homelessness'),
+            (2004, 'E/CN.4/2004/48',    'CHR 60th session', 'Forced evictions'),
+            (2003, 'E/CN.4/2003/5',     'CHR 59th session', 'Emerging issues including water and indicators'),
+            (2002, 'E/CN.4/2002/59',    'CHR 58th session', 'Discrimination and the impact of globalization'),
+            (2001, 'E/CN.4/2001/51',    'CHR 57th session', 'Definition of the mandate and objectives'),
+        ],
+    },
     'disability': {
         'committee_label': 'SR Disability',
         'full_name': 'Special Rapporteur on the rights of persons with disabilities',

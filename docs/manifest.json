@@ -1,15 +1,15 @@
 {
-  "version": "20260520",
-  "builtAt": "2026-05-20T19:27:19+00:00",
+  "version": "20260607",
+  "builtAt": "2026-06-07T10:41:00+00:00",
   "counts": {
-    "documents": 566,
-    "paragraphs": 50508,
+    "documents": 597,
+    "paragraphs": 52817,
     "gcDocuments": 187,
     "gcParagraphs": 7216,
-    "spDocuments": 379,
-    "spParagraphs": 43292,
+    "spDocuments": 410,
+    "spParagraphs": 45601,
     "labels": 20,
-    "committees": 18,
+    "committees": 19,
     "yearRange": [
       1960,
       2026
@@ -21,17 +21,17 @@
       "bytes": 7940662
     },
     "sp-corpus.json": {
-      "sha": "2040b8fe382a6131",
-      "bytes": 44462808
+      "sha": "5afa021dfbb47aab",
+      "bytes": 46791472
     },
     "documents.json": {
-      "sha": "8745955e1ee81696",
-      "bytes": 470316
+      "sha": "f3af3c5140fe9d02",
+      "bytes": 490449
     },
     "facets.json": {
-      "sha": "b2b0ae6d3aeed5b6",
-      "bytes": 7961
+      "sha": "1225223bfd733bac",
+      "bytes": 8162
     }
   },
-  "note": "corpus.json split: GC indexed locally, SP served by the API."
+  "note": "Incremental append (append_sp_docs.py): +31 SP docs."
 }
