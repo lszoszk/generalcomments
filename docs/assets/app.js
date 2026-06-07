@@ -6458,13 +6458,13 @@ function paintDossier() {
   // then outcome (already on a badge), then communication / adoption dates.
   // v15: S/M/L font-size controls live in the folio strip alongside the
   // outcome badge. Persisted preference is restored at boot.
-  const currentFont = _lsGet(_LS.dossierFont, 'M');
+  const currentFont = _lsGet(_LS.dossierFont, 'L');
   const fontControls = `
     <div class="dossier-font-controls" role="group" aria-label="Dossier text size">
       ${['S','M','L'].map(k => `
         <button type="button" data-font-key="${k}"
                 class="${k === currentFont ? 'is-active' : ''}"
-                title="Text size ${k === 'S' ? '— small' : k === 'L' ? '— large' : '— medium (default)'}">${k}</button>
+                title="Text size ${k === 'S' ? '— small' : k === 'L' ? '— large (default)' : '— medium'}">${k}</button>
       `).join('')}
     </div>`;
 
@@ -6626,28 +6626,33 @@ function paintDossier() {
         <span class="dossier-cta-label">Cite</span>
         <span class="dossier-cta-fmt mono">${escape(prefFmt.fmt)}</span>
       </button>
+      <button class="dossier-cta dossier-cta-ghost" id="ws-copy" type="button"
+              title="Copy paragraph text to clipboard"
+              aria-label="Copy paragraph text">
+        <span class="dossier-cta-icon" aria-hidden="true">⎘</span>
+        <span class="dossier-cta-label">Copy</span>
+      </button>
       <button class="dossier-cta dossier-cta-ghost" id="ws-read" type="button"
               title="Open the full document in the reader"
               aria-label="Open the full document in the reader">
         <span class="dossier-cta-icon" aria-hidden="true">▦</span>
         <span class="dossier-cta-label">Document</span>
       </button>
-      <button class="dossier-icon-btn ${bmHas(para.id) ? 'on' : ''}" id="ws-bookmark" type="button"
-              title="${bmHas(para.id) ? 'Remove bookmark' : 'Save to bookmarks'}"
-              aria-label="${bmHas(para.id) ? 'Remove bookmark' : 'Save'}"
-              aria-pressed="${bmHas(para.id) ? 'true' : 'false'}">${bmHas(para.id) ? '★' : '☆'}</button>
-      <button class="dossier-icon-btn ${noteHas(para.id) ? 'on' : ''}" id="ws-note-toggle" type="button"
-              title="${noteHas(para.id) ? 'Edit your private note' : 'Add a private note'}"
-              aria-label="${noteHas(para.id) ? 'Edit note' : 'Add note'}"
-              aria-pressed="${noteHas(para.id) ? 'true' : 'false'}"
-              aria-expanded="${noteHas(para.id) ? 'true' : 'false'}">✎</button>
-      <button class="dossier-icon-btn" id="ws-copy" type="button"
-              title="Copy paragraph text to clipboard"
-              aria-label="Copy paragraph text">⎘</button>
       <details class="dossier-more" id="dossier-more">
         <summary class="dossier-icon-btn dossier-more-summary"
                  title="More actions" aria-label="More actions" aria-haspopup="menu">⋯</summary>
         <div class="dossier-more-pop" role="menu">
+          <button type="button" id="ws-bookmark" class="dossier-more-opt${bmHas(para.id) ? ' is-on' : ''}" role="menuitem"
+                  aria-pressed="${bmHas(para.id) ? 'true' : 'false'}">
+            <span class="dossier-more-icon" aria-hidden="true">${bmHas(para.id) ? '★' : '☆'}</span>
+            <span>${bmHas(para.id) ? 'Remove bookmark' : 'Save to bookmarks'}</span>
+          </button>
+          <button type="button" id="ws-note-toggle" class="dossier-more-opt${noteHas(para.id) ? ' is-on' : ''}" role="menuitem"
+                  aria-pressed="${noteHas(para.id) ? 'true' : 'false'}"
+                  aria-expanded="${noteHas(para.id) ? 'true' : 'false'}">
+            <span class="dossier-more-icon" aria-hidden="true">✎</span>
+            <span>${noteHas(para.id) ? 'Edit your private note' : 'Add a private note'}</span>
+          </button>
           <button type="button" id="ws-permalink" class="dossier-more-opt" role="menuitem">
             <span class="dossier-more-icon" aria-hidden="true">§</span>
             <span>Copy permalink to this paragraph</span>
@@ -6784,6 +6789,9 @@ function paintDossier() {
   const noteWrap = $('#ws-note-wrap');
   const noteToggle = $('#ws-note-toggle');
   noteToggle?.addEventListener('click', () => {
+    // Note toggle now lives in the ⋯ menu — close it so the revealed
+    // note field (above the footer) isn't covered by the open popover.
+    $('#dossier-more')?.removeAttribute('open');
     const wasHidden = noteWrap.hasAttribute('hidden');
     if (wasHidden) {
       noteWrap.removeAttribute('hidden');
@@ -9026,7 +9034,7 @@ function applyDossierFontPref(letter) {
   });
 }
 function initDossierFontPref() {
-  const saved = _lsGet(_LS.dossierFont, 'M');
+  const saved = _lsGet(_LS.dossierFont, 'L');
   applyDossierFontPref(saved);
 }
 

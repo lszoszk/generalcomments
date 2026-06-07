@@ -114,25 +114,24 @@ test('7. clickToDossier · click row → dossier paints', async ({ page }) => {
   await expect(page.locator('.dossier-footer')).toBeVisible();
 });
 
-test('8. dossierFooter · primary Cite + 3 quick-icons + More menu', async ({ page }) => {
-  // v19.43-fix8: the loose 7-button toolbar was replaced by a sticky
-  // footer with a primary "Cite" CTA, three quick-action icon buttons
-  // (Save / Note / Copy), and a "⋯ More" overflow that holds the
-  // less-frequent actions (permalink, open-in-reader, cite-other,
+test('8. dossierFooter · three primary CTAs (Cite/Copy/Document) + More menu', async ({ page }) => {
+  // v19.62: the footer shows three large CTAs — Cite (primary, garnet),
+  // Copy and Document (ghost) — and a "⋯ More" overflow that holds the
+  // less-frequent actions (bookmark, note, permalink, cite-other,
   // flag-a-problem).
   await bootApp(page, '/index.html');
   await typeQuery(page, 'disability');
   await page.locator('.result').first().click();
-  // Primary CTA visible + carries a Cite label. The footer now also
-  // renders a second `.dossier-cta` (the ghost "Document" button), so
-  // both `.dossier-cta` and `.dossier-cta-label` match two elements —
-  // scope the assertions to the primary CTA by id to stay unambiguous.
+  // Three primary CTAs visible, each with its label.
   await expect(page.locator('#ws-cite-primary')).toBeVisible();
   await expect(page.locator('#ws-cite-primary .dossier-cta-label')).toContainText(/Cite/i);
-  // Three quick-action icon buttons by id (matches the markup).
-  for (const id of ['#ws-bookmark', '#ws-note-toggle', '#ws-copy']) {
-    await expect(page.locator(id)).toBeVisible();
-  }
+  await expect(page.locator('#ws-copy')).toBeVisible();
+  await expect(page.locator('#ws-copy .dossier-cta-label')).toContainText(/Copy/i);
+  await expect(page.locator('#ws-read')).toBeVisible();
+  await expect(page.locator('#ws-read .dossier-cta-label')).toContainText(/Document/i);
+  // Secondary actions are hidden in the collapsed ⋯ menu by default.
+  await expect(page.locator('#ws-bookmark')).toBeHidden();
+  await expect(page.locator('#ws-note-toggle')).toBeHidden();
   // More menu summary visible (collapsed by default).
   const moreSummary = page.locator('#dossier-more summary');
   await expect(moreSummary).toBeVisible();
@@ -143,7 +142,7 @@ test('8. dossierFooter · primary Cite + 3 quick-icons + More menu', async ({ pa
   await page.locator('#dossier-more').evaluate((el: Element) =>
     (el as HTMLDetailsElement).open = true
   );
-  for (const id of ['#ws-permalink', '#ws-read', '#cite-other-trigger', '#ws-flag']) {
+  for (const id of ['#ws-bookmark', '#ws-note-toggle', '#ws-permalink', '#cite-other-trigger', '#ws-flag']) {
     await expect(page.locator(id)).toBeVisible();
   }
 });

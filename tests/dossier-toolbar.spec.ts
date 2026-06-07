@@ -41,6 +41,10 @@ test('D1. saveToggles · bookmark on/off survives reload', async ({ page }) => {
   // paragraph after reload to verify the persisted ★ state.
   await openDossier(page);
   const paraId = await page.locator('.result.is-active').first().getAttribute('data-para-id');
+  // v19.62: bookmark moved into the ⋯ overflow — open it before clicking.
+  await page.locator('#dossier-more').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
   await page.locator('#ws-bookmark').click();
   await expect(page.locator('#ws-bookmark')).toHaveClass(/on/);
   await page.reload({ waitUntil: 'commit' });
@@ -121,13 +125,11 @@ test('D7. readNavigatesToFullDoc · Read jumps to #documents/<docId>?p=…', asy
   //
   // v19.43-fix3: the search-view URL no longer carries `?p=<paraId>`
   // — read it from the active result row's data-para-id instead.
-  // v19.43-fix8: the Read action lives in the More overflow now.
+  // v19.62: the Document (Read) action is a primary footer CTA now —
+  // always visible, no longer behind the ⋯ overflow.
   await openDossier(page);
   const paraId = await page.locator('.result.is-active').first().getAttribute('data-para-id');
   expect(paraId).toBeTruthy();
-  await page.locator('#dossier-more').evaluate((el: Element) =>
-    (el as HTMLDetailsElement).open = true
-  );
   await page.locator('#ws-read').click();
   // After click: hash starts with #documents/<docId>, ?p= preserved.
   await page.waitForFunction(() => window.location.hash.startsWith('#documents/'));
