@@ -63,6 +63,74 @@ USER_AGENT = (
 # Mandate registry. Add new mandates here.
 # ---------------------------------------------------------------------------
 MANDATES: dict[str, dict] = {
+    'migrants': {
+        'committee_label': 'SR Migrants',
+        'full_name': 'Special Rapporteur on the human rights of migrants',
+        # (year_max, name) — pick the first row whose year_max >= report year.
+        # NB: transition-year reports map to the predecessor by this year-only
+        # rule; corrected in specialprocedures_info.json post-ingest.
+        'mandate_holders': [
+            (2005, 'Gabriela Rodríguez Pizarro'),
+            (2011, 'Jorge Bustamante'),
+            (2017, 'François Crépeau'),
+            (2023, 'Felipe González Morales'),
+            (9999, 'Gehad Madi'),
+        ],
+        # Catalogue transcribed from OHCHR's "Annual reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-migrants/annual-reports
+        # Thematic reports only — communications reports, CRPs and addenda excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/302',       'GA 80th session',  'Externalization of migration governance and its effect on the human rights of migrants'),
+            (2025, 'A/HRC/59/49',    'HRC 59th session', 'Phenomenon of migrants going missing or subjected to enforced disappearance: a human rights analysis'),
+            (2024, 'A/79/213',       'GA 79th session',  'Children are children first and foremost: protecting child rights in migration contexts'),
+            (2024, 'A/HRC/56/54',    'HRC 56th session', 'Revisiting migrants’ contributions with a human rights-based approach'),
+            (2023, 'A/78/180',       'GA 78th session',  'Protection of the labour and human rights of migrant workers'),
+            (2023, 'A/HRC/53/26',    'HRC 53rd session', 'How to expand and diversify regularization mechanisms and programmes to enhance the protection of the human rights of migrants'),
+            (2022, 'A/77/189',       'GA 77th session',  'The impact of climate change on the human rights of migrants'),
+            (2022, 'A/HRC/50/31',    'HRC 50th session', 'Human rights violations at international borders: trends, prevention and accountability'),
+            (2021, 'A/76/257',       'GA 76th session',  'Impact of COVID-19 on the human rights of migrants'),
+            (2021, 'A/HRC/47/30',    'HRC 47th session', 'Means to address the human rights impact of pushbacks of migrants on land and at sea'),
+            (2020, 'A/75/183',       'GA 75th session',  'Ending immigration detention of children and providing adequate care and reception for them'),
+            (2020, 'A/HRC/44/42',    'HRC 44th session', 'Right to freedom of association of migrants and their defenders'),
+            (2019, 'A/74/191',       'GA 74th session',  'Good practices and initiatives on gender-responsive migration legislation and policies'),
+            (2019, 'A/HRC/41/38',    'HRC 41st session', 'Impact of migration on migrant women and girls: a gender perspective'),
+            (2018, 'A/73/178/Rev.1', 'GA 73rd session',  'Access to justice for migrant persons'),
+            (2018, 'A/HRC/38/41',    'HRC 38th session', 'Return and reintegration of migrants'),
+            (2017, 'A/72/173',       'GA 72nd session',  '2035 agenda for facilitating human mobility'),
+            (2017, 'A/HRC/35/25',    'HRC 35th session', '2035 agenda for facilitating human mobility'),
+            (2016, 'A/71/285',       'GA 71st session',  'Developing the global compact on migration'),
+            (2016, 'A/HRC/32/40',    'HRC 32nd session', 'Impact of bilateral and multilateral trade agreements on the human rights of migrants'),
+            (2015, 'A/70/310',       'GA 70th session',  'Recruitment practices and the human rights of migrants'),
+            (2015, 'A/HRC/29/36',    'HRC 29th session', 'Follow-up to the regional study on the management of the external borders of the European Union and its impact on the human rights of migrants'),
+            (2014, 'A/69/302',       'GA 69th session',  'Human rights of migrants in the post-2015 development agenda'),
+            (2014, 'A/HRC/26/35',    'HRC 26th session', 'Labour exploitation of migrants'),
+            (2013, 'A/68/283',       'GA 68th session',  'Global migration governance'),
+            (2013, 'A/HRC/23/46',    'HRC 23rd session', 'Regional study: management of the external borders of the European Union and its impact on the human rights of migrants'),
+            (2012, 'A/67/299',       'GA 67th session',  'Climate change and migration'),
+            (2012, 'A/HRC/20/24',    'HRC 20th session', 'Detention of migrants in an irregular situation'),
+            (2011, 'A/66/264',       'GA 66th session',  'Overview of the activities of the mandate'),
+            (2011, 'A/HRC/17/33',    'HRC 17th session', 'Recapitulation of main thematic issues: irregular migration, protection of children, and the right to housing and health of migrants'),
+            (2010, 'A/65/222',       'GA 65th session',  'Impact of the criminalization of migration on the protection and enjoyment of human rights'),
+            (2010, 'A/HRC/14/30',    'HRC 14th session', 'Enjoyment of the rights to health and adequate housing by migrants'),
+            (2009, 'A/64/213',       'GA 64th session',  'The protection of children in the context of migration'),
+            (2009, 'A/HRC/11/7',     'HRC 11th session', 'Protection of children in the context of migration'),
+            (2008, 'A/HRC/7/12',     'HRC 7th session',  'Criminalization of irregular migration'),
+            (2007, 'A/62/218',       'GA 62nd session',  'Border control, expulsion, and conditions for the admission and stay of migrants'),
+            (2006, 'A/61/324',       'GA 61st session',  'Impact of certain laws and administrative measures on migrants'),
+            (2006, 'E/CN.4/2006/73',  'CHR 62nd session', 'Overview of the activities of the mandate'),
+            (2005, 'A/60/357',       'GA 60th session',  'Preliminary observations regarding migration and the human rights of migrants'),
+            (2005, 'E/CN.4/2005/85',  'CHR 61st session', 'Racism, racial discrimination and xenophobia; migrant women and unaccompanied children'),
+            (2004, 'A/59/377',       'GA 59th session',  'Overview of the activities of the mandate'),
+            (2004, 'E/CN.4/2004/76',  'CHR 60th session', 'Vulnerability of migrant domestic workers'),
+            (2003, 'A/58/275',       'GA 58th session',  'Good practices observed by the Special Rapporteur'),
+            (2003, 'E/CN.4/2003/85',  'CHR 59th session', 'Human rights of migrants deprived of their liberty'),
+            (2002, 'A/57/292',       'GA 57th session',  'Conceptual and substantive development of the question of the human rights of migrants'),
+            (2002, 'E/CN.4/2002/94',  'CHR 58th session', 'Overview of the activities of the mandate'),
+            (2001, 'E/CN.4/2001/83',  'CHR 57th session', 'Overview of the activities of the mandate'),
+            (2000, 'E/CN.4/2000/82',  'CHR 56th session', 'Overview of the activities of the mandate'),
+        ],
+    },
     'housing': {
         'committee_label': 'SR Adequate Housing',
         'full_name': 'Special Rapporteur on adequate housing as a component of the right to an adequate standard of living, and on the right to non-discrimination in this context',
