@@ -118,7 +118,7 @@ See [`NOTICE`](NOTICE) for the full split and citation guidance, and
 ### Citation
 
 ```
-Szoszkiewicz, Ł. & Kowalska, Z. (2026). UNHRD — UN Human Rights
+Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRD — UN Human Rights
 Database (paragraph-level search interface for UN Treaty Body General
 Comments). https://lszoszk.github.io/generalcomments/
 ```
