@@ -3685,6 +3685,14 @@ function bindUI() {
   // on the modal. The actual submit handler lives in openReportModal()
   // because it needs to know the current paragraph context at click time.
   $('#foot-report')?.addEventListener('click', () => openReportModal());
+  // Footer "Cite this database" — one-click copy of the suggested citation.
+  // Mirrors the form in CITATION.cff and the XLSX export's Info sheet.
+  $('#foot-cite')?.addEventListener('click', () => {
+    const cite = 'Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRD — UN Human Rights Database (paragraph-level search interface for UN Treaty Body General Comments). https://lszoszk.github.io/generalcomments/';
+    navigator.clipboard?.writeText(cite)
+      .then(() => showFeedbackToast({ ok: true, _msg: 'Citation copied to clipboard', _mark: '❝' }))
+      .catch(() => showFeedbackToast({ ok: true, _msg: 'Copy failed — citation is in the About tab', _mark: '⚠' }));
+  });
   $('#report-modal .report-modal-backdrop')?.addEventListener('click', closeReportModal);
   $('#report-modal .report-modal-close')?.addEventListener('click', closeReportModal);
   $('#report-modal .report-cancel')?.addEventListener('click', closeReportModal);
