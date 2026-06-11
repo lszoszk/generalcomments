@@ -499,10 +499,19 @@ function encodeUrlState() {
   if (state.filters.rightsKeywords.size) u.set(URL_KEYS.rk, [...state.filters.rightsKeywords].join('|'));
   if (state.filters.articles.size) u.set(URL_KEYS.ar, [...state.filters.articles].join('|'));
   if (state.filters.showSuperseded) u.set(URL_KEYS.sup, '1');
-  // Only emit fn=1 when toggle is ON (default OFF keeps URLs short).
-  if (state.searchInFootnotes === true) u.set(URL_KEYS.fn, '1');
-  // Same convention for preamble search ('pre=0' when OFF).
-  if (state.searchInPreamble === false) u.set(URL_KEYS.pre, '0');
+  // v19.63 (P1 audit): when a query is active, ALWAYS encode the
+  // footnote/preamble toggles. They change the result set, and a copied
+  // link that omits them silently inherits the recipient's saved
+  // preference — two researchers "sharing the same search" could see
+  // different counts. Without a query the toggles are inert, so URLs on
+  // the browse view stay short.
+  if (state.query && state.query.trim()) {
+    u.set(URL_KEYS.fn, state.searchInFootnotes === true ? '1' : '0');
+    u.set(URL_KEYS.pre, state.searchInPreamble === false ? '0' : '1');
+  } else {
+    if (state.searchInFootnotes === true) u.set(URL_KEYS.fn, '1');
+    if (state.searchInPreamble === false) u.set(URL_KEYS.pre, '0');
+  }
   const qs = u.toString();
   // v17: preserve the hash — the docs reader relies on "#documents/<docId>"
   // to remember which document is open. Earlier versions silently stripped
@@ -1742,11 +1751,26 @@ function paintDocsRail() {
     return true;
   });
 
-  const gcDocs = docs.filter(d => d.type === 'gc').length;
-  const jurDocs = docs.filter(d => d.type === 'jur').length;
-  const spDocs = docs.filter(d => d.type === 'sp').length;
+  // v19.63 (P1 audit): the composition line counts the WHOLE catalogue
+  // (text filter applied, scope tab NOT applied). Counting the
+  // scope-filtered list made the header read "0 Jurisprudence cases ·
+  // 0 Special Procedures reports" whenever the GC tab was active —
+  // which reads as "this database has no case law". The scope tab
+  // narrows the rail list; the header describes what exists.
+  const allDocs = wantScope === 'all' ? docs : [...state.documents.values()].filter(d => {
+    if (!filterText) return true;
+    const haystack = `${d.name} ${d.signature} ${d.year ?? ''} ${d.committee} ${d.mandate ?? ''} ${d.country ?? ''} ${d.outcome ?? ''}`.toLowerCase();
+    return haystack.includes(filterText);
+  });
+  const gcDocs = allDocs.filter(d => d.type === 'gc').length;
+  const jurDocs = allDocs.filter(d => d.type === 'jur').length;
+  const spDocs = allDocs.filter(d => d.type === 'sp').length;
+  // When the JUR catalogue hasn't lazy-loaded yet, fall back to the
+  // manifest totals so the line never shows a misleading zero.
+  const jurShown = jurDocs || state.jur?.manifest?.counts?.documents || 0;
+  const spShown  = spDocs  || state.manifest?.counts?.spDocuments || 0;
   if (headTitle) headTitle.textContent = `${docs.length.toLocaleString()} document${docs.length === 1 ? '' : 's'}`;
-  if (headSub) headSub.innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurDocs} Jurisprudence case${jurDocs === 1 ? '' : 's'} <span class="badge badge-jur">PREVIEW</span> · ${spDocs} Special Procedures report${spDocs === 1 ? '' : 's'} <span class="badge badge-preview">PREVIEW</span>`;
+  if (headSub) headSub.innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurShown.toLocaleString()} Jurisprudence case${jurShown === 1 ? '' : 's'} <span class="badge badge-jur">PREVIEW</span> · ${spShown.toLocaleString()} Special Procedures report${spShown === 1 ? '' : 's'} <span class="badge badge-preview">PREVIEW</span>`;
 
   if (!docs.length) {
     host.innerHTML = '<div class="docs-rail-empty">No documents match the current filter.</div>';
@@ -5468,16 +5492,26 @@ function _buildEmptyState() {
 
   let title, body, actions = '';
 
+  // v19.63 (P1 audit): the two highest-value one-click recoveries for a
+  // 0-result query — broaden the corpus before asking the user to edit
+  // the query. Footnote search defaults OFF (the term may live in a
+  // citation), and the scope may be narrower than the full corpus.
+  const broadenActions = q ? `
+      ${state.searchInFootnotes === false
+        ? '<button class="btn btn-ghost" data-empty-action="enable-fn">Search footnotes too</button>' : ''}
+      ${state.scope !== 'all'
+        ? '<button class="btn btn-ghost" data-empty-action="scope-all">Search all sources</button>' : ''}` : '';
+
   if (q && hasNarrowingFilters) {
     title = `No paragraph matches "${escape(q)}" within the current filters`;
     body = 'Try removing one or two filters, broadening the year range, or relaxing the query operators.';
-    actions = `
+    actions = `${broadenActions}
       <button class="btn btn-ghost" data-empty-action="clear-q">Drop the query</button>
       <button class="btn btn-ghost" data-empty-action="clear-filters">Clear all filters</button>`;
   } else if (q) {
     title = `No paragraph matches "${escape(q)}"`;
     body = 'Check the spelling, try a wildcard like <code>discriminat*</code>, or replace AND with OR for a broader search.';
-    actions = `
+    actions = `${broadenActions}
       <button class="btn btn-ghost" data-empty-action="clear-q">Drop the query</button>`;
   } else if (hasNarrowingFilters) {
     title = 'No paragraphs match these filters';
@@ -5536,6 +5570,17 @@ function _buildEmptyState() {
   });
   li.querySelector('[data-empty-action="clear-filters"]')?.addEventListener('click', () => {
     $('#reset-filters')?.click();
+  });
+  // v19.63 (P1 audit): broaden-the-corpus recoveries.
+  li.querySelector('[data-empty-action="enable-fn"]')?.addEventListener('click', () => {
+    // Route through the real toggle so state, localStorage, URL param and
+    // the control's visual all stay in sync.
+    document.getElementById('fn-toggle')?.click();
+  });
+  li.querySelector('[data-empty-action="scope-all"]')?.addEventListener('click', () => {
+    // Same pattern as the saved-search restorer — reuse the scope tab's
+    // click pipeline (banner, lazy corpus loads, repaint).
+    document.querySelector('.scope-opt[data-scope="all"]')?.click();
   });
   return li;
 }
@@ -6538,13 +6583,7 @@ function paintDossier() {
           <div class="dossier-dp"><div class="folio">Treaty body</div><div class="v">${escape(doc?.committees?.join(' · ') || doc?.treaty || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
           ${'' /* v19.15: section moved to a breadcrumb above the quote — see dossier-breadcrumb. */}
-          ${submittedByHtml}
-          ${subjectMatterHtml}
           ${articlesInvokedHtml}
-          ${substantiveIssuesHtml}
-          ${proceduralIssuesHtml}
-          ${articlesCitedHtml}
-          ${caseLabelsHtml}
         `
         : `
           <div class="dossier-dp"><div class="folio">Adopted</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
@@ -6557,6 +6596,23 @@ function paintDossier() {
           ${isSpDoc && doc?.presented ? `<div class="dossier-dp"><div class="folio">Presented</div><div class="v">${escape(doc.presented)}</div></div>` : ''}
         `}
     </div>
+    ${(() => {
+      // v19.63 (P1 audit): JUR long-tail metadata lives behind a
+      // disclosure. Ten always-open rows (Submitted by, Subject matter,
+      // Substantive/Procedural issues, …) pushed the actual paragraph —
+      // the thing the user clicked to read — below the fold. The case
+      // essentials (dates, body, articles invoked, outcome badge) stay
+      // visible above; everything descriptive collapses here.
+      if (!isJurDoc) return '';
+      const more = [submittedByHtml, subjectMatterHtml, substantiveIssuesHtml,
+                    proceduralIssuesHtml, articlesCitedHtml, caseLabelsHtml]
+        .filter(Boolean);
+      if (!more.length) return '';
+      return `<details class="dossier-meta-more">
+        <summary class="folio">Case details (${more.length} more field${more.length === 1 ? '' : 's'})</summary>
+        <div class="dossier-grid dossier-grid-more">${more.join('')}</div>
+      </details>`;
+    })()}
     ${(() => {
       // Context-aware blockquote. Shows the active
       // paragraph plus up to ±2 surrounding paragraphs within the same
@@ -9143,7 +9199,12 @@ function initDossierResizer() {
 }
 
 function clampDossier(px) {
-  return Math.max(_DOSSIER_MIN, Math.min(_DOSSIER_MAX, Math.round(px)));
+  // v19.63 (P1 audit): viewport-aware ceiling — never let the dossier
+  // crush the results column below ~380px of readable width
+  // (filters 260 + gutter 6 + results 380 reserved).
+  const viewportMax = window.innerWidth - 260 - 6 - 380;
+  const max = Math.min(_DOSSIER_MAX, Math.max(_DOSSIER_MIN, viewportMax));
+  return Math.max(_DOSSIER_MIN, Math.min(max, Math.round(px)));
 }
 
 // v15: dossier font-size preference. 'S' / 'M' / 'L' map to multipliers

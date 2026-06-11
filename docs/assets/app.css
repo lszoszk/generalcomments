@@ -901,7 +901,11 @@ body:not(.has-results) .result-breakdown:has(#api-badge) {
   /* 4-column grid (v15): filters · results · resize-gutter · dossier.
      The 6 px gutter holds a draggable separator that lets the user resize
      the dossier; the variable --col-dossier is updated live during drag. */
-  grid-template-columns: var(--col-filters) minmax(0, 1fr) 6px var(--col-dossier);
+  /* v19.63 (P1 audit): 280px floor on the results column — a wide
+     (user-resized) dossier could crush result text to a few words per
+     line. Floor is safe: the dossier column collapses entirely below
+     980px, and 260+280+6+440 = 986px. */
+  grid-template-columns: var(--col-filters) minmax(280px, 1fr) 6px var(--col-dossier);
   grid-template-rows: minmax(0, 1fr);
   flex: 1 1 0;
   min-height: 0;
@@ -1635,7 +1639,7 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   grid-column: 3;
   font-family: var(--mono);
   font-size: 11px;
-  color: var(--ink-3);
+  color: var(--ink-2);   /* v19.63 (P1 audit): was ink-3 — see .result-aside .sig */
 }
 .result-doc-summary-meta .sig {
   word-break: break-all;
@@ -1971,7 +1975,9 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
 .result-aside .folio { display: block; margin-bottom: 4px; }
 .result-aside .sig {
   font-family: var(--mono);
-  color: var(--ink-3);
+  /* v19.63 (P1 audit): ink-2 — signatures are citation-critical 11px
+     mono; ink-3 was borderline in dark mode on tinted backgrounds. */
+  color: var(--ink-2);
   word-break: break-all;
 }
 /* v19.16: per-row source link. Same restraint as the dossier-sig-link —
@@ -2042,7 +2048,10 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   flex: 1 1 0;
   min-height: 0;
   overflow-y: auto;
-  padding: 20px 24px 28px;
+  /* v19.63 (P1 audit): generous bottom padding so the last lines of a
+     long quote never sit flush against the sticky footer toolbar. */
+  padding: 20px 24px 56px;
+  scroll-padding-bottom: 56px;
 }
 .dossier-footer {
   flex: 0 0 auto;
@@ -2308,6 +2317,33 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   padding: 14px 0;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
+}
+
+/* v19.63 (P1 audit): collapsed long-tail JUR metadata. The summary reads
+   as a quiet folio row; open, the inner grid matches .dossier-grid. */
+.dossier-meta-more {
+  border-bottom: 1px solid var(--rule);
+}
+.dossier-meta-more > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 0;
+  user-select: none;
+}
+.dossier-meta-more > summary::-webkit-details-marker { display: none; }
+.dossier-meta-more > summary::before {
+  content: '▸';
+  font-family: var(--mono);
+  margin-right: 6px;
+  color: var(--ink-4);
+}
+.dossier-meta-more[open] > summary::before { content: '▾'; }
+.dossier-meta-more > summary:hover { color: var(--garnet); }
+.dossier-grid-more {
+  margin-top: 0;
+  border-top: 0;
+  border-bottom: 0;
+  padding-top: 0;
 }
 .dossier-dp .folio { display: block; }
 .dossier-dp .v {
@@ -2584,7 +2620,13 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   padding-left: 14px;
   border-left: 2px solid var(--garnet);
   color: var(--ink-2);
+  /* v19.63 (P1 audit): cap the measure. The dossier is user-resizable —
+     dragged wide, quote lines ran past 85 characters at the L font size,
+     which is fatiguing in the pane where lawyers do most of their
+     reading. ~620px ≈ 70ch at 16px serif. */
+  max-width: 620px;
 }
+.dossier-context-para { max-width: 620px; }
 .dossier blockquote .pn {
   font-family: var(--mono);
   font-size: 11px;
