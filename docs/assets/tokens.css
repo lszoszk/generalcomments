@@ -49,6 +49,27 @@
   --preview:      #945000;                /* burnt-orange for PREVIEW badges */
   --preview-soft: oklch(95% 0.05 70);
 
+  /* Status semantics — case outcomes, metadata confidence, dataset
+     freshness, OCR provenance. v19.63: lifted out of app.css where they
+     were hardcoded hex (and therefore illegible in dark mode — outcome
+     badges kept light-mode pink/green backgrounds on dark paper). */
+  --status-bad:          #b22222;         /* violation found / stale data */
+  --status-bad-soft:     #fdf2f2;
+  --status-good:         #2c6e3a;         /* no violation / fresh data */
+  --status-good-soft:    #f1f8f3;
+  --status-neutral:      #6b6058;         /* inadmissible / discontinued / medium confidence */
+  --status-neutral-soft: #f6f1ec;
+  --status-neutral-edge: #b9ad9d;
+  --status-info:         #4a5d8a;         /* views / decision (no outcome label) */
+  --status-info-soft:    #f0f3fa;
+  --status-warn:         #8a4a00;         /* low confidence */
+  --status-warn-soft:    #fdf6ee;
+  --status-warn-edge:    #c98e3f;
+  --status-amber:        #b87f1f;         /* aging data */
+  --ocr-raw:             #c8741a;         /* raw-OCR provenance banner */
+  --ocr-raw-soft:        #fff5e6;
+  --ocr-raw-link:        #a85a0a;
+
   /* Type */
   --display: 'Spectral', 'Iowan Old Style', Georgia, serif;
   --body:    'Source Serif 4', 'Iowan Old Style', Georgia, serif;
@@ -88,6 +109,24 @@
   --preview-soft: oklch(28% 0.06 70);
   --jur-tone:     oklch(76% 0.10 190);
   --jur-soft:     oklch(27% 0.045 190);
+
+  /* Dark status semantics — lighter foregrounds on deep tinted softs. */
+  --status-bad:          oklch(70% 0.14 25);
+  --status-bad-soft:     oklch(25% 0.05 25);
+  --status-good:         oklch(72% 0.10 150);
+  --status-good-soft:    oklch(24% 0.04 150);
+  --status-neutral:      oklch(72% 0.02 75);
+  --status-neutral-soft: oklch(24% 0.012 75);
+  --status-neutral-edge: oklch(45% 0.02 75);
+  --status-info:         oklch(74% 0.07 270);
+  --status-info-soft:    oklch(26% 0.03 270);
+  --status-warn:         oklch(74% 0.11 70);
+  --status-warn-soft:    oklch(25% 0.04 70);
+  --status-warn-edge:    oklch(50% 0.08 70);
+  --status-amber:        oklch(74% 0.11 80);
+  --ocr-raw:             oklch(70% 0.12 65);
+  --ocr-raw-soft:        oklch(24% 0.045 65);
+  --ocr-raw-link:        oklch(72% 0.12 65);
 }
 
 * { box-sizing: border-box; }

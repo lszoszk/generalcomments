@@ -2363,35 +2363,35 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   background: transparent;
 }
 .outcome-violation_found {
-  color: #b22222;       /* firebrick — substantive finding against the State */
-  background: #fdf2f2;
-  border-color: #b22222;
+  color: var(--status-bad);       /* firebrick — substantive finding against the State */
+  background: var(--status-bad-soft);
+  border-color: var(--status-bad);
 }
 .outcome-merits_no_violation {
-  color: #2c6e3a;       /* dark green — merits, no violation */
-  background: #f1f8f3;
-  border-color: #2c6e3a;
+  color: var(--status-good);      /* dark green — merits, no violation */
+  background: var(--status-good-soft);
+  border-color: var(--status-good);
 }
 .outcome-inadmissible {
-  color: #6b6058;       /* sand — procedural exit */
-  background: #f6f1ec;
-  border-color: #b9ad9d;
+  color: var(--status-neutral);   /* sand — procedural exit */
+  background: var(--status-neutral-soft);
+  border-color: var(--status-neutral-edge);
 }
 .outcome-discontinued {
-  color: #6b6058;
-  background: #f6f1ec;
-  border-color: #b9ad9d;
+  color: var(--status-neutral);
+  background: var(--status-neutral-soft);
+  border-color: var(--status-neutral-edge);
   text-decoration: line-through;
 }
 .outcome-views {
-  color: #4a5d8a;       /* indigo — substantive deliberation, no specific outcome label */
-  background: #f0f3fa;
-  border-color: #4a5d8a;
+  color: var(--status-info);      /* indigo — substantive deliberation, no specific outcome label */
+  background: var(--status-info-soft);
+  border-color: var(--status-info);
 }
 .outcome-decision {
-  color: #4a5d8a;
-  background: #f0f3fa;
-  border-color: #4a5d8a;
+  color: var(--status-info);
+  background: var(--status-info-soft);
+  border-color: var(--status-info);
 }
 .outcome-other {
   color: var(--ink-3);
@@ -2414,14 +2414,14 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   cursor: help;
 }
 .meta-confidence-low {
-  color: #8a4a00;
-  background: #fdf6ee;
-  border-color: #c98e3f;
+  color: var(--status-warn);
+  background: var(--status-warn-soft);
+  border-color: var(--status-warn-edge);
 }
 .meta-confidence-medium {
-  color: #6b6058;
-  background: #f6f1ec;
-  border-color: #b9ad9d;
+  color: var(--status-neutral);
+  background: var(--status-neutral-soft);
+  border-color: var(--status-neutral-edge);
 }
 
 /* Metadata-quality feedback — anonymous thumb up/down strip under the
@@ -3520,15 +3520,15 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
    verify before citing". Distinguishes the 12 raw-OCR 1990s CAT cases
    from the 170 CCPR cases that went through the v19.47 cleanup pipeline. */
 .docs-reader-ocr-banner.ocr-banner-raw {
-  border-left-color: #c8741a;
-  background: #fff5e6;
+  border-left-color: var(--ocr-raw);
+  background: var(--ocr-raw-soft);
 }
 .docs-reader-ocr-banner.ocr-banner-raw .ocr-banner-tag {
-  background: #c8741a;
+  background: var(--ocr-raw);
 }
 .docs-reader-ocr-banner.ocr-banner-raw .ocr-banner-body a {
-  color: #a85a0a;
-  border-bottom-color: #a85a0a;
+  color: var(--ocr-raw-link);
+  border-bottom-color: var(--ocr-raw-link);
 }
 
 /* v19.45: small "OCR" pill on result-list rows. Renders next to the
@@ -4772,12 +4772,12 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   border-radius: 50%;
   margin-top: 4px;
 }
-.freshness-fresh { border-left-color: #2c6e3a; }
-.freshness-fresh .freshness-dot { background: #2c6e3a; box-shadow: 0 0 0 3px rgba(44,110,58,.15); }
-.freshness-aging { border-left-color: #b87f1f; }
-.freshness-aging .freshness-dot { background: #b87f1f; box-shadow: 0 0 0 3px rgba(184,127,31,.15); }
-.freshness-stale { border-left-color: #b22222; }
-.freshness-stale .freshness-dot { background: #b22222; box-shadow: 0 0 0 3px rgba(178,34,34,.15); }
+.freshness-fresh { border-left-color: var(--status-good); }
+.freshness-fresh .freshness-dot { background: var(--status-good); box-shadow: 0 0 0 3px rgba(44,110,58,.15); }
+.freshness-aging { border-left-color: var(--status-amber); }
+.freshness-aging .freshness-dot { background: var(--status-amber); box-shadow: 0 0 0 3px rgba(184,127,31,.15); }
+.freshness-stale { border-left-color: var(--status-bad); }
+.freshness-stale .freshness-dot { background: var(--status-bad); box-shadow: 0 0 0 3px rgba(178,34,34,.15); }
 .freshness-headline {
   font-family: var(--display);
   font-size: 16px;

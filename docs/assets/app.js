@@ -3151,17 +3151,25 @@ function initMobileFilterToggle() {
     document.body.classList.add("is-mobile-filters-collapsed");
   }
 
+  let userExpanded = false;   // explicit expand this session wins over auto-collapse
   btn.addEventListener("click", () => {
     const collapsed = document.body.classList.toggle("is-mobile-filters-collapsed");
+    userExpanded = !collapsed;
     btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
   });
 
-  // Re-evaluate on viewport changes — if user rotates from portrait
-  // (mobile) to landscape that crosses the desktop breakpoint, drop
-  // the collapsed class so filters render normally.
+  // Re-evaluate on viewport changes — symmetric in both directions:
+  // crossing UP past the breakpoint drops the collapsed class so the
+  // desktop layout renders normally; crossing DOWN re-collapses (unless
+  // the user explicitly expanded this session), so a desktop→mobile
+  // resize or tablet rotation doesn't bury the results under ~700px of
+  // filter chrome (P0 audit fix).
   window.addEventListener("resize", () => {
     if (!window.matchMedia("(max-width: 900px)").matches) {
       document.body.classList.remove("is-mobile-filters-collapsed");
+    } else if (!userExpanded) {
+      document.body.classList.add("is-mobile-filters-collapsed");
+      btn.setAttribute("aria-expanded", "false");
     }
   });
 }
@@ -3314,6 +3322,17 @@ function bindUI() {
     clearTimeout(t);
     syncClearChip();
     const v = e.target.value.trim();
+    // On narrow viewports the dossier covers the results column, so a
+    // query typed with a dossier open updates the list invisibly behind
+    // it. Close the (now stale) dossier when the query changes so the
+    // fresh results are what the user sees (P0 audit fix). Desktop keeps
+    // the dossier open — there the list repaints visibly beside it.
+    if (state.activeId && v !== state.query
+        && window.matchMedia('(max-width: 980px)').matches) {
+      state.activeId = null;
+      paintDossier();
+      refreshResultMarks();
+    }
     if (v.length === 0 || v.length >= MIN_QUERY) {
       t = setTimeout(() => {
         state.query = v;
@@ -5685,12 +5704,17 @@ function _findScrollAncestor(el) {
 }
 
 function resultSubtitle() {
+  // Don't double-wrap phrase queries the user already quoted:
+  // `"forced eviction"` should read …relevance to "forced eviction",
+  // not …relevance to ""forced eviction"".
+  const q = (state.query || '').trim();
+  const displayQ = q.startsWith('"') && q.endsWith('"') && q.length > 1 ? q : `"${q}"`;
   const sortText = effectiveResultSort() === 'date'
     ? hasSearchQuery()
       ? 'Sorted by date, newest first.'
       : 'Showing newest matching paragraphs.'
     : hasSearchQuery()
-      ? `Sorted by relevance to "${state.query}".`
+      ? `Sorted by relevance to ${displayQ}.`
       : 'Showing newest matching paragraphs.';
   const groupText = state.resultGroup === 'documents' ? ' Grouped by document.'
                   : state.resultGroup === 'bodies'    ? ' Grouped by treaty body / mandate.'
@@ -7761,6 +7785,7 @@ const _LS = {
   resultSort:   'unhrdb_result_sort_v1',    // v19.43-fix3: 'relevance' | 'date'
   resultGroup:  'unhrdb_result_group_v1',   // v19.43-fix3: 'paragraphs' | 'documents' | 'bodies'
   recentQ:      'unhrdb_recent_queries_v1', // v19.51.7: array of {q, ts}, capped at 12
+  bmWarned:     'unhrdb_bm_warned_v1',      // v19.63: '1' once the first-save durability notice fired
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
@@ -7782,6 +7807,17 @@ function bmToggle(paraId) {
     const para = state.paragraphById.get(paraId);
     if (!para) return;
     list.push({ paraId, docId: para.docId, addedAt: Date.now() });
+    // One-time durability notice on the very first thing a user saves:
+    // the workspace lives in THIS browser's localStorage only — months of
+    // research annotations can vanish with a cache clear. Warn once, up
+    // front, instead of relying on the note buried in the Workspace tab.
+    let warned = null;
+    try { warned = localStorage.getItem(_LS.bmWarned); } catch {}
+    if (!warned) {
+      try { localStorage.setItem(_LS.bmWarned, '1'); } catch {}
+      showFeedbackToast({ ok: true, _mark: '★', _msg:
+        'Saved — in this browser only. Clearing browser data deletes your workspace; use Workspace → Export for a backup.' });
+    }
   }
   _lsSet(_LS.bm, list);
   paintWorkspaceBadge();
@@ -8538,6 +8574,9 @@ function renderWorkspace() {
   const ss = ssList();
 
   const totalItems = bms.length + noteIds.length + pins.length + ss.length;
+  // Import is rendered even when the workspace is empty — restoring a JSON
+  // backup into a fresh browser is exactly the empty-workspace case.
+  const importBtn = `<button class="btn btn-ghost" id="ws-import-json" type="button" title="Restore a workspace from a JSON backup exported by this app (merges with what's already here)">⬆ Import</button>`;
   const exportBar = totalItems > 0 ? `
     <div class="ws-export-bar">
       <span class="dim mono">${totalItems} item${totalItems === 1 ? '' : 's'} in your workspace</span>
@@ -8545,8 +8584,13 @@ function renderWorkspace() {
         <button class="btn btn-ghost" id="ws-export-md" type="button" title="Download a Markdown file with every bookmark, note, pin, and saved search">⬇ Markdown</button>
         <button class="btn btn-ghost" id="ws-export-tex" type="button" title="Download a LaTeX (.tex) file with each paragraph as a \\quote{} block + a thebibliography entry per source">⬇ LaTeX</button>
         <button class="btn btn-ghost" id="ws-export-json" type="button" title="Download a JSON backup of the entire workspace">⬇ JSON</button>
+        ${importBtn}
       </div>
-    </div>` : '';
+    </div>` : `
+    <div class="ws-export-bar">
+      <span class="dim mono">0 items in your workspace</span>
+      <div class="ws-export-actions">${importBtn}</div>
+    </div>`;
 
   host.innerHTML = `
     ${exportBar}
@@ -8616,6 +8660,7 @@ function renderWorkspace() {
   $('#ws-export-md')?.addEventListener('click', () => exportWorkspace('md'));
   $('#ws-export-tex')?.addEventListener('click', () => exportWorkspace('tex'));
   $('#ws-export-json')?.addEventListener('click', () => exportWorkspace('json'));
+  $('#ws-import-json')?.addEventListener('click', importWorkspaceFromFile);
 
   host.querySelectorAll('.ws-jump').forEach(a => {
     a.addEventListener('click', (e) => {
@@ -8960,6 +9005,78 @@ function exportWorkspace(fmt) {
   document.body.appendChild(a);
   a.click();
   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 100);
+}
+
+// v19.63: workspace import — the missing half of the JSON export above.
+// Reads a backup produced by exportWorkspace('json') and MERGES it into
+// localStorage (never clobbers): bookmarks/pins dedupe by paraId, notes
+// only fill ids that have no local note, saved searches dedupe by URL.
+// Pins respect the max-2 compare cap. Restoring into a fresh browser
+// (the cleared-cache / new-device case) is the primary scenario.
+function importWorkspaceFromFile() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json,.json';
+  input.addEventListener('change', () => {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      let data;
+      try { data = JSON.parse(String(reader.result || '')); }
+      catch {
+        showFeedbackToast({ ok: false, _mark: '⚠', _msg: 'Not a valid JSON file.' });
+        return;
+      }
+      const rows = Array.isArray(data?.paragraphs) ? data.paragraphs : null;
+      const importedSs = Array.isArray(data?.savedSearches) ? data.savedSearches : [];
+      if (!rows && !importedSs.length) {
+        showFeedbackToast({ ok: false, _mark: '⚠', _msg: 'Unrecognised backup — expected a workspace JSON exported from this app.' });
+        return;
+      }
+      const bms = bmList();
+      const notes = _lsGet(_LS.notes, {});
+      const pins = pinList();
+      const ss = ssList();
+      let nBm = 0, nNote = 0, nPin = 0, nSs = 0;
+      for (const r of rows || []) {
+        const id = r && r.paraId;
+        if (!id || typeof id !== 'string') continue;
+        const docId = _docIdFromParaId(id) || state.paragraphById.get(id)?.docId || null;
+        if (r.bookmarked && !bms.some(b => b.paraId === id)) {
+          bms.push({ paraId: id, docId, addedAt: Date.now() });
+          nBm++;
+        }
+        if (r.note && typeof r.note === 'string' && !notes[id]) {
+          notes[id] = r.note;
+          nNote++;
+        }
+        if (r.pinned && pins.length < 2 && !pins.some(p => p.paraId === id)) {
+          pins.push({ paraId: id, docId, addedAt: Date.now() });
+          nPin++;
+        }
+      }
+      for (const s of importedSs) {
+        if (s && s.url && s.name && !ss.some(x => x.url === s.url)) {
+          ss.push({ name: String(s.name), url: String(s.url), savedAt: s.savedAt || Date.now() });
+          nSs++;
+        }
+      }
+      _lsSet(_LS.bm, bms);
+      _lsSet(_LS.notes, notes);
+      _lsSet(_LS.pins, pins);
+      _lsSet(_LS.ss, ss);
+      paintWorkspaceBadge();
+      refreshResultMarks();
+      renderWorkspace();   // repaint the lists with the merged items
+      const total = nBm + nNote + nPin + nSs;
+      showFeedbackToast({ ok: true, _mark: '⬆', _msg: total
+        ? `Imported ${nBm} bookmark${nBm === 1 ? '' : 's'}, ${nNote} note${nNote === 1 ? '' : 's'}, ${nPin} pin${nPin === 1 ? '' : 's'}, ${nSs} saved search${nSs === 1 ? '' : 'es'}.`
+        : 'Nothing new to import — everything in the backup is already here.' });
+    };
+    reader.readAsText(file);
+  });
+  input.click();
 }
 
 // v15: dossier resize handle. The user drags the slim gutter between the
