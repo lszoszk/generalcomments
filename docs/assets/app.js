@@ -1773,7 +1773,18 @@ function paintDocsRail() {
   if (headSub) headSub.innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurShown.toLocaleString()} Jurisprudence case${jurShown === 1 ? '' : 's'} <span class="badge badge-jur">PREVIEW</span> · ${spShown.toLocaleString()} Special Procedures report${spShown === 1 ? '' : 's'} <span class="badge badge-preview">PREVIEW</span>`;
 
   if (!docs.length) {
-    host.innerHTML = '<div class="docs-rail-empty">No documents match the current filter.</div>';
+    // v19.63 (P2 audit): recovery action instead of a dead end — mirror
+    // the search view's empty-state pattern.
+    host.innerHTML = `<div class="docs-rail-empty">
+      No documents match ${filterText ? `“${escape(state.docsFilter.trim())}”` : 'the current filter'}.
+      ${filterText ? '<button class="btn btn-ghost docs-rail-empty-clear" type="button">Clear filter</button>' : ''}
+    </div>`;
+    host.querySelector('.docs-rail-empty-clear')?.addEventListener('click', () => {
+      state.docsFilter = '';
+      const inp = document.getElementById('docs-filter');
+      if (inp) inp.value = '';
+      paintDocsRail();
+    });
     return;
   }
 
@@ -1938,13 +1949,23 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
     const alreadyLoaded = shardId && state.jur.loadedShards.has(shardId);
     if (!alreadyLoaded) {
       try {
-        $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading jurisprudence shard…</div>';
+        // v19.63 (P2 audit): tell the user how much is coming — on a slow
+        // connection an unsized "Loading…" reads as frozen.
+        const shardBytes = state.jur?.manifest?.files?.[`shards/${shardId}.json`]?.bytes;
+        const mb = shardBytes ? ` (${(shardBytes / 1048576).toFixed(1)} MB)` : '';
+        $('#docs-reader-body').innerHTML = `<div class="docs-reader-loading">Loading jurisprudence shard${mb}…</div>`;
         if (shardId) {
           await loadJurShard(shardId);
         } else if (!state.jur.loaded) {
           await loadJurCorpus();
         }
-      } catch (e) { console.warn('[jur shard load failed]', e); }
+      } catch (e) {
+        console.warn('[jur shard load failed]', e);
+        // Don't leave a stale "Loading…" — give the user a way forward.
+        $('#docs-reader-body').innerHTML =
+          '<div class="docs-reader-loading">Couldn’t load this case’s text (network error). <button class="btn btn-ghost" onclick="location.reload()">Retry</button></div>';
+        return;
+      }
       if (runId !== state.docsOpenRun) return;
     }
   }
@@ -6431,21 +6452,29 @@ function paintDossier() {
     ? `<span class="outcome-badge outcome-${escape(doc.outcome)}">${escape(formatOutcome(doc.outcome))}</span>`
     : '';
 
-  // JUR-only metadata-confidence pill. We only surface it when confidence
-  // is medium or low so users know to double-check against the original
-  // PDF. "high" confidence stays silent. The PDF/OCR provenance flag also
-  // demotes to medium even if the front-matter parse looked clean.
+  // JUR-only metadata-confidence pill. All three tiers render (v19.63);
+  // the PDF/OCR provenance flag demotes to low even if the front-matter
+  // parse looked clean.
   const isOcr = doc?.sourceFormat === 'pdf_ocr';
   const conf = isJurDoc ? doc?.metadataConfidence : null;
-  const confTone = conf === 'low' || isOcr ? 'low' : (conf === 'medium' ? 'medium' : null);
+  // v19.63 (P2 audit): the pill now also renders for HIGH confidence.
+  // Showing provenance only when it's bad made clean cases look
+  // unvetted — a quiet "High ✓" tells the lawyer the metadata
+  // provenance was checked and is trustworthy.
+  const confTone = conf === 'low' || isOcr ? 'low'
+    : (conf === 'medium' ? 'medium'
+    : (conf === 'high' ? 'high' : null));
   const confLabel = confTone === 'low'
     ? (isOcr ? 'OCR · verify' : 'Low confidence · verify')
-    : (confTone === 'medium' ? 'Medium confidence' : '');
+    : (confTone === 'medium' ? 'Medium confidence'
+    : (confTone === 'high' ? 'High confidence ✓' : ''));
   const confTitle = confTone === 'low'
     ? 'Metadata extraction confidence is LOW. Verify case name, parties, and articles against the source PDF before citing.'
     : (confTone === 'medium'
         ? 'Metadata extraction confidence is medium. Spot-check fields against the source PDF for sensitive uses.'
-        : '');
+        : (confTone === 'high'
+            ? 'Metadata extraction confidence is high — fields were parsed from a clean text layer.'
+            : ''));
   const confidencePill = (isJurDoc && confTone)
     ? `<span class="meta-confidence-pill meta-confidence-${confTone}" title="${escape(confTitle)}">${escape(confLabel)}</span>`
     : '';
@@ -8674,10 +8703,17 @@ function renderWorkspace() {
       ${ss.length === 0
         ? '<p class="serif dim">Save the current query + filter combination from the searchbar.</p>'
         : `<ol class="ws-list ws-searches">${ss.slice().reverse().map((s, i) => `
-            <li class="ws-row">
+            <li class="ws-row ws-row-search">
               <a class="ws-search-link" href="${escape(s.url)}">${escape(s.name)}</a>
               <span class="mono dim">${new Date(s.savedAt).toLocaleDateString('en-GB')}</span>
               <button class="ws-row-del" type="button" data-ss-idx="${ss.length - 1 - i}" title="Remove">×</button>
+              ${(() => {
+                // v19.63 (P2 audit): preview line — a wall of self-named
+                // saved searches ("housing 2019", "housing 2019 v2") is
+                // unscannable without showing what each one actually runs.
+                const sum = _savedSearchSummary(s.url);
+                return sum ? `<span class="ws-search-preview mono dim">${escape(sum)}</span>` : '';
+              })()}
             </li>`).join('')}
           </ol>`}
     </div>`;
@@ -8949,6 +8985,31 @@ function _buildLatexExport(rows, ss, bms, notes, pins) {
   }
 
   return lines.join('\n') + '\n';
+}
+
+// v19.63 (P2 audit): human-readable one-liner for a saved-search URL —
+// query · scope · committees · years · footnotes. Tolerates URLs saved by
+// older versions (missing params just don't render).
+function _savedSearchSummary(url) {
+  let u;
+  try { u = new URLSearchParams(String(url).split('?')[1] || ''); }
+  catch { return ''; }
+  const bits = [];
+  const q = u.get(URL_KEYS.q);
+  if (q) {
+    const trimmed = q.length > 48 ? q.slice(0, 48) + '…' : q;
+    // Already-quoted phrase queries keep their own quotes.
+    bits.push(/^".*"$/.test(trimmed) ? trimmed : `“${trimmed}”`);
+  }
+  const scope = u.get(URL_KEYS.scope);
+  const scopeLabel = { jur: 'Jurisprudence', sp: 'Special Procedures', all: 'All sources' }[scope];
+  if (scopeLabel) bits.push(scopeLabel);
+  const tb = u.get(URL_KEYS.tb);
+  if (tb) bits.push(tb.split('|').join(', '));
+  const y1 = u.get(URL_KEYS.y1), y2 = u.get(URL_KEYS.y2);
+  if (y1 || y2) bits.push(`${y1 || '…'}–${y2 || '…'}`);
+  if (u.get(URL_KEYS.fn) === '1') bits.push('+footnotes');
+  return bits.join(' · ');
 }
 
 function exportWorkspace(fmt) {

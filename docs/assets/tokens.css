@@ -229,7 +229,9 @@ mark.hl {
   display: inline-flex;
   align-items: center;
   font-family: var(--mono);
-  font-size: 9px;
+  /* v19.63 (P2 audit): 9px → 10px — smallest legible size for ALL-CAPS
+     mono labels that carry meaning (GC/JUR/SP/PREVIEW). */
+  font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 2px 6px;

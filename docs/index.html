@@ -111,8 +111,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/tokens.css?v=20260611-p1audit" />
-<link rel="stylesheet" href="assets/app.css?v=20260611-p1audit" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260611-p2audit" />
+<link rel="stylesheet" href="assets/app.css?v=20260611-p2audit" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -171,7 +171,7 @@
   <ul class="shortcuts-list">
     <li><kbd>?</kbd> <span class="shortcuts-help">show this overlay</span></li>
     <li><kbd>/</kbd> <span class="shortcuts-help">focus the search input</span></li>
-    <li><kbd>⌘</kbd> <kbd>K</kbd> <span class="shortcuts-or">or</span> <kbd>Ctrl</kbd> <kbd>K</kbd> <span class="shortcuts-help">open the command palette</span></li>
+    <li><kbd>⌘</kbd> <kbd>K</kbd> <span class="shortcuts-or">or</span> <kbd>Ctrl</kbd> <kbd>K</kbd> <span class="shortcuts-help">command palette — jump to any document, saved search, scope or theme by name</span></li>
     <li><kbd>R</kbd> <span class="shortcuts-help">open the active paragraph in the document reader</span></li>
     <li><kbd>Esc</kbd> <span class="shortcuts-help">close popovers / dialogs / clear search input</span></li>
     <li><kbd>←</kbd> <kbd>→</kbd> <span class="shortcuts-help">navigate the tour (when active)</span></li>
@@ -513,9 +513,10 @@
       <!-- v19.58: shown only in liteMode (memory-constrained / iOS devices)
            — see isLiteSearchDevice(). Marks the lightweight mobile build. -->
       <p class="lite-note" id="lite-note" hidden>
-        <span class="lite-note-badge">LIGHT</span>
-        <span>Lightweight mobile search — simpler word matching, no stemming or
-        operators. Open on a desktop for the full search index.</span>
+        <span class="lite-note-badge">MOBILE MODE</span>
+        <span>Simplified search for this device — exact words only (variants
+        like “child/children” and operators like AND/OR aren’t matched).
+        Open on a desktop for full search.</span>
       </p>
     </div>
     <!-- v19.57: removable active-filter chips (currently the year filter) —
@@ -1362,6 +1363,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260611-p1audit"></script>
+<script type="module" src="assets/app.js?v=20260611-p2audit"></script>
 </body>
 </html>
