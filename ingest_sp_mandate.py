@@ -184,6 +184,64 @@ MANDATES: dict[str, dict] = {
             (2001, 'E/CN.4/2001/53', 'CHR 57th session', 'Definition and history of the right to food'),
         ],
     },
+    'water-sanitation': {
+        'committee_label': 'SR Water and Sanitation',
+        'full_name': 'Special Rapporteur on the human rights to safe drinking water and sanitation',
+        # (year_max, name) — first row whose year_max >= report year.
+        # Mandate created 2008 (Independent Expert); de Albuquerque became
+        # Special Rapporteur in 2011. Holders: de Albuquerque (2008–Oct 2014),
+        # Léo Heller (Nov 2014–Oct 2020), Pedro Arrojo-Agudo (Nov 2020–).
+        # Both handovers fell in November, AFTER each year's GA/HRC reports
+        # were presented, so the year-only rule needs no transition fixes.
+        'mandate_holders': [
+            (2014, 'Catarina de Albuquerque'),
+            (2020, 'Léo Heller'),
+            (9999, 'Pedro Arrojo-Agudo'),
+        ],
+        # Catalogue transcribed from OHCHR's "Annual reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-water-and-sanitation/annual-reports
+        # Main thematic reports only — addenda (handbook/good-practices/
+        # priorities), corrigenda, and the symbol-less multi-part climate-change
+        # special report excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/117',    'GA 80th session',  'Democratic water governance under a human rights-based approach'),
+            (2025, 'A/HRC/60/30', 'HRC 60th session', 'Water and energy nexus'),
+            (2024, 'A/79/190',    'GA 79th session',  'The water/food nexus: a human rights perspective'),
+            (2024, 'A/HRC/57/48', 'HRC 57th session', 'Water and economy nexus: managing water for productive uses from a human rights perspective'),
+            (2023, 'A/78/253',    'GA 78th session',  'Water as an argument for peace, twinning and cooperation'),
+            (2023, 'A/HRC/54/32', 'HRC 54th session', 'Fulfilling the human rights of those living in poverty and restoring the health of aquatic ecosystems'),
+            (2022, 'A/77/167',    'GA 77th session',  'Human rights to safe drinking water and sanitation of people living in impoverished rural areas'),
+            (2022, 'A/HRC/51/24', 'HRC 51st session', 'Human rights to safe drinking water and sanitation of indigenous peoples'),
+            (2021, 'A/76/159',    'GA 76th session',  'Risks and impacts of the commodification and financialization of water on the human rights to water and sanitation'),
+            (2021, 'A/HRC/48/50', 'HRC 48th session', 'Planning and vision for the mandate from 2020 to 2023'),
+            (2020, 'A/75/208',    'GA 75th session',  'Human rights and the privatization of water and sanitation services'),
+            (2020, 'A/HRC/45/10', 'HRC 45th session', 'Progressive realization of the human rights to water and sanitation'),
+            (2020, 'A/HRC/45/11', 'HRC 45th session', 'Progress report on the human rights to water and sanitation (2010–2020)'),
+            (2019, 'A/74/197',    'GA 74th session',  'Impact of megaprojects on the human rights to water and sanitation'),
+            (2019, 'A/HRC/42/47', 'HRC 42nd session', 'Human rights to water and sanitation in spheres of life beyond the household, with an emphasis on public spaces'),
+            (2018, 'A/73/162',    'GA 73rd session',  'The principle of accountability'),
+            (2018, 'A/HRC/39/55', 'HRC 39th session', 'The human rights to water and sanitation of forcibly displaced persons'),
+            (2017, 'A/72/127',    'GA 72nd session',  'Development cooperation and the human rights to water and sanitation'),
+            (2017, 'A/HRC/36/45', 'HRC 36th session', 'Regulation of water and sanitation services'),
+            (2016, 'A/71/302',    'GA 71st session',  'Development cooperation and the realization of the human rights to water and sanitation'),
+            (2016, 'A/HRC/33/49', 'HRC 33rd session', 'Gender equality in the realization of the human rights to water and sanitation'),
+            (2015, 'A/70/203',    'GA 70th session',  'Different levels and types of services and the human rights to water and sanitation'),
+            (2015, 'A/HRC/30/39', 'HRC 30th session', 'Affordability of water and sanitation services'),
+            (2014, 'A/69/213',    'GA 69th session',  'Participation in the realization of the human rights to water and sanitation'),
+            (2014, 'A/HRC/27/55', 'HRC 27th session', 'Common violations of the human rights to water and sanitation'),
+            (2013, 'A/68/264',    'GA 68th session',  'Wastewater management in the realization of the rights to water and sanitation'),
+            (2013, 'A/HRC/24/44', 'HRC 24th session', 'Sustainability and non-retrogression in the realization of the rights to water and sanitation'),
+            (2012, 'A/67/270',    'GA 67th session',  'Integrating non-discrimination and equality into the post-2015 development agenda for water, sanitation and hygiene'),
+            (2012, 'A/HRC/21/42', 'HRC 21st session', 'Stigma and the realization of the human rights to water and sanitation'),
+            (2011, 'A/66/255',    'GA 66th session',  'Financing for the realization of the rights to water and sanitation'),
+            (2011, 'A/HRC/18/33', 'HRC 18th session', 'Planning for the realization of the rights to water and sanitation'),
+            (2010, 'A/65/254',    'GA 65th session',  'The Millennium Development Goals and the human rights to water and sanitation'),
+            (2010, 'A/HRC/15/31', 'HRC 15th session', 'Human rights obligations related to non-State service provision in water and sanitation'),
+            (2009, 'A/HRC/12/24', 'HRC 12th session', 'Human rights obligations related to access to sanitation'),
+            (2009, 'A/HRC/10/6',  'HRC 10th session', 'Preliminary report laying out the mandate work plan'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
