@@ -1,43 +1,10 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-06-15T08:59:19.506794+00:00",
-  "finishedAt": "2026-06-15T09:08:54.228008+00:00",
-  "totalUnique": 597,
-  "totalRecords": 598,
-  "okCount": 593,
-  "brokenCount": 4,
-  "broken": [
-    {
-      "signature": "A/HRC/35/22",
-      "docName": "The role of digital access providers",
-      "committee": "SR Freedom of Expression",
-      "link": "https://documents.un.org/doc/undoc/gen/g17/077/46/pdf/g1707746.pdf",
-      "status": 502,
-      "reason": "Bad Gateway"
-    },
-    {
-      "signature": "A/HRC/29/32",
-      "docName": "The use of encryption and anonymity to exercise the right to freedom of opinion and expression in the digital age",
-      "committee": "SR Freedom of Expression",
-      "link": "https://documents.un.org/doc/undoc/gen/g15/095/85/pdf/g1509585.pdf",
-      "status": 502,
-      "reason": "Bad Gateway"
-    },
-    {
-      "signature": "E/CN.4/1997/31",
-      "docName": "Terms of reference, activities, and country situations",
-      "committee": "SR Freedom of Expression",
-      "link": "https://documents.un.org/doc/undoc/gen/g97/104/10/pdf/g9710410.pdf",
-      "status": 502,
-      "reason": "Bad Gateway"
-    },
-    {
-      "signature": "A/54/386",
-      "docName": "Interim report of the Special Rapporteur on freedom of religion or belief",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/54/386",
-      "status": 0,
-      "reason": "URLError: timed out"
-    }
-  ]
+  "checkedAt": "2026-06-16T08:14:10.106754+00:00",
+  "finishedAt": "2026-06-16T08:29:24.526363+00:00",
+  "totalUnique": 682,
+  "totalRecords": 683,
+  "okCount": 682,
+  "brokenCount": 0,
+  "broken": []
 }
