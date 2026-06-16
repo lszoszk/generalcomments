@@ -364,6 +364,75 @@ MANDATES: dict[str, dict] = {
             (2009, 'A/HRC/11/36', 'HRC 11th session', 'Poverty and racism'),
         ],
     },
+    'counter-terrorism': {
+        'committee_label': 'SR Counter-Terrorism',
+        'full_name': 'Special Rapporteur on the promotion and protection of human rights and fundamental freedoms while countering terrorism',
+        # (year_max, name) — first row whose year_max >= report year.
+        # Scheinin (2005–2011), Emmerson (2011–2017), Ní Aoláin (Aug 2017–
+        # 2023), Saul (2024–). NB transition: A/72/495 (2017 GA, "newly
+        # appointed Special Rapporteur") is Ní Aoláin's — the year-only rule
+        # maps it to Emmerson; corrected post-ingest. (Scheinin's final
+        # report A/HRC/16/51 is catalogued under 2010, so the 2010/2011
+        # boundary needs no fix.)
+        'mandate_holders': [
+            (2010, 'Martin Scheinin'),
+            (2017, 'Ben Emmerson'),
+            (2023, 'Fionnuala Ní Aoláin'),
+            (9999, 'Ben Saul'),
+        ],
+        # Catalogue from OHCHR's annual-reports page
+        # https://www.ohchr.org/en/special-procedures/sr-terrorism/annual-reports-human-rights-council-and-general-assembly
+        # The SR-mandate thematic reports (HRC + GA, 2005–2026). The
+        # predecessor Sub-Commission SR (Koufa, 1997–2004) and Independent
+        # Expert (Goldman, 2005) are separate mandates and excluded.
+        # Addenda (communications) excluded; A/HRC/13/37 is listed once
+        # (the page duplicates it).
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/61/52', 'HRC 61st session', 'Defining terrorism to respect and protect human rights'),
+            (2025, 'A/80/284',    'GA 80th session',  'Best practices to protect human rights while using administrative measures to prevent terrorism'),
+            (2025, 'A/HRC/58/47', 'HRC 58th session', 'Protection of human rights by regional organizations while countering terrorism: civil society engagement, sanctions and military cooperation'),
+            (2024, 'A/79/324',    'GA 79th session',  'Protection of human rights by regional organizations while countering terrorism: norms, cooperation, victims and accountability'),
+            (2024, 'A/HRC/55/48', 'HRC 55th session', 'Vision and priorities of the Special Rapporteur'),
+            (2023, 'A/78/520',    'GA 78th session',  'Global study on the impact of counter-terrorism measures on civil society and civic space'),
+            (2023, 'A/HRC/52/39', 'HRC 52nd session', 'Human rights implications of new technologies in counter-terrorism and countering violent extremism'),
+            (2022, 'A/77/345',    'GA 77th session',  'Impact of counter-terrorism on peacemaking, peacebuilding, conflict prevention and resolution'),
+            (2022, 'A/HRC/49/45', 'HRC 49th session', 'Follow-up to the joint study on secret detention in the context of countering terrorism'),
+            (2021, 'A/76/261',    'GA 76th session',  'Mainstreaming human rights in counter-terrorism capacity-building and technical assistance'),
+            (2021, 'A/HRC/46/36', 'HRC 46th session', 'Human rights impact of counter-terrorism and countering violent extremism on women, girls and the family'),
+            (2020, 'A/75/337',    'GA 75th session',  'The positive interface of international human rights law and international humanitarian law in counter-terrorism'),
+            (2020, 'A/HRC/43/46', 'HRC 43rd session', 'Human rights impact of policies aimed at preventing and countering violent extremism'),
+            (2019, 'A/74/335',    'GA 74th session',  'The role of soft law in counter-terrorism measures and human rights'),
+            (2019, 'A/HRC/40/52', 'HRC 40th session', 'Impact of counter-terrorism and countering violent extremism on civic space and human rights defenders'),
+            (2018, 'A/73/361',    'GA 73rd session',  'Security Council resolutions concerning terrorism and the protection of human rights since 9/11'),
+            (2018, 'A/HRC/37/52', 'HRC 37th session', 'The human rights challenge of states of emergency in the context of countering terrorism'),
+            (2017, 'A/72/495',    'GA 72nd session',  'Preliminary outline of areas of interest of the newly appointed Special Rapporteur'),
+            (2017, 'A/HRC/34/61', 'HRC 34th session', 'Recent developments and thematic updates (final report of Ben Emmerson)'),
+            (2016, 'A/71/384',    'GA 71st session',  'The impact of counter-terrorism measures on the human rights of migrants and refugees'),
+            (2016, 'A/HRC/31/65', 'HRC 31st session', 'Preventing and countering violent extremism: a human rights assessment'),
+            (2015, 'A/70/371',    'GA 70th session',  'The impact of counter-terrorism measures on civil society'),
+            (2015, 'A/HRC/29/51', 'HRC 29th session', 'Human rights in the fight against the Islamic State in Iraq and the Levant'),
+            (2014, 'A/69/397',    'GA 69th session',  'Counter-terrorism and mass digital surveillance'),
+            (2014, 'A/HRC/25/59', 'HRC 25th session', 'Civilian impact of the use of remotely piloted aircraft'),
+            (2013, 'A/68/389',    'GA 68th session',  'The use of remotely piloted aircraft in counter-terrorism operations'),
+            (2013, 'A/HRC/22/52', 'HRC 22nd session', 'Framework principles for securing the accountability of public officials in counter-terrorism'),
+            (2012, 'A/67/396',    'GA 67th session',  'Evaluation of the Office of the Ombudsperson to the Al-Qaida sanctions regime'),
+            (2012, 'A/HRC/20/14', 'HRC 20th session', 'Framework principles for securing the human rights of victims of terrorism'),
+            (2011, 'A/66/310',    'GA 66th session',  'Preliminary outline of areas of interest to the Special Rapporteur'),
+            (2010, 'A/HRC/16/51', 'HRC 16th session', 'Ten areas of best practice in countering terrorism'),
+            (2010, 'A/65/258',    'GA 65th session',  'Compliance by the United Nations with international human rights law while countering terrorism'),
+            (2010, 'A/HRC/14/46', 'HRC 14th session', 'Compilation of good practices on legal and institutional frameworks for intelligence services and their oversight'),
+            (2009, 'A/64/211',    'GA 64th session',  'A gender perspective on countering terrorism'),
+            (2009, 'A/HRC/13/37', 'HRC 13th session', 'The role of intelligence agencies and their oversight in countering terrorism'),
+            (2008, 'A/63/223',    'GA 63rd session',  'The right to a fair trial in the fight against terrorism'),
+            (2007, 'A/HRC/6/17',  'HRC 6th session',  'Economic, social and cultural rights in the context of countering terrorism'),
+            (2007, 'A/62/263',    'GA 62nd session',  'Challenges to refugee protection posed by counter-terrorism measures'),
+            (2007, 'A/HRC/4/26',  'HRC 4th session',  'Report of the Special Rapporteur on human rights while countering terrorism'),
+            (2006, 'A/61/267',    'GA 61st session',  'Freedom of association and peaceful assembly and counter-terrorism'),
+            (2005, 'A/60/370',    'GA 60th session',  'Conceptual framework of the mandate'),
+            (2005, 'E/CN.4/2006/98', 'CHR 62nd session', 'Reflections on the issue of defining “terrorism”'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',

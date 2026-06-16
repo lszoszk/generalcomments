@@ -1,11 +1,11 @@
 {
   "version": "20260616",
-  "builtAt": "2026-06-16T13:46:49+00:00",
+  "builtAt": "2026-06-16T14:27:45+00:00",
   "counts": {
-    "documents": 754,
-    "paragraphs": 77149,
-    "shards": 18,
-    "committees": 18
+    "documents": 796,
+    "paragraphs": 79889,
+    "shards": 19,
+    "committees": 19
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -13,6 +13,12 @@
       "bytes": 3659574,
       "documents": 45,
       "paragraphs": 3540
+    },
+    "shards/sp_SR_Counter_Terrorism.json": {
+      "sha": "9762a1b868f6cd08",
+      "bytes": 3577639,
+      "documents": 42,
+      "paragraphs": 2740
     },
     "shards/sp_SR_Disability.json": {
       "sha": "edf28ae71c57701e",
