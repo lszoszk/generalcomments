@@ -63,6 +63,49 @@ USER_AGENT = (
 # Mandate registry. Add new mandates here.
 # ---------------------------------------------------------------------------
 MANDATES: dict[str, dict] = {
+    'environment': {
+        'committee_label': 'SR Environment',
+        'full_name': 'Special Rapporteur on the human right to a clean, healthy and sustainable environment',
+        # (year_max, name) — first row whose year_max >= report year.
+        # NB transition years: A/73/188 (2018) is Boyd's, A/79/270 (2024) is
+        # Puentes Riaño's; the year-only rule maps them to the predecessor —
+        # corrected in specialprocedures_info.json post-ingest.
+        'mandate_holders': [
+            (2018, 'John H. Knox'),
+            (2024, 'David R. Boyd'),
+            (9999, 'Astrid Puentes Riaño'),
+        ],
+        # Catalogue transcribed from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-environment/annual-thematic-reports
+        # Substantive thematic reports only — expert-seminar/meeting summaries
+        # and call-for-inputs notes excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/61/47', 'HRC 61st session', 'Priority actions towards breathing clean air, protecting public health and ensuring a healthy environment'),
+            (2025, 'A/80/187',     'GA 80th session',  'Framework for environmental, social and human rights impact assessments and the right to a clean, healthy and sustainable environment'),
+            (2025, 'A/HRC/58/59', 'HRC 58th session', 'The ocean and human rights'),
+            (2024, 'A/79/270',     'GA 79th session',  'Overview of the implementation of the human right to a clean, healthy and sustainable environment'),
+            (2024, 'A/HRC/55/43', 'HRC 55th session', 'Business, planetary boundaries, and the right to a clean, healthy and sustainable environment'),
+            (2023, 'A/78/168',     'GA 78th session',  'Paying polluters: the catastrophic consequences of investor-State dispute settlement for climate and environment action and human rights'),
+            (2023, 'A/HRC/52/33', 'HRC 52nd session', 'Women, girls and the right to a clean, healthy and sustainable environment'),
+            (2022, 'A/77/284',     'GA 77th session',  'The human right to a clean, healthy and sustainable environment: a catalyst for accelerated action to achieve the Sustainable Development Goals'),
+            (2022, 'A/HRC/49/53', 'HRC 49th session', 'Non-toxic environment to live, work, study and play'),
+            (2021, 'A/76/179',     'GA 76th session',  'Healthy and sustainable food: reducing the environmental impacts of food systems on human rights'),
+            (2021, 'A/HRC/46/28', 'HRC 46th session', 'Human rights and the global water crisis: water pollution, water scarcity and water-related disasters'),
+            (2020, 'A/75/161',     'GA 75th session',  'A healthy biosphere and the right to a healthy environment'),
+            (2019, 'A/74/161',     'GA 74th session',  'Safe climate'),
+            (2019, 'A/HRC/40/55', 'HRC 40th session', 'Clean air and the right to a healthy and sustainable environment'),
+            (2018, 'A/73/188',     'GA 73rd session',  'Global recognition of the right to a safe, clean, healthy and sustainable environment'),
+            (2018, 'A/HRC/37/58', 'HRC 37th session', 'Children’s rights and the environment'),
+            (2018, 'A/HRC/37/59', 'HRC 37th session', 'Framework principles on human rights and the environment'),
+            (2017, 'A/HRC/34/49', 'HRC 34th session', 'Biodiversity and human rights'),
+            (2016, 'A/HRC/31/52', 'HRC 31st session', 'Climate change and human rights'),
+            (2016, 'A/HRC/31/53', 'HRC 31st session', 'Implementation report on human rights obligations relating to the environment'),
+            (2015, 'A/HRC/28/61', 'HRC 28th session', 'Good practices in the use of human rights obligations relating to the environment'),
+            (2014, 'A/HRC/25/53', 'HRC 25th session', 'Mapping report on human rights obligations relating to the enjoyment of a safe, clean, healthy and sustainable environment'),
+            (2013, 'A/HRC/22/43', 'HRC 22nd session', 'Preliminary report of the Independent Expert on human rights and the environment'),
+        ],
+    },
     'migrants': {
         'committee_label': 'SR Migrants',
         'full_name': 'Special Rapporteur on the human rights of migrants',
