@@ -433,6 +433,69 @@ MANDATES: dict[str, dict] = {
             (2005, 'E/CN.4/2006/98', 'CHR 62nd session', 'Reflections on the issue of defining “terrorism”'),
         ],
     },
+    'independence-judges-lawyers': {
+        'committee_label': 'SR Independence of Judges and Lawyers',
+        'full_name': 'Special Rapporteur on the independence of judges and lawyers',
+        # (year_max, name) — verified against OHCHR's per-report "Author"
+        # column, so the year-only rule is exact and NO transition fixes are
+        # needed (every handover fell cleanly between report years):
+        # Despouy (–2009), Knaul (2010–2015), Pinto (2016), García-Sayán
+        # (2017–2022), Satterthwaite (2023–).
+        'mandate_holders': [
+            (2009, 'Leandro Despouy'),
+            (2015, 'Gabriela Knaul'),
+            (2016, 'Mónica Pinto'),
+            (2022, 'Diego García-Sayán'),
+            (9999, 'Margaret Satterthwaite'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-independence-of-judges-and-lawyers/annual-thematic-reports
+        # Thematic series (HRC + GA, 2008–2026). The 1995–2007 reports
+        # (Cumaraswamy + early Despouy) are general "terms of reference /
+        # methods of work / activities / country situations" annual reports,
+        # not thematic-issue reports, and are excluded. Corrigenda excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/62/43', 'HRC 62nd session', 'Principles for judicial appointments'),
+            (2025, 'A/80/169',    'GA 80th session',  'Artificial intelligence in judicial systems: promises and pitfalls'),
+            (2025, 'A/HRC/59/52', 'HRC 59th session', 'The right of Indigenous Peoples to maintain and develop their justice systems'),
+            (2024, 'A/79/362',    'GA 79th session',  'Justice is not for sale: the improper influence of economic actors on the judiciary'),
+            (2024, 'A/HRC/56/62', 'HRC 56th session', 'Safeguarding the independence of judicial systems in the face of contemporary challenges to democracy'),
+            (2023, 'A/78/171',    'GA 78th session',  'The promise of legal empowerment in advancing access to justice for all'),
+            (2023, 'A/HRC/53/31', 'HRC 53rd session', 'Reimagining justice: confronting contemporary challenges to the independence of judges and lawyers'),
+            (2022, 'A/77/160',    'GA 77th session',  'Judicial independence in the context of the 2030 Agenda for Sustainable Development'),
+            (2022, 'A/HRC/50/36', 'HRC 50th session', 'Protection of lawyers against undue interference in the free and independent exercise of the legal profession'),
+            (2021, 'A/76/142',    'GA 76th session',  'Participation of women in the administration of justice'),
+            (2021, 'A/HRC/47/35', 'HRC 47th session', 'Impact and challenges of the COVID-19 pandemic for independent justice'),
+            (2020, 'A/75/172',    'GA 75th session',  'Disciplinary measures against judges and the use of “disguised” sanctions'),
+            (2020, 'A/HRC/44/47', 'HRC 44th session', 'The impact of corruption on public prosecution services'),
+            (2019, 'A/74/176',    'GA 74th session',  '35th anniversary of the Basic Principles on the Independence of the Judiciary'),
+            (2019, 'A/HRC/41/48', 'HRC 41st session', 'Freedom of expression, association and peaceful assembly for judges and prosecutors'),
+            (2018, 'A/73/365',    'GA 73rd session',  'Bar associations'),
+            (2018, 'A/HRC/38/38', 'HRC 38th session', 'Judicial councils'),
+            (2017, 'A/72/140',    'GA 72nd session',  'Organized crime and its impact on the judicial system'),
+            (2017, 'A/HRC/35/31', 'HRC 35th session', 'Perspectives on the mandate of the Special Rapporteur'),
+            (2016, 'A/71/348',    'GA 71st session',  'Protecting the independence of lawyers and the legal profession'),
+            (2016, 'A/HRC/32/34', 'HRC 32nd session', 'The independence of the justice system revisited: indicators'),
+            (2015, 'A/70/263',    'GA 70th session',  'Review and assessment of the main issues addressed over six years of the mandate'),
+            (2015, 'A/HRC/29/26', 'HRC 29th session', 'Protecting children’s rights in the justice system'),
+            (2014, 'A/69/294',    'GA 69th session',  'Justice and the post-2015 development agenda'),
+            (2014, 'A/HRC/26/32', 'HRC 26th session', 'Judicial accountability'),
+            (2013, 'A/68/285',    'GA 68th session',  'Military tribunals'),
+            (2013, 'A/HRC/23/43', 'HRC 23rd session', 'Legal aid'),
+            (2012, 'A/67/305',    'GA 67th session',  'Judicial corruption'),
+            (2012, 'A/HRC/20/19', 'HRC 20th session', 'Independence and impartiality of prosecutors and prosecution services'),
+            (2012, 'A/HRC/20/20', 'HRC 20th session', 'Global thematic study on human rights education and training of legal professionals'),
+            (2011, 'A/66/289',    'GA 66th session',  'Gender in the criminal justice system: the role of judges and lawyers'),
+            (2011, 'A/HRC/17/30', 'HRC 17th session', 'Gender and the administration of justice'),
+            (2010, 'A/65/274',    'GA 65th session',  'The role of criminal justice in combating impunity'),
+            (2010, 'A/HRC/14/26', 'HRC 14th session', 'Continuing human rights education as a guarantee of the independence of judges and lawyers'),
+            (2009, 'A/64/181',    'GA 64th session',  'Independence of lawyers and the legal profession'),
+            (2009, 'A/HRC/11/41', 'HRC 11th session', 'Guarantees of judicial independence'),
+            (2008, 'A/63/271',    'GA 63rd session',  'Protection of human rights under states of emergency, particularly the right to a fair trial'),
+            (2008, 'A/HRC/8/4',   'HRC 8th session',  'States of emergency and the right to a fair trial; access to justice'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
