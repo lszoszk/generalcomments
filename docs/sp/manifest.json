@@ -1,11 +1,11 @@
 {
   "version": "20260616",
-  "builtAt": "2026-06-16T17:25:00+00:00",
+  "builtAt": "2026-06-16T20:15:13+00:00",
   "counts": {
-    "documents": 877,
-    "paragraphs": 88709,
-    "shards": 21,
-    "committees": 21
+    "documents": 908,
+    "paragraphs": 91578,
+    "shards": 22,
+    "committees": 22
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -19,6 +19,12 @@
       "bytes": 3577639,
       "documents": 42,
       "paragraphs": 2740
+    },
+    "shards/sp_SR_Cultural_Rights.json": {
+      "sha": "ac9a07811e34cc6c",
+      "bytes": 2829637,
+      "documents": 31,
+      "paragraphs": 2891
     },
     "shards/sp_SR_Disability.json": {
       "sha": "edf28ae71c57701e",
@@ -105,10 +111,10 @@
       "paragraphs": 1633
     },
     "shards/sp_SR_Racism.json": {
-      "sha": "0ec25df60c34e46e",
-      "bytes": 2586829,
+      "sha": "fb0bdc0b67067af3",
+      "bytes": 2590546,
       "documents": 31,
-      "paragraphs": 2341
+      "paragraphs": 2319
     },
     "shards/sp_SR_Torture.json": {
       "sha": "5dd7890c8939f86f",

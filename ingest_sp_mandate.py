@@ -337,7 +337,7 @@ MANDATES: dict[str, dict] = {
             (2024, 'A/HRC/56/68', 'HRC 56th session', 'Artificial intelligence and racial discrimination'),
             (2023, 'A/78/538',    'GA 78th session',  'Online racist hate speech'),
             (2023, 'A/HRC/53/60', 'HRC 53rd session', 'Strategic vision and priorities of the Special Rapporteur'),
-            (2022, 'A/77/290',    'GA 77th session',  'Ecological crisis, climate change and systemic racism'),
+            (2022, 'A/77/549',    'GA 77th session',  'Ecological crisis, climate justice and racial justice'),
             (2022, 'A/HRC/50/60', 'HRC 50th session', 'Racial justice and equality analysis of the 2030 Agenda and the Sustainable Development Goals'),
             (2021, 'A/76/434',    'GA 76th session',  'Twentieth anniversary of the Durban Declaration and Programme of Action'),
             (2021, 'A/HRC/48/76', 'HRC 48th session', 'Digital technologies and the xenophobic exclusion of migrants, refugees and stateless persons'),
@@ -567,6 +567,59 @@ MANDATES: dict[str, dict] = {
             (2004, 'A/59/401',    'GA 59th session',  'Applying the Declaration on human rights defenders; the right to association'),
             (2003, 'A/58/380',    'GA 58th session',  'The impact of security legislation and emergency situations on human rights defenders'),
             (2001, 'A/56/341',    'GA 56th session',  'Impunity, legal actions, intelligence activities and smear campaigns against defenders'),
+        ],
+    },
+    'cultural-rights': {
+        'committee_label': 'SR Cultural Rights',
+        'full_name': 'Special Rapporteur in the field of cultural rights',
+        # (year_max, name) ascending. Shaheed (IE 2009, SR 2012–Oct 2015),
+        # Bennoune (Nov 2015–Oct 2021), Xanthaki (Nov 2021–). All handovers
+        # fell in November, after the year's GA reports, so no transition
+        # fixes are needed.
+        'mandate_holders': [
+            (2015, 'Farida Shaheed'),
+            (2021, 'Karima Bennoune'),
+            (9999, 'Alexandra Xanthaki'),
+        ],
+        # Catalogue from OHCHR's "Annual reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-cultural-rights/annual-reports
+        # Full thematic series (HRC + GA) 2010–2026. Country-visit addenda
+        # and corrigenda excluded. (NB A/77/290 is THIS mandate's 2022 GA
+        # report — it had been mis-assigned to SR Racism, now corrected to
+        # A/77/549 there.)
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/61/49', 'HRC 61st session', 'Nature conservation and cultural rights'),
+            (2025, 'A/80/278',    'GA 80th session',  'Artificial intelligence and creativity'),
+            (2025, 'A/HRC/58/60', 'HRC 58th session', 'Digitalization of cultural heritage: preserving cultural rights'),
+            (2024, 'A/79/299',    'GA 79th session',  'The right to participate in sports'),
+            (2024, 'A/HRC/55/44', 'HRC 55th session', 'The right to participate in science'),
+            (2023, 'A/78/213',    'GA 78th session',  'Development and cultural rights: the international governance'),
+            (2023, 'A/HRC/52/35', 'HRC 52nd session', 'Cultural rights and migration'),
+            (2022, 'A/77/290',    'GA 77th session',  'Development and cultural rights: the principles'),
+            (2022, 'A/HRC/49/54', 'HRC 49th session', 'Cultural rights: an empowering agenda'),
+            (2021, 'A/76/178',    'GA 76th session',  'Cultural mixing and cultural rights'),
+            (2021, 'A/HRC/46/34', 'HRC 46th session', 'Impact of the COVID-19 pandemic on cultures and cultural rights'),
+            (2020, 'A/75/298',    'GA 75th session',  'Climate change, culture and cultural rights'),
+            (2020, 'A/HRC/43/50', 'HRC 43rd session', 'Cultural rights defenders'),
+            (2019, 'A/74/255',    'GA 74th session',  'The importance of public spaces for the exercise of cultural rights'),
+            (2019, 'A/HRC/40/53', 'HRC 40th session', 'Cultural rights: tenth anniversary report'),
+            (2018, 'A/73/227',    'GA 73rd session',  'The cultural rights approach to the universality of human rights'),
+            (2018, 'A/HRC/37/55', 'HRC 37th session', 'The contribution of artistic and cultural initiatives to creating rights-respecting societies'),
+            (2017, 'A/72/155',    'GA 72nd session',  'The impact of fundamentalism and extremism on the cultural rights of women'),
+            (2017, 'A/HRC/34/56', 'HRC 34th session', 'The impact of fundamentalism and extremism on the enjoyment of cultural rights'),
+            (2016, 'A/71/317',    'GA 71st session',  'Intentional destruction of cultural heritage'),
+            (2016, 'A/HRC/31/59', 'HRC 31st session', 'Mapping of cultural rights; destruction of cultural heritage as a violation of human rights'),
+            (2015, 'A/70/279',    'GA 70th session',  'Patent policy and the right to science and culture'),
+            (2015, 'A/HRC/28/57', 'HRC 28th session', 'Copyright policy and the right to science and culture'),
+            (2014, 'A/69/286',    'GA 69th session',  'The impact of commercial advertising and marketing practices on the enjoyment of cultural rights'),
+            (2014, 'A/HRC/25/49', 'HRC 25th session', 'Memorialization processes'),
+            (2013, 'A/68/296',    'GA 68th session',  'The writing and teaching of history'),
+            (2013, 'A/HRC/23/34', 'HRC 23rd session', 'The right to freedom of artistic expression and creativity'),
+            (2012, 'A/67/287',    'GA 67th session',  'The enjoyment of cultural rights by women on an equal basis with men'),
+            (2012, 'A/HRC/20/26', 'HRC 20th session', 'The right to enjoy the benefits of scientific progress and its applications'),
+            (2011, 'A/HRC/17/38', 'HRC 17th session', 'The right of access to and enjoyment of cultural heritage'),
+            (2010, 'A/HRC/14/36', 'HRC 14th session', 'Report of the Independent Expert in the field of cultural rights (mapping the mandate)'),
         ],
     },
     'violence-against-women': {
