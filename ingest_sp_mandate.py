@@ -746,6 +746,60 @@ MANDATES: dict[str, dict] = {
             (2005, 'E/CN.4/2005/84', 'CHR 61st session', 'The meaning and challenges of “protection” for internally displaced persons'),
         ],
     },
+    'toxics': {
+        'committee_label': 'SR Toxics and Human Rights',
+        'full_name': 'Special Rapporteur on the implications for human rights of the environmentally sound management and disposal of hazardous substances and wastes',
+        # (year_max, name) ascending. Ibeanu (2004–2012), Pallemaerts
+        # (2012–2014, died in office), Tuncak (2014–2020), Orellana
+        # (Aug 2020–). GA reports only begin in 2018; handover-year reports
+        # attribute cleanly by year, so no transition fixes. (The 2020
+        # reports — A/75/290 25-yr retrospective + A/HRC/45/12 COVID
+        # duty-to-prevent — are treated as Tuncak's final; Orellana's series
+        # begins 2021.)
+        'mandate_holders': [
+            (2011, 'Okechukwu Ibeanu'),
+            (2013, 'Marc Pallemaerts'),
+            (2020, 'Başkut Tuncak'),
+            (9999, 'Marcos Orellana'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-toxics-and-human-rights/annual-thematic-reports
+        # Thematic series 2007–2025. Excluded: 2010 A/HRC/15/22 "review of
+        # work and activities" (general), A/HRC/45/CRP.10 (conference-room
+        # paper), communications addenda and corrigenda.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/174',    'GA 80th session',  'Military activities and toxics'),
+            (2025, 'A/HRC/60/34', 'HRC 60th session', 'Guidelines on access to justice and effective remedies in the context of toxics'),
+            (2024, 'A/79/163',    'GA 79th session',  'Gender and hazardous substances'),
+            (2024, 'A/HRC/57/52', 'HRC 57th session', 'Pollution information portals: strengthening access to information on releases of hazardous substances'),
+            (2023, 'A/78/169',    'GA 78th session',  'Shipping, toxics and human rights'),
+            (2023, 'A/HRC/54/25', 'HRC 54th session', 'The toxic impacts of some proposed climate change solutions'),
+            (2022, 'A/77/183',    'GA 77th session',  'The impact of toxic substances on the human rights of indigenous peoples'),
+            (2022, 'A/HRC/51/35', 'HRC 51st session', 'Mercury, small-scale gold mining and human rights'),
+            (2021, 'A/76/207',    'GA 76th session',  'The stages of the plastics cycle and their impacts on human rights'),
+            (2021, 'A/HRC/48/61', 'HRC 48th session', 'The right to science in the context of toxic substances'),
+            (2020, 'A/75/290',    'GA 75th session',  'Twenty-five years of the mandate: evolution, current challenges and the way forward'),
+            (2020, 'A/HRC/45/12', 'HRC 45th session', 'The duty to prevent exposure to the COVID-19 virus'),
+            (2019, 'A/74/480',    'GA 74th session',  'States’ duty to prevent exposure to toxic substances'),
+            (2019, 'A/HRC/42/41', 'HRC 42nd session', 'Principles on human rights and the protection of workers from exposure to toxic substances'),
+            (2018, 'A/73/567',    'GA 73rd session',  'First report of the Special Rapporteur on toxics to the General Assembly'),
+            (2018, 'A/HRC/39/48', 'HRC 39th session', 'Workers’ rights and toxic exposures'),
+            (2017, 'A/HRC/36/41', 'HRC 36th session', 'Guidelines for good practices on the sound management and disposal of hazardous substances and wastes'),
+            (2016, 'A/HRC/33/41', 'HRC 33rd session', 'The impact of toxics and pollution on children’s rights'),
+            (2015, 'A/HRC/30/40', 'HRC 30th session', 'The right to information on hazardous substances and wastes'),
+            (2014, 'A/HRC/27/54', 'HRC 27th session', 'Preliminary and scoping report (2014)'),
+            # NB A/HRC/24/39 unfetchable — access API 301-redirects to an
+            # internal UN host (10.208.14.29); 26/27 ingested.
+            (2013, 'A/HRC/24/39', 'HRC 24th session', 'Preliminary and scoping report (2013)'),
+            (2012, 'A/HRC/21/48', 'HRC 21st session', 'Human rights and extractive industries'),
+            (2011, 'A/HRC/18/31', 'HRC 18th session', 'Medical waste'),
+            (2009, 'A/HRC/12/26', 'HRC 12th session', 'The adverse effects of shipbreaking on the enjoyment of human rights'),
+            (2008, 'A/HRC/9/22',  'HRC 9th session',  'Adverse effects on human rights and the right to information and participation'),
+            (2008, 'A/HRC/7/21',  'HRC 7th session',  'The right to information and participation'),
+            (2007, 'A/HRC/5/5',   'HRC 5th session',  'Legal framework related to the release of toxic and dangerous products during armed conflict'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',

@@ -1,11 +1,11 @@
 {
   "version": "20260616",
-  "builtAt": "2026-06-16T20:56:48+00:00",
+  "builtAt": "2026-06-16T21:13:12+00:00",
   "counts": {
-    "documents": 983,
-    "paragraphs": 98375,
-    "shards": 24,
-    "committees": 24
+    "documents": 1009,
+    "paragraphs": 100947,
+    "shards": 25,
+    "committees": 25
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -133,6 +133,12 @@
       "bytes": 11171849,
       "documents": 69,
       "paragraphs": 11104
+    },
+    "shards/sp_SR_Toxics_and_Human_Rights.json": {
+      "sha": "013b8e60e9a409a0",
+      "bytes": 2498165,
+      "documents": 26,
+      "paragraphs": 2572
     },
     "shards/sp_SR_Trafficking.json": {
       "sha": "7b2b2e3442255566",
