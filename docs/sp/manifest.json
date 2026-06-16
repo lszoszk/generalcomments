@@ -1,11 +1,11 @@
 {
   "version": "20260616",
-  "builtAt": "2026-06-16T12:54:16+00:00",
+  "builtAt": "2026-06-16T13:21:19+00:00",
   "counts": {
-    "documents": 686,
-    "paragraphs": 70671,
-    "shards": 16,
-    "committees": 16
+    "documents": 723,
+    "paragraphs": 74808,
+    "shards": 17,
+    "committees": 17
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -31,6 +31,12 @@
       "bytes": 2114318,
       "documents": 23,
       "paragraphs": 2076
+    },
+    "shards/sp_SR_Executions.json": {
+      "sha": "1fc6e21ff12231d9",
+      "bytes": 3557940,
+      "documents": 37,
+      "paragraphs": 4137
     },
     "shards/sp_SR_Extreme_Poverty.json": {
       "sha": "545ff0d025669b77",

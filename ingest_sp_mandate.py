@@ -242,6 +242,71 @@ MANDATES: dict[str, dict] = {
             (2009, 'A/HRC/10/6',  'HRC 10th session', 'Preliminary report laying out the mandate work plan'),
         ],
     },
+    'executions': {
+        'committee_label': 'SR Executions',
+        'full_name': 'Special Rapporteur on extrajudicial, summary or arbitrary executions',
+        # (year_max, name) — first row whose year_max >= report year.
+        # Alston (2004–July 2010), Heyns (Aug 2010–July 2016),
+        # Callamard (Aug 2016–Mar 2021), Tidball-Binz (Apr 2021–).
+        # NB transitions (GA report in the handover year belongs to the
+        # successor; year-only rule misattributes it to the predecessor):
+        #   A/65/321 (2010 GA) -> Heyns;  A/71/372 (2016 GA) -> Callamard;
+        #   A/76/264 (2021 GA) -> Tidball-Binz.
+        # (A/HRC/47/33 (2021) is Callamard's own farewell-reflection report,
+        # correctly hers under the year rule.)
+        'mandate_holders': [
+            (2010, 'Philip Alston'),
+            (2016, 'Christof Heyns'),
+            (2021, 'Agnès Callamard'),
+            (9999, 'Morris Tidball-Binz'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-executions/annual-thematic-reports
+        # THEMATIC reports only (HRC + GA, 2007–2025). The pre-2007 CHR/GA
+        # reports are general annual / country-situation reports, not
+        # thematic-issue reports, and are excluded. Addenda (communications,
+        # studies), corrigenda and the Khashoggi CRP annex excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/HRC/59/54', 'HRC 59th session', 'Rights of families of victims of unlawful killings'),
+            (2025, 'A/80/214',    'GA 80th session',  'Investigation and prevention of unlawful killings by law enforcement officials'),
+            (2024, 'A/HRC/56/56', 'HRC 56th session', 'Protection of the dead'),
+            (2024, 'A/79/172',    'GA 79th session',  'Investigating and preventing unlawful deaths of LGBTIQ+ persons'),
+            (2023, 'A/HRC/53/29', 'HRC 53rd session', 'Deaths in prisons'),
+            (2023, 'A/78/254',    'GA 78th session',  'Investigation of femicide'),
+            (2022, 'A/HRC/50/34', 'HRC 50th session', 'Medico-legal death investigations'),
+            (2022, 'A/77/270',    'GA 77th session',  'Reflection on the fortieth anniversary of the mandate'),
+            (2021, 'A/HRC/47/33', 'HRC 47th session', 'Reflection on five years of the mandate (Agnès Callamard)'),
+            (2021, 'A/76/264',    'GA 76th session',  'Vision report'),
+            (2020, 'A/HRC/44/38', 'HRC 44th session', 'Targeted killings through armed drones'),
+            (2020, 'A/75/384',    'GA 75th session',  'The respectful and lawful handling of mass graves'),
+            (2019, 'A/HRC/41/36', 'HRC 41st session', 'Investigation, accountability and prevention of intentional State killings of human rights defenders, journalists and dissidents'),
+            (2019, 'A/74/318',    'GA 74th session',  'Application of the death penalty to foreign nationals and consular assistance'),
+            (2018, 'A/HRC/38/44', 'HRC 38th session', 'Armed non-State actors and the protection of the right to life'),
+            (2018, 'A/73/314',    'GA 73rd session',  'Saving lives is not a crime'),
+            (2017, 'A/HRC/35/23', 'HRC 35th session', 'A gender-sensitive approach to arbitrary killings'),
+            (2017, 'A/72/335',    'GA 72nd session',  'Unlawful death of refugees and migrants'),
+            (2016, 'A/HRC/32/39', 'HRC 32nd session', 'The right to life and the use of force by private security providers in law enforcement'),
+            (2016, 'A/HRC/31/66', 'HRC 31st session', 'Practical recommendations for the proper management of assemblies (joint report)'),
+            (2016, 'A/71/372',    'GA 71st session',  'Review and update of issues considered between 2010 and 2016'),
+            (2015, 'A/HRC/29/37', 'HRC 29th session', 'Use of information and communications technologies to secure the right to life'),
+            (2015, 'A/70/304',    'GA 70th session',  'The role of forensic investigations in protecting the right to life; the death penalty and foreign nationals'),
+            (2014, 'A/HRC/26/36', 'HRC 26th session', 'Protection of the right to life during law enforcement; armed drones and autonomous weapons systems'),
+            (2014, 'A/69/265',    'GA 69th session',  'Regional human rights systems; less lethal and unmanned weapons in law enforcement'),
+            (2013, 'A/HRC/23/47', 'HRC 23rd session', 'Lethal autonomous robotics and the protection of life'),
+            (2013, 'A/68/382',    'GA 68th session',  'Armed drones and the right to life'),
+            (2012, 'A/HRC/20/22', 'HRC 20th session', 'Protection of the right to life of journalists'),
+            (2012, 'A/67/275',    'GA 67th session',  'Restrictions on the death penalty'),
+            (2011, 'A/HRC/17/28', 'HRC 17th session', 'Protecting the right to life in the context of policing assemblies'),
+            (2011, 'A/66/330',    'GA 66th session',  'Protection of the right to life in the context of arrests'),
+            (2010, 'A/65/321',    'GA 65th session',  'New technologies and human rights fact-finding; targeted killings and accountability'),
+            (2009, 'A/HRC/11/2',  'HRC 11th session', 'Reprisals; execution of juvenile offenders; the killing of "witches"; lethal force in policing assemblies'),
+            (2009, 'A/64/187',    'GA 64th session',  'Vigilante killings and mob justice'),
+            (2008, 'A/HRC/8/3',   'HRC 8th session',  'National commissions of inquiry; the right to seek pardon or commutation of a death sentence; prisoners running prisons'),
+            (2008, 'A/63/313',    'GA 63rd session',  'Witness protection and ending impunity; making military justice systems human rights compatible'),
+            (2007, 'A/HRC/4/20',  'HRC 4th session',  'The mandate in armed conflicts; the death penalty for the most serious crimes; the mandatory death penalty'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
