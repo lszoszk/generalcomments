@@ -622,6 +622,67 @@ MANDATES: dict[str, dict] = {
             (2010, 'A/HRC/14/36', 'HRC 14th session', 'Report of the Independent Expert in the field of cultural rights (mapping the mandate)'),
         ],
     },
+    'minority-issues': {
+        'committee_label': 'SR Minority Issues',
+        'full_name': 'Special Rapporteur on minority issues',
+        # (year_max, name) ascending. McDougall (IE 2005–2011),
+        # Izsák-Ndiaye (2011–2017), de Varennes (2017–2023),
+        # Levrat (Nov 2023–). NB transition: A/72/165 (2017 GA) is
+        # de Varennes' (the year-only rule maps it to Izsák-Ndiaye) —
+        # corrected post-ingest. (A/HRC/34/53 (2017) is Izsák-Ndiaye's
+        # farewell report, correctly hers.)
+        'mandate_holders': [
+            (2011, 'Gay McDougall'),
+            (2017, 'Rita Izsák-Ndiaye'),
+            (2023, 'Fernand de Varennes'),
+            (9999, 'Nicolas Levrat'),
+        ],
+        # Catalogue from OHCHR's "Annual reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-minority-issues/annual-reports
+        # Full thematic series (HRC/CHR + GA) 2006–2026.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/61/41', 'HRC 61st session', 'Addressing minority issues through their root causes'),
+            (2025, 'A/80/186',    'GA 80th session',  'Minority issues in the context of the United Nations reform process'),
+            (2025, 'A/HRC/58/54', 'HRC 58th session', 'The right to identity of persons belonging to minorities'),
+            (2024, 'A/79/169',    'GA 79th session',  'Institutional designs promoting minorities’ effective participation'),
+            (2024, 'A/HRC/55/51', 'HRC 55th session', 'Promoting diversity on minority issues to strengthen the universal dimension of human rights'),
+            (2023, 'A/78/195',    'GA 78th session',  'Minority issues'),
+            (2023, 'A/HRC/52/27', 'HRC 52nd session', 'Mainstreaming minority rights at the United Nations: 30 years of the Declaration'),
+            (2022, 'A/77/246',    'GA 77th session',  'Protection of the rights of minorities in the institutions of the United Nations'),
+            (2022, 'A/HRC/49/46', 'HRC 49th session', 'Conflict prevention through the protection of the human rights of minorities'),
+            (2021, 'A/76/162',    'GA 76th session',  'Minorities, equal participation, social and economic development and the 2030 Agenda'),
+            (2021, 'A/HRC/46/57', 'HRC 46th session', 'Hate speech, social media and minorities'),
+            (2020, 'A/75/211',    'GA 75th session',  'Significance and scope of the four categories of minorities'),
+            (2020, 'A/HRC/43/47', 'HRC 43rd session', 'Education, language and the human rights of minorities'),
+            (2019, 'A/74/160',    'GA 74th session',  'Study on the concept of a minority'),
+            (2019, 'A/HRC/40/64', 'HRC 40th session', 'Statelessness as a minority issue; awareness-raising and visibility of minorities'),
+            (2018, 'A/73/205',    'GA 73rd session',  'Statelessness as a minority issue'),
+            (2018, 'A/HRC/37/66', 'HRC 37th session', 'Priorities and vision of the mandate'),
+            (2017, 'A/72/165',    'GA 72nd session',  'Minority issues'),
+            (2017, 'A/HRC/34/53', 'HRC 34th session', 'Reflections on the six-year tenure of the Special Rapporteur'),
+            (2016, 'A/71/254',    'GA 71st session',  'Minorities in situations of humanitarian crises'),
+            (2016, 'A/HRC/31/56', 'HRC 31st session', 'Minorities and discrimination based on caste and analogous systems of inherited status'),
+            (2015, 'A/70/212',    'GA 70th session',  'Minorities in the criminal justice system'),
+            (2015, 'A/HRC/29/24', 'HRC 29th session', 'The human rights situation of Roma worldwide, with a focus on anti-Gypsyism'),
+            (2015, 'A/HRC/28/64', 'HRC 28th session', 'Hate speech and incitement to hatred against minorities in the media'),
+            (2014, 'A/69/266',    'GA 69th session',  'Preventing and addressing violence and atrocities against minorities'),
+            (2014, 'A/HRC/25/56', 'HRC 25th session', 'Ensuring the inclusion of minority issues in post-2015 development agendas'),
+            (2013, 'A/68/268',    'GA 68th session',  'Minority rights-based approaches to the protection of religious minorities'),
+            (2013, 'A/HRC/22/49', 'HRC 22nd session', 'The rights of linguistic minorities'),
+            (2012, 'A/67/293',    'GA 67th session',  'The role of national institutional mechanisms in promoting and protecting minority rights'),
+            (2012, 'A/HRC/19/56', 'HRC 19th session', 'Priorities of the mandate; twentieth anniversary of the Declaration on the rights of minorities'),
+            (2011, 'A/HRC/16/45', 'HRC 16th session', 'The role of minority rights protection in promoting stability and conflict prevention'),
+            (2010, 'A/65/287',    'GA 65th session',  'Effective promotion of the Declaration on the rights of minorities'),
+            (2010, 'A/HRC/13/23', 'HRC 13th session', 'Minorities and effective political participation'),
+            (2009, 'A/HRC/10/11', 'HRC 10th session', 'Cooperation with United Nations bodies and regional organizations to promote the rights of minorities'),
+            (2008, 'A/HRC/7/23',  'HRC 7th session',  'Minorities and the discriminatory denial or deprivation of citizenship'),
+            # NB A/HRC/4/9 unfetchable — its documents.un.org access API
+            # 301-redirects to an internal UN host (10.208.14.30); 36/37 ingested.
+            (2007, 'A/HRC/4/9',   'HRC 4th session',  'Minorities, poverty and the Millennium Development Goals'),
+            (2006, 'E/CN.4/2006/74', 'CHR 62nd session', 'Report of the independent expert on minority issues'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',

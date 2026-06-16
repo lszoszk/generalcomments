@@ -1,11 +1,11 @@
 {
   "version": "20260616",
-  "builtAt": "2026-06-16T20:15:13+00:00",
+  "builtAt": "2026-06-16T20:35:03+00:00",
   "counts": {
-    "documents": 908,
-    "paragraphs": 91578,
-    "shards": 22,
-    "committees": 22
+    "documents": 944,
+    "paragraphs": 94980,
+    "shards": 23,
+    "committees": 23
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -103,6 +103,12 @@
       "bytes": 4089510,
       "documents": 48,
       "paragraphs": 4625
+    },
+    "shards/sp_SR_Minority_Issues.json": {
+      "sha": "400c71e1c637d4f3",
+      "bytes": 3160616,
+      "documents": 36,
+      "paragraphs": 3402
     },
     "shards/sp_SR_Privacy.json": {
       "sha": "3249677ed16c9b7c",
