@@ -307,6 +307,63 @@ MANDATES: dict[str, dict] = {
             (2007, 'A/HRC/4/20',  'HRC 4th session',  'The mandate in armed conflicts; the death penalty for the most serious crimes; the mandatory death penalty'),
         ],
     },
+    'racism': {
+        'committee_label': 'SR Racism',
+        'full_name': 'Special Rapporteur on contemporary forms of racism, racial discrimination, xenophobia and related intolerance',
+        # (year_max, name) — first row whose year_max >= report year.
+        # Muigai (2008–Oct 2011), Ruteere (Nov 2011–Oct 2017),
+        # Achiume (Nov 2017–Oct 2022), Ashwini K.P. (Nov 2022–). All
+        # handovers fell in November, between the report years included
+        # here, so no transition fixes are needed.
+        'mandate_holders': [
+            (2011, 'Githu Muigai'),
+            (2017, 'Mutuma Ruteere'),
+            (2022, 'E. Tendayi Achiume'),
+            (9999, 'Ashwini K.P.'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-racism/annual-thematic-reports
+        # The DISTINCT-THEME series (2012–2025 GA+HRC) plus the three
+        # clearly thematic earlier reports (2009 poverty, 2010 conflict,
+        # 2011 Roma/caste). The pre-2012 GA reports and pre-2009 CHR/HRC
+        # reports are general "contemporary manifestations of racism"
+        # surveys / activities reports (one is explicitly "without a
+        # thematic component") and are excluded as non-thematic.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/496',    'GA 80th session',  'Conflict and racism, racial discrimination and xenophobia'),
+            (2025, 'A/HRC/59/62', 'HRC 59th session', 'Intersectionality from a racial justice perspective'),
+            (2024, 'A/79/316',    'GA 79th session',  'Special measures to achieve substantive racial equality'),
+            (2024, 'A/HRC/56/68', 'HRC 56th session', 'Artificial intelligence and racial discrimination'),
+            (2023, 'A/78/538',    'GA 78th session',  'Online racist hate speech'),
+            (2023, 'A/HRC/53/60', 'HRC 53rd session', 'Strategic vision and priorities of the Special Rapporteur'),
+            (2022, 'A/77/290',    'GA 77th session',  'Ecological crisis, climate change and systemic racism'),
+            (2022, 'A/HRC/50/60', 'HRC 50th session', 'Racial justice and equality analysis of the 2030 Agenda and the Sustainable Development Goals'),
+            (2021, 'A/76/434',    'GA 76th session',  'Twentieth anniversary of the Durban Declaration and Programme of Action'),
+            (2021, 'A/HRC/48/76', 'HRC 48th session', 'Digital technologies and the xenophobic exclusion of migrants, refugees and stateless persons'),
+            (2020, 'A/75/590',    'GA 75th session',  'Border and immigration enforcement and emerging digital technologies'),
+            (2020, 'A/HRC/44/57', 'HRC 44th session', 'Racial discrimination in the design and use of emerging digital technologies'),
+            (2019, 'A/74/321',    'GA 74th session',  'Reparations for racial discrimination rooted in slavery and colonialism'),
+            (2019, 'A/HRC/41/54', 'HRC 41st session', 'Global extractivism and racial equality'),
+            (2018, 'A/73/305',    'GA 73rd session',  'Nationalist populism and racial equality'),
+            (2018, 'A/HRC/38/52', 'HRC 38th session', 'Racial discrimination in citizenship, nationality and immigration laws'),
+            (2017, 'A/72/287',    'GA 72nd session',  'Combating racial discrimination and xenophobia in a counter-terrorism context'),
+            (2017, 'A/HRC/35/41', 'HRC 35th session', 'Overview of the thematic work of the mandate; racism in a counter-terrorism context'),
+            (2016, 'A/71/301',    'GA 71st session',  'The role of national human rights institutions and national action plans'),
+            (2016, 'A/HRC/32/50', 'HRC 32nd session', 'Xenophobia: its conceptualization, trends and manifestations'),
+            (2015, 'A/70/335',    'GA 70th session',  'Collection of disaggregated data to combat racial discrimination'),
+            (2015, 'A/HRC/29/46', 'HRC 29th session', 'Racial and ethnic profiling in law enforcement'),
+            (2014, 'A/69/340',    'GA 69th session',  'Racism in sport'),
+            (2014, 'A/HRC/26/49', 'HRC 26th session', 'Manifestations of racism on the Internet and social media'),
+            (2013, 'A/68/333',    'GA 68th session',  'Poverty and racism'),
+            (2013, 'A/HRC/23/56', 'HRC 23rd session', 'The role of education in preventing racism'),
+            (2012, 'A/67/326',    'GA 67th session',  'Racism and the Internet'),
+            (2012, 'A/HRC/20/33', 'HRC 20th session', 'Prevention of racism in line with the Durban documents'),
+            (2011, 'A/HRC/17/40', 'HRC 17th session', 'Racism against Roma and discrimination based on work and descent (caste)'),
+            (2010, 'A/HRC/14/43', 'HRC 14th session', 'Racism, racial discrimination and xenophobia in situations of conflict'),
+            (2009, 'A/HRC/11/36', 'HRC 11th session', 'Poverty and racism'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
