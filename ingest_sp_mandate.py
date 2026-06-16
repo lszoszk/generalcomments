@@ -800,6 +800,58 @@ MANDATES: dict[str, dict] = {
             (2007, 'A/HRC/5/5',   'HRC 5th session',  'Legal framework related to the release of toxic and dangerous products during armed conflict'),
         ],
     },
+    'freedom-of-assembly-association': {
+        'committee_label': 'SR Freedom of Assembly and Association',
+        'full_name': 'Special Rapporteur on the rights to freedom of peaceful assembly and of association',
+        # (year_max, name) ascending. Kiai (2011–2017), Voule (May 2018–
+        # April 2024), Romero (April 2024–). NB transition: A/79/263
+        # (2024 GA) is Romero's — year-only rule maps it to Voule;
+        # corrected post-ingest. (The 2024 HRC reports A/HRC/55/60 and
+        # A/HRC/56/50 are Voule's, correctly his.)
+        'mandate_holders': [
+            (2017, 'Maina Kiai'),
+            (2024, 'Clément Nyaletsossi Voule'),
+            (9999, 'Gina Romero'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-freedom-of-assembly-and-association/annual-thematic-reports
+        # Main thematic reports (GA + HRC) 2012–2026. Addenda excluded.
+        # A/HRC/31/66 (joint proper-management-of-assemblies report) is
+        # already ingested under SR Executions, so excluded here.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/62/45', 'HRC 62nd session', 'Unmasking the chilling effects of the digital surveillance ecosystem on assembly and association rights'),
+            (2025, 'A/80/219',    'GA 80th session',  'Collective action and human solidarity facing an existential threat'),
+            (2025, 'A/HRC/59/44', 'HRC 59th session', 'Impact of the 2023–2025 “super election” cycle on the rights to freedom of peaceful assembly and of association'),
+            (2024, 'A/79/263',    'GA 79th session',  'Protecting the rights to freedom of peaceful assembly and of association from stigmatization'),
+            (2024, 'A/HRC/56/50', 'HRC 56th session', 'Preserving the gains and pushing back against the global attack on civic space and growing authoritarianism'),
+            (2024, 'A/HRC/55/60', 'HRC 55th session', 'Model protocol for law enforcement officials to promote and protect human rights in the context of peaceful protests'),
+            (2023, 'A/78/246',    'GA 78th session',  'The rights to freedom of peaceful assembly and of association in advancing sustainable peace and democratic transitions'),
+            (2023, 'A/HRC/53/38', 'HRC 53rd session', 'Advancing accountability for serious human rights violations related to freedom of peaceful assembly and of association'),
+            (2022, 'A/77/171',    'GA 77th session',  'The essential role of social movements in building back better'),
+            (2022, 'A/HRC/50/42', 'HRC 50th session', 'Protection of human rights in the context of peaceful protests during crisis situations'),
+            (2022, 'A/HRC/50/23', 'HRC 50th session', 'Access to resources'),
+            (2021, 'A/76/222',    'GA 76th session',  'Freedom of peaceful assembly and of association as essential to advancing climate justice'),
+            (2021, 'A/HRC/47/24', 'HRC 47th session', 'Access to justice as an integral element of the protection of the rights to freedom of peaceful assembly and of association'),
+            (2020, 'A/75/184',    'GA 75th session',  'Celebrating women in activism and civil society: the enjoyment of freedom of peaceful assembly and of association by women and girls'),
+            (2020, 'A/HRC/44/50', 'HRC 44th session', 'Ten years protecting civic space worldwide'),
+            (2019, 'A/74/349',    'GA 74th session',  'The interlinkages between closing civil society space, poverty, national policy and freedom of peaceful assembly and of association'),
+            (2019, 'A/HRC/41/41', 'HRC 41st session', 'The rights to freedom of peaceful assembly and of association in the digital age'),
+            (2018, 'A/73/279',    'GA 73rd session',  'Freedom of peaceful assembly and of association and the implementation of the 2030 Agenda for Sustainable Development'),
+            (2018, 'A/HRC/38/34', 'HRC 38th session', 'Trends with regard to the exercise of the rights to freedom of peaceful assembly and of association'),
+            (2017, 'A/72/135',    'GA 72nd session',  'The Special Rapporteur’s vision of the mandate'),
+            (2017, 'A/HRC/35/28', 'HRC 35th session', 'The achievements of civil society'),
+            (2016, 'A/71/385',    'GA 71st session',  'The exercise of the rights to freedom of peaceful assembly and of association in the workplace'),
+            (2016, 'A/HRC/32/36', 'HRC 32nd session', 'Fundamentalism and its impact on the rights to freedom of peaceful assembly and of association'),
+            (2015, 'A/70/266',    'GA 70th session',  'Comparative study of enabling environments for businesses and associations'),
+            (2015, 'A/HRC/29/25', 'HRC 29th session', 'The rights to freedom of peaceful assembly and of association in the context of natural resource exploitation projects'),
+            (2014, 'A/69/365',    'GA 69th session',  'The exercise of the rights to freedom of peaceful assembly and of association in the context of multilateral institutions'),
+            (2014, 'A/HRC/26/29', 'HRC 26th session', 'Challenges faced by groups most at risk when exercising the rights to freedom of peaceful assembly and of association'),
+            (2013, 'A/68/299',    'GA 68th session',  'The exercise of the rights to freedom of peaceful assembly and of association in the context of elections'),
+            (2013, 'A/HRC/23/39', 'HRC 23rd session', 'Access to financial resources and the ability to hold peaceful assemblies'),
+            (2012, 'A/HRC/20/27', 'HRC 20th session', 'Best practices that promote and protect the rights to freedom of peaceful assembly and of association'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',

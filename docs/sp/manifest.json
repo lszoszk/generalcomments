@@ -1,11 +1,11 @@
 {
   "version": "20260616",
-  "builtAt": "2026-06-16T21:13:12+00:00",
+  "builtAt": "2026-06-16T21:41:27+00:00",
   "counts": {
-    "documents": 1009,
-    "paragraphs": 100947,
-    "shards": 25,
-    "committees": 25
+    "documents": 1039,
+    "paragraphs": 103813,
+    "shards": 26,
+    "committees": 26
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -61,6 +61,12 @@
       "bytes": 4445611,
       "documents": 50,
       "paragraphs": 4081
+    },
+    "shards/sp_SR_Freedom_of_Assembly_and_Association.json": {
+      "sha": "98cf57f4d5f47bb4",
+      "bytes": 2885305,
+      "documents": 30,
+      "paragraphs": 2866
     },
     "shards/sp_SR_Freedom_of_Expression.json": {
       "sha": "79819b1dc556df2b",
