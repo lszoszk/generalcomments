@@ -1,11 +1,11 @@
 {
   "version": "20260616",
-  "builtAt": "2026-06-16T20:35:03+00:00",
+  "builtAt": "2026-06-16T20:56:48+00:00",
   "counts": {
-    "documents": 944,
-    "paragraphs": 94980,
-    "shards": 23,
-    "committees": 23
+    "documents": 983,
+    "paragraphs": 98375,
+    "shards": 24,
+    "committees": 24
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -97,6 +97,12 @@
       "bytes": 4112705,
       "documents": 44,
       "paragraphs": 4108
+    },
+    "shards/sp_SR_Internally_Displaced_Persons.json": {
+      "sha": "6b5a53777c71bcd1",
+      "bytes": 3662371,
+      "documents": 39,
+      "paragraphs": 3395
     },
     "shards/sp_SR_Migrants.json": {
       "sha": "1a0d915636ad7443",

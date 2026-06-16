@@ -683,6 +683,69 @@ MANDATES: dict[str, dict] = {
             (2006, 'E/CN.4/2006/74', 'CHR 62nd session', 'Report of the independent expert on minority issues'),
         ],
     },
+    'internally-displaced-persons': {
+        'committee_label': 'SR Internally Displaced Persons',
+        'full_name': 'Special Rapporteur on the human rights of internally displaced persons',
+        # (year_max, name) ascending. Kälin (Representative of the SG,
+        # 2004–2010), Beyani (first SR, 2010–2016), Jiménez-Damary
+        # (2016–2022), Gaviria Betancur (Nov 2022–). All handovers fell in
+        # November, after the year's GA reports, so no transition fixes.
+        'mandate_holders': [
+            (2010, 'Walter Kälin'),
+            (2016, 'Chaloka Beyani'),
+            (2022, 'Cecilia Jiménez-Damary'),
+            (9999, 'Paula Gaviria Betancur'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-internally-displaced-persons/annual-thematic-reports
+        # Thematic series (HRC/CHR + GA) 2005–2025. The 1993–2004/2006
+        # "main developments in relation to the mandate" reports of the
+        # Representative of the SG are general/procedural and excluded, as
+        # are workshop/conference addenda and corrigenda. Malformed page
+        # symbol corrected (A/75/2017 -> A/75/207, verified).
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/212',    'GA 80th session',  'Human rights of internally displaced persons'),
+            (2025, 'A/HRC/59/46', 'HRC 59th session', 'Internal displacement in the context of organized criminal activity'),
+            (2024, 'A/79/334',    'GA 79th session',  'Peacebuilding in the context of internal displacement'),
+            (2024, 'A/HRC/56/47', 'HRC 56th session', 'Planned relocations of people in the context of the adverse effects of climate change and disasters'),
+            (2023, 'A/78/245',    'GA 78th session',  'Thematic priorities of the Special Rapporteur'),
+            (2023, 'A/HRC/53/35', 'HRC 53rd session', 'Vision and thematic priorities: addressing new challenges and consolidating gains'),
+            (2022, 'A/77/182',    'GA 77th session',  'Development-induced displacement and the human rights of internally displaced persons'),
+            (2022, 'A/HRC/50/24', 'HRC 50th session', 'The right of internally displaced persons to participate in electoral processes'),
+            (2021, 'A/76/169',    'GA 76th session',  'Prevention of arbitrary displacement in situations of armed conflict and generalized violence'),
+            (2021, 'A/HRC/47/37', 'HRC 47th session', 'Housing, land and property issues in the context of internal displacement'),
+            (2020, 'A/75/207',    'GA 75th session',  'Internal displacement in the context of the slow-onset adverse effects of climate change'),
+            (2020, 'A/HRC/44/41', 'HRC 44th session', 'Persons with disabilities in the context of internal displacement'),
+            (2019, 'A/74/261',    'GA 74th session',  'Protection of internally displaced children'),
+            (2019, 'A/HRC/41/40', 'HRC 41st session', 'Internal displacement and the role of national human rights institutions'),
+            (2018, 'A/73/173',    'GA 73rd session',  'Internal displacement and transitional justice'),
+            (2018, 'A/HRC/38/39', 'HRC 38th session', 'Twentieth anniversary of the Guiding Principles on Internal Displacement: an agenda for strategic and joint action'),
+            (2017, 'A/72/202',    'GA 72nd session',  'Thematic priorities and enhancing the participation of internally displaced persons'),
+            (2017, 'A/HRC/35/27', 'HRC 35th session', 'Roadmap for the next three years: thematic priorities of the new mandate-holder'),
+            (2016, 'A/71/279',    'GA 71st session',  'Outcomes and commitments on internal displacement of the World Humanitarian Summit'),
+            (2016, 'A/HRC/32/35', 'HRC 32nd session', 'Progress and challenges relating to the human rights of internally displaced persons'),
+            (2015, 'A/70/334',    'GA 70th session',  'Governance structures for internal displacement'),
+            (2015, 'A/HRC/29/34', 'HRC 29th session', 'The human rights of internally displaced persons in the context of the post-2015 development agenda'),
+            (2014, 'A/69/295',    'GA 69th session',  'Achieving durable solutions for internally displaced persons in urban settings'),
+            (2014, 'A/HRC/26/33', 'HRC 26th session', 'The Kampala Convention: a road map for action'),
+            (2013, 'A/68/225',    'GA 68th session',  'Durable solutions for internally displaced persons through peacebuilding in the aftermath of conflict'),
+            (2013, 'A/HRC/23/44', 'HRC 23rd session', 'Internally displaced women: progress, challenges and the way ahead'),
+            (2012, 'A/67/289',    'GA 67th session',  'Evolution, challenges and trends in internal displacement'),
+            (2012, 'A/HRC/19/54', 'HRC 19th session', 'A more systematized and equitable response to internally displaced persons outside camps'),
+            (2011, 'A/66/285',    'GA 66th session',  'Climate change and internal displacement'),
+            (2011, 'A/HRC/16/43', 'HRC 16th session', 'Looking forward: addressing new challenges and consolidating gains'),
+            (2010, 'A/HRC/13/21', 'HRC 13th session', 'Internal displacement in 2010: major challenges; framework on durable solutions'),
+            (2009, 'A/64/214',    'GA 64th session',  'Climate change and displacement'),
+            (2009, 'A/HRC/10/13', 'HRC 10th session', 'The status of the Guiding Principles ten years on; protection in natural disasters; internal displacement in peace processes'),
+            (2008, 'A/63/286',    'GA 63rd session',  'Tenth anniversary of the Guiding Principles on Internal Displacement: accomplishments and remaining challenges'),
+            (2008, 'A/HRC/8/6',   'HRC 8th session',  'Review of the background to the mandate, major achievements and future work'),
+            (2007, 'A/62/227',    'GA 62nd session',  'Internal displacement and peace processes'),
+            (2007, 'A/HRC/4/38',  'HRC 4th session',  'Evolution of the conceptual and normative framework on the protection of the internally displaced'),
+            (2005, 'A/60/338',    'GA 60th session',  'Internal displacement as a result of natural disasters'),
+            (2005, 'E/CN.4/2005/84', 'CHR 61st session', 'The meaning and challenges of “protection” for internally displaced persons'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
