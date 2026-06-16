@@ -33,7 +33,14 @@ export default defineConfig({
   testIgnore: ['**/contracts/**'],
   fullyParallel: false,        // one local server, tests share a port
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 1 : 0,
+  // v19.63: 1 local retry (2 in CI). The suite runs serially (workers:1)
+  // but several tests are timing-sensitive — they wait on cold browser
+  // launch, ~48 MB corpus parse + FlexSearch index build, and render
+  // debounces. Under machine load a single such threshold occasionally
+  // slips and one (different each run) test fails, blocking the pre-push
+  // hook even though it passes in isolation. A single retry absorbs the
+  // transient slip; a genuine regression still fails twice and blocks.
+  retries: process.env.CI ? 2 : 1,
   workers: 1,
   reporter: process.env.CI ? 'github' : 'list',
   // v19.19: raised from implicit 30 s to 60 s. The first test in each
