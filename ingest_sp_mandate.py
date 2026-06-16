@@ -108,6 +108,82 @@ MANDATES: dict[str, dict] = {
             (2014, 'A/69/297',       'GA 69th session',  'Implementation of the right to social protection through the adoption of social protection floors'),
         ],
     },
+    'food': {
+        'committee_label': 'SR Food',
+        'full_name': 'Special Rapporteur on the right to food',
+        # (year_max, name) — first row whose year_max >= report year.
+        # Ziegler (2000–April 2008), De Schutter (May 2008–April 2014),
+        # Elver (June 2014–April 2020), Fakhri (May 2020–April 2026).
+        # NB transitions (year-only rule misattributes the handover doc):
+        #   A/HRC/7/5  (2008) is Ziegler's final HRC report — rule → De Schutter
+        #   A/69/275   (2014, GA) is Elver's — rule → De Schutter
+        #   A/75/219   (2020, GA) is Fakhri's — rule → Elver
+        # All three corrected post-ingest in specialprocedures_info.json
+        # and docs/documents.json.
+        'mandate_holders': [
+            (2007, 'Jean Ziegler'),
+            (2014, 'Olivier De Schutter'),
+            (2020, 'Hilal Elver'),
+            (9999, 'Michael Fakhri'),
+        ],
+        # Catalogue transcribed from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-food/annual-thematic-reports
+        # Main thematic reports only — addenda (mission/communications),
+        # corrigenda and country-visit docs excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/HRC/58/48',    'HRC 58th session', 'The right to food, finance and national action plans'),
+            (2025, 'A/80/213',       'GA 80th session',  'Corporate power and human rights in food systems'),
+            (2024, 'A/HRC/55/49',    'HRC 55th session', 'Fisheries and the right to food in the context of climate change'),
+            (2024, 'A/79/171',       'GA 79th session',  'Starvation and the right to food, with an emphasis on the Palestinian people’s food sovereignty'),
+            (2023, 'A/HRC/52/40',    'HRC 52nd session', 'Conflict and the right to food'),
+            (2023, 'A/78/202',       'GA 78th session',  'Interim report of the Special Rapporteur on the right to food'),
+            (2022, 'A/77/177',       'GA 77th session',  'Right to food and the COVID-19 pandemic'),
+            (2022, 'A/HRC/49/43',    'HRC 49th session', 'Seeds, right to life and farmers’ rights'),
+            (2021, 'A/76/237',       'GA 76th session',  'Food systems and human rights'),
+            (2021, 'A/HRC/46/33',    'HRC 46th session', 'Vision of the Special Rapporteur on the right to food'),
+            (2020, 'A/75/219',       'GA 75th session',  'The right to food in the context of international trade law and policy'),
+            (2020, 'A/HRC/43/44',    'HRC 43rd session', 'Critical perspective on food systems, food crises and the future of the right to food'),
+            (2019, 'A/74/164',       'GA 74th session',  'The Sustainable Development Goals and the right to food'),
+            (2019, 'A/HRC/40/56',    'HRC 40th session', 'Fishery workers and the right to food'),
+            (2018, 'A/73/164',       'GA 73rd session',  'Agricultural workers and the right to food'),
+            (2018, 'A/HRC/37/61',    'HRC 37th session', 'The right to food in the context of natural disasters'),
+            (2017, 'A/72/188',       'GA 72nd session',  'Interim report of the Special Rapporteur on the right to food'),
+            (2017, 'A/HRC/34/48',    'HRC 34th session', 'Effects of pesticides on the right to food'),
+            (2016, 'A/71/282',       'GA 71st session',  'The right to food and nutrition'),
+            (2016, 'A/HRC/31/51',    'HRC 31st session', 'Integrating a gender perspective in the right to food'),
+            (2015, 'A/70/287',       'GA 70th session',  'Impact of climate change on the right to food'),
+            (2015, 'A/HRC/28/65',    'HRC 28th session', 'Access to justice and the right to food: the way forward'),
+            (2014, 'A/69/275',       'GA 69th session',  'Report to the General Assembly on the right to food'),
+            (2014, 'A/HRC/25/57',    'HRC 25th session', 'The transformative potential of the right to food'),
+            (2013, 'A/68/288',       'GA 68th session',  'Assessing a decade of progress on the right to food'),
+            (2013, 'A/HRC/22/50',    'HRC 22nd session', 'Women’s rights and the right to food'),
+            (2012, 'A/67/268',       'GA 67th session',  'Fisheries and the right to food'),
+            (2012, 'A/HRC/19/59',    'HRC 19th session', 'The right to an adequate diet: the agriculture-food-health nexus'),
+            (2011, 'A/66/262',       'GA 66th session',  'Contract farming and other business models inclusive of small-scale farmers'),
+            (2011, 'A/HRC/16/49',    'HRC 16th session', 'Agroecology and the right to food'),
+            (2010, 'A/65/281',       'GA 65th session',  'Access to land and the right to food'),
+            (2010, 'A/HRC/13/33',    'HRC 13th session', 'Agribusiness and the right to food'),
+            (2009, 'A/64/170',       'GA 64th session',  'Seed policies and the right to food'),
+            (2009, 'A/HRC/10/5',     'HRC 10th session', 'The role of development cooperation and food aid in realizing the right to adequate food'),
+            (2008, 'A/63/278',       'GA 63rd session',  'Report to the General Assembly on the right to food'),
+            (2008, 'A/HRC/9/23',     'HRC 9th session',  'Building resilience in response to the global food crisis'),
+            (2008, 'A/HRC/7/5',      'HRC 7th session',  'The right to food and refugees from hunger'),
+            (2007, 'A/62/289',       'GA 62nd session',  'The impact of biofuels on the right to food'),
+            (2007, 'A/HRC/4/30',     'HRC 4th session',  'Children and their right to food'),
+            (2006, 'E/CN.4/2006/44', 'CHR 62nd session', 'Defining the right to food in an era of globalization'),
+            (2005, 'A/60/350',       'GA 60th session',  'The responsibilities of international organizations concerning the right to food'),
+            (2005, 'E/CN.4/2005/47', 'CHR 61st session', 'Extraterritorial obligations of States to the right to food'),
+            (2004, 'A/59/385',       'GA 59th session',  'The right to food and fishing livelihoods'),
+            (2004, 'E/CN.4/2004/10', 'CHR 60th session', 'Food security and sovereignty'),
+            (2003, 'A/58/330',       'GA 58th session',  'Transnational corporations and the right to food'),
+            (2003, 'E/CN.4/2003/54', 'CHR 59th session', 'International guidelines on the right to food; water and the right to food'),
+            (2002, 'A/57/356',       'GA 57th session',  'Access to land, agrarian reform and the right to food'),
+            (2002, 'E/CN.4/2002/58', 'CHR 58th session', 'Justiciability of the right to food'),
+            (2001, 'A/56/210',       'GA 56th session',  'Definition of the right to food'),
+            (2001, 'E/CN.4/2001/53', 'CHR 57th session', 'Definition and history of the right to food'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
