@@ -20,18 +20,14 @@
       "sha": "bf0f2ff5c643295e",
       "bytes": 7940662
     },
-    "sp-corpus.json": {
-      "sha": "78f6d7a0bc69de2b",
-      "bytes": 72066878
-    },
     "documents.json": {
-      "sha": "86c1f0a849a620d9",
-      "bytes": 666783
+      "sha": "8dc0679a93434232",
+      "bytes": 729484
     },
     "facets.json": {
       "sha": "279aaa8cf72c3fa6",
       "bytes": 9462
     }
   },
-  "note": "Incremental append (append_sp_docs.py): +35 SP docs."
+  "note": "SP paragraphs sharded per-committee under docs/sp/ (see docs/sp/manifest.json)."
 }

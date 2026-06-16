@@ -23,6 +23,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import build_corpus as bc
+from build_sp_shards import write_sp_shards
 
 REPO = Path(__file__).resolve().parent
 DOCS = REPO / "docs"
@@ -49,7 +50,16 @@ def main():
     #    own sp-corpus.json (split out of corpus.json — corpus.json is
     #    GC-only now). New SP docs append there; GC corpus is untouched.
     gc_corpus = load(DOCS / "corpus.json")     # GC paragraphs only
-    sp_corpus = load(DOCS / "sp-corpus.json")  # SP paragraphs
+    # SP paragraphs live in per-committee shards (docs/sp/shards/). Load
+    # them all to rebuild the full corpus for the collision check + facets.
+    # (Pre-split fallback: the monolithic sp-corpus.json.)
+    sp_shards_dir = DOCS / "sp" / "shards"
+    if sp_shards_dir.exists():
+        sp_corpus = []
+        for shard in sorted(sp_shards_dir.glob("sp_*.json")):
+            sp_corpus.extend(load(shard))
+    else:
+        sp_corpus = load(DOCS / "sp-corpus.json")
     documents = load(DOCS / "documents.json")  # doc records (GC+SP+JUR)
     existing_doc_ids = {d["docId"] for d in documents}
 
@@ -83,8 +93,13 @@ def main():
     documents = documents + new_docs
     sp_corpus = sp_corpus + new_paras
     facets = bc.build_facets(documents, gc_corpus + sp_corpus)
-    bc.write_json(DOCS / "sp-corpus.json", sp_corpus)
-    bc.write_json(DOCS / "documents.json", documents)
+    # SP paragraphs are written as per-committee shards (docs/sp/shards/),
+    # which also stamps shardId on every SP doc record in `documents`.
+    write_sp_shards(documents, sp_corpus, DOCS)
+    # documents.json: committed convention is single-line with DEFAULT
+    # (spaced) separators — NOT bc.write_json's compact form.
+    (DOCS / "documents.json").write_text(
+        json.dumps(documents, ensure_ascii=False), encoding="utf-8")
     bc.write_json(DOCS / "facets.json", facets)
 
     # 6. Refresh manifest.
@@ -112,7 +127,7 @@ def main():
                 "sha": bc.sha256_file(DOCS / fn),
                 "bytes": (DOCS / fn).stat().st_size,
             }
-            for fn in ("corpus.json", "sp-corpus.json", "documents.json", "facets.json")
+            for fn in ("corpus.json", "documents.json", "facets.json")
         },
         "note": f"Incremental append (append_sp_docs.py): +{len(new_docs)} SP docs.",
     }
@@ -122,7 +137,7 @@ def main():
     print(f"Documents:  {len(documents):>6}  ({len(gc_docs)} GC + {len(sp_docs)} SP)")
     print(f"Paragraphs: {len(gc_paras) + len(sp_paras):>6}  ({len(gc_paras)} GC + {len(sp_paras)} SP)")
     print(f"Committees: {len(facets['committees']):>6}")
-    print(f"  ✅ wrote sp-corpus.json / documents.json / facets.json / manifest.json")
+    print(f"  ✅ wrote sp/shards/*.json / sp/manifest.json / documents.json / facets.json / manifest.json")
     return 0
 
 

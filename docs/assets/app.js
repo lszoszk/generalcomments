@@ -87,10 +87,19 @@ const state = {
     loadedShards: new Set(),   // shardId names ("jur_CCPR_2014-2015") fetched so far
     shardLoaders: new Map(),   // shardId → in-flight Promise (so two parallel reads coalesce)
   },
+  // v19.64: SP paragraphs were split from the monolithic sp-corpus.json
+  // into per-committee shards (docs/sp/shards/sp_<Committee>.json) so no
+  // single file exceeds GitHub's 100 MB limit. The document reader
+  // lazy-loads only the shard a clicked SP doc lives in (doc.shardId).
+  sp: {
+    loadedShards: new Set(),   // shardId names ("sp_SR_Food") fetched so far
+    shardLoaders: new Map(),   // shardId → in-flight Promise (coalesce parallel reads)
+  },
 };
 
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
 const JUR_BASE = './jur/';    // jurisprudence pilot: lightweight metadata eager, paragraphs lazy
+const SP_BASE = './sp/';      // Special Procedures: per-committee paragraph shards, lazy
 
 // Server-side search API is the DEFAULT for jurisprudence and
 // scope=all. The local FlexSearch path stays as the offline fallback —
@@ -1983,8 +1992,12 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
     if (runId !== state.docsOpenRun) return;
   } else if (doc.type === 'sp') {
     try {
-      $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading Special Procedures corpus…</div>';
-      await ensureSpCorpusReady();
+      $('#docs-reader-body').innerHTML = '<div class="docs-reader-loading">Loading Special Procedures document…</div>';
+      // v19.64: pull only this doc's committee shard. doc.shardId is set
+      // at ingest time (e.g. "sp_SR_Food"); pre-split records without it
+      // fall back to the legacy monolithic loader.
+      if (doc.shardId) await loadSpShard(doc.shardId);
+      else await ensureSpCorpusReady();
     } catch (e) { console.warn('[sp corpus load failed]', e); }
     if (runId !== state.docsOpenRun) return;
   }
@@ -4717,6 +4730,38 @@ async function ensureSpCorpusReady() {
     _avgDocLen = null;
   })().finally(() => { state.spCorpusPromise = null; });
   return state.spCorpusPromise;
+}
+
+// v19.64: lazy single-shard loader for Special Procedures. The reader
+// opens an SP report and needs only that committee's paragraphs, so we
+// fetch ONLY its shard (docs/sp/shards/sp_<Committee>.json, ~2-12 MB)
+// instead of the whole SP corpus. SP paragraphs are pushed into
+// state.paragraphs / paragraphById for the reader + drawer to filter,
+// but — like the old monolithic loader — are NEVER added to FlexSearch
+// (SP search runs through the API). Coalesces concurrent calls.
+async function loadSpShard(shardName) {
+  if (!shardName) return 0;
+  const shardId = shardName.replace(/^shards\//, '').replace(/\.json$/, '');
+  if (state.sp.loadedShards.has(shardId)) return 0;
+  const inflight = state.sp.shardLoaders.get(shardId);
+  if (inflight) return inflight;
+
+  const promise = (async () => {
+    const arr = await fetchJson(`${SP_BASE}shards/${shardId}.json`);
+    for (const p of arr) {
+      if (!state.paragraphById.has(p.id)) {
+        state.paragraphs.push(p);
+        state.paragraphById.set(p.id, p);
+      }
+    }
+    state.sp.loadedShards.add(shardId);
+    _flushDfCache();
+    _avgDocLen = null;
+    return arr.length;
+  })().finally(() => { state.sp.shardLoaders.delete(shardId); });
+
+  state.sp.shardLoaders.set(shardId, promise);
+  return promise;
 }
 
 // Warmer first-visit messaging. The earlier copy was

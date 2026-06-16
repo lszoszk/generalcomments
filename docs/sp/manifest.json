@@ -1,0 +1,109 @@
+{
+  "version": "20260616",
+  "builtAt": "2026-06-16T12:54:16+00:00",
+  "counts": {
+    "documents": 686,
+    "paragraphs": 70671,
+    "shards": 16,
+    "committees": 16
+  },
+  "files": {
+    "shards/sp_SR_Adequate_Housing.json": {
+      "sha": "535f9a804ab6668f",
+      "bytes": 3659574,
+      "documents": 45,
+      "paragraphs": 3540
+    },
+    "shards/sp_SR_Disability.json": {
+      "sha": "edf28ae71c57701e",
+      "bytes": 2127890,
+      "documents": 22,
+      "paragraphs": 1908
+    },
+    "shards/sp_SR_Education.json": {
+      "sha": "3c1249a957b09665",
+      "bytes": 4171977,
+      "documents": 43,
+      "paragraphs": 4598
+    },
+    "shards/sp_SR_Environment.json": {
+      "sha": "e1196fe5a4e80064",
+      "bytes": 2114318,
+      "documents": 23,
+      "paragraphs": 2076
+    },
+    "shards/sp_SR_Extreme_Poverty.json": {
+      "sha": "545ff0d025669b77",
+      "bytes": 2054304,
+      "documents": 24,
+      "paragraphs": 1795
+    },
+    "shards/sp_SR_Food.json": {
+      "sha": "9aaf553e617fbc2c",
+      "bytes": 4445611,
+      "documents": 50,
+      "paragraphs": 4081
+    },
+    "shards/sp_SR_Freedom_of_Expression.json": {
+      "sha": "79819b1dc556df2b",
+      "bytes": 4662907,
+      "documents": 45,
+      "paragraphs": 4565
+    },
+    "shards/sp_SR_Freedom_of_Religion_or_Belief.json": {
+      "sha": "951564c4d3b8143a",
+      "bytes": 12180728,
+      "documents": 88,
+      "paragraphs": 10634
+    },
+    "shards/sp_SR_Health.json": {
+      "sha": "0214210bbac83732",
+      "bytes": 4640622,
+      "documents": 50,
+      "paragraphs": 4742
+    },
+    "shards/sp_SR_Indigenous_Peoples.json": {
+      "sha": "5eb1259697d1bcb4",
+      "bytes": 4112705,
+      "documents": 44,
+      "paragraphs": 4108
+    },
+    "shards/sp_SR_Migrants.json": {
+      "sha": "1a0d915636ad7443",
+      "bytes": 4089510,
+      "documents": 48,
+      "paragraphs": 4625
+    },
+    "shards/sp_SR_Privacy.json": {
+      "sha": "3249677ed16c9b7c",
+      "bytes": 1394137,
+      "documents": 18,
+      "paragraphs": 1633
+    },
+    "shards/sp_SR_Torture.json": {
+      "sha": "5dd7890c8939f86f",
+      "bytes": 11171849,
+      "documents": 69,
+      "paragraphs": 11104
+    },
+    "shards/sp_SR_Trafficking.json": {
+      "sha": "7b2b2e3442255566",
+      "bytes": 3150532,
+      "documents": 37,
+      "paragraphs": 3028
+    },
+    "shards/sp_SR_Violence_against_Women.json": {
+      "sha": "f3f2d9a21d0e1cd3",
+      "bytes": 4942376,
+      "documents": 45,
+      "paragraphs": 5026
+    },
+    "shards/sp_SR_Water_and_Sanitation.json": {
+      "sha": "3f54df4bc628be6e",
+      "bytes": 3147853,
+      "documents": 35,
+      "paragraphs": 3208
+    }
+  },
+  "note": "Per-committee SP paragraph shards (build_sp_shards.py)."
+}
