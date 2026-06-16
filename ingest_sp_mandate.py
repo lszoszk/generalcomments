@@ -63,6 +63,51 @@ USER_AGENT = (
 # Mandate registry. Add new mandates here.
 # ---------------------------------------------------------------------------
 MANDATES: dict[str, dict] = {
+    'extreme-poverty': {
+        'committee_label': 'SR Extreme Poverty',
+        'full_name': 'Special Rapporteur on extreme poverty and human rights',
+        # (year_max, name). Covers the Alston (2014–2020) + De Schutter
+        # (2020–) era listed on OHCHR's annual-reports page. Pre-2014
+        # reports (Sepúlveda et al., incl. the Guiding Principles
+        # A/HRC/21/39) live on a separate "previous mandate-holders" page
+        # and are not included here.
+        # NB transition: A/75/181/Rev.1 (2020) is De Schutter's; the
+        # year-only rule maps it to Alston — corrected post-ingest.
+        'mandate_holders': [
+            (2020, 'Philip Alston'),
+            (9999, 'Olivier De Schutter'),
+        ],
+        # Catalogue from OHCHR's "Annual reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-poverty/annual-reports
+        # Thematic reports only — addenda excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/62/42',    'HRC 62nd session', 'The manufacturing of poverty'),
+            (2025, 'A/80/138',       'GA 80th session',  'Far-right populism and the future of social protection'),
+            (2025, 'A/HRC/59/51',    'HRC 59th session', 'Weathering the storm: poverty, climate change and social protection'),
+            (2024, 'A/79/162',       'GA 79th session',  'The burnout economy: poverty and mental health'),
+            (2024, 'A/HRC/56/61',    'HRC 56th session', 'Eradicating poverty beyond growth'),
+            (2023, 'A/78/175',       'GA 78th session',  'The working poor: a human rights approach to wages'),
+            (2023, 'A/HRC/53/33',    'HRC 53rd session', 'The employment guarantee as a tool in the fight against poverty'),
+            (2022, 'A/77/157',       'GA 77th session',  'Banning discrimination on grounds of socioeconomic disadvantage'),
+            (2022, 'A/HRC/50/38',    'HRC 50th session', 'Non-take-up of rights in the context of social protection'),
+            (2021, 'A/76/177',       'GA 76th session',  'Ending the vicious cycles of poverty'),
+            (2021, 'A/HRC/47/36',    'HRC 47th session', 'Global Fund for Social Protection: international solidarity in the service of poverty eradication'),
+            (2020, 'A/75/181/Rev.1', 'GA 75th session',  'The “just transition” in the economic recovery: eradicating poverty within planetary boundaries'),
+            (2020, 'A/HRC/44/40',    'HRC 44th session', 'The parlous state of poverty eradication'),
+            (2019, 'A/74/493',       'GA 74th session',  'Digital welfare states and human rights'),
+            (2019, 'A/HRC/41/39',    'HRC 41st session', 'Climate change and poverty'),
+            (2018, 'A/73/396',       'GA 73rd session',  'Privatization and human rights'),
+            (2018, 'A/HRC/38/33',    'HRC 38th session', 'The role of the International Monetary Fund in relation to social protection'),
+            (2017, 'A/72/502',       'GA 72nd session',  'The enjoyment of civil and political rights by persons living in poverty'),
+            (2017, 'A/HRC/35/26',    'HRC 35th session', 'Universal basic income'),
+            (2016, 'A/71/367',       'GA 71st session',  'United Nations responsibility for the cholera outbreak in Haiti'),
+            (2016, 'A/HRC/32/31',    'HRC 32nd session', 'Marginalization of economic and social rights'),
+            (2015, 'A/70/274',       'GA 70th session',  'The World Bank and human rights'),
+            (2015, 'A/HRC/29/31',    'HRC 29th session', 'Extreme inequality and human rights'),
+            (2014, 'A/69/297',       'GA 69th session',  'Implementation of the right to social protection through the adoption of social protection floors'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
