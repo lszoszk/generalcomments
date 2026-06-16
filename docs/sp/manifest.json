@@ -1,11 +1,11 @@
 {
   "version": "20260616",
-  "builtAt": "2026-06-16T17:08:05+00:00",
+  "builtAt": "2026-06-16T17:25:00+00:00",
   "counts": {
-    "documents": 834,
-    "paragraphs": 83986,
-    "shards": 20,
-    "committees": 20
+    "documents": 877,
+    "paragraphs": 88709,
+    "shards": 21,
+    "committees": 21
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -73,6 +73,12 @@
       "bytes": 4640622,
       "documents": 50,
       "paragraphs": 4742
+    },
+    "shards/sp_SR_Human_Rights_Defenders.json": {
+      "sha": "3ddbfce197bc05aa",
+      "bytes": 3796067,
+      "documents": 43,
+      "paragraphs": 4723
     },
     "shards/sp_SR_Independence_of_Judges_and_Lawyers.json": {
       "sha": "b86c9561041014b4",

@@ -496,6 +496,79 @@ MANDATES: dict[str, dict] = {
             (2008, 'A/HRC/8/4',   'HRC 8th session',  'States of emergency and the right to a fair trial; access to justice'),
         ],
     },
+    'human-rights-defenders': {
+        'committee_label': 'SR Human Rights Defenders',
+        'full_name': 'Special Rapporteur on the situation of human rights defenders',
+        # (year_max, name) ascending. Jilani (SRSG, 2000–2008),
+        # Sekaggya (2008–2014), Forst (2014–2020), Lawlor (2020–).
+        # NB transitions (handover-year GA "vision/priorities" report is the
+        # successor's; year-only rule misattributes it to the predecessor):
+        #   A/63/288 (2008 GA) -> Sekaggya; A/69/259 (2014 GA) -> Forst;
+        #   A/75/165 (2020 GA) -> Lawlor. (The handover-year HRC reports —
+        #   A/HRC/7/28 2008, A/HRC/25/55 2014, A/HRC/43/51 2020 — are the
+        #   predecessor's and stay correct under the year rule.)
+        'mandate_holders': [
+            (2008, 'Hina Jilani'),
+            (2014, 'Margaret Sekaggya'),
+            (2020, 'Michel Forst'),
+            (9999, 'Mary Lawlor'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-human-rights-defenders/annual-thematic-reports
+        # Full thematic series (HRC + GA) 2007–2025, plus the distinct-theme
+        # GA reports from the 2001–2006 SRSG era. The 2001–2006 CHR reports
+        # ("analysis of trends / summary of cases / methodology / mandate
+        # implementation") are general survey reports and are excluded, as is
+        # A/57/182 (regional-consultations results). Addenda/observations on
+        # communications excluded. Malformed page symbols corrected
+        # (A/HRC/76/143 -> A/76/143). A/HRC/52/29 is dated 2023 (52nd session).
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/114',    'GA 80th session',  'Human rights defenders, climate change and a just transition'),
+            (2025, 'A/HRC/58/53', 'HRC 58th session', 'Human rights defenders working in isolated, remote and rural contexts'),
+            (2024, 'A/79/123',    'GA 79th session',  'Human rights defenders working on the Sustainable Development Goals'),
+            (2024, 'A/HRC/55/50', 'HRC 55th session', 'Challenges faced by child and youth human rights defenders'),
+            (2023, 'A/78/131',    'GA 78th session',  'Women human rights defenders in conflict, post-conflict and crisis-affected settings'),
+            (2023, 'A/HRC/52/29', 'HRC 52nd session', '25 years of achievements by human rights defenders'),
+            (2022, 'A/77/178',    'GA 77th session',  'Human rights defenders working on the rights of refugees, migrants and asylum-seekers'),
+            (2022, 'A/HRC/49/49', 'HRC 49th session', 'Human rights defenders working against corruption'),
+            (2021, 'A/76/143',    'GA 76th session',  'The long-term detention of human rights defenders'),
+            (2021, 'A/HRC/46/35', 'HRC 46th session', 'Death threats and killings of human rights defenders'),
+            (2020, 'A/75/165',    'GA 75th session',  'Priorities of the Special Rapporteur for the mandate'),
+            (2020, 'A/HRC/43/51', 'HRC 43rd session', 'Human rights defenders operating in conflict and post-conflict situations'),
+            (2019, 'A/74/159',    'GA 74th session',  'Impunity for human rights violations committed against human rights defenders'),
+            (2019, 'A/HRC/40/60', 'HRC 40th session', 'Women human rights defenders'),
+            (2018, 'A/73/215',    'GA 73rd session',  '20th anniversary of the Declaration on human rights defenders'),
+            (2018, 'A/HRC/37/51', 'HRC 37th session', 'Human rights defenders working on the rights of people on the move'),
+            (2017, 'A/72/170',    'GA 72nd session',  'Human rights defenders working on business and human rights'),
+            (2017, 'A/HRC/34/52', 'HRC 34th session', 'Work in progress: challenges and the way forward'),
+            (2016, 'A/71/281',    'GA 71st session',  'Environmental human rights defenders'),
+            (2016, 'A/HRC/31/55', 'HRC 31st session', 'Good practices in the protection of human rights defenders'),
+            (2015, 'A/70/217',    'GA 70th session',  'Global trends in risks and threats facing human rights defenders'),
+            (2015, 'A/HRC/28/63', 'HRC 28th session', 'Workplan and future activities of the Special Rapporteur'),
+            (2014, 'A/69/259',    'GA 69th session',  'Vision and working methods of the mandate'),
+            (2014, 'A/HRC/25/55', 'HRC 25th session', 'Elements of a safe and enabling environment for human rights defenders'),
+            (2013, 'A/68/262',    'GA 68th session',  'Large-scale development projects and human rights defenders'),
+            (2013, 'A/HRC/22/47', 'HRC 22nd session', 'The role of national human rights institutions in protecting human rights defenders'),
+            (2012, 'A/67/292',    'GA 67th session',  'The use of legislation to regulate the activities of human rights defenders'),
+            (2012, 'A/HRC/19/55', 'HRC 19th session', 'Selected groups of defenders at risk: journalists, land and environment defenders, and youth and student defenders'),
+            (2011, 'A/66/203',    'GA 66th session',  'The Declaration on human rights defenders'),
+            (2011, 'A/HRC/16/44', 'HRC 16th session', 'Women human rights defenders and those working on women’s rights or gender issues'),
+            (2010, 'A/65/223',    'GA 65th session',  'Violations committed against defenders by non-State actors'),
+            (2010, 'A/HRC/13/22', 'HRC 13th session', 'Security and protection of human rights defenders'),
+            (2009, 'A/64/226',    'GA 64th session',  'The right to freedom of association; analysis of laws regulating non-governmental organizations'),
+            (2009, 'A/HRC/10/12', 'HRC 10th session', 'The universal periodic review and the protection of human rights defenders'),
+            (2008, 'A/63/288',    'GA 63rd session',  'Vision and priorities of the Special Rapporteur'),
+            (2008, 'A/HRC/7/28',  'HRC 7th session',  'From action to impact: follow-up to the activities of the mandate'),
+            (2007, 'A/62/225',    'GA 62nd session',  'The right to protest in the context of freedom of assembly'),
+            (2007, 'A/HRC/4/37',  'HRC 4th session',  'The work of human rights defenders in the field of economic, social and cultural rights'),
+            (2006, 'A/61/312',    'GA 61st session',  'Methodology of work and the right to freedom of assembly'),
+            (2005, 'A/60/339',    'GA 60th session',  'The contribution of human rights defenders to peace and security'),
+            (2004, 'A/59/401',    'GA 59th session',  'Applying the Declaration on human rights defenders; the right to association'),
+            (2003, 'A/58/380',    'GA 58th session',  'The impact of security legislation and emergency situations on human rights defenders'),
+            (2001, 'A/56/341',    'GA 56th session',  'Impunity, legal actions, intelligence activities and smear campaigns against defenders'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
