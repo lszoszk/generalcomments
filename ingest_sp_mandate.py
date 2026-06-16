@@ -63,6 +63,74 @@ USER_AGENT = (
 # Mandate registry. Add new mandates here.
 # ---------------------------------------------------------------------------
 MANDATES: dict[str, dict] = {
+    'violence-against-women': {
+        'committee_label': 'SR Violence against Women',
+        'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
+        # (year_max, name) — first row whose year_max >= report year.
+        # NB transition years: A/70/209 (2015) is Šimonović's, A/76/132
+        # (2021) is Alsalem's; year-only rule maps them to the predecessor —
+        # corrected in specialprocedures_info.json post-ingest.
+        'mandate_holders': [
+            (2003, 'Radhika Coomaraswamy'),
+            (2009, 'Yakin Ertürk'),
+            (2015, 'Rashida Manjoo'),
+            (2021, 'Dubravka Šimonović'),
+            (9999, 'Reem Alsalem'),
+        ],
+        # Catalogue transcribed from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-violence-against-women/annual-thematic-reports
+        # Main thematic reports only — addenda (communications/mission/summary),
+        # corrigenda and country-situation docs excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/HRC/59/47',   'HRC 59th session', 'Sex-based violence against women and girls: new frontiers and emerging issues'),
+            (2025, 'A/80/158',      'GA 80th session',  'The different manifestations of violence against women and girls in the context of surrogacy'),
+            (2024, 'A/HRC/56/48',   'HRC 56th session', 'Prostitution and violence against women and girls'),
+            (2024, 'A/79/325',      'GA 79th session',  'Violence against women and girls in sport'),
+            (2023, 'A/HRC/53/36',   'HRC 53rd session', 'Custody, violence against women and violence against children'),
+            (2023, 'A/78/256',      'GA 78th session',  'Violence against women and girls, nationality laws and statelessness'),
+            (2022, 'A/HRC/50/26',   'HRC 50th session', 'Violence against indigenous women and girls'),
+            (2022, 'A/77/136',      'GA 77th session',  'Violence against women and girls in the context of the climate crisis'),
+            (2021, 'A/HRC/47/26',   'HRC 47th session', 'Rape as a grave and systematic human rights violation and manifestation of gender-based violence, and its prevention'),
+            (2021, 'A/76/132',      'GA 76th session',  'Taking stock of the femicide watch initiative'),
+            (2020, 'A/HRC/44/52',   'HRC 44th session', 'Violence against women journalists'),
+            (2020, 'A/75/144',      'GA 75th session',  'Intersection between the COVID-19 pandemic and the pandemic of gender-based violence, with a focus on domestic violence'),
+            (2019, 'A/HRC/41/42',   'HRC 41st session', 'Twenty-five years of the mandate: an analysis of its evolution, current challenges and the way forward'),
+            (2019, 'A/74/137',      'GA 74th session',  'A human rights-based approach to mistreatment and violence against women in reproductive health services, with a focus on obstetric violence'),
+            (2018, 'A/HRC/38/47',   'HRC 38th session', 'Online violence against women and girls'),
+            (2018, 'A/73/301',      'GA 73rd session',  'Violence against women in politics'),
+            (2017, 'A/HRC/35/30',   'HRC 35th session', 'A human rights-based approach to integrated services and protection measures, with a focus on shelters and protection orders'),
+            (2017, 'A/72/134',      'GA 72nd session',  'Adequacy of the international legal framework on violence against women'),
+            (2016, 'A/HRC/32/42',   'HRC 32nd session', 'Vision-setting report of the Special Rapporteur'),
+            (2016, 'A/71/398',      'GA 71st session',  'Modalities for the establishment of femicides/gender-related killings watch'),
+            (2015, 'A/HRC/29/27',   'HRC 29th session', 'Existing legal standards and practices regarding violence against women in three regional human rights systems'),
+            (2015, 'A/70/209',      'GA 70th session',  'Closing the gap in international human rights law: lessons from three regional human rights systems'),
+            (2014, 'A/HRC/26/38',   'HRC 26th session', 'Violence against women: twenty years of developments to combat violence against women'),
+            (2014, 'A/69/368',      'GA 69th session',  'Violence against women as a barrier to the effective realization of all human rights'),
+            (2013, 'A/HRC/23/49',   'HRC 23rd session', 'State responsibility for eliminating violence against women'),
+            (2013, 'A/68/340',      'GA 68th session',  'Pathways to, conditions and consequences of incarceration for women'),
+            (2012, 'A/HRC/20/16',   'HRC 20th session', 'Gender-related killings of women'),
+            (2012, 'A/67/227',      'GA 67th session',  'Violence against women with disabilities'),
+            (2011, 'A/HRC/17/26',   'HRC 17th session', 'Multiple and intersecting forms of discrimination and violence against women'),
+            (2011, 'A/66/215',      'GA 66th session',  'Continuum of violence against women from the home to the transnational sphere'),
+            (2010, 'A/HRC/14/22',   'HRC 14th session', 'Reparations to women who have been subjected to violence'),
+            (2009, 'A/HRC/11/6',    'HRC 11th session', 'Political economy of women’s human rights'),
+            (2008, 'A/HRC/7/6',     'HRC 7th session',  'Indicators on violence against women and State response'),
+            (2007, 'A/HRC/4/34',    'HRC 4th session',  'Intersections between culture and violence against women'),
+            (2006, 'E/CN.4/2006/61', 'CHR 62nd session', 'The due diligence standard as a tool for the elimination of violence against women'),
+            (2005, 'E/CN.4/2005/72', 'CHR 61st session', 'Intersections of violence against women and HIV/AIDS'),
+            (2004, 'E/CN.4/2004/66', 'CHR 60th session', 'Towards an effective implementation of international norms to end violence against women'),
+            (2003, 'E/CN.4/2003/75', 'CHR 59th session', 'Integration of the human rights of women and the gender perspective'),
+            (2002, 'E/CN.4/2002/83', 'CHR 58th session', 'Cultural practices in the family that constitute violence towards women'),
+            (2001, 'E/CN.4/2001/73', 'CHR 57th session', 'Violence against women perpetrated or condoned by the State during times of armed conflict'),
+            (2000, 'E/CN.4/2000/68', 'CHR 56th session', 'Trafficking in women, women’s migration and violence against women'),
+            (1999, 'E/CN.4/1999/68', 'CHR 55th session', 'Violence against women in the family'),
+            (1998, 'E/CN.4/1998/54', 'CHR 54th session', 'Violence perpetrated or condoned by the State, including violence in times of armed conflict'),
+            (1997, 'E/CN.4/1997/47', 'CHR 53rd session', 'Violence in the community: sexual violence, trafficking in women and women migrant workers'),
+            (1996, 'E/CN.4/1996/53', 'CHR 52nd session', 'Violence in the family and domestic violence'),
+            (1995, 'E/CN.4/1995/42', 'CHR 51st session', 'Preliminary report of the Special Rapporteur on violence against women'),
+        ],
+    },
     'trafficking': {
         'committee_label': 'SR Trafficking',
         'full_name': 'Special Rapporteur on trafficking in persons, especially women and children',
