@@ -63,6 +63,63 @@ USER_AGENT = (
 # Mandate registry. Add new mandates here.
 # ---------------------------------------------------------------------------
 MANDATES: dict[str, dict] = {
+    'trafficking': {
+        'committee_label': 'SR Trafficking',
+        'full_name': 'Special Rapporteur on trafficking in persons, especially women and children',
+        # (year_max, name) — first row whose year_max >= report year.
+        # NB transition years: A/69/269 (2014) is Giammarinaro's, A/75/169
+        # (2020) is Mullally's; year-only rule maps them to the predecessor —
+        # corrected in specialprocedures_info.json post-ingest.
+        'mandate_holders': [
+            (2008, 'Sigma Huda'),
+            (2014, 'Joy Ngozi Ezeilo'),
+            (2020, 'Maria Grazia Giammarinaro'),
+            (9999, 'Siobhán Mullally'),
+        ],
+        # Catalogue transcribed from OHCHR's "Annual reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-trafficking-in-persons/annual-reports
+        # Thematic reports only — consultation/meeting addenda excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/166',      'GA 80th session',  'Child rights and child trafficking in conflict situations'),
+            (2025, 'A/HRC/59/56',  'HRC 59th session', 'Migrant domestic workers and trafficking in persons: prevention, rights protection and access to justice'),
+            (2024, 'A/79/161',      'GA 79th session',  'Trafficking in persons and gender and peace and security'),
+            (2024, 'A/HRC/56/60',  'HRC 56th session', 'Trafficking in persons, mixed migration and protection at sea'),
+            (2023, 'A/78/172',      'GA 78th session',  'Strengthening accountability for trafficking in persons in conflict situations'),
+            (2023, 'A/HRC/53/28',  'HRC 53rd session', 'Refugee protection, internal displacement and statelessness'),
+            (2022, 'A/77/170',      'GA 77th session',  'Gender dimensions of trafficking in persons in the context of climate change, displacement and disaster risk reduction'),
+            (2022, 'A/HRC/50/33',  'HRC 50th session', 'Trafficking in persons in the agriculture sector: human rights due diligence and sustainable development'),
+            (2021, 'A/76/263',      'GA 76th session',  'Intersections between trafficking in persons and terrorism'),
+            (2021, 'A/HRC/47/34',  'HRC 47th session', 'Implementation of the non-punishment principle'),
+            (2020, 'A/75/169',      'GA 75th session',  'Twenty years after: implementing and going beyond the Palermo Protocol towards a human rights-centred approach'),
+            (2020, 'A/HRC/44/45',  'HRC 44th session', 'Beyond law enforcement, towards social justice: an effective human rights-based approach to trafficking'),
+            (2019, 'A/74/189',      'GA 74th session',  'Access to remedy for victims of trafficking for abuses committed by businesses and their suppliers'),
+            (2019, 'A/HRC/41/46',  'HRC 41st session', 'Innovative and transformative models of social inclusion of survivors of trafficking'),
+            (2018, 'A/73/171',      'GA 73rd session',  'Gender dimension of trafficking in conflict and post-conflict settings (women, peace and security agenda)'),
+            (2018, 'A/HRC/38/45',  'HRC 38th session', 'Early identification, referral and protection of victims of trafficking in mixed migration movements'),
+            (2017, 'A/72/164',      'GA 72nd session',  'Joint study on the vulnerabilities of children to sale, trafficking and other forms of exploitation in conflict and humanitarian crisis'),
+            (2017, 'A/HRC/35/37',  'HRC 35th session', 'Strengthening voluntary standards for businesses on preventing and combating trafficking and labour exploitation in supply chains'),
+            (2016, 'A/71/303',      'GA 71st session',  'Trafficking in persons in conflict and post-conflict situations'),
+            (2016, 'A/HRC/32/41',  'HRC 32nd session', 'Trafficking in persons in conflict and post-conflict situations: protecting victims and people at risk'),
+            (2015, 'A/70/260',      'GA 70th session',  'Due diligence and trafficking in persons'),
+            (2015, 'A/HRC/29/38',  'HRC 29th session', 'Agenda setting of the work of the Special Rapporteur'),
+            (2014, 'A/69/269',      'GA 69th session',  'The first decade of the mandate; Basic Principles on the right to an effective remedy for victims of trafficking'),
+            (2014, 'A/HRC/26/37',  'HRC 26th session', 'Stocktaking exercise on the work of the mandate on its tenth anniversary'),
+            (2013, 'A/68/256',      'GA 68th session',  'Trafficking in persons for the removal of organs'),
+            (2013, 'A/HRC/23/48',  'HRC 23rd session', 'Integration of a human rights-based approach in measures to discourage the demand that fosters exploitation'),
+            (2012, 'A/67/261',      'GA 67th session',  'Human trafficking in supply chains'),
+            (2012, 'A/HRC/20/18',  'HRC 20th session', 'A human rights-based approach to the administration of criminal justice in cases of trafficking'),
+            (2011, 'A/66/283',      'GA 66th session',  'The right to an effective remedy for trafficked persons'),
+            (2011, 'A/HRC/17/35',  'HRC 17th session', 'The right to an effective remedy for trafficked persons'),
+            (2010, 'A/65/288',      'GA 65th session',  'Prevention of trafficking in persons'),
+            (2010, 'A/HRC/14/32',  'HRC 14th session', 'Regional and subregional cooperation in promoting a human rights-based approach to combating trafficking'),
+            (2009, 'A/64/290',      'GA 64th session',  'Identification, protection of and assistance to victims of trafficking'),
+            (2009, 'A/HRC/10/16',  'HRC 10th session', 'Mandate of the Special Rapporteur on trafficking in persons'),
+            (2007, 'A/HRC/4/23',   'HRC 4th session',  'Forced marriage in the context of trafficking in persons'),
+            (2006, 'E/CN.4/2006/62','CHR 62nd session', 'Demand for commercial sexual exploitation and trafficking'),
+            (2005, 'E/CN.4/2005/71','CHR 61st session', 'Mandate of the Special Rapporteur on trafficking in persons'),
+        ],
+    },
     'environment': {
         'committee_label': 'SR Environment',
         'full_name': 'Special Rapporteur on the human right to a clean, healthy and sustainable environment',
