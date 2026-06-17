@@ -1,11 +1,11 @@
 {
   "version": "20260617",
-  "builtAt": "2026-06-17T22:13:03+00:00",
+  "builtAt": "2026-06-17T22:28:28+00:00",
   "counts": {
-    "documents": 1532,
-    "paragraphs": 157191,
-    "shards": 44,
-    "committees": 44
+    "documents": 1546,
+    "paragraphs": 158490,
+    "shards": 45,
+    "committees": 45
   },
   "files": {
     "shards/sp_IE_Albinism.json": {
@@ -259,6 +259,12 @@
       "bytes": 2917167,
       "documents": 30,
       "paragraphs": 2785
+    },
+    "shards/sp_WG_Discrimination_against_Women_and_Girls.json": {
+      "sha": "05bd4b5b5893e500",
+      "bytes": 1320657,
+      "documents": 14,
+      "paragraphs": 1299
     },
     "shards/sp_WG_Enforced_Disappearances.json": {
       "sha": "e0716b7501af3277",

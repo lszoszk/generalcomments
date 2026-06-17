@@ -33724,5 +33724,313 @@
     "languagesAvailable": [
       "en"
     ]
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_59_45.json",
+    "Name": "Gendered dimensions of care and support systems",
+    "Simplified Name": "Gendered dimensions of care and support systems",
+    "Signature": "A/HRC/59/45",
+    "Adoption Date": "2025",
+    "Adoption Year": 2025,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 59th session",
+    "Link": "https://docs.un.org/en/A/HRC/59/45",
+    "reportType": "thematic",
+    "paragraphCount": 61,
+    "wordCount": 10808,
+    "labelCount": 140,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 59
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_56_51.json",
+    "Name": "Escalating backlash against gender equality and the urgency of reaffirming substantive equality and the human rights of women and girls",
+    "Simplified Name": "Escalating backlash against gender equality and the urgency of reaffirming substantive equ",
+    "Signature": "A/HRC/56/51",
+    "Adoption Date": "2024",
+    "Adoption Year": 2024,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 56th session",
+    "Link": "https://docs.un.org/en/A/HRC/56/51",
+    "reportType": "thematic",
+    "paragraphCount": 100,
+    "wordCount": 11010,
+    "labelCount": 147,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 56
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_53_39.json",
+    "Name": "Gendered inequalities of poverty: feminist and human rights-based approaches",
+    "Simplified Name": "Gendered inequalities of poverty: feminist and human rights-based approaches",
+    "Signature": "A/HRC/53/39",
+    "Adoption Date": "2023",
+    "Adoption Year": 2023,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 53rd session",
+    "Link": "https://docs.un.org/en/A/HRC/53/39",
+    "reportType": "thematic",
+    "paragraphCount": 65,
+    "wordCount": 11108,
+    "labelCount": 133,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 53
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_50_25.json",
+    "Name": "Girls' and young women's activism",
+    "Simplified Name": "Girls' and young women's activism",
+    "Signature": "A/HRC/50/25",
+    "Adoption Date": "2022",
+    "Adoption Year": 2022,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 50th session",
+    "Link": "https://docs.un.org/en/A/HRC/50/25",
+    "reportType": "thematic",
+    "paragraphCount": 89,
+    "wordCount": 10823,
+    "labelCount": 141,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 50
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_47_38.json",
+    "Name": "Women's and girls' sexual and reproductive health rights in crisis",
+    "Simplified Name": "Women's and girls' sexual and reproductive health rights in crisis",
+    "Signature": "A/HRC/47/38",
+    "Adoption Date": "2021",
+    "Adoption Year": 2021,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 47th session",
+    "Link": "https://docs.un.org/en/A/HRC/47/38",
+    "reportType": "thematic",
+    "paragraphCount": 99,
+    "wordCount": 11140,
+    "labelCount": 154,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 47
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_44_51.json",
+    "Name": "Women's human rights in the changing world of work",
+    "Simplified Name": "Women's human rights in the changing world of work",
+    "Signature": "A/HRC/44/51",
+    "Adoption Date": "2020",
+    "Adoption Year": 2020,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 44th session",
+    "Link": "https://docs.un.org/en/A/HRC/44/51",
+    "reportType": "thematic",
+    "paragraphCount": 68,
+    "wordCount": 10488,
+    "labelCount": 90,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 44
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_41_33.json",
+    "Name": "Women deprived of liberty",
+    "Simplified Name": "Women deprived of liberty",
+    "Signature": "A/HRC/41/33",
+    "Adoption Date": "2019",
+    "Adoption Year": 2019,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 41st session",
+    "Link": "https://docs.un.org/en/A/HRC/41/33",
+    "reportType": "thematic",
+    "paragraphCount": 91,
+    "wordCount": 10705,
+    "labelCount": 167,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 41
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_38_46.json",
+    "Name": "Reasserting equality, countering rollbacks",
+    "Simplified Name": "Reasserting equality, countering rollbacks",
+    "Signature": "A/HRC/38/46",
+    "Adoption Date": "2018",
+    "Adoption Year": 2018,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 38th session",
+    "Link": "https://docs.un.org/en/A/HRC/38/46",
+    "reportType": "thematic",
+    "paragraphCount": 110,
+    "wordCount": 11260,
+    "labelCount": 119,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 38
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_35_29.json",
+    "Name": "Compendium of good practices in the elimination of discrimination against women",
+    "Simplified Name": "Compendium of good practices in the elimination of discrimination against women",
+    "Signature": "A/HRC/35/29",
+    "Adoption Date": "2017",
+    "Adoption Year": 2017,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 35th session",
+    "Link": "https://docs.un.org/en/A/HRC/35/29",
+    "reportType": "thematic",
+    "paragraphCount": 114,
+    "wordCount": 10482,
+    "labelCount": 117,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 35
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_32_44.json",
+    "Name": "Eliminating discrimination against women in the area of health and safety, with a focus on the instrumentalization of women's bodies",
+    "Simplified Name": "Eliminating discrimination against women in the area of health and safety, with a focus on",
+    "Signature": "A/HRC/32/44",
+    "Adoption Date": "2016",
+    "Adoption Year": 2016,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 32nd session",
+    "Link": "https://docs.un.org/en/A/HRC/32/44",
+    "reportType": "thematic",
+    "paragraphCount": 114,
+    "wordCount": 10326,
+    "labelCount": 183,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 32
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_29_40.json",
+    "Name": "Eliminating discrimination against women in cultural and family life, with a focus on the family as a cultural space",
+    "Simplified Name": "Eliminating discrimination against women in cultural and family life, with a focus on the ",
+    "Signature": "A/HRC/29/40",
+    "Adoption Date": "2015",
+    "Adoption Year": 2015,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 29th session",
+    "Link": "https://docs.un.org/en/A/HRC/29/40",
+    "reportType": "thematic",
+    "paragraphCount": 78,
+    "wordCount": 9273,
+    "labelCount": 94,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 29
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_26_39.json",
+    "Name": "Eliminating discrimination against women in economic and social life, with a focus on economic crisis",
+    "Simplified Name": "Eliminating discrimination against women in economic and social life, with a focus on econ",
+    "Signature": "A/HRC/26/39",
+    "Adoption Date": "2014",
+    "Adoption Year": 2014,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 26th session",
+    "Link": "https://docs.un.org/en/A/HRC/26/39",
+    "reportType": "thematic",
+    "paragraphCount": 147,
+    "wordCount": 10382,
+    "labelCount": 150,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 26
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_23_50.json",
+    "Name": "Eliminating discrimination against women in political and public life, with a focus on political transition",
+    "Simplified Name": "Eliminating discrimination against women in political and public life, with a focus on pol",
+    "Signature": "A/HRC/23/50",
+    "Adoption Date": "2013",
+    "Adoption Year": 2013,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 23rd session",
+    "Link": "https://docs.un.org/en/A/HRC/23/50",
+    "reportType": "thematic",
+    "paragraphCount": 104,
+    "wordCount": 10617,
+    "labelCount": 112,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 23
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Discrimination_against_Women_and_Girls_A_HRC_20_28.json",
+    "Name": "Annual report of the Working Group on discrimination against women in law and in practice",
+    "Simplified Name": "Annual report of the Working Group on discrimination against women in law and in practice",
+    "Signature": "A/HRC/20/28",
+    "Adoption Date": "2012",
+    "Adoption Year": 2012,
+    "Committee": "WG Discrimination against Women and Girls",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 20th session",
+    "Link": "https://docs.un.org/en/A/HRC/20/28",
+    "reportType": "thematic",
+    "paragraphCount": 59,
+    "wordCount": 6788,
+    "labelCount": 62,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 20
   }
 ]

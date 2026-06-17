@@ -1008,6 +1008,38 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'wg-women': {
+        'committee_label': 'WG Discrimination against Women and Girls',
+        'full_name': 'Working Group on discrimination against women and girls',
+        # Collective body (created 2010, HRC res 15/23; formerly "WG on the
+        # issue of discrimination against women in law and in practice").
+        # Every report attributed to "Working Group"; no holder transitions.
+        # Reports annually to HRC only (no GA reports). From OHCHR
+        # annual-thematic-reports page; one report per year 2012-2026.
+        'mandate_holders': [
+            (9999, 'Working Group'),
+        ],
+        'reports': [
+            # NB A/HRC/62/48 unfetchable — symbol-access API 301-redirects to an
+            # internal UN host (10.208.14.31; common for very recent June-2026
+            # docs not yet on the public CDN). 14/15 present (N-1); re-try later.
+            (2026, 'A/HRC/62/48', 'HRC 62nd session', "Women's and girls' rights and artificial intelligence and related digital technologies"),
+            (2025, 'A/HRC/59/45', 'HRC 59th session', 'Gendered dimensions of care and support systems'),
+            (2024, 'A/HRC/56/51', 'HRC 56th session', 'Escalating backlash against gender equality and the urgency of reaffirming substantive equality and the human rights of women and girls'),
+            (2023, 'A/HRC/53/39', 'HRC 53rd session', 'Gendered inequalities of poverty: feminist and human rights-based approaches'),
+            (2022, 'A/HRC/50/25', 'HRC 50th session', "Girls' and young women's activism"),
+            (2021, 'A/HRC/47/38', 'HRC 47th session', "Women's and girls' sexual and reproductive health rights in crisis"),
+            (2020, 'A/HRC/44/51', 'HRC 44th session', "Women's human rights in the changing world of work"),
+            (2019, 'A/HRC/41/33', 'HRC 41st session', 'Women deprived of liberty'),
+            (2018, 'A/HRC/38/46', 'HRC 38th session', 'Reasserting equality, countering rollbacks'),
+            (2017, 'A/HRC/35/29', 'HRC 35th session', 'Compendium of good practices in the elimination of discrimination against women'),
+            (2016, 'A/HRC/32/44', 'HRC 32nd session', "Eliminating discrimination against women in the area of health and safety, with a focus on the instrumentalization of women's bodies"),
+            (2015, 'A/HRC/29/40', 'HRC 29th session', 'Eliminating discrimination against women in cultural and family life, with a focus on the family as a cultural space'),
+            (2014, 'A/HRC/26/39', 'HRC 26th session', 'Eliminating discrimination against women in economic and social life, with a focus on economic crisis'),
+            (2013, 'A/HRC/23/50', 'HRC 23rd session', 'Eliminating discrimination against women in political and public life, with a focus on political transition'),
+            (2012, 'A/HRC/20/28', 'HRC 20th session', 'Annual report of the Working Group on discrimination against women in law and in practice'),
+        ],
+    },
     'wg-mercenaries': {
         'committee_label': 'WG Mercenaries',
         'full_name': 'Working Group on the use of mercenaries as a means of violating human rights and impeding the exercise of the right of peoples to self-determination',
