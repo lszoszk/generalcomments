@@ -1,19 +1,10 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-06-17T07:45:10.154425+00:00",
-  "finishedAt": "2026-06-17T08:08:31.121557+00:00",
-  "totalUnique": 1255,
-  "totalRecords": 1256,
-  "okCount": 1254,
-  "brokenCount": 1,
-  "broken": [
-    {
-      "signature": "A/55/280",
-      "docName": "Contribution to the World Conference against Racism, Racial Discrimination, Xenophobia and Related Intolerance",
-      "committee": "SR Freedom of Religion or Belief",
-      "link": "https://undocs.org/A/55/280",
-      "status": 0,
-      "reason": "URLError: timed out"
-    }
-  ]
+  "checkedAt": "2026-06-17T08:21:44.550842+00:00",
+  "finishedAt": "2026-06-17T08:35:03.863633+00:00",
+  "totalUnique": 1290,
+  "totalRecords": 1291,
+  "okCount": 1290,
+  "brokenCount": 0,
+  "broken": []
 }
