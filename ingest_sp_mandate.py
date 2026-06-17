@@ -906,6 +906,41 @@ MANDATES: dict[str, dict] = {
             (2012, 'A/HRC/21/46', 'HRC 21st session', 'Foundation of the mandate and the comprehensive approach to transitional justice'),
         ],
     },
+    'development': {
+        'committee_label': 'SR Development',
+        'full_name': 'Special Rapporteur on the right to development',
+        # (year_max, name) ascending. Mandate established 2016. Alfarargi
+        # (May 2017–April 2023), Deva (May 2023–). Clean 2022/2023 boundary
+        # (no transition fixes).
+        'mandate_holders': [
+            (2022, 'Saad Alfarargi'),
+            (9999, 'Surya Deva'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-development/annual-thematic-reports
+        # Thematic series (GA + HRC) 2017–2025. A/72/163 (2017 "Note by the
+        # Secretariat", a procedural pointer to A/HRC/36/49) excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/206',    'GA 80th session',  'Financing for inclusive, sustainable and participatory development'),
+            (2025, 'A/HRC/60/25', 'HRC 60th session', 'The nexus between gender equality and the right to development'),
+            (2024, 'A/79/168',    'GA 79th session',  'Climate justice: loss and damage'),
+            (2024, 'A/HRC/57/43', 'HRC 57th session', 'The right to development of children and future generations'),
+            (2023, 'A/78/160',    'GA 78th session',  'The role of business in realizing the right to development'),
+            (2023, 'A/HRC/54/27', 'HRC 54th session', 'Reinvigorating the right to development: a vision for the future'),
+            (2022, 'A/77/174',    'GA 77th session',  'COVID-19 response and recovery plans and the right to development (international level)'),
+            (2022, 'A/HRC/51/30', 'HRC 51st session', 'COVID-19 response and recovery plans and the right to development (national level)'),
+            (2021, 'A/76/154',    'GA 76th session',  'Climate action and the right to development (international level)'),
+            (2021, 'A/HRC/48/56', 'HRC 48th session', 'Climate action and the right to development (national level)'),
+            (2020, 'A/75/167',    'GA 75th session',  'Financing for development (international level)'),
+            (2020, 'A/HRC/45/15', 'HRC 45th session', 'Financing for development (national level)'),
+            (2019, 'A/74/163',    'GA 74th session',  'Disaster risk reduction and the right to development'),
+            (2019, 'A/HRC/42/38', 'HRC 42nd session', 'Guidelines and recommendations on the practical implementation of the right to development'),
+            (2018, 'A/73/271',    'GA 73rd session',  'South-South cooperation and the right to development'),
+            (2018, 'A/HRC/39/51', 'HRC 39th session', 'Inequality and the right to development'),
+            (2017, 'A/HRC/36/49', 'HRC 36th session', 'Preliminary views, challenges and strategy of the Special Rapporteur'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
