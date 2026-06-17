@@ -1,10 +1,1123 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-06-17T21:31:08.661750+00:00",
-  "finishedAt": "2026-06-17T21:38:52.341093+00:00",
-  "totalUnique": 1620,
-  "totalRecords": 1621,
-  "okCount": 1620,
-  "brokenCount": 0,
-  "broken": []
+  "checkedAt": "2026-06-17T21:46:14.010446+00:00",
+  "finishedAt": "2026-06-17T23:01:28.201313+00:00",
+  "totalUnique": 1650,
+  "totalRecords": 1651,
+  "okCount": 1512,
+  "brokenCount": 139,
+  "broken": [
+    {
+      "signature": "A/HRC/55/46",
+      "docName": "Legal safeguards for personal data protection and privacy in the digital age",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/55/46",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/74/277",
+      "docName": "The protection and use of health-related data",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/74/277",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/43/52",
+      "docName": "Security and surveillance, health data, and business enterprises use of personal data",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/43/52",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/52/37",
+      "docName": "Implementation of the principles of purpose limitation, deletion of data and demonstrated or proactive accountability in",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/52/37",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/75/147",
+      "docName": "Preliminary evaluation of the privacy dimensions of the coronavirus disease (COVID-19) pandemic",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/75/147",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/77/196",
+      "docName": "Privacy and data protection: Increasingly precious asset in digital era",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/77/196",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/58/58",
+      "docName": "Foundations and principles for the regulation of neurotechnologies and the processing of neurodata from the perspective ",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/58/58",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/46/37",
+      "docName": "Artificial intelligence and privacy, and children’s privacy",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/46/37",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/76/220",
+      "docName": "How pandemics can be managed with respect to the right to privacy",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/76/220",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/78/310",
+      "docName": "Principles of transparency and explainability in the processing of personal data in artificial intelligence",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/78/310",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/49/55",
+      "docName": "Privacy and personal data protection in Ibero-America: A step towards globalization?",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/49/55",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/79/173",
+      "docName": "Proposal for the updating of General Assembly resolution 45/95 of 14 December 1990, entitled “Guidelines for the regulat",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/79/173",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/53/25",
+      "docName": "Sustainable development and freedom of expression: why voice matters",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/53/25",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/78/288",
+      "docName": "Gendered disinformation and its implications for the right to freedom of expression",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/78/288",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/77/288",
+      "docName": "Disinformation and freedom of opinion and expression during armed conflicts",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/77/288",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/34/60",
+      "docName": "Governmental surveillance activities from a national and international perspective",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/34/60",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/37/62",
+      "docName": "Security and Surveillance",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/37/62",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/73/438",
+      "docName": "Big Data and Open Data",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/73/438",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/40/63",
+      "docName": "Privacy, technology and other human rights from a gender perspective",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/40/63",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/79/319",
+      "docName": "Global threats to freedom of expression arising from the conflict in Gaza",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/79/319",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/56/53",
+      "docName": "Journalists in exile",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/56/53",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/71/368",
+      "docName": "Early mandate report: activities so far, Task force, events and developments",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/71/368",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/31/64",
+      "docName": "First mandate report",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/HRC/31/64",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/72/540",
+      "docName": "Big Data and Open Data interim report",
+      "committee": "SR Privacy",
+      "link": "https://docs.un.org/en/A/72/540",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/47/25",
+      "docName": "Disinformation and freedom of opinion and expression",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/47/25",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/76/258",
+      "docName": "Gender justice and freedom of opinion and expression",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/76/258",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/50/29",
+      "docName": "Reinforcing media freedom and safety of journalists in the digital age",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/50/29",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/41/35",
+      "docName": "Surveillance and human rights",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/41/35",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/72/350",
+      "docName": "Access to information in international organizations",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/72/350",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/44/49",
+      "docName": "Disease pandemics and the freedom of opinion and expression",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/44/49",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/38/35",
+      "docName": "Online content regulation",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/38/35",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/71/373",
+      "docName": "Contemporary challenges to freedom of expression",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/71/373",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/74/486",
+      "docName": "Online hate speech",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/74/486",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/75/261",
+      "docName": "Academic freedom",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/75/261",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/44/49/Add.2",
+      "docName": "Artistic freedom of expression",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/75/261",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/73/348",
+      "docName": "Artificial Intelligence technologies and implications for the information environment",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/73/348",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/70/361",
+      "docName": "The protection of sources and whistleblowers",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/70/361",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/32/38",
+      "docName": "Freedom of expression, states and the private sector in the digital age",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/32/38",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/69/335",
+      "docName": "The right of the child to freedom of expression",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/69/335",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/26/30",
+      "docName": "The right to freedom of expression in electoral context",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/26/30",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/11/4",
+      "docName": "Limitations to the right to freedom of expression, safety and protection of journalists and media professionals in confl",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/11/4",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/17/27",
+      "docName": "Key trends and challenges to the right of all individuals to seek, receive and impart information and ideas of all kinds",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/17/27",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/66/290",
+      "docName": "The right to freedom of opinion and expression exercised through the Internet",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/66/290",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/68/362",
+      "docName": "The right to access information",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/68/362",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/14/23",
+      "docName": "Groups in need of attention, limitations to the right to freedom of expression, and protection of journalists",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/14/23",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/20/17",
+      "docName": "The protection of journalists and media freedom",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/20/17",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/23/40",
+      "docName": "The implications ofStates’ surveillance of communications on the exercise of the human rights to privacy and to freedom ",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/23/40",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/67/357",
+      "docName": "Hate speech and incitement to hatred",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/67/357",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2005/64",
+      "docName": "Implementing the right of access to information and protection and security of media professionals",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/2005/64",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2003/67",
+      "docName": "Access to information for the purposes of education on and prevention of HIV and counter-terrorism measures",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/2003/67",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2004/62",
+      "docName": "Implementing the right to access to information, access to information for purposes of education on and prevention of HI",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/2004/62",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/7/14",
+      "docName": "Access to information, safety and protection of journalists and media professionals, legal restrictions on freedom of ex",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/4/27&Lang=E",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/4/27",
+      "docName": "Thematic visit to Denmark, Internet governance and digital democracy, decriminalization of defamation offences, and secu",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/A/HRC/7/14",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1998/40",
+      "docName": "The right to seek and receive information, the media in countries of transition and in elections, the impact of new info",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/1998/40",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1996/39",
+      "docName": "Report of the Special Rapporteur , Mr. Abid Hussain, pursuant to Commission on Human Rights resolution 1993/45. Terms of",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/1996/39",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1999/64",
+      "docName": "The right to seek and receive information, national security laws, criminal libel, new information technologies, and wom",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/1999/64",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2001/64",
+      "docName": "Non-State actors, new technologies, and women",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/2001/64",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2002/75",
+      "docName": "World Conference against Racism, Racial Discrimination, Xenophobia and Related Intolerance, events of 11 September, broa",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/2002/75",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2000/63",
+      "docName": "Access to information, criminal libel and defamation, the police and the criminal justice system, and new technologies",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/2000/63",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1994/33",
+      "docName": "Report of the Special Rapporteur , Mr. Abid Hussain, pursuant to Commission on Human Rights resolution 1993/45. Terms of",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/1994/33",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1995/32",
+      "docName": "The nature and scope of the right to freedom of opinion and expression and restrictions and limitations to the right to ",
+      "committee": "SR Freedom of Expression",
+      "link": "https://docs.un.org/en/E/CN.4/1995/32",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/59/366",
+      "docName": "Communications; In situ visits; Prevention activities",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/59/366",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/60/399",
+      "docName": "The question of conversion; The freedom of religion or belief of detainees",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/60/399",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/54/386",
+      "docName": "Interim report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/54/386",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/57/274",
+      "docName": "Follow-up to the International Consultative Conference on School Education in relation with Freedom of Religion and Beli",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/57/274",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/58/296",
+      "docName": "Summary of cases transmitted to Governments and replies received. Follow-up to the International Consultative Conference",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/58/296",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/52/477",
+      "docName": "Interim report of the Special Rapporteur on the elimination of all forms of religious intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/52/477",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/56/253",
+      "docName": "Interreligious dialogue; Cooperation with non-governmental organizations",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/56/253",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/55/280",
+      "docName": "Contribution to the World Conference against Racism, Racial Discrimination, Xenophobia and Related Intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/55/280",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/53/279",
+      "docName": "Interim report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/53/279",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/66/156",
+      "docName": "The role of the State in promotinginterreligious communication",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/66/156",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/68/290",
+      "docName": "Freedom of religion or belief and equality between men and women",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/68/290",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/69/261",
+      "docName": "Tackling religious intolerance and discrimination in the workplace",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/69/261",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/75/385",
+      "docName": "Safeguarding freedom of religion or belief for the successful implementation of the 2030 Agenda for Sustainable Developm",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/75/385",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/62/280",
+      "docName": "Situation of refugees, asylum seekers and internally displaced persons; situation of persons with atheistic or non-theis",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/62/280",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/70/286",
+      "docName": "The rights of the child and his or her parents in the area of freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/70/286",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/64/159",
+      "docName": "Situation of persons in vulnerable situations, including persons deprived of their liberty, refugees, asylum-seekers and",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/64/159",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/71/269",
+      "docName": "The broad range of violations of freedom of religion or belief, their root causes and variables",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/71/269",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/50/440",
+      "docName": "Interim report of the Special Rapporteur on the elimination of all forms of religious intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/50/440",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/63/161",
+      "docName": "Citizenship issues and religious discrimination in administrative procedures",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/63/161",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/CONF.211/PC/WG.1/5",
+      "docName": "Joint report pursuant to decision PC.1/10 of the Preparatory Committee of the Durban Review Conference",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/CONF.211/PC/WG.1/5",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/51/542",
+      "docName": "Interim report of the Special Rapporteur on the elimination of all forms of religious intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/51/542",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/61/340",
+      "docName": "Patterns and trends in freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/61/340",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/10/8/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/10/8/Add.1",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/65/207",
+      "docName": "Efforts to protect and promote freedom of thought, conscience and religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/65/207",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/67/303",
+      "docName": "The right of conversion as part offreedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/67/303",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/12/21",
+      "docName": "The practice of bonded labour",
+      "committee": "SR Contemporary Slavery",
+      "link": "https://undocs.org/A/HRC/12/21",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/CONF.189/PC.1/7",
+      "docName": "Preparatory Committee for the study entitled “Racial discrimination and religious discrimination: identification and mea",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/CONF.189/PC.1/7",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/13/40",
+      "docName": "Early warning signs of discrimination and violence on the grounds or in the name of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/13/40",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/16/53",
+      "docName": "Freedom of religion or belief and school education",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/16/53",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/16/53/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/16/53/Add.1",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/19/60",
+      "docName": "The freedom of religion or belief and recognition issues",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/19/60",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/18/56",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/18/56",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/21/58",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/21/58",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/1/15",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/1/15",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/22/51",
+      "docName": "Freedom of religion or belief of persons belonging to religious minorities",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/22/51",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/24/20",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/24/20",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/27/74",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/27/74",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/25/58",
+      "docName": "Tackling manifestations of collective religious hatred",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/25/58",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/28/66",
+      "docName": "Preventing violence committed in the name of religion",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/28/66",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/31/18",
+      "docName": "Two closely interrelated rights: freedom of religion or belief and freedom of opinion and expression",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/31/18",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/2/3",
+      "docName": "Incitement to racial and religious hatred and the promotion of tolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/2/3",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/30/46",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/30/46",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/10/8",
+      "docName": "Discrimination based on religion or belief and its impact on the enjoyment of economic, social and cultural rights",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/10/8",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/CONF.189/PC.2/22",
+      "docName": "Preparatory Committee the study entitled “Racial discrimination, religious intolerance and education”",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/CONF.189/PC.2/22",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/13/40/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/13/40/Add.1",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/4/21",
+      "docName": "Vulnerable situation of women. Violations linked to counter-terrorism measures. Religious minorities and new religious m",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/4/21",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/4/21/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/4/21/Add.1",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/43/48",
+      "docName": "Freedom of religion or belief and Gender Equality",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/HRC/43/48",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/37/49",
+      "docName": "State-Religion Relationships and their Impact on Freedom of Religion or Belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/HRC/37/49",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/40/58",
+      "docName": "Restrictions imposed on expression on account of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/HRC/40/58",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/6/5",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/6/5",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1987/35",
+      "docName": "Report of the Special Rapporteur on Religious Intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1987/35",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1988/45",
+      "docName": "Report of the Special Rapporteur on Religious Intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1988/45",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/77/514",
+      "docName": "Interim report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/77/514",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/76/380",
+      "docName": "The Freedom of Thought",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/76/380",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/72/365",
+      "docName": "The increase in religious intolerance worldwide and the gap between international commitments to combat intolerant acts ",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/72/365",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/55/47",
+      "docName": "Advocacy of hatred based on religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/HRC/55/47",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/15/53",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/15/53",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/79/182",
+      "docName": "Peace and freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/79/182",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/58/49",
+      "docName": "Freedom of religion or belief and the prohibition of torture and other cruel, inhuman or degrading treatment or punishme",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/HRC/58/49",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1993/62",
+      "docName": "Report of the Special Rapporteur on Religious Intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1993/62",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/52/38",
+      "docName": "Landscape of freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/HRC/52/38",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1988/45/Add.1",
+      "docName": "Addendum to the report of the Special Rapporteur on Religious Intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1988/45/Add.1",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1998/6",
+      "docName": "Report by the Special Rapporteur on religious intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1998/6",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1999/58",
+      "docName": "Report of the Special Rapporteur on religious intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1999/58",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/7/10/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/7/10/Add.1",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1992/52",
+      "docName": "Report of the Special Rapporteur on Religious Intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1992/52",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1995/91",
+      "docName": "Report of the Special Rapporteur on Religious Intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1995/91",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/49/44",
+      "docName": "Religious or belief minorities in situations of conflict and insecurity",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/HRC/49/44",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1996/95",
+      "docName": "Report of the Special Rapporteur on religious intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1996/95",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2004/63",
+      "docName": "Education; Inter-religious dialogue",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/2004/63",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2005/61",
+      "docName": "Human rights violations committed because of religion or belief; Inter-religious violence and non-State actors; Conversi",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/2005/61",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2005/61/Add.1",
+      "docName": "Summary of cases transmitted to Governments and replies received",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/2005/61/Add.1",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2006/120",
+      "docName": "Joint report on the situation of detainees at Guantánamo Bay",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/2006/120",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/2006/5",
+      "docName": "Framework for communications. Display of religious symbols from an international human rights perspective",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/2006/5",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/34/50",
+      "docName": "Perspective and vision for the mandate by new Special Rapporteur",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://docs.un.org/en/A/HRC/34/50",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "E/CN.4/1989/44",
+      "docName": "Report of the Special Rapporteur on Religious Intolerance",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/E/CN.4/1989/44",
+      "status": 403,
+      "reason": "Forbidden"
+    },
+    {
+      "signature": "A/HRC/58/56",
+      "docName": "Thirty years of implementation of the Beijing Declaration and Platform for Action: its potential for women and girls wit",
+      "committee": "SR Disability",
+      "link": "https://docs.un.org/en/A/HRC/58/56",
+      "status": 403,
+      "reason": "Forbidden"
+    }
+  ]
 }
