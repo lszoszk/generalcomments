@@ -1,10 +1,19 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-06-17T21:00:24.416307+00:00",
-  "finishedAt": "2026-06-17T21:07:42.774185+00:00",
-  "totalUnique": 1539,
-  "totalRecords": 1540,
-  "okCount": 1539,
-  "brokenCount": 0,
-  "broken": []
+  "checkedAt": "2026-06-17T21:12:30.332036+00:00",
+  "finishedAt": "2026-06-17T21:20:28.208541+00:00",
+  "totalUnique": 1575,
+  "totalRecords": 1576,
+  "okCount": 1574,
+  "brokenCount": 1,
+  "broken": [
+    {
+      "signature": "A/54/386",
+      "docName": "Interim report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/54/386",
+      "status": 0,
+      "reason": "URLError: timed out"
+    }
+  ]
 }
