@@ -980,6 +980,34 @@ MANDATES: dict[str, dict] = {
             (2015, 'A/HRC/30/45', 'HRC 30th session', 'Negative impact of unilateral coercive measures on the enjoyment of human rights (2015)'),
         ],
     },
+    'climate-change': {
+        'committee_label': 'SR Climate Change',
+        'full_name': 'Special Rapporteur on the promotion and protection of human rights in the context of climate change',
+        # (year_max, name) ascending. Mandate established Oct 2021; first SR
+        # Ian Fry (May 2022–Dec 2023), Elisa Morgera (2024–). Clean 2023/2024
+        # boundary (no transition fixes).
+        'mandate_holders': [
+            (2023, 'Ian Fry'),
+            (9999, 'Elisa Morgera'),
+        ],
+        # Catalogue cross-verified against OHCHR document pages (the dynamic
+        # documents-listing reports page is WAF-blocked to the scraper).
+        # Complete by session contiguity: one HRC + one GA thematic report
+        # per year since mid-2022 (HRC sessions 50/53/56/59/62; GA 77-80).
+        # Country-visit addenda excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/62/44', 'HRC 62nd session', 'Transforming food systems for a safe climate and health for all'),
+            (2025, 'A/80/188',    'GA 80th session',  'A human rights-based approach to the energy transition'),
+            (2025, 'A/HRC/59/42', 'HRC 59th session', 'The imperative of defossilizing our economies'),
+            (2024, 'A/79/176',    'GA 79th session',  'Access to information on climate change and human rights'),
+            (2024, 'A/HRC/56/46', 'HRC 56th session', 'Scene-setting report: vision and priorities of the new Special Rapporteur'),
+            (2023, 'A/78/255',    'GA 78th session',  'Enhancing climate change legislation, supporting climate litigation and advancing intergenerational justice'),
+            (2023, 'A/HRC/53/34', 'HRC 53rd session', 'Providing legal options to protect the human rights of persons displaced across international borders due to climate change'),
+            (2022, 'A/77/226',    'GA 77th session',  'Promotion and protection of human rights in the context of climate change'),
+            (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
