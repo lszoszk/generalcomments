@@ -941,6 +941,45 @@ MANDATES: dict[str, dict] = {
             (2017, 'A/HRC/36/49', 'HRC 36th session', 'Preliminary views, challenges and strategy of the Special Rapporteur'),
         ],
     },
+    'unilateral-coercive-measures': {
+        'committee_label': 'SR Unilateral Coercive Measures',
+        'full_name': 'Special Rapporteur on the negative impact of unilateral coercive measures on the enjoyment of human rights',
+        # (year_max, name) ascending. Mandate created 2014; first SR Jazairy
+        # (2015–July 2020, died in office), Douhan (Aug 2020–). Clean
+        # 2019/2020 boundary (no transition fixes).
+        'mandate_holders': [
+            (2019, 'Idriss Jazairy'),
+            (9999, 'Alena Douhan'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-unilateral-coercive-measures/annual-thematic-reports
+        # ONLY the SR's own thematic reports (HRC 2015–2025, GA 2019–2025).
+        # Excluded: pre-2015 / parallel Secretary-General reports, OHCHR
+        # thematic study (A/HRC/19/33), HRC Advisory Committee report
+        # (A/HRC/28/74), workshop proceedings (A/HRC/24/20, A/HRC/27/32),
+        # Notes by the Secretariat, addenda and corrigenda.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/208',    'GA 80th session',  'Impact of unilateral coercive measures on the right to education and other academic rights'),
+            (2025, 'A/HRC/60/36', 'HRC 60th session', 'The impact of unilateral coercive measures on economic, labour and social rights'),
+            (2024, 'A/79/183',    'GA 79th session',  'Access to justice in the face of unilateral sanctions and overcompliance'),
+            (2024, 'A/HRC/57/55', 'HRC 57th session', 'Monitoring and assessment of the impact of unilateral sanctions and overcompliance on human rights'),
+            (2023, 'A/78/196',    'GA 78th session',  'Secondary sanctions, overcompliance and human rights'),
+            (2023, 'A/HRC/54/23', 'HRC 54th session', 'Impact of unilateral coercive measures on the right to health'),
+            (2022, 'A/77/296',    'GA 77th session',  'Unilateral sanctions in the cyberworld: tendencies and challenges'),
+            (2022, 'A/HRC/51/33', 'HRC 51st session', 'Secondary sanctions, penalties for circumvention of sanctions regimes, and over-compliance'),
+            (2021, 'A/76/174/Rev.1', 'GA 76th session', 'Targets of unilateral coercive measures: notion, categories and vulnerable groups'),
+            (2021, 'A/HRC/48/59', 'HRC 48th session', 'Unilateral coercive measures: notion, types and qualification'),
+            (2020, 'A/75/209',    'GA 75th session',  'Impact of unilateral sanctions on the enjoyment of human rights during the COVID-19 pandemic'),
+            (2020, 'A/HRC/45/7',  'HRC 45th session', 'Current developments and challenges in the application of unilateral sanctions; road map of the new mandate holder'),
+            (2019, 'A/74/165',    'GA 74th session',  'Legal issues arising from unilateral coercive measures that become blockades'),
+            (2019, 'A/HRC/42/46', 'HRC 42nd session', 'Impact of unilateral coercive measures in eight countries and emerging norms against extraterritorial sanctions'),
+            (2018, 'A/HRC/39/54', 'HRC 39th session', 'Impact of unilateral coercive measures on the enjoyment of human rights'),
+            (2017, 'A/HRC/36/44', 'HRC 36th session', 'Negative impact of unilateral coercive measures on the enjoyment of human rights (2017)'),
+            (2016, 'A/HRC/33/48', 'HRC 33rd session', 'Negative impact of unilateral coercive measures on the enjoyment of human rights (2016)'),
+            (2015, 'A/HRC/30/45', 'HRC 30th session', 'Negative impact of unilateral coercive measures on the enjoyment of human rights (2015)'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
