@@ -1008,6 +1008,62 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'sr-slavery': {
+        'committee_label': 'SR Contemporary Slavery',
+        'full_name': 'Special Rapporteur on contemporary forms of slavery, including its causes and consequences',
+        # (year_max, name) ascending. Mandate created 2007 (HRC res 6/14).
+        # Shahinian (2008-2014), Bhoola (2014-2020), Obokata (2020-).
+        # NB transitions (handover-year report is the SUCCESSOR's priorities/
+        # vision report; year-only rule misattributes to the predecessor):
+        #   A/HRC/27/53 (2014) -> Bhoola ("priorities as new mandate holder")
+        #   A/75/166    (2020) -> Obokata ("priority focus areas as new mandate holder")
+        # (The handover-year HRC report A/HRC/45/8 2020 correctly stays Bhoola
+        # under the year rule.)
+        'mandate_holders': [
+            (2014, 'Gulnara Shahinian'),
+            (2020, 'Urmila Bhoola'),
+            (9999, 'Tomoya Obokata'),
+        ],
+        # Catalogue from OHCHR annual-thematic-reports page
+        # https://www.ohchr.org/en/special-procedures/sr-slavery/annual-thematic-reports
+        # All full HRC+GA reports 2008-2025; corrigenda (A/HRC/24/43/Corr.1-2,
+        # A/HRC/21/41/Corr.1) and the A/HRC/33/46 annex excluded. (No 2011 report.)
+        'reports': [
+            (2025, 'A/80/182',    'GA 80th session',  'The role of financial sector actors in eradicating contemporary forms of slavery'),
+            (2025, 'A/HRC/60/28', 'HRC 60th session', 'Worst forms of child labour: assessing progress and persisting challenges'),
+            (2024, 'A/79/159',    'GA 79th session',  "Role of workers' organizations in preventing workers from being subjected to contemporary forms of slavery"),
+            (2024, 'A/HRC/57/46', 'HRC 57th session', 'Contemporary forms of slavery as affecting currently and formerly incarcerated people'),
+            (2023, 'A/78/161',    'GA 78th session',  'The use of technology in facilitating and preventing contemporary forms of slavery'),
+            (2023, 'A/HRC/54/30', 'HRC 54th session', 'Homelessness as a cause and consequence of contemporary forms of slavery'),
+            (2022, 'A/77/163',    'GA 77th session',  'Contemporary forms of slavery in the informal economy'),
+            (2022, 'A/HRC/51/26', 'HRC 51st session', 'Contemporary forms of slavery affecting persons belonging to ethnic, religious and linguistic minority communities'),
+            (2021, 'A/76/170',    'GA 76th session',  'Role of organized criminal groups with regard to contemporary forms of slavery'),
+            (2021, 'A/HRC/48/52', 'HRC 48th session', 'The nexus between displacement and contemporary forms of slavery'),
+            (2020, 'A/75/166',    'GA 75th session',  'Priority focus areas of the new mandate holder'),
+            (2020, 'A/HRC/45/8',  'HRC 45th session', 'Impact of the COVID-19 pandemic on contemporary forms of slavery and slavery-like practices'),
+            (2019, 'A/74/179',    'GA 74th session',  'Child slavery'),
+            (2019, 'A/HRC/42/44', 'HRC 42nd session', 'Current and emerging forms of slavery'),
+            (2018, 'A/73/139',    'GA 73rd session',  'Report of the Special Rapporteur on contemporary forms of slavery'),
+            (2018, 'A/HRC/39/52', 'HRC 39th session', 'Impact of slavery and servitude on marginalized migrant women workers in the global domestic economy'),
+            (2017, 'A/72/139',    'GA 72nd session',  'Report of the Special Rapporteur on contemporary forms of slavery'),
+            (2017, 'A/HRC/36/43', 'HRC 36th session', 'Report of the Special Rapporteur on contemporary forms of slavery'),
+            (2016, 'A/HRC/33/46', 'HRC 33rd session', 'Report of the Special Rapporteur on contemporary forms of slavery'),
+            (2015, 'A/HRC/30/35', 'HRC 30th session', 'Eradicating contemporary forms of slavery from supply chains'),
+            (2014, 'A/HRC/27/53', 'HRC 27th session', 'Priorities of the new mandate holder'),
+            # NB A/HRC/24/43 unfetchable — its documents.un.org access API
+            # 301-redirects to an internal UN host (10.208.14.29). 25/26 present
+            # (A/HRC/12/21 re-attributed from a misfiled "SR Freedom of Religion
+            # or Belief" record — see below).
+            (2013, 'A/HRC/24/43', 'HRC 24th session', 'Challenges and lessons in combating contemporary forms of slavery'),
+            (2012, 'A/HRC/21/41', 'HRC 21st session', 'Servile marriage'),
+            (2010, 'A/HRC/15/20', 'HRC 15th session', 'Domestic servitude'),
+            # A/HRC/12/21 was historically misfiled under "SR Freedom of Religion
+            # or Belief" (its content cites HRC res 6/14 — the slavery mandate —
+            # and is about bonded labour). Re-attributed to this committee.
+            (2009, 'A/HRC/12/21', 'HRC 12th session', 'The practice of bonded labour'),
+            (2008, 'A/HRC/9/20',  'HRC 9th session',  'Forced and child labour'),
+        ],
+    },
     'leprosy': {
         'committee_label': 'SR Leprosy',
         'full_name': "Special Rapporteur on the elimination of discrimination against persons affected by leprosy (Hansen's disease) and their family members",

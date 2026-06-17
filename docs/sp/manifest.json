@@ -1,11 +1,11 @@
 {
   "version": "20260617",
-  "builtAt": "2026-06-17T18:43:37+00:00",
+  "builtAt": "2026-06-17T19:10:21+00:00",
   "counts": {
-    "documents": 1164,
-    "paragraphs": 115676,
-    "shards": 32,
-    "committees": 32
+    "documents": 1188,
+    "paragraphs": 117375,
+    "shards": 33,
+    "committees": 33
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -19,6 +19,12 @@
       "bytes": 854117,
       "documents": 9,
       "paragraphs": 781
+    },
+    "shards/sp_SR_Contemporary_Slavery.json": {
+      "sha": "67c1bf3fe675291d",
+      "bytes": 2044905,
+      "documents": 25,
+      "paragraphs": 1796
     },
     "shards/sp_SR_Counter_Terrorism.json": {
       "sha": "9762a1b868f6cd08",
@@ -87,10 +93,10 @@
       "paragraphs": 4565
     },
     "shards/sp_SR_Freedom_of_Religion_or_Belief.json": {
-      "sha": "951564c4d3b8143a",
-      "bytes": 12180728,
-      "documents": 88,
-      "paragraphs": 10634
+      "sha": "21868798b8cc1453",
+      "bytes": 12102504,
+      "documents": 87,
+      "paragraphs": 10537
     },
     "shards/sp_SR_Health.json": {
       "sha": "0214210bbac83732",
