@@ -1,11 +1,11 @@
 {
   "version": "20260617",
-  "builtAt": "2026-06-17T20:06:51+00:00",
+  "builtAt": "2026-06-17T20:23:41+00:00",
   "counts": {
-    "documents": 1275,
-    "paragraphs": 124148,
-    "shards": 36,
-    "committees": 36
+    "documents": 1305,
+    "paragraphs": 126013,
+    "shards": 37,
+    "committees": 37
   },
   "files": {
     "shards/sp_IE_Foreign_Debt.json": {
@@ -13,6 +13,12 @@
       "bytes": 3863944,
       "documents": 51,
       "paragraphs": 3549
+    },
+    "shards/sp_IE_International_Solidarity.json": {
+      "sha": "5da40d60661ed639",
+      "bytes": 2282940,
+      "documents": 30,
+      "paragraphs": 1865
     },
     "shards/sp_IE_Older_Persons.json": {
       "sha": "104f99cda7bf80c4",

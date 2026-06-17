@@ -1008,6 +1008,61 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'ie-international-solidarity': {
+        'committee_label': 'IE International Solidarity',
+        'full_name': 'Independent Expert on human rights and international solidarity',
+        # (year_max, name) ascending. Mandate created 2005 (CHR res 2005/55).
+        # IE thematic reports begin 2010 (A/HRC/15/32); the 2006-2009
+        # "Note by the High Commissioner" docs are HC reports, not IE reports
+        # (excluded). Holders: Rudi Muhammad Rizki (2008-2011), Virginia Dandan
+        # (2011-2017), Obiora Chinedu Okafor (2017-2023), Cecilia M. Bailliet
+        # (2023-). Handovers at 2017 and 2023 fall on calendar-year boundaries
+        # (2017 reports = Dandan, Okafor's first is the 2018 vision report;
+        # 2023 reports = Okafor, Bailliet's first is 2024) → no fix there.
+        # A/HRC/18/34 (2011) author verified post-ingest.
+        'mandate_holders': [
+            (2011, 'Rudi Muhammad Rizki'),
+            (2017, 'Virginia Dandan'),
+            (2023, 'Obiora Chinedu Okafor'),
+            (9999, 'Cecilia M. Bailliet'),
+        ],
+        # Catalogue from OHCHR annual-thematic-reports page (GA + HRC sections).
+        # https://www.ohchr.org/en/special-procedures/ie-international-solidarity/annual-thematic-reports
+        # A/78/176 (2023 GA) added — omitted by the page (GA-contiguity gap).
+        # Excluded: A/HRC/21/44/Add.1 (addendum); 2006-2009 HC notes; 2004 working paper.
+        'reports': [
+            (2026, 'A/HRC/62/38', 'HRC 62nd session', 'Peace and international solidarity'),
+            (2025, 'A/80/172',    'GA 80th session',  'Corporations and international solidarity'),
+            (2025, 'A/HRC/59/40', 'HRC 59th session', 'Indigenous Peoples and international solidarity'),
+            (2024, 'A/79/170',    'GA 79th session',  'Artificial intelligence and international solidarity: towards human-centred artificial intelligence international solidarity by design'),
+            (2024, 'A/HRC/56/57', 'HRC 56th session', 'Participation of civil society organizations seeking to express international solidarity through transnational, international and regional networks'),
+            (2023, 'A/78/176',    'GA 78th session',  'Human rights and international solidarity'),
+            (2023, 'A/HRC/53/32', 'HRC 53rd session', 'Revised draft declaration on human rights and international solidarity'),
+            (2022, 'A/77/173',    'GA 77th session',  'Global vaccine solidarity and human rights in the context of the COVID-19 pandemic'),
+            (2022, 'A/HRC/50/37', 'HRC 50th session', 'International solidarity and the extraterritorial application of human rights: prospects and challenges'),
+            (2021, 'A/76/176',    'GA 76th session',  'The role of the expression of international solidarity for the fuller realization of human rights within the context of economic security and insecurity'),
+            (2021, 'A/HRC/47/31', 'HRC 47th session', 'International solidarity in aid of the realization of human rights during and after the COVID-19 pandemic'),
+            (2020, 'A/75/180',    'GA 75th session',  'Populism and the threat to international solidarity'),
+            (2020, 'A/HRC/44/44', 'HRC 44th session', 'International solidarity and climate change'),
+            (2019, 'A/74/185',    'GA 74th session',  'International solidarity and refugees'),
+            (2019, 'A/HRC/41/44', 'HRC 41st session', 'International solidarity in the context of migration'),
+            (2018, 'A/73/206',    'GA 73rd session',  'International solidarity and global migration'),
+            (2018, 'A/HRC/38/40', 'HRC 38th session', 'Vision-setting report of the new Independent Expert'),
+            (2017, 'A/72/171',    'GA 72nd session',  'Draft declaration on the right to international solidarity'),
+            (2017, 'A/HRC/35/35', 'HRC 35th session', 'Draft declaration on the right to international solidarity'),
+            (2016, 'A/71/280',    'GA 71st session',  'Report of the Independent Expert on human rights and international solidarity'),
+            (2016, 'A/HRC/32/43', 'HRC 32nd session', 'Report of the Independent Expert on human rights and international solidarity'),
+            (2015, 'A/70/316',    'GA 70th session',  'Report of the Independent Expert on human rights and international solidarity'),
+            (2015, 'A/HRC/29/35', 'HRC 29th session', 'Report of the Independent Expert on human rights and international solidarity'),
+            (2014, 'A/69/366',    'GA 69th session',  'Report of the Independent Expert on human rights and international solidarity'),
+            (2014, 'A/HRC/26/34', 'HRC 26th session', 'Report of the Independent Expert on human rights and international solidarity'),
+            (2013, 'A/68/176',    'GA 68th session',  'Report of the Independent Expert on human rights and international solidarity'),
+            (2013, 'A/HRC/23/45', 'HRC 23rd session', 'Report of the Independent Expert on human rights and international solidarity'),
+            (2012, 'A/HRC/21/44', 'HRC 21st session', 'Report of the Independent Expert on human rights and international solidarity'),
+            (2011, 'A/HRC/18/34', 'HRC 18th session', 'Report of the Independent Expert on human rights and international solidarity'),
+            (2010, 'A/HRC/15/32', 'HRC 15th session', 'Report of the Independent Expert on human rights and international solidarity (Rudi Muhammad Rizki)'),
+        ],
+    },
     'ie-foreign-debt': {
         'committee_label': 'IE Foreign Debt',
         'full_name': 'Independent Expert on the effects of foreign debt and other related international financial obligations of States on the full enjoyment of all human rights, particularly economic, social and cultural rights',
