@@ -1008,6 +1008,87 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'ie-foreign-debt': {
+        'committee_label': 'IE Foreign Debt',
+        'full_name': 'Independent Expert on the effects of foreign debt and other related international financial obligations of States on the full enjoyment of all human rights, particularly economic, social and cultural rights',
+        # (year_max, name) ascending. Old mandate (1998/2000). Holders:
+        # Fantu Cheru (structural-adjustment IE, 1999-2001), Bernards Mudho
+        # (2002-2008), Cephas Lumina (2008-2014), Juan Pablo Bohoslavsky
+        # (2014-2020), Yuefen Li (2020-2021), Attiya Waris (Aug 2021-).
+        # Handover-year fixes (successor's first / Oct-GA report; year rule
+        # otherwise gives the predecessor):
+        #   A/63/289  (2008) -> Cephas Lumina (named on OHCHR page)
+        #   A/69/273  (2014) -> Juan Pablo Bohoslavsky ("thematic priorities")
+        #   A/76/167  (2021) -> Attiya Waris (took office Aug 2021; Oct GA report)
+        # The 2020 reports (A/HRC/43/45 Jun, A/75/164 Oct) and A/HRC/46/29
+        # (Mar 2021) are verified by report authorship post-ingest.
+        'mandate_holders': [
+            (2001, 'Fantu Cheru'),
+            (2008, 'Bernards Mudho'),
+            (2014, 'Cephas Lumina'),
+            (2020, 'Juan Pablo Bohoslavsky'),
+            (2021, 'Yuefen Li'),
+            (9999, 'Attiya Waris'),
+        ],
+        # Catalogue from OHCHR annual-thematic-reports page
+        # https://www.ohchr.org/en/special-procedures/ie-foreign-debt/annual-thematic-reports
+        # Corrigenda (A/HRC/20/23/Corr.1, A/65/260/Corr.1) excluded. Early
+        # CHR-era reports (1999-2006) are under the structural-adjustment/
+        # foreign-debt predecessor mandate names but are the same lineage.
+        'reports': [
+            (2026, 'A/HRC/61/44', 'HRC 61st session', 'International assistance and cooperation'),
+            (2025, 'A/80/173',    'GA 80th session',  'Financing peace and financing war'),
+            (2025, 'A/HRC/58/51', 'HRC 58th session', 'Understanding the landscape of climate finance, debt, tax and illicit financial flows and human rights'),
+            (2024, 'A/79/142',    'GA 79th session',  'The fiscal social contract and the human rights economy'),
+            (2024, 'A/HRC/55/54', 'HRC 55th session', 'Fiscal legitimacy through human rights: a principled approach to financial resource collection and allocation for the realization of human rights'),
+            (2023, 'A/78/179',    'GA 78th session',  'Preserving, protecting, upholding and securing human rights in times of uncertainty'),
+            (2023, 'A/HRC/52/34', 'HRC 52nd session', 'International financial obligations, digital systems and human rights'),
+            (2023, 'A/HRC/52/45', 'HRC 52nd session', 'Non-binding set of practical guidelines for efficient asset recovery'),
+            (2022, 'A/77/169',    'GA 77th session',  'Towards a global fiscal architecture using a human rights lens'),
+            (2022, 'A/HRC/49/47', 'HRC 49th session', 'Taking stock and identifying priorities: a vision for the future work of the mandate'),
+            (2021, 'A/76/167',    'GA 76th session',  'International debt architecture reform and human rights'),
+            (2021, 'A/HRC/46/29', 'HRC 46th session', 'Debt relief, debt crisis prevention and human rights: the role of credit rating agencies'),
+            (2020, 'A/75/164',    'GA 75th session',  'Addressing, from a human rights perspective, the debt-related problems of developing countries caused by the COVID-19 pandemic'),
+            (2020, 'A/HRC/43/45', 'HRC 43rd session', 'Private debt and human rights'),
+            (2019, 'A/74/178',    'GA 74th session',  'Responsibility for complicity of international financial institutions in human rights violations in the context of retrogressive economic reforms'),
+            (2019, 'A/HRC/40/57', 'HRC 40th session', 'Guiding principles for assessing the human rights impact of economic reform policies'),
+            (2018, 'A/73/179',    'GA 73rd session',  "Impact of economic reform policies on women's human rights"),
+            (2018, 'A/HRC/37/54', 'HRC 37th session', 'Development of guiding principles for assessing the human rights impact of economic reform policies'),
+            (2017, 'A/72/153',    'GA 72nd session',  'Debt disputes, international investment arbitration and human rights'),
+            (2017, 'A/HRC/34/57', 'HRC 34th session', 'Structural adjustment and labour rights'),
+            (2016, 'A/71/305',    'GA 71st session',  'Integrating human rights into debt policies and debt sustainability analyses to counter new debt vulnerabilities'),
+            (2016, 'A/HRC/31/60', 'HRC 31st session', 'Economic inequality, financial crises and human rights'),
+            (2016, 'A/HRC/31/61', 'HRC 31st session', 'Final study on illicit financial flows, human rights and the 2030 Agenda for Sustainable Development'),
+            (2015, 'A/70/275',    'GA 70th session',  'Sovereign debt restructuring, the pacta sunt servanda principle and human rights'),
+            (2015, 'A/HRC/28/59', 'HRC 28th session', 'Financial complicity: lending to States involved in gross violations of human rights'),
+            (2015, 'A/HRC/28/60', 'HRC 28th session', 'Illicit financial flows, human rights and the post-2015 development agenda (interim study)'),
+            (2014, 'A/69/273',    'GA 69th session',  'Thematic priorities of the Independent Expert'),
+            (2014, 'A/HRC/25/50', 'HRC 25th session', 'Activities by the Independent Expert 2008-2014'),
+            (2014, 'A/HRC/25/52', 'HRC 25th session', 'The negative impact of the non-repatriation of funds of illicit origin on human rights: final report'),
+            (2013, 'A/68/542',    'GA 68th session',  'Millennium Development Goal 8: global partnership for development - lessons for the post-2015 development framework'),
+            (2013, 'A/HRC/23/37', 'HRC 23rd session', 'Assessment of the human rights impact of international debt relief initiatives'),
+            (2013, 'A/HRC/22/42', 'HRC 22nd session', 'Interim report of the Independent Expert on foreign debt and human rights'),
+            (2012, 'A/67/304',    'GA 67th session',  'Impact of foreign debt on women\'s rights'),
+            (2012, 'A/HRC/20/23', 'HRC 20th session', 'Guiding principles on foreign debt and human rights'),
+            (2011, 'A/66/271',    'GA 66th session',  'Export credit agencies and human rights'),
+            (2011, 'A/HRC/17/37', 'HRC 17th session', 'Draft guidelines on foreign debt and human rights'),
+            (2010, 'A/HRC/14/21', 'HRC 14th session', 'Vulture funds and their impact on human rights'),
+            (2010, 'A/65/260',    'GA 65th session',  'International trade and human rights'),
+            (2009, 'A/64/289',    'GA 64th session',  'Report of the Independent Expert on foreign debt and human rights'),
+            (2009, 'A/HRC/11/10', 'HRC 11th session', 'Report of the Independent Expert on foreign debt and human rights'),
+            (2008, 'A/63/289',    'GA 63rd session',  'Report of the Independent Expert on foreign debt and human rights'),
+            (2008, 'A/HRC/7/9',   'HRC 7th session',  'Report of the Independent Expert on economic reform policies and foreign debt'),
+            (2007, 'A/HRC/4/10',  'HRC 4th session',  'Report of the Independent Expert on economic reform policies and foreign debt'),
+            (2006, 'A/61/464',    'GA 61st session',  'Report of the Independent Expert on economic reform policies and foreign debt'),
+            (2006, 'E/CN.4/2006/46', 'CHR 62nd session', 'Effects of economic reform policies and foreign debt on the full enjoyment of all human rights'),
+            (2005, 'E/CN.4/2005/42', 'CHR 61st session', 'Effects of structural adjustment policies and foreign debt on the full enjoyment of all human rights'),
+            (2004, 'E/CN.4/2004/47', 'CHR 60th session', 'Effects of structural adjustment policies and foreign debt on the full enjoyment of all human rights'),
+            (2003, 'E/CN.4/2003/10', 'CHR 59th session', 'Effects of structural adjustment policies and foreign debt on the full enjoyment of all human rights'),
+            (2001, 'E/CN.4/2001/56', 'CHR 57th session', 'The Highly Indebted Poor Countries (HIPC) Initiative: a human rights assessment of the Poverty Reduction Strategy Papers'),
+            (2000, 'E/CN.4/2000/51', 'CHR 56th session', 'Joint report on structural adjustment policies and foreign debt'),
+            (1999, 'E/CN.4/1999/50', 'CHR 55th session', 'Effects of structural adjustment policies on the full enjoyment of human rights'),
+        ],
+    },
     'ie-sexual-orientation-gender-identity': {
         'committee_label': 'IE Sexual Orientation and Gender Identity',
         'full_name': 'Independent Expert on protection against violence and discrimination based on sexual orientation and gender identity',

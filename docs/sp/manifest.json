@@ -1,13 +1,19 @@
 {
   "version": "20260617",
-  "builtAt": "2026-06-17T19:46:08+00:00",
+  "builtAt": "2026-06-17T20:06:51+00:00",
   "counts": {
-    "documents": 1224,
-    "paragraphs": 120599,
-    "shards": 35,
-    "committees": 35
+    "documents": 1275,
+    "paragraphs": 124148,
+    "shards": 36,
+    "committees": 36
   },
   "files": {
+    "shards/sp_IE_Foreign_Debt.json": {
+      "sha": "93d15d327b2d3b9b",
+      "bytes": 3863944,
+      "documents": 51,
+      "paragraphs": 3549
+    },
     "shards/sp_IE_Older_Persons.json": {
       "sha": "104f99cda7bf80c4",
       "bytes": 1535916,
