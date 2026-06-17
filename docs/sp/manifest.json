@@ -1,11 +1,11 @@
 {
   "version": "20260617",
-  "builtAt": "2026-06-17T21:27:04+00:00",
+  "builtAt": "2026-06-17T21:42:10+00:00",
   "counts": {
-    "documents": 1433,
-    "paragraphs": 147974,
-    "shards": 41,
-    "committees": 41
+    "documents": 1463,
+    "paragraphs": 150759,
+    "shards": 42,
+    "committees": 42
   },
   "files": {
     "shards/sp_IE_Albinism.json": {
@@ -247,6 +247,12 @@
       "bytes": 3831861,
       "documents": 36,
       "paragraphs": 4264
+    },
+    "shards/sp_WG_Business_and_Human_Rights.json": {
+      "sha": "894a7049e9b21258",
+      "bytes": 2917167,
+      "documents": 30,
+      "paragraphs": 2785
     },
     "shards/sp_WG_Enforced_Disappearances.json": {
       "sha": "e0716b7501af3277",

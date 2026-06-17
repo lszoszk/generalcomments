@@ -1008,6 +1008,50 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'wg-business': {
+        'committee_label': 'WG Business and Human Rights',
+        'full_name': 'Working Group on the issue of human rights and transnational corporations and other business enterprises',
+        # Collective body (created 2011, HRC res 17/4). Every report attributed
+        # to "Working Group"; no holder transitions. Reports to BOTH HRC and GA
+        # each year. From OHCHR thematic-reports page; excluded all Add.x
+        # addenda, the A/HRC/WG.12/* session-outcome reports, and the SRSG/SG/HC
+        # reports not authored by the Working Group.
+        'mandate_holders': [
+            (9999, 'Working Group'),
+        ],
+        'reports': [
+            (2026, 'A/HRC/62/36', 'HRC 62nd session', 'Agribusiness, food security and human rights'),
+            (2025, 'A/80/171',    'GA 80th session',  'Labour migration, business and human rights'),
+            (2025, 'A/HRC/59/53', 'HRC 59th session', 'Artificial intelligence procurement and deployment: ensuring alignment with the Guiding Principles on Business and Human Rights'),
+            (2024, 'A/79/178',    'GA 79th session',  'Protecting and respecting the rights of LGBTI persons in the context of business activities'),
+            (2024, 'A/HRC/56/55', 'HRC 56th session', 'Investors, environmental, social and governance approaches and human rights'),
+            (2023, 'A/78/155',    'GA 78th session',  'Extractive sector, just transition and human rights'),
+            (2023, 'A/HRC/53/24', 'HRC 53rd session', 'Building capacity for the implementation of the United Nations Guiding Principles on Business and Human Rights'),
+            (2022, 'A/77/201',    'GA 77th session',  'Corporate influence in the political and regulatory sphere'),
+            (2022, 'A/HRC/50/40', 'HRC 50th session', 'The coronavirus disease pandemic: lessons learned and moving forward'),
+            (2021, 'A/76/238',    'GA 76th session',  'Human rights-compatible international investment agreements'),
+            (2021, 'A/HRC/47/39', 'HRC 47th session', 'Guiding Principles on Business and Human Rights at 10: taking stock of the first decade'),
+            (2020, 'A/75/212',    'GA 75th session',  'Business, human rights and conflict-affected regions: towards heightened action'),
+            (2020, 'A/HRC/44/43', 'HRC 44th session', 'Connecting the business and human rights and the anti-corruption agendas'),
+            (2019, 'A/74/198',    'GA 74th session',  'Policy coherence in government action to protect against business-related human rights abuses'),
+            (2019, 'A/HRC/41/43', 'HRC 41st session', 'Gender dimensions of the Guiding Principles on Business and Human Rights'),
+            (2018, 'A/73/163',    'GA 73rd session',  'Corporate human rights due diligence: emerging practices, challenges and ways forward'),
+            (2018, 'A/HRC/38/48', 'HRC 38th session', 'Economic diplomacy as a tool for States to promote corporate respect for human rights'),
+            (2017, 'A/72/162',    'GA 72nd session',  'Access to effective remedies under the Guiding Principles on Business and Human Rights'),
+            (2017, 'A/HRC/35/32', 'HRC 35th session', 'Opportunities for small and medium-sized enterprises in the implementation of the Guiding Principles on Business and Human Rights'),
+            (2017, 'A/HRC/35/33', 'HRC 35th session', 'Best practices and how to improve the effectiveness of cross-border cooperation between States with respect to law enforcement on business and human rights'),
+            (2016, 'A/71/291',    'GA 71st session',  'Human rights impacts of agro-industrial operations on indigenous and local communities'),
+            (2016, 'A/HRC/32/45', 'HRC 32nd session', 'Leading by example: the State, State-owned enterprises, and human rights'),
+            (2015, 'A/70/216',    'GA 70th session',  'Measuring the implementation of the Guiding Principles on Business and Human Rights'),
+            (2015, 'A/HRC/29/28', 'HRC 29th session', 'Improving policy coherence for inclusive and sustainable development'),
+            (2014, 'A/69/263',    'GA 69th session',  'National action plans on business and human rights'),
+            (2014, 'A/HRC/26/25', 'HRC 26th session', 'Review of the strategic objectives, activities and outcomes of the first three years'),
+            (2013, 'A/68/279',    'GA 68th session',  'Business-related impacts on the rights of indigenous peoples'),
+            (2013, 'A/HRC/23/32', 'HRC 23rd session', 'Report of the Working Group on Business and Human Rights'),
+            (2012, 'A/67/285',    'GA 67th session',  'Developments in the embedding of the Guiding Principles into global governance frameworks'),
+            (2012, 'A/HRC/20/29', 'HRC 20th session', 'Report of the Working Group on Business and Human Rights: preliminary views and strategy'),
+        ],
+    },
     'wg-disappearances': {
         'committee_label': 'WG Enforced Disappearances',
         'full_name': 'Working Group on Enforced or Involuntary Disappearances',
