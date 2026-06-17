@@ -852,6 +852,60 @@ MANDATES: dict[str, dict] = {
             (2012, 'A/HRC/20/27', 'HRC 20th session', 'Best practices that promote and protect the rights to freedom of peaceful assembly and of association'),
         ],
     },
+    'truth-justice-reparation': {
+        # NB no comma in the label — build_corpus.collect_documents splits
+        # committee on ',' (multi-committee separator), which would truncate.
+        'committee_label': 'SR Truth Justice and Reparation',
+        'full_name': 'Special Rapporteur on the promotion of truth, justice, reparation and guarantees of non-recurrence',
+        # (year_max, name) ascending. de Greiff (May 2012–April 2018),
+        # Salvioli (May 2018–April 2024), Duhaime (May 2024–). NB transition:
+        # A/HRC/37/65 (2018, joint study with the Special Adviser on
+        # Prevention of Genocide) is de Greiff's — year-only rule maps it to
+        # Salvioli; corrected post-ingest. (A/73/336 + A/HRC/39/53, 2018, are
+        # the new SR Salvioli's intro reports; A/79/180 + A/HRC/57/50, 2024,
+        # are the new SR Duhaime's intro reports — all correct by year.)
+        'mandate_holders': [
+            (2017, 'Pablo de Greiff'),
+            (2023, 'Fabián Salvioli'),
+            (9999, 'Bernard Duhaime'),
+        ],
+        # Catalogue from OHCHR's "Annual thematic reports" page
+        # https://www.ohchr.org/en/special-procedures/sr-truth-justice-reparation-and-non-recurrence/annual-thematic-reports
+        # Full thematic series (HRC + GA) 2012–2025. A/HRC/36/50/Add.1
+        # (global-study addendum) excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2025, 'A/80/175',    'GA 80th session',  'Transitional justice and economic, social and cultural rights'),
+            (2025, 'A/HRC/60/32', 'HRC 60th session', 'Documentation of gross violations of human rights and serious violations of international humanitarian law'),
+            (2024, 'A/79/180',    'GA 79th session',  'Approach to the mandate and areas of engagement with the General Assembly'),
+            (2024, 'A/HRC/57/50', 'HRC 57th session', 'Approach to the mandate and preliminary areas of interest of the new Special Rapporteur'),
+            (2023, 'A/78/181',    'GA 78th session',  'Financing of reparations for victims of serious violations of human rights and humanitarian law'),
+            (2023, 'A/HRC/54/24', 'HRC 54th session', 'International legal standards underpinning the pillars of transitional justice'),
+            (2022, 'A/77/162',    'GA 77th session',  'Sustainable Development Goals and transitional justice: leaving no victim behind'),
+            (2022, 'A/HRC/51/34', 'HRC 51st session', 'Role and responsibilities of non-State actors in transitional justice processes'),
+            (2021, 'A/76/180',    'GA 76th session',  'Transitional justice measures and the legacy of human rights violations in colonial contexts'),
+            (2021, 'A/HRC/48/60', 'HRC 48th session', 'Accountability: prosecuting and punishing gross violations in transitional justice processes'),
+            (2020, 'A/75/174',    'GA 75th session',  'The gender perspective in transitional justice processes'),
+            (2020, 'A/HRC/45/45', 'HRC 45th session', 'Memorialization processes: the fifth pillar of transitional justice'),
+            (2019, 'A/74/147',    'GA 74th session',  'Apologies for gross human rights violations and serious violations of international humanitarian law'),
+            (2019, 'A/HRC/42/45', 'HRC 42nd session', 'Practical experiences of domestic reparation programmes'),
+            (2018, 'A/73/336',    'GA 73rd session',  'The four main lines of engagement of the new Special Rapporteur with the General Assembly'),
+            (2018, 'A/HRC/39/53', 'HRC 39th session', 'The new Special Rapporteur’s approach to the mandate and preliminary areas of interest'),
+            (2018, 'A/HRC/37/65', 'HRC 37th session', 'Joint study on the contribution of transitional justice to the prevention of gross violations of human rights'),
+            (2017, 'A/72/523',    'GA 72nd session',  'A comprehensive framework approach to prevention'),
+            (2017, 'A/HRC/36/50', 'HRC 36th session', 'Transitional justice in weakly institutionalized post-conflict settings'),
+            (2017, 'A/HRC/34/62', 'HRC 34th session', 'Participation of victims in transitional justice measures'),
+            (2016, 'A/71/567',    'GA 71st session',  'National consultations concerning the design and implementation of transitional justice measures'),
+            (2015, 'A/70/438',    'GA 70th session',  'Security sector reform, including vetting of security institutions'),
+            (2015, 'A/HRC/30/42', 'HRC 30th session', 'Guarantees of non-recurrence'),
+            (2014, 'A/69/518',    'GA 69th session',  'Reparations for gross human rights violations and serious violations of international humanitarian law'),
+            (2014, 'A/HRC/27/56', 'HRC 27th session', 'Prosecutorial prioritization strategies in the aftermath of gross human rights violations'),
+            (2013, 'A/68/345',    'GA 68th session',  'The relevance of justice and rights considerations to sustainable development'),
+            (2013, 'A/HRC/24/42', 'HRC 24th session', 'Challenges faced by truth commissions in transitional periods'),
+            (2012, 'A/67/368',    'GA 67th session',  'How truth, justice, reparation and guarantees of non-recurrence strengthen the rule of law'),
+            (2012, 'A/HRC/21/46', 'HRC 21st session', 'Foundation of the mandate and the comprehensive approach to transitional justice'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',

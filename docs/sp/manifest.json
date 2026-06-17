@@ -1,11 +1,11 @@
 {
-  "version": "20260616",
-  "builtAt": "2026-06-16T21:41:27+00:00",
+  "version": "20260617",
+  "builtAt": "2026-06-17T07:40:49+00:00",
   "counts": {
-    "documents": 1039,
-    "paragraphs": 103813,
-    "shards": 26,
-    "committees": 26
+    "documents": 1068,
+    "paragraphs": 106523,
+    "shards": 27,
+    "committees": 27
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -151,6 +151,12 @@
       "bytes": 3150532,
       "documents": 37,
       "paragraphs": 3028
+    },
+    "shards/sp_SR_Truth_Justice_and_Reparation.json": {
+      "sha": "8e70d849a041c7df",
+      "bytes": 2619611,
+      "documents": 29,
+      "paragraphs": 2710
     },
     "shards/sp_SR_Violence_against_Women.json": {
       "sha": "f3f2d9a21d0e1cd3",
