@@ -1008,6 +1008,55 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'ie-international-order': {
+        'committee_label': 'IE International Order',
+        'full_name': 'Independent Expert on the promotion of a democratic and equitable international order',
+        # (year_max, name) ascending. Mandate created 2011 (HRC res 18/6).
+        # de Zayas (first IE, 1 May 2012 - 30 Apr 2018), Sewanyana (1 May 2018 -
+        # 30 Apr 2024), Katrougalos (1 May 2024 -). Handover fixes (successor's
+        # Sept-HRC / Oct-GA report; year rule otherwise gives the predecessor):
+        #   A/HRC/39/47 (2018) -> Sewanyana ("vision and priorities of new IE")
+        #   A/73/158    (2018) -> Sewanyana (GA, Oct 2018)
+        #   A/HRC/57/49 (2024) -> Katrougalos ("vision report")
+        # (A/HRC/37/63 March-2018 "first Independent Expert" stays de Zayas.)
+        'mandate_holders': [
+            (2018, 'Alfred-Maurice de Zayas'),
+            (2024, 'Livingstone Sewanyana'),
+            (9999, 'George Katrougalos'),
+        ],
+        # Catalogue from OHCHR annual-thematic-reports page (HRC + GA per year).
+        # https://www.ohchr.org/en/special-procedures/ie-international-order/annual-thematic-reports
+        # Corrigenda (A/HRC/36/40/Corr.1, A/HRC/30/44/Corr.1, A/70/285/Corr.1,
+        # A/HRC/21/45/Corr.1) and the A/67/277/Add.1 addendum excluded.
+        'reports': [
+            (2024, 'A/HRC/57/49', 'HRC 57th session', 'Vision report of the new Independent Expert'),
+            (2023, 'A/78/262',    'GA 78th session',  "Main observations and recommendations from the Independent Expert's past reports"),
+            (2023, 'A/HRC/54/28', 'HRC 54th session', "Youth's participation and engagement in intergovernmental forums: challenges and opportunities"),
+            (2022, 'A/77/180',    'GA 77th session',  'Rethinking global peace and security: a democratic and equitable international order in jeopardy'),
+            (2022, 'A/HRC/51/32', 'HRC 51st session', 'Rethinking global peace and security: a democratic and equitable international order in jeopardy'),
+            (2021, 'A/76/153',    'GA 76th session',  'In defence of a renewed multilateralism to address the COVID-19 pandemic and other global challenges'),
+            (2021, 'A/HRC/48/58', 'HRC 48th session', 'In defence of a renewed multilateralism to address the COVID-19 pandemic and other global challenges'),
+            (2020, 'A/75/206',    'GA 75th session',  'The interplay between the economic policies and safeguards of international financial institutions and good governance at the local level'),
+            (2020, 'A/HRC/45/28', 'HRC 45th session', 'The interplay between the economic policies and safeguards of international financial institutions and good governance at the local level'),
+            (2019, 'A/74/245',    'GA 74th session',  'Public participation and decision-making in global governance spaces: history, purposes and public outreach'),
+            (2019, 'A/HRC/42/48', 'HRC 42nd session', 'Public participation and decision-making in global governance spaces: structural and practical obstacles'),
+            (2018, 'A/73/158',    'GA 73rd session',  'Vision and priorities of the new Independent Expert'),
+            (2018, 'A/HRC/39/47', 'HRC 39th session', 'Vision and priorities of the new Independent Expert'),
+            (2018, 'A/HRC/37/63', 'HRC 37th session', 'Outlining the principles of the mandate by the first Independent Expert'),
+            (2017, 'A/72/187',    'GA 72nd session',  'The human rights impact of International Monetary Fund policies and practice'),
+            (2017, 'A/HRC/36/40', 'HRC 36th session', 'The adverse impact of World Bank policies on human rights and the realization of a democratic and equitable international order'),
+            (2016, 'A/71/286',    'GA 71st session',  'The human rights impact of tax avoidance, tax evasion, tax fraud and profit shifting'),
+            (2016, 'A/HRC/33/40', 'HRC 33rd session', 'The adverse human rights impact of international investment agreements and multilateral free trade agreements'),
+            (2015, 'A/70/285',    'GA 70th session',  'The impact of investor-State dispute settlement on a democratic and equitable international order'),
+            (2015, 'A/HRC/30/44', 'HRC 30th session', 'The adverse impact of free trade and investment agreements on a democratic and equitable international order'),
+            (2014, 'A/69/272',    'GA 69th session',  'The right of self-determination'),
+            (2014, 'A/HRC/27/51', 'HRC 27th session', 'The adverse impact of military expenditures on the realization of a democratic and equitable international order'),
+            (2013, 'A/68/284',    'GA 68th session',  'Exploring initiatives and enforcement mechanisms'),
+            (2013, 'A/HRC/24/38', 'HRC 24th session', 'Fostering full, equitable and effective participation'),
+            (2012, 'A/67/277',    'GA 67th session',  'Preliminary views on the conceptual and legal framework of the mandate'),
+            (2012, 'A/HRC/21/45', 'HRC 21st session', 'Preliminary views on the conceptual and legal framework of the mandate'),
+        ],
+    },
     'ie-albinism': {
         'committee_label': 'IE Albinism',
         'full_name': 'Independent Expert on the enjoyment of human rights by persons with albinism',

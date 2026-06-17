@@ -1,11 +1,11 @@
 {
   "version": "20260617",
-  "builtAt": "2026-06-17T20:37:45+00:00",
+  "builtAt": "2026-06-17T20:52:07+00:00",
   "counts": {
-    "documents": 1326,
-    "paragraphs": 127971,
-    "shards": 38,
-    "committees": 38
+    "documents": 1352,
+    "paragraphs": 129939,
+    "shards": 39,
+    "committees": 39
   },
   "files": {
     "shards/sp_IE_Albinism.json": {
@@ -19,6 +19,12 @@
       "bytes": 3863944,
       "documents": 51,
       "paragraphs": 3549
+    },
+    "shards/sp_IE_International_Order.json": {
+      "sha": "01f7c8212c3d6b4f",
+      "bytes": 2254608,
+      "documents": 26,
+      "paragraphs": 1968
     },
     "shards/sp_IE_International_Solidarity.json": {
       "sha": "5da40d60661ed639",
