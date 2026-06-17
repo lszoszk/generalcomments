@@ -1008,6 +1008,50 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'wg-african-descent': {
+        'committee_label': 'WG African Descent',
+        'full_name': 'Working Group of Experts on People of African Descent',
+        # Collective body (created 2002, CHR res 2002/68). Every report
+        # attributed to "Working Group"; no holder transitions. Reports to HRC
+        # (annual) + some GA reports. From OHCHR annual-reports page; the GA
+        # reports explicitly "Consolidated with A/HRC/..." (A/77/232, A/75/275,
+        # A/73/228, A/72/319) duplicate the HRC report and are excluded;
+        # distinct-topic GA reports are kept.
+        'mandate_holders': [
+            (9999, 'Working Group'),
+        ],
+        'reports': [
+            (2025, 'A/HRC/60/77', 'HRC 60th session', 'Principles, provisos and pathways to reparatory justice for people of African descent'),
+            (2024, 'A/HRC/57/70', 'HRC 57th session', 'Fulfilling the economic, social and cultural rights of people of African descent in the age of digitalization, artificial intelligence and new and emerging technologies'),
+            (2023, 'A/HRC/54/71', 'HRC 54th session', 'Reviewing the work carried out in the 20 years since the establishment of the Working Group'),
+            (2023, 'A/HRC/54/67', 'HRC 54th session', 'Economic empowerment of people of African descent'),
+            (2022, 'A/HRC/51/54', 'HRC 51st session', 'Children of African descent'),
+            (2021, 'A/HRC/48/78', 'HRC 48th session', 'Environmental justice, the climate crisis and people of African descent'),
+            (2021, 'A/76/302',    'GA 76th session',  'The urgency of now: systemic racism and the opportunities of 2021'),
+            (2020, 'A/HRC/45/44', 'HRC 45th session', 'COVID-19, systemic racism and global protests'),
+            (2019, 'A/HRC/42/59', 'HRC 42nd session', 'Data for racial justice'),
+            (2019, 'A/74/274',    'GA 74th session',  'Role of negative racial stereotypes in perpetuating racially biased decision-making, racial disparities and racial injustice'),
+            (2018, 'A/HRC/39/69', 'HRC 39th session', 'Framework for a declaration on the promotion and full respect of the human rights of people of African descent'),
+            (2017, 'A/HRC/36/60', 'HRC 36th session', 'Leaving no one behind: people of African descent and the Sustainable Development Goals'),
+            (2016, 'A/HRC/33/61', 'HRC 33rd session', 'Interlinkages between recognition, justice and development'),
+            (2016, 'A/71/297',    'GA 71st session',  'Annual report of activities of the Working Group of Experts on People of African Descent'),
+            (2015, 'A/HRC/30/56', 'HRC 30th session', 'Development and people of African descent'),
+            (2015, 'A/70/309',    'GA 70th session',  'Annual report of activities of the Working Group of Experts on People of African Descent'),
+            (2014, 'A/HRC/27/68', 'HRC 27th session', 'People of African descent: access to justice'),
+            (2014, 'A/69/318',    'GA 69th session',  'Annual report of activities of the Working Group of Experts on People of African Descent'),
+            (2013, 'A/HRC/24/52', 'HRC 24th session', 'Recognition through education, cultural rights and data collection'),
+            (2012, 'A/HRC/21/60', 'HRC 21st session', 'Draft programme of action for the Decade for People of African Descent (2013-2022)'),
+            (2011, 'A/HRC/18/45', 'HRC 18th session', 'The situation of people of African descent in the context of the International Year for People of African Descent 2011'),
+            (2010, 'A/HRC/14/18', 'HRC 14th session', 'Structural discrimination against people of African descent'),
+            (2009, 'A/HRC/10/66', 'HRC 10th session', 'The situation of children of African descent'),
+            (2008, 'A/HRC/7/36',  'HRC 7th session',  'Contributions to the outcome document of the Durban Review Conference'),
+            (2007, 'A/HRC/4/39',  'HRC 4th session',  'Racial profiling'),
+            (2006, 'E/CN.4/2006/19', 'CHR 62nd session', 'Mainstreaming the situation of people of African descent in plans for achieving the Millennium Development Goals; empowerment of women; role of political parties'),
+            (2005, 'E/CN.4/2005/21', 'CHR 61st session', 'Racism and employment, racism and health, and racism and housing'),
+            (2004, 'E/CN.4/2004/21', 'CHR 60th session', 'Administration of justice, the media, and access to education and information technology'),
+            (2003, 'E/CN.4/2003/21', 'CHR 59th session', 'Report of the Working Group of Experts on People of African Descent'),
+        ],
+    },
     'wg-business': {
         'committee_label': 'WG Business and Human Rights',
         'full_name': 'Working Group on the issue of human rights and transnational corporations and other business enterprises',
