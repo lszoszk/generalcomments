@@ -1,11 +1,11 @@
 {
   "version": "20260617",
-  "builtAt": "2026-06-17T20:52:07+00:00",
+  "builtAt": "2026-06-17T21:08:08+00:00",
   "counts": {
-    "documents": 1352,
-    "paragraphs": 129939,
-    "shards": 39,
-    "committees": 39
+    "documents": 1388,
+    "paragraphs": 134203,
+    "shards": 40,
+    "committees": 40
   },
   "files": {
     "shards/sp_IE_Albinism.json": {
@@ -241,6 +241,12 @@
       "bytes": 3147853,
       "documents": 35,
       "paragraphs": 3208
+    },
+    "shards/sp_WG_Arbitrary_Detention.json": {
+      "sha": "f318f9f78f8c61c6",
+      "bytes": 3831861,
+      "documents": 36,
+      "paragraphs": 4264
     }
   },
   "note": "Per-committee SP paragraph shards (build_sp_shards.py)."

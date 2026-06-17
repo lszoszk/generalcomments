@@ -1008,6 +1008,57 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'wg-arbitrary-detention': {
+        'committee_label': 'WG Arbitrary Detention',
+        'full_name': 'Working Group on Arbitrary Detention',
+        # Collective body (created 1991, CHR res 1991/42) — every report is
+        # attributed to "Working Group"; no holder transitions.
+        'mandate_holders': [
+            (9999, 'Working Group'),
+        ],
+        # Annual reports to HRC (2007-) / CHR (1992-2006), from OHCHR page
+        # https://www.ohchr.org/en/special-procedures/wg-arbitrary-detention/annual-thematic-reports
+        # Excluded: the 2006 Guantánamo joint situation report (E/CN.4/2006/120).
+        # 2014 & 2015 each carry a second substantive thematic study.
+        'reports': [
+            (2025, 'A/HRC/60/26', 'HRC 60th session', 'Annual report: alternatives to pre-trial detention'),
+            (2024, 'A/HRC/57/44', 'HRC 57th session', 'Annual report: arbitrary detention and mandatory sentencing'),
+            (2023, 'A/HRC/54/51', 'HRC 54th session', 'Annual report: disinformation laws, COVID-19, and deprivation of liberty of environmental human rights defenders'),
+            (2022, 'A/HRC/51/29', 'HRC 51st session', 'Annual report: secret detention, effective interviewing, and deprivation of liberty of older persons'),
+            (2021, 'A/HRC/48/55', 'HRC 48th session', 'Annual report: deprivation of liberty of human rights defenders, forcible transfers, and the Declaration against Arbitrary Detention in State-to-State relations'),
+            (2020, 'A/HRC/45/16', 'HRC 45th session', 'Annual report: women deprived of liberty, the right to legal assistance, modern technologies and alternatives to detention'),
+            (2019, 'A/HRC/42/39', 'HRC 42nd session', 'Annual report: conscientious objection, registers, use of opinions in domestic proceedings, and reparations'),
+            (2018, 'A/HRC/39/45', 'HRC 39th session', 'Annual report: consular assistance and diplomatic protection, and linkages between arbitrary detention and torture'),
+            (2017, 'A/HRC/36/37', 'HRC 36th session', 'Annual report: deprivation of liberty on discriminatory grounds and new regimes of deprivation of liberty'),
+            (2016, 'A/HRC/33/50', 'HRC 33rd session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2015, 'A/HRC/30/37', 'HRC 30th session', 'United Nations Basic Principles and Guidelines on remedies and procedures on the right of anyone deprived of their liberty to bring proceedings before a court'),
+            (2015, 'A/HRC/30/36', 'HRC 30th session', 'Annual report: detention in the context of drug control, peaceful protests, and remedies for arbitrary detention'),
+            (2014, 'A/HRC/27/48', 'HRC 27th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2014, 'A/HRC/27/47', 'HRC 27th session', 'Compilation of national, regional and international laws, regulations and practices on the right to challenge the lawfulness of detention before court'),
+            (2013, 'A/HRC/22/44', 'HRC 22nd session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2012, 'A/HRC/19/57', 'HRC 19th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2011, 'A/HRC/16/47', 'HRC 16th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2010, 'A/HRC/13/30', 'HRC 13th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2009, 'A/HRC/10/21', 'HRC 10th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2008, 'A/HRC/7/4',   'HRC 7th session',  'Annual report of the Working Group on Arbitrary Detention'),
+            (2007, 'A/HRC/4/40',  'HRC 4th session',  'Annual report of the Working Group on Arbitrary Detention'),
+            (2006, 'E/CN.4/2006/7',  'CHR 62nd session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2005, 'E/CN.4/2005/6',  'CHR 61st session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2004, 'E/CN.4/2004/3',  'CHR 60th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2003, 'E/CN.4/2003/8',  'CHR 59th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2002, 'E/CN.4/2002/77', 'CHR 58th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2001, 'E/CN.4/2001/14', 'CHR 57th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (2000, 'E/CN.4/2000/4',  'CHR 56th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (1999, 'E/CN.4/1999/63', 'CHR 55th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (1998, 'E/CN.4/1998/44', 'CHR 54th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (1997, 'E/CN.4/1997/4',  'CHR 53rd session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (1996, 'E/CN.4/1996/40', 'CHR 52nd session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (1995, 'E/CN.4/1995/31', 'CHR 51st session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (1994, 'E/CN.4/1994/27', 'CHR 50th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (1993, 'E/CN.4/1993/24', 'CHR 49th session', 'Annual report of the Working Group on Arbitrary Detention'),
+            (1992, 'E/CN.4/1992/20', 'CHR 48th session', 'Annual report of the Working Group on Arbitrary Detention'),
+        ],
+    },
     'ie-international-order': {
         'committee_label': 'IE International Order',
         'full_name': 'Independent Expert on the promotion of a democratic and equitable international order',
