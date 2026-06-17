@@ -1008,6 +1008,76 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'wg-disappearances': {
+        'committee_label': 'WG Enforced Disappearances',
+        'full_name': 'Working Group on Enforced or Involuntary Disappearances',
+        # Collective body (created 1980, CHR res 20 (XXXVI)) — oldest SP.
+        # Every report attributed to "Working Group"; no holder transitions.
+        'mandate_holders': [
+            (9999, 'Working Group'),
+        ],
+        # Annual reports to HRC (2007-) / CHR (1980-2006) + 3 GA reports, from
+        # https://www.ohchr.org/en/special-procedures/wg-disappearances/annual-reports
+        # One main annual report per year. Excluded: all Add.x (thematic/country-
+        # visit addenda), corrigenda, A/HRC/60/CRP.2, and the 1991 Sri Lanka
+        # country-visit report (E/CN.4/1992/18). No 2013-cycle report listed.
+        'reports': [
+            (2025, 'A/HRC/60/35', 'HRC 60th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2024, 'A/HRC/57/54', 'HRC 57th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2023, 'A/HRC/54/22', 'HRC 54th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2022, 'A/HRC/51/31', 'HRC 51st session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2021, 'A/HRC/48/57', 'HRC 48th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2020, 'A/HRC/45/13', 'HRC 45th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2019, 'A/HRC/42/40', 'HRC 42nd session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2018, 'A/HRC/39/46', 'HRC 39th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2017, 'A/HRC/36/39', 'HRC 36th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2016, 'A/HRC/33/51', 'HRC 33rd session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2015, 'A/HRC/30/38', 'HRC 30th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2014, 'A/HRC/27/49', 'HRC 27th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2013, 'A/HRC/22/45', 'HRC 22nd session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances (thematic section on reparations)'),
+            (2012, 'A/HRC/19/58/Rev.1', 'HRC 19th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2011, 'A/HRC/16/48', 'HRC 16th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2010, 'A/HRC/13/31', 'HRC 13th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2009, 'A/HRC/10/9',  'HRC 10th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2008, 'A/HRC/7/2',   'HRC 7th session',  'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2007, 'A/HRC/4/41',  'HRC 4th session',  'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2006, 'E/CN.4/2006/56', 'CHR 62nd session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2005, 'E/CN.4/2005/65', 'CHR 61st session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2004, 'E/CN.4/2004/58', 'CHR 60th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2003, 'E/CN.4/2003/70', 'CHR 59th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2002, 'E/CN.4/2002/79', 'CHR 58th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2001, 'E/CN.4/2001/68', 'CHR 57th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2000, 'E/CN.4/2000/64', 'CHR 56th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1999, 'E/CN.4/1999/62', 'CHR 55th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1998, 'E/CN.4/1998/43', 'CHR 54th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1997, 'E/CN.4/1997/34', 'CHR 53rd session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1996, 'E/CN.4/1996/38', 'CHR 52nd session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1995, 'E/CN.4/1995/36', 'CHR 51st session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            # NB E/CN.4/1994/26 (151pp) & E/CN.4/1993/25 (164pp) are image-only
+            # scanned PDFs with NO text layer (0 extractable chars) — the
+            # paragraph extractor cannot process them without OCR. Kept for the
+            # catalogue record; 45/47 present (N-2).
+            (1994, 'E/CN.4/1994/26', 'CHR 50th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1993, 'E/CN.4/1993/25', 'CHR 49th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1991, 'E/CN.4/1991/20', 'CHR 47th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1990, 'E/CN.4/1990/13', 'CHR 46th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1989, 'E/CN.4/1989/18', 'CHR 45th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1988, 'E/CN.4/1988/19', 'CHR 44th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1987, 'E/CN.4/1987/15', 'CHR 43rd session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1986, 'E/CN.4/1986/18', 'CHR 42nd session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1985, 'E/CN.4/1985/15', 'CHR 41st session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1984, 'E/CN.4/1984/21', 'CHR 40th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1983, 'E/CN.4/1983/14', 'CHR 39th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
+            # NB E/CN.4/1492 (1981) & E/CN.4/1435 (1980) use pre-1982 sequential
+            # symbols and may not resolve via the modern access API (note N-1 each
+            # if unfetchable).
+            (1981, 'E/CN.4/1492', 'CHR 37th session', 'First report of the Working Group on Enforced or Involuntary Disappearances'),
+            (1980, 'E/CN.4/1435', 'CHR 36th session', 'Report of the Working Group on Enforced or Involuntary Disappearances'),
+            (2004, 'A/59/341', 'GA 59th session', 'Question of enforced or involuntary disappearances'),
+            (2000, 'A/55/289', 'GA 55th session', 'Question of enforced or involuntary disappearances'),
+            (1998, 'A/53/304', 'GA 53rd session', 'Question of enforced or involuntary disappearances'),
+        ],
+    },
     'wg-arbitrary-detention': {
         'committee_label': 'WG Arbitrary Detention',
         'full_name': 'Working Group on Arbitrary Detention',
