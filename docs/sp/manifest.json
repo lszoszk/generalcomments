@@ -1,11 +1,11 @@
 {
   "version": "20260617",
-  "builtAt": "2026-06-17T10:42:17+00:00",
+  "builtAt": "2026-06-17T12:00:48+00:00",
   "counts": {
-    "documents": 1112,
-    "paragraphs": 110383,
-    "shards": 30,
-    "committees": 30
+    "documents": 1153,
+    "paragraphs": 114750,
+    "shards": 31,
+    "committees": 31
   },
   "files": {
     "shards/sp_SR_Adequate_Housing.json": {
@@ -145,6 +145,12 @@
       "bytes": 2590546,
       "documents": 31,
       "paragraphs": 2319
+    },
+    "shards/sp_SR_Sale_of_Children.json": {
+      "sha": "7dc23c52d8611450",
+      "bytes": 3717497,
+      "documents": 41,
+      "paragraphs": 4367
     },
     "shards/sp_SR_Torture.json": {
       "sha": "5dd7890c8939f86f",

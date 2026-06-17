@@ -1008,6 +1008,77 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'sale-of-children': {
+        'committee_label': 'SR Sale of Children',
+        'full_name': 'Special Rapporteur on the sale, sexual exploitation and sexual abuse of children',
+        # (year_max, name) ascending. Petit (2001–2008), M'jid (2008–2014),
+        # de Boer-Buquicchio (2014–2020), Singhateh (2020–2026).
+        # NB transitions (handover-year report by the successor; year-only
+        # rule misattributes to predecessor):
+        #   A/HRC/9/21 (2008) -> M'jid (new SR's first "vision" report)
+        #   A/69/262   (2014) -> de Boer-Buquicchio (new SR's vision)
+        #   A/75/210   (2020) -> Singhateh (new SR's vision)
+        # (The handover-year HRC "reflections/farewell" reports — A/HRC/7/8
+        # 2008 Petit, A/HRC/25/48 2014 M'jid, A/HRC/43/40 2020
+        # de Boer-Buquicchio — stay correct under the year rule.)
+        'mandate_holders': [
+            (2008, 'Juan Miguel Petit'),
+            (2014, "Najat Maalla M'jid"),
+            (2020, 'Maud de Boer-Buquicchio'),
+            (9999, 'Mama Fatima Singhateh'),
+        ],
+        # Catalogue from OHCHR's annual-reports page
+        # https://www.ohchr.org/en/special-procedures/sr-sale-of-children/annual-reports-human-rights-council-and-general-assembly
+        # Thematic series 2001–2026. The 1991–2000 era (Muntarbhorn +
+        # Calcetas-Santos) is predominantly general "national and
+        # international developments" / scoping reports and is excluded.
+        # Addenda (communications), A/HRC/16/57 "report of activities" excluded.
+        # (year, signature, presented, subject)
+        'reports': [
+            (2026, 'A/HRC/61/45', 'HRC 61st session', 'Protecting children from sale, sexual exploitation and sexual abuse: progress, new frontiers and the path forward'),
+            (2025, 'A/80/113',    'GA 80th session',  'A child-centred response to the sexual exploitation of children in street situations'),
+            (2025, 'A/HRC/58/52', 'HRC 58th session', 'Sexual abuse of children in peacekeeping and humanitarian contexts'),
+            (2024, 'A/79/122',    'GA 79th session',  'Existing and emerging sexually exploitative practices against children in the digital environment'),
+            (2024, 'A/HRC/55/55', 'HRC 55th session', 'Sexual abuse and exploitation of children in the entertainment industry'),
+            (2023, 'A/78/137',    'GA 78th session',  'Exploitation and sexual abuse of children in the context of travel and tourism, including voluntourism'),
+            (2023, 'A/HRC/52/31', 'HRC 52nd session', 'Reparation for child victims and survivors of sale and sexual exploitation'),
+            (2022, 'A/77/140',    'GA 77th session',  'Addressing the vulnerabilities of children to sale and sexual exploitation in the framework of the Sustainable Development Goals'),
+            (2022, 'A/HRC/49/51', 'HRC 49th session', 'A practical approach to addressing the sale and sexual exploitation of children'),
+            (2021, 'A/76/144',    'GA 76th session',  'The gender dimension of the sexual exploitation of children'),
+            (2021, 'A/HRC/46/31', 'HRC 46th session', 'Impact of the COVID-19 pandemic on the sale and sexual exploitation of children'),
+            (2020, 'A/75/210',    'GA 75th session',  'Vision and methods of work of the Special Rapporteur'),
+            (2020, 'A/HRC/43/40', 'HRC 43rd session', 'Reflections of the Special Rapporteur on the 2014–2020 tenure'),
+            (2019, 'A/74/162',    'GA 74th session',  'Safeguards for the protection of the rights of children born from surrogacy arrangements'),
+            (2019, 'A/HRC/40/51', 'HRC 40th session', 'Sale and sexual exploitation of children in the context of sports'),
+            (2018, 'A/73/174',    'GA 73rd session',  'Combating and preventing the sale and sexual exploitation of children through the Sustainable Development Goals'),
+            (2018, 'A/HRC/37/60', 'HRC 37th session', 'Surrogacy and the sale of children'),
+            (2017, 'A/72/164',    'GA 72nd session',  'Vulnerabilities of children to sale, trafficking and exploitation in situations of conflict and humanitarian crisis'),
+            (2017, 'A/HRC/34/55', 'HRC 34th session', 'Illegal adoptions'),
+            (2016, 'A/71/261',    'GA 71st session',  'Sale of children for the purpose of forced labour'),
+            (2016, 'A/HRC/31/58', 'HRC 31st session', 'Tackling the demand for the sexual exploitation of children'),
+            (2015, 'A/70/222',    'GA 70th session',  'Comprehensive, rights-based and child-centred care, recovery and reintegration programmes'),
+            (2015, 'A/HRC/28/56', 'HRC 28th session', 'Information and communications technologies and the sale and sexual exploitation of children'),
+            (2014, 'A/69/262',    'GA 69th session',  'Approach, vision and methods of work of the Special Rapporteur'),
+            (2014, 'A/HRC/25/48', 'HRC 25th session', 'Reflection on a six-year tenure'),
+            (2013, 'A/68/275',    'GA 68th session',  'Comprehensive prevention strategies against the sale and sexual exploitation of children'),
+            (2013, 'A/HRC/22/54', 'HRC 22nd session', 'Sexual exploitation of children in travel and tourism'),
+            (2012, 'A/67/291',    'GA 67th session',  'Child participation'),
+            (2012, 'A/HRC/19/63', 'HRC 19th session', 'Protection of children from sale and sexual exploitation following humanitarian crises due to natural disasters'),
+            (2011, 'A/66/228',    'GA 66th session',  'Comprehensive child protection systems'),
+            (2011, 'A/HRC/16/56', 'HRC 16th session', 'Child-sensitive counselling, complaint and reporting mechanisms (joint report)'),
+            (2010, 'A/65/221',    'GA 65th session',  'Effective implementation of the Optional Protocol on the sale of children'),
+            (2009, 'A/HRC/12/23', 'HRC 12th session', 'Child pornography on the Internet'),
+            (2008, 'A/HRC/9/21',  'HRC 9th session',  'First annual report: vision and methods of work of the Special Rapporteur'),
+            (2008, 'A/HRC/7/8',   'HRC 7th session',  'Assistance and rehabilitation programmes for child victims of trafficking and commercial sexual exploitation'),
+            (2007, 'A/HRC/4/31',  'HRC 4th session',  'Sale of children’s organs and rapid-response programmes for abducted or disappeared children'),
+            (2006, 'E/CN.4/2006/67', 'CHR 62nd session', 'Demand for sexual services deriving from the exploitation of children'),
+            (2005, 'E/CN.4/2005/78', 'CHR 61st session', 'Child pornography on the Internet'),
+            (2004, 'E/CN.4/2004/9',  'CHR 60th session', 'Prevention of child sexual exploitation'),
+            (2003, 'E/CN.4/2003/79', 'CHR 59th session', 'Legal consequences of the sale of children and the criminalization of child victims'),
+            (2002, 'E/CN.4/2002/88', 'CHR 58th session', 'HIV/AIDS and the sexual exploitation of children'),
+            (2001, 'E/CN.4/2001/78', 'CHR 57th session', 'The business sector and the sexual exploitation of children'),
+        ],
+    },
     'violence-against-women': {
         'committee_label': 'SR Violence against Women',
         'full_name': 'Special Rapporteur on violence against women and girls, its causes and consequences',
