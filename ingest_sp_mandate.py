@@ -1008,6 +1008,47 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'ie-albinism': {
+        'committee_label': 'IE Albinism',
+        'full_name': 'Independent Expert on the enjoyment of human rights by persons with albinism',
+        # (year_max, name) ascending. Mandate created 2015 (HRC res 28/6).
+        # Ikponwosa Ero (first IE, Jun 2015 - 31 Jul 2021), Muluka-Anne
+        # Miti-Drummond (1 Aug 2021 -). Handover fix: A/76/166 (GA 76th,
+        # Oct 2021) -> Miti-Drummond (she took office 1 Aug 2021; A/HRC/46/32
+        # March-2021 "Overview of Work on the Mandate" stays Ero's farewell).
+        'mandate_holders': [
+            (2021, 'Ikponwosa Ero'),
+            (9999, 'Muluka-Anne Miti-Drummond'),
+        ],
+        # Catalogue from OHCHR reports page (HRC + GA)
+        # https://www.ohchr.org/en/special-procedures/ie-albinism/reports
+        # HRC (31-61) and GA (71-80) both annual & contiguous 2016-2026.
+        # Addenda (A/HRC/37/57/Add.*, A/HRC/40/62/Add.2), the A/74/190/Corr.1
+        # corrigendum, unofficial addenda, and the A/79/175 annex excluded.
+        'reports': [
+            (2026, 'A/HRC/61/53', 'HRC 61st session', 'Right to employment for persons with albinism'),
+            (2025, 'A/80/222',    'GA 80th session',  'The right to health and persons with albinism in the context of skin cancer'),
+            (2025, 'A/HRC/58/57', 'HRC 58th session', 'Tenth anniversary report of the mandate of the Independent Expert on the enjoyment of human rights by persons with albinism'),
+            (2024, 'A/79/175',    'GA 79th session',  'Children with albinism and the right to family life'),
+            (2024, 'A/HRC/55/45', 'HRC 55th session', 'The right to education and persons with albinism'),
+            (2023, 'A/78/167',    'GA 78th session',  'Impact of climate change on persons with albinism'),
+            (2023, 'A/HRC/52/36', 'HRC 52nd session', 'Human rights defenders and persons with albinism'),
+            (2022, 'A/77/199',    'GA 77th session',  'People with albinism on the move'),
+            (2022, 'A/HRC/49/56', 'HRC 49th session', 'Harmful practices and hate crimes targeting persons with albinism'),
+            (2021, 'A/76/166',    'GA 76th session',  'Addressing attitudinal barriers experienced by persons with albinism'),
+            (2021, 'A/HRC/46/32', 'HRC 46th session', 'Achievements, accomplishments, challenges and the way forward: an overview of work on the mandate'),
+            (2020, 'A/75/170',    'GA 75th session',  'Protection of persons with albinism'),
+            (2020, 'A/HRC/43/42', 'HRC 43rd session', 'Women and children impacted by albinism'),
+            (2019, 'A/74/190',    'GA 74th session',  'Albinism worldwide'),
+            (2019, 'A/HRC/40/62', 'HRC 40th session', 'Access to justice for persons with albinism'),
+            (2018, 'A/73/181',    'GA 73rd session',  'The 2030 Agenda for Sustainable Development and the human rights of persons with albinism'),
+            (2018, 'A/HRC/37/57', 'HRC 37th session', 'Right of persons with albinism to the highest attainable standard of health'),
+            (2017, 'A/72/131',    'GA 72nd session',  'Applicable international human rights standards and related obligations addressing the issues faced by persons with albinism'),
+            (2017, 'A/HRC/34/59', 'HRC 34th session', 'Witchcraft and the human rights of persons with albinism'),
+            (2016, 'A/71/255',    'GA 71st session',  'Preliminary survey on the root causes of attacks and discrimination against persons with albinism'),
+            (2016, 'A/HRC/31/63', 'HRC 31st session', 'Vision for the mandate'),
+        ],
+    },
     'ie-international-solidarity': {
         'committee_label': 'IE International Solidarity',
         'full_name': 'Independent Expert on human rights and international solidarity',
