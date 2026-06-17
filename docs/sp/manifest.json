@@ -1,11 +1,11 @@
 {
   "version": "20260617",
-  "builtAt": "2026-06-17T19:27:45+00:00",
+  "builtAt": "2026-06-17T19:46:08+00:00",
   "counts": {
-    "documents": 1206,
-    "paragraphs": 119099,
-    "shards": 34,
-    "committees": 34
+    "documents": 1224,
+    "paragraphs": 120599,
+    "shards": 35,
+    "committees": 35
   },
   "files": {
     "shards/sp_IE_Older_Persons.json": {
@@ -13,6 +13,12 @@
       "bytes": 1535916,
       "documents": 18,
       "paragraphs": 1724
+    },
+    "shards/sp_IE_Sexual_Orientation_and_Gender_Identity.json": {
+      "sha": "dcae70e88bc910dd",
+      "bytes": 1798032,
+      "documents": 18,
+      "paragraphs": 1500
     },
     "shards/sp_SR_Adequate_Housing.json": {
       "sha": "535f9a804ab6668f",

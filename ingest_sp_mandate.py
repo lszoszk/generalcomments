@@ -1008,6 +1008,44 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'ie-sexual-orientation-gender-identity': {
+        'committee_label': 'IE Sexual Orientation and Gender Identity',
+        'full_name': 'Independent Expert on protection against violence and discrimination based on sexual orientation and gender identity',
+        # (year_max, name) ascending. Mandate created 2016 (HRC res 32/2).
+        # Muntarbhorn (first IE, Nov 2016 - Oct 2017; resigned), Madrigal-Borloz
+        # (Jan 2018 - Oct 2023), Reid (Nov 2023 -). Boundaries fall on calendar
+        # years: both 2017 reports are Muntarbhorn's; both 2023 reports are
+        # Madrigal-Borloz's (Reid started Nov 2023, after the Oct GA report);
+        # Reid's first reports are 2024 — so the year rule needs NO per-report fix.
+        'mandate_holders': [
+            (2017, 'Vitit Muntarbhorn'),
+            (2023, 'Victor Madrigal-Borloz'),
+            (9999, 'Graeme Reid'),
+        ],
+        # Catalogue from OHCHR annual-thematic-reports page (HRC + GA sections)
+        # https://www.ohchr.org/en/special-procedures/ie-sexual-orientation-and-gender-identity/annual-thematic-reports
+        # Both HRC (sessions 35-59) and GA (sessions 72-80) reports annual & contiguous 2017-2025.
+        'reports': [
+            (2025, 'A/80/183',    'GA 80th session',  'Protection against violence and discrimination based on SOGI in relation to the human right to education'),
+            (2025, 'A/HRC/59/43', 'HRC 59th session', 'Protection against violence and discrimination based on SOGI in relation to forced displacement'),
+            (2024, 'A/79/151',    'GA 79th session',  'Electoral participation and protection against violence and discrimination based on SOGI'),
+            (2024, 'A/HRC/56/49', 'HRC 56th session', 'Protection against violence and discrimination based on SOGI in relation to freedom of expression, peaceful assembly and association'),
+            (2023, 'A/78/227',    'GA 78th session',  'Colonialism and sexual orientation and gender identity'),
+            (2023, 'A/HRC/53/37', 'HRC 53rd session', 'Freedom of thought, conscience and religion or belief, and sexual orientation and gender identity'),
+            (2022, 'A/77/235',    'GA 77th session',  'Peace, security, sexual orientation and gender identity'),
+            (2022, 'A/HRC/50/27', 'HRC 50th session', 'The right to health and Sustainable Development Goal 3'),
+            (2021, 'A/76/152',    'GA 76th session',  'Gender (Part II): practices of exclusion'),
+            (2021, 'A/HRC/47/27', 'HRC 47th session', 'The law of inclusion and gender theory'),
+            (2020, 'A/75/258',    'GA 75th session',  'Impact of the COVID-19 pandemic on LGBT persons'),
+            (2020, 'A/HRC/44/53', 'HRC 44th session', '"Conversion therapy" practices'),
+            (2019, 'A/74/181',    'GA 74th session',  'Social inclusion of LGBT persons'),
+            (2019, 'A/HRC/41/45', 'HRC 41st session', 'Data collection and management'),
+            (2018, 'A/73/152',    'GA 73rd session',  'Legal recognition of gender identity and depathologization'),
+            (2018, 'A/HRC/38/43', 'HRC 38th session', 'Inaugural report of Independent Expert Victor Madrigal-Borloz'),
+            (2017, 'A/72/172',    'GA 72nd session',  'Inaugural report of Independent Expert Vitit Muntarbhorn'),
+            (2017, 'A/HRC/35/36', 'HRC 35th session', 'Decriminalization and anti-discrimination legislation'),
+        ],
+    },
     'ie-older-persons': {
         'committee_label': 'IE Older Persons',
         'full_name': 'Independent Expert on the enjoyment of all human rights by older persons',
