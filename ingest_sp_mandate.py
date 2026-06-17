@@ -1008,6 +1008,41 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'leprosy': {
+        'committee_label': 'SR Leprosy',
+        'full_name': "Special Rapporteur on the elimination of discrimination against persons affected by leprosy (Hansen's disease) and their family members",
+        # (year_max, name) ascending. Mandate created 2017 (HRC res 35/9).
+        # Alice Cruz (first SR, 2017–2023), Beatriz Miranda-Galarza (Oct 2023–).
+        # The 2024 HRC "vision report" A/HRC/56/59 is explicitly Miranda-Galarza's
+        # first; the 2023 reports (incl. the Oct-2023 GA report A/78/173) are
+        # Cruz's — the year-only rule already assigns these correctly, so NO
+        # transition fix is needed.
+        'mandate_holders': [
+            (2023, 'Alice Cruz'),
+            (9999, 'Beatriz Miranda-Galarza'),
+        ],
+        # Catalogue from OHCHR annual-thematic-reports page
+        # https://www.ohchr.org/en/special-procedures/sr-leprosy/annual-thematic-reports
+        # (that page omits the 2022/2023 GA reports A/77/139 & A/78/173; added
+        # from OHCHR /documents/thematic-reports pages, WebSearch-verified).
+        # GA reports began 2021. NB the 2025 GA report (A/80…, "right to
+        # medication"; symbol not yet confirmable) and the forthcoming 2026
+        # HRC 62 report ("Rights, Memory and Belonging", still call-for-input)
+        # are NOT yet included — add once their symbols are published.
+        'reports': [
+            (2024, 'A/79/152',    'GA 79th session',  "Care and support for persons affected by leprosy (Hansen's disease) and their family members from a human rights perspective"),
+            (2024, 'A/HRC/56/59', 'HRC 56th session', 'Vision report of the Special Rapporteur on the elimination of discrimination against persons affected by leprosy and their family members'),
+            (2023, 'A/78/173',    'GA 78th session',  'Legal framework for eliminating discrimination on the grounds of leprosy'),
+            (2023, 'A/HRC/53/30', 'HRC 53rd session', 'Right to the highest attainable standard of physical and mental health for persons affected by leprosy and their family members'),
+            (2022, 'A/77/139',    'GA 77th session',  'Multiple disabilities and fluid self-identification: disability rights of persons affected by leprosy and their family members and how they challenge national legal frameworks'),
+            (2022, 'A/HRC/50/35', 'HRC 50th session', 'Right to the highest attainable standard of physical and mental health for persons affected by leprosy and their family members'),
+            (2021, 'A/76/148',    'GA 76th session',  'An unfinished business: discrimination in law against persons affected by leprosy and their family members'),
+            (2021, 'A/HRC/47/29', 'HRC 47th session', 'Disproportionate impact of the coronavirus disease (COVID-19) pandemic on persons affected by leprosy and their family members: root causes, consequences and the way to recovery'),
+            (2020, 'A/HRC/44/46', 'HRC 44th session', 'Policy framework for rights-based action plans'),
+            (2019, 'A/HRC/41/47', 'HRC 41st session', 'Stigmatization as dehumanization: wrongful stereotyping and structural violence against women and children affected by leprosy'),
+            (2018, 'A/HRC/38/42', 'HRC 38th session', "Outline of the mandate's vision, priorities and working methods"),
+        ],
+    },
     'sale-of-children': {
         'committee_label': 'SR Sale of Children',
         'full_name': 'Special Rapporteur on the sale, sexual exploitation and sexual abuse of children',
