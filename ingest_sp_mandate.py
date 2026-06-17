@@ -1008,6 +1008,43 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'ie-older-persons': {
+        'committee_label': 'IE Older Persons',
+        'full_name': 'Independent Expert on the enjoyment of all human rights by older persons',
+        # (year_max, name) ascending. Mandate created 2013 (HRC res 24/20).
+        # Kornfeld-Matte (first IE, May 2014 - May 2020), Mahler (May 2020 -).
+        # Kornfeld-Matte's last report is 2019 (A/HRC/42/43); both 2020 reports
+        # (A/HRC/45/14 published Jul 2020, A/75/205) are Mahler's — so the
+        # boundary sits at 2019 and the year rule needs NO per-report fix.
+        'mandate_holders': [
+            (2019, 'Rosa Kornfeld-Matte'),
+            (9999, 'Claudia Mahler'),
+        ],
+        # Catalogue from OHCHR annual-reports page
+        # https://www.ohchr.org/en/special-procedures/ie-older-persons/annual-reports
+        # HRC reports annual from 2014; GA reports annual from 2020 (both
+        # contiguous). A/HRC/42/43's Vienna Declaration annex excluded.
+        'reports': [
+            (2025, 'A/80/203',    'GA 80th session',  'Older persons in armed conflict and peacebuilding'),
+            (2025, 'A/HRC/60/24', 'HRC 60th session', "Intersection between older persons' right to social protection and their right to work"),
+            (2024, 'A/79/167',    'GA 79th session',  'Future generations of older persons'),
+            (2024, 'A/HRC/57/42', 'HRC 57th session', 'Legal capacity and informed consent'),
+            (2023, 'A/78/226',    'GA 78th session',  'Human rights of older persons in the context of climate change-induced disasters'),
+            (2023, 'A/HRC/54/26', 'HRC 54th session', 'Violence against and abuse and neglect of older persons'),
+            (2022, 'A/77/239',    'GA 77th session',  'Older persons and the right to adequate housing'),
+            (2022, 'A/HRC/51/27', 'HRC 51st session', 'Older persons deprived of liberty'),
+            (2021, 'A/76/157',    'GA 76th session',  'The human rights of older women: the intersection between ageing and gender'),
+            (2021, 'A/HRC/48/53', 'HRC 48th session', 'Ageism and age discrimination'),
+            (2020, 'A/75/205',    'GA 75th session',  'Impact of the coronavirus disease (COVID-19) on the enjoyment of all human rights by older persons'),
+            (2020, 'A/HRC/45/14', 'HRC 45th session', 'Human rights of older persons: the data gap conundrum'),
+            (2019, 'A/HRC/42/43', 'HRC 42nd session', 'Human rights of older persons in emergency situations'),
+            (2018, 'A/HRC/39/50', 'HRC 39th session', 'Social exclusion: concepts, manifestations and the impact on the human rights of older persons'),
+            (2017, 'A/HRC/36/48', 'HRC 36th session', 'Robots and rights: the impact of automation on the human rights of older persons'),
+            (2016, 'A/HRC/33/44', 'HRC 33rd session', 'Good practices in the promotion and protection of the human rights of older persons and assessment of MIPAA'),
+            (2015, 'A/HRC/30/43', 'HRC 30th session', 'Autonomy and care of older persons'),
+            (2014, 'A/HRC/27/46', 'HRC 27th session', 'First annual report: preliminary views on the mandate'),
+        ],
+    },
     'sr-slavery': {
         'committee_label': 'SR Contemporary Slavery',
         'full_name': 'Special Rapporteur on contemporary forms of slavery, including its causes and consequences',
