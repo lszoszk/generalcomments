@@ -112,7 +112,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/tokens.css?v=20260611-p2audit" />
-<link rel="stylesheet" href="assets/app.css?v=20260618-sprail" />
+<link rel="stylesheet" href="assets/app.css?v=20260618-about" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -353,7 +353,7 @@
         <button class="scope-opt" data-scope="sp" role="tab" aria-selected="false">
           <span class="scope-opt-name">Special Procedures</span>
           <span class="scope-count" id="count-sp">—</span>
-          <span class="badge badge-preview">PREVIEW</span>
+          <span class="badge badge-preview">SOFT&nbsp;LAW</span>
         </button>
         <button class="scope-opt" data-scope="all" role="tab" aria-selected="false">
           <span class="scope-opt-name">All sources</span>
@@ -361,7 +361,7 @@
       </div>
       <div class="scope-banner" id="scope-banner" hidden>
         <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
-        <span class="folio">SOFT-LAW PREVIEW</span>Special Procedures are reports by independent UN mandate-holders. Currently only a few mandates are indexed; the General Comments collection is exhaustive while this is a curated preview that will grow.
+        <span class="folio">SOFT LAW</span>Special Procedures are thematic reports by independent UN mandate-holders — persuasive soft law, distinct from the binding interpretation the treaty bodies issue in General Comments. All 46 thematic mandates are indexed; country visits, communications and addenda are out of scope.
       </div>
     </div>
 
@@ -415,7 +415,7 @@
       </div>
       <div id="filter-committees" class="chip-grid"></div>
       <div id="filter-bodies-sp" class="filter-sub" hidden>
-        <div class="folio sp-section">Special Procedures · 4 mandates · preview</div>
+        <div class="folio sp-section">Special Procedures · 46 mandates · soft law</div>
         <div id="filter-mandates" class="chip-grid"></div>
       </div>
     </div>
@@ -785,7 +785,7 @@
   <article class="about">
     <div class="about-inner">
       <div class="folio garnet">COLOPHON · ABOUT</div>
-      <h2 class="serif about-title">A paragraph-level companion to Treaty Body General Comments, with Special Procedures in development.</h2>
+      <h2 class="serif about-title">A paragraph-level companion to Treaty Body General Comments and Special Procedures, with selected jurisprudence.</h2>
 
       <!-- Freshness card — populated by paintFreshnessCard() at boot.
            A traffic-light "last refreshed N days ago" reassures users the
@@ -797,13 +797,15 @@
           <h3 class="folio">What this is</h3>
           <p class="serif dropcap">
             UN Human Rights Database is a paragraph-level search interface for UN human
-            rights interpretation. Its primary corpus is Treaty Body General
-            Comments. CEDAW/CRPD jurisprudence and Special Procedures are separate
-            expansion streams, clearly marked as previews while those collections
-            are still under development. The General Comments corpus remains the
-            priority; preview material is loaded lazily on demand.
-            Across the current published build, <strong>203,302 paragraphs</strong> across
-            <strong>4,900 documents</strong> are searchable, filterable and citable down to
+            rights interpretation. Its authoritative core is Treaty Body General
+            Comments. It now also indexes the complete set of thematic
+            <strong>Special Procedures</strong> annual reports — all 46 mandates — and a
+            growing preview of CCPR / CEDAW / CRPD individual-complaint jurisprudence.
+            Special Procedures reports are <em>soft law</em> (independent expert opinion,
+            not binding treaty-body interpretation); the jurisprudence stream is still an
+            in-progress preview. Secondary collections are loaded lazily on demand.
+            Across the current published build, <strong>320,018 paragraphs</strong> across
+            <strong>6,081 documents</strong> are searchable, filterable and citable down to
             their number.
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule); font-style: italic; color: var(--ink-3);">
@@ -815,11 +817,11 @@
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule);">
             <strong class="folio">Dataset snapshot:</strong> last synchronised with
             <a class="about-link" href="https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/TBSearch.aspx?Lang=en" target="_blank" rel="noopener">OHCHR Treaty Body Database</a>
-            on <strong>20 May 2026</strong>.
-            <strong>4,900 documents · 203,302 paragraphs</strong> total —
+            on <strong>18 June 2026</strong>.
+            <strong>6,081 documents · 320,018 paragraphs</strong> total —
             <strong>187 General Comments</strong> (all 10 treaty bodies),
-            <strong>4,334 jurisprudence cases</strong> (8 bodies: CCPR, CAT, CEDAW, CESCR, CRC, CRPD, CERD, CED),
-            <strong>379 Special Procedures reports</strong> (8 mandates).
+            <strong>1,560 Special Procedures reports</strong> (all 46 thematic mandates),
+            <strong>4,334 jurisprudence cases</strong> (8 bodies: CCPR, CAT, CEDAW, CESCR, CRC, CRPD, CERD, CED).
             The most recent General Comment is
             <em>CEDAW/C/GC/30/Add.1</em> (Women, Peace and Security addendum, 18 February 2026);
             the most recent Special Procedures report is
@@ -932,14 +934,26 @@
         <div class="about-block">
           <h3 class="folio">Special Procedures</h3>
           <p class="serif">
-            <strong>379 Special Procedures reports</strong> from eight mandates are
-            included as a curated preview: SR Freedom of Religion or Belief (88),
-            SR Torture (69), SR Health (50), SR Freedom of Expression (45),
-            SR Indigenous Peoples (44), SR Education (43), SR Disability (22)
-            and SR Privacy (18). The collection is under active development;
-            further mandates are added through a
-            <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/ingest_sp_mandate.py" target="_blank" rel="noopener">generic ingestion pipeline</a>
-            and these results should be read as exploratory rather than exhaustive.
+            <strong>1,560 reports</strong> covering <strong>all 46 thematic
+            mandates</strong> of the UN Special Procedures — 33 Special Rapporteurs,
+            6 Independent Experts and 7 Working Groups. Each mandate's full run of
+            <em>thematic annual reports</em> to the Human Rights Council, the General
+            Assembly and the former Commission on Human Rights is split paragraph by
+            paragraph and labelled for concerned groups, the same way as General
+            Comments. Special Procedures reports are <strong>soft law</strong>: the
+            independent opinion of a mandate-holder, persuasive but not the binding
+            interpretation a treaty body issues in a General Comment.
+          </p>
+          <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px dotted var(--rule); font-size: 13px;">
+            <strong class="folio">What is in and out of scope.</strong> The corpus is
+            the <em>thematic</em> output only. By design it excludes country-visit
+            reports, communications (joint letters and urgent appeals) and
+            addenda / corrigenda — these report on situations rather than develop
+            doctrine. A small number of older reports are not yet included: a handful
+            are unfetchable through the UN document API (an internal-redirect glitch,
+            retried periodically) and a few are image-only scans with no text layer
+            (pending OCR). Reports are added and maintained through a
+            <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/ingest_sp_mandate.py" target="_blank" rel="noopener">deterministic ingestion pipeline</a>.
           </p>
         </div>
 
@@ -960,6 +974,11 @@
             <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/build_corpus.py" target="_blank" rel="noopener">build_corpus.py</a>;
             search runs entirely in the browser via FlexSearch with stemming, and
             the index is cached in IndexedDB after first load.
+            One caveat on references: structured <em>cited-article</em> metadata is
+            currently extracted for jurisprudence only (about 72&nbsp;% of cases). In
+            General Comments and Special Procedures, treaty-article citations stay
+            fully searchable inside the footnote and body text but are not yet pulled
+            into a separate field.
           </p>
 
           <div class="about-method-toc">
@@ -1363,6 +1382,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260618-sprail"></script>
+<script type="module" src="assets/app.js?v=20260618-about"></script>
 </body>
 </html>
