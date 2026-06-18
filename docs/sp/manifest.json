@@ -1,9 +1,9 @@
 {
   "version": "20260618",
-  "builtAt": "2026-06-18T07:01:37+00:00",
+  "builtAt": "2026-06-18T08:49:18+00:00",
   "counts": {
-    "documents": 1549,
-    "paragraphs": 158850,
+    "documents": 1551,
+    "paragraphs": 159014,
     "shards": 46,
     "committees": 46
   },
@@ -123,10 +123,10 @@
       "paragraphs": 2866
     },
     "shards/sp_SR_Freedom_of_Expression.json": {
-      "sha": "79819b1dc556df2b",
-      "bytes": 4662907,
-      "documents": 45,
-      "paragraphs": 4565
+      "sha": "f2c5c9f5ef64f372",
+      "bytes": 4783588,
+      "documents": 46,
+      "paragraphs": 4696
     },
     "shards/sp_SR_Freedom_of_Religion_or_Belief.json": {
       "sha": "21868798b8cc1453",
@@ -183,10 +183,10 @@
       "paragraphs": 3402
     },
     "shards/sp_SR_Privacy.json": {
-      "sha": "3249677ed16c9b7c",
-      "bytes": 1394137,
-      "documents": 18,
-      "paragraphs": 1633
+      "sha": "989d00156e4fdfb5",
+      "bytes": 1471259,
+      "documents": 19,
+      "paragraphs": 1666
     },
     "shards/sp_SR_Racism.json": {
       "sha": "fb0bdc0b67067af3",

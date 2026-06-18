@@ -276,29 +276,6 @@
     "hrcSession": 43
   },
   {
-    "File PATH": "/home/lszoszk/mysite/json_data_sp/The protection and use of health-related data.json",
-    "Name": "The protection and use of health-related data",
-    "Simplified Name": "The protection and use of health-related data",
-    "Signature": "A/74/277",
-    "Presented": "General Assembly, 74th session",
-    "Adoption Date": "5 August 2019",
-    "Committee": "SR Privacy",
-    "Mandate holder": "Joseph Cannataci",
-    "Link": "https://docs.un.org/en/A/74/277",
-    "Adoption Year": 2019,
-    "paragraphCount": 0,
-    "wordCount": 0,
-    "labelCount": 0,
-    "ohchrSymbol": "A/74/277",
-    "firstAddedAt": "2026-04-28",
-    "lastVerifiedAt": "2026-06-18",
-    "languagesAvailable": [
-      "en"
-    ],
-    "reportType": "annual",
-    "gaSession": 74
-  },
-  {
     "File PATH": "/home/lszoszk/mysite/json_data_sp/Privacy, technology and other human rights from a gender perspective.json",
     "Name": "Privacy, technology and other human rights from a gender perspective",
     "Simplified Name": "Privacy, technology and human rights from gender perspective",
@@ -550,29 +527,6 @@
     ],
     "reportType": "thematic",
     "hrcSession": 53
-  },
-  {
-    "File PATH": "/home/lszoszk/mysite/json_data_sp/Disinformation and freedom of opinion and expression during armed conflicts.json",
-    "Name": "Disinformation and freedom of opinion and expression during armed conflicts",
-    "Simplified Name": "Disinformation and freedom of opinion and expression during armed conflicts",
-    "Signature": "A/77/288",
-    "Presented": "General Assembly, 77th session",
-    "Adoption Date": "12 August 2022",
-    "Committee": "SR Freedom of Expression",
-    "Mandate holder": "Irene Khan",
-    "Link": "https://docs.un.org/en/A/77/288",
-    "Adoption Year": 2022,
-    "paragraphCount": 0,
-    "wordCount": 0,
-    "labelCount": 0,
-    "ohchrSymbol": "A/77/288",
-    "firstAddedAt": "2026-04-28",
-    "lastVerifiedAt": "2026-06-18",
-    "languagesAvailable": [
-      "en"
-    ],
-    "reportType": "annual",
-    "gaSession": 77
   },
   {
     "File PATH": "/home/lszoszk/mysite/json_data_sp/Reinforcing media freedom and safety of journalists in the digital age.json",
@@ -34098,5 +34052,49 @@
       "en"
     ],
     "hrcSession": 57
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Privacy_A_74_277.json",
+    "Name": "The protection and use of health-related data",
+    "Simplified Name": "The protection and use of health-related data",
+    "Signature": "A/74/277",
+    "Adoption Date": "2019",
+    "Adoption Year": 2019,
+    "Committee": "SR Privacy",
+    "Mandate holder": "Joseph Cannataci",
+    "Presented": "GA 74th session",
+    "Link": "https://docs.un.org/en/A/74/277",
+    "reportType": "thematic",
+    "paragraphCount": 33,
+    "wordCount": 10811,
+    "labelCount": 16,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "gaSession": 74
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Freedom_of_Expression_A_77_288.json",
+    "Name": "Disinformation and freedom of opinion and expression during armed conflicts",
+    "Simplified Name": "Disinformation and freedom of opinion and expression during armed conflicts",
+    "Signature": "A/77/288",
+    "Adoption Date": "2022",
+    "Adoption Year": 2022,
+    "Committee": "SR Freedom of Expression",
+    "Mandate holder": "Irene Khan",
+    "Presented": "GA 77th session",
+    "Link": "https://docs.un.org/en/A/77/288",
+    "reportType": "thematic",
+    "paragraphCount": 131,
+    "wordCount": 12561,
+    "labelCount": 46,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "gaSession": 77
   }
 ]

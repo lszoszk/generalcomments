@@ -1008,6 +1008,32 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    # --- Gap-recovery entries (2026-06-18 audit): two reports that failed
+    # extraction in an earlier session (left as paragraphCount-0 orphans in
+    # specialprocedures_info.json, dropped from documents.json). They re-fetch
+    # cleanly now. committee_label matches the existing legacy committees (which
+    # are not otherwise in this MANDATES dict) so the append-only merge folds
+    # them in. Single-holder lists since each slug holds exactly one report.
+    'gap-sr-privacy': {
+        'committee_label': 'SR Privacy',
+        'full_name': 'Special Rapporteur on the right to privacy',
+        'mandate_holders': [
+            (9999, 'Joseph Cannataci'),
+        ],
+        'reports': [
+            (2019, 'A/74/277', 'GA 74th session', 'The protection and use of health-related data'),
+        ],
+    },
+    'gap-sr-freedom-expression': {
+        'committee_label': 'SR Freedom of Expression',
+        'full_name': 'Special Rapporteur on the promotion and protection of the right to freedom of opinion and expression',
+        'mandate_holders': [
+            (9999, 'Irene Khan'),
+        ],
+        'reports': [
+            (2022, 'A/77/288', 'GA 77th session', 'Disinformation and freedom of opinion and expression during armed conflicts'),
+        ],
+    },
     'wg-peasants': {
         'committee_label': 'WG Peasants',
         'full_name': 'Working Group on the rights of peasants and other people working in rural areas',
