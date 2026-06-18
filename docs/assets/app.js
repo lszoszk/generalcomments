@@ -2722,12 +2722,12 @@ function paintCommitteeFilter(scope) {
   } else if (scope === 'sp') {
     sectionLabel.textContent = 'Mandates';
     subSection.hidden = true;
-    paintCommitteeChips(tbHost, sp);
+    paintSpRail(tbHost, sp);
   } else {
     sectionLabel.textContent = 'Treaty bodies';
     subSection.hidden = false;
     paintCommitteeChips(tbHost, mergeFacetItems(tb, jur));
-    paintCommitteeChips(spHost, sp);
+    paintSpRail(spHost, sp);
   }
 }
 
@@ -2748,6 +2748,147 @@ function paintCommitteeChips(container, items, toneClass = '') {
       runSearch();
     });
     container.appendChild(b);
+  }
+}
+
+// ─────────── SP mandate rail (v20) — scalable facet for 46 mandates ───────────
+// The flat chip list doesn't scale past ~10 committees. For Special Procedures
+// (46 mandates) this renders three behaviours from one component:
+//   1. typeahead "Filter mandates…"  → flat, ranked, filtered list
+//   2. query/filter active           → only mandates WITH hits, ranked by count,
+//                                       capped at SP_RAIL_CAP, + "Show all" expander
+//   3. browse (no query) / expanded  → accordion grouped by mandate type
+//                                       (Special Rapporteurs / Independent Experts /
+//                                       Working Groups). 0-hit rows dimmed when a
+//                                       query/filter is active.
+// Counts are fed by paintFacetCounts() via refreshSpRail(); the click + filter
+// semantics are identical to the old chips (toggle state.filters.committees).
+const SP_RAIL_CAP = 8;
+const SP_TYPE_ORDER = ['SR', 'IE', 'WG', 'Other'];
+const SP_TYPE_LABEL = { SR: 'Special rapporteurs', IE: 'Independent experts', WG: 'Working groups', Other: 'Other mandates' };
+function spTypeOf(value) {
+  if (/^SR /.test(value)) return 'SR';
+  if (/^IE /.test(value)) return 'IE';
+  if (/^WG /.test(value)) return 'WG';
+  return 'Other';
+}
+
+function paintSpRail(host, items) {
+  state.spRail = state.spRail || { query: '', expandedAll: false, openGroups: new Set(), counts: new Map(), hasQF: false };
+  const r = state.spRail;
+  r.items = items.slice();
+  r.counts = new Map(items.map(it => [it.value, it.count]));
+  r.hasQF = false;
+  r.expandedAll = false;
+  r.openGroups = new Set(['SR']); // browse default: largest group open, others collapsed
+  host.innerHTML = '';
+  host.classList.add('sp-rail');
+
+  const filter = document.createElement('input');
+  filter.type = 'search';
+  filter.className = 'sp-rail-filter';
+  filter.placeholder = 'Filter mandates…';
+  filter.setAttribute('aria-label', 'Filter Special Procedures mandates');
+  filter.value = r.query;
+  filter.addEventListener('input', () => { r.query = filter.value; renderSpRailList(); });
+  host.appendChild(filter);
+
+  const list = document.createElement('div');
+  list.className = 'sp-rail-list';
+  host.appendChild(list);
+
+  renderSpRailList();
+}
+
+// Called from paintFacetCounts after each search with the live committee
+// hit-counts. Re-renders only the list (the filter input keeps focus/value).
+function refreshSpRail(countsMap, hasQF) {
+  const r = state.spRail;
+  if (!r || !document.querySelector('.sp-rail-list')) return;
+  if (countsMap && countsMap.size) r.counts = countsMap;
+  r.hasQF = !!hasQF;
+  if (!hasQF) r.expandedAll = false;
+  renderSpRailList();
+}
+
+function spRailRow(value, count, zero) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'sp-row';
+  if (state.filters.committees.has(value)) b.classList.add('on');
+  if (zero) b.classList.add('is-zero');
+  b.dataset.committee = value;
+  b.innerHTML = `<span class="name">${escape(value)}</span><span class="dim">${count.toLocaleString()}</span>`;
+  b.addEventListener('click', () => {
+    if (state.filters.committees.has(value)) state.filters.committees.delete(value);
+    else state.filters.committees.add(value);
+    runSearch();
+  });
+  return b;
+}
+
+function renderSpRailList() {
+  const r = state.spRail;
+  const list = document.querySelector('.sp-rail-list');
+  if (!r || !list) return;
+  const cnt = v => r.counts.get(v) ?? 0;
+  const withCount = r.items.map(it => ({ value: it.value, count: cnt(it.value) }));
+  const byRank = (a, b) => (b.count - a.count) || a.value.localeCompare(b.value);
+  list.innerHTML = '';
+  const q = (r.query || '').trim().toLowerCase();
+
+  // 1) typeahead → flat, ranked, filtered (ignores caps/grouping)
+  if (q) {
+    const rows = withCount.filter(it => it.value.toLowerCase().includes(q)).sort(byRank);
+    if (!rows.length) { list.innerHTML = `<p class="sp-rail-empty">No mandate matches “${escape(r.query)}”.</p>`; return; }
+    rows.forEach(it => list.appendChild(spRailRow(it.value, it.count, r.hasQF && it.count === 0)));
+    return;
+  }
+
+  // 2) query/filter active, not expanded → top-N ranked hits + "Show all"
+  if (r.hasQF && !r.expandedAll) {
+    const hits = withCount.filter(it => it.count > 0).sort(byRank);
+    if (!hits.length) { list.innerHTML = `<p class="sp-rail-empty">No mandate has matches for this search.</p>`; return; }
+    hits.slice(0, SP_RAIL_CAP).forEach(it => list.appendChild(spRailRow(it.value, it.count, false)));
+    if (hits.length > SP_RAIL_CAP || r.items.length > hits.length) {
+      const more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'sp-more';
+      more.innerHTML = `Show all ${r.items.length} mandates <span class="dim" aria-hidden="true">▾</span>`;
+      more.addEventListener('click', () => { r.expandedAll = true; r.openGroups = new Set(SP_TYPE_ORDER); renderSpRailList(); });
+      list.appendChild(more);
+    }
+    return;
+  }
+
+  // 3) browse / expanded → accordion grouped by mandate type
+  const groups = new Map();
+  for (const it of withCount) {
+    const t = spTypeOf(it.value);
+    if (!groups.has(t)) groups.set(t, []);
+    groups.get(t).push(it);
+  }
+  for (const t of SP_TYPE_ORDER) {
+    const arr = groups.get(t);
+    if (!arr || !arr.length) continue;
+    arr.sort(byRank);
+    const open = r.openGroups.has(t);
+    const head = document.createElement('button');
+    head.type = 'button';
+    head.className = 'sp-group-head';
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    head.innerHTML = `<span class="name"><span class="caret" aria-hidden="true">${open ? '▾' : '▸'}</span> ${escape(SP_TYPE_LABEL[t])}</span><span class="dim">${arr.length}</span>`;
+    head.addEventListener('click', () => { if (open) r.openGroups.delete(t); else r.openGroups.add(t); renderSpRailList(); });
+    list.appendChild(head);
+    if (open) arr.forEach(it => list.appendChild(spRailRow(it.value, it.count, r.hasQF && it.count === 0)));
+  }
+  if (r.hasQF && r.expandedAll) {
+    const less = document.createElement('button');
+    less.type = 'button';
+    less.className = 'sp-more';
+    less.innerHTML = `Show top matches only <span class="dim" aria-hidden="true">▴</span>`;
+    less.addEventListener('click', () => { r.expandedAll = false; renderSpRailList(); });
+    list.appendChild(less);
   }
 }
 
@@ -6181,7 +6322,14 @@ function renderResult(p, rank, terms, opts = {}) {
 }
 
 function isSp(committee) {
-  return committee.startsWith('SR ') || committee.startsWith('SSR');
+  // Special Procedures committee labels: Special Rapporteurs (SR …),
+  // Independent Experts (IE …) and Working Groups (WG …). All carry
+  // type 'sp' in the data; this label test buckets them into the SP
+  // rail / SP scope. (Pre-v20 this only matched "SR " — the IE/WG
+  // mandates added in the 46-mandate push were mis-filed as treaty
+  // bodies until this was broadened.)
+  return committee.startsWith('SR ') || committee.startsWith('IE ')
+      || committee.startsWith('WG ') || committee.startsWith('SSR');
 }
 
 function sourceBadge(type) {
@@ -8530,6 +8678,10 @@ function paintFacetCounts() {
     // chip shows its full corpus count and dimming makes no sense).
     chip.classList.toggle('is-zero', hasQueryOrFilter && count === 0);
   });
+
+  // SP mandate rail (v20) — owns its own row rendering; feed it the live
+  // committee hit-counts so it can rank / hide-zeros / regroup.
+  refreshSpRail(counts.committeeCounts, hasQueryOrFilter);
 
   // Concerned-group checkboxes — count span.
   document.querySelectorAll('#filter-labels label').forEach(lbl => {
