@@ -34096,5 +34096,202 @@
       "en"
     ],
     "gaSession": 77
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Privacy_A_HRC_61_48.json",
+    "Name": "International collection of personal data",
+    "Simplified Name": "International collection of personal data",
+    "Signature": "A/HRC/61/48",
+    "Adoption Date": "2026",
+    "Adoption Year": 2026,
+    "Committee": "SR Privacy",
+    "Mandate holder": "Ana Brian Nougrères",
+    "Presented": "HRC 61st session",
+    "Link": "https://docs.un.org/en/A/HRC/61/48",
+    "reportType": "thematic",
+    "paragraphCount": 62,
+    "wordCount": 5779,
+    "labelCount": 1,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 61
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Privacy_A_80_283.json",
+    "Name": "Elements for the development of a model law on neurotechnologies and the processing of neurodata from the perspective of the right to privacy",
+    "Simplified Name": "Elements for the development of a model law on neurotechnologies and the processing of neu",
+    "Signature": "A/80/283",
+    "Adoption Date": "2025",
+    "Adoption Year": 2025,
+    "Committee": "SR Privacy",
+    "Mandate holder": "Ana Brian Nougrères",
+    "Presented": "GA 80th session",
+    "Link": "https://docs.un.org/en/A/80/283",
+    "reportType": "thematic",
+    "paragraphCount": 58,
+    "wordCount": 5819,
+    "labelCount": 7,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "gaSession": 80
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Freedom_of_Expression_E_CN_4_2006_55.json",
+    "Name": "Internet governance and human rights, freedom of expression and defamation, and security and protection of media professionals",
+    "Simplified Name": "Internet governance and human rights, freedom of expression and defamation, and security a",
+    "Signature": "E/CN.4/2006/55",
+    "Adoption Date": "2006",
+    "Adoption Year": 2006,
+    "Committee": "SR Freedom of Expression",
+    "Mandate holder": "Ambeyi Ligabo",
+    "Presented": "CHR 62nd session",
+    "Link": "https://docs.un.org/en/E/CN.4/2006/55",
+    "reportType": "thematic",
+    "paragraphCount": 85,
+    "wordCount": 10039,
+    "labelCount": 22,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ]
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Freedom_of_Religion_or_Belief_A_HRC_61_50.json",
+    "Name": "How freedom of religion or belief relates to death and honouring the deceased",
+    "Simplified Name": "How freedom of religion or belief relates to death and honouring the deceased",
+    "Signature": "A/HRC/61/50",
+    "Adoption Date": "2026",
+    "Adoption Year": 2026,
+    "Committee": "SR Freedom of Religion or Belief",
+    "Mandate holder": "Nazila Ghanea",
+    "Presented": "HRC 61st session",
+    "Link": "https://docs.un.org/en/A/HRC/61/50",
+    "reportType": "thematic",
+    "paragraphCount": 113,
+    "wordCount": 10408,
+    "labelCount": 18,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 61
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Freedom_of_Religion_or_Belief_A_80_205.json",
+    "Name": "Freedom of religion or belief of people on the move",
+    "Simplified Name": "Freedom of religion or belief of people on the move",
+    "Signature": "A/80/205",
+    "Adoption Date": "2025",
+    "Adoption Year": 2025,
+    "Committee": "SR Freedom of Religion or Belief",
+    "Mandate holder": "Nazila Ghanea",
+    "Presented": "GA 80th session",
+    "Link": "https://docs.un.org/en/A/80/205",
+    "reportType": "thematic",
+    "paragraphCount": 87,
+    "wordCount": 10162,
+    "labelCount": 73,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "gaSession": 80
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Freedom_of_Religion_or_Belief_A_78_207.json",
+    "Name": "Freedom of religion or belief, from the grass-roots level",
+    "Simplified Name": "Freedom of religion or belief, from the grass-roots level",
+    "Signature": "A/78/207",
+    "Adoption Date": "2023",
+    "Adoption Year": 2023,
+    "Committee": "SR Freedom of Religion or Belief",
+    "Mandate holder": "Nazila Ghanea",
+    "Presented": "GA 78th session",
+    "Link": "https://docs.un.org/en/A/78/207",
+    "reportType": "thematic",
+    "paragraphCount": 138,
+    "wordCount": 11839,
+    "labelCount": 32,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "gaSession": 78
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Freedom_of_Religion_or_Belief_A_HRC_46_30.json",
+    "Name": "Countering Islamophobia and anti-Muslim hatred to eliminate discrimination and intolerance based on religion or belief",
+    "Simplified Name": "Countering Islamophobia and anti-Muslim hatred to eliminate discrimination and intolerance",
+    "Signature": "A/HRC/46/30",
+    "Adoption Date": "2021",
+    "Adoption Year": 2021,
+    "Committee": "SR Freedom of Religion or Belief",
+    "Mandate holder": "Ahmed Shaheed",
+    "Presented": "HRC 46th session",
+    "Link": "https://docs.un.org/en/A/HRC/46/30",
+    "reportType": "thematic",
+    "paragraphCount": 281,
+    "wordCount": 11220,
+    "labelCount": 44,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 46
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Freedom_of_Religion_or_Belief_A_74_358.json",
+    "Name": "Combating antisemitism to eliminate discrimination and intolerance based on religion or belief",
+    "Simplified Name": "Combating antisemitism to eliminate discrimination and intolerance based on religion or be",
+    "Signature": "A/74/358",
+    "Adoption Date": "2019",
+    "Adoption Year": 2019,
+    "Committee": "SR Freedom of Religion or Belief",
+    "Mandate holder": "Ahmed Shaheed",
+    "Presented": "GA 74th session",
+    "Link": "https://docs.un.org/en/A/74/358",
+    "reportType": "thematic",
+    "paragraphCount": 90,
+    "wordCount": 11007,
+    "labelCount": 13,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "gaSession": 74
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Freedom_of_Religion_or_Belief_A_73_362.json",
+    "Name": "Relationship between freedom of religion or belief and national security",
+    "Simplified Name": "Relationship between freedom of religion or belief and national security",
+    "Signature": "A/73/362",
+    "Adoption Date": "2018",
+    "Adoption Year": 2018,
+    "Committee": "SR Freedom of Religion or Belief",
+    "Mandate holder": "Ahmed Shaheed",
+    "Presented": "GA 73rd session",
+    "Link": "https://docs.un.org/en/A/73/362",
+    "reportType": "thematic",
+    "paragraphCount": 80,
+    "wordCount": 11029,
+    "labelCount": 17,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "gaSession": 73
   }
 ]

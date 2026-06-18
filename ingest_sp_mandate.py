@@ -1017,21 +1017,52 @@ MANDATES: dict[str, dict] = {
     'gap-sr-privacy': {
         'committee_label': 'SR Privacy',
         'full_name': 'Special Rapporteur on the right to privacy',
+        # Cannataci (2015-2021), Ana Brian Nougrères (2021-). Boundary 2021;
+        # 2019 report is Cannataci's, 2025/2026 are Nougrères'. (A/74/277
+        # already merged 2026-06-18; re-ingest skips it idempotently.)
         'mandate_holders': [
-            (9999, 'Joseph Cannataci'),
+            (2021, 'Joseph Cannataci'),
+            (9999, 'Ana Brian Nougrères'),
         ],
         'reports': [
-            (2019, 'A/74/277', 'GA 74th session', 'The protection and use of health-related data'),
+            (2026, 'A/HRC/61/48', 'HRC 61st session', 'International collection of personal data'),
+            (2025, 'A/80/283',    'GA 80th session',  'Elements for the development of a model law on neurotechnologies and the processing of neurodata from the perspective of the right to privacy'),
+            (2019, 'A/74/277',    'GA 74th session',  'The protection and use of health-related data'),
         ],
     },
     'gap-sr-freedom-expression': {
         'committee_label': 'SR Freedom of Expression',
         'full_name': 'Special Rapporteur on the promotion and protection of the right to freedom of opinion and expression',
+        # Ligabo (2002-2008) for the 2006 report; Khan (2020-) for 2022.
+        # (A/77/288 already merged 2026-06-18; re-ingest skips it idempotently.)
         'mandate_holders': [
+            (2008, 'Ambeyi Ligabo'),
             (9999, 'Irene Khan'),
         ],
         'reports': [
-            (2022, 'A/77/288', 'GA 77th session', 'Disinformation and freedom of opinion and expression during armed conflicts'),
+            (2022, 'A/77/288',     'GA 77th session',  'Disinformation and freedom of opinion and expression during armed conflicts'),
+            (2006, 'E/CN.4/2006/55', 'CHR 62nd session', 'Internet governance and human rights, freedom of expression and defamation, and security and protection of media professionals'),
+        ],
+    },
+    'gap-sr-religion-or-belief': {
+        'committee_label': 'SR Freedom of Religion or Belief',
+        'full_name': 'Special Rapporteur on freedom of religion or belief',
+        # Gap-recovery (2026-06-18 audit): annual reports the legacy ingest
+        # missed (mostly recent GA reports). Ahmed Shaheed (2016-2022), Nazila
+        # Ghanea (2022-); boundary 2022, no 2022 report here so no fix needed.
+        # NB E/CN.4/1994/79 (1994 annual report) is an image-only scan (141pp,
+        # 0 extractable text) — not recoverable without OCR, excluded.
+        'mandate_holders': [
+            (2022, 'Ahmed Shaheed'),
+            (9999, 'Nazila Ghanea'),
+        ],
+        'reports': [
+            (2026, 'A/HRC/61/50', 'HRC 61st session', 'How freedom of religion or belief relates to death and honouring the deceased'),
+            (2025, 'A/80/205',    'GA 80th session',  'Freedom of religion or belief of people on the move'),
+            (2023, 'A/78/207',    'GA 78th session',  'Freedom of religion or belief, from the grass-roots level'),
+            (2021, 'A/HRC/46/30', 'HRC 46th session', 'Countering Islamophobia and anti-Muslim hatred to eliminate discrimination and intolerance based on religion or belief'),
+            (2019, 'A/74/358',    'GA 74th session',  'Combating antisemitism to eliminate discrimination and intolerance based on religion or belief'),
+            (2018, 'A/73/362',    'GA 73rd session',  'Relationship between freedom of religion or belief and national security'),
         ],
     },
     'wg-peasants': {
