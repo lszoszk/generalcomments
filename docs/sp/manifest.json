@@ -1,11 +1,11 @@
 {
-  "version": "20260617",
-  "builtAt": "2026-06-17T22:28:28+00:00",
+  "version": "20260618",
+  "builtAt": "2026-06-18T07:01:37+00:00",
   "counts": {
-    "documents": 1546,
-    "paragraphs": 158490,
-    "shards": 45,
-    "committees": 45
+    "documents": 1549,
+    "paragraphs": 158850,
+    "shards": 46,
+    "committees": 46
   },
   "files": {
     "shards/sp_IE_Albinism.json": {
@@ -277,6 +277,12 @@
       "bytes": 3241942,
       "documents": 40,
       "paragraphs": 3385
+    },
+    "shards/sp_WG_Peasants.json": {
+      "sha": "3f1240ec946725c1",
+      "bytes": 275028,
+      "documents": 3,
+      "paragraphs": 360
     }
   },
   "note": "Per-committee SP paragraph shards (build_sp_shards.py)."

@@ -34032,5 +34032,71 @@
       "en"
     ],
     "hrcSession": 20
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Peasants_A_80_180.json",
+    "Name": "Right to participation of peasants and other people working in rural areas",
+    "Simplified Name": "Right to participation of peasants and other people working in rural areas",
+    "Signature": "A/80/180",
+    "Adoption Date": "2025",
+    "Adoption Year": 2025,
+    "Committee": "WG Peasants",
+    "Mandate holder": "Working Group",
+    "Presented": "GA 80th session",
+    "Link": "https://docs.un.org/en/A/80/180",
+    "reportType": "thematic",
+    "paragraphCount": 117,
+    "wordCount": 9887,
+    "labelCount": 41,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "gaSession": 80
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Peasants_A_HRC_60_33.json",
+    "Name": "Global trends and challenges affecting peasants and other people working in rural areas",
+    "Simplified Name": "Global trends and challenges affecting peasants and other people working in rural areas",
+    "Signature": "A/HRC/60/33",
+    "Adoption Date": "2025",
+    "Adoption Year": 2025,
+    "Committee": "WG Peasants",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 60th session",
+    "Link": "https://docs.un.org/en/A/HRC/60/33",
+    "reportType": "thematic",
+    "paragraphCount": 110,
+    "wordCount": 9962,
+    "labelCount": 58,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 60
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/WG_Peasants_A_HRC_57_51.json",
+    "Name": "Report of the Working Group on the rights of peasants and other people working in rural areas",
+    "Simplified Name": "Report of the Working Group on the rights of peasants and other people working in rural ar",
+    "Signature": "A/HRC/57/51",
+    "Adoption Date": "2024",
+    "Adoption Year": 2024,
+    "Committee": "WG Peasants",
+    "Mandate holder": "Working Group",
+    "Presented": "HRC 57th session",
+    "Link": "https://docs.un.org/en/A/HRC/57/51",
+    "reportType": "thematic",
+    "paragraphCount": 133,
+    "wordCount": 9954,
+    "labelCount": 45,
+    "firstAddedAt": "2026-06-18",
+    "lastVerifiedAt": "2026-06-18",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 57
   }
 ]

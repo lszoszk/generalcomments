@@ -1008,6 +1008,22 @@ MANDATES: dict[str, dict] = {
             (2022, 'A/HRC/50/39', 'HRC 50th session', 'Initial planning and vision for the mandate'),
         ],
     },
+    'wg-peasants': {
+        'committee_label': 'WG Peasants',
+        'full_name': 'Working Group on the rights of peasants and other people working in rural areas',
+        # Newest SP mandate (created Oct 2023, HRC res 54/9; 5 experts working
+        # collectively). All reports attributed to "Working Group"; no holder
+        # transitions. Reports began 2024. From OHCHR specialprocedures/wg-peasants
+        # (3 reports so far: first HRC 2024, then HRC+GA 2025).
+        'mandate_holders': [
+            (9999, 'Working Group'),
+        ],
+        'reports': [
+            (2025, 'A/80/180',    'GA 80th session',  'Right to participation of peasants and other people working in rural areas'),
+            (2025, 'A/HRC/60/33', 'HRC 60th session', 'Global trends and challenges affecting peasants and other people working in rural areas'),
+            (2024, 'A/HRC/57/51', 'HRC 57th session', 'Report of the Working Group on the rights of peasants and other people working in rural areas'),
+        ],
+    },
     'wg-women': {
         'committee_label': 'WG Discrimination against Women and Girls',
         'full_name': 'Working Group on discrimination against women and girls',
