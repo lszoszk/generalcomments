@@ -1305,7 +1305,7 @@ const TOUR_STEPS = [
     selector: '.filter-block-source',
     view: 'search',
     title: 'Pick your source',
-    body: 'Switch between General Comments (the authoritative core), Special Procedures (soft law, all 46 mandates), Jurisprudence (preview), or All sources. Each row shows the live count of available paragraphs.',
+    body: 'Switch between General Comments (the authoritative core), Special Procedures (all 46 mandates), Jurisprudence (preview), or All sources. Each row shows the live count of available paragraphs.',
   },
   // Filters block — every filter except Source. We point at Years +
   // Treaty bodies as the most-used pair; everything else (groups,
@@ -1823,7 +1823,7 @@ function paintDocsRail() {
     for (const c of sortedCommittees(groups.jur)) html.push(renderRailCommittee(c, groups.jur.get(c), 'jur'));
   }
   if (groups.sp.size && (wantScope === 'all' || wantScope === 'sp')) {
-    html.push('<div class="docs-rail-section sp">Special Procedures <span class="badge badge-preview">SOFT&nbsp;LAW</span></div>');
+    html.push('<div class="docs-rail-section sp">Special Procedures</div>');
     for (const c of sortedCommittees(groups.sp)) html.push(renderRailCommittee(c, groups.sp.get(c), 'sp'));
   }
   host.innerHTML = html.join('');
@@ -4220,7 +4220,7 @@ function paintScopeBanner(scope = 'sp') {
   const banner = $('#scope-banner');
   banner.innerHTML = `
     <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
-    <span class="folio">SOFT LAW</span>Special Procedures are thematic reports by independent UN mandate-holders — persuasive soft law, distinct from the binding interpretation the treaty bodies issue in General Comments. This covers all <strong>${counts.size} thematic mandates</strong>; country visits, communications and addenda are out of scope.
+    <span class="folio">SPECIAL PROCEDURES</span>These are thematic reports by independent UN mandate-holders — persuasive soft law, distinct from the binding interpretation the treaty bodies issue in General Comments. This covers all <strong>${counts.size} thematic mandates</strong>; country visits, communications and addenda are out of scope.
     <span class="mandate-list">${breakdown || '—'}</span>
   `;
   $('#banner-dismiss').addEventListener('click', () => { banner.hidden = true; });
@@ -6117,9 +6117,9 @@ function scopeNotice() {
   if (state.scope === 'jur') {
     span.innerHTML = ` <span class="badge badge-jur">PREVIEW</span> · ${escape(jurTreatyLabel())} jurisprudence preview.`;
   } else if (state.scope === 'sp') {
-    span.innerHTML = ` <span class="badge badge-preview">SOFT&nbsp;LAW</span> · independent mandate-holder reports · all 46 thematic mandates.`;
+    span.innerHTML = ` Independent mandate-holder reports · all 46 thematic mandates.`;
   } else if (state.scope === 'all') {
-    span.innerHTML = ` Mixed scope: General Comments + <span class="badge badge-jur">PREVIEW</span> Jurisprudence + <span class="badge badge-preview">SOFT&nbsp;LAW</span> Special Procedures.`;
+    span.innerHTML = ` Mixed scope: General Comments + <span class="badge badge-jur">PREVIEW</span> Jurisprudence + Special Procedures.`;
   }
   return span;
 }
@@ -6334,7 +6334,7 @@ function isSp(committee) {
 
 function sourceBadge(type) {
   if (type === 'jur') return '<span class="badge badge-jur">PREVIEW · JUR</span>';
-  if (type === 'sp') return '<span class="badge badge-sp">SP · SOFT LAW</span>';
+  if (type === 'sp') return '<span class="badge badge-sp">SP</span>';
   return '<span class="badge badge-gc">GC</span>';
 }
 
@@ -6635,7 +6635,7 @@ function paintDossier() {
   const dossierKind = isJurDoc
     ? `JURISPRUDENCE · ${escape(doc?.treaty || 'TREATY BODY')} · PREVIEW`
     : isSpDoc
-      ? 'MANDATE REPORT · SOFT LAW'
+      ? 'MANDATE REPORT'
       : 'GENERAL COMMENT';
   const actorLabel = isJurDoc ? 'Treaty body' : isSpDoc ? 'Mandate' : 'Committee';
 
@@ -7830,7 +7830,7 @@ function cmdkBuildItems() {
   for (const [key, label, sub] of [
     ['gc',  'Scope · General Comments', 'Treaty body interpretive output'],
     ['jur', 'Scope · Jurisprudence',    `${jurTreatyLabel()} case-law preview`],
-    ['sp',  'Scope · Special Procedures', 'All 46 thematic mandates · soft law'],
+    ['sp',  'Scope · Special Procedures', 'All 46 thematic mandates'],
     ['all', 'Scope · All sources',      'Combined view'],
   ]) {
     items.push({

@@ -112,7 +112,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/tokens.css?v=20260611-p2audit" />
-<link rel="stylesheet" href="assets/app.css?v=20260618-about" />
+<link rel="stylesheet" href="assets/app.css?v=20260618-about2" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -353,7 +353,6 @@
         <button class="scope-opt" data-scope="sp" role="tab" aria-selected="false">
           <span class="scope-opt-name">Special Procedures</span>
           <span class="scope-count" id="count-sp">—</span>
-          <span class="badge badge-preview">SOFT&nbsp;LAW</span>
         </button>
         <button class="scope-opt" data-scope="all" role="tab" aria-selected="false">
           <span class="scope-opt-name">All sources</span>
@@ -361,7 +360,7 @@
       </div>
       <div class="scope-banner" id="scope-banner" hidden>
         <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
-        <span class="folio">SOFT LAW</span>Special Procedures are thematic reports by independent UN mandate-holders — persuasive soft law, distinct from the binding interpretation the treaty bodies issue in General Comments. All 46 thematic mandates are indexed; country visits, communications and addenda are out of scope.
+        <span class="folio">SPECIAL PROCEDURES</span>These are thematic reports by independent UN mandate-holders — persuasive soft law, distinct from the binding interpretation the treaty bodies issue in General Comments. All 46 thematic mandates are indexed; country visits, communications and addenda are out of scope.
       </div>
     </div>
 
@@ -415,7 +414,7 @@
       </div>
       <div id="filter-committees" class="chip-grid"></div>
       <div id="filter-bodies-sp" class="filter-sub" hidden>
-        <div class="folio sp-section">Special Procedures · 46 mandates · soft law</div>
+        <div class="folio sp-section">Special Procedures · 46 mandates</div>
         <div id="filter-mandates" class="chip-grid"></div>
       </div>
     </div>
@@ -1382,6 +1381,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260618-about"></script>
+<script type="module" src="assets/app.js?v=20260618-about2"></script>
 </body>
 </html>
