@@ -3736,7 +3736,9 @@ function bindUI() {
     runSearch();
   }));
 
-  $('#banner-dismiss').addEventListener('click', () => {
+  // The banner is now fully JS-populated (paintScopeBanner wires its own
+  // dismiss button when shown), so the static button may not exist at boot.
+  $('#banner-dismiss')?.addEventListener('click', () => {
     $('#scope-banner').hidden = true;
   });
 
@@ -4184,7 +4186,7 @@ async function runExport(format, button) {
 function syncScopeBanner() {
   const banner = $('#scope-banner');
   if (!banner) return;
-  if (state.scope === 'jur' || state.scope === 'sp') {
+  if (state.scope === 'jur') {
     paintScopeBanner(state.scope);
     banner.hidden = false;
   } else {
@@ -4192,36 +4194,14 @@ function syncScopeBanner() {
   }
 }
 
-function paintScopeBanner(scope = 'sp') {
-  if (scope === 'jur') {
-    const docs = state.jur.manifest?.counts?.documents || 0;
-    const paras = state.jur.manifest?.counts?.paragraphs || 0;
-    const treatyLabel = jurTreatyLabel();
-    const banner = $('#scope-banner');
-    banner.innerHTML = `
-      <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
-      <span class="folio">JURISPRUDENCE PREVIEW</span>Treaty Body jurisprudence currently includes ${escape(treatyLabel)}: <strong>${docs} cases</strong> and <strong>${paras.toLocaleString()} paragraphs</strong>. The full corpus stays sharded and can move to the VM/API once the preview UI is settled.
-    `;
-    $('#banner-dismiss').addEventListener('click', () => { banner.hidden = true; });
-    return;
-  }
-
-  const counts = new Map();
-  for (const d of state.documents.values()) {
-    if (d.type !== 'sp') continue;
-    for (const c of d.committees || []) counts.set(c, (counts.get(c) || 0) + 1);
-  }
-  const cleanName = (name) => name.replace(/^S?SR\s+/, '').replace(/^Freedom of /, 'Freedom of ');
-  const breakdown = [...counts.entries()]
-    .sort((a, b) => b[1] - a[1])
-    .map(([name, n]) => `<strong>${escape(cleanName(name))}</strong> (${n})`)
-    .join(' · ');
-
+function paintScopeBanner() {
+  const docs = state.jur.manifest?.counts?.documents || 0;
+  const paras = state.jur.manifest?.counts?.paragraphs || 0;
+  const treatyLabel = jurTreatyLabel();
   const banner = $('#scope-banner');
   banner.innerHTML = `
     <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
-    <span class="folio">SPECIAL PROCEDURES</span>These are thematic reports by independent UN mandate-holders — persuasive soft law, distinct from the binding interpretation the treaty bodies issue in General Comments. This covers all <strong>${counts.size} thematic mandates</strong>; country visits, communications and addenda are out of scope.
-    <span class="mandate-list">${breakdown || '—'}</span>
+    <span class="folio">JURISPRUDENCE PREVIEW</span>Treaty Body jurisprudence currently includes ${escape(treatyLabel)}: <strong>${docs} cases</strong> and <strong>${paras.toLocaleString()} paragraphs</strong>. The full corpus stays sharded and can move to the VM/API once the preview UI is settled.
   `;
   $('#banner-dismiss').addEventListener('click', () => { banner.hidden = true; });
 }
