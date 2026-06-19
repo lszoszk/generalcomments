@@ -896,6 +896,16 @@ body:not(.has-results) .result-breakdown:has(#api-badge) {
    (7,000+ result rows), defeating the bounded flex container and
    breaking nested scroll. The single 1fr row consumes all available
    parent height; minmax(0, …) allows it to shrink below content. */
+/* Skip-to-content link — visually hidden until keyboard-focused. (audit Medium a11y) */
+.skip-link {
+  position: absolute; left: 8px; top: -48px; z-index: 2000;
+  background: var(--garnet); color: var(--paper);
+  padding: 8px 14px; border-radius: 0 0 4px 4px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em;
+  text-decoration: none; transition: top 0.15s ease;
+}
+.skip-link:focus { top: 0; outline: 2px solid var(--paper); outline-offset: -4px; }
+
 .layout {
   display: grid;
   /* 4-column grid (v15): filters · results · resize-gutter · dossier.
@@ -1250,8 +1260,8 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
    AND the border together with no contrast control. Replaced with an
    explicit mid-grey that still reads as clearly de-emphasised next to
    the near-black active chips but stays AA-legible. */
-.chip.is-zero { color: #6b6b6b; border-color: var(--rule-soft); }
-.chip.is-zero .dim { font-style: italic; color: #6b6b6b; }
+.chip.is-zero { color: var(--ink-4); border-color: var(--rule-soft); }
+.chip.is-zero .dim { font-style: italic; color: var(--ink-4); }
 
 /* ─── SP mandate rail (v20) — scalable facet for 46 mandates ───
    Replaces the flat chip grid for Special Procedures: a typeahead +
@@ -1280,8 +1290,8 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
 .sp-row:hover { background: var(--preview-soft); }
 .sp-row.on { background: var(--preview); color: var(--paper); }
 .sp-row.on .dim { color: var(--paper); }
-.sp-row.is-zero { color: #6b6b6b; }
-.sp-row.is-zero .dim { font-style: italic; color: #6b6b6b; }
+.sp-row.is-zero { color: var(--ink-4); }
+.sp-row.is-zero .dim { font-style: italic; color: var(--ink-4); }
 .sp-group-head {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
   width: 100%; text-align: left; background: transparent; border: 0;
@@ -1427,8 +1437,8 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
    right now". */
 /* v19.56.14 (a11y audit): same opacity → explicit-grey fix as
    `.chip.is-zero` above — keep the de-emphasis, keep AA contrast. */
-.checkbox-list label.is-zero { color: #6b6b6b; }
-.checkbox-list label.is-zero .count { font-style: italic; color: #6b6b6b; }
+.checkbox-list label.is-zero { color: var(--ink-4); }
+.checkbox-list label.is-zero .count { font-style: italic; color: var(--ink-4); }
 .checkbox-list input[type=checkbox] { accent-color: var(--garnet); }
 .checkbox-list .count {
   margin-left: auto;

@@ -112,7 +112,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/tokens.css?v=20260611-p2audit" />
-<link rel="stylesheet" href="assets/app.css?v=20260619-a11y" />
+<link rel="stylesheet" href="assets/app.css?v=20260619-a11y2" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -129,6 +129,9 @@
 </script>
 </head>
 <body class="dossier-collapsed">
+<!-- a11y (audit Medium): skip past the masthead + filters to the active
+     view's content. #main-content is assigned to the active view in setView(). -->
+<a class="skip-link" href="#main-content">Skip to content</a>
 <!-- v19.55.13: dossier-collapsed is the JS-managed default after first
      paint (no active paragraph → dossier hidden). Set it pre-boot too,
      because the mobile CSS (@media max-width: 1100px) renders a
@@ -330,7 +333,7 @@
 
 
 <!-- ───────────────────────────  MAIN  ─────────────────────────────── -->
-<main class="layout">
+<div class="layout">
 
   <!-- LEFT: filters -->
   <aside class="filters">
@@ -580,7 +583,7 @@
       </p>
     </div>
   </aside>
-</main>
+</div>
 
 </section><!-- /search view -->
 
@@ -1383,6 +1386,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260619-a11y"></script>
+<script type="module" src="assets/app.js?v=20260619-a11y2"></script>
 </body>
 </html>

@@ -340,6 +340,10 @@ async function fetchNextApiPage() {
   if (!state.apiHasMore) return false;
   if (state.apiPageInflight) return state.apiPageInflight;
 
+  // Run-token: if the user changes the query/filter while this page is in
+  // flight, discard the late rows instead of leaking them into the new
+  // result set (every other async result path already does this). (audit Medium)
+  const runId = state.searchRun;
   const t0 = performance.now();
   paintApiBadge(true, '…');
   const nextPage = (state.apiPage || 1) + 1;
@@ -348,6 +352,7 @@ async function fetchNextApiPage() {
   state.apiPageInflight = (async () => {
     try {
       const body = await apiFetch('/api/search', params);
+      if (runId !== state.searchRun) return false;   // query changed mid-flight — drop these rows
       const more = body.hits.map(h => {
         const p = adaptApiHit(h);
         if (!state.paragraphById.has(p.id)) state.paragraphById.set(p.id, p);
@@ -1205,8 +1210,19 @@ function setView(view) {
   // `scrollable-region-focusable` violation despite being visible.
   // Keep both signals consistent.
   $$('section[data-view]').forEach(section => {
-    if (section.dataset.view === view) section.removeAttribute('hidden');
-    else section.setAttribute('hidden', '');
+    if (section.dataset.view === view) {
+      section.removeAttribute('hidden');
+      // a11y (audit Medium): exactly one <main> landmark — on the active
+      // view — plus a stable #main-content target for the skip link.
+      section.setAttribute('role', 'main');
+      section.id = 'main-content';
+      if (!section.hasAttribute('tabindex')) { section.setAttribute('tabindex', '-1'); section.dataset.skipTab = '1'; }
+    } else {
+      section.setAttribute('hidden', '');
+      section.removeAttribute('role');
+      if (section.id === 'main-content') section.removeAttribute('id');
+      if (section.dataset.skipTab) { section.removeAttribute('tabindex'); delete section.dataset.skipTab; }
+    }
   });
 
   // Active link in masthead nav
@@ -3916,6 +3932,17 @@ function bindUI() {
   $('#report-modal .report-modal-backdrop')?.addEventListener('click', closeReportModal);
   $('#report-modal .report-modal-close')?.addEventListener('click', closeReportModal);
   $('#report-modal .report-cancel')?.addEventListener('click', closeReportModal);
+  // a11y (audit Medium): trap Tab within the open report modal (aria-modal).
+  $('#report-modal')?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const m = $('#report-modal');
+    if (!m || m.hidden) return;
+    const f = [...m.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),textarea:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(el => el.offsetParent !== null);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !$('#report-modal')?.hidden) closeReportModal();
     // Esc also closes the dossier when nothing else is on
@@ -7016,6 +7043,10 @@ function paintDossier() {
   // letting the results column reclaim the freed width.
   $('#dossier-close')?.addEventListener('click', () => {
     state.activeId = null;
+    // paintDossier() early-returns when activeId is null, skipping its
+    // is-active-clearing loop, and refreshResultMarks() with no arg is a
+    // no-op — so the previously-open row kept its highlight. Clear it. (audit Medium)
+    document.querySelectorAll('.result.is-active').forEach(el => el.classList.remove('is-active'));
     paintDossier();
     refreshResultMarks();
   });
@@ -7172,28 +7203,33 @@ function paintDossier() {
   const citePop = $('#cite-pop');
   const otherTrigger = $('#cite-other-trigger');
   const moreDetails = $('#dossier-more');
+  // Click-outside / Esc close the popover. Scoped to open/close so the
+  // listeners exist ONLY while the popover is open. Previously these were
+  // (re)added on every paintDossier() and the keydown one only self-removed
+  // on Escape-while-open — so it leaked one document listener per repaint
+  // through normal browsing. (audit Medium)
+  function onCiteDocClick(e) {
+    if (!citePop?.contains(e.target) && !otherTrigger?.contains(e.target)) closeCite();
+  }
+  function onCiteKey(e) {
+    if (e.key === 'Escape') closeCite();
+  }
   const closeCite = () => {
     citePop?.setAttribute('hidden', '');
     otherTrigger?.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('click', onCiteDocClick);
+    document.removeEventListener('keydown', onCiteKey);
   };
   const openCite = () => {
     citePop?.removeAttribute('hidden');
     otherTrigger?.setAttribute('aria-expanded', 'true');
     if (moreDetails) moreDetails.open = false;   // close the more menu, popover takes over
+    document.addEventListener('click', onCiteDocClick);
+    document.addEventListener('keydown', onCiteKey);
   };
   otherTrigger?.addEventListener('click', (e) => {
     e.stopPropagation();
     citePop?.hasAttribute('hidden') ? openCite() : closeCite();
-  });
-  // Click-outside / Esc to close.
-  document.addEventListener('click', (e) => {
-    if (!citePop?.contains(e.target) && e.target !== otherTrigger) closeCite();
-  }, { once: true });
-  document.addEventListener('keydown', function escClose(e) {
-    if (e.key === 'Escape' && !citePop?.hasAttribute('hidden')) {
-      closeCite();
-      document.removeEventListener('keydown', escClose);
-    }
   });
 
   // Wire each citation format. Falls back to a one-liner if the user's
@@ -8362,6 +8398,7 @@ function openReportModal({ paraId = null, docId = null } = {}) {
   $('#report-submit').disabled = false;
   _updateReportCharcount();
 
+  modal._prevFocus = document.activeElement;   // a11y (audit Medium): restore on close
   modal.hidden = false;
   setTimeout(() => $('#report-message')?.focus(), 50);
 }
@@ -8374,7 +8411,11 @@ function _updateReportCharcount() {
 
 function closeReportModal() {
   const modal = $('#report-modal');
-  if (modal) modal.hidden = true;
+  if (!modal) return;
+  modal.hidden = true;
+  // a11y (audit Medium): return focus to whatever opened the modal.
+  if (modal._prevFocus && typeof modal._prevFocus.focus === 'function') modal._prevFocus.focus();
+  modal._prevFocus = null;
 }
 
 async function submitReport(ev) {
@@ -8492,7 +8533,21 @@ function showFeedbackToast(reply) {
 // the API path skip dynamic counts — server doesn't expose facet
 // breakdowns yet, and the static baseline counts are still correct
 // for the API result set.
+// Memo across one synchronous render burst: paintFacetCounts() and
+// paintYearHistogram() both call this back-to-back, each doing a full
+// O(N) scan of state.paragraphs. The memo is cleared on the next
+// microtask — before any state-mutating event handler can run — so it
+// only ever shares the result within a single render pass. (audit Medium perf)
+let _dynFacetMemo;
+let _dynFacetMemoSet = false;
 function computeDynamicFacetCounts() {
+  if (_dynFacetMemoSet) return _dynFacetMemo;
+  _dynFacetMemo = _computeDynamicFacetCountsUncached();
+  _dynFacetMemoSet = true;
+  queueMicrotask(() => { _dynFacetMemoSet = false; _dynFacetMemo = undefined; });
+  return _dynFacetMemo;
+}
+function _computeDynamicFacetCountsUncached() {
   // liteMode has no index but flexSearchIds() still works (linear scan).
   if (!state.paragraphs.length || (!state.searchIndex && !state.liteMode)) return null;
 
@@ -11011,11 +11066,16 @@ function paintAskDrawer(paraId, docId) {
   void drawer.offsetWidth;
   drawer.classList.add('is-open');
   backdrop.classList.add('is-open');
-  // Wire the existing dossier-close button to also close OUR drawer.
-  const innerClose = dossier.querySelector('#dossier-close');
-  if (innerClose && !innerClose._wiredAskClose) {
-    innerClose._wiredAskClose = true;
-    innerClose.addEventListener('click', closeAskDrawer, { capture: true });
+  // Close OUR drawer when the dossier × is clicked. Delegated from the
+  // stable #ask-drawer (capture phase) instead of wired onto #dossier-close
+  // directly — paintDossier() rebuilds that button via innerHTML on any
+  // in-drawer repaint, which dropped the old per-button handler and left
+  // the × only emptying the dossier without closing the drawer. (audit Medium)
+  if (!drawer._wiredDossierCloseDelegate) {
+    drawer._wiredDossierCloseDelegate = true;
+    drawer.addEventListener('click', (e) => {
+      if (e.target.closest('#dossier-close')) closeAskDrawer();
+    }, { capture: true });
   }
 }
 
