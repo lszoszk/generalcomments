@@ -1266,6 +1266,40 @@ function trackPageView(extraPath = null, extraTitle = null) {
   } catch (e) { /* analytics failure is never fatal */ }
 }
 
+// ─── Analytics consent (opt-in) ───────────────────────────────
+// GA4 is NOT loaded until the visitor explicitly accepts. trackEvent /
+// trackPageView already no-op while window.gtag is undefined, so nothing
+// is sent before consent. The choice persists in localStorage. (audit Medium · GDPR)
+const GA_ID = 'G-F3XBX45HQC';
+const GA_CONSENT_KEY = 'unhrdb_ga_consent_v1';
+let _gaLoaded = false;
+function loadAnalytics() {
+  if (_gaLoaded || typeof window.gtag === 'function') return;
+  _gaLoaded = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_ID, { send_page_view: false, anonymize_ip: true });
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.appendChild(s);
+}
+function initConsent() {
+  let choice = null;
+  try { choice = localStorage.getItem(GA_CONSENT_KEY); } catch {}
+  if (choice === 'granted') { loadAnalytics(); return; }
+  if (choice === 'denied') return;
+  const banner = document.getElementById('consent-banner');
+  if (!banner) return;
+  banner.hidden = false;
+  const decide = (val) => { try { localStorage.setItem(GA_CONSENT_KEY, val); } catch {} banner.hidden = true; };
+  document.getElementById('consent-accept')?.addEventListener('click', () => {
+    decide('granted'); loadAnalytics(); trackPageView();
+  });
+  document.getElementById('consent-decline')?.addEventListener('click', () => decide('denied'));
+}
+
 // v19.56.11: typed event tracker. Sends GA4 events for key user
 // actions (search, ask, doc-open) so usage patterns surface in the
 // behaviour reports alongside the SPA page_view stream. All events
@@ -11456,3 +11490,4 @@ if (document.readyState === 'loading') {
 
 // ─────────── Go ───────────
 boot();
+initConsent();   // opt-in analytics: load GA4 only after consent (audit Medium · GDPR)

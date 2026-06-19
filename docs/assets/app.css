@@ -906,6 +906,20 @@ body:not(.has-results) .result-breakdown:has(#api-badge) {
 }
 .skip-link:focus { top: 0; outline: 2px solid var(--paper); outline-offset: -4px; }
 
+/* Opt-in analytics consent banner (audit Medium · GDPR). Fixed bottom-centre,
+   theme-aware; GA4 only loads after Accept (initConsent in app.js). */
+.consent-banner {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 16px;
+  z-index: 1900; max-width: min(640px, calc(100vw - 32px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+  padding: 12px 18px; background: var(--paper); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 6px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  font-size: 13px; line-height: 1.45;
+}
+.consent-banner .consent-text { margin: 0; flex: 1 1 280px; }
+.consent-banner .consent-actions { display: flex; gap: 8px; flex: 0 0 auto; }
+
 .layout {
   display: grid;
   /* 4-column grid (v15): filters · results · resize-gutter · dossier.
