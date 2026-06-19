@@ -2208,6 +2208,21 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// O(1) paragraph activation in the reader — swap the is-active class
+// instead of re-rendering the whole document body. paintDocReaderBody is
+// O(N) over up to ~1,009 paragraphs (rebuild + re-bind N listeners +
+// re-init the find bar), but active/inactive paragraphs render IDENTICAL
+// DOM (action buttons always present; only .is-active differs), so a
+// class swap is a complete substitute for plain-click activation — and it
+// avoids resetting the find bar and re-scrolling. (audit Medium perf)
+function setReaderActivePara(doc, id) {
+  const host = $('#docs-reader-body');
+  if (!host) return;
+  host.querySelector('.docs-reader-para.is-active')?.classList.remove('is-active');
+  host.querySelector(`#reader-para-${CSS.escape(id)}`)?.classList.add('is-active');
+  state.docsActiveParaId = id;
+}
+
 function paintDocReaderBody(doc, paraId) {
   const host = $('#docs-reader-body');
   if (!host) return;
@@ -2498,8 +2513,8 @@ function paintDocReaderBody(doc, paraId) {
         return;
       }
       // Plain click → make this the active paragraph (drawer follows).
-      state.docsActiveParaId = id;
-      paintDocReaderBody(doc, id);
+      // O(1) class swap instead of a full document re-render (audit Medium perf).
+      setReaderActivePara(doc, id);
       paintDocDrawer(doc);
       const url = new URL(window.location);
       url.searchParams.set('p', id);
