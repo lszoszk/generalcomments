@@ -1779,7 +1779,7 @@ function paintDocsRail() {
   const jurShown = jurDocs || state.jur?.manifest?.counts?.documents || 0;
   const spShown  = spDocs  || state.manifest?.counts?.spDocuments || 0;
   if (headTitle) headTitle.textContent = `${docs.length.toLocaleString()} document${docs.length === 1 ? '' : 's'}`;
-  if (headSub) headSub.innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurShown.toLocaleString()} Jurisprudence case${jurShown === 1 ? '' : 's'} <span class="badge badge-jur">PREVIEW</span> · ${spShown.toLocaleString()} Special Procedures report${spShown === 1 ? '' : 's'} <span class="badge badge-preview">PREVIEW</span>`;
+  if (headSub) headSub.innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurShown.toLocaleString()} Jurisprudence case${jurShown === 1 ? '' : 's'} <span class="badge badge-jur">PREVIEW</span> · ${spShown.toLocaleString()} Special Procedures report${spShown === 1 ? '' : 's'}`;
 
   if (!docs.length) {
     // v19.63 (P2 audit): recovery action instead of a dead end — mirror
@@ -6297,6 +6297,21 @@ function renderResult(p, rank, terms, opts = {}) {
       return;
     }
     setActive(p.id);
+  });
+  // a11y (audit High): the row opens the dossier — the app's core Search
+  // interaction — but was mouse-only. Make it keyboard-operable. We don't
+  // give the <li> role="button" because it contains real buttons/links
+  // (sig-link, ws-marks), which would be an invalid nested-interactive
+  // pattern; instead the row is focusable and Enter/Space activate it,
+  // but only when focus is on the row itself (child controls keep their
+  // own keys).
+  li.tabIndex = 0;
+  li.addEventListener('keydown', (e) => {
+    if (e.target !== li) return;
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      setActive(p.id);
+    }
   });
   return li;
 }

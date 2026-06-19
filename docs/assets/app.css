@@ -1779,6 +1779,13 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   transition: background .12s;
 }
 .result:hover { background: var(--paper-2); }
+/* a11y (audit High): rows are keyboard-focusable (tabindex=0) so Enter/Space
+   can open the dossier — give them a clear focus ring. */
+.result:focus-visible {
+  outline: 2px solid var(--garnet);
+  outline-offset: -2px;
+  background: var(--paper-2);
+}
 .result.is-active {
   /* v19.63 (P2 audit): plain fallback first — engines without color-mix()
      (older Safari) otherwise rendered NO active highlight at all. */
@@ -6133,9 +6140,12 @@ body[data-active-view="ask"] section[data-view="ask"] {
   gap: 0.7rem;
   padding: 0.8rem 1.1rem;
   margin: 0.4rem 1.5rem 0.8rem;
-  background: #fff3df;
-  border: 1px solid #d6a85a;
-  border-left: 4px solid #b8861f;
+  /* a11y (audit High): was a hard-coded cream (#fff3df) with color:var(--ink);
+     in dark mode --ink flips near-white, giving ~1.04:1 — invisible text.
+     Use the theme-aware warn tokens (defined for both themes in tokens.css). */
+  background: var(--status-warn-soft);
+  border: 1px solid var(--status-warn-edge);
+  border-left: 4px solid var(--status-warn);
   border-radius: 4px;
   font-size: 0.86rem;
   line-height: 1.5;

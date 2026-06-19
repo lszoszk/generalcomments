@@ -112,7 +112,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/tokens.css?v=20260611-p2audit" />
-<link rel="stylesheet" href="assets/app.css?v=20260618-about4" />
+<link rel="stylesheet" href="assets/app.css?v=20260619-a11y" />
 
 <!-- v19.43-fix13: Google Analytics 4. SPA pageview tracking is wired
      manually in app.js (trackPageView) so hash-route changes
@@ -244,6 +244,7 @@
     <input id="q" type="search" class="serif search-input"
            placeholder='e.g. "best interests of the child"  ·  digital environment  ·  surveillance'
            autocomplete="off" autocapitalize="off" spellcheck="false"
+           aria-label="Search keyword"
            aria-haspopup="listbox" aria-controls="q-recent" />
     <button id="q-clear" type="button" class="q-clear-btn" hidden
             title="Clear the keyword (Esc)" aria-label="Clear keyword">×</button>
@@ -451,7 +452,8 @@
         <span class="folio dim" id="filter-rights-count">—</span>
       </summary>
       <input type="search" id="filter-rights-search" class="filter-typeahead"
-             placeholder="Filter by keyword…" autocomplete="off" />
+             placeholder="Filter by keyword…" autocomplete="off"
+             aria-label="Filter rights and issues" />
       <div id="filter-rights" class="checkbox-list checkbox-list-scroll"></div>
     </details>
 
@@ -465,7 +467,8 @@
         <span class="folio dim" id="filter-articles-count">—</span>
       </summary>
       <input type="search" id="filter-articles-search" class="filter-typeahead"
-             placeholder="Filter by article number…" autocomplete="off" />
+             placeholder="Filter by article number…" autocomplete="off"
+             aria-label="Filter by article number" />
       <div id="filter-articles" class="chip-grid chip-grid-compact"></div>
       <button type="button" id="filter-articles-toggle" class="filter-toggle-more" hidden></button>
     </details>
@@ -506,7 +509,7 @@
   <section class="results">
     <div class="results-lede" id="results-lede">
       <div class="folio garnet">RESULTS · PARAGRAPH-LEVEL</div>
-      <h2 class="serif results-title" id="results-title">Loading corpus…</h2>
+      <h2 class="serif results-title" id="results-title" aria-live="polite" aria-atomic="true">Loading corpus…</h2>
       <p class="serif results-sub" id="results-sub">Reading the paragraph-level corpus from your archive.</p>
       <!-- v19.58: shown only in liteMode (memory-constrained / iOS devices)
            — see isLiteSearchDevice(). Marks the lightweight mobile build. -->
@@ -619,9 +622,9 @@
   </div>
   <div class="ask-filters-row">
     <span class="ask-filters-label">Year</span>
-    <input id="ask-filter-year-from" type="number" min="1976" max="2030" step="1" placeholder="from" inputmode="numeric" />
+    <input id="ask-filter-year-from" type="number" min="1976" max="2030" step="1" placeholder="from" inputmode="numeric" aria-label="Earliest year" />
     <span class="ask-filters-dash">–</span>
-    <input id="ask-filter-year-to" type="number" min="1976" max="2030" step="1" placeholder="to" inputmode="numeric" />
+    <input id="ask-filter-year-to" type="number" min="1976" max="2030" step="1" placeholder="to" inputmode="numeric" aria-label="Latest year" />
     <label class="ask-filter-superseded">
       <input type="checkbox" id="ask-filter-superseded" />
       <span>Include superseded GCs</span>
@@ -707,7 +710,7 @@
     <!-- LEFT: rail with filter + scope tabs + collapsible body groups -->
     <aside class="docs-rail" id="docs-rail" role="navigation" aria-label="Documents rail">
       <div class="docs-rail-tools">
-        <input id="docs-filter" type="search" class="serif docs-filter" placeholder="Filter by name, signature, year…" autocomplete="off" spellcheck="false" />
+        <input id="docs-filter" type="search" class="serif docs-filter" placeholder="Filter by name, signature, year…" autocomplete="off" spellcheck="false" aria-label="Filter documents by name, signature, or year" />
         <!-- v19.49: dropped "All" tab — primary corpus is GC, JUR + SP
              surfaced as tabs of equal width. Default scope flips to "gc"
              on first paint via state.docsScope. Long labels collapse to
@@ -1380,6 +1383,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260618-about4"></script>
+<script type="module" src="assets/app.js?v=20260619-a11y"></script>
 </body>
 </html>
