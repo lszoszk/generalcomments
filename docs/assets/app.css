@@ -1157,8 +1157,23 @@ body.dossier-collapsed .dossier {
 body.is-resizing-dossier { cursor: col-resize; user-select: none; }
 body.is-resizing-dossier .dossier { pointer-events: none; }
 @media (max-width: 980px) {
-  /* Stack vertically — no resize handle needed. */
-  .layout { grid-template-columns: 1fr; }
+  /* The 4-column shell can't fit below ~986px (260+280+6+440) and the
+     locked-height grid clipped the results in the 901–980px band — the
+     natural-flow reset previously only kicked in at ≤900px, leaving this
+     gap. Lift it to 980: revert to document flow and stack the panes as
+     BLOCKS. (.layout must be display:block + flex:none — as a flex:1 1 0
+     grid child it collapsed to a 0-height row in natural flow.) (audit Medium) */
+  html, body { height: auto; min-height: 100vh; overflow: auto; }
+  body { display: block; }
+  section[data-view] { overflow: visible; }
+  .layout {
+    display: block;
+    flex: none;
+    overflow: visible;
+  }
+  .layout > .filters,
+  .layout > .results,
+  .layout > .dossier { height: auto; max-height: none; overflow: visible; }
   .dossier-resizer { display: none; }
 }
 

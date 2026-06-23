@@ -1015,7 +1015,8 @@ function applyUrlState(parsed) {
   $$('.scope-opt').forEach(b => {
     const on = b.dataset.scope === validScope;
     b.classList.toggle('is-active', on);
-    b.setAttribute('aria-selected', on ? 'true' : 'false');
+    b.setAttribute('aria-checked', on ? 'true' : 'false');
+    b.tabIndex = on ? 0 : -1;   // roving tabindex (radiogroup)
   });
   // Deep-link `?scope=jur|sp` opens the preview banner up front.
   syncScopeBanner();
@@ -3508,9 +3509,9 @@ function paintRecentQueriesDropdown() {
       <span class="folio">Recent searches</span>
       <button type="button" id="q-recent-clear" class="q-recent-clear" title="Clear history">Clear</button>
     </div>
-    <ul class="q-recent-list" role="presentation">
+    <ul class="q-recent-list">
       ${list.map((r, i) => `
-        <li role="option" aria-selected="false">
+        <li>
           <button type="button" class="q-recent-opt" data-q="${escape(r.q)}">
             <span class="q-recent-q">${escape(r.q)}</span>
             <span class="q-recent-ago folio">${_relativeTimeFolio(r.ts)}</span>
@@ -3750,13 +3751,38 @@ function bindUI() {
   });
 
   // Scope toggle — also drops committee selections that don't belong in the new scope
+  // Arrow-key navigation for the scope + docs radiogroups (audit Medium a11y):
+  // move focus to the prev/next option and select it (radiogroup convention).
+  const wireRadioKeys = (sel) => {
+    const group = $(sel);
+    if (!group) return;
+    group.addEventListener('keydown', (e) => {
+      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
+      const opts = [...group.querySelectorAll('[role="radio"]')];
+      const cur = opts.indexOf(document.activeElement);
+      if (cur < 0) return;
+      e.preventDefault();
+      let n = cur;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = (cur - 1 + opts.length) % opts.length;
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (cur + 1) % opts.length;
+      else if (e.key === 'Home') n = 0;
+      else if (e.key === 'End') n = opts.length - 1;
+      opts[n].focus();
+      opts[n].click();
+    });
+  };
+  wireRadioKeys('.scope-list');
+  wireRadioKeys('.docs-scope');
+
   $$('.scope-opt').forEach(b => b.addEventListener('click', () => {
     $$('.scope-opt').forEach(x => {
       x.classList.remove('is-active');
-      x.setAttribute('aria-selected', 'false');
+      x.setAttribute('aria-checked', 'false');
+      x.tabIndex = -1;
     });
     b.classList.add('is-active');
-    b.setAttribute('aria-selected', 'true');
+    b.setAttribute('aria-checked', 'true');
+    b.tabIndex = 0;
     state.scope = b.dataset.scope;
 
     // Prune committee filters that no longer belong to this scope
@@ -3950,10 +3976,12 @@ function bindUI() {
     // aria-required-children rule on the parent role="tablist".
     $$('.docs-scope-opt').forEach(x => {
       x.classList.remove('is-active');
-      x.setAttribute('aria-selected', 'false');
+      x.setAttribute('aria-checked', 'false');
+      x.tabIndex = -1;
     });
     b.classList.add('is-active');
-    b.setAttribute('aria-selected', 'true');
+    b.setAttribute('aria-checked', 'true');
+    b.tabIndex = 0;
     state.docsScope = b.dataset.docsScope;
     paintDocsRail();
   }));
