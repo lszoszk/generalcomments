@@ -50,20 +50,26 @@
   form-action 'self'
 " />
 <title>UN Human Rights Database</title>
-<meta name="description" content="Paragraph-level search across UN Treaty Body General Comments, CCPR/CEDAW/CRPD jurisprudence preview, and Special Procedures reports — for human rights researchers, academics and legal practitioners." />
+<meta name="description" content="Paragraph-level search across UN Treaty Body General Comments and Special Procedures (all 46 thematic mandates), plus a treaty-body jurisprudence preview — for human rights researchers, academics and legal practitioners." />
 <link rel="canonical" href="https://lszoszk.github.io/generalcomments/" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://lszoszk.github.io/generalcomments/" />
 <meta property="og:title" content="UN Human Rights Database" />
-<meta property="og:description" content="Paragraph-level search across General Comments, CCPR/CEDAW/CRPD jurisprudence preview, and Special Procedures reports." />
+<meta property="og:description" content="Paragraph-level search across UN Treaty Body General Comments and Special Procedures, plus a treaty-body jurisprudence preview." />
 <meta property="og:site_name" content="UN Human Rights Database" />
+<meta property="og:image" content="https://lszoszk.github.io/generalcomments/assets/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="UN Human Rights Database" />
 <meta name="twitter:description" content="Paragraph-level search across UN Treaty Body interpretive materials." />
+<meta name="twitter:image" content="https://lszoszk.github.io/generalcomments/assets/og-image.png" />
 
 <!-- Structured data: WebSite + SearchAction + Dataset -->
 <script type="application/ld+json">
@@ -110,7 +116,7 @@
 </script>
 
 <link rel="stylesheet" href="assets/tokens.css?v=20260619-fonts" />
-<link rel="stylesheet" href="assets/app.css?v=20260619-medium" />
+<link rel="stylesheet" href="assets/app.css?v=20260619-cleanup" />
 
 <!-- Google Analytics 4 is loaded LAZILY, only after the visitor opts in
      via the consent banner — see initConsent()/loadAnalytics() in app.js.
@@ -828,7 +834,7 @@
             <em>CEDAW/C/GC/30/Add.1</em> (Women, Peace and Security addendum, 18 February 2026);
             the most recent Special Procedures report is
             <em>A/HRC/61/42</em> (SR Torture, <em>Charter of Rights of Victims and Survivors of Torture</em>, May 2026).
-            Daily link checks run on
+            Weekly link checks run on
             <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/.github/workflows/link-check.yml" target="_blank" rel="noopener">GitHub Actions</a>.
             See <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/METHODOLOGY.md#9-versions-and-revision-history" target="_blank" rel="noopener">change log</a>
             for previous snapshots.
@@ -1384,6 +1390,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260619-medium"></script>
+<script type="module" src="assets/app.js?v=20260619-cleanup"></script>
 </body>
 </html>

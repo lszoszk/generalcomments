@@ -6600,26 +6600,6 @@ function updateDocumentTitle() {
   document.title = BASE_TITLE;
 }
 
-// v18: brief visual feedback on a toolbar button (replaces the icon with
-// a checkmark for ~900 ms). Used after Copy / paragraph-text save.
-function flashToolBtn(selector, mark = '✓') {
-  const btn = document.querySelector(selector);
-  if (!btn) return;
-  const icon = btn.querySelector('.dossier-tool-icon');
-  const label = btn.querySelector('.dossier-tool-label');
-  if (!icon) return;
-  const origIcon = icon.textContent;
-  const origLabel = label?.textContent;
-  icon.textContent = mark;
-  if (label) label.textContent = 'Copied';
-  btn.classList.add('is-flash');
-  setTimeout(() => {
-    icon.textContent = origIcon;
-    if (label && origLabel != null) label.textContent = origLabel;
-    btn.classList.remove('is-flash');
-  }, 900);
-}
-
 // ─────────── Metadata-quality feedback (jurisprudence) ───────────
 // Anonymous, one-click signal so users can flag inaccurate enriched
 // metadata (case name, parties, articles, etc.). Posts to /api/feedback
@@ -7625,73 +7605,6 @@ async function copyCiteWithPref(anchorEl, para) {
   }
   showFeedbackToast({ ok: true, _msg: `${fmt.name} copied`, _mark: '”' });
   return fmt;
-}
-
-// v18.2: shared inline cite popover. Anchors next to whatever button
-// triggered it (a result-row mark, a docs-reader paragraph row, or
-// the dossier toolbar). Only one open at a time — clicking elsewhere
-// or pressing Esc closes it.
-//
-// Middle-panel buttons (result rows, docs-reader rows) no
-// longer call this — they use copyCiteWithPref() instead. The
-// drawer chooser still uses this code path so users can pick a
-// format AND set it as default in one click.
-let _inlineCiteCleanup = null;
-function openInlineCitePopover(anchorEl, para) {
-  closeInlineCitePopover();
-  const doc = state.documents.get(para.docId);
-  const pop = document.createElement('div');
-  pop.className = 'inline-cite-pop';
-  pop.setAttribute('role', 'menu');
-  const prefKey = getPrefCiteFmt();
-  pop.innerHTML = CITE_FORMATS.map(c => `
-    <button type="button" class="cite-opt ${c.key === prefKey ? 'is-default' : ''}" data-cite-key="${c.key}" role="menuitem">
-      <span class="cite-fmt">${escape(c.fmt)}</span>
-      <span class="cite-name">${escape(c.name)}</span>
-    </button>
-  `).join('');
-
-  // Position: right-edge-aligned, dropping below the anchor by 6 px.
-  document.body.appendChild(pop);
-  const r = anchorEl.getBoundingClientRect();
-  const popW = pop.offsetWidth;
-  const x = Math.max(8, Math.min(window.innerWidth - popW - 8, r.right - popW));
-  pop.style.top  = `${window.scrollY + r.bottom + 6}px`;
-  pop.style.left = `${x}px`;
-
-  // Wire each format. After click → write to clipboard, persist as the
-  // user's default for one-click cite, flash, close.
-  pop.querySelectorAll('.cite-opt').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const fmt = CITE_FORMATS.find(f => f.key === btn.dataset.citeKey);
-      if (!fmt) return;
-      const cite = fmt.build(doc, para);
-      try { navigator.clipboard?.writeText(cite); } catch {}
-      setPrefCiteFmt(fmt.key);                     // remember as default
-      const lbl = btn.querySelector('.cite-fmt');
-      const orig = lbl.textContent;
-      lbl.textContent = '✓ COPIED';
-      setTimeout(closeInlineCitePopover, 700);
-    });
-  });
-
-  // Click-outside / Esc close.
-  const onDoc = (e) => { if (!pop.contains(e.target) && e.target !== anchorEl) closeInlineCitePopover(); };
-  const onEsc = (e) => { if (e.key === 'Escape') closeInlineCitePopover(); };
-  setTimeout(() => {                              // attach on next tick so the
-    document.addEventListener('click', onDoc);    // current click doesn't fire it
-    document.addEventListener('keydown', onEsc);
-  }, 0);
-  _inlineCiteCleanup = () => {
-    pop.remove();
-    document.removeEventListener('click', onDoc);
-    document.removeEventListener('keydown', onEsc);
-    _inlineCiteCleanup = null;
-  };
-}
-function closeInlineCitePopover() {
-  if (_inlineCiteCleanup) _inlineCiteCleanup();
 }
 
 // v19.17 (recommendation D): singleton search-syntax popover anchored
