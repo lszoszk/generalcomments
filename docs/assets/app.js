@@ -2202,7 +2202,10 @@ function setupReaderFind() {
 document.addEventListener('keydown', (e) => {
   if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'f') {
     const body = document.getElementById('docs-reader-body');
-    if (body && body.offsetParent !== null) {
+    // Only intercept when a document is actually open (the #reader-find bar
+    // exists). On the empty Documents state there's no in-reader find, so
+    // let native Cmd/Ctrl+F through instead of dead-keying it. (audit Medium)
+    if (body && body.offsetParent !== null && document.getElementById('reader-find')) {
       e.preventDefault();
       openReaderFind();
     }
@@ -11002,7 +11005,11 @@ async function runAsk() {
       }
       return;
     }
-    _askBackendOnline = false;
+    // Only mark the backend offline for a genuine network-unreachable error
+    // (fetch TypeError / cert failure — no httpStatus). A 429/403/5xx came
+    // FROM a reachable server, so it must NOT flip _askBackendOnline and
+    // soft-lock the Ask tab for the rest of the session. (audit Medium)
+    if (err.httpStatus == null) _askBackendOnline = false;
     // 429 vs 5xx vs other: legit users can hit our 15-q/min nginx rate
     // limit during quick iteration. Surface that as a soft, accurate
     // message instead of "backend offline" — that misleads them into

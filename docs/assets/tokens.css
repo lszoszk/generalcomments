@@ -41,6 +41,7 @@
   /* Source-type semantics — GC vs SP visual signal */
   --gc-tone:      var(--ink);             /* General Comments — full ink, primary weight */
   --jur-tone:     oklch(43% 0.09 190);    /* Jurisprudence — teal, preview-but-legal */
+  --mark-bookmark: #c9a227;               /* bookmark accent (warm gold) */
   --jur-soft:     oklch(94% 0.035 190);
   --sp-tone:      var(--ink-2);           /* Special Procedures — slightly muted, "preview" */
   /* v19.51.2 (audit H6): darkened --preview from oklch(58%) → 50%
@@ -110,6 +111,7 @@
   --preview:      oklch(75% 0.13 70);
   --preview-soft: oklch(28% 0.06 70);
   --jur-tone:     oklch(76% 0.10 190);
+  --mark-bookmark: #d8b94e;               /* bookmark accent — brighter gold for dark paper */
   --jur-soft:     oklch(27% 0.045 190);
 
   /* Dark status semantics — lighter foregrounds on deep tinted softs. */
