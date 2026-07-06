@@ -1277,6 +1277,24 @@ ds = load_dataset(
         </div>
 
         <div class="about-block">
+          <h3 class="folio">MCP server — query it from an AI assistant</h3>
+          <p class="serif">
+            The corpus is also exposed as a
+            <a class="about-link" href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol</a>
+            server, so an LLM assistant (Claude, or any MCP-capable client) can
+            search and cite treaty-body paragraphs directly — returning the
+            <strong>verbatim</strong> text with its document signature and
+            paragraph number, instead of paraphrasing from training data. It
+            exposes <code class="mono">search_paragraphs</code> (full-text
+            search across the corpus, filterable by treaty body) and
+            <code class="mono">lookup_by_citation</code> (resolve a reference
+            like <code class="mono">CRC/C/GC/25&nbsp;¶12</code> to its exact
+            paragraph). Source and setup:
+            <a class="about-link" href="https://github.com/lszoszk/mcp-unhrdb" target="_blank" rel="noopener">github.com/lszoszk/mcp-unhrdb</a>.
+          </p>
+        </div>
+
+        <div class="about-block">
           <h3 class="folio">Licence &amp; tech</h3>
           <p class="serif">
             Software is released under the
