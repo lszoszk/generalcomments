@@ -631,7 +631,7 @@ async function boot() {
     state.facets = await facetsPromise;
     state.baseFacets = state.facets;
 
-    setProgress(38, 'Checking jurisprudence preview…');
+    setProgress(38, 'Checking jurisprudence…');
     await jurPromise;
     state.facets = mergeJurFacets(state.baseFacets);
     paintMastFolio(manifest);
@@ -759,7 +759,7 @@ async function loadJurMetadata() {
     docs.forEach(d => state.documents.set(d.docId, normalizeJurDocument(d)));
   } catch (err) {
     state.jur.error = err;
-    console.warn('Jurisprudence preview unavailable:', err);
+    console.warn('Jurisprudence unavailable:', err);
   }
 }
 
@@ -872,7 +872,7 @@ function jurCommitteeFacets() {
 
 function jurTreatyLabel({ compact = false } = {}) {
   const treaties = (state.jur.facets?.treaties || []).map(item => item.value).filter(Boolean);
-  if (!treaties.length) return compact ? 'preview' : 'jurisprudence';
+  if (!treaties.length) return 'jurisprudence';
   if (compact && treaties.length > 1) return `${treaties.length} bodies`;
   if (treaties.length <= 3) return treaties.join(' + ');
   return `${treaties.length} treaty bodies`;
@@ -981,7 +981,7 @@ function paintFreshnessCard(m) {
       </div>
       <div class="freshness-meta">
         ${totalParas.toLocaleString()} paragraphs across ${totalDocs.toLocaleString()} documents${linksLabel}.
-        ${jurBuilt ? `Jurisprudence preview shard built ${escape(jurBuilt)}.` : ''}
+        ${jurBuilt ? `Jurisprudence shard built ${escape(jurBuilt)}.` : ''}
         Weekly link revalidation runs via
         <a href="https://github.com/lszoszk/generalcomments/blob/main/.github/workflows/link-check.yml"
            target="_blank" rel="noopener">GitHub Actions</a>.
@@ -1356,7 +1356,7 @@ const TOUR_STEPS = [
     selector: '.filter-block-source',
     view: 'search',
     title: 'Pick your source',
-    body: 'Switch between General Comments (the authoritative core), Special Procedures (all 46 mandates), Jurisprudence (preview), or All sources. Each row shows the live count of available paragraphs.',
+    body: 'Switch between General Comments (the authoritative core), Special Procedures (all 46 mandates), Jurisprudence (~98% of OHCHR JURIS), or All sources. Each row shows the live count of available paragraphs.',
   },
   // Filters block — every filter except Source. We point at Years +
   // Treaty bodies as the most-used pair; everything else (groups,
@@ -1413,7 +1413,7 @@ const DOCUMENTS_TOUR_STEPS = [
     selector: '.docs-scope',
     view: 'documents',
     title: 'Pick a corpus',
-    body: 'General Comments is the authoritative core (187 docs, exhaustive). Special Procedures is the complete set of thematic annual reports — 1,560 reports across all 46 mandates (soft law). Jurisprudence is a CCPR/CEDAW/CRPD complaint preview. Tabs split the rail equally.',
+    body: 'General Comments is the authoritative core (187 docs, exhaustive). Special Procedures is the complete set of thematic annual reports — 1,560 reports across all 46 mandates (soft law). Jurisprudence is near-complete CCPR/CEDAW/CRPD case-law (~98% of OHCHR JURIS). Tabs split the rail equally.',
   },
   {
     selector: '.docs-filter',
@@ -1830,7 +1830,7 @@ function paintDocsRail() {
   const jurShown = jurDocs || state.jur?.manifest?.counts?.documents || 0;
   const spShown  = spDocs  || state.manifest?.counts?.spDocuments || 0;
   if (headTitle) headTitle.textContent = `${docs.length.toLocaleString()} document${docs.length === 1 ? '' : 's'}`;
-  if (headSub) headSub.innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurShown.toLocaleString()} Jurisprudence case${jurShown === 1 ? '' : 's'} <span class="badge badge-jur">PREVIEW</span> · ${spShown.toLocaleString()} Special Procedures report${spShown === 1 ? '' : 's'}`;
+  if (headSub) headSub.innerHTML = `${gcDocs} General Comment${gcDocs === 1 ? '' : 's'} · ${jurShown.toLocaleString()} Jurisprudence case${jurShown === 1 ? '' : 's'} · ${spShown.toLocaleString()} Special Procedures report${spShown === 1 ? '' : 's'}`;
 
   if (!docs.length) {
     // v19.63 (P2 audit): recovery action instead of a dead end — mirror
@@ -1870,7 +1870,7 @@ function paintDocsRail() {
     for (const c of sortedCommittees(groups.gc)) html.push(renderRailCommittee(c, groups.gc.get(c), 'gc'));
   }
   if (groups.jur.size && (wantScope === 'all' || wantScope === 'jur')) {
-    html.push(`<div class="docs-rail-section jur">${escape(jurTreatyLabel())} jurisprudence <span class="badge badge-jur">PREVIEW</span></div>`);
+    html.push(`<div class="docs-rail-section jur">${escape(jurTreatyLabel())} jurisprudence</div>`);
     for (const c of sortedCommittees(groups.jur)) html.push(renderRailCommittee(c, groups.jur.get(c), 'jur'));
   }
   if (groups.sp.size && (wantScope === 'all' || wantScope === 'sp')) {
@@ -4234,7 +4234,7 @@ async function exportXlsx(rows, busyButton) {
   });
   const meta = [
     ['UNHRD — UN Human Rights Database'],
-    ['Paragraph-level export of UN Treaty Body General Comments + jurisprudence preview + Special Procedures.'],
+    ['Paragraph-level export of UN Treaty Body General Comments + jurisprudence + Special Procedures.'],
     [],
     ['Exported',          exportedHuman],
     ['Source URL',        'https://lszoszk.github.io/generalcomments/'],
@@ -4308,7 +4308,7 @@ function paintScopeBanner() {
   const banner = $('#scope-banner');
   banner.innerHTML = `
     <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
-    <span class="folio">JURISPRUDENCE PREVIEW</span>Treaty Body jurisprudence currently includes ${escape(treatyLabel)}: <strong>${docs} cases</strong> and <strong>${paras.toLocaleString()} paragraphs</strong>. The full corpus stays sharded and can move to the VM/API once the preview UI is settled.
+    <span class="folio">JURISPRUDENCE</span>Individual-complaint decisions — ${escape(treatyLabel)}: <strong>${docs} cases</strong>, <strong>${paras.toLocaleString()} paragraphs</strong>. Coverage is about <strong>98%</strong> of the OHCHR JURIS catalogue; a small remainder (non-English-only or image-only scans) is not yet indexed — see the About page for the coverage audit.
   `;
   $('#banner-dismiss').addEventListener('click', () => { banner.hidden = true; });
 }
@@ -6202,11 +6202,11 @@ function renderResultGroup(docId, rows, terms) {
 function scopeNotice() {
   const span = document.createElement('span');
   if (state.scope === 'jur') {
-    span.innerHTML = ` <span class="badge badge-jur">PREVIEW</span> · ${escape(jurTreatyLabel())} jurisprudence preview.`;
+    span.innerHTML = ` <span class="badge badge-jur">JUR</span> · ${escape(jurTreatyLabel())} jurisprudence · ~98% of OHCHR JURIS.`;
   } else if (state.scope === 'sp') {
     span.innerHTML = ` Independent mandate-holder reports · all 46 thematic mandates.`;
   } else if (state.scope === 'all') {
-    span.innerHTML = ` Mixed scope: General Comments + <span class="badge badge-jur">PREVIEW</span> Jurisprudence + Special Procedures.`;
+    span.innerHTML = ` Mixed scope: General Comments + Jurisprudence + Special Procedures.`;
   }
   return span;
 }
@@ -6435,7 +6435,7 @@ function isSp(committee) {
 }
 
 function sourceBadge(type) {
-  if (type === 'jur') return '<span class="badge badge-jur">PREVIEW · JUR</span>';
+  if (type === 'jur') return '<span class="badge badge-jur">JUR</span>';
   if (type === 'sp') return '<span class="badge badge-sp">SP</span>';
   return '<span class="badge badge-gc">GC</span>';
 }
@@ -6715,7 +6715,7 @@ function paintDossier() {
   // "JURISPRUDENCE · CEDAW · PREVIEW" and pin a colourful outcome badge
   // next to it (e.g. " · VIOLATION FOUND ").
   const dossierKind = isJurDoc
-    ? `JURISPRUDENCE · ${escape(doc?.treaty || 'TREATY BODY')} · PREVIEW`
+    ? `JURISPRUDENCE · ${escape(doc?.treaty || 'TREATY BODY')}`
     : isSpDoc
       ? 'MANDATE REPORT'
       : 'GENERAL COMMENT';
@@ -7853,7 +7853,7 @@ function cmdkBuildItems() {
   // 2. Scope flips
   for (const [key, label, sub] of [
     ['gc',  'Scope · General Comments', 'Treaty body interpretive output'],
-    ['jur', 'Scope · Jurisprudence',    `${jurTreatyLabel()} case-law preview`],
+    ['jur', 'Scope · Jurisprudence',    `${jurTreatyLabel()} case-law · ~98% of OHCHR JURIS`],
     ['sp',  'Scope · Special Procedures', 'All 46 thematic mandates'],
     ['all', 'Scope · All sources',      'Combined view'],
   ]) {

@@ -50,7 +50,7 @@
   form-action 'self'
 " />
 <title>UN Human Rights Database</title>
-<meta name="description" content="Paragraph-level search across UN Treaty Body General Comments and Special Procedures (all 46 thematic mandates), plus a treaty-body jurisprudence preview — for human rights researchers, academics and legal practitioners." />
+<meta name="description" content="Paragraph-level search across UN Treaty Body General Comments and Special Procedures (all 46 thematic mandates), plus near-complete treaty-body jurisprudence — for human rights researchers, academics and legal practitioners." />
 <link rel="canonical" href="https://lszoszk.github.io/generalcomments/" />
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
@@ -59,7 +59,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://lszoszk.github.io/generalcomments/" />
 <meta property="og:title" content="UN Human Rights Database" />
-<meta property="og:description" content="Paragraph-level search across UN Treaty Body General Comments and Special Procedures, plus a treaty-body jurisprudence preview." />
+<meta property="og:description" content="Paragraph-level search across UN Treaty Body General Comments and Special Procedures, plus near-complete treaty-body jurisprudence." />
 <meta property="og:site_name" content="UN Human Rights Database" />
 <meta property="og:image" content="https://lszoszk.github.io/generalcomments/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
@@ -356,7 +356,6 @@
         <button class="scope-opt" data-scope="jur" role="radio" aria-checked="false" tabindex="-1">
           <span class="scope-opt-name">Jurisprudence</span>
           <span class="scope-count" id="count-jur">—</span>
-          <span class="badge badge-jur">PREVIEW</span>
         </button>
         <button class="scope-opt" data-scope="sp" role="radio" aria-checked="false" tabindex="-1">
           <span class="scope-opt-name">Special Procedures</span>
@@ -808,10 +807,12 @@
             rights interpretation. Its authoritative core is Treaty Body General
             Comments. It now also indexes the complete set of thematic
             <strong>Special Procedures</strong> annual reports — all 46 mandates — and a
-            growing preview of CCPR / CEDAW / CRPD individual-complaint jurisprudence.
+            near-complete set of CCPR / CEDAW / CRPD individual-complaint
+            jurisprudence — about 98% of the OHCHR JURIS catalogue.
             Special Procedures reports are <em>soft law</em> (independent expert opinion,
-            not binding treaty-body interpretation); the jurisprudence stream is still an
-            in-progress preview. Secondary collections are loaded lazily on demand.
+            not binding treaty-body interpretation); the jurisprudence collection is
+            near-complete but not yet exhaustive — a small non-English / image-only-scan
+            remainder is pending. Secondary collections are loaded lazily on demand.
             Across the current published build, <strong>320,018 paragraphs</strong> across
             <strong>6,081 documents</strong> are searchable, filterable and citable down to
             their number.
@@ -1408,6 +1409,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260630-audit"></script>
+<script type="module" src="assets/app.js?v=20260706-jur"></script>
 </body>
 </html>
