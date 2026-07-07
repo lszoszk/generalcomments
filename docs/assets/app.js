@@ -1274,8 +1274,25 @@ function trackPageView(extraPath = null, extraTitle = null) {
 const GA_ID = 'G-F3XBX45HQC';
 const GA_CONSENT_KEY = 'unhrdb_ga_consent_v1';
 let _gaLoaded = false;
+// Suppress analytics for our own automation (Claude/Playwright preview + any
+// CDP/WebDriver-driven Chrome), the local preview, an explicit ?notrack=1, or a
+// browser Do-Not-Track signal — so testing traffic and privacy-opted-out users
+// never load GA and don't skew the numbers. (True reach is measured server-side
+// from the API access logs, independent of consent.)
+function _analyticsSuppressed() {
+  try {
+    if (navigator.webdriver) return true;
+    if (/HeadlessChrome/.test(navigator.userAgent || '')) return true;
+    const h = location.hostname;
+    if (h === 'localhost' || h === '127.0.0.1' || h === '') return true;
+    if (new URLSearchParams(location.search).get('notrack') === '1') return true;
+    if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return true;
+  } catch {}
+  return false;
+}
 function loadAnalytics() {
   if (_gaLoaded || typeof window.gtag === 'function') return;
+  if (_analyticsSuppressed()) return;
   _gaLoaded = true;
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() { window.dataLayer.push(arguments); };
@@ -1287,6 +1304,9 @@ function loadAnalytics() {
   document.head.appendChild(s);
 }
 function initConsent() {
+  // Automation / localhost / ?notrack / DNT: don't load GA and don't even show
+  // the consent banner — there's nothing to consent to.
+  if (_analyticsSuppressed()) return;
   let choice = null;
   try { choice = localStorage.getItem(GA_CONSENT_KEY); } catch {}
   if (choice === 'granted') { loadAnalytics(); return; }
