@@ -24,6 +24,7 @@ from pathlib import Path
 
 import build_corpus as bc
 from build_sp_shards import write_sp_shards
+from clean_sp_reader_artifacts import clean_shards_inplace
 
 REPO = Path(__file__).resolve().parent
 DOCS = REPO / "docs"
@@ -101,6 +102,13 @@ def main():
     (DOCS / "documents.json").write_text(
         json.dumps(documents, ensure_ascii=False), encoding="utf-8")
     bc.write_json(DOCS / "facets.json", facets)
+
+    # 5b. Strip extraction artifacts (glued page-footers + collapsed bullet
+    # lists) from the freshly-written SP shards, in place. Runs AFTER
+    # documents.json is written so every new doc's own signature is available
+    # for the own-footer strip. id-stable (text-only) + idempotent, so it is
+    # safe to run on every append and never churns paragraph ids/counts.
+    clean_shards_inplace(DOCS)
 
     # 6. Refresh manifest.
     build_iso = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
