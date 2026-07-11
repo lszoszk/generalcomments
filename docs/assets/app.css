@@ -2846,6 +2846,15 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   border-bottom: 0.5px solid var(--garnet-edge);
 }
 .foot-link:hover { border-bottom-color: var(--garnet); }
+/* Author affiliation, pushed to the far right of the footer row for an
+   "author left · institution right" balance. margin-left:auto is the flex
+   spacer; on narrow viewports the row wraps and it right-aligns on its
+   own line. Muted italic so it reads institutional, not as a link. */
+.foot-affil {
+  margin-left: auto;
+  font-style: italic;
+  color: var(--ink-3);
+}
 /* v19.3: keep the report link visually identical to the GitHub link
    even though it's a <button>. */
 .foot-report-btn {
