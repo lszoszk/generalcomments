@@ -3696,6 +3696,10 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   line-height: 1.7;
   color: var(--ink);
   margin: 0;
+  /* Honour the \n breaks the SP artifact cleaner inserts between collapsed
+     bullet-list items (pre-line: newlines break, other whitespace collapses,
+     text still wraps normally). */
+  white-space: pre-line;
 }
 
 /* DRAWER ───────────────────────────────────────────────────────
