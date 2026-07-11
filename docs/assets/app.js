@@ -16,6 +16,12 @@ const state = {
   facets: null,
   baseFacets: null,
   searchIndex: null,            // FlexSearch.Document instance, populated after boot
+  gcCorpusLoaded: false,        // corpus.json (GC bodies) parsed into paragraphs? Guards
+                                // ensureCorpusReady's fetch independently of
+                                // paragraphs.length — else a JUR/SP local-fallback load
+                                // (which fills the array first when the API is offline)
+                                // trips the length check and corpus.json is skipped,
+                                // leaving GC document readers blank.
   liteMode: false,              // v19.58: memory-constrained device (iOS / low-RAM) —
                                 // skip the FlexSearch index, use a linear scan instead
   // v19.60: SP paragraphs were split out of corpus.json into the lazy,
@@ -4916,21 +4922,35 @@ async function ensureScopeLoaded(scope) {
 // of mobile OOM crashes on click). Idempotent — second call returns
 // the in-flight or completed promise.
 async function ensureCorpusReady() {
-  // liteMode is "ready" once the corpus is parsed — it builds no index.
-  if (state.paragraphs.length && (state.searchIndex || state.liteMode)) return;
+  // Ready once the GC corpus is parsed (liteMode builds no index; otherwise
+  // the FlexSearch index must exist too). Keyed on gcCorpusLoaded, NOT
+  // paragraphs.length — the array may already hold JUR/SP paragraphs from a
+  // local-fallback load while corpus.json is still unfetched.
+  if (state.gcCorpusLoaded && (state.searchIndex || state.liteMode)) return;
   if (state._corpusLoadPromise) return state._corpusLoadPromise;
 
   state._corpusLoadPromise = (async () => {
     document.body.classList.add('is-corpus-loading');
     try {
       // Step 1: corpus.json fetch + parse.
-      if (!state.paragraphs.length) {
+      if (!state.gcCorpusLoaded) {
         paintCorpusLoadingState('fetch');
         const arr = await fetchJson(`${DATA_BASE}corpus.json`);
-        state.paragraphs = arr;
+        // APPEND (not `state.paragraphs = arr`): a JUR/SP shard may have
+        // populated the array first (API-offline search), and a wholesale
+        // replace would wipe it. Skip a paragraph only if it's already
+        // array-resident; an `_apiOnly` Map entry (from a GC API hit) is
+        // Map-only, so it must not block the full body from the array.
+        for (const p of arr) {
+          const existing = state.paragraphById.get(p.id);
+          if (!existing || existing._apiOnly) {
+            state.paragraphs.push(p);
+            state.paragraphById.set(p.id, p);
+          }
+        }
+        state.gcCorpusLoaded = true;
         _flushDfCache();
         _avgDocLen = null;
-        for (const p of arr) state.paragraphById.set(p.id, p);
       }
       // Step 2: FlexSearch index. IndexedDB cache hit → instant; cold
       // build → 3-5 s on desktop, 8-15 s on mobile. The latter is the
