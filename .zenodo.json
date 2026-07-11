@@ -1,0 +1,49 @@
+{
+  "title": "UNHRDB — UN Human Rights Database",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "AGPL-3.0-only",
+  "description": "Open-source paragraph-level research environment for UN human rights law. UNHRDB combines Treaty Body General Comments and Recommendations, individual-communication jurisprudence, and thematic Special Procedures reports in a source-first interface with faceted search, citation export, document workspaces, and extractive retrieval. The software and curated datasets have separate licences; see LICENSE, LICENSE-DATA, and NOTICE in the repository.",
+  "creators": [
+    {
+      "name": "Szoszkiewicz, Łukasz",
+      "affiliation": "Adam Mickiewicz University, Poznań",
+      "orcid": "0000-0001-6671-2893"
+    },
+    {
+      "name": "Kowalska, Zuzanna",
+      "affiliation": "Adam Mickiewicz University, Poznań"
+    }
+  ],
+  "keywords": [
+    "human rights",
+    "United Nations",
+    "Treaty Bodies",
+    "General Comments",
+    "jurisprudence",
+    "Special Procedures",
+    "international law",
+    "legal information retrieval",
+    "open research software"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://lszoszk.github.io/generalcomments/",
+      "relation": "isSupplementTo",
+      "scheme": "url",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments",
+      "relation": "isSupplementedBy",
+      "scheme": "url",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "https://github.com/lszoszk/mcp-unhrdb",
+      "relation": "isSupplementedBy",
+      "scheme": "url",
+      "resource_type": "software"
+    }
+  ]
+}
