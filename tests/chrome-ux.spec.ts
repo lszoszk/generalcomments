@@ -160,14 +160,16 @@ test('UX4. localJurFallbackShowsProgress · api=0 remains explicit and bounded',
   await bootApp(page, '/index.html?api=0&scope=jur&q=non-refoulement');
   await expect(page.locator('.result').first()).toBeVisible({ timeout: 40_000 });
   const elapsed = Date.now() - t0;
-  // v19.50.2 (audit Step 3.C): bumped from 20s → 35s. The JUR corpus
-  // has grown since the test was written (3,176 docs, 116k paragraphs)
-  // and on a contended machine the first-run shard fetch + index build
-  // routinely lands around 22-28s; bumping the ceiling to 35s gives
-  // headroom under parallel test load while still failing fast if the
-  // local fallback suddenly takes a minute (the regression class
-  // this guard exists to catch).
-  expect(elapsed).toBeLessThan(35_000);
+  // Bumped 20s → 35s → 50s as the JUR corpus grew: 3,176 docs/116k ¶ when
+  // the 35s ceiling was set, 4,334 docs/152k ¶ now (+31% paragraphs). The
+  // offline JUR fallback fetches EVERY shard + builds the FlexSearch index,
+  // so its wall-clock tracks corpus size directly. Isolated on a fast dev
+  // machine this run lands ~16s; on a contended CI runner (full suite, weak
+  // shared CPU, python http.server streaming ~30MB of shards) it lands
+  // ~35-37s and tipped over the old 35s ceiling. 50s restores headroom while
+  // still failing fast if the fallback suddenly takes a minute — the
+  // regression class this guard exists to catch.
+  expect(elapsed).toBeLessThan(50_000);
   expect(shardRequests.length).toBeGreaterThan(0);
   await expect(page.locator('#api-badge')).toContainText(/offline/);
 });
