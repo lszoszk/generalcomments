@@ -393,6 +393,14 @@ function adaptApiHit(h) {
     committee:  h.committee || h.mandate || h.treaty,
     committees: [h.committee || h.mandate || h.treaty].filter(Boolean),
     labels:  [],     // API doesn't return per-paragraph labels in the page slice yet
+    // The API search path hydrates state.paragraphById (Map) but NOT
+    // state.paragraphs (the array the document reader renders from). This
+    // flag lets the shard/corpus loaders tell "already in the array" apart
+    // from "only seen via an API hit", so a searched-then-opened JUR/SP
+    // doc still gets its full body pushed to the array (else the reader
+    // shows "DOCUMENT BODY UNAVAILABLE" because the shard's paragraphs got
+    // deduped away against the API-only Map entries sharing the same id).
+    _apiOnly: true,
   };
 }
 function adaptApiDoc(h) {
@@ -4965,7 +4973,11 @@ async function ensureSpCorpusReady() {
   state.spCorpusPromise = (async () => {
     const arr = await fetchJson(`${DATA_BASE}sp-corpus.json`);
     for (const p of arr) {
-      if (!state.paragraphById.has(p.id)) {
+      // Push unless already array-resident. An `_apiOnly` Map entry (from
+      // an SP search hit) is NOT in the array, so it must not block the
+      // full record — else the reader drops the searched paragraphs.
+      const existing = state.paragraphById.get(p.id);
+      if (!existing || existing._apiOnly) {
         state.paragraphs.push(p);
         state.paragraphById.set(p.id, p);
       }
@@ -4997,7 +5009,10 @@ async function loadSpShard(shardName) {
   const promise = (async () => {
     const arr = await fetchJson(`${SP_BASE}shards/${shardId}.json`);
     for (const p of arr) {
-      if (!state.paragraphById.has(p.id)) {
+      // Push unless already array-resident; an `_apiOnly` Map entry (from
+      // an SP search hit) is Map-only and must not block the full record.
+      const existing = state.paragraphById.get(p.id);
+      if (!existing || existing._apiOnly) {
         state.paragraphs.push(p);
         state.paragraphById.set(p.id, p);
       }
@@ -5084,7 +5099,14 @@ function paintLowMemoryFallback() {
 function _ingestJurShardData(shard) {
   const additions = [];
   for (const p of shard.paragraphs || []) {
-    if (state.paragraphById.has(p.id)) continue;
+    // Skip only when this paragraph is already resident in state.paragraphs
+    // (a prior shard ingest). An `_apiOnly` entry lives in paragraphById
+    // but NOT in the array, so it must NOT block the shard's full record
+    // from reaching the reader — otherwise a searched-then-opened case is
+    // deduped down to an empty body. Fall through to push + overwrite the
+    // Map with the fuller shard record.
+    const existing = state.paragraphById.get(p.id);
+    if (existing && !existing._apiOnly) continue;
     const doc = state.documents.get(p.docId);
     const enriched = {
       ...p,
