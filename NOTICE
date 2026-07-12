@@ -1,11 +1,11 @@
-UNHRD — UN Human Rights Database
+UNHRDB — UN Human Rights Database
 =================================
 
 This project contains two distinct components, each under its own
 licence:
 
-  Software         GNU Affero General Public License v3.0
-                   See:  LICENSE  (full AGPL-3.0 text)
+  Software         PolyForm Noncommercial License 1.0.0
+                   See:  LICENSE  (full PolyForm terms)
                    Covers:  docs/assets/app.js, docs/assets/app.css,
                             docs/assets/tokens.css, docs/index.html,
                             build_corpus.py, resolve_ibids.py, and
@@ -31,10 +31,9 @@ licence:
 
 Why this split?
 ---------------
-AGPL-3.0 on the software ensures anyone who runs a modified copy
-of UNHRD as a hosted service must release their modifications
-under the same licence — closing the "SaaS loophole" that GPL-
-only would leave open.
+PolyForm Noncommercial 1.0.0 permits research, education,
+non-profit, and personal use of the software while reserving
+commercial use for a separate licence from the author.
 
 CC BY-NC-SA 4.0 on the curated dataset preserves academic re-use
 (researchers, NGOs, treaty body members are free to use, share,
@@ -45,7 +44,7 @@ Citation
 --------
 Required attribution for both components:
 
-    Szoszkiewicz, Ł. & Kowalska, Z. (2026). UNHRD — UN Human
+    Szoszkiewicz, Ł. & Kowalska, Z. (2026). UNHRDB — UN Human
     Rights Database. https://lszoszk.github.io/generalcomments/
 
 Individual paragraphs cited in academic work should reference

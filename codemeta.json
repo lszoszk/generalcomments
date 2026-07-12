@@ -5,9 +5,9 @@
   "description": "Paragraph-level search, reading, and citation environment for UN Treaty Body General Comments, jurisprudence, and thematic Special Procedures reports.",
   "codeRepository": "https://github.com/lszoszk/generalcomments",
   "url": "https://lszoszk.github.io/generalcomments/",
-  "version": "2.0.0",
-  "datePublished": "2026-07-11",
-  "license": "https://spdx.org/licenses/AGPL-3.0-only.html",
+  "version": "2.0.1",
+  "datePublished": "2026-07-12",
+  "license": "https://polyformproject.org/licenses/noncommercial/1.0.0/",
   "applicationCategory": "Legal research software",
   "programmingLanguage": ["JavaScript", "Python", "HTML", "CSS"],
   "keywords": [

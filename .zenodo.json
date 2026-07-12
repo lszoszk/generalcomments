@@ -2,7 +2,7 @@
   "title": "UNHRDB — UN Human Rights Database",
   "upload_type": "software",
   "access_right": "open",
-  "license": "AGPL-3.0-only",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "description": "Open-source paragraph-level research environment for UN human rights law. UNHRDB combines Treaty Body General Comments and Recommendations, individual-communication jurisprudence, and thematic Special Procedures reports in a source-first interface with faceted search, citation export, document workspaces, and extractive retrieval. The software and curated datasets have separate licences; see LICENSE, LICENSE-DATA, and NOTICE in the repository.",
   "creators": [
     {

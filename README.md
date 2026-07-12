@@ -1,7 +1,7 @@
 # UNHRDB — UN Human Rights Database
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10495719.svg)](https://doi.org/10.5281/zenodo.10495719)
-[![License: AGPL-3.0](https://img.shields.io/badge/code-AGPL--3.0-blue.svg)](LICENSE)
+[![License: PolyForm Noncommercial](https://img.shields.io/badge/code-PolyForm%20Noncommercial-blue.svg)](LICENSE)
 [![Dataset: CC BY-NC-SA 4.0](https://img.shields.io/badge/data-CC%20BY--NC--SA%204.0-green.svg)](LICENSE-DATA)
 [![Hugging Face](https://img.shields.io/badge/dataset-Hugging%20Face-yellow.svg)](https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments)
 
@@ -75,7 +75,7 @@ as part of that dataset package.
 For the evolving software, use the concept DOI:
 
 > Szoszkiewicz, Ł., & Kowalska, Z. (2026). *UNHRDB — UN Human Rights
-> Database* (Version 2.0.0) [Computer software]. Zenodo.
+> Database* (Version 2.0.1) [Computer software]. Zenodo.
 > https://doi.org/10.5281/zenodo.10495719
 
 GitHub also exposes machine-readable citation metadata from
@@ -91,8 +91,9 @@ source.
 
 This repository contains distinct works under distinct terms:
 
-- **Software:** GNU Affero General Public License v3.0 (`AGPL-3.0-only`), see
-  [LICENSE](LICENSE).
+- **Software:** PolyForm Noncommercial License 1.0.0; research, education,
+  non-profit, and personal use are permitted, while commercial use requires a
+  separate licence. See [LICENSE](LICENSE).
 - **Curated dataset and annotations:** Creative Commons
   Attribution-NonCommercial-ShareAlike 4.0 International, see
   [LICENSE-DATA](LICENSE-DATA).
