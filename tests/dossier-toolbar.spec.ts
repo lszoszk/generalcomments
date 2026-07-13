@@ -159,4 +159,30 @@ test('D8. permalink · Link button copies a deep URL containing ?p=…', async (
   // Clipboard carries the URL with ?p=
   const text = await page.evaluate(() => navigator.clipboard.readText());
   expect(text).toContain(`p=${paraId}`);
+  const docId = paraId!.replace(/-\d{4}$/, '');
+  expect(new URL(text).hash).toBe(`#documents/${docId}`);
+
+  // A permalink is only useful if a fresh recipient lands on the paragraph.
+  await page.goto(text);
+  await expect(page.locator('.docs-reader-para.is-active'))
+    .toHaveAttribute('data-para-id', paraId!, { timeout: 15_000 });
+});
+
+test('D9. plainUrlCitation · citation URL is a working document deep link', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
+  await openDossier(page);
+  const paraId = await page.locator('.result.is-active').first().getAttribute('data-para-id');
+  expect(paraId).toBeTruthy();
+  const docId = paraId!.replace(/-\d{4}$/, '');
+
+  await page.locator('#dossier-more').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
+  await page.locator('#cite-other-trigger').click();
+  await page.locator('#cite-pop .cite-opt[data-cite-key="url"]').click();
+
+  const text = await page.evaluate(() => navigator.clipboard.readText());
+  const url = new URL(text);
+  expect(url.searchParams.get('p')).toBe(paraId);
+  expect(url.hash).toBe(`#documents/${docId}`);
 });

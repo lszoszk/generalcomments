@@ -18,9 +18,21 @@ import { bootApp, resetWorkspace, typeQuery } from './_helpers';
  *  A8. alsoTryRendered     — 0-result + alsoTry → synonym buttons in empty state
  */
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, context }) => {
+  try {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  } catch { /* WebKit does not expose these permissions. */ }
   await resetWorkspace(page);
 });
+
+async function copyDossierCitation(page: any, format: string) {
+  await page.locator('#dossier-more').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
+  await page.locator('#cite-other-trigger').click();
+  await page.locator(`#cite-pop .cite-opt[data-cite-key="${format}"]`).click();
+  return page.evaluate(() => navigator.clipboard.readText());
+}
 
 // Tiny helper to build a mock /api/search response with a synthetic
 // hit set sized to whatever the test wants.
@@ -246,6 +258,101 @@ test('A5. snippetFromApi · server <mark> rendered verbatim', async ({ page }) =
   await page.waitForTimeout(1200);
   await expect(page.locator('.result-text mark').first()).toBeVisible();
   await expect(page.locator('.result-text mark').first()).toContainText('disability');
+});
+
+test('A5b. jurDecisionYear · results use adoption year and retain communication year', async ({ page }) => {
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) => {
+    const body = mockSearchPage({ total: 1, page: 1, pageSize: 200 });
+    body.hits[0] = {
+      ...body.hits[0],
+      year: 2021,
+      adoption_date: '29 August 2024',
+      signature: 'CRPD/C/31/D/94/2021',
+    };
+    return route.fulfill({ status: 200, body: JSON.stringify(body) });
+  });
+
+  await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
+  const result = page.locator('.result').first();
+  await expect(result).toBeVisible({ timeout: 15_000 });
+  await expect(result.locator('.result-headline .folio').last()).toHaveText('2024');
+  await result.click();
+
+  const grid = page.locator('#dossier .dossier-grid');
+  await expect(grid).toContainText('29 August 2024');
+  await expect(grid).toContainText(/Communication\s*2021/);
+});
+
+test('A5c. jurCitation · legal citation identifies the case and communication', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) => {
+    const body = mockSearchPage({ total: 1, page: 1, pageSize: 200 });
+    body.hits[0] = {
+      ...body.hits[0],
+      para_id: 'citation-jur-23', doc_id: 'citation-jur-doc', n: '23', idx: 23,
+      committee: 'CRPD', treaty: 'CRPD', country: 'Sweden', year: 2024,
+      adoption_date: '29 August 2024', signature: 'CRPD/C/31/D/94/2021',
+      name: 'Svensson v. Sweden', name_short: 'Svensson v. Sweden',
+      text: 'The Committee considered the merits of the communication.',
+      snippet: 'The Committee considered the <mark>merits</mark>.',
+    };
+    return route.fulfill({ status: 200, body: JSON.stringify(body) });
+  });
+
+  await bootApp(page, '/index.html?api=1&scope=jur&q=merits');
+  await page.locator('.result[data-para-id="citation-jur-23"]').click();
+  const citation = await copyDossierCitation(page, 'unfn');
+
+  expect(citation).toContain('Committee on the Rights of Persons with Disabilities');
+  expect(citation).toContain('Svensson v. Sweden');
+  expect(citation).toContain('Communication No. 94/2021');
+  expect(citation).toContain('U.N. Doc. CRPD/C/31/D/94/2021');
+  expect(citation).toContain('¶ 23');
+  expect(citation).not.toContain('General Comment');
+});
+
+test('A5d. spCitation · report citation identifies author, title, symbol, and paragraph', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    route.fulfill({
+      status: 200,
+      body: JSON.stringify({
+        query: 'reasoning', ftsExpr: '"reasoning"', scope: 'sp',
+        total: 1, page: 1, pageSize: 200, tookMs: 8,
+        breakdown: { gc: 0, jur: 0, sp: 1 },
+        hits: [{
+          rowid: 1, para_id: 'a-73-348-0023', doc_id: 'a-73-348',
+          idx: 23, n: '23', section: null, type: 'sp', treaty: null,
+          committee: 'SR Freedom of Expression', mandate: 'David Kaye', country: null,
+          year: 2018, adoption_date: '29 August 2018', signature: 'A/73/348', outcome: null,
+          name: 'Artificial Intelligence technologies and implications for the information environment',
+          name_short: 'Artificial Intelligence and implications for the information environment',
+          text: 'An essential element of opinion is reasoning.',
+          snippet: 'An essential element of opinion is <mark>reasoning</mark>.', score: -1,
+        }],
+        alsoTry: [],
+      }),
+    })
+  );
+
+  await bootApp(page, '/index.html?api=1&scope=sp&q=reasoning');
+  await page.locator('.result[data-para-id="a-73-348-0023"]').click();
+  const citation = await copyDossierCitation(page, 'oscola');
+
+  expect(citation).toContain('David Kaye');
+  expect(citation).toContain('Artificial Intelligence and implications for the information environment');
+  expect(citation).toContain('UN Doc A/73/348');
+  expect(citation).toContain('para 23');
+  expect(citation).not.toContain('General Comment');
 });
 
 test('A6. apiTotalShown · title surfaces server total even past page slice', async ({ page }) => {

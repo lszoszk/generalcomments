@@ -66,6 +66,13 @@ test('R4. activeParaScroll · ?p=<id> scrolls + highlights', async ({ page }) =>
   await expect(active).toHaveAttribute('data-para-id', 'crpd-c-gc-6-0024');
 });
 
+test('R4b. legacyBareParagraphLink · bare ?p= upgrades and opens the paragraph', async ({ page }) => {
+  await bootApp(page, '/index.html?p=crpd-c-gc-6-0024');
+  await expect(page).toHaveURL(/\?p=crpd-c-gc-6-0024#documents\/crpd-c-gc-6$/);
+  await expect(page.locator('.docs-reader-para.is-active'))
+    .toHaveAttribute('data-para-id', 'crpd-c-gc-6-0024', { timeout: 15_000 });
+});
+
 test('R5. drawerOutline · outline + workspace tools render', async ({ page, viewport }) => {
   // Drawer is hidden below the 1100 px breakpoint by design — make sure
   // the test runs against a viewport wide enough to render it.

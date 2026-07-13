@@ -388,6 +388,12 @@ async function fetchNextApiPage() {
 // shape has to satisfy paintDossier + renderResult + workspace marks
 // without further conditional logic in those code paths.
 function adaptApiHit(h) {
+  const year = documentResearchYear({
+    type: h.type,
+    year: h.year,
+    adoptionYear: h.adoption_year,
+    adoptionDate: h.adoption_date,
+  });
   return {
     id:      h.para_id,
     docId:   h.doc_id,
@@ -396,7 +402,7 @@ function adaptApiHit(h) {
     section: h.section,
     text:    h.text,
     type:    h.type,
-    year:    h.year,
+    year,
     committee:  h.committee || h.mandate || h.treaty,
     committees: [h.committee || h.mandate || h.treaty].filter(Boolean),
     labels:  [],     // API doesn't return per-paragraph labels in the page slice yet
@@ -434,7 +440,14 @@ function adaptApiDoc(h) {
     signature:    h.signature,
     country:      h.country,
     outcome:      h.outcome,
-    year:         h.year,
+    year:         documentResearchYear({
+      type: h.type,
+      year: h.year,
+      adoptionYear: h.adoption_year,
+      adoptionDate: h.adoption_date,
+    }),
+    communicationYear: h.communication_year ?? (h.type === 'jur' ? h.year : null),
+    adoptionYear: h.adoption_year ?? yearFromDate(h.adoption_date),
     adoptionDate: h.adoption_date,
   };
 }
@@ -480,6 +493,43 @@ const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard mat
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
 const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', rk: 'rk', ar: 'ar', fn: 'fn', pre: 'pre' };
+
+function documentIdForParagraphId(paraId) {
+  if (!paraId) return null;
+  const id = String(paraId);
+  const positional = id.replace(/-\d{4}$/, '');
+  if (state.documents.has(positional)) return positional;
+
+  // Defensive fallback for legacy/non-positional paragraph IDs: choose the
+  // longest document-id prefix so similarly named documents cannot collide.
+  let best = null;
+  for (const docId of state.documents.keys()) {
+    if (id.startsWith(`${docId}-`) && (!best || docId.length > best.length)) best = docId;
+  }
+  return best;
+}
+
+function paragraphPermalink(para, { preserveSearch = false } = {}) {
+  const paraId = para?.id;
+  if (!paraId) return null;
+  const docId = para?.docId || documentIdForParagraphId(paraId);
+  const url = preserveSearch
+    ? new URL(window.location.href)
+    : new URL(window.location.pathname, window.location.origin);
+  url.searchParams.set(URL_KEYS.p, paraId);
+  if (docId) url.hash = `documents/${encodeURIComponent(docId)}`;
+  return url;
+}
+
+function upgradeLegacyParagraphLink() {
+  const url = new URL(window.location.href);
+  const paraId = url.searchParams.get(URL_KEYS.p);
+  if (!paraId || url.hash.startsWith('#documents/')) return;
+  const docId = documentIdForParagraphId(paraId);
+  if (!docId) return;
+  url.hash = `documents/${encodeURIComponent(docId)}`;
+  history.replaceState(null, '', url.toString());
+}
 
 function encodeUrlState() {
   if (!state.facets) return;
@@ -656,6 +706,9 @@ async function boot() {
     setProgress(80, 'Wiring interface…');
     paintScopeCounts();
     initYearRange();
+    // Old citations used a bare `?p=<paragraphId>`. Upgrade them before URL
+    // state is decoded so the canonicaliser preserves the paragraph anchor.
+    upgradeLegacyParagraphLink();
     applyUrlState(decodeUrlState());     // restore from ?q=…&scope=…&tb=… etc.
     // Rewrite the address bar with the canonical URL so
     // legacy params (?p=…&sort=…&group=…) drop off after they've been
@@ -833,6 +886,37 @@ function mandateShortLabel(mandate) {
   return words.length > 3 ? words.slice(0, 3).join(' ') + '…' : mandate;
 }
 
+function yearFromDate(value) {
+  const matches = String(value || '').match(/\b(?:19|20)\d{2}\b/g);
+  return matches?.length ? Number(matches[matches.length - 1]) : null;
+}
+
+function plausibleDecisionYear(value) {
+  const year = Number(value);
+  return Number.isInteger(year) && year >= 1900 && year <= new Date().getFullYear()
+    ? year
+    : null;
+}
+
+function canonicalAdoptionDate(d) {
+  for (const value of [d?.jurisDecisionDate, d?.juris_decision_date, d?.adoptionDate, d?.adoption_date]) {
+    const year = yearFromDate(value);
+    if (value && (year == null || plausibleDecisionYear(year))) return value;
+  }
+  return '';
+}
+
+function documentResearchYear(d) {
+  if (d?.type === 'jur') {
+    return plausibleDecisionYear(yearFromDate(d.jurisDecisionDate || d.juris_decision_date))
+      ?? plausibleDecisionYear(d.adoptionYear ?? d.adoption_year)
+      ?? plausibleDecisionYear(yearFromDate(d.adoptionDate || d.adoption_date))
+      ?? d.year
+      ?? null;
+  }
+  return d?.year ?? d?.adoptionYear ?? d?.adoption_year ?? null;
+}
+
 function normalizeJurDocument(d) {
   const title = publicDocTitle(d);
   return {
@@ -850,8 +934,12 @@ function normalizeJurDocument(d) {
     title: d.title || title,
     caseName: d.caseName || title,
     signature: d.signature || d.symbol || '',
-    year: d.year ?? d.adoptionYear ?? d.communicationYear ?? null,
-    adoptionDate: d.adoptionDate || '',
+    year: documentResearchYear({ ...d, type: 'jur' }),
+    communicationYear: d.communicationYear ?? d.communication_year ?? d.year ?? null,
+    adoptionYear: plausibleDecisionYear(yearFromDate(d.jurisDecisionDate))
+      ?? plausibleDecisionYear(d.adoptionYear ?? d.adoption_year)
+      ?? plausibleDecisionYear(yearFromDate(d.adoptionDate)),
+    adoptionDate: canonicalAdoptionDate(d),
   };
 }
 
@@ -919,13 +1007,27 @@ function mergeYearFacet(base, jur) {
   };
 }
 
+function jurResearchYearFacet() {
+  const histogram = new Map();
+  for (const doc of state.documents.values()) {
+    if (doc.type !== 'jur' || !doc.year) continue;
+    histogram.set(doc.year, (histogram.get(doc.year) || 0) + 1);
+  }
+  const rows = [...histogram.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([year, count]) => ({ year, count }));
+  return rows.length
+    ? { min: rows[0].year, max: rows[rows.length - 1].year, histogram: rows }
+    : state.jur.facets?.years;
+}
+
 function mergeJurFacets(base) {
   if (!base || !state.jur.facets) return base;
   return {
     ...base,
     committees: mergeFacetItems(base.committees, jurCommitteeFacets()),
     labels: mergeFacetItems(base.labels, state.jur.facets.labels),
-    years: mergeYearFacet(base, state.jur.facets),
+    years: mergeYearFacet(base, { years: jurResearchYearFacet() }),
     // v19.46: surface JUR-only facets through state.facets so the
     // outcome filter (and other JUR-specific UIs) can read them at
     // the same level as the GC facets. GC's facet object lacks these
@@ -5137,7 +5239,7 @@ function _ingestJurShardData(shard) {
       labels: p.labels || [],
       committee: doc?.committee || p.treaty || 'Jurisprudence',
       committees: doc?.committees || (p.treaty ? [p.treaty] : ['Jurisprudence']),
-      year: p.year ?? doc?.year ?? null,
+      year: doc?.year ?? p.year ?? null,
       n: p.n ?? p.paragraphId ?? p.idx,
     };
     state.paragraphs.push(enriched);
@@ -7494,7 +7596,7 @@ function paintDossier() {
 
 // ─────────── Citations (A1) ───────────
 //
-// Five formats, one builder each, all pure functions over a `(doc, para)`
+// Nine formats, one builder each, all pure functions over a `(doc, para)`
 // pair. Adapted from UnitedNations_recommendations/dashboard-reader.js
 // `_citeBaseFields` + cite{APA,Chicago,BibTeX,RIS,PlainURL}, schema-mapped
 // to our docs/paragraphs:
@@ -7505,20 +7607,28 @@ function paintDossier() {
 //   doc.name / doc.nameShort                ← title
 //   para.id / para.n                       ← paragraph identifier
 //
-// All formats wrap our share URL `?p=<id>` so copy-paste citations remain
-// click-through to the exact paragraph.
+// Academic/export formats include the canonical document + paragraph URL;
+// legal footnotes keep the conventional source citation only.
 function _citeBaseFields(doc, para) {
+  const type = doc?.type || 'gc';
   const year = doc?.year ?? doc?.communicationYear ?? '';
   const date = doc?.adoptionDate || (year ? String(year) : 'n.d.');
-  const author = doc?.committees?.length
-    ? doc.committees.join(' / ')
-    : (doc?.committee || doc?.treaty || 'United Nations');
+  const author = type === 'jur'
+    ? _committeeLong(doc)
+    : type === 'sp'
+      ? (doc?.mandate || doc?.committee || 'United Nations')
+      : (doc?.committees?.length
+          ? doc.committees.join(' / ')
+          : (doc?.committee || doc?.treaty || 'United Nations'));
   const symbol = doc?.signature || doc?.symbol || doc?.docId || '';
-  const title = doc?.nameShort || doc?.name || symbol;
+  const title = type === 'jur'
+    ? (doc?.caseName || publicDocTitle(doc) || symbol)
+    : (publicDocTitle(doc) || symbol);
   const country = doc?.country || '';
+  const communicationNumber = _communicationNumber(doc, symbol);
   const paraNum = para?.n ?? para?.idx ?? '';
-  const shareUrl = location.origin + location.pathname + '?p=' + encodeURIComponent(para?.id || '');
-  return { year, date, author, symbol, title, country, paraNum, shareUrl };
+  const shareUrl = paragraphPermalink(para)?.toString() || '';
+  return { type, year, date, author, symbol, title, country, communicationNumber, paraNum, shareUrl };
 }
 
 // ─────────── Legal citation formats (v19.15) ───────────
@@ -7540,6 +7650,25 @@ function _committeeLong(doc) {
   const c = doc?.committee || (doc?.committees && doc.committees[0]) || 'CCPR';
   return _CITE_LONG_COMMITTEE[c] || c;
 }
+function _communicationNumber(doc, symbol = '') {
+  const explicit = doc?.communicationNumbers?.[0]
+    || doc?.jurisCommunicationNumbers?.[0]
+    || doc?.communicationNumber
+    || doc?.communication_number;
+  if (explicit) return String(explicit);
+  const match = /\/D\/([^/]+\/\d{4})(?:$|\/)/i.exec(symbol);
+  return match?.[1] || '';
+}
+function _paragraphPart(f, style = 'un') {
+  if (f.paraNum === '') return '';
+  if (style === 'oscola') return `, para ${f.paraNum}`;
+  if (style === 'mcgill') return ` at para ${f.paraNum}`;
+  return `, ¶ ${f.paraNum}`;
+}
+function _jurCommunicationPart(f, punctuated = true) {
+  if (!f.communicationNumber) return '';
+  return `Communication No${punctuated ? '.' : ''} ${f.communicationNumber}`;
+}
 function _gcLongRef(doc) {
   const ish = (doc?.committee === 'CEDAW' || doc?.committee === 'CERD');
   const kind = ish ? 'General Recommendation' : 'General Comment';
@@ -7554,6 +7683,18 @@ function _gcLongRef(doc) {
 function _citeUnFootnote(doc, para) {
   const f = _citeBaseFields(doc, para);
   const long = _committeeLong(doc);
+  if (f.type === 'jur') {
+    const communication = _jurCommunicationPart(f);
+    const parts = [long, f.title, communication].filter(Boolean).join(', ');
+    const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
+    const date = f.date && f.date !== 'n.d.' ? ` (${f.date})` : '';
+    return `${parts}${_paragraphPart(f)}${symbol}${date}.`;
+  }
+  if (f.type === 'sp') {
+    const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
+    const date = f.date && f.date !== 'n.d.' ? ` (${f.date})` : '';
+    return `${f.author}, Report, “${f.title}”${_paragraphPart(f)}${symbol}${date}.`;
+  }
   const gc = _gcLongRef(doc);
   const para_ = f.paraNum !== '' ? `, ¶ ${f.paraNum}` : '';
   const ref = gc ? `${long}, ${gc}${para_}` : `${long}${para_}`;
@@ -7566,6 +7707,18 @@ function _citeUnFootnote(doc, para) {
 // "UNHRC, General Comment 32: Article 14 (23 August 2007) UN Doc CCPR/C/GC/32, para 33."
 function _citeOSCOLA(doc, para) {
   const f = _citeBaseFields(doc, para);
+  if (f.type === 'jur') {
+    const communication = _jurCommunicationPart(f, false);
+    const body = _committeeLong(doc);
+    const bodyAndDate = [body, f.date !== 'n.d.' ? f.date : ''].filter(Boolean).join(', ');
+    const docPart = f.symbol ? ` UN Doc ${f.symbol}` : '';
+    return `${f.title}${communication ? `, ${communication}` : ''} (${bodyAndDate})${docPart}${_paragraphPart(f, 'oscola')}.`;
+  }
+  if (f.type === 'sp') {
+    const datePart = f.date !== 'n.d.' ? ` (${f.date})` : '';
+    const docPart = f.symbol ? ` UN Doc ${f.symbol}` : '';
+    return `${f.author}, ‘${f.title}’${datePart}${docPart}${_paragraphPart(f, 'oscola')}.`;
+  }
   const c = doc?.committee || 'UN';
   const short = c === 'CCPR' ? 'UNHRC' : c;
   const gcRaw = _gcLongRef(doc);
@@ -7601,6 +7754,17 @@ function _citeBluebook(doc, para) {
   const f = _citeBaseFields(doc, para);
   const c = doc?.committee || 'CCPR';
   const short = _CITE_BLUEBOOK_SHORT[c] || c;
+  if (f.type === 'jur') {
+    const communication = _jurCommunicationPart(f);
+    const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
+    const yr = f.year ? ` (${f.year})` : '';
+    return `${short}, ${f.title}${communication ? `, ${communication}` : ''}${_paragraphPart(f)}${symbol}${yr}.`;
+  }
+  if (f.type === 'sp') {
+    const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
+    const yr = f.year ? ` (${f.year})` : '';
+    return `${f.author}, Report, ${f.title}${_paragraphPart(f)}${symbol}${yr}.`;
+  }
   const ish = (c === 'CEDAW' || c === 'CERD');
   const m = /(?:GC|GR)\s*(\d+)/i.exec(doc?.nameShort || '')
         || /(?:gc|gr)-?(\d+)/i.exec(doc?.docId || '');
@@ -7618,6 +7782,17 @@ function _citeBluebook(doc, para) {
 function _citeMcGill(doc, para) {
   const f = _citeBaseFields(doc, para);
   const long = _committeeLong(doc).replace('Human Rights Committee', 'UNHR Committee');
+  if (f.type === 'jur') {
+    const communication = _jurCommunicationPart(f, false);
+    const datePart = f.date !== 'n.d.' ? ` (${f.date})` : '';
+    const docPart = f.symbol ? `, UN Doc ${f.symbol}` : '';
+    return `${long}, ${f.title}${communication ? `, ${communication}` : ''}${datePart}${docPart}${_paragraphPart(f, 'mcgill')}.`;
+  }
+  if (f.type === 'sp') {
+    const datePart = f.date !== 'n.d.' ? ` (${f.date})` : '';
+    const docPart = f.symbol ? `, UN Doc ${f.symbol}` : '';
+    return `${f.author}, Report: ${f.title}${datePart}${docPart}${_paragraphPart(f, 'mcgill')}.`;
+  }
   // McGill: drop the period after No (Canadian style).
   const gc = (_gcLongRef(doc) || '').replace(/^General (Comment|Recommendation) No\./, 'General $1 No');
   const dateStr = doc?.adoptionDate || f.year || '';
@@ -7629,35 +7804,44 @@ function _citeMcGill(doc, para) {
 
 function _citeAPA(doc, para) {
   const f = _citeBaseFields(doc, para);
-  return `${f.author}. (${f.year || 'n.d.'}). ${f.title}${f.country ? ' — ' + f.country : ''} (UN Doc. ${f.symbol})${f.paraNum !== '' ? ', ¶ ' + f.paraNum : ''}. UN Human Rights Database. ${f.shareUrl}`;
+  const identity = f.type === 'jur' && f.communicationNumber
+    ? `Communication No. ${f.communicationNumber}; `
+    : f.type === 'sp' ? 'Report; ' : '';
+  return `${f.author}. (${f.year || 'n.d.'}). ${f.title}${f.country ? ' — ' + f.country : ''} (${identity}UN Doc. ${f.symbol})${_paragraphPart(f)}. UN Human Rights Database. ${f.shareUrl}`;
 }
 function _citeChicago(doc, para) {
   const f = _citeBaseFields(doc, para);
-  return `${f.author}, "${f.title}${f.country ? ', ' + f.country : ''}," UN Doc. ${f.symbol}${f.paraNum !== '' ? ', ¶ ' + f.paraNum : ''} (${f.date}), UN Human Rights Database, ${f.shareUrl}.`;
+  const communication = f.type === 'jur' ? _jurCommunicationPart(f) : '';
+  return `${f.author}, "${f.title}${f.country ? ', ' + f.country : ''},"${communication ? ` ${communication},` : ''} UN Doc. ${f.symbol}${_paragraphPart(f)} (${f.date}), UN Human Rights Database, ${f.shareUrl}.`;
 }
 function _citeBibTeX(doc, para) {
   const f = _citeBaseFields(doc, para);
   const slug = (doc?.docId || f.symbol).replace(/[^A-Za-z0-9]/g, '').slice(0, 18);
   const key = `UNHR_${slug}${f.paraNum !== '' ? '_p' + String(f.paraNum).replace(/\./g, '') : ''}`;
   const esc = s => String(s || '').replace(/[{}%&#_$]/g, '\\$&');
+  const sourceNote = f.type === 'jur' && f.communicationNumber
+    ? `Communication No. ${f.communicationNumber}`
+    : f.type === 'sp' ? 'Special Procedures report' : 'Treaty-body general comment or recommendation';
   return `@misc{${key},
   author       = {${esc(f.author)}},
   title        = {${esc(f.title)}},
   year         = {${esc(f.year || 'n.d.')}},
   howpublished = {UN Doc. ${esc(f.symbol)}${f.paraNum !== '' ? ', \\P\\,' + f.paraNum : ''}},
   ${f.country ? `addendum     = {${esc(f.country)}},\n  ` : ''}url          = {${f.shareUrl}},
-  note         = {UN Human Rights Database — paragraph-level corpus},
+  note         = {${esc(sourceNote)}; UN Human Rights Database — paragraph-level corpus},
 }`;
 }
 function _citeRIS(doc, para) {
   const f = _citeBaseFields(doc, para);
+  const risType = f.type === 'jur' ? 'CASE' : f.type === 'sp' ? 'RPRT' : 'GEN';
   return [
-    'TY  - GEN',
+    'TY  - ' + risType,
     'AU  - ' + f.author,
     'PY  - ' + (f.year || 'n.d.'),
     'TI  - ' + f.title,
     'PB  - UN Human Rights Database',
     'ID  - ' + f.symbol + (f.paraNum !== '' ? ' ¶' + f.paraNum : ''),
+    f.communicationNumber ? 'M1  - Communication No. ' + f.communicationNumber : '',
     f.country ? 'CY  - ' + f.country : '',
     'UR  - ' + f.shareUrl,
     'N1  - Paragraph-level extract' + (f.paraNum !== '' ? ', ¶ ' + f.paraNum : ''),
@@ -7672,7 +7856,7 @@ const CITE_FORMATS = [
   // Legal-citation formats first — what HR lawyers actually
   // paste into briefs. Default order surfaces the UN treaty-body
   // footnote (the dominant IL convention) at the top.
-  { key: 'unfn',    name: 'UN treaty-body footnote', fmt: 'UN', build: _citeUnFootnote },
+  { key: 'unfn',    name: 'UN legal footnote', fmt: 'UN', build: _citeUnFootnote },
   { key: 'oscola',  name: 'OSCOLA (UK / Commonwealth)', fmt: 'OSCOLA', build: _citeOSCOLA },
   { key: 'bluebook',name: 'Bluebook (US)', fmt: 'BLUEBOOK', build: _citeBluebook },
   { key: 'mcgill',  name: 'McGill (Canada)', fmt: 'MCGILL', build: _citeMcGill },
@@ -7884,9 +8068,8 @@ function openInDocReader(para) {
 // the recipient lands in search or documents.
 function copyPermalink(para) {
   if (!para) return;
-  const u = new URL(window.location);
-  u.searchParams.set('p', para.id);
-  u.hash = u.hash.startsWith('#documents/') ? u.hash : '';
+  const u = paragraphPermalink(para);
+  if (!u) return;
   navigator.clipboard?.writeText(u.toString())
     .then(() => showFeedbackToast({ ok: true, _msg: 'Permalink copied', _mark: '§' }))
     .catch(() => showFeedbackToast({ ok: true, _msg: 'Copy failed — select the URL manually', _mark: '⚠' }));
