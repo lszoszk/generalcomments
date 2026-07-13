@@ -5012,8 +5012,9 @@ function leafTermsForHighlight(ast) {
 
 // ─────────── FlexSearch index ───────────
 // Strategy:
-//   * Free-text terms are matched through a stemming/full-text FlexSearch index
-//     (CDN-loaded, ~28 KB). Catches inflections: 'child' matches 'children'.
+//   * Free-text terms are narrowed through a prefix-capable FlexSearch index
+//     (CDN-loaded, ~28 KB), then verified as exact Unicode word forms.
+//     Inflections are opt-in: `child*` matches child, children and childhood.
 //   * Quoted phrases stay strict — substring scan over candidate paragraphs.
 //   * The whole index is serialised to IndexedDB keyed by manifest sha so
 //     subsequent visits skip the rebuild (~3 s → ~50 ms).
@@ -5155,20 +5156,23 @@ function dumpIndex() {
 // v19.58: linear-scan search for liteMode (no FlexSearch index — see
 // isLiteSearchDevice / ensureCorpusReady). `query` is one bare term,
 // possibly *-suffixed. Substring match on the diacritic-folded,
-// marker-stripped paragraph text — looser than FlexSearch's
-// forward-token match (it also hits mid-word) and without stemming.
+// marker-stripped paragraph text. Bare terms use exact Unicode token
+// boundaries; only an explicit trailing `*` enables prefix matching.
 // The folded text is memoised per paragraph on first use. The
 // downstream BM25 re-rank still runs over the matched set, so result
 // ORDERING is unchanged — only the matching step is simpler.
 function liteSearchIds(query) {
   if (!query) return null;
-  const term = foldDiacritics(String(query).replace(/\*+$/, '').toLowerCase());
+  const raw = String(query);
+  const prefix = /\*+$/.test(raw);
+  const term = foldDiacritics(raw.replace(/\*+$/, '').toLowerCase());
   if (!term) return null;
   const inFn = state.searchInFootnotes !== false;
   const ids = new Set();
   for (const p of state.paragraphs) {
     cacheParagraphSearchText(p);
-    if (p._lcText.includes(term) || (inFn && p._lcFn && p._lcFn.includes(term))) {
+    if (textHasLexicalTerm(p._lcText, term, prefix)
+        || (inFn && p._lcFn && textHasLexicalTerm(p._lcFn, term, prefix))) {
       ids.add(p.id);
     }
   }
@@ -5220,10 +5224,7 @@ function evaluateAstToIds(ast) {
   if (!ast) return null;
   if (ast.kind === 'word') {
     if (ast.prefix) {
-      // Prefix wildcard — find every term in the index whose prefix matches.
-      // FlexSearch supports `suggest:true` natively but we do a simple
-      // bare-word query (the tokenizer's stemming already covers most cases);
-      // for explicit prefix, we scan candidate terms client-side.
+      // Prefix wildcard — scan cached folded text for token starts that match.
       return flexSearchPrefixIds(ast.value);
     }
     return flexSearchIds(ast.value);
@@ -5285,8 +5286,8 @@ function evaluateAstToIds(ast) {
   return null;
 }
 
-// Final per-paragraph match check against the AST. Every leaf does a strict
-// substring/regex match — the FlexSearch index does the cheap up-front
+// Final per-paragraph match check against the AST. Word leaves use exact
+// Unicode token boundaries; the FlexSearch index does the cheap up-front
 // narrowing, but the body filter is what actually verifies a result. The
 // strict check is required for correctness inside NOT subtrees: an
 // optimistic "accept all word leaves" makes NOT(word) always false, which
@@ -5294,11 +5295,7 @@ function evaluateAstToIds(ast) {
 function paragraphMatchesAst(text, ast) {
   if (!ast) return true;
   if (ast.kind === 'word') {
-    if (ast.prefix) {
-      const re = new RegExp('\\b' + escapeRegex(ast.value) + '\\w*', 'i');
-      return re.test(text);
-    }
-    return text.includes(ast.value);
+    return textHasLexicalTerm(text, ast.value, ast.prefix);
   }
   if (ast.kind === 'phrase') {
     return text.includes(ast.value);
@@ -5316,6 +5313,41 @@ function paragraphMatchesAst(text, ast) {
 }
 
 function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+// JavaScript's `\b` and `\w` are ASCII-centric, which breaks token boundaries
+// around names and legal terms containing diacritics. Search operates on folded
+// text but may still contain non-Latin scripts, so use Unicode letter/number
+// classes explicitly. A prefix wildcard changes only the token suffix.
+const _lexicalRegexCache = new Map();
+function lexicalTermRegex(value, prefix = false, global = false) {
+  const key = `${global ? 'g' : 's'}|${prefix ? 'p' : 'w'}|${value}`;
+  const cached = _lexicalRegexCache.get(key);
+  if (cached) return cached;
+  const tokenChar = '[\\p{L}\\p{N}_]';
+  const suffix = prefix ? `${tokenChar}*` : '';
+  const matcher = new RegExp(
+    `(?:^|[^\\p{L}\\p{N}_])${escapeRegex(value)}${suffix}(?=$|[^\\p{L}\\p{N}_])`,
+    global ? 'giu' : 'iu'
+  );
+  // Queries can be restored from arbitrary URLs, so keep the cache bounded.
+  if (_lexicalRegexCache.size >= 256) _lexicalRegexCache.clear();
+  _lexicalRegexCache.set(key, matcher);
+  return matcher;
+}
+
+function textHasLexicalTerm(text, value, prefix = false) {
+  if (!value) return false;
+  return lexicalTermRegex(value, prefix).test(String(text || ''));
+}
+
+function countLexicalOccurrences(text, value, prefix = false) {
+  if (!value) return 0;
+  const matcher = lexicalTermRegex(value, prefix, true);
+  matcher.lastIndex = 0;
+  const count = (String(text || '').match(matcher) || []).length;
+  matcher.lastIndex = 0;
+  return count;
+}
 
 // v19.46: diacritic-insensitive search helpers.
 // After the JUR Cat-T cleanup normalised "Sanjudn" → "Sanjuán",
@@ -5390,12 +5422,12 @@ function flexSearchPrefixIds(prefix) {
   // v19.46: prefix is already folded by _tokenizeQuery; match against the
   // folded paragraph text so accented words also satisfy a plain-ASCII
   // prefix (e.g. `Sanjua*` finds `Sanjuán`).
-  const re = new RegExp('\\b' + escapeRegex(prefix), 'i');
   const inFn = state.searchInFootnotes !== false;
   const ids = new Set();
   for (const p of state.paragraphs) {
     cacheParagraphSearchText(p);
-    if (re.test(p._lcText) || (inFn && p._lcFn && re.test(p._lcFn))) ids.add(p.id);
+    if (textHasLexicalTerm(p._lcText, prefix, true)
+        || (inFn && p._lcFn && textHasLexicalTerm(p._lcFn, prefix, true))) ids.add(p.id);
   }
   return ids;
 }
@@ -5741,16 +5773,13 @@ function _docFreq(term, scope) {
   const key = `${scope}|${term.prefix ? 'p' : 'w'}|${term.value}`;
   if (_dfCache.has(key)) return _dfCache.get(key);
   let df = 0;
-  const matcher = term.prefix
-    ? new RegExp('\\b' + escapeRegex(term.value) + '\\w*', 'i')
-    : null;
   for (const p of state.paragraphs) {
     if (!paragraphInScope(p, scope)) continue;
     // v19.46: term.value is folded; check against the folded paragraph
     // text so DF (and through it, BM25 IDF) treats accented and
     // unaccented variants as the same lexeme.
     const text = foldDiacritics(p.text.toLowerCase());
-    if (term.prefix ? matcher.test(text) : text.includes(term.value)) df++;
+    if (textHasLexicalTerm(text, term.value, term.prefix)) df++;
   }
   _dfCache.set(key, df);
   return df;
@@ -6063,9 +6092,8 @@ async function runSearch() {
         : text
     );
 
-    // AST-level enforcement: catches NOT clauses, phrases that need exact
-    // substring, and prefix wildcards. FlexSearch alone can produce
-    // stemming-only matches that don't actually contain the term.
+    // AST-level enforcement catches NOT clauses and verifies exact word,
+    // phrase and explicit-prefix semantics after broad index narrowing.
     if (ast && !paragraphMatchesAst(haystack, ast)) continue;
 
     // BM25-lite ranking: rare terms (high IDF) outweigh common ones; long
@@ -6082,23 +6110,17 @@ async function runSearch() {
         if (!t) continue;
         const idf = termIdf.get(t + (term.prefix ? '*' : '')) || 0;
         if (idf <= 0) continue;
-        let occ;
         // v19.46: query terms are folded; the original `text` may have
         // accents. Count against the folded text so BM25 doesn't 0-out
         // genuine matches purely because of an accent.
         const foldedText = foldDiacritics(text);
-        if (term.prefix) {
-          const re = new RegExp('\\b' + escapeRegex(t) + '\\w*', 'gi');
-          occ = (foldedText.match(re) || []).length;
-        } else {
-          occ = countOccurrences(foldedText, t);
-        }
+        const occ = countLexicalOccurrences(foldedText, t, term.prefix);
         if (!occ) continue;
         // Standard BM25 term contribution
         score += idf * (occ * (BM25_K1 + 1)) / (occ + BM25_K1 * lenNorm);
       }
     }
-    if (state.query && score === 0) score = 0.01;  // surface stem-only matches
+    if (state.query && score === 0) score = 0.01;  // retain phrase/footnote-only matches
     matched.push({ p, score });
   }
 
@@ -6130,13 +6152,6 @@ async function runSearch() {
   sortResults();
   paintResults();
   updateDocumentTitle();
-}
-
-function countOccurrences(haystack, needle) {
-  if (!needle) return 0;
-  let count = 0, idx = 0;
-  while ((idx = haystack.indexOf(needle, idx)) !== -1) { count++; idx += needle.length; }
-  return count;
 }
 
 function sortResults() {

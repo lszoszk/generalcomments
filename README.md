@@ -33,8 +33,9 @@ the data.
 
 ## What it does
 
-- Searches legal text at paragraph level with exact phrases, implicit/explicit
-  `AND`, `OR`, grouped exclusions (`A NOT B` or `A -B`), prefix wildcards, and
+- Searches legal text at paragraph level with exact word forms and phrases,
+  implicit/explicit `AND`, `OR`, grouped exclusions (`A NOT B` or `A -B`),
+  explicit prefix wildcards, and
   filters. A positive term is required for exclusions so every query stays on
   the indexed path; negative-only searches are rejected with an explanation.
 - Keeps General Comments, jurisprudence, and Special Procedures as distinct

@@ -146,3 +146,36 @@ test('C13. perf · every advertised operator stays within the indexed-search bud
     expect(body.tookMs, query).toBeLessThan(1200);
   }
 });
+
+test('C14. bare words are exact; variants require an explicit wildcard', async ({ request }) => {
+  const [rootResponse, exactResponse, pluralResponse, prefixResponse] = await Promise.all([
+    request.get('api/search?q=reason&scope=sp&page_size=20'),
+    request.get('api/search?q=reasoning&scope=sp&page_size=20'),
+    request.get('api/search?q=reasons&scope=sp&page_size=20'),
+    request.get('api/search?q=reason*&scope=sp&page_size=1'),
+  ]);
+  expect(rootResponse.ok()).toBeTruthy();
+  expect(exactResponse.ok()).toBeTruthy();
+  expect(pluralResponse.ok()).toBeTruthy();
+  expect(prefixResponse.ok()).toBeTruthy();
+
+  const root = await rootResponse.json();
+  const exact = await exactResponse.json();
+  const plural = await pluralResponse.json();
+  const prefix = await prefixResponse.json();
+  expect(root.ftsExpr).toBe('"reason"');
+  expect(exact.ftsExpr).toBe('"reasoning"');
+  expect(plural.ftsExpr).toBe('"reasons"');
+  expect(root.total).not.toBe(exact.total);
+  expect(root.total).not.toBe(plural.total);
+  expect(exact.total).not.toBe(plural.total);
+  expect(prefix.total).toBeGreaterThan(root.total);
+  expect(prefix.total).toBeGreaterThan(exact.total);
+  expect(prefix.total).toBeGreaterThan(plural.total);
+  for (const hit of root.hits) {
+    expect(hit.text).toMatch(/\breason\b/i);
+  }
+  for (const hit of exact.hits) {
+    expect(hit.text).toMatch(/\breasoning\b/i);
+  }
+});

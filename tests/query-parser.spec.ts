@@ -26,6 +26,7 @@ import { bootApp, resetWorkspace, typeQuery } from './_helpers';
  *                                the same AST as their uppercase forms
  *   P6. minusAlias            — `A -B` is identical to `A NOT B`
  *   P7. negativeOnlyGuard     — pure NOT is explained, never sent/scanned
+ *   P8. exactWordForms        — bare terms do not silently match inflections
  *
  * Each test runs against the live in-browser FlexSearch index — no
  * mocking — because the substring re-verification in
@@ -144,4 +145,29 @@ test('P7. negativeOnlyGuard · pure NOT explains the indexed-search limit', asyn
   await expect(page.locator('#results-title')).toHaveText('Start with a positive search term');
   await expect(page.locator('#results-sub')).toContainText('scan the entire corpus');
   await expect(page.locator('#syntax-help-open')).toBeVisible();
+});
+
+test('P8. exactWordForms · bare term is exact and wildcard is explicit', async ({ page }) => {
+  await bootApp(page, '/index.html?api=0');
+  await typeQuery(page, 'reason');
+  const root = await getResultCount(page);
+  const rootSnippets = await page.locator('.result-text').allInnerTexts();
+  await typeQuery(page, 'reasoning');
+  const exact = await getResultCount(page);
+  await typeQuery(page, 'reasons');
+  const plural = await getResultCount(page);
+  await typeQuery(page, 'reason*');
+  const variants = await getResultCount(page);
+
+  expect(root).toBeGreaterThan(0);
+  expect(rootSnippets.length).toBeGreaterThan(0);
+  for (const snippet of rootSnippets) expect(snippet).toMatch(/\breason\b/i);
+  expect(exact).toBeGreaterThan(0);
+  expect(plural).toBeGreaterThan(0);
+  expect(root).not.toBe(exact);
+  expect(root).not.toBe(plural);
+  expect(exact).not.toBe(plural);
+  expect(variants).toBeGreaterThan(root);
+  expect(variants).toBeGreaterThan(exact);
+  expect(variants).toBeGreaterThan(plural);
 });

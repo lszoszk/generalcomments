@@ -981,8 +981,10 @@
             their liberty, indigenous peoples, LGBTI+, and so on). The corpus is
             rebuilt deterministically by
             <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/build_corpus.py" target="_blank" rel="noopener">build_corpus.py</a>;
-            search runs entirely in the browser via FlexSearch with stemming, and
-            the index is cached in IndexedDB after first load.
+            local fallback search runs in the browser via FlexSearch and verifies
+            exact word forms; a trailing wildcard such as <code>child*</code>
+            explicitly includes variants. The index is cached in IndexedDB after
+            first load.
             One caveat on references: structured <em>cited-article</em> metadata is
             currently extracted for jurisprudence only (about 72&nbsp;% of cases). In
             General Comments and Special Procedures, treaty-article citations stay
@@ -1410,6 +1412,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260713-boolean-audit"></script>
+<script type="module" src="assets/app.js?v=20260713-exact-terms"></script>
 </body>
 </html>

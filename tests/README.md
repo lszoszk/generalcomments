@@ -45,6 +45,7 @@ write a test for:
 | boot stalls at "Loading corpus…"    | smoke #1                   |
 | 1-3 char search burns CPU on JUR    | smoke #3 (≥4-char gate)    |
 | boolean parser drops NOT branches   | smoke #4                   |
+| bare word silently matches variants | query-parser P8, contracts C14 |
 | `"gig worker"` returns 0 + synonyms | contracts C7, api-mode A8  |
 | Cite button visually shouty         | dossier-toolbar D6         |
 | Reading mode "can't exit"           | smoke #9 + dossier D7      |
