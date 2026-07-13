@@ -6570,17 +6570,34 @@ function setActive(id) {
   $$('.result').forEach(el => {
     el.classList.toggle('is-active', el.dataset.paraId === id);
   });
-  // Defer the heavy paintDossier work on mobile so iOS
-  // Safari can finish painting the tap feedback before we mount a
-  // full-screen overlay with formatted content. Without the defer,
-  // tap → setActive → paintDossier all ran in the same microtask
-  // and a low-memory phone could OOM. setTimeout(0) yields to the
-  // event loop (including paint) then runs — reliable in every
-  // browser, no RAF background-tab throttling caveats.
-  if (isMobileViewport()) {
-    setTimeout(paintDossier, 0);
+
+  const paintActive = () => {
+    if (state.activeId !== id) return;
+    if (isMobileViewport()) setTimeout(() => {
+      if (state.activeId === id) paintDossier();
+    }, 0);
+    else paintDossier();
+  };
+
+  // API search hits intentionally carry only the paragraph fields needed for
+  // the result list. SP footnote bodies live in the static committee shard,
+  // so hydrate the full record before opening the dossier. Otherwise the
+  // `[[fn:N]]` marker renders but its popover has no text.
+  const apiPara = state.paragraphById.get(id);
+  if (apiPara?.type === 'sp' && apiPara._apiOnly) {
+    const doc = state.documents.get(apiPara.docId);
+    document.body.classList.remove('dossier-collapsed');
+    const host = $('#dossier');
+    if (host) host.innerHTML = '<div class="docs-reader-loading" id="dossier-hydrating">Loading paragraph context and citations…</div>';
+    const hydration = doc?.shardId ? loadSpShard(doc.shardId) : ensureSpCorpusReady();
+    hydration.then(paintActive).catch((e) => {
+      console.warn('[sp dossier hydration failed]', e);
+      if (state.activeId === id && host) {
+        host.innerHTML = '<div class="docs-reader-loading">Couldn’t load this report’s citations. Please reopen the paragraph to retry.</div>';
+      }
+    });
   } else {
-    paintDossier();
+    paintActive();
   }
   updateDocumentTitle();
   scheduleUrlUpdate();

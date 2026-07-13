@@ -9,6 +9,7 @@ import { bootApp, resetWorkspace, typeQuery } from './_helpers';
  *  A2. fallbackOnError     — pingApi 500 → fallback to local; no infinite loop
  *  A2b. spRecoversAfterBootFailure — SP retries after a transient ping failure
  *  A2c. spOutageIsNotZeroResults   — SP outage never masquerades as 0 matches
+ *  A2d. spDossierHydratesFootnotes — API hit loads its static citation bodies
  *  A3. searchRoutes        — JUR scope ?api=1&q=X hits /api/search
  *  A4. searchUsesBodyParam — chip filter sends body= (not committees+treaties+mandates)
  *  A5. snippetFromApi      — server <mark> snippet rendered as-is
@@ -156,6 +157,45 @@ test('A2c. spOutageIsNotZeroResults · SP shows unavailable state when retry fai
   await expect(page.locator('.empty-title')).toContainText('not a zero-result search', { timeout: 10_000 });
   await expect(page.locator('#results-title')).toContainText('temporarily unavailable');
   await expect(page.locator('#sp-api-retry')).toBeVisible();
+});
+
+test('A2d. spDossierHydratesFootnotes · API hit loads citation text from its shard', async ({ page }) => {
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    route.fulfill({
+      status: 200,
+      body: JSON.stringify({
+        query: '"hold opinions" AND reasoning',
+        ftsExpr: '"hold opinions" AND "reasoning"',
+        scope: 'sp', total: 1, page: 1, pageSize: 200, tookMs: 8,
+        breakdown: { gc: 0, jur: 0, sp: 1 },
+        hits: [{
+          rowid: 23, para_id: 'a-73-348-0023', doc_id: 'a-73-348',
+          idx: 23, n: '23', section: ['II. Understanding artificial intelligence', 'B. Right to freedom of opinion'],
+          text: '23. An essential element of the right to hold an opinion is the “right to form an opinion and to develop this by way of reasoning”.[[fn:22]]',
+          type: 'sp', treaty: null, committee: 'SR Freedom of Expression',
+          mandate: 'David Kaye', country: null, year: 2018,
+          adoption_date: '29 August 2018', signature: 'A/73/348', outcome: null,
+          name: 'Artificial Intelligence technologies and implications for the information environment',
+          name_short: 'Artificial Intelligence and implications for the information environment',
+          snippet: 'The right to hold an opinion includes <mark>reasoning</mark>.[[fn:22]]', score: -1,
+        }],
+        alsoTry: [],
+      }),
+    })
+  );
+
+  await bootApp(page, '/index.html?api=1&scope=sp&q=%22hold%20opinions%22%20AND%20reasoning');
+  const result = page.locator('.result[data-para-id="a-73-348-0023"]');
+  await expect(result).toBeVisible({ timeout: 15_000 });
+  await result.click();
+
+  const marker = page.locator('#dossier button.fn-marker[data-fn-n="22"]');
+  await expect(marker).toBeVisible({ timeout: 15_000 });
+  await marker.click();
+  await expect(page.locator('.fn-popover-body')).toContainText('Nowak, U.N. Covenant on Civil and Political Rights');
 });
 
 test('A3. searchRoutes · scope=jur GETs /api/search', async ({ page }) => {
