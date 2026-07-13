@@ -149,17 +149,14 @@ function apiActive(scope) {
   // the built-in fall-back to the local FlexSearch index when the API is
   // unreachable. v19.60: SP joined the
   // API set — its paragraphs were split out of corpus.json, so the
-  // API is the only SP search path. If the API was probed at boot and
-  // is unreachable, fall back to local — `state.apiOnline === false`
-  // blocks subsequent attempts so a single failure doesn't cause an
-  // infinite recursion via runSearch. While the ping is in flight
-  // (`state.apiOnline === null`) we OPTIMISTICALLY try the API;
-  // runSearchViaApi has its own catch that flips to local.
+  // API is the only SP search path. runSearch retries a failed boot ping
+  // before evaluating this guard and presents an unavailable state if the
+  // retry fails, rather than reporting a false zero-result local search.
+  // While the ping is in flight (`state.apiOnline === null`) we
+  // optimistically try the API; runSearchViaApi handles request failures.
   if (!apiEnabled()) return false;
   if (state.apiOnline === false) return false;
-  // SP has no local corpus to fall back to — always use the API
-  // (even with an SP report-type filter the API can't narrow yet;
-  // an unfiltered API result still beats the empty local one).
+  // SP has no local corpus to fall back to, so always use the API.
   if (scope === 'sp') return true;
   if (!(scope === 'gc' || scope === 'jur' || scope === 'all')) return false;
   // v19.50: JUR-only client filters that the API doesn't support yet
@@ -287,9 +284,13 @@ async function runSearchViaApi(runId) {
     body = await apiFetch('/api/search', params);
   } catch (e) {
     if (runId !== state.searchRun) return;
-    console.warn('[unhrdb-api] search failed, falling back to local:', e.message);
+    console.warn(`[unhrdb-api] search failed${scope === 'sp' ? '' : ', falling back to local'}:`, e.message);
     paintApiBadge(false);
     state.apiOnline = false;
+    if (scope === 'sp') {
+      paintSpSearchUnavailable();
+      return;
+    }
     // Re-run via the local path so the user gets results either way.
     return runSearch();
   }
@@ -459,7 +460,9 @@ function paintApiBadge(online, ms) {
   badge.textContent = online ? `API · ${ms} ms` : 'API · offline';
   badge.title = online
     ? `Connected to ${API_BASE}. JUR queries route through the API for instant search. Add ?api=0 to the URL to force local mode.`
-    : `${API_BASE} unreachable. Using local FlexSearch (the JUR corpus is ~125 MB; first search may take ~60 s while it indexes).`;
+    : state.scope === 'sp'
+      ? `${API_BASE} unreachable. Special Procedures search requires the server index; retry the search to reconnect.`
+      : `${API_BASE} unreachable. Using local FlexSearch (the JUR corpus is ~125 MB; first search may take ~60 s while it indexes).`;
   badge.classList.toggle('rb-api-offline', !online);
   // v19.59 (Hick's-law declutter): the "API · N ms" happy state is
   // developer diagnostics, not user-facing signal. Show the badge ONLY
@@ -5303,6 +5306,43 @@ function paintShortQueryHint(v) {
   if (more)  more.textContent = '';
 }
 
+// Special Procedures search is API-backed: its 160k paragraphs are split
+// across 46 static shards and intentionally not loaded into the browser index.
+// Never turn an API outage into a misleading zero-result search.
+function paintSpSearchUnavailable() {
+  state.results = [];
+  state.apiTotal = null;
+  state.apiBreakdown = null;
+  state.apiFacets = null;
+  state.apiHasMore = false;
+
+  const count = $('#result-count');
+  const title = $('#results-title');
+  const sub = $('#results-sub');
+  const list = $('#result-list');
+  const more = $('#result-more');
+  if (count) count.textContent = '— offline';
+  if (title) title.textContent = 'Special Procedures search is temporarily unavailable';
+  if (sub) sub.textContent = 'The search service did not respond. Your query is preserved; retry when the connection is available.';
+  if (more) more.textContent = '';
+  if (list) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="folio">SEARCH SERVICE · OFFLINE</div>
+        <h3 class="serif empty-title">This is not a zero-result search</h3>
+        <p class="serif empty-body">Special Procedures search uses the server index. The server could not be reached, so no result count can be calculated.</p>
+        <div class="empty-actions">
+          <button type="button" class="empty-action" id="sp-api-retry">Retry connection</button>
+        </div>
+      </div>`;
+    $('#sp-api-retry')?.addEventListener('click', () => {
+      state.apiOnline = null;
+      runSearch();
+    });
+  }
+  paintApiBadge(false);
+}
+
 async function runSearch() {
   const runId = ++state.searchRun;
   scheduleUrlUpdate();
@@ -5318,6 +5358,18 @@ async function runSearch() {
       scope: state.scope,
       committees: [...state.filters.committees].slice(0, 8).join(',') || undefined,
     }, { dedupeKey: `search:${state.scope}:${q}`, dedupeMs: 1500 });
+  }
+
+  // One boot-time timeout must not disable SP search for the rest of the tab.
+  // SP has no lightweight local index, so retry its health check on the next
+  // search and resume the API path automatically when the service recovers.
+  if (state.scope === 'sp' && apiEnabled() && state.apiOnline === false) {
+    await pingApi();
+    if (runId !== state.searchRun) return;
+    if (state.apiOnline === false) {
+      paintSpSearchUnavailable();
+      return;
+    }
   }
 
   // If the boot-time ping is still in flight when JUR/all needs
@@ -5341,6 +5393,13 @@ async function runSearch() {
   // fall-back when the API is unreachable (see runSearchViaApi's catch).
   if (apiActive(state.scope)) {
     return runSearchViaApi(runId);
+  }
+
+  // SP paragraphs are not in the compact browser index. If API use was
+  // disabled, say so instead of searching an empty local set.
+  if (state.scope === 'sp') {
+    paintSpSearchUnavailable();
+    return;
   }
 
   try {

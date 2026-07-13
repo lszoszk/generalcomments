@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { bootApp, resetWorkspace } from './_helpers';
+import { bootApp, resetWorkspace, typeQuery } from './_helpers';
 
 /**
  * API-mode tests (?api=1). Mocks the API endpoints so we exercise the
@@ -7,6 +7,8 @@ import { bootApp, resetWorkspace } from './_helpers';
  *
  *  A1. badgeAppears        — pingApi paints "API · NN ms" in the searchbar
  *  A2. fallbackOnError     — pingApi 500 → fallback to local; no infinite loop
+ *  A2b. spRecoversAfterBootFailure — SP retries after a transient ping failure
+ *  A2c. spOutageIsNotZeroResults   — SP outage never masquerades as 0 matches
  *  A3. searchRoutes        — JUR scope ?api=1&q=X hits /api/search
  *  A4. searchUsesBodyParam — chip filter sends body= (not committees+treaties+mandates)
  *  A5. snippetFromApi      — server <mark> snippet rendered as-is
@@ -99,6 +101,61 @@ test('A2. fallbackOnError · 500 from /api/stats → no infinite loop', async ({
   await page.waitForTimeout(2000);
   // Badge says "API · offline"
   await expect(page.locator('#api-badge')).toContainText(/offline/i);
+});
+
+test('A2b. spRecoversAfterBootFailure · SP retries API instead of showing zero matches', async ({ page }) => {
+  let statsCalls = 0;
+  await page.route('**/unhrdb-api/api/stats', (route) => {
+    statsCalls++;
+    if (statsCalls === 1) return route.fulfill({ status: 500, body: 'temporary outage' });
+    return route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) });
+  });
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    route.fulfill({
+      status: 200,
+      body: JSON.stringify({
+        query: 'opinion AND hold', ftsExpr: '"opinion"* AND "hold"*', scope: 'sp',
+        total: 1, page: 1, pageSize: 200, tookMs: 12,
+        breakdown: { gc: 0, jur: 0, sp: 1 },
+        hits: [{
+          rowid: 1, para_id: 'a-hrc-29-32-0020', doc_id: 'a-hrc-29-32',
+          idx: 20, n: '20', section: null,
+          text: 'The right to hold opinions without interference applies online and offline.',
+          type: 'sp', treaty: null, committee: 'SR Freedom of Expression',
+          mandate: 'Freedom of opinion and expression', country: null, year: 2015,
+          adoption_date: '2015', signature: 'A/HRC/29/32', outcome: null,
+          name: 'Encryption and anonymity', name_short: 'Encryption and anonymity',
+          snippet: 'The right to <mark>hold</mark> <mark>opinions</mark>.', score: -1,
+        }],
+        alsoTry: [],
+      }),
+    })
+  );
+
+  await bootApp(page, '/index.html?api=1&scope=gc&q=disability');
+  await expect(page.locator('#api-badge')).toContainText(/offline/i);
+  await page.locator('.scope-opt[data-scope="sp"]').click();
+  await typeQuery(page, 'opinion AND hold');
+
+  await expect(page.locator('.result').first()).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator('#result-count')).toContainText(/1.*¶/);
+  expect(statsCalls).toBeGreaterThan(1);
+});
+
+test('A2c. spOutageIsNotZeroResults · SP shows unavailable state when retry fails', async ({ page }) => {
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 500, body: 'offline' })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) => route.abort('failed'));
+
+  await bootApp(page, '/index.html?api=1&scope=gc&q=disability');
+  await expect(page.locator('#api-badge')).toContainText(/offline/i);
+  await page.locator('.scope-opt[data-scope="sp"]').click();
+  await typeQuery(page, 'opinion AND hold');
+
+  await expect(page.locator('.empty-title')).toContainText('not a zero-result search', { timeout: 10_000 });
+  await expect(page.locator('#results-title')).toContainText('temporarily unavailable');
+  await expect(page.locator('#sp-api-retry')).toBeVisible();
 });
 
 test('A3. searchRoutes · scope=jur GETs /api/search', async ({ page }) => {
