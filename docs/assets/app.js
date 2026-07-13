@@ -32,6 +32,7 @@ const state = {
   // Ternary online status. null = ping not yet returned, true = API
   // reachable, false = unreachable (local fallback engaged for the session).
   apiOnline: null,
+  apiStats: null,               // /api/stats snapshot used in reproducible exports
   view: 'search',               // 'search' | 'documents' | 'about' — driven by URL hash
   docsScope: 'gc',              // documents-view scope: 'gc' | 'jur' | 'sp' (v19.49: dropped "all" tab — GC is primary)
   docsFilter: '',               // documents-view free-text filter
@@ -210,6 +211,7 @@ async function pingApi() {
     const ms = Math.round(performance.now() - t0);
     console.info(`[unhrdb-api] online · ${r.version} · ${r.totalParagraphs.toLocaleString()} ¶ · ${ms} ms`);
     state.apiOnline = true;
+    state.apiStats = r;
     paintApiBadge(true, ms);
   } catch (e) {
     console.warn('[unhrdb-api] unreachable:', e.message);
@@ -438,6 +440,7 @@ function adaptApiDoc(h) {
     nameShort:    title,
     title:        title,
     signature:    h.signature,
+    link:         h.link,
     country:      h.country,
     outcome:      h.outcome,
     year:         documentResearchYear({
@@ -964,6 +967,33 @@ function publicDocTitle(doc) {
     if (value && !isPlaceholderTitle(value)) return value;
   }
   return fallbackJurTitle(doc);
+}
+
+function officialSourceUrl(doc) {
+  if (!doc) return '';
+  const link = String(doc.link || '').trim();
+  const signature = String(doc.signature || doc.symbol || '').trim();
+  let host = '';
+  try { host = link ? new URL(link).hostname.toLowerCase() : ''; } catch {}
+
+  const isOfficialHost = host === 'un.org' || host.endsWith('.un.org')
+    || host === 'ohchr.org' || host.endsWith('.ohchr.org');
+  if (isOfficialHost) return link;
+
+  // undocs.org is the retired short-link surface. Keep old records usable,
+  // but send new clicks to the current official UN Documents host.
+  const isSpSymbol = doc.type === 'sp' || (!doc.type && /^(?:A|E)\//i.test(signature));
+  if ((host === 'undocs.org' || isSpSymbol) && signature) {
+    const path = signature.split('/').map(encodeURIComponent).join('/');
+    return `https://docs.un.org/en/${path}`;
+  }
+
+  // Treaty-body records can always be resolved by their UN symbol. This
+  // repairs missing links and replaces secondary mirrors with OHCHR.
+  if (signature) {
+    return `https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=${encodeURIComponent(signature)}&Lang=en`;
+  }
+  return link;
 }
 
 function jurCommitteeFacets() {
@@ -2369,6 +2399,7 @@ function setReaderActivePara(doc, id) {
 function paintDocReaderBody(doc, paraId) {
   const host = $('#docs-reader-body');
   if (!host) return;
+  const sourceUrl = officialSourceUrl(doc);
 
   // v19.50.1 (audit H5): when the user lands here from a search result,
   // continue highlighting the matched terms — the dossier already does
@@ -2434,7 +2465,7 @@ function paintDocReaderBody(doc, paraId) {
     `**Paragraph:** _(¶ number, e.g. ¶3.2)_\n` +
     `**OCR error spotted:**\n\n_(quote the affected word/phrase as it currently reads)_\n\n` +
     `**Should be:**\n\n_(what the original PDF says)_\n\n` +
-    `**Original PDF:** ${doc.link || '(link to source)'}\n`
+    `**Original PDF:** ${sourceUrl || '(link to source)'}\n`
   );
   const issueUrl = `https://github.com/lszoszk/generalcomments/issues/new?labels=ocr-error&title=${issueTitle}&body=${issueBody}`;
   // v19.56.2: OCR banner now distinguishes two provenance tiers:
@@ -2455,7 +2486,7 @@ function paintDocReaderBody(doc, paraId) {
                letter-substitution rules, hand-vetted mangled-word audit).
                Residual character-level errors may remain — please cite
                cautiously and verify against the
-               ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF'}.`
+               ${sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF'}.`
              : `<strong>⚠ Recovered from a scanned PDF via raw OCR (Tesseract eng).</strong>
                This document came from a 1990s scanned image with no embedded
                text layer. Output is the direct Tesseract result — no
@@ -2463,7 +2494,7 @@ function paintDocReaderBody(doc, paraId) {
                character-level errors (especially with diacritics, footnote
                markers, and proper names). <strong>Do not cite without
                verifying against the
-               ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF'}.</strong>`}
+               ${sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF'}.</strong>`}
            <a class="ocr-banner-report" href="${issueUrl}" target="_blank" rel="noopener" title="Open a pre-filled GitHub issue">↗ report an OCR error</a>
          </div>
        </aside>`
@@ -2498,7 +2529,7 @@ function paintDocReaderBody(doc, paraId) {
         ${doc.country ? `<span>${escape(doc.country)}${doc.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''}
         ${doc.committee || doc.treaty ? `<span>${escape(doc.committee || doc.treaty)}</span>` : ''}
         <span>${paragraphs.length} paragraphs</span>
-        ${doc.link ? `<a href="${escape(doc.link)}" target="_blank" rel="noopener" class="docs-reader-source">↗ original</a>` : ''}
+        ${sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener" class="docs-reader-source">↗ official source</a>` : ''}
         <button type="button" class="docs-reader-find-toggle" id="docs-reader-find-toggle" title="Find in document (⌘F / Ctrl+F)" aria-label="Find in document">⌕ Find</button>
       </div>
       ${langStripHtml}
@@ -4204,8 +4235,8 @@ function scopeCommitteeSet(scope) {
 // ─────────── Export ───────────
 // Exports always reflect the current filtered/searched results, never the whole corpus.
 
-function buildExportRows() {
-  return state.results.map(({ p }, idx) => {
+function buildExportRows(results = state.results) {
+  return results.map(({ p }, idx) => {
     const doc = state.documents.get(p.docId);
     const isJur = p.type === 'jur';
     const articleStr = (a) => {
@@ -4253,9 +4284,131 @@ function buildExportRows() {
       articles_invoked: isJur ? articlesParsed.map(articleStr).join('; ') : '',
       articles_invoked_raw: isJur ? [doc?.covenantArticles, doc?.conventionArticles, doc?.optionalProtocolArticles].filter(Boolean).join(' | ') : '',
       metadata_confidence: isJur ? (doc?.metadataConfidence ?? '') : '',
-      link: doc?.link ?? '',
+      link: officialSourceUrl(doc),
     };
   });
+}
+
+// A browser export should either contain the full API result set or not be
+// produced at all. Beyond this threshold the number of requests and the
+// in-memory workbook size become unsafe; the user gets an explicit prompt to
+// narrow the search instead of a silently truncated file.
+const EXPORT_RESULT_LIMIT = 50_000;
+const EXPORT_FETCH_CONCURRENCY = 4;
+
+function adaptApiExportHit(h) {
+  const p = adaptApiHit(h);
+  if (!state.paragraphById.has(p.id)) state.paragraphById.set(p.id, p);
+  if (!state.documents.has(p.docId)) state.documents.set(p.docId, adaptApiDoc(h));
+  return { p, score: h.score ?? 0, snippetHtml: h.snippet };
+}
+
+function setExportProgress(button, completed, total) {
+  const hint = button?.querySelector('.export-hint');
+  if (hint) hint.textContent = `Preparing ${completed.toLocaleString()} / ${total.toLocaleString()}`;
+}
+
+async function collectCompleteExportResults(button) {
+  // Local search computes its entire match set before rendering. API search is
+  // paged, so its authoritative total is the completeness contract.
+  if (!state.apiSearchParams || !Number.isFinite(state.apiTotal)) {
+    return { results: [...state.results], expectedTotal: state.results.length, source: 'local' };
+  }
+
+  const expectedTotal = Number(state.apiTotal);
+  if (expectedTotal > EXPORT_RESULT_LIMIT) {
+    throw new Error(
+      `${expectedTotal.toLocaleString()} matches exceed the browser export limit of ` +
+      `${EXPORT_RESULT_LIMIT.toLocaleString()}. Narrow the query or filters and try again.`
+    );
+  }
+
+  const runId = state.searchRun;
+  if (state.apiPageInflight) await state.apiPageInflight;
+  if (runId !== state.searchRun) throw new Error('The search changed while the export was being prepared. Try again.');
+
+  const results = [...state.results];
+  const seen = new Set(results.map(({ p }) => p.id));
+  const pageSize = state.apiPageSize || state.apiSearchParams.page_size || 200;
+  const totalPages = Math.ceil(expectedTotal / pageSize);
+  let nextPage = (state.apiPage || 1) + 1;
+  setExportProgress(button, results.length, expectedTotal);
+
+  while (nextPage <= totalPages) {
+    const pages = [];
+    for (let i = 0; i < EXPORT_FETCH_CONCURRENCY && nextPage <= totalPages; i++, nextPage++) {
+      pages.push(nextPage);
+    }
+    const responses = await Promise.all(pages.map(page =>
+      apiFetch('/api/search', { ...state.apiSearchParams, page })
+    ));
+    if (runId !== state.searchRun) throw new Error('The search changed while the export was being prepared. Try again.');
+
+    for (const body of responses) {
+      if (Number(body.total) !== expectedTotal) {
+        throw new Error('The result set changed on the server while exporting. Run the search again.');
+      }
+      for (const hit of body.hits || []) {
+        const result = adaptApiExportHit(hit);
+        if (!seen.has(result.p.id)) {
+          seen.add(result.p.id);
+          results.push(result);
+        }
+      }
+    }
+    setExportProgress(button, results.length, expectedTotal);
+  }
+
+  if (results.length !== expectedTotal) {
+    throw new Error(
+      `Export completeness check failed: received ${results.length.toLocaleString()} of ` +
+      `${expectedTotal.toLocaleString()} matches. No partial file was created.`
+    );
+  }
+  return { results, expectedTotal, source: 'api' };
+}
+
+function buildExportProvenance(exportedCount, expectedTotal, resultSource) {
+  encodeUrlState();
+  const searchUrl = new URL(window.location.href);
+  // Search-result ordering and grouping are normally personal UI preferences
+  // and stay out of shared links. An evidentiary export needs the exact view,
+  // so preserve both in its dedicated reproducibility URL.
+  searchUrl.searchParams.set(URL_KEYS.sort, state.resultSort);
+  searchUrl.searchParams.set(URL_KEYS.group, state.resultGroup);
+  return {
+    completeness: exportedCount === expectedTotal ? 'complete' : 'partial',
+    exportedResultCount: exportedCount,
+    totalMatchingResults: expectedTotal,
+    generatedAt: new Date().toISOString(),
+    source: 'https://lszoszk.github.io/generalcomments/',
+    searchUrl: searchUrl.toString(),
+    resultSource,
+    database: {
+      staticBuild: state.manifest?.version || null,
+      staticBuiltAt: state.manifest?.builtAt || null,
+      apiVersion: state.apiStats?.version || null,
+    },
+    query: state.query,
+    scope: state.scope,
+    sort: state.resultSort,
+    group: state.resultGroup,
+    filters: {
+      committees: [...state.filters.committees],
+      labels: [...state.filters.labels],
+      labelsMode: state.filters.labelsMode,
+      yearMin: state.filters.yearMin,
+      yearMax: state.filters.yearMax,
+      reportTypes: [...state.filters.reportTypes],
+      countries: [...state.filters.countries],
+      outcomes: [...state.filters.outcomes],
+      rightsKeywords: [...state.filters.rightsKeywords],
+      articles: [...state.filters.articles],
+      includeSuperseded: state.filters.showSuperseded,
+      searchFootnotes: state.searchInFootnotes,
+      searchPreambles: state.searchInPreamble,
+    },
+  };
 }
 
 function timestampSlug() {
@@ -4280,29 +4433,28 @@ function csvEscape(v) {
   return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
-function exportCsv(rows) {
+function exportCsv(rows, provenance) {
   if (!rows.length) return;
-  const headers = Object.keys(rows[0]);
+  const auditFields = {
+    export_completeness: provenance.completeness,
+    exported_result_count: provenance.exportedResultCount,
+    total_matching_results: provenance.totalMatchingResults,
+    export_generated_at: provenance.generatedAt,
+    reproducible_search_url: provenance.searchUrl,
+    database_build: provenance.database.staticBuild || provenance.database.apiVersion || '',
+  };
+  const auditedRows = rows.map(row => ({ ...auditFields, ...row }));
+  const headers = Object.keys(auditedRows[0]);
   const lines = [headers.join(',')];
-  for (const r of rows) lines.push(headers.map(h => csvEscape(r[h])).join(','));
+  for (const r of auditedRows) lines.push(headers.map(h => csvEscape(r[h])).join(','));
   // Prepend BOM so Excel detects UTF-8 correctly when opening directly.
   const blob = new Blob(['﻿', lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
   downloadBlob(blob, `UNHRD-${timestampSlug()}.csv`);
 }
 
-function exportJson(rows) {
+function exportJson(rows, provenance) {
   const payload = {
-    generatedAt: new Date().toISOString(),
-    source: 'https://lszoszk.github.io/generalcomments/',
-    query: state.query,
-    scope: state.scope,
-    filters: {
-      committees: [...state.filters.committees],
-      labels: [...state.filters.labels],
-      labelsMode: state.filters.labelsMode,
-      yearMin: state.filters.yearMin,
-      yearMax: state.filters.yearMax,
-    },
+    provenance,
     count: rows.length,
     results: rows,
   };
@@ -4311,7 +4463,7 @@ function exportJson(rows) {
 }
 
 // Document-level BibTeX (one entry per document, citing all matching paragraphs as a note).
-function exportBibtex(rows) {
+function exportBibtex(rows, provenance) {
   const byDoc = new Map();
   for (const r of rows) {
     if (!byDoc.has(r.doc_id)) byDoc.set(r.doc_id, { doc: r, paragraphs: [] });
@@ -4334,7 +4486,13 @@ function exportBibtex(rows) {
       `}`,
     ].join('\n');
   });
-  const blob = new Blob([entries.join('\n\n') + '\n'], { type: 'application/x-bibtex' });
+  const header = [
+    `% UNHRDB export: ${provenance.completeness.toUpperCase()} — ${provenance.exportedResultCount} of ${provenance.totalMatchingResults} matching paragraphs`,
+    `% Search: ${provenance.searchUrl}`,
+    `% Generated: ${provenance.generatedAt}`,
+    `% Database build: ${provenance.database.staticBuild || provenance.database.apiVersion || 'unknown'}`,
+  ].join('\n');
+  const blob = new Blob([header + '\n\n' + entries.join('\n\n') + '\n'], { type: 'application/x-bibtex' });
   downloadBlob(blob, `UNHRD-${timestampSlug()}.bib`);
 }
 
@@ -4362,7 +4520,7 @@ function loadSheetJS() {
   return sheetJsPromise;
 }
 
-async function exportXlsx(rows, busyButton) {
+async function exportXlsx(rows, provenance) {
   const XLSX = await loadSheetJS();
   // Refreshed Info sheet — UNHRD branding, human-readable
   // export timestamp, citation suggestion, and the same query/scope/
@@ -4376,7 +4534,14 @@ async function exportXlsx(rows, busyButton) {
     ['Paragraph-level export of UN Treaty Body General Comments + jurisprudence + Special Procedures.'],
     [],
     ['Exported',          exportedHuman],
+    ['Completeness',      provenance.completeness.toUpperCase()],
+    ['Exported results',  provenance.exportedResultCount],
+    ['Matching results',  provenance.totalMatchingResults],
     ['Source URL',        'https://lszoszk.github.io/generalcomments/'],
+    ['Reproducible search URL', provenance.searchUrl],
+    ['Static data build', provenance.database.staticBuild || '(unknown)'],
+    ['Static data built', provenance.database.staticBuiltAt || '(unknown)'],
+    ['API version',       provenance.database.apiVersion || '(local search)'],
     ['Dataset licence',   'CC BY-NC-SA 4.0 — https://creativecommons.org/licenses/by-nc-sa/4.0/'],
     ['Software licence',  'AGPL-3.0 — https://www.gnu.org/licenses/agpl-3.0.txt'],
     [],
@@ -4397,28 +4562,41 @@ async function exportXlsx(rows, busyButton) {
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(meta), 'Info');
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), 'Results');
   XLSX.writeFile(wb, `UNHRD-${timestampSlug()}.xlsx`);
-  if (busyButton) busyButton.classList.remove('is-busy');
 }
 
 async function runExport(format, button) {
-  const rows = buildExportRows();
-  if (!rows.length) {
-    alert('No results to export. Refine your search and try again.');
-    return;
+  const originalHint = button?.querySelector('.export-hint')?.textContent || '';
+  if (button) {
+    button.disabled = true;
+    button.classList.add('is-busy');
+    button.setAttribute('aria-busy', 'true');
   }
   try {
-    if (format === 'csv') exportCsv(rows);
-    else if (format === 'json') exportJson(rows);
-    else if (format === 'bibtex') exportBibtex(rows);
-    else if (format === 'xlsx') {
-      button?.classList.add('is-busy');
-      await exportXlsx(rows, button);
+    const complete = await collectCompleteExportResults(button);
+    const rows = buildExportRows(complete.results);
+    if (!rows.length) {
+      alert('No results to export. Refine your search and try again.');
+      return;
     }
+    const provenance = buildExportProvenance(rows.length, complete.expectedTotal, complete.source);
+    if (provenance.completeness !== 'complete') {
+      throw new Error('Completeness verification failed. No partial file was created.');
+    }
+    if (format === 'csv') exportCsv(rows, provenance);
+    else if (format === 'json') exportJson(rows, provenance);
+    else if (format === 'bibtex') exportBibtex(rows, provenance);
+    else if (format === 'xlsx') await exportXlsx(rows, provenance);
   } catch (e) {
     console.error('Export failed:', e);
     alert(`Export failed: ${e.message}`);
-    button?.classList.remove('is-busy');
   } finally {
+    if (button) {
+      button.disabled = false;
+      button.classList.remove('is-busy');
+      button.removeAttribute('aria-busy');
+      const hint = button.querySelector('.export-hint');
+      if (hint) hint.textContent = originalHint;
+    }
     $('#export-menu').open = false;
   }
 }
@@ -5497,6 +5675,13 @@ async function runSearch() {
     return runSearchViaApi(runId);
   }
 
+  // The current result set is local. Clear the previous API cursor so an
+  // export after changing to an unsupported client-side filter cannot fetch
+  // pages belonging to the earlier query.
+  state.apiSearchParams = null;
+  state.apiTotal = null;
+  state.apiHasMore = false;
+
   // SP paragraphs are not in the compact browser index. If API use was
   // disabled, say so instead of searching an empty local set.
   if (state.scope === 'sp') {
@@ -6436,6 +6621,7 @@ function scopeNotice() {
 
 function renderResult(p, rank, terms, opts = {}) {
   const doc = state.documents.get(p.docId);
+  const sourceUrl = officialSourceUrl(doc);
   const li = document.createElement('li');
   li.className = `result fade-up ${p.type}${opts.grouped ? ' is-grouped-result' : ''}`;
   li.dataset.paraId = p.id;
@@ -6546,8 +6732,8 @@ function renderResult(p, rank, terms, opts = {}) {
     <div class="result-aside">
       <div class="folio">Source</div>
       <div class="sig">${
-        doc?.link
-          ? `<a class="sig-link" href="${escape(doc.link)}" target="_blank" rel="noopener" title="Open original document on un.org" data-no-dossier="1">${escape(doc?.signature || '—')} <span class="sig-arrow" aria-hidden="true">↗</span></a>`
+        sourceUrl
+          ? `<a class="sig-link" href="${escape(sourceUrl)}" target="_blank" rel="noopener" title="Open official UN source" data-no-dossier="1">${escape(doc?.signature || '—')} <span class="sig-arrow" aria-hidden="true">↗</span></a>`
           : escape(doc?.signature || '—')
       }</div>
       <div class="result-marks">
@@ -6938,6 +7124,7 @@ function paintDossier() {
             || state.paragraphs.find(p => p.id === state.activeId);
   if (!para) return;
   const doc = state.documents.get(para.docId);
+  const sourceUrl = officialSourceUrl(doc);
   const isSpDoc = para.type === 'sp';
   const isJurDoc = para.type === 'jur';
   const ast = parseQuery(state.query);
@@ -7112,8 +7299,8 @@ function paintDossier() {
     <div class="dossier-body">
     <h3 class="dossier-title">${escape(publicDocTitle(doc) || para.docId)}</h3>
     <div class="dossier-sig">${
-      doc?.link
-        ? `<a class="dossier-sig-link" href="${escape(doc.link)}" target="_blank" rel="noopener" title="Open original document on un.org">${escape(doc?.signature || '—')} <span class="dossier-sig-arrow" aria-hidden="true">↗</span></a>`
+      sourceUrl
+        ? `<a class="dossier-sig-link" href="${escape(sourceUrl)}" target="_blank" rel="noopener" title="Open official UN source">${escape(doc?.signature || '—')} <span class="dossier-sig-arrow" aria-hidden="true">↗</span></a>`
         : escape(doc?.signature || '')
     }${
       isJurDoc && doc?.country ? ` · <span class="dossier-country">${escape(doc.country)}${doc?.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''
@@ -9599,7 +9786,7 @@ function exportWorkspace(fmt) {
       paragraphN: para?.n ?? null,
       text:   para?.text || null,
       labels: para?.labels || [],
-      sourceLink: doc?.link || null,
+      sourceLink: officialSourceUrl(doc) || null,
       bookmarked: bms.some(b => b.paraId === id),
       pinned:     pins.some(p => p.paraId === id),
       note:       notes[id] || null,
@@ -10865,14 +11052,14 @@ function _askRenderSourceActions(s) {
   const paraId = s.paraId || '';
   const docId = s.docId || '';
   const isBm = paraId && typeof bmHas === 'function' ? bmHas(paraId) : false;
-  // OHCHR's treaty-body database accepts the document signature as the
-  // `symbolno` URL param (verified pattern; same one used by the
-  // Document tab's "↗ original" link).
-  const ohchrUrl = s.signature
-    ? `https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=${encodeURIComponent(s.signature)}&Lang=en`
-    : null;
-  const linkPart = ohchrUrl
-    ? `<a class="ask-source-act ask-source-act-link" href="${askEscape(ohchrUrl)}" target="_blank" rel="noopener" title="Open this document at the UN treaty-body database (tbinternet.ohchr.org)" data-act="open">↗ UN source</a>`
+  const localDoc = state.documents.get(docId);
+  const sourceUrl = officialSourceUrl(localDoc || {
+    type: s.type,
+    signature: s.signature,
+    link: s.link,
+  });
+  const linkPart = sourceUrl
+    ? `<a class="ask-source-act ask-source-act-link" href="${askEscape(sourceUrl)}" target="_blank" rel="noopener" title="Open official UN source" data-act="open">↗ UN source</a>`
     : '';
   return `
     <div class="ask-source-actions" data-para-id="${askEscape(paraId)}" data-doc-id="${askEscape(docId)}">

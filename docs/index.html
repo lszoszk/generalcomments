@@ -285,19 +285,19 @@
         <div class="export-pop">
           <button type="button" data-format="xlsx" class="export-opt">
             <span class="export-fmt">XLSX</span>
-            <span class="export-hint">Excel · uses SheetJS</span>
+            <span class="export-hint">Complete results · Excel</span>
           </button>
           <button type="button" data-format="csv" class="export-opt">
             <span class="export-fmt">CSV</span>
-            <span class="export-hint">UTF-8, comma-separated</span>
+            <span class="export-hint">Complete results · UTF-8</span>
           </button>
           <button type="button" data-format="json" class="export-opt">
             <span class="export-fmt">JSON</span>
-            <span class="export-hint">Full structured records</span>
+            <span class="export-hint">Complete results + provenance</span>
           </button>
           <button type="button" data-format="bibtex" class="export-opt">
             <span class="export-fmt">BibTeX</span>
-            <span class="export-hint">Document-level, for citations</span>
+            <span class="export-hint">Documents + search provenance</span>
           </button>
         </div>
       </details>
@@ -1410,6 +1410,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260713-source-citations"></script>
+<script type="module" src="assets/app.js?v=20260713-export-integrity"></script>
 </body>
 </html>

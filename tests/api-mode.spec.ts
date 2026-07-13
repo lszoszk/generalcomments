@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import { expect, test } from '@playwright/test';
 import { bootApp, resetWorkspace, typeQuery } from './_helpers';
 
@@ -306,7 +307,16 @@ test('A5c. jurCitation · legal citation identifies the case and communication',
   });
 
   await bootApp(page, '/index.html?api=1&scope=jur&q=merits');
-  await page.locator('.result[data-para-id="citation-jur-23"]').click();
+  const result = page.locator('.result[data-para-id="citation-jur-23"]');
+  await expect(result.locator('.sig-link')).toHaveAttribute(
+    'href',
+    /tbinternet\.ohchr\.org\/.*symbolno=CRPD%2FC%2F31%2FD%2F94%2F2021/,
+  );
+  await result.click();
+  await expect(page.locator('#dossier .dossier-sig-link')).toHaveAttribute(
+    'href',
+    /tbinternet\.ohchr\.org\/.*symbolno=CRPD%2FC%2F31%2FD%2F94%2F2021/,
+  );
   const citation = await copyDossierCitation(page, 'unfn');
 
   expect(citation).toContain('Committee on the Rights of Persons with Disabilities');
@@ -346,6 +356,10 @@ test('A5d. spCitation · report citation identifies author, title, symbol, and p
 
   await bootApp(page, '/index.html?api=1&scope=sp&q=reasoning');
   await page.locator('.result[data-para-id="a-73-348-0023"]').click();
+  await expect(page.locator('#dossier .dossier-sig-link')).toHaveAttribute(
+    'href',
+    'https://docs.un.org/en/A/73/348',
+  );
   const citation = await copyDossierCitation(page, 'oscola');
 
   expect(citation).toContain('David Kaye');
@@ -353,6 +367,41 @@ test('A5d. spCitation · report citation identifies author, title, symbol, and p
   expect(citation).toContain('UN Doc A/73/348');
   expect(citation).toContain('para 23');
   expect(citation).not.toContain('General Comment');
+});
+
+test('A5e. askSpSource · Special Procedures source opens docs.un.org', async ({ page }) => {
+  await page.route('**/ask-api/api/health', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify({ status: 'ok' }) })
+  );
+  await page.route('**/ask-api/api/treaties', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify({}) })
+  );
+  await page.route('**/ask-api/api/ask**', (route) =>
+    route.fulfill({
+      status: 200,
+      body: JSON.stringify({
+        query: 'freedom of opinion',
+        answer: 'The report addresses freedom of opinion.',
+        retrieval: {},
+        sources: [{
+          paraId: 'ask-sp-23', docId: 'ask-sp-doc', type: 'sp',
+          signature: 'A/73/348', committee: 'SR Freedom of Expression', year: 2018,
+          title: 'Artificial Intelligence and implications for the information environment',
+          text: 'An essential element of the right to hold an opinion is reasoning.',
+          match: { bandLabel: 'Strong' },
+        }],
+      }),
+    })
+  );
+
+  await bootApp(page, '/index.html#ask');
+  await page.locator('#ask-q').fill('freedom of opinion');
+  await page.locator('#ask-go').click();
+
+  await expect(page.locator('.ask-source-act-link')).toHaveAttribute(
+    'href',
+    'https://docs.un.org/en/A/73/348',
+  );
 });
 
 test('A6. apiTotalShown · title surfaces server total even past page slice', async ({ page }) => {
@@ -411,6 +460,77 @@ test('A7. paginateAcrossApi · second-page fetch on scroll', async ({ page }) =>
   }
   expect(pages).toContain(1);
   expect(pages).toContain(2);
+});
+
+test('A7b. exportAllApiPages · JSON export is complete and reproducible', async ({ page }) => {
+  const pages: number[] = [];
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) => {
+    const url = new URL(route.request().url());
+    const pageNumber = Number(url.searchParams.get('page') || '1');
+    pages.push(pageNumber);
+    return route.fulfill({
+      status: 200,
+      body: JSON.stringify(mockSearchPage({ total: 450, page: pageNumber, pageSize: 200 })),
+    });
+  });
+
+  await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
+  await expect(page.locator('.result').first()).toBeVisible({ timeout: 10_000 });
+  await page.locator('#export-menu').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.locator('#export-menu [data-format="json"]').click(),
+  ]);
+  const path = await download.path();
+  expect(path).not.toBeNull();
+  const payload = JSON.parse(await readFile(path!, 'utf8'));
+
+  expect([...new Set(pages)].sort()).toEqual([1, 2, 3]);
+  expect(payload.results).toHaveLength(450);
+  expect(payload.provenance).toMatchObject({
+    completeness: 'complete',
+    exportedResultCount: 450,
+    totalMatchingResults: 450,
+    resultSource: 'api',
+  });
+  expect(payload.provenance.searchUrl).toContain('q=disability');
+  expect(payload.provenance.searchUrl).toContain('scope=jur');
+  expect(payload.provenance.database.apiVersion).toBe('mock');
+});
+
+test('A7c. exportPageFailure · failed API page never creates a partial export', async ({ page }) => {
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) => {
+    const url = new URL(route.request().url());
+    const pageNumber = Number(url.searchParams.get('page') || '1');
+    if (pageNumber === 2) return route.fulfill({ status: 500, body: 'temporary failure' });
+    return route.fulfill({
+      status: 200,
+      body: JSON.stringify(mockSearchPage({ total: 450, page: pageNumber, pageSize: 200 })),
+    });
+  });
+
+  await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
+  await expect(page.locator('.result').first()).toBeVisible({ timeout: 10_000 });
+  await page.locator('#export-menu').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
+  const dialogMessage = new Promise<string>((resolve) => {
+    page.once('dialog', async (dialog) => {
+      resolve(dialog.message());
+      await dialog.dismiss();
+    });
+  });
+  await page.locator('#export-menu [data-format="json"]').click();
+  expect(await dialogMessage).toMatch(/Export failed.*API \/api\/search.*500/i);
+  await expect(page.locator('#export-menu [data-format="json"]')).toBeEnabled();
 });
 
 test('A9. jurResultClickOpensDossier · clicking a JUR row paints the dossier', async ({ page }) => {
