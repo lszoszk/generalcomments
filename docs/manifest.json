@@ -21,12 +21,12 @@
       "bytes": 7940662
     },
     "documents.json": {
-      "sha": "32a7ea0822ec3df4",
-      "bytes": 1390213
+      "sha": "d48971130ef71749",
+      "bytes": 1315925
     },
     "facets.json": {
-      "sha": "0445f74bb4ddb1f3",
-      "bytes": 13947
+      "sha": "b32f4f7599b99aad",
+      "bytes": 13980
     }
   },
   "note": "Incremental append (append_sp_docs.py): +9 SP docs."

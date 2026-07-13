@@ -992,13 +992,14 @@ function sourceProfile(type) {
 }
 
 function documentStatusDetails(doc) {
-  if (!doc || !doc.status || doc.status === 'final') return null;
+  if (!doc) return null;
   if (doc.status === 'superseded') {
     const replacement = doc.supersededBy ? ` by ${doc.supersededBy}` : '';
     return {
       label: 'Superseded',
       tone: 'superseded',
       note: `This text has been superseded${replacement}. Do not rely on it as the current interpretation without checking the replacement and official source.`,
+      source: doc.statusSource || '',
     };
   }
   if (doc.status === 'revised') {
@@ -1006,12 +1007,39 @@ function documentStatusDetails(doc) {
       label: 'Revised',
       tone: 'revised',
       note: 'This is a revised text. Cite the revision symbol shown and verify that you are not relying on an earlier version.',
+      source: doc.statusSource || '',
     };
   }
+  if (doc.status === 'corrected') {
+    return {
+      label: 'Corrected text',
+      tone: 'corrected',
+      note: 'This record incorporates an official corrigendum. Cite the corrected symbol shown and use this text rather than the uncorrected version.',
+      source: doc.statusSource || '',
+    };
+  }
+  if (doc.updatedBy) {
+    return {
+      label: 'Updated guidance',
+      tone: 'updated',
+      note: `This text remains relevant, but its guidance was complemented and updated by ${doc.updatedBy}. Read and cite the documents together where the later guidance applies.`,
+      source: doc.relationshipSource || '',
+    };
+  }
+  if (doc.supplementedBy) {
+    return {
+      label: 'Supplemented',
+      tone: 'supplemented',
+      note: `This text has an official addendum, ${doc.supplementedBy}. Check the addendum for later or additional guidance before relying on this text alone.`,
+      source: doc.relationshipSource || '',
+    };
+  }
+  if (!doc.status || doc.status === 'final') return null;
   return {
     label: String(doc.status),
     tone: 'other',
     note: `Document status: ${doc.status}. Verify the status against the official source before relying on it.`,
+    source: doc.statusSource || '',
   };
 }
 
@@ -1021,6 +1049,29 @@ function legalStatusWarningHtml(doc, className = '') {
   return `<aside class="legal-status-warning ${status.tone} ${className}" role="note">
     <span class="folio">${escape(status.label)}</span>
     <p>${escape(status.note)}</p>
+    ${status.source ? `<a href="${escape(status.source)}" target="_blank" rel="noopener">Official status source ↗</a>` : ''}
+  </aside>`;
+}
+
+function currentRelationshipHtml(doc, className = '') {
+  if (!doc) return '';
+  let label = '';
+  let note = '';
+  if (doc.supersedes) {
+    const values = Array.isArray(doc.supersedes) ? doc.supersedes : [doc.supersedes];
+    label = 'Supersedes earlier guidance';
+    note = `This is the current replacement for ${values.join(' and ')}.`;
+  } else if (doc.updates) {
+    label = 'Updates earlier guidance';
+    note = `This document complements and updates ${doc.updates}; the documents should be read together.`;
+  } else if (doc.supplements) {
+    label = 'Official addendum';
+    note = `This document supplements ${doc.supplements}.`;
+  }
+  if (!label) return '';
+  return `<aside class="dossier-authority-note relationship-note ${className}" role="note">
+    <span class="folio">${escape(label)}</span>
+    <p>${escape(note)}</p>
   </aside>`;
 }
 
@@ -2595,6 +2646,7 @@ function paintDocReaderBody(doc, paraId) {
         <p>${escape(profile.legalCharacter)}</p>
       </aside>
       ${legalStatusWarningHtml(doc, 'docs-reader-status-warning')}
+      ${currentRelationshipHtml(doc, 'docs-reader-relationship')}
       ${langStripHtml}
       ${fullCaseHtml}
       ${ocrBanner}
@@ -4322,6 +4374,11 @@ function buildExportRows(results = state.results) {
       legal_character: profile.legalCharacter,
       document_status: doc?.status || (p.type === 'gc' ? 'final' : 'not_applicable'),
       status_note: status?.note || '',
+      status_source: status?.source || '',
+      supersedes: Array.isArray(doc?.supersedes) ? doc.supersedes.join(' · ') : (doc?.supersedes || ''),
+      superseded_by: doc?.supersededBy || '',
+      updated_by: doc?.updatedBy || '',
+      supplemented_by: doc?.supplementedBy || '',
       doc_id: p.docId,
       doc_name: doc?.name ?? '',
       doc_short_name: doc?.nameShort ?? '',
@@ -7397,6 +7454,7 @@ function paintDossier() {
       <p>${escape(profile.legalCharacter)}</p>
     </aside>
     ${statusWarningHtml}
+    ${currentRelationshipHtml(doc, 'dossier-relationship')}
     ${abstractHtml}
     <div class="dossier-grid">
       ${isJurDoc

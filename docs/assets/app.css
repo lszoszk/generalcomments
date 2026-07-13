@@ -2668,8 +2668,28 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   border-left-color: var(--garnet);
   background: var(--garnet-soft);
 }
+.legal-status-warning.corrected {
+  border-left-color: var(--jur-tone);
+  background: color-mix(in srgb, var(--jur-tone) 7%, var(--paper));
+}
+.legal-status-warning.updated,
+.legal-status-warning.supplemented,
+.relationship-note {
+  border-left-color: var(--ink-3);
+  background: var(--paper-2);
+}
+.legal-status-warning > a {
+  display: inline-block;
+  margin-top: 5px;
+  color: var(--garnet);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
 .docs-reader-authority { margin-top: 10px; max-width: 780px; }
 .docs-reader-status-warning { max-width: 780px; }
+.docs-reader-relationship { max-width: 780px; }
 
 /* v19.43-fix7: context-aware quote block.
    Surrounding paragraphs (.dossier-context-para, no -active) are

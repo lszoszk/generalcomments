@@ -456,8 +456,11 @@ core fields but most of the new ones are GC-only.
 | `labelCount` | int | computed | Sum of concerned-group labels across all paragraphs (a single paragraph with three labels contributes 3). |
 | `abstract` | string | hand-written | One-sentence summary in Committee voice (§14.1). |
 | `articles` | `string[]` | regex from name + first paragraphs | Treaty-article references the GC interprets, e.g. `["Art. 12"]`. Populated for 124 of 186 GCs (titles of older procedural GCs do not name an article). |
-| `status` | `"final"` \| `"revised"` \| `"superseded"` \| `"draft"` | curated | Defaults to `final`. Cross-references via `supersedes` / `supersededBy`. |
-| `supersedes` / `supersededBy` | string \| null | curated | Signatures of the preceding/replacing GC. Currently used for `CRC GC10 → GC24` and `CAT GC1 → GC4`. |
+| `status` | `"final"` \| `"revised"` \| `"corrected"` \| `"superseded"` \| `"draft"` | curated | Defaults to `final`; version relationships were re-audited on 13 July 2026. |
+| `supersedes` / `supersededBy` | string \| string[] \| null | curated | Signatures of expressly replaced/replacing texts. Arrays support replacements such as HRC GC36, which replaces both GC6 and GC14. |
+| `statusSource` / `statusVerifiedAt` | URL / ISO date | curated | Official UN evidence and the date on which a version status was verified. |
+| `updatedBy` / `updates` | string \| null | curated | Later guidance that expressly complements and updates an earlier text without superseding it. |
+| `supplementedBy` / `supplements` | string \| null | curated | Addendum relationship that leaves the base document current. |
 | `jointWith` | `[{committee, signature}]` | curated | Structured cross-reference for joint GCs. Avoids parsing the awkward dual-signature into the `signature` field. |
 | `alternativeSignatures` | `string[]` | curated | Earlier (non-revised) signatures kept as identifiers, e.g. CRC18 / CEDAW31. |
 | `languagesAvailable` | `string[]` (UN codes) | curated default | Defaults to UN6 (`en, fr, es, ar, ru, zh`) for GCs and `["en"]` for SPs. Per-document scrape of OHCHR pages is on the backlog. |
@@ -503,3 +506,6 @@ metadata via a one-shot script at the end of v8 ingestion.
 - `reportType` (SP) — `annual` / `country-visit` / `thematic` / `communications`.
   Deferred.
 - DOIs and academic citation counts — deliberately not added (see audit §3.4).
+
+The complete version-relationship evidence table and reproducible audit command
+are documented in [`STATUS_AUDIT.md`](STATUS_AUDIT.md).

@@ -244,6 +244,14 @@ def collect_documents(
             ("status",               "status"),
             ("supersedes",           "supersedes"),
             ("supersededBy",         "supersededBy"),
+            ("statusSource",         "statusSource"),
+            ("statusVerifiedAt",     "statusVerifiedAt"),
+            ("updatedBy",            "updatedBy"),
+            ("updates",              "updates"),
+            ("supplementedBy",       "supplementedBy"),
+            ("supplements",          "supplements"),
+            ("relationshipSource",   "relationshipSource"),
+            ("relationshipVerifiedAt", "relationshipVerifiedAt"),
             ("jointWith",            "jointWith"),
             ("languagesAvailable",   "languagesAvailable"),
             ("ohchrSymbol",          "ohchrSymbol"),
@@ -468,7 +476,7 @@ def main() -> int:
         },
         "schema": {
             "paragraph": ["id", "docId", "idx", "n", "text", "labels", "type", "committee", "committees", "year"],
-            "document": ["docId", "type", "name", "nameShort", "signature", "committee", "committees", "year", "adoptionDate", "link", "sourceFile", "paragraphCount", "abstract?", "articles?", "status?", "supersedes?", "supersededBy?", "jointWith?", "languagesAvailable?", "ohchrSymbol?", "firstAddedAt?", "lastVerifiedAt?", "wordCount?", "labelCount?", "alternativeSignatures?", "mandate?", "presented?"],
+            "document": ["docId", "type", "name", "nameShort", "signature", "committee", "committees", "year", "adoptionDate", "link", "sourceFile", "paragraphCount", "abstract?", "articles?", "status?", "supersedes?", "supersededBy?", "statusSource?", "statusVerifiedAt?", "updatedBy?", "updates?", "supplementedBy?", "supplements?", "relationshipSource?", "relationshipVerifiedAt?", "jointWith?", "languagesAvailable?", "ohchrSymbol?", "firstAddedAt?", "lastVerifiedAt?", "wordCount?", "labelCount?", "alternativeSignatures?", "mandate?", "presented?"],
         },
     }
     write_json(out / "manifest.json", manifest, pretty=True)

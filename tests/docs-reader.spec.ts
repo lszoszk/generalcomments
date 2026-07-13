@@ -177,6 +177,43 @@ test('R12. supersededWarning · obsolete GC identifies its replacement', async (
   await expect(page.locator('.docs-reader-meta')).toContainText(/Adopted /);
 });
 
+test('R13. auditedHrcSupersession · old HRC guidance links its official replacement', async ({ page }) => {
+  await bootApp(page, '/index.html#documents/hri-gen-1-rev-9-vol-i-p-181');
+
+  const warning = page.locator('.docs-reader-status-warning');
+  await expect(warning).toContainText('Superseded');
+  await expect(warning).toContainText('CCPR/C/GC/34');
+  await expect(warning.locator('a')).toHaveAttribute('href', /symbolno=CCPR%2FC%2FGC%2F34/);
+});
+
+test('R14. updatedNotSuperseded · CEDAW GR19 remains relevant alongside GR35', async ({ page }) => {
+  await bootApp(page, '/index.html#documents/annotated-cedaw-gr19-violence');
+
+  const warning = page.locator('.docs-reader-status-warning');
+  await expect(warning).toContainText('Updated guidance');
+  await expect(warning).toContainText('remains relevant');
+  await expect(warning).toContainText('CEDAW/C/GC/35');
+  await expect(warning).not.toContainText('Superseded');
+});
+
+test('R15. correctedText · corrigendum is distinguished from a revision', async ({ page }) => {
+  await bootApp(page, '/index.html#documents/crc-c-gc-9-corr-1');
+
+  const warning = page.locator('.docs-reader-status-warning');
+  await expect(warning).toContainText('Corrected text');
+  await expect(warning).toContainText('official corrigendum');
+  await expect(warning).not.toContainText('Revised');
+});
+
+test('R16. replacementRelationship · current HRC GC36 names both predecessors', async ({ page }) => {
+  await bootApp(page, '/index.html#documents/ccpr-c-gc-36');
+
+  const relationship = page.locator('.docs-reader-relationship');
+  await expect(relationship).toContainText('Supersedes earlier guidance');
+  await expect(relationship).toContainText('p.176');
+  await expect(relationship).toContainText('p. 188');
+});
+
 test('R8. titleSyncReader · browser tab <title> follows the open doc', async ({ page }) => {
   // v19.6 (B1) fix: updateDocumentTitle now branches on state.view ===
   // 'documents' and reads state.docsActiveDocId. paintDocReaderBody

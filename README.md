@@ -14,6 +14,7 @@ original document symbol and context.
 - **General Comments dataset:** https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments
 - **MCP integration:** https://github.com/lszoszk/mcp-unhrdb
 - **Methodology:** [METHODOLOGY.md](METHODOLOGY.md)
+- **Document status audit:** [STATUS_AUDIT.md](STATUS_AUDIT.md)
 
 ## Coverage
 

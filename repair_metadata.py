@@ -57,42 +57,94 @@ UN_LANGS = ['en', 'fr', 'es', 'ar', 'ru', 'zh']
 # Curated supplementary tables
 # ---------------------------------------------------------------------------
 
-# Status / supersession map. Keys are signatures.
-# Source: cross-referenced from OHCHR per-committee "general comments" pages
-# and from the new GC text itself (e.g. CRC GC24 §1 explicitly replaces GC10).
+# Status / supersession map. Keys are signatures. These relationships were
+# re-audited against explicit wording in official UN texts on 13 July 2026;
+# see scripts/apply_gc_status_audit.py for the reproducible public-data pass.
 STATUS_OVERRIDES: dict[str, dict] = {
-    # CRC: GC10 on juvenile justice replaced by GC24 in 2019
+    # CAT and CRC
+    'A/53/44': {'status': 'superseded', 'supersededBy': 'CAT/C/GC/4'},
+    'CAT/C/GC/4': {'status': 'final', 'supersedes': 'A/53/44'},
     'CRC/C/GC/10': {
         'status': 'superseded',
         'supersededBy': 'CRC/C/GC/24',
     },
-    'CRC/C/GC/24': {
+    'CRC/C/GC/24': {'status': 'final', 'supersedes': 'CRC/C/GC/10'},
+    'CRC/C/GC/7/Rev.1': {'status': 'revised'},
+    'CRC/C/GC/9/Corr.1': {'status': 'corrected'},
+    'CEDAW/C/GC/31/Rev.1–CRC/C/GC/18/Rev.1': {'status': 'revised'},
+
+    # Human Rights Committee: each replacement is stated expressly in the
+    # replacement text. GC36 replaces both GC6 and GC14.
+    'HRI/GEN/1/Rev.9 (Vol. I) p. 174': {
+        'status': 'superseded', 'supersededBy': 'CCPR/C/21/Rev.1/Add. 13',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I) p. 175': {
+        'status': 'superseded', 'supersededBy': 'CCPR/C/21/Rev.1/Add. 10',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I) p. 176': {
+        'status': 'superseded', 'supersededBy': 'CCPR/C/21/Rev.1/Add. 11',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I) p.176': {
+        'status': 'superseded', 'supersededBy': 'CCPR/C/GC/36',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I) p. 178': {
+        'status': 'superseded', 'supersededBy': 'HRI/GEN/1/Rev.9 (Vol. I), p. 200',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I) p. 179': {
+        'status': 'superseded', 'supersededBy': 'CCPR/C/GC/35',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I) p. 180': {
+        'status': 'superseded', 'supersededBy': 'HRI/GEN/1/Rev.9 (Vol. I), p. 202',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I) p. 181': {
+        'status': 'superseded', 'supersededBy': 'CCPR/C/GC/34',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I) p. 184': {
+        'status': 'superseded', 'supersededBy': 'CCPR/C/GC/32',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I) p. 188': {
+        'status': 'superseded', 'supersededBy': 'CCPR/C/GC/36',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I), p. 200': {
+        'status': 'final', 'supersedes': 'HRI/GEN/1/Rev.9 (Vol. I) p. 178',
+    },
+    'HRI/GEN/1/Rev.9 (Vol. I), p. 202': {
+        'status': 'final', 'supersedes': 'HRI/GEN/1/Rev.9 (Vol. I) p. 180',
+    },
+    'CCPR/C/21/Rev.1/Add. 10': {
+        'status': 'final', 'supersedes': 'HRI/GEN/1/Rev.9 (Vol. I) p. 175',
+    },
+    'CCPR/C/21/Rev.1/Add. 11': {
+        'status': 'final', 'supersedes': 'HRI/GEN/1/Rev.9 (Vol. I) p. 176',
+    },
+    'CCPR/C/21/Rev.1/Add. 13': {
+        'status': 'final', 'supersedes': 'HRI/GEN/1/Rev.9 (Vol. I) p. 174',
+    },
+    'CCPR/C/GC/32': {
+        'status': 'final', 'supersedes': 'HRI/GEN/1/Rev.9 (Vol. I) p. 184',
+    },
+    'CCPR/C/GC/34': {
+        'status': 'final', 'supersedes': 'HRI/GEN/1/Rev.9 (Vol. I) p. 181',
+    },
+    'CCPR/C/GC/35': {
+        'status': 'final', 'supersedes': 'HRI/GEN/1/Rev.9 (Vol. I) p. 179',
+    },
+    'CCPR/C/GC/36': {
         'status': 'final',
-        'supersedes': 'CRC/C/GC/10',
+        'supersedes': [
+            'HRI/GEN/1/Rev.9 (Vol. I) p.176',
+            'HRI/GEN/1/Rev.9 (Vol. I) p. 188',
+        ],
     },
-    # CRC: GC7 (early childhood) was revised in 2006 — same signature with /Rev.1
-    'CRC/C/GC/7/Rev.1': {
-        'status': 'revised',
-    },
-    # CEDAW: GR19 (violence against women) was *updated* by GR35, not replaced
-    'A/47/38': {  # GR19 — note: this signature is shared with GR20 in same session
-        # Cannot uniquely set on shared-signature record; skipping.
-    },
-    # CEDAW joint: GR31/CRC18 — original (2014) replaced by Rev.1 (2019)
-    'CEDAW/C/GC/31/Rev.1–CRC/C/GC/18/Rev.1': {
-        'status': 'revised',
-    },
-    # CAT: GC1 (1997) replaced by GC4 (2017) on same article 3 / 22 ground
-    'A/53/44': {
+}
+
+STATUS_OVERRIDES_BY_FILE: dict[str, dict] = {
+    # CCPR GC1 and GC2 share the same report/page signature. Only GC2 was
+    # superseded by the consolidated reporting guidelines.
+    'Annotated_CCPR_GC2_reporting_guidelines.json': {
         'status': 'superseded',
-        'supersededBy': 'CAT/C/GC/4',
+        'supersededBy': 'CCPR/C/66/GUI/Rev.2',
     },
-    'CAT/C/GC/4': {
-        'status': 'final',
-        'supersedes': 'A/53/44',
-    },
-    # CEDAW: GR25 explicitly elaborates on temporary special measures discussed in GR5
-    # Not formally a supersession — leave as final.
 }
 
 # Joint General Comment cross-reference table.
@@ -370,6 +422,9 @@ def repair_gc_metadata():
         sig = r.get('Signature', '').strip()
         if sig in STATUS_OVERRIDES:
             for k, v in STATUS_OVERRIDES[sig].items():
+                r[k] = v
+        if bn in STATUS_OVERRIDES_BY_FILE:
+            for k, v in STATUS_OVERRIDES_BY_FILE[bn].items():
                 r[k] = v
         if sig in JOINT_TABLE:
             r['jointWith'] = JOINT_TABLE[sig]
