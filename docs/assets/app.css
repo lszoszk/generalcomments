@@ -1869,6 +1869,17 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   margin-bottom: 6px;
   flex-wrap: wrap;
 }
+.source-kind-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.3;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.legal-status-pill { margin-left: 0; }
+.result-date-label { white-space: nowrap; }
 .result-doc {
   font-family: var(--display);
   font-size: 16px;
@@ -2631,6 +2642,34 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   background: var(--garnet-soft, #f5e9e9);
   color: var(--garnet);
 }
+.legal-status-warning,
+.dossier-authority-note {
+  margin: 12px 0 0;
+  padding: 9px 12px;
+  border-left: 3px solid var(--rule);
+  background: var(--paper-2);
+}
+.dossier-authority-note.gc { border-left-color: var(--garnet); }
+.dossier-authority-note.jur { border-left-color: var(--jur-tone); }
+.dossier-authority-note.sp { border-left-color: var(--sp-tone); }
+.legal-status-warning p,
+.dossier-authority-note p {
+  margin: 3px 0 0;
+  color: var(--ink-2);
+  font-family: var(--display);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.legal-status-warning.superseded {
+  border-left-color: var(--status-warn);
+  background: var(--status-warn-soft);
+}
+.legal-status-warning.revised {
+  border-left-color: var(--garnet);
+  background: var(--garnet-soft);
+}
+.docs-reader-authority { margin-top: 10px; max-width: 780px; }
+.docs-reader-status-warning { max-width: 780px; }
 
 /* v19.43-fix7: context-aware quote block.
    Surrounding paragraphs (.dossier-context-para, no -active) are

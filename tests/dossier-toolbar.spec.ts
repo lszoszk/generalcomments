@@ -186,3 +186,17 @@ test('D9. plainUrlCitation · citation URL is a working document deep link', asy
   expect(url.searchParams.get('p')).toBe(paraId);
   expect(url.hash).toBe(`#documents/${docId}`);
 });
+
+test('D10. legalCharacter · General Comment authority is explicit', async ({ page }) => {
+  await openDossier(page);
+
+  const result = page.locator('.result.is-active').first();
+  await expect(result.locator('.source-kind-label')).toHaveText('General Comment');
+  await expect(result.locator('.result-date-label')).toContainText(/^Adopted /);
+
+  const note = page.locator('#dossier .dossier-authority-note');
+  await expect(note).toContainText('Legal character · General Comment');
+  await expect(note).toContainText('Authoritative treaty-body interpretation');
+  await expect(note).toContainText('not a judgment');
+  await expect(note).toContainText('not formally binding as such');
+});

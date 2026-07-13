@@ -969,6 +969,61 @@ function publicDocTitle(doc) {
   return fallbackJurTitle(doc);
 }
 
+const SOURCE_PROFILES = Object.freeze({
+  gc: {
+    label: 'General Comment',
+    dateLabel: 'Adopted',
+    legalCharacter: 'Authoritative treaty-body interpretation of a human rights treaty; not a judgment and not formally binding as such.',
+  },
+  jur: {
+    label: 'Treaty-body decision',
+    dateLabel: 'Decision adopted',
+    legalCharacter: 'Outcome of an individual communication examined by a UN treaty body. Its legal weight depends on the applicable procedure and jurisdiction.',
+  },
+  sp: {
+    label: 'Special Procedures report',
+    dateLabel: 'Issued',
+    legalCharacter: 'Independent expert or mandate-holder report; not a court judgment or a treaty-body decision.',
+  },
+});
+
+function sourceProfile(type) {
+  return SOURCE_PROFILES[type] || SOURCE_PROFILES.gc;
+}
+
+function documentStatusDetails(doc) {
+  if (!doc || !doc.status || doc.status === 'final') return null;
+  if (doc.status === 'superseded') {
+    const replacement = doc.supersededBy ? ` by ${doc.supersededBy}` : '';
+    return {
+      label: 'Superseded',
+      tone: 'superseded',
+      note: `This text has been superseded${replacement}. Do not rely on it as the current interpretation without checking the replacement and official source.`,
+    };
+  }
+  if (doc.status === 'revised') {
+    return {
+      label: 'Revised',
+      tone: 'revised',
+      note: 'This is a revised text. Cite the revision symbol shown and verify that you are not relying on an earlier version.',
+    };
+  }
+  return {
+    label: String(doc.status),
+    tone: 'other',
+    note: `Document status: ${doc.status}. Verify the status against the official source before relying on it.`,
+  };
+}
+
+function legalStatusWarningHtml(doc, className = '') {
+  const status = documentStatusDetails(doc);
+  if (!status) return '';
+  return `<aside class="legal-status-warning ${status.tone} ${className}" role="note">
+    <span class="folio">${escape(status.label)}</span>
+    <p>${escape(status.note)}</p>
+  </aside>`;
+}
+
 function officialSourceUrl(doc) {
   if (!doc) return '';
   const link = String(doc.link || '').trim();
@@ -2400,6 +2455,7 @@ function paintDocReaderBody(doc, paraId) {
   const host = $('#docs-reader-body');
   if (!host) return;
   const sourceUrl = officialSourceUrl(doc);
+  const profile = sourceProfile(doc.type);
 
   // v19.50.1 (audit H5): when the user lands here from a search result,
   // continue highlighting the matched terms — the dossier already does
@@ -2525,13 +2581,20 @@ function paintDocReaderBody(doc, paraId) {
       <h1 class="docs-reader-title"${isShortened ? ` title="${escape(doc.caseName)}"` : ''}>${escape(publicDocTitle(doc) || doc.docId)}</h1>
       <div class="docs-reader-meta mono">
         ${doc.signature ? `<span>${escape(doc.signature)}</span>` : ''}
-        ${doc.adoptionDate ? `<span>${escape(doc.adoptionDate)}</span>` : (doc.year ? `<span>${doc.year}</span>` : '')}
+        ${doc.adoptionDate
+          ? `<span>${escape(profile.dateLabel)} ${escape(doc.adoptionDate)}</span>`
+          : (doc.year ? `<span>${escape(profile.dateLabel)} ${escape(doc.year)}</span>` : '')}
         ${doc.country ? `<span>${escape(doc.country)}${doc.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''}
         ${doc.committee || doc.treaty ? `<span>${escape(doc.committee || doc.treaty)}</span>` : ''}
         <span>${paragraphs.length} paragraphs</span>
         ${sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener" class="docs-reader-source">↗ official source</a>` : ''}
         <button type="button" class="docs-reader-find-toggle" id="docs-reader-find-toggle" title="Find in document (⌘F / Ctrl+F)" aria-label="Find in document">⌕ Find</button>
       </div>
+      <aside class="dossier-authority-note docs-reader-authority ${escape(doc.type || 'gc')}" role="note">
+        <span class="folio">Legal character · ${escape(profile.label)}</span>
+        <p>${escape(profile.legalCharacter)}</p>
+      </aside>
+      ${legalStatusWarningHtml(doc, 'docs-reader-status-warning')}
       ${langStripHtml}
       ${fullCaseHtml}
       ${ocrBanner}
@@ -4239,6 +4302,8 @@ function buildExportRows(results = state.results) {
   return results.map(({ p }, idx) => {
     const doc = state.documents.get(p.docId);
     const isJur = p.type === 'jur';
+    const profile = sourceProfile(p.type);
+    const status = documentStatusDetails(doc);
     const articleStr = (a) => {
       let s = a.article;
       if (a.paragraph) s += `(${a.paragraph}${a.subparagraph ? ')(' + a.subparagraph : ''})`;
@@ -4253,6 +4318,10 @@ function buildExportRows(results = state.results) {
     return {
       rank: idx + 1,
       type: p.type,
+      source_category: profile.label,
+      legal_character: profile.legalCharacter,
+      document_status: doc?.status || (p.type === 'gc' ? 'final' : 'not_applicable'),
+      status_note: status?.note || '',
       doc_id: p.docId,
       doc_name: doc?.name ?? '',
       doc_short_name: doc?.nameShort ?? '',
@@ -4263,6 +4332,7 @@ function buildExportRows(results = state.results) {
       outcome: p.outcome || doc?.outcome || '',
       section: p.section || '',
       year: p.year ?? '',
+      date_type: profile.dateLabel,
       adoption_date: doc?.adoptionDate ?? '',
       communication_date: isJur ? (doc?.communicationDate ?? '') : '',
       mandate_holder: doc?.mandate ?? '',
@@ -6622,12 +6692,22 @@ function scopeNotice() {
 function renderResult(p, rank, terms, opts = {}) {
   const doc = state.documents.get(p.docId);
   const sourceUrl = officialSourceUrl(doc);
+  const profile = sourceProfile(p.type);
+  const researchYear = documentResearchYear({ ...doc, type: p.type }) || p.year || '';
+  const status = documentStatusDetails(doc);
   const li = document.createElement('li');
   li.className = `result fade-up ${p.type}${opts.grouped ? ' is-grouped-result' : ''}`;
   li.dataset.paraId = p.id;
   if (p.id === state.activeId) li.classList.add('is-active');
 
   const badge = sourceBadge(p.type);
+  const sourceKindLabel = `<span class="source-kind-label" title="${escape(profile.legalCharacter)}">${escape(profile.label)}</span>`;
+  const statusPill = status
+    ? `<span class="docs-status legal-status-pill ${status.tone}" title="${escape(status.note)}">${escape(status.label)}</span>`
+    : '';
+  const dateLabel = researchYear
+    ? `<span class="folio result-date-label">${escape(profile.dateLabel)} ${escape(researchYear)}</span>`
+    : '';
 
   // OCR-provenance pill on the result headline. Shown when the
   // paragraph itself was OCR-recovered (per-¶ flag, since within an OCR
@@ -6645,17 +6725,21 @@ function renderResult(p, rank, terms, opts = {}) {
   const headline = opts.grouped
     ? `
         ${badge}
+        ${sourceKindLabel}
+        ${statusPill}
         ${ocrPill}
         <span class="folio">MATCHED PARAGRAPH</span>
         <span class="result-spacer"></span>
-        <span class="folio">${doc?.year ?? ''}</span>
+        ${dateLabel}
       `
     : `
         ${badge}
+        ${sourceKindLabel}
+        ${statusPill}
         ${ocrPill}
         <span class="result-doc">${escape(formatDocHeadline(doc) || p.docId)}</span>
         <span class="result-spacer"></span>
-        <span class="folio">${doc?.year ?? ''}</span>
+        ${dateLabel}
       `;
 
   // v19.62: always build the snippet locally via smartSnippet so result cards
@@ -7127,6 +7211,7 @@ function paintDossier() {
   const sourceUrl = officialSourceUrl(doc);
   const isSpDoc = para.type === 'sp';
   const isJurDoc = para.type === 'jur';
+  const profile = sourceProfile(para.type);
   const ast = parseQuery(state.query);
   const terms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
 
@@ -7134,9 +7219,11 @@ function paintDossier() {
   // pass — see TODO_LATER.md "Articles & abstracts under review". Both fields
   // remain in the metadata; we just don't surface them in the dossier.
   const articlesHtml = '';
-  const statusHtml = doc?.status && doc.status !== 'final'
-    ? `<div class="dossier-dp"><div class="folio">Status</div><div class="v">${escape(doc.status)}${doc.supersededBy ? ` → ${escape(doc.supersededBy)}` : ''}</div></div>`
+  const status = documentStatusDetails(doc);
+  const statusHtml = status
+    ? `<div class="dossier-dp"><div class="folio">Status</div><div class="v">${escape(status.label)}${doc.supersededBy ? ` → ${escape(doc.supersededBy)}` : ''}</div></div>`
     : '';
+  const statusWarningHtml = legalStatusWarningHtml(doc, 'dossier-status-warning');
   const abstractHtml = '';
   // Folio kind — for jurisprudence include the treaty so it reads as
   // "JURISPRUDENCE · CEDAW · PREVIEW" and pin a colourful outcome badge
@@ -7305,11 +7392,16 @@ function paintDossier() {
     }${
       isJurDoc && doc?.country ? ` · <span class="dossier-country">${escape(doc.country)}${doc?.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''
     }</div>
+    <aside class="dossier-authority-note ${escape(para.type)}" role="note">
+      <span class="folio">Legal character · ${escape(profile.label)}</span>
+      <p>${escape(profile.legalCharacter)}</p>
+    </aside>
+    ${statusWarningHtml}
     ${abstractHtml}
     <div class="dossier-grid">
       ${isJurDoc
         ? `
-          <div class="dossier-dp"><div class="folio">Adopted</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
+          <div class="dossier-dp"><div class="folio">${escape(profile.dateLabel)}</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Communication</div><div class="v">${doc?.communicationYear ?? doc?.year ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">Treaty body</div><div class="v">${escape(doc?.committees?.join(' · ') || doc?.treaty || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
@@ -7317,7 +7409,7 @@ function paintDossier() {
           ${articlesInvokedHtml}
         `
         : `
-          <div class="dossier-dp"><div class="folio">Adopted</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
+          <div class="dossier-dp"><div class="folio">${escape(profile.dateLabel)}</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Year</div><div class="v">${doc?.year ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">${actorLabel}</div><div class="v">${escape(doc?.committees?.join(' · ') || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>

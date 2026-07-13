@@ -279,7 +279,7 @@ test('A5b. jurDecisionYear · results use adoption year and retain communication
   await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
   const result = page.locator('.result').first();
   await expect(result).toBeVisible({ timeout: 15_000 });
-  await expect(result.locator('.result-headline .folio').last()).toHaveText('2024');
+  await expect(result.locator('.result-date-label')).toHaveText('Decision adopted 2024');
   await result.click();
 
   const grid = page.locator('#dossier .dossier-grid');
@@ -308,6 +308,8 @@ test('A5c. jurCitation · legal citation identifies the case and communication',
 
   await bootApp(page, '/index.html?api=1&scope=jur&q=merits');
   const result = page.locator('.result[data-para-id="citation-jur-23"]');
+  await expect(result.locator('.source-kind-label')).toHaveText('Treaty-body decision');
+  await expect(result.locator('.result-date-label')).toHaveText('Decision adopted 2024');
   await expect(result.locator('.sig-link')).toHaveAttribute(
     'href',
     /tbinternet\.ohchr\.org\/.*symbolno=CRPD%2FC%2F31%2FD%2F94%2F2021/,
@@ -316,6 +318,9 @@ test('A5c. jurCitation · legal citation identifies the case and communication',
   await expect(page.locator('#dossier .dossier-sig-link')).toHaveAttribute(
     'href',
     /tbinternet\.ohchr\.org\/.*symbolno=CRPD%2FC%2F31%2FD%2F94%2F2021/,
+  );
+  await expect(page.locator('#dossier .dossier-authority-note')).toContainText(
+    'Outcome of an individual communication examined by a UN treaty body',
   );
   const citation = await copyDossierCitation(page, 'unfn');
 
@@ -355,10 +360,16 @@ test('A5d. spCitation · report citation identifies author, title, symbol, and p
   );
 
   await bootApp(page, '/index.html?api=1&scope=sp&q=reasoning');
-  await page.locator('.result[data-para-id="a-73-348-0023"]').click();
+  const result = page.locator('.result[data-para-id="a-73-348-0023"]');
+  await expect(result.locator('.source-kind-label')).toHaveText('Special Procedures report');
+  await expect(result.locator('.result-date-label')).toHaveText('Issued 2018');
+  await result.click();
   await expect(page.locator('#dossier .dossier-sig-link')).toHaveAttribute(
     'href',
     'https://docs.un.org/en/A/73/348',
+  );
+  await expect(page.locator('#dossier .dossier-authority-note')).toContainText(
+    'not a court judgment or a treaty-body decision',
   );
   const citation = await copyDossierCitation(page, 'oscola');
 
@@ -501,6 +512,12 @@ test('A7b. exportAllApiPages · JSON export is complete and reproducible', async
   expect(payload.provenance.searchUrl).toContain('q=disability');
   expect(payload.provenance.searchUrl).toContain('scope=jur');
   expect(payload.provenance.database.apiVersion).toBe('mock');
+  expect(payload.results[0]).toMatchObject({
+    source_category: 'Treaty-body decision',
+    document_status: 'not_applicable',
+    date_type: 'Decision adopted',
+  });
+  expect(payload.results[0].legal_character).toContain('individual communication');
 });
 
 test('A7c. exportPageFailure · failed API page never creates a partial export', async ({ page }) => {

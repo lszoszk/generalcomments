@@ -166,6 +166,17 @@ test('R11. cescrJurisprudence · CESCR cases load via the JUR shard', async ({ p
   expect(await page.locator('.docs-reader-para button.fn-marker').count()).toBeGreaterThan(5);
 });
 
+test('R12. supersededWarning · obsolete GC identifies its replacement', async ({ page }) => {
+  await bootApp(page, '/index.html#documents/crc-c-gc-10');
+
+  const warning = page.locator('.docs-reader-status-warning');
+  await expect(warning).toBeVisible({ timeout: 15_000 });
+  await expect(warning).toContainText('Superseded');
+  await expect(warning).toContainText('CRC/C/GC/24');
+  await expect(warning).toContainText('Do not rely on it as the current interpretation');
+  await expect(page.locator('.docs-reader-meta')).toContainText(/Adopted /);
+});
+
 test('R8. titleSyncReader · browser tab <title> follows the open doc', async ({ page }) => {
   // v19.6 (B1) fix: updateDocumentTitle now branches on state.view ===
   // 'documents' and reads state.docsActiveDocId. paintDocReaderBody
