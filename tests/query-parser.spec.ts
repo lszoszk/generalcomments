@@ -24,6 +24,8 @@ import { bootApp, resetWorkspace, typeQuery } from './_helpers';
  *                                a flag on the leaf, not as a literal)
  *   P5. lowercaseOperators    — `and` / `or` / `not` (lowercase) get
  *                                the same AST as their uppercase forms
+ *   P6. minusAlias            — `A -B` is identical to `A NOT B`
+ *   P7. negativeOnlyGuard     — pure NOT is explained, never sent/scanned
  *
  * Each test runs against the live in-browser FlexSearch index — no
  * mocking — because the substring re-verification in
@@ -123,4 +125,23 @@ test('P5. lowercaseOperators · `and`/`or`/`not` parse the same as uppercase', a
   expect(upper).toBeGreaterThan(0);
   // Same AST → identical candidate set → identical paginated count.
   expect(lower).toBe(upper);
+});
+
+test('P6. minusAlias · `A -B` returns the same set as `A NOT B`', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'trafficking AND children NOT sexual');
+  const notCount = await getResultCount(page);
+  await typeQuery(page, 'trafficking AND children -sexual');
+  const minusCount = await getResultCount(page);
+  expect(notCount).toBeGreaterThan(0);
+  expect(minusCount).toBe(notCount);
+});
+
+test('P7. negativeOnlyGuard · pure NOT explains the indexed-search limit', async ({ page }) => {
+  await bootApp(page, '/index.html');
+  await typeQuery(page, 'NOT surveillance');
+  await expect(page.locator('#result-count')).toHaveText('— syntax');
+  await expect(page.locator('#results-title')).toHaveText('Start with a positive search term');
+  await expect(page.locator('#results-sub')).toContainText('scan the entire corpus');
+  await expect(page.locator('#syntax-help-open')).toBeVisible();
 });

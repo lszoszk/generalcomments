@@ -33,7 +33,10 @@ the data.
 
 ## What it does
 
-- Searches legal text at paragraph level with Boolean operators and filters.
+- Searches legal text at paragraph level with exact phrases, implicit/explicit
+  `AND`, `OR`, grouped exclusions (`A NOT B` or `A -B`), prefix wildcards, and
+  filters. A positive term is required for exclusions so every query stays on
+  the indexed path; negative-only searches are rejected with an explanation.
 - Keeps General Comments, jurisprudence, and Special Procedures as distinct
   source collections rather than blending their authority or provenance.
 - Opens results in a source-first document reader with paragraph identifiers,

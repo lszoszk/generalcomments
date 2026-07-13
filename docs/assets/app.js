@@ -191,7 +191,17 @@ async function apiFetch(path, params) {
   const timer = setTimeout(() => ac.abort(new Error('timeout')), API_TIMEOUT_MS);
   try {
     const res = await fetch(url.toString(), { credentials: 'omit', signal: ac.signal });
-    if (!res.ok) throw new Error(`API ${path} → ${res.status}`);
+    if (!res.ok) {
+      const payload = await res.json().catch(() => null);
+      const detail = payload?.detail;
+      const message = typeof detail === 'string'
+        ? detail
+        : (detail?.message || `API ${path} → ${res.status}`);
+      const error = new Error(message);
+      error.status = res.status;
+      error.detail = detail;
+      throw error;
+    }
     return await res.json();
   } finally {
     clearTimeout(timer);
@@ -286,6 +296,13 @@ async function runSearchViaApi(runId) {
     body = await apiFetch('/api/search', params);
   } catch (e) {
     if (runId !== state.searchRun) return;
+    if (e.status === 422) {
+      paintQuerySyntaxIssue({
+        title: 'This query needs a small syntax change',
+        body: e.detail?.message || e.message,
+      });
+      return;
+    }
     console.warn(`[unhrdb-api] search failed${scope === 'sp' ? '' : ', falling back to local'}:`, e.message);
     paintApiBadge(false);
     state.apiOnline = false;
@@ -4825,6 +4842,69 @@ function parseQuery(raw) {
   return ast;
 }
 
+function queryAstCanUseIndex(ast) {
+  if (!ast) return false;
+  if (ast.kind === 'word' || ast.kind === 'phrase') return true;
+  if (ast.kind === 'not') return false;
+  if (ast.kind === 'or') return ast.items.length > 0 && ast.items.every(queryAstCanUseIndex);
+  if (ast.kind === 'and') {
+    const positives = ast.items.filter(item => item?.kind !== 'not');
+    const negatives = ast.items.filter(item => item?.kind === 'not');
+    return positives.length > 0
+      && positives.every(queryAstCanUseIndex)
+      && negatives.every(item => queryAstCanUseIndex(item.item));
+  }
+  return false;
+}
+
+// Keep malformed or unbounded expressions away from both search backends.
+// FTS5 cannot execute a negative-only MATCH expression; a manual complement
+// would scan the full corpus just to answer the first results page.
+function querySyntaxIssue(raw) {
+  const value = String(raw || '').trim();
+  if (!value) return null;
+
+  let quoted = false;
+  let depth = 0;
+  for (const char of value) {
+    if (char === '"') quoted = !quoted;
+    if (quoted) continue;
+    if (char === '(') depth++;
+    if (char === ')' && --depth < 0) {
+      return { title: 'Check the parentheses', body: 'There is a closing parenthesis without a matching opening parenthesis.' };
+    }
+  }
+  if (quoted) {
+    return { title: 'Close the quoted phrase', body: 'Add the closing quotation mark before searching.' };
+  }
+  if (depth !== 0) {
+    return { title: 'Check the parentheses', body: 'Add the missing closing parenthesis before searching.' };
+  }
+
+  const tokens = _tokenizeQuery(value);
+  const binary = token => token?.t === 'AND' || token?.t === 'OR';
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    const previous = tokens[i - 1];
+    const next = tokens[i + 1];
+    if (binary(token) && (!previous || !next || binary(previous) || previous.t === 'NOT' || previous.t === '(' || binary(next) || next.t === ')')) {
+      return { title: 'Complete the logical expression', body: 'Add a search term on both sides of AND or OR.' };
+    }
+    if (token.t === 'NOT' && (!next || binary(next) || next.t === ')')) {
+      return { title: 'Complete the exclusion', body: 'Add the term or group that should be excluded after NOT.' };
+    }
+  }
+
+  const ast = parseQuery(value);
+  if (!queryAstCanUseIndex(ast)) {
+    return {
+      title: 'Start with a positive search term',
+      body: 'NOT must narrow a positive query, for example “privacy NOT surveillance”. Negative-only searches are disabled because they would scan the entire corpus and slow the service for everyone.',
+    };
+  }
+  return null;
+}
+
 function _tokenizeQuery(raw) {
   // Yield a flat list of: ('AND'|'OR'|'NOT'|'('|')'|{phrase}|{word, prefix?})
   const out = [];
@@ -5087,17 +5167,20 @@ function liteSearchIds(query) {
   const inFn = state.searchInFootnotes !== false;
   const ids = new Set();
   for (const p of state.paragraphs) {
-    if (p._lcText === undefined) {
-      p._lcText = foldDiacritics(stripFnMarkers(p.text || '').toLowerCase());
-      p._lcFn = (p.footnotes && p.footnotes.length)
-        ? foldDiacritics(p.footnotes.map(f => f.text || '').join(' ').toLowerCase())
-        : '';
-    }
+    cacheParagraphSearchText(p);
     if (p._lcText.includes(term) || (inFn && p._lcFn && p._lcFn.includes(term))) {
       ids.add(p.id);
     }
   }
   return ids;
+}
+
+function cacheParagraphSearchText(p) {
+  if (p._lcText !== undefined) return;
+  p._lcText = foldDiacritics(stripFnMarkers(p.text || '').toLowerCase());
+  p._lcFn = (p.footnotes && p.footnotes.length)
+    ? foldDiacritics(p.footnotes.map(f => f.text || '').join(' ').toLowerCase())
+    : '';
 }
 
 // Run one FlexSearch term and return matching paragraph ids.
@@ -5308,9 +5391,11 @@ function flexSearchPrefixIds(prefix) {
   // folded paragraph text so accented words also satisfy a plain-ASCII
   // prefix (e.g. `Sanjua*` finds `Sanjuán`).
   const re = new RegExp('\\b' + escapeRegex(prefix), 'i');
+  const inFn = state.searchInFootnotes !== false;
   const ids = new Set();
   for (const p of state.paragraphs) {
-    if (re.test(foldDiacritics(p.text))) ids.add(p.id);
+    cacheParagraphSearchText(p);
+    if (re.test(p._lcText) || (inFn && p._lcFn && re.test(p._lcFn))) ids.add(p.id);
   }
   return ids;
 }
@@ -5750,6 +5835,37 @@ function paintSpSearchUnavailable() {
   paintApiBadge(false);
 }
 
+function paintQuerySyntaxIssue(issue) {
+  state.results = [];
+  state.matchedIds = new Set();
+  state.apiTotal = null;
+  state.apiBreakdown = null;
+  state.apiFacets = null;
+  state.apiHasMore = false;
+
+  const count = $('#result-count');
+  const title = $('#results-title');
+  const sub = $('#results-sub');
+  const list = $('#result-list');
+  const more = $('#result-more');
+  if (count) count.textContent = '— syntax';
+  if (title) title.textContent = issue.title;
+  if (sub) sub.textContent = issue.body;
+  if (more) more.textContent = '';
+  if (list) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="folio">SEARCH SYNTAX</div>
+        <h3 class="serif empty-title">${escape(issue.title)}</h3>
+        <p class="serif empty-body">${escape(issue.body)}</p>
+        <div class="empty-actions">
+          <button type="button" class="empty-action" id="syntax-help-open">Show operator examples</button>
+        </div>
+      </div>`;
+    $('#syntax-help-open')?.addEventListener('click', () => $('#q-help')?.click());
+  }
+}
+
 async function runSearch() {
   const runId = ++state.searchRun;
   scheduleUrlUpdate();
@@ -5759,6 +5875,11 @@ async function runSearch() {
   // The query text is sent — that's standard GA4 `search` event
   // vocabulary; reports tab in GA shows top search terms.
   const q = (state.query || '').trim();
+  const syntaxIssue = querySyntaxIssue(q);
+  if (syntaxIssue) {
+    paintQuerySyntaxIssue(syntaxIssue);
+    return;
+  }
   if (q.length >= 2) {
     trackEvent('search', {
       search_term: q.slice(0, 200),    // GA caps at ~100; trim defensively
@@ -6375,7 +6496,7 @@ function _buildEmptyState() {
       <div class="empty-syntax">
         <div class="folio">Search syntax</div>
         <div class="empty-syntax-row">
-          <code>"exact phrase"</code>·<code>A AND B</code>·<code>A OR B</code>·<code>NOT term</code>·<code>(grouping)</code>·<code>prefix*</code>
+          <code>"exact phrase"</code>·<code>A AND B</code>·<code>A OR B</code>·<code>A NOT B</code>·<code>(grouping)</code>·<code>prefix*</code>
         </div>
       </div>
       ${actions ? `<div class="empty-actions">${actions}</div>` : ''}
@@ -8280,7 +8401,7 @@ const _QUERY_HELP_OPS = [
   { op: 'A B',                desc: 'Implicit AND on whitespace — both terms must appear.' },
   { op: 'A AND B',            desc: 'Both terms must appear (explicit form).' },
   { op: 'A OR B',             desc: 'Either term qualifies.' },
-  { op: 'NOT term · -term',   desc: 'Exclude paragraphs containing the term. Both forms work.' },
+  { op: 'A NOT B · A -B',     desc: 'Exclude B from a positive search for A. NOT cannot be used alone.' },
   { op: '( … )',              desc: 'Group with parentheses to override default precedence (AND binds tighter than OR).' },
   { op: 'prefix*',            desc: 'Trailing asterisk matches any continuation: discriminat* hits discrimination, discriminate, discriminatory.' },
 ];
@@ -8314,8 +8435,9 @@ function openQueryHelpPopover(triggerEl) {
     <h4>Tip</h4>
     <p class="q-help-tip">
       Quoted phrases stay literal — <code>"arbitrary detention"</code> matches exactly, no stemming.
-      Bare words stem (<code>child</code> matches child, children, childhood),
-      so <code>children NOT (armed forces)</code> is one clean filter.
+      Bare words match the entered word form. Use a trailing wildcard when variants matter:
+      <code>child*</code> matches child, children and childhood.
+      Exclusions need a positive anchor, so use <code>children NOT (armed forces)</code>, not <code>NOT armed</code> alone.
     </p>
   `;
   document.body.appendChild(pop);

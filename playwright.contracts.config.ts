@@ -20,7 +20,8 @@ export default defineConfig({
   reporter: process.env.CI ? 'github' : 'list',
 
   use: {
-    baseURL: 'https://150.254.115.204/unhrdb-api',
+    // Keep the trailing slash so relative request paths retain the API prefix.
+    baseURL: 'https://150.254.115.204/unhrdb-api/',
     extraHTTPHeaders: {
       // Mimic the GH-Pages origin so we exercise the CORS path.
       'origin': 'https://lszoszk.github.io',

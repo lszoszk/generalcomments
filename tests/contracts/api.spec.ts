@@ -9,7 +9,7 @@ import { expect, test } from '@playwright/test';
  */
 
 test('C1. /health returns ok', async ({ request }) => {
-  const r = await request.get('/health');
+  const r = await request.get('health');
   expect(r.ok()).toBe(true);
   const body = await r.json();
   expect(body.status).toBe('ok');
@@ -18,7 +18,7 @@ test('C1. /health returns ok', async ({ request }) => {
 });
 
 test('C2. /api/stats has gc/jur/sp counts', async ({ request }) => {
-  const r = await request.get('/api/stats');
+  const r = await request.get('api/stats');
   expect(r.ok()).toBe(true);
   const body = await r.json();
   expect(body.byType.gc.documents).toBeGreaterThan(150);
@@ -28,7 +28,7 @@ test('C2. /api/stats has gc/jur/sp counts', async ({ request }) => {
 });
 
 test('C3. /api/facets?scope=jur returns treaties + countries', async ({ request }) => {
-  const r = await request.get('/api/facets?scope=jur');
+  const r = await request.get('api/facets?scope=jur');
   expect(r.ok()).toBe(true);
   const body = await r.json();
   expect(body.treaties.length).toBeGreaterThanOrEqual(1);
@@ -36,7 +36,7 @@ test('C3. /api/facets?scope=jur returns treaties + countries', async ({ request 
 });
 
 test('C4. /api/search keyword + snippet + bm25 score', async ({ request }) => {
-  const r = await request.get('/api/search?q=reasonable+accommodation&page_size=3');
+  const r = await request.get('api/search?q=reasonable+accommodation&page_size=3');
   expect(r.ok()).toBe(true);
   const body = await r.json();
   expect(body.total).toBeGreaterThan(100);
@@ -47,7 +47,7 @@ test('C4. /api/search keyword + snippet + bm25 score', async ({ request }) => {
 
 test('C5. /api/search boolean grouping', async ({ request }) => {
   const r = await request.get(
-    '/api/search?q=' + encodeURIComponent('trafficking AND children NOT (sexual)') + '&page_size=2'
+    'api/search?q=' + encodeURIComponent('trafficking AND children NOT (sexual)') + '&page_size=2'
   );
   const body = await r.json();
   expect(body.ftsExpr).toContain('AND');
@@ -55,24 +55,46 @@ test('C5. /api/search boolean grouping', async ({ request }) => {
   expect(body.total).toBeGreaterThan(0);
 });
 
+test('C5b. /api/search minus alias is equivalent to NOT', async ({ request }) => {
+  const positive = 'trafficking AND children';
+  const [notResponse, minusResponse] = await Promise.all([
+    request.get('api/search?q=' + encodeURIComponent(`${positive} NOT sexual`) + '&page_size=1'),
+    request.get('api/search?q=' + encodeURIComponent(`${positive} -sexual`) + '&page_size=1'),
+  ]);
+  expect(notResponse.ok()).toBeTruthy();
+  expect(minusResponse.ok()).toBeTruthy();
+  const notBody = await notResponse.json();
+  const minusBody = await minusResponse.json();
+  expect(minusBody.ftsExpr).toBe(notBody.ftsExpr);
+  expect(minusBody.total).toBe(notBody.total);
+});
+
+test('C5c. /api/search rejects negative-only queries without a server error', async ({ request }) => {
+  const response = await request.get('api/search?q=' + encodeURIComponent('NOT surveillance'));
+  expect(response.status()).toBe(422);
+  const body = await response.json();
+  expect(body.detail.code).toBe('invalid_query_syntax');
+  expect(body.detail.message).toContain('positive term');
+});
+
 test('C6. /api/search body= union (v19.4)', async ({ request }) => {
   // body=CRPD must hit BOTH the GC committee column AND the JUR treaty
   // column. Lumping into committees+treaties+mandates would zero out.
-  const r = await request.get('/api/search?q=disability&body=CRPD&page_size=2');
+  const r = await request.get('api/search?q=disability&body=CRPD&page_size=2');
   const body = await r.json();
   expect(body.breakdown.gc).toBeGreaterThan(0);
   expect(body.breakdown.jur).toBeGreaterThan(0);
 });
 
 test('C7. /api/search alsoTry on 0-result phrase', async ({ request }) => {
-  const r = await request.get('/api/search?q=' + encodeURIComponent('"AI bias"'));
+  const r = await request.get('api/search?q=' + encodeURIComponent('"gig worker"'));
   const body = await r.json();
   expect(body.total).toBe(0);
-  expect(body.alsoTry).toContain('algorithmic discrimination');
+  expect(body.alsoTry).toContain('informal economy');
 });
 
 test('C8. /api/document/<id> returns full body', async ({ request }) => {
-  const r = await request.get('/api/document/crpd-c-gc-6');
+  const r = await request.get('api/document/crpd-c-gc-6');
   expect(r.ok()).toBe(true);
   const body = await r.json();
   expect(body.document.doc_id).toBe('crpd-c-gc-6');
@@ -80,17 +102,17 @@ test('C8. /api/document/<id> returns full body', async ({ request }) => {
 });
 
 test('C9. /api/document/unknown returns 404', async ({ request }) => {
-  const r = await request.get('/api/document/foo-bar-baz');
+  const r = await request.get('api/document/foo-bar-baz');
   expect(r.status()).toBe(404);
 });
 
 test('C10. CORS allow-origin honours GH-Pages', async ({ request }) => {
-  const r = await request.get('/api/stats');
+  const r = await request.get('api/stats');
   expect(r.headers()['access-control-allow-origin']).toBe('https://lszoszk.github.io');
 });
 
 test('C11. /api/feedback validates (≥4 chars)', async ({ request }) => {
-  const r = await request.post('/api/feedback', {
+  const r = await request.post('api/feedback', {
     data: { kind: 'bug', message: 'no' },         // too short
   });
   expect(r.status()).toBe(422);
@@ -98,8 +120,29 @@ test('C11. /api/feedback validates (≥4 chars)', async ({ request }) => {
 
 test('C12. perf · keyword search responds < 1500 ms cold', async ({ request }) => {
   const t0 = Date.now();
-  const r = await request.get('/api/search?q=violation&page_size=5');
+  const r = await request.get('api/search?q=violation&page_size=5');
   const wall = Date.now() - t0;
   expect(r.ok()).toBe(true);
   expect(wall).toBeLessThan(1500);
+});
+
+test('C13. perf · every advertised operator stays within the indexed-search budget', async ({ request }) => {
+  const queries = [
+    '"hold opinions"',
+    'opinion hold',
+    'opinion AND hold',
+    'surveillance OR interception',
+    'trafficking AND children NOT sexual',
+    '(women OR girls) AND violence',
+    'discriminat*',
+  ];
+  for (const query of queries) {
+    const response = await request.get(
+      'api/search?q=' + encodeURIComponent(query) + '&page_size=1'
+    );
+    expect(response.ok(), query).toBeTruthy();
+    const body = await response.json();
+    expect(body.total, query).toBeGreaterThan(0);
+    expect(body.tookMs, query).toBeLessThan(1200);
+  }
 });

@@ -45,7 +45,7 @@ write a test for:
 | boot stalls at "Loading corpus…"    | smoke #1                   |
 | 1-3 char search burns CPU on JUR    | smoke #3 (≥4-char gate)    |
 | boolean parser drops NOT branches   | smoke #4                   |
-| `"AI bias"` returns 0 (no synonyms) | api-mode A8                |
+| `"gig worker"` returns 0 + synonyms | contracts C7, api-mode A8  |
 | Cite button visually shouty         | dossier-toolbar D6         |
 | Reading mode "can't exit"           | smoke #9 + dossier D7      |
 | Workspace bookmarks lose their text | workspace W3, W4           |
