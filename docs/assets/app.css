@@ -3005,33 +3005,34 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   font-size: 14px;
 }
 
-/* ─────────────  READING MODE (documents view, doc open)  ─────────────
+/* ─────────────  COMPACT CHROME (documents view)  ─────────────
    The app shell never scrolls (panes scroll internally), so the mast +
    docs-mast sit permanently above the reader and eat ~200px of reading
-   height. When a document is open (body.doc-reading, toggled by
-   openDocReader / paintDocumentsView) the site mast collapses to a thin
-   context bar carrying the open doc's signature, and the catalogue
-   header (docs-mast) is dropped entirely — its "N documents · counts"
-   line describes the catalogue, not the document being read. Full
-   chrome returns in every other view and in the reader's empty state. */
+   height. On the Documents tab the site mast is always collapsed to a
+   thin context bar, and the catalogue header (docs-mast) is dropped
+   entirely — the rail already carries the scope tabs + per-committee
+   counts. While a document is open (body.doc-reading, toggled by
+   openDocReader / paintDocumentsView) the bar additionally shows the
+   open doc's signature + short title (#mast-doc-context). Full chrome
+   is untouched in every other view. */
 .mast-doc-context { display: none; }
-body[data-active-view="documents"].doc-reading .mast {
+body[data-active-view="documents"] .mast {
   padding: 8px var(--shell-pad);
 }
-body[data-active-view="documents"].doc-reading .mast-row {
+body[data-active-view="documents"] .mast-row {
   align-items: center;
   flex-wrap: nowrap;
 }
-body[data-active-view="documents"].doc-reading .mast-title {
+body[data-active-view="documents"] .mast-title {
   font-size: 17px;
   margin: 0;
   white-space: nowrap;
 }
-body[data-active-view="documents"].doc-reading .mast-sub,
-body[data-active-view="documents"].doc-reading #mast-folio {
+body[data-active-view="documents"] .mast-sub,
+body[data-active-view="documents"] #mast-folio {
   display: none;
 }
-body[data-active-view="documents"].doc-reading .mast-doc-context {
+body[data-active-view="documents"] .mast-doc-context {
   display: block;
   flex: 1 1 auto;
   min-width: 0;
@@ -3042,7 +3043,7 @@ body[data-active-view="documents"].doc-reading .mast-doc-context {
   font-style: italic;
   color: var(--ink-3);
 }
-body[data-active-view="documents"].doc-reading .docs-mast {
+body[data-active-view="documents"] .docs-mast {
   display: none;
 }
 
