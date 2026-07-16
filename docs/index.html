@@ -217,6 +217,11 @@
       <h1 class="serif mast-title">UN Human Rights Database</h1>
       <div class="serif mast-sub">A paragraph-level companion to UN Treaty Body General Comments, jurisprudence &amp; mandate-holder reports</div>
     </div>
+    <!-- Reading mode (documents view, doc open): the mast collapses to a
+         thin bar and this span carries the open document's signature +
+         short title so the reader keeps context without the tall chrome.
+         Hidden (CSS) outside body.doc-reading. -->
+    <span class="mast-doc-context" id="mast-doc-context" aria-live="polite"></span>
     <nav class="mast-nav">
       <a href="#search" class="active">Search</a>
       <!-- v19.55: Ask tab hidden by default. JS un-hides only when a

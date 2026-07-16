@@ -2061,6 +2061,10 @@ function paintDocumentsView() {
         </p>
       </div>`;
     $('#docs-drawer').hidden = true;
+    // No document open → restore the full mast + catalogue header.
+    document.body.classList.remove('doc-reading');
+    const mastCtx = $('#mast-doc-context');
+    if (mastCtx) mastCtx.textContent = '';
   }
 }
 
@@ -2347,6 +2351,16 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
 
   state.docsActiveDocId = docId;
   state.docsActiveParaId = paraId;
+
+  // Reading mode: collapse the mast + docs-mast into a thin context bar
+  // (see the READING MODE block in app.css) and surface the open doc's
+  // signature + short title next to the wordmark.
+  document.body.classList.add('doc-reading');
+  const mastCtx = $('#mast-doc-context');
+  if (mastCtx) {
+    mastCtx.textContent = [doc.signature || doc.symbol, doc.nameShort || doc.name]
+      .filter(Boolean).join(' · ');
+  }
 
   // URL: keep the user's deep link alive on reload / share.
   if (!fromUrl) {
