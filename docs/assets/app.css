@@ -4797,8 +4797,11 @@ body[data-active-view="documents"] .docs-mast {
   /* v19.56.10: bumped from 320px → 400px. With the previous floor we got
      3-4 cramped columns on a 1280-wide viewport, each ~320px (too narrow
      for the dense Jurisprudence / Methodology paragraphs to breathe).
-     400px floors at 2 columns on standard laptops, 3 on ultra-wide. */
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+     400px floors at 2 columns on standard laptops, 3 on ultra-wide.
+     min(400px, 100%) caps the floor at the container width so the grid
+     collapses to one full-width column on phones instead of overflowing
+     the viewport (400px column > 375px screen). */
+  grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
   gap: 32px 48px;
   margin-top: 16px;
 }
