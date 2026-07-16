@@ -1209,7 +1209,14 @@ function paintMastFolio(m) {
   }
   // Once the manifest is here, we have at least 30% loaded data —
   // collapse the bar quickly when boot reaches 100%.
-  $('#foot-version').textContent = `Build ${m.version} · ${m.builtAt.split('T')[0]}`;
+  // Compact chrome dropped the masthead dateline, so the corpus-scale
+  // signal moves to the two places that cost no chrome height: the
+  // footer build line and the (empty) search placeholder.
+  const totParas = (m.counts.paragraphs + jurParas).toLocaleString();
+  const totDocs = (m.counts.documents + jurDocs).toLocaleString();
+  $('#foot-version').textContent = `Build ${m.version} · ${m.builtAt.split('T')[0]} · ${totParas} ¶ · ${totDocs} docs`;
+  const q = $('#q');
+  if (q) q.placeholder = `Search ${totParas} paragraphs across ${totDocs} UN documents…`;
   paintFreshnessCard(m);
 }
 
@@ -8448,6 +8455,9 @@ function openQueryHelpPopover(triggerEl) {
   pop.setAttribute('role', 'dialog');
   pop.setAttribute('aria-label', 'Search syntax');
   pop.innerHTML = `
+    <p class="q-help-about">A paragraph-level companion to UN Treaty Body General
+    Comments, jurisprudence &amp; mandate-holder reports — every result is a
+    verbatim, citable paragraph.</p>
     <h4>Operators</h4>
     <dl>
       ${_QUERY_HELP_OPS.map(o => `

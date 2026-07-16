@@ -116,7 +116,7 @@
 </script>
 
 <link rel="stylesheet" href="assets/tokens.css?v=20260630-audit" />
-<link rel="stylesheet" href="assets/app.css?v=20260713-status-audit" />
+<link rel="stylesheet" href="assets/app.css?v=20260716-reading-first" />
 
 <!-- Google Analytics 4 is loaded LAZILY, only after the visitor opts in
      via the consent banner — see initConsent()/loadAnalytics() in app.js.
@@ -214,7 +214,7 @@
           <span class="mast-folio-bar-fill" id="mast-folio-bar-fill"></span>
         </span>
       </div>
-      <h1 class="serif mast-title">UN Human Rights Database</h1>
+      <h1 class="serif mast-title" title="A paragraph-level companion to UN Treaty Body General Comments, jurisprudence &amp; mandate-holder reports">UN Human Rights Database</h1>
       <div class="serif mast-sub">A paragraph-level companion to UN Treaty Body General Comments, jurisprudence &amp; mandate-holder reports</div>
     </div>
     <!-- Documents tab: the mast is always collapsed to a thin bar there
@@ -797,7 +797,8 @@
   <article class="about">
     <div class="about-inner">
       <div class="folio garnet">COLOPHON · ABOUT</div>
-      <h2 class="serif about-title">A paragraph-level companion to Treaty Body General Comments and Special Procedures, with selected jurisprudence.</h2>
+      <h2 class="serif about-title">About this database</h2>
+      <p class="serif about-lede">A paragraph-level companion to Treaty Body General Comments and Special Procedures, with selected jurisprudence.</p>
 
       <!-- Freshness card — populated by paintFreshnessCard() at boot.
            A traffic-light "last refreshed N days ago" reassures users the
@@ -1417,6 +1418,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260713-exact-terms"></script>
+<script type="module" src="assets/app.js?v=20260716-reading-first"></script>
 </body>
 </html>

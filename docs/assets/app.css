@@ -3005,37 +3005,40 @@ body[data-active-view="about"]     section[data-view="about"]     { display: blo
   font-size: 14px;
 }
 
-/* ─────────────  COMPACT CHROME (documents view)  ─────────────
-   The app shell never scrolls (panes scroll internally), so the mast +
-   docs-mast sit permanently above the reader and eat ~200px of reading
-   height. On the Documents tab the site mast is always collapsed to a
-   thin context bar, and the catalogue header (docs-mast) is dropped
-   entirely — the rail already carries the scope tabs + per-committee
-   counts. While a document is open (body.doc-reading, toggled by
+/* ─────────────  READING-FIRST COMPACT CHROME (all views)  ─────────────
+   The app shell never scrolls (panes scroll internally), so every
+   pixel of fixed chrome is subtracted from the text for the whole
+   session. This block makes text the priority uniformly: the site mast
+   is a thin ~46px bar on every tab, per-view masts/ledes shrink to a
+   consistent scale, and the Documents catalogue header is dropped
+   entirely (the rail already carries scope tabs + per-committee
+   counts). While a document is open (body.doc-reading, toggled by
    openDocReader / paintDocumentsView) the bar additionally shows the
-   open doc's signature + short title (#mast-doc-context). Full chrome
-   is untouched in every other view. */
+   open doc's signature + short title (#mast-doc-context).
+   All selectors are prefixed with body[data-active-view] so they win
+   over both the base rules above and the responsive rules below. */
 .mast-doc-context { display: none; }
-body[data-active-view="documents"] .mast {
+body[data-active-view] .mast {
   padding: 8px var(--shell-pad);
 }
-body[data-active-view="documents"] .mast-row {
+body[data-active-view] .mast-row {
   align-items: center;
   flex-wrap: nowrap;
 }
-body[data-active-view="documents"] .mast-title {
-  font-size: 17px;
+body[data-active-view] .mast-title {
+  font-size: 19px;
   margin: 0;
   white-space: nowrap;
 }
-body[data-active-view="documents"] .mast-sub,
-body[data-active-view="documents"] #mast-folio {
+body[data-active-view] .mast-sub,
+body[data-active-view] #mast-folio {
   display: none;
 }
 body[data-active-view="documents"] .mast-doc-context {
   display: block;
   flex: 1 1 auto;
   min-width: 0;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -3045,6 +3048,79 @@ body[data-active-view="documents"] .mast-doc-context {
 }
 body[data-active-view="documents"] .docs-mast {
   display: none;
+}
+/* The doc-context span must yield, never the nav: without this the nav
+   wraps to two lines at ~1280px and the bar grows to ~63px. */
+body[data-active-view] .mast-nav {
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+}
+/* <900px the base rules stack the mast-row as a column and stretch the
+   nav to full width (space-between). align-items:center above would
+   collapse the nav row to content width with 2px gaps — restore stretch. */
+@media (max-width: 900px) {
+  body[data-active-view] .mast { padding: 8px 20px; }
+  body[data-active-view] .mast-row { align-items: stretch; }
+}
+
+/* Search: slim bar, tighter results lede. The "Try" example-query
+   strip keeps its base behaviour — visible only while #q is empty
+   (.searchbar:has(#q:not(:placeholder-shown)) hides it) — so it
+   teaches the syntax exactly when needed and costs no height on any
+   populated view. */
+body[data-active-view] .searchbar {
+  padding: 10px var(--shell-pad);
+}
+body[data-active-view] .search-prompt,
+body[data-active-view] .search-input {
+  font-size: 17px;
+}
+body[data-active-view] .search-input { padding: 4px 0; }
+body[data-active-view] .results {
+  padding: 16px var(--shell-pad) 80px;
+}
+body[data-active-view] .results-title { font-size: 20px; }
+body[data-active-view] .results-tools {
+  margin: 12px 0 10px;
+  padding: 8px 0;
+}
+
+/* Workspace + About: same heading scale and the SAME content container
+   (1100px) as the rest of the app, so kicker + H1 + rule land on one
+   grid across all rail-less views. */
+body[data-active-view] .workspace-shell {
+  padding: 20px 40px 80px;
+  max-width: 1100px;
+}
+body[data-active-view] .workspace-head {
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+}
+body[data-active-view] .workspace-title { font-size: 22px; }
+body[data-active-view] .about { padding: 22px 40px 100px; }
+body[data-active-view] .about-title {
+  font-size: 24px;
+  margin: 4px 0 10px;
+}
+/* About lede: the old sentence-hero, demoted below the short H1. */
+.about-lede {
+  font-style: italic;
+  color: var(--ink-3);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 24px;
+  max-width: 720px;
+}
+/* One-line self-description at the top of the ? syntax popover — the
+   compact mast dropped the site subtitle, this is its cheap home. */
+.q-help-about {
+  font-style: italic;
+  color: var(--ink-3);
+  font-size: 12.5px;
+  line-height: 1.45;
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
 }
 
 .docs-tools {
