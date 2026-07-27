@@ -10867,7 +10867,11 @@ async function _loadTreaties() {
   if (!ASK_API_BASE) return {};
   _treatiesLoading = (async () => {
     try {
-      const res = await fetch(`${ASK_API_BASE}/api/treaties`);
+      // ?v= busts the endpoint's own Cache-Control (max-age=86400,
+      // immutable): without it, anyone who visited in the last 24h keeps
+      // the pre-instruments 18-treaty bundle until their cache expires.
+      // Bump the tag whenever the server-side bundle contents change.
+      const res = await fetch(`${ASK_API_BASE}/api/treaties?v=20260727-tier1`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       _treatiesCache = data;
@@ -10890,12 +10894,18 @@ async function _loadTreaties() {
       // annotateTreatyText: lets "…Discrimination Against Women (art. 15)"
       // resolve to CEDAW by the name written in the text itself. Longest
       // name first so "ICCPR" never shadows "ICCPR-OP1"-style overlaps.
+      // v19.66: alt_names too — ECHR alone is cited three ways ("European
+      // Convention on Human Rights", its formal title "Convention for the
+      // Protection of Human Rights and Fundamental Freedoms", and bare
+      // "European Convention"), and only one can be name_full.
       _treatyNameIndex = Object.values(data)
         .filter(t => t.name_full && t.abbr)
-        .map(t => ({
-          name: String(t.name_full).replace(/\s+/g, ' ').trim().toLowerCase(),
-          abbr: String(t.abbr).toUpperCase(),
-        }))
+        .flatMap(t => [String(t.name_full), ...(t.alt_names || [])]
+          .map(n => ({
+            name: n.replace(/\s+/g, ' ').trim().toLowerCase(),
+            abbr: String(t.abbr).toUpperCase(),
+          })))
+        .filter(x => x.name.length >= 10)
         .sort((a, b) => b.name.length - a.name.length);
       return data;
     } catch (e) {
@@ -11088,7 +11098,14 @@ function annotateTreatyText(html, committee, citedArticles) {
         // correct OP code (ICCPR-OP1/OP2, CRC-OPSC, OPCAT, etc.).
         const cited = consumeRef(art);
         let targetAbbr, targetPara;
-        if (cited && cited.treaty) {
+        if (cited && cited.treaty && !(cited.treaty === '?' && leadTreatyAbbr)) {
+          // citedArticles is authoritative — except that its "?" marker
+          // means "real reference to an instrument we could not render"
+          // (v19.56.9). Now that non-treaty-body instruments (UDHR, ECHR,
+          // UN Charter, …) live in the bundle, a "?" whose instrument is
+          // named right before the parenthetical CAN be rendered: the
+          // pipeline vouched the ref is real, the leading name says which
+          // instrument it is. Combining both beats either alone.
           targetAbbr = cited.treaty;
           targetPara = inlinePara || cited.paragraph;
         } else if (leadTreatyAbbr) {
