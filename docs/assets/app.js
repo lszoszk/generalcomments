@@ -6649,10 +6649,26 @@ function _attachResultSentinel(list, terms) {
   let teardown = null;
   let inflight = false;
 
+  /* A hidden view has no layout: `display: none` makes every
+     getBoundingClientRect() inside it return 0×0 at 0,0. The distance
+     measured below then comes out as `0 - rootBottom` — a large negative
+     number, i.e. exactly what "the user scrolled to the bottom" looks
+     like — and because appending rows cannot change a rect that stays
+     0×0, the loop never sees itself make progress and keeps paging until
+     its safety cap. Landing on #documents or #workspace fetched pages
+     2-4 at page_size=200 that way: 600 GC paragraphs pulled per visit
+     that nothing could display. Measured before/after: 5 API calls per
+     visit → 2. */
+  const isLaidOut = () => {
+    const r = list.getBoundingClientRect();
+    return r.width > 0 || r.height > 0;
+  };
+
   const tick = async () => {
     scheduled = false;
     if (inflight) return;
     if (sentinel.style.display === 'none') return;
+    if (!isLaidOut()) return;
 
     // Distance from the sentinel's top to the bottom of the scroll-root's
     // viewport. Negative = sentinel below visible area; <= 600 = the
@@ -6668,6 +6684,9 @@ function _attachResultSentinel(list, terms) {
       let safety = 0;
       while (safety++ < 12) {
         if (sentinel.style.display === 'none') return;
+        // Re-check: the user can switch views mid-fetch, and from that
+        // point the re-measure at the bottom of this loop is blind.
+        if (!isLaidOut()) return;
 
         const buffered = state.results.length - state.renderedCount;
         if (state.apiHasMore && buffered <= RESULT_PAGE_SIZE) {
