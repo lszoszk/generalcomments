@@ -10860,6 +10860,11 @@ if (typeof window !== 'undefined') {
 let _treatiesCache = null;
 let _treatiesByCommittee = {};   // CCPR → iccpr_treaty_obj
 let _treatyNameIndex = [];       // [{name: lowercased name_full, abbr}], longest first
+// committee code → {bare, second}: which OP "the Optional Protocol" means
+// in that committee's documents. bare stays null when the committee has
+// several plausible OPs (CRC: OPAC/OPSC/OPIC) — resolution then falls back
+// to the pre-v19.67 plain-text behaviour rather than guessing.
+let _opByCommittee = {};
 let _treatiesLoading = null;
 async function _loadTreaties() {
   if (_treatiesCache) return _treatiesCache;
@@ -10907,6 +10912,17 @@ async function _loadTreaties() {
           })))
         .filter(x => x.name.length >= 10)
         .sort((a, b) => b.name.length - a.name.length);
+      _opByCommittee = {};
+      for (const t of Object.values(data)) {
+        if ((t.term || '') !== 'Optional Protocol') continue;
+        const isSecond = /^Second\b/i.test(t.name_full || '');
+        for (const cc of (t.committee_codes || [])) {
+          const k = String(cc).toUpperCase();
+          const slot = (_opByCommittee[k] = _opByCommittee[k] || { bare: null, second: null, bareCount: 0 });
+          if (isSecond) slot.second = String(t.abbr).toUpperCase();
+          else { slot.bareCount++; slot.bare = slot.bareCount === 1 ? String(t.abbr).toUpperCase() : null; }
+        }
+      }
       return data;
     } catch (e) {
       console.warn('[ask] treaties bundle failed:', e);
@@ -10999,12 +11015,29 @@ function annotateTreatyText(html, committee, citedArticles) {
   //     captured because content is "paragraphs 1 and 2" — multi-para form;
   //     button has no data-paragraph → popover shows whole article)
   // Pattern groups: (1) prefix word, (2) whitespace, (3) number-list body.
-  const QUAL = String.raw`(?:\s*\(\s*(?:paragraphs?\s+)?\d+(?:(?:\s+and\s+|\s*,\s*)\d+)*\s*\))?`;
+  // v19.67 (audit follow-up): the one-qualifier, digits-only shape missed
+  // three forms the corpus actually writes, and every miss silently cut a
+  // compound list short — only the numbers BEFORE the first unrecognised
+  // token got buttons (41 confirmed cases in the C2 audit file, plus 8 of
+  // the 9 C1 queue misalignments):
+  //   "articles 2 (c), 3, 5 (a) and 15"     — single-LETTER qualifiers
+  //   "arts. 2 (paras. 1 and 3), 3 and 26"  — "para./paras." abbreviation
+  //   "art. 2 (3) (a)"                      — STACKED qualifiers
+  //   "arts. 13–14"                          — ranges (en-dash or hyphen)
+  // Qualifier items are digits or ONE letter — never words — so
+  // descriptive parentheticals ("article 6 (right to life)") still stay
+  // outside the button. Ranges render as two buttons (both endpoints);
+  // the numbers in between are not individually cited by the text.
+  const QUAL = String.raw`(?:\s*\(\s*(?:para(?:graph)?s?\.?\s+)?(?:\d+|[a-z])(?:(?:\s+and\s+|\s*,\s*)(?:\d+|[a-z]))*\s*\)){0,2}`;
+  const NUM = String.raw`\d+(?:\s*[–-]\s*\d+)?`;
   const artListPat = new RegExp(
-    String.raw`\b(articles?|arts?\.?)(\s+)(\d+${QUAL}(?:\s*(?:,|\band\b|\bor\b)\s*\d+${QUAL})*)`,
+    String.raw`\b(articles?|arts?\.?)(\s+)(${NUM}${QUAL}(?:\s*(?:,|\band\b|\bor\b)\s*${NUM}${QUAL})*)`,
     'gi'
   );
-  const itemPat = /(\d+)(?:\s*\(\s*((?:paragraphs?\s+)?\d+(?:(?:\s+and\s+|\s*,\s*)\d+)*)\s*\))?/g;
+  const itemPat = new RegExp(
+    String.raw`(\d+)(?:\s*[–-]\s*(\d+))?((?:\s*\(\s*(?:para(?:graph)?s?\.?\s+)?(?:\d+|[a-z])(?:(?:\s+and\s+|\s*,\s*)(?:\d+|[a-z]))*\s*\)){0,2})`,
+    'g'
+  );
 
   return segments.map(seg => {
     if (seg.tag) return seg.value;
@@ -11018,19 +11051,31 @@ function annotateTreatyText(html, committee, citedArticles) {
     // those add genuine utility (pop the actual article text).
     // (termPat replacement intentionally a no-op; pattern kept for
     // future use or in case we want to gate it on a setting.)
-    // Detect Protocol context palliative: when "article N" is followed
-    // by "of (that|the|its) (Optional) Protocol", the citation refers to
-    // an Optional Protocol's article — not the main treaty's. Without
-    // the deferred metadata pipeline we can't disambiguate which OP
-    // exactly, so safer to leave such refs as plain text than to
-    // wrong-link them to the main treaty (e.g., GC29 ¶ that says
-    // "article 6 of that Protocol" really means ICCPR-OP2 art 6,
-    // not ICCPR art 6).
-    const PROTOCOL_TRAILING_RE = /^[\s,]*(?:as\s+\w+\s+(?:in|under)\s+)?(?:of|in|under)\s+(?:that|the|its)\s+(?:(?:First|Second|Third)\s+)?(?:Optional\s+)?Protocol\b/i;
+    // "article N … of (that|the|its) (Optional) Protocol" — the citation
+    // refers to an OP's article, not the main treaty's. v19.67: when the
+    // committee has exactly ONE plausible OP in the bundle this now
+    // RESOLVES instead of plain-texting: 12 of the verification agent's 16
+    // relink verdicts were this exact admissibility boilerplate ("the
+    // author's claims under the Optional Protocol (article 2)"), all
+    // ICCPR-OP1. "Second/Third" ordinals pick the ordinal sibling (GC29's
+    // "article 6 of that Protocol" → ICCPR-OP2). CRC stays unresolved —
+    // three OPs share the bare name — and falls back to plain text.
+    const PROTOCOL_TRAILING_RE = /^[\s,]*(?:as\s+\w+\s+(?:in|under)\s+)?(?:of|in|under)\s+(?:that|the|its)\s+(?:(First|Second|Third)\s+)?(?:Optional\s+)?Protocol\b/i;
+    const LEAD_OP_RE = /(?:^|[\s(])(?:the\s+)?(?:(first|second|third)\s+)?optional\s+protocol$/i;
+    const _resolveOp = (ordinal) => {
+      const ops = _opByCommittee[String(committee || '').toUpperCase()];
+      if (!ops) return null;
+      if (/^(second|third)$/i.test(ordinal || '')) return ops.second || null;
+      return ops.bare || null;
+    };
     t = t.replace(artListPat, (match, prefix, ws, body, offset, fullStr) => {
-      // Look ~80 chars after the match for a trailing instrument name.
-      const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 80);
-      const hasProtocolTail = PROTOCOL_TRAILING_RE.test(tail);
+      // Look ~160 chars after the match for a trailing instrument name.
+      // 80 was enough for the guard words, but full-name TAIL RESOLUTION
+      // (v19.67) must fit e.g. CEDAW's 75-char title AFTER "of the ".
+      const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 160);
+      const protTail = tail.match(PROTOCOL_TRAILING_RE);
+      const hasProtocolTail = !!protTail;
+      const opAbbr = protTail ? _resolveOp(protTail[1]) : null;
       // v19.63: external-instrument guard. When the article list is
       // followed by "of [the] <Instrument>" and <Instrument> is NOT this
       // committee's own treaty term (and not a Protocol — handled above),
@@ -11043,9 +11088,29 @@ function annotateTreatyText(html, committee, citedArticles) {
       // trailer at all → home-treaty link as before).
       const homeWord = String(term).replace(/^the\s+/i, '').trim().split(/\s+/)[0].toLowerCase();
       const ofOther = tail.match(/^[\s,]*(?:of|in|under)\s+(?:the\s+|that\s+|its\s+)?([A-Z][A-Za-z'’.\-]+)/);
+      // v19.67: when the tail spells the instrument out in FULL — "articles
+      // 2 (c), 3, 5 (a) and 15 of the Convention on the Elimination of All
+      // Forms of Discrimination Against Women" — resolve to that treaty
+      // instead of merely plain-texting. The v19.63 tail guard predates the
+      // name index, so it could only refuse the home link, never make the
+      // right one.
+      const ofPhrase = tail.match(/^[\s,]*(?:of|in|under)\s+(?:the\s+)?([\s\S]{0,130})/);
+      const tailNamed = ofPhrase
+        ? _treatyNameIndex.find(x => ofPhrase[1].replace(/\s+/g, ' ').trim().toLowerCase().startsWith(x.name))
+        : null;
+      const tailTreatyAbbr = tailNamed && tailNamed.abbr !== String(abbr).toUpperCase() ? tailNamed.abbr : null;
       const hasExternalInstrumentTail = !!ofOther
+        && !tailTreatyAbbr
         && ofOther[1].toLowerCase() !== homeWord
         && ofOther[1].toLowerCase() !== 'protocol';
+      // "… (art. 2 of the Covenant)" — the tail names the HOME instrument
+      // explicitly. That must outrank every lead-side plain-text guard: a
+      // lead like "…equality before domestic law and the Constitution
+      // requires (art. 2 of the Covenant)" is still a home ref, and the
+      // pre-v19.67 code got this right only because no lead guard could
+      // fire on such phrases. Now that Constitution/Code/Act DO fire, the
+      // explicit home tail keeps them from stealing a correct link.
+      const hasHomeTail = !!ofOther && ofOther[1].toLowerCase() === homeWord;
       // v19.65: LEADING-instrument guard — the mirror image of the tail
       // guard above. Enumerations name the instrument BEFORE the number:
       //   "…the Universal Declaration of Human Rights (art. 6), the
@@ -11066,14 +11131,39 @@ function annotateTreatyText(html, committee, citedArticles) {
       const lead = (fullStr || '').slice(Math.max(0, offset - 130), offset);
       let leadTreatyAbbr = null;
       let leadExternal = false;
+      let leadDomestic = false;
       const leadParen = lead.match(/([\s\S]*?)\(\s*$/);
       if (leadParen) {
-        const phrase = leadParen[1].replace(/\s+/g, ' ').trim().toLowerCase();
+        const rawPhrase = leadParen[1].replace(/\s+/g, ' ').trim();
+        const phrase = rawPhrase.toLowerCase();
         const named = _treatyNameIndex.find(x => phrase.endsWith(x.name));
+        const leadOp = !named && rawPhrase.match(LEAD_OP_RE);
         if (named) {
           if (named.abbr !== String(abbr).toUpperCase()) leadTreatyAbbr = named.abbr;
+        } else if (leadOp) {
+          // "…inadmissible under the Optional Protocol (art. 5 (2) (b))" —
+          // same anaphora as the "of the Optional Protocol" tail, on the
+          // lead side. Resolves via the committee's OP; unresolvable
+          // committees (CRC) leave leadTreatyAbbr null and the plain-text
+          // guard below picks it up via leadExternal? No — bare protocol
+          // with no resolution stays home-safe as before, so flag it
+          // external explicitly.
+          const op = _resolveOp(leadOp[1]);
+          if (op) leadTreatyAbbr = op; else leadExternal = true;
         } else if (/\b(?:declaration|charter|rules|principles|guidelines)\b[^()]*$/i.test(leadParen[1])) {
           leadExternal = true;
+        } else if (/(?:Constitution|Criminal Code|Civil Code|Penal Code|Labour Code|Code|Act|Decree|Ordinance)\s*$/.test(rawPhrase)) {
+          // v19.67: domestic-instrument guard. 96 of the audit's 108
+          // verified wrong links were national constitutions, codes and
+          // acts ("the Federal Asylum Act (art. 32)", "in accordance with
+          // the Constitution (art. 41)") linking to the committee's
+          // treaty. Case-sensitive on purpose: proper-noun instruments
+          // only. "law"/"Law" is deliberately absent — "equality before
+          // the law (art. 26)" is a perfectly good HOME reference, and
+          // the capitalised form ("Basic Law") is too rare to outweigh
+          // that risk. "Statute" is absent because of the Rome Statute,
+          // which the name index above already resolves.
+          leadDomestic = true;
         }
       }
       let out = prefix + ws;
@@ -11084,18 +11174,17 @@ function annotateTreatyText(html, committee, citedArticles) {
       while ((m = itemPat.exec(body)) !== null) {
         out += body.slice(lastIdx, m.index);
         const art = m[1];
-        const qualifier = m[2];
-        // Only carry data-paragraph when qualifier is a single number
-        // ("(2)" / "(paragraph 2)"). Complex forms ("paragraphs 1 and 2",
-        // sub-letters, etc.) fall back to whole-article popover.
-        const paraMatch = qualifier ? qualifier.match(/^(?:paragraphs?\s+)?(\d+)$/i) : null;
-        const inlinePara = paraMatch ? paraMatch[1] : null;
+        const rangeEnd = m[2] || null;   // "13–14" → art="13", rangeEnd="14"
+        const qualifier = m[3] ? m[3].trim() : '';
+        // Only carry data-paragraph when the FIRST qualifier is a single
+        // number ("(2)" / "(paragraph 2)"). Complex forms ("paragraphs 1
+        // and 2", sub-letters "(a)", stacked "(3) (a)") fall back to the
+        // whole-article popover — the stacked form keeps the paragraph
+        // from its first qual: "2 (3) (a)" → article 2, paragraph 3.
+        const firstQual = qualifier.match(/^\(\s*(?:para(?:graph)?s?\.?\s+)?(\d+)\s*\)/i);
+        const inlinePara = firstQual ? firstQual[1] : null;
 
         // Resolve treaty: prefer pre-tagged citedArticles when present.
-        // Falls back to home-committee treaty otherwise. For paragraphs
-        // ending with "of that Protocol" we previously left the ref as
-        // plain text — but with citedArticles we can now route to the
-        // correct OP code (ICCPR-OP1/OP2, CRC-OPSC, OPCAT, etc.).
         const cited = consumeRef(art);
         let targetAbbr, targetPara;
         if (cited && cited.treaty && !(cited.treaty === '?' && leadTreatyAbbr)) {
@@ -11113,7 +11202,22 @@ function annotateTreatyText(html, committee, citedArticles) {
           // link to THAT treaty, not the committee's home one.
           targetAbbr = leadTreatyAbbr;
           targetPara = inlinePara;
-        } else if (leadExternal || hasProtocolTail || hasExternalInstrumentTail) {
+        } else if (tailTreatyAbbr) {
+          // Instrument named in full right AFTER the list ("…of the
+          // Convention on the Elimination of …") — same rule, tail side.
+          targetAbbr = tailTreatyAbbr;
+          targetPara = inlinePara;
+        } else if (opAbbr) {
+          // "…of the Optional Protocol" tail, unambiguously resolvable for
+          // this committee — link the OP instead of plain-texting.
+          targetAbbr = opAbbr;
+          targetPara = inlinePara;
+        } else if (hasHomeTail) {
+          // Explicit "of the Covenant/Convention" tail — home, and immune
+          // to the lead-side guards.
+          targetAbbr = abbr;
+          targetPara = inlinePara;
+        } else if (leadExternal || leadDomestic || hasProtocolTail || hasExternalInstrumentTail) {
           // No pre-tagged ref AND the text points at a Protocol or a
           // different instrument ("of the Standard Minimum Rules", "of the
           // Universal Declaration", …) — render as plain text rather than
@@ -11138,15 +11242,35 @@ function annotateTreatyText(html, committee, citedArticles) {
         //                  multi-target popover UI, plain text is safer.
         // Both markers are preserved in citedArticles so a future
         // iteration (e.g. UDHR popover) can light them up.
-        if (!targetAbbr || targetAbbr === '?' || targetAbbr === 'AMBIGUOUS') {
-          out += m[0];
-          lastIdx = m.index + m[0].length;
-          continue;
+        const isPlain = a => (!a || a === '?' || a === 'AMBIGUOUS');
+        const mkBtn = (treaty, artNo, para, label) => {
+          const attrs = `data-treaty="${treaty}" data-article="${artNo}"` +
+                        (para ? ` data-paragraph="${para}"` : '');
+          renderedAny = true;
+          return `<button type="button" class="treaty-article-ref" ${attrs}>${label}</button>`;
+        };
+        if (!rangeEnd) {
+          out += isPlain(targetAbbr) ? m[0] : mkBtn(targetAbbr, art, targetPara, m[0]);
+        } else {
+          // Range "arts. 13–14" → a button per endpoint, dash kept as text.
+          // The second endpoint consumes its OWN citedArticles entry, so a
+          // tagged pair like {13:ICESCR}{14:ICESCR} lands on both buttons;
+          // untagged endpoints share the fallback the whole match resolved
+          // to (lead name, OP, home — or plain under the guards).
+          const parts = m[0].match(/^(\d+)(\s*[–-]\s*)([\s\S]*)$/);
+          const cited2 = consumeRef(rangeEnd);
+          const fallback2 = leadTreatyAbbr || tailTreatyAbbr || opAbbr ||
+            ((hasHomeTail || !(leadExternal || leadDomestic || hasProtocolTail || hasExternalInstrumentTail)) ? abbr : null);
+          let target2;
+          if (cited2 && cited2.treaty) {
+            target2 = (cited2.treaty === '?' && leadTreatyAbbr) ? leadTreatyAbbr : cited2.treaty;
+          } else {
+            target2 = fallback2;
+          }
+          out += (isPlain(targetAbbr) ? parts[1] : mkBtn(targetAbbr, art, null, parts[1]))
+               + parts[2]
+               + (isPlain(target2) ? parts[3] : mkBtn(target2, rangeEnd, inlinePara, parts[3]));
         }
-        const attrs = `data-treaty="${targetAbbr}" data-article="${art}"` +
-                      (targetPara ? ` data-paragraph="${targetPara}"` : '');
-        out += `<button type="button" class="treaty-article-ref" ${attrs}>${m[0]}</button>`;
-        renderedAny = true;
         lastIdx = m.index + m[0].length;
       }
       out += body.slice(lastIdx);

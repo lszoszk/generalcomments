@@ -602,3 +602,88 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('algorithmic discrimination');
   expect(suggestions).toContain('profiling');
 });
+
+test('A9. artRefResolution · v19.67 rules — OP anaphora, compound lists, domestic guard, tail names', async ({ page }) => {
+  /* Distilled from the 2026-07-27 verification-agent audit
+     (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
+       op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
+                   → ICCPR-OP1 (12 of the agent's 16 relink verdicts were
+                   exactly this admissibility boilerplate).
+       letters   — "articles 2 (c), 3, 5 (a) and 15 of the <CEDAW title>"
+                   → all four numbers link CEDAW: letter qualifiers no longer
+                   cut the list short, and a full-name TAIL now resolves
+                   instead of merely plain-texting.
+       constit   — "in accordance with the Constitution (art. 41)" → plain
+                   text (national constitutions were 96 of 108 verified
+                   wrong links).
+       neg-law   — "equality before the law (art. 26)" → still a HOME link;
+                   the domestic guard is case-sensitive and word-limited
+                   precisely so this stays clickable. */
+  const CASES = [
+    { id: 'op-lead', committee: 'CCPR',
+      text: 'The communication is inadmissible under the Optional Protocol (article 2) for lack of substantiation.',
+      expect: [['2', 'ICCPR-OP1']] },
+    { id: 'letters', committee: 'CCPR',
+      text: 'As guaranteed by articles 2 (c), 3, 5 (a) and 15 of the Convention on the Elimination of All Forms of Discrimination Against Women, women enjoy equality.',
+      expect: [['2', 'CEDAW'], ['3', 'CEDAW'], ['5', 'CEDAW'], ['15', 'CEDAW']] },
+    { id: 'constit', committee: 'CCPR',
+      text: 'In accordance with the Constitution (art. 41), everyone may acquire property.',
+      expect: [] },
+    { id: 'neg-law', committee: 'CCPR',
+      text: 'Equality before the law (art. 26) is guaranteed to all persons.',
+      expect: [['26', 'ICCPR']] },
+  ];
+  const BUNDLE = {
+    iccpr: { abbr: 'ICCPR', name_full: 'International Covenant on Civil and Political Rights',
+      term: 'Covenant', committee_codes: ['CCPR'],
+      articles: [{ number: '26', paragraphs: [{ num: null, text: 'All persons are equal before the law.' }] }] },
+    'iccpr-op1': { abbr: 'ICCPR-OP1',
+      name_full: 'Optional Protocol to the International Covenant on Civil and Political Rights',
+      term: 'Optional Protocol', committee_codes: ['CCPR'],
+      articles: [{ number: '2', paragraphs: [{ num: null, text: 'Individuals who claim…' }] }] },
+    'iccpr-op2': { abbr: 'ICCPR-OP2',
+      name_full: 'Second Optional Protocol to the International Covenant on Civil and Political Rights, aiming at the abolition of the death penalty',
+      term: 'Optional Protocol', committee_codes: ['CCPR'], articles: [] },
+    cedaw: { abbr: 'CEDAW',
+      name_full: 'Convention on the Elimination of All Forms of Discrimination Against Women',
+      term: 'Convention', committee_codes: ['CEDAW'],
+      articles: [{ number: '15', paragraphs: [{ num: '1', text: 'States Parties shall accord to women equality with men before the law.' }] }] },
+  };
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  await page.route('**/ask-api/api/treaties**', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(BUNDLE) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    route.fulfill({
+      status: 200,
+      body: JSON.stringify({
+        query: 'artref rules', scope: 'all', total: CASES.length,
+        breakdown: { gc: CASES.length, jur: 0, sp: 0 }, page: 1, page_size: 50,
+        hits: CASES.map((c, i) => ({
+          rowid: i + 1, para_id: `a9-${c.id}`, doc_id: `a9-doc-${c.id}`, idx: i, n: String(i),
+          section: null, text: c.text, type: 'gc', treaty: c.committee, committee: c.committee,
+          mandate: null, country: null, year: 2020, adoption_date: '2020-01-01',
+          signature: `A9/${c.id}`, outcome: null, name: `Case ${c.id}`, name_short: c.id,
+          snippet: c.text.slice(0, 80), score: -10 - i,
+        })),
+      }),
+    })
+  );
+  await page.goto('/index.html?api=1&scope=all&q=artref%20rules', { waitUntil: 'commit' });
+  await expect
+    .poll(async () => page.locator('#result-list li').count(), { timeout: 30000 })
+    .toBeGreaterThanOrEqual(CASES.length);
+  // Treaties bundle lands async after first paint; buttons appear on re-annotate.
+  await expect
+    .poll(async () => page.locator('#result-list .treaty-article-ref[data-treaty="ICCPR-OP1"]').count(), { timeout: 15000 })
+    .toBeGreaterThan(0);
+  for (const c of CASES) {
+    const li = page.locator('#result-list li', { hasText: c.text.slice(0, 40) });
+    const got = await li.locator('.treaty-article-ref').evaluateAll((els) =>
+      els.map((b) => [b.getAttribute('data-article'), b.getAttribute('data-treaty')])
+    );
+    expect(got, `case ${c.id}`).toEqual(c.expect);
+  }
+});
