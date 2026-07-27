@@ -10859,6 +10859,7 @@ if (typeof window !== 'undefined') {
 // that pop up the actual treaty article text on demand.
 let _treatiesCache = null;
 let _treatiesByCommittee = {};   // CCPR → iccpr_treaty_obj
+let _treatyNameIndex = [];       // [{name: lowercased name_full, abbr}], longest first
 let _treatiesLoading = null;
 async function _loadTreaties() {
   if (_treatiesCache) return _treatiesCache;
@@ -10885,6 +10886,17 @@ async function _loadTreaties() {
           }
         }
       }
+      // Full-name index for the leading-instrument guard in
+      // annotateTreatyText: lets "…Discrimination Against Women (art. 15)"
+      // resolve to CEDAW by the name written in the text itself. Longest
+      // name first so "ICCPR" never shadows "ICCPR-OP1"-style overlaps.
+      _treatyNameIndex = Object.values(data)
+        .filter(t => t.name_full && t.abbr)
+        .map(t => ({
+          name: String(t.name_full).replace(/\s+/g, ' ').trim().toLowerCase(),
+          abbr: String(t.abbr).toUpperCase(),
+        }))
+        .sort((a, b) => b.name.length - a.name.length);
       return data;
     } catch (e) {
       console.warn('[ask] treaties bundle failed:', e);
@@ -11024,6 +11036,36 @@ function annotateTreatyText(html, committee, citedArticles) {
       const hasExternalInstrumentTail = !!ofOther
         && ofOther[1].toLowerCase() !== homeWord
         && ofOther[1].toLowerCase() !== 'protocol';
+      // v19.65: LEADING-instrument guard — the mirror image of the tail
+      // guard above. Enumerations name the instrument BEFORE the number:
+      //   "…the Universal Declaration of Human Rights (art. 6), the
+      //    International Covenant on Civil and Political Rights (art. 16)…"
+      // The tail after "(art. 6)" is just ", the International…", so the
+      // tail guard can't see the mismatch and the number used to fall
+      // through to this committee's home treaty — a CRPD GC popped "CRPD
+      // Article 6" for what the text says is UDHR art. 6. (citedArticles
+      // solves this where present, but API-served hits don't carry it —
+      // the search DB has no cited_articles column — so the regex path IS
+      // the path for every result-list snippet.)
+      // When the ref sits in a parenthetical directly after an instrument
+      // name: a name_full match on a DIFFERENT treaty relinks the button
+      // to that treaty; a recognisable non-treaty instrument (Declaration,
+      // Charter, Rules, …) renders as plain text; anything else — including
+      // the home treaty's own name or a bare "the Convention (art. N)" —
+      // keeps the home-treaty behaviour unchanged.
+      const lead = (fullStr || '').slice(Math.max(0, offset - 130), offset);
+      let leadTreatyAbbr = null;
+      let leadExternal = false;
+      const leadParen = lead.match(/([\s\S]*?)\(\s*$/);
+      if (leadParen) {
+        const phrase = leadParen[1].replace(/\s+/g, ' ').trim().toLowerCase();
+        const named = _treatyNameIndex.find(x => phrase.endsWith(x.name));
+        if (named) {
+          if (named.abbr !== String(abbr).toUpperCase()) leadTreatyAbbr = named.abbr;
+        } else if (/\b(?:declaration|charter|rules|principles|guidelines)\b[^()]*$/i.test(leadParen[1])) {
+          leadExternal = true;
+        }
+      }
       let out = prefix + ws;
       let lastIdx = 0;
       let m;
@@ -11049,7 +11091,12 @@ function annotateTreatyText(html, committee, citedArticles) {
         if (cited && cited.treaty) {
           targetAbbr = cited.treaty;
           targetPara = inlinePara || cited.paragraph;
-        } else if (hasProtocolTail || hasExternalInstrumentTail) {
+        } else if (leadTreatyAbbr) {
+          // Instrument named in full immediately before the parenthetical —
+          // link to THAT treaty, not the committee's home one.
+          targetAbbr = leadTreatyAbbr;
+          targetPara = inlinePara;
+        } else if (leadExternal || hasProtocolTail || hasExternalInstrumentTail) {
           // No pre-tagged ref AND the text points at a Protocol or a
           // different instrument ("of the Standard Minimum Rules", "of the
           // Universal Declaration", …) — render as plain text rather than
