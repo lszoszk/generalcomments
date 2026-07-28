@@ -11060,7 +11060,42 @@ function annotateTreatyText(html, committee, citedArticles) {
     // ICCPR-OP1. "Second/Third" ordinals pick the ordinal sibling (GC29's
     // "article 6 of that Protocol" → ICCPR-OP2). CRC stays unresolved —
     // three OPs share the bare name — and falls back to plain text.
-    const PROTOCOL_TRAILING_RE = /^[\s,]*(?:as\s+\w+\s+(?:in|under)\s+)?(?:of|in|under)\s+(?:that|the|its)\s+(?:(First|Second|Third)\s+)?(?:Optional\s+)?Protocol\b/i;
+    /* v19.68: the corpus routinely writes qualifier text BETWEEN the number
+       and the instrument it belongs to —
+         "article 5, paragraph 1, of the Optional Protocol"
+         "article 9 (2) and (3) of the Constitution"
+       and every tail rule below used to anchor hard on `^[\s,]*of`, so all of
+       them silently missed those shapes and the ref fell through to the home
+       treaty (63 corpus occurrences of the first form alone). This bridge
+       tolerates up to four qualifier tokens before the "of". It cannot run
+       across a clause: no word characters beyond the listed tokens are
+       allowed, so "article 6 (right to life)" still finds no tail. */
+    const TAIL_BRIDGE = String.raw`(?:[\s,]*(?:and\s+)?(?:(?:sub-?)?paras?\.?|(?:sub-?)?paragraphs?|sects?\.?|sections?|\([\da-z]+\)|\d+)){0,4}`;
+    const OF_HEAD = String.raw`^${TAIL_BRIDGE}[\s,]*(?:of|in|under)\s+(?:the\s+|that\s+|its\s+)?`;
+    const PROTOCOL_TRAILING_RE = new RegExp(
+      String.raw`^${TAIL_BRIDGE}[\s,]*(?:as\s+\w+\s+(?:in|under)\s+)?(?:of|in|under)\s+(?:that|the|its)\s+(?:(First|Second|Third)\s+)?(?:Optional\s+)?Protocol\b`, 'i');
+    /* Lowercase domestic instruments in the tail: "article 26 of the decree of
+       2 November 1945". The capitalised matcher below can't see these (53
+       corpus hits). Tail-side only, and that asymmetry is deliberate:
+       "article N of the law" IS an instrument reference, whereas the bare lead
+       form "equality before the law (art. 26)" is not — which is why the lead
+       guard stays case-sensitive and excludes "law" entirely. */
+    const OF_LOWER_RE = new RegExp(OF_HEAD + String.raw`(?:decree|law|act|code|constitution|ordinance|regulation)\b`, 'i');
+    /* v19.68: the domestic instrument is often named a little BEFORE the
+       parenthetical rather than flush against it —
+         "The Korean Constitution contains a provision (article 37, ...)"
+         "when the new Constitution came into force on 2 February 1987 (article 3(19)(1))"
+       (41 corpus occurrences). The bridge may not cross a sentence end, a
+       paren, or any treaty word — and it may not cross " to " or " and "
+       either, which is what separates the two readings:
+         "…the Anti-Discrimination Act TO request accommodation (art. 13)"
+       is a CRPD reference with a domestic clause in front of it, not a
+       reference to the Act. Measured against the 328 audit verdicts, the
+       to/and exclusion is worth +2 correct answers over the naive bridge
+       AND removes two false plain-texts it would otherwise cause. */
+    const LEAD_DOMESTIC_RE = new RegExp(
+      String.raw`\b(?:Constitution|Criminal Code|Civil Code|Penal Code|Labour Code|Code|Act|Decree|Ordinance)\b` +
+      String.raw`(?:(?!\b(?:Covenant|Convention|Protocol|Charter|Declaration)\b)(?!\s(?:to|and)\s)[^.;()]){0,45}$`);
     const LEAD_OP_RE = /(?:^|[\s(])(?:the\s+)?(?:(first|second|third)\s+)?optional\s+protocol$/i;
     const _resolveOp = (ordinal) => {
       const ops = _opByCommittee[String(committee || '').toUpperCase()];
@@ -11069,10 +11104,11 @@ function annotateTreatyText(html, committee, citedArticles) {
       return ops.bare || null;
     };
     t = t.replace(artListPat, (match, prefix, ws, body, offset, fullStr) => {
-      // Look ~160 chars after the match for a trailing instrument name.
-      // 80 was enough for the guard words, but full-name TAIL RESOLUTION
-      // (v19.67) must fit e.g. CEDAW's 75-char title AFTER "of the ".
-      const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 160);
+      // Look ~200 chars after the match for a trailing instrument name.
+      // 80 was enough for the guard words; full-name TAIL RESOLUTION
+      // (v19.67) must fit e.g. CEDAW's 75-char title AFTER "of the ", and
+      // v19.68's bridge can consume ~40 more before the name starts.
+      const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 200);
       const protTail = tail.match(PROTOCOL_TRAILING_RE);
       const hasProtocolTail = !!protTail;
       const opAbbr = protTail ? _resolveOp(protTail[1]) : null;
@@ -11087,14 +11123,14 @@ function annotateTreatyText(html, committee, citedArticles) {
       // unaffected (instrument word matches the home term, or no "of …"
       // trailer at all → home-treaty link as before).
       const homeWord = String(term).replace(/^the\s+/i, '').trim().split(/\s+/)[0].toLowerCase();
-      const ofOther = tail.match(/^[\s,]*(?:of|in|under)\s+(?:the\s+|that\s+|its\s+)?([A-Z][A-Za-z'’.\-]+)/);
+      const ofOther = tail.match(new RegExp(OF_HEAD + String.raw`([A-Z][A-Za-z'’.\-]+)`));
       // v19.67: when the tail spells the instrument out in FULL — "articles
       // 2 (c), 3, 5 (a) and 15 of the Convention on the Elimination of All
       // Forms of Discrimination Against Women" — resolve to that treaty
       // instead of merely plain-texting. The v19.63 tail guard predates the
       // name index, so it could only refuse the home link, never make the
       // right one.
-      const ofPhrase = tail.match(/^[\s,]*(?:of|in|under)\s+(?:the\s+)?([\s\S]{0,130})/);
+      const ofPhrase = tail.match(new RegExp(OF_HEAD + String.raw`([\s\S]{0,130})`));
       const tailNamed = ofPhrase
         ? _treatyNameIndex.find(x => ofPhrase[1].replace(/\s+/g, ' ').trim().toLowerCase().startsWith(x.name))
         : null;
@@ -11111,6 +11147,9 @@ function annotateTreatyText(html, committee, citedArticles) {
       // fire on such phrases. Now that Constitution/Code/Act DO fire, the
       // explicit home tail keeps them from stealing a correct link.
       const hasHomeTail = !!ofOther && ofOther[1].toLowerCase() === homeWord;
+      // Lowercase domestic tail ("of the decree"), which hasHomeTail can never
+      // claim (home terms are Covenant/Convention/Charter, all capitalised).
+      const ofLowerDomestic = !hasHomeTail && !tailTreatyAbbr && OF_LOWER_RE.test(tail);
       // v19.65: LEADING-instrument guard — the mirror image of the tail
       // guard above. Enumerations name the instrument BEFORE the number:
       //   "…the Universal Declaration of Human Rights (art. 6), the
@@ -11152,7 +11191,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           if (op) leadTreatyAbbr = op; else leadExternal = true;
         } else if (/\b(?:declaration|charter|rules|principles|guidelines)\b[^()]*$/i.test(leadParen[1])) {
           leadExternal = true;
-        } else if (/(?:Constitution|Criminal Code|Civil Code|Penal Code|Labour Code|Code|Act|Decree|Ordinance)\s*$/.test(rawPhrase)) {
+        } else if (LEAD_DOMESTIC_RE.test(rawPhrase)) {
           // v19.67: domestic-instrument guard. 96 of the audit's 108
           // verified wrong links were national constitutions, codes and
           // acts ("the Federal Asylum Act (art. 32)", "in accordance with
@@ -11217,7 +11256,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           // to the lead-side guards.
           targetAbbr = abbr;
           targetPara = inlinePara;
-        } else if (leadExternal || leadDomestic || hasProtocolTail || hasExternalInstrumentTail) {
+        } else if (leadExternal || leadDomestic || ofLowerDomestic || hasProtocolTail || hasExternalInstrumentTail) {
           // No pre-tagged ref AND the text points at a Protocol or a
           // different instrument ("of the Standard Minimum Rules", "of the
           // Universal Declaration", …) — render as plain text rather than
@@ -11260,7 +11299,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           const parts = m[0].match(/^(\d+)(\s*[–-]\s*)([\s\S]*)$/);
           const cited2 = consumeRef(rangeEnd);
           const fallback2 = leadTreatyAbbr || tailTreatyAbbr || opAbbr ||
-            ((hasHomeTail || !(leadExternal || leadDomestic || hasProtocolTail || hasExternalInstrumentTail)) ? abbr : null);
+            ((hasHomeTail || !(leadExternal || leadDomestic || ofLowerDomestic || hasProtocolTail || hasExternalInstrumentTail)) ? abbr : null);
           let target2;
           if (cited2 && cited2.treaty) {
             target2 = (cited2.treaty === '?' && leadTreatyAbbr) ? leadTreatyAbbr : cited2.treaty;

@@ -603,7 +603,7 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('profiling');
 });
 
-test('A9. artRefResolution · v19.67 rules — OP anaphora, compound lists, domestic guard, tail names', async ({ page }) => {
+test('A9. artRefResolution · v19.67-68 rules — OP anaphora, compound lists, qualifier bridge, domestic guards', async ({ page }) => {
   /* Distilled from the 2026-07-27 verification-agent audit
      (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
        op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
@@ -632,6 +632,22 @@ test('A9. artRefResolution · v19.67 rules — OP anaphora, compound lists, dome
     { id: 'neg-law', committee: 'CCPR',
       text: 'Equality before the law (art. 26) is guaranteed to all persons.',
       expect: [['26', 'ICCPR']] },
+    /* v19.68 — qualifier text between the number and its instrument. */
+    { id: 'bridge-op', committee: 'CCPR',
+      text: 'The claim is inadmissible under article 5, paragraph 2 (a), of the Optional Protocol as submitted.',
+      expect: [['5', 'ICCPR-OP1']] },
+    { id: 'bridge-home', committee: 'CCPR',
+      text: 'The State party violated article 19, paragraph 3, of the Covenant in this matter.',
+      expect: [['19', 'ICCPR']] },
+    /* v19.68 — instrument named a little before the parenthetical, and the
+       negative control that keeps the rule honest: " to " starts a new
+       clause, so the Act does NOT own the (art. 13) that follows it. */
+    { id: 'lead-near', committee: 'CCPR',
+      text: 'The Korean Constitution contains a provision (article 37, paragraph 2) stipulating that freedoms may be restricted.',
+      expect: [] },
+    { id: 'lead-near-neg', committee: 'CRPD',
+      text: 'he has not made a complaint under section 24 of the Anti-Discrimination Act to request special accommodation (art. 13) and never challenged it.',
+      expect: [['13', 'CRPD']] },
   ];
   const BUNDLE = {
     iccpr: { abbr: 'ICCPR', name_full: 'International Covenant on Civil and Political Rights',
@@ -644,6 +660,10 @@ test('A9. artRefResolution · v19.67 rules — OP anaphora, compound lists, dome
     'iccpr-op2': { abbr: 'ICCPR-OP2',
       name_full: 'Second Optional Protocol to the International Covenant on Civil and Political Rights, aiming at the abolition of the death penalty',
       term: 'Optional Protocol', committee_codes: ['CCPR'], articles: [] },
+    crpd: { abbr: 'CRPD',
+      name_full: 'Convention on the Rights of Persons with Disabilities',
+      term: 'Convention', committee_codes: ['CRPD'],
+      articles: [{ number: '13', paragraphs: [{ num: '1', text: 'States Parties shall ensure effective access to justice.' }] }] },
     cedaw: { abbr: 'CEDAW',
       name_full: 'Convention on the Elimination of All Forms of Discrimination Against Women',
       term: 'Convention', committee_codes: ['CEDAW'],
