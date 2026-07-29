@@ -603,7 +603,7 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('profiling');
 });
 
-test('A9. artRefResolution · v19.67-71 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
+test('A9. artRefResolution · v19.67-72 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
   /* Distilled from the 2026-07-27 verification-agent audit
      (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
        op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
@@ -692,9 +692,15 @@ test('A9. artRefResolution · v19.67-71 rules — OP anaphora, compound lists, d
     { id: 'gc-phantom', committee: 'CCPR',
       text: 'the deportation prohibition in article 47 of the Geneva Conventions is absolute.',
       expect: [] },
+    /* v19.72 — a specific Convention now resolves too. This case expected
+       plain text one commit ago, when only the common-articles entry
+       existed; the change of expectation IS the feature. */
     { id: 'gc-specific', committee: 'CAT',
       text: 'a violation of article 12 of the Third Geneva Convention was alleged.',
-      expect: [] },
+      expect: [['12', 'GC III']] },
+    { id: 'ap-protocol', committee: 'CCPR',
+      text: 'the fundamental guarantees in article 75 of Additional Protocol I bind all parties.',
+      expect: [['75', 'AP I']] },
   ];
   /* Every article a case references must exist in the mock: since v19.71 the
      renderer refuses to button a unit the instrument does not hold (the
@@ -730,6 +736,12 @@ test('A9. artRefResolution · v19.67-71 rules — OP anaphora, compound lists, d
       committee_codes: [], articles: arts(44) },
     /* Common articles 1-3 only — identical across GC I-IV. Article 47 is
        deliberately absent so the phantom guard has something to catch. */
+    'gc iii': { abbr: 'GC III', name_full: 'Geneva Convention relative to the Treatment of Prisoners of War',
+      alt_names: ['Third Geneva Convention', 'Geneva Convention III'],
+      term: 'Geneva', committee_codes: [], articles: arts(12, 13) },
+    'ap i': { abbr: 'AP I',
+      name_full: 'Protocol Additional to the Geneva Conventions of 12 August 1949, and relating to the Protection of Victims of International Armed Conflicts (Protocol I)',
+      alt_names: ['Additional Protocol I'], term: 'Protocol', committee_codes: [], articles: arts(75) },
     'geneva conventions': { abbr: 'Geneva Conventions',
       name_full: 'Geneva Conventions of 12 August 1949 (common articles)',
       alt_names: ['four Geneva Conventions', 'Geneva Conventions'],

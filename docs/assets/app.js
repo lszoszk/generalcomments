@@ -10878,7 +10878,7 @@ async function _loadTreaties() {
       // immutable): without it, anyone who visited in the last 24h keeps
       // the pre-instruments 18-treaty bundle until their cache expires.
       // Bump the tag whenever the server-side bundle contents change.
-      const res = await fetch(`${ASK_API_BASE}/api/treaties?v=20260729-geneva`);
+      const res = await fetch(`${ASK_API_BASE}/api/treaties?v=20260729-gc-full`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       _treatiesCache = data;
