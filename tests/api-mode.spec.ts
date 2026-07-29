@@ -603,7 +603,7 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('profiling');
 });
 
-test('A9. artRefResolution · v19.67-69 rules — OP anaphora, compound lists, qualifier bridge, domestic guards', async ({ page }) => {
+test('A9. artRefResolution · v19.67-70 rules — OP anaphora, compound lists, domestic guards, soft-law units', async ({ page }) => {
   /* Distilled from the 2026-07-27 verification-agent audit
      (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
        op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
@@ -663,6 +663,18 @@ test('A9. artRefResolution · v19.67-69 rules — OP anaphora, compound lists, q
     { id: 'series-sent', committee: 'CCPR',
       text: 'The appeal cited the ordinance (art. 7 of the Decree). The author further invoked the right to liberty (art. 9).',
       expect: [['9', 'ICCPR']] },
+    /* v19.70 — soft-law units. The negatives matter more than the positives:
+       7,584 of the corpus's 8,562 "rule/principle N" occurrences are the
+       Committee's own rules of procedure, and none may ever link. */
+    { id: 'sl-rule', committee: 'CAT',
+      text: 'The Committee recalls that, under rule 44 of the Nelson Mandela Rules, prolonged solitary confinement is prohibited.',
+      expect: [['44', 'Mandela Rules']] },
+    { id: 'sl-neg-rop', committee: 'CAT',
+      text: 'The Committee, pursuant to rule 108, paragraph 1, of its rules of procedure, requested interim measures.',
+      expect: [] },
+    { id: 'sl-neg-unit', committee: 'CAT',
+      text: 'principle 44 of the Nelson Mandela Rules was invoked by counsel.',
+      expect: [] },
     { id: 'series-home', committee: 'CRC',
       text: 'the general measures of implementation (arts. 4 and 42 of the Convention) and the best interests principle (art. 3) apply.',
       expect: [['4', 'CRC'], ['42', 'CRC'], ['3', 'CRC']] },
@@ -685,6 +697,18 @@ test('A9. artRefResolution · v19.67-69 rules — OP anaphora, compound lists, q
     crc: { abbr: 'CRC', name_full: 'Convention on the Rights of the Child',
       term: 'Convention', committee_codes: ['CRC'],
       articles: [{ number: '3', paragraphs: [{ num: '1', text: 'The best interests of the child shall be a primary consideration.' }] }] },
+    /* CAT must be present: annotateTreatyText resolves the committee's own
+       treaty first and returns early when the bundle does not hold it, which
+       would silently disable the soft-law pass too. */
+    cat: { abbr: 'CAT',
+      name_full: 'Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment',
+      term: 'Convention', committee_codes: ['CAT'],
+      articles: [{ number: '3', paragraphs: [{ num: '1', text: 'No State Party shall expel a person where there are substantial grounds.' }] }] },
+    'mandela rules': { abbr: 'Mandela Rules',
+      name_full: 'United Nations Standard Minimum Rules for the Treatment of Prisoners',
+      alt_names: ['Nelson Mandela Rules'], term: 'United', unit_term: 'rule',
+      committee_codes: [],
+      articles: [{ number: '44', paragraphs: [{ num: null, text: 'For the purpose of these rules, solitary confinement shall refer to confinement for 22 hours or more a day.' }] }] },
     cedaw: { abbr: 'CEDAW',
       name_full: 'Convention on the Elimination of All Forms of Discrimination Against Women',
       term: 'Convention', committee_codes: ['CEDAW'],

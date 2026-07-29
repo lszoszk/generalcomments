@@ -10865,6 +10865,8 @@ let _treatyNameIndex = [];       // [{name: lowercased name_full, abbr}], longes
 // several plausible OPs (CRC: OPAC/OPSC/OPIC) — resolution then falls back
 // to the pre-v19.67 plain-text behaviour rather than guessing.
 let _opByCommittee = {};
+// [{name, abbr, unit}] for soft-law instruments, longest name first.
+let _unitNameIndex = [];
 let _treatiesLoading = null;
 async function _loadTreaties() {
   if (_treatiesCache) return _treatiesCache;
@@ -10876,7 +10878,7 @@ async function _loadTreaties() {
       // immutable): without it, anyone who visited in the last 24h keeps
       // the pre-instruments 18-treaty bundle until their cache expires.
       // Bump the tag whenever the server-side bundle contents change.
-      const res = await fetch(`${ASK_API_BASE}/api/treaties?v=20260727-tier1`);
+      const res = await fetch(`${ASK_API_BASE}/api/treaties?v=20260729-softlaw`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       _treatiesCache = data;
@@ -10909,6 +10911,25 @@ async function _loadTreaties() {
           .map(n => ({
             name: n.replace(/\s+/g, ' ').trim().toLowerCase(),
             abbr: String(t.abbr).toUpperCase(),
+          })))
+        .filter(x => x.name.length >= 10)
+        .sort((a, b) => b.name.length - a.name.length);
+      /* Instruments whose units are "rule N" / "principle N" rather than
+         "article N" (Mandela Rules, Body of Principles, UNGPs). Kept in a
+         SEPARATE index because these may only ever be linked when the text
+         names them next to the number — see the unit pass in
+         annotateTreatyText. There is no home fallback for soft law. */
+      _unitNameIndex = Object.values(data)
+        .filter(t => t.unit_term && t.abbr && t.name_full)
+        .flatMap(t => [String(t.name_full), ...(t.alt_names || [])]
+          .map(n => ({
+            name: n.replace(/\s+/g, ' ').trim().toLowerCase(),
+            // Case preserved, unlike the treaty index: these abbrs are proper
+            // names ("Mandela Rules"), and the popover header prints them.
+            // Lookup is case-insensitive anyway (_treatiesCache is keyed
+            // lowercase and the reader lowercases data-treaty).
+            abbr: String(t.abbr),
+            unit: String(t.unit_term).toLowerCase(),
           })))
         .filter(x => x.name.length >= 10)
         .sort((a, b) => b.name.length - a.name.length);
@@ -11034,6 +11055,11 @@ function annotateTreatyText(html, committee, citedArticles) {
     String.raw`\b(articles?|arts?\.?)(\s+)(${NUM}${QUAL}(?:\s*(?:,|\band\b|\bor\b)\s*${NUM}${QUAL})*)`,
     'gi'
   );
+  /* "rule 44", "rules 44 and 45", "principle 12", "guiding principles 1-3, 11
+     and 24" — same list grammar as articles, different heading word. */
+  const unitListPat = new RegExp(
+    String.raw`\b(guiding\s+principles?|rules?|principles?|guidelines?)(\s+)(${NUM}(?:\s*(?:,|\band\b|\bor\b)\s*${NUM})*)`, 'gi');
+  const unitItemPat = /(\d+)/g;
   const itemPat = new RegExp(
     String.raw`(\d+)(?:\s*[–-]\s*(\d+))?((?:\s*\(\s*(?:para(?:graph)?s?\.?\s+)?(?:\d+|[a-z])(?:(?:\s+and\s+|\s*,\s*)(?:\d+|[a-z]))*\s*\)){0,2})`,
     'g'
@@ -11375,6 +11401,47 @@ function annotateTreatyText(html, committee, citedArticles) {
       if ((hasProtocolTail || hasExternalInstrumentTail) && !renderedAny) return match;
       return out;
     });
+
+    /* v19.70: SOFT-LAW UNIT PASS. Mandela Rules, Body of Principles and the
+       UNGPs number their units "rule 44" / "principle 12", which the article
+       pass above never sees.
+
+       This pass is deliberately NOT built like the article one. "rule N" is
+       overwhelmingly something else in this corpus: of 8,562 "rule/principle
+       N" occurrences, 7,584 are the treaty bodies' own RULES OF PROCEDURE
+       ("rule 108 of the Committee's rules of procedure") — an entirely
+       different document. So there is no home fallback and no guessing: a
+       unit citation links ONLY when the text names the instrument right next
+       to it, and only when that instrument's own unit_term matches the word
+       used. Everything else stays exactly as it was: plain text. That gates
+       243 corpus references in, and 7,584 out. */
+    t = t.replace(unitListPat, (match, word, ws, body, offset, fullStr) => {
+      if (!_unitNameIndex.length) return match;
+      const unit = word.toLowerCase().replace(/^guiding\s+/, '').replace(/s$/, '');
+      const lead = (fullStr || '').slice(Math.max(0, offset - 90), offset);
+      const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 170);
+      // Name immediately before the number ("the Nelson Mandela Rules (rule 44)",
+      // "…, Mandela Rules, rule 44") — no sentence end in between.
+      const leadPhrase = lead.replace(/\s+/g, ' ');
+      const named = _unitNameIndex.find(x =>
+        new RegExp(x.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + "[^.;]{0,20}$", 'i').test(leadPhrase)
+      ) || (() => {
+        const m2 = tail.match(/^[\s,]*(?:of|in|under)\s+(?:the\s+)?([\s\S]{0,120})/);
+        if (!m2) return null;
+        const p = m2[1].replace(/\s+/g, ' ').trim().toLowerCase();
+        return _unitNameIndex.find(x => p.startsWith(x.name)) || null;
+      })();
+      if (!named || named.unit !== unit) return match;
+      let out = word + ws, lastIdx = 0, m;
+      unitItemPat.lastIndex = 0;
+      while ((m = unitItemPat.exec(body)) !== null) {
+        out += body.slice(lastIdx, m.index);
+        out += `<button type="button" class="treaty-article-ref" data-treaty="${named.abbr}"` +
+               ` data-article="${m[1]}" data-unit="${named.unit}">${m[0]}</button>`;
+        lastIdx = m.index + m[0].length;
+      }
+      return out + body.slice(lastIdx);
+    });
     return t;
   }).join('');
 }
@@ -11421,9 +11488,14 @@ function showTreatyPopover(button) {
       popover.style.display = 'none';
     });
   }
+  /* Soft-law instruments number their units "rule N" / "principle N", so the
+     header follows the instrument rather than always saying "Article". */
+  const unitWord = button.dataset.unit
+    ? button.dataset.unit.charAt(0).toUpperCase() + button.dataset.unit.slice(1)
+    : 'Article';
   const articleLabel = button.dataset.paragraph
-    ? `Article ${askEscape(button.dataset.article)}(${askEscape(button.dataset.paragraph)})`
-    : `Article ${askEscape(button.dataset.article)}`;
+    ? `${unitWord} ${askEscape(button.dataset.article)}(${askEscape(button.dataset.paragraph)})`
+    : `${unitWord} ${askEscape(button.dataset.article)}`;
   let body;
   if (button.dataset.paragraph) {
     const para = (article.paragraphs || []).find(p => p.num === button.dataset.paragraph);
