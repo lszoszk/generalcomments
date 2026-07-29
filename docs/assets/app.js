@@ -11096,6 +11096,56 @@ function annotateTreatyText(html, committee, citedArticles) {
     const LEAD_DOMESTIC_RE = new RegExp(
       String.raw`\b(?:Constitution|Criminal Code|Civil Code|Penal Code|Labour Code|Code|Act|Decree|Ordinance)\b` +
       String.raw`(?:(?!\b(?:Covenant|Convention|Protocol|Charter|Declaration)\b)(?!\s(?:to|and)\s)[^.;()]){0,45}$`);
+
+    /* v19.69: SERIES PROPAGATION. A sentence names the instrument once and
+       lets the rest of the list inherit it:
+         "…rights to work (arts. 35 and 40 of the Constitution), the
+          inclusion of persons with disabilities (art. 49), access to public
+          employment (art. 23) and human dignity (art. 10)."
+       Every rule above reads only text adjacent to the number, and the
+       lead-near bridge may not cross a ")", so 49/23/10 fell through to the
+       committee's own treaty — and popped CRPD articles that DO exist and
+       mean something else entirely (49 "Accessible format", 23 "Respect for
+       home and the family", 10 "Right to life"). A confident wrong article
+       text is the worst failure this renderer has.
+
+       Deliberately one-directional: an anchor can only STRIP a link, never
+       create one. The treaty-naming variant ("…(art. 11 of the ICESCR),
+       health (art. 12)…") was implemented and measured at zero corpus
+       occurrences — GC paragraphs of that shape already carry citedArticles
+       — so it is not carried here. Inventing links from a distance is the
+       risky direction; withholding one is not.
+
+       Reach is bounded three ways: the current sentence only, the ref must
+       itself sit inside a parenthetical, and ANY later instrument word ends
+       the anchor's authority (a sentence may switch instruments mid-list). */
+    const SERIES_ANCHOR_RE = /\(\s*arts?\.?\s*[\d\s,()]*(?:and\s*)?[\d\s,()]*of\s+the\s+([A-Za-z'’.\- ]{3,45})\)/gi;
+    const SERIES_BREAK_RE = /\b(?:covenant|convention|protocol|charter|declaration|constitution|code|act|decree|statute)\b/i;
+    const SERIES_PLAIN_RE = /\b(?:constitution|criminal code|civil code|penal code|labour code|code|act|decree|ordinance|law|regulation|declaration|charter|rules|principles|guidelines)\s*$/i;
+    const SENTENCE_SPLIT_RE = /[.;]\s+(?=[A-Z"“])/g;
+    const ABBREV_END_RE = /\b(?:arts?|no|paras?|sects?|vol|pp|cf)\.$/i;
+    const _sentenceStart = (s) => {
+      // "arts. 35" must not read as a sentence end.
+      let start = 0, m;
+      SENTENCE_SPLIT_RE.lastIndex = 0;
+      while ((m = SENTENCE_SPLIT_RE.exec(s)) !== null) {
+        if (ABBREV_END_RE.test(s.slice(Math.max(0, m.index - 6), m.index + 1))) continue;
+        start = m.index + m[0].length;
+      }
+      return start;
+    };
+    const _seriesPlainAnchor = (before) => {
+      const sent = before.slice(_sentenceStart(before));
+      const all = [...sent.matchAll(SERIES_ANCHOR_RE)];
+      if (!all.length) return false;
+      const last = all[all.length - 1];
+      if (SERIES_BREAK_RE.test(sent.slice(last.index + last[0].length))) return false;
+      const phrase = last[1].replace(/\s+/g, ' ').trim().toLowerCase();
+      // A named treaty, or the committee's own term, is not our business here.
+      if (_treatyNameIndex.some(x => phrase.endsWith(x.name))) return false;
+      if (phrase.split(' ').pop() === String(term).replace(/^the\s+/i, '').trim().split(/\s+/)[0].toLowerCase()) return false;
+      return SERIES_PLAIN_RE.test(phrase);
+    };
     const LEAD_OP_RE = /(?:^|[\s(])(?:the\s+)?(?:(first|second|third)\s+)?optional\s+protocol$/i;
     const _resolveOp = (ordinal) => {
       const ops = _opByCommittee[String(committee || '').toUpperCase()];
@@ -11205,6 +11255,12 @@ function annotateTreatyText(html, committee, citedArticles) {
           leadDomestic = true;
         }
       }
+      /* v19.69: only for a ref that sits inside a parenthetical and that no
+         adjacent rule claimed — exactly the shape this was measured on. */
+      const seriesPlain = !!leadParen && !leadTreatyAbbr && !leadExternal && !leadDomestic
+        && !tailTreatyAbbr && !opAbbr && !hasHomeTail && !hasProtocolTail
+        && !hasExternalInstrumentTail && !ofLowerDomestic
+        && _seriesPlainAnchor((fullStr || '').slice(0, offset));
       let out = prefix + ws;
       let lastIdx = 0;
       let m;
@@ -11256,7 +11312,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           // to the lead-side guards.
           targetAbbr = abbr;
           targetPara = inlinePara;
-        } else if (leadExternal || leadDomestic || ofLowerDomestic || hasProtocolTail || hasExternalInstrumentTail) {
+        } else if (leadExternal || leadDomestic || ofLowerDomestic || seriesPlain || hasProtocolTail || hasExternalInstrumentTail) {
           // No pre-tagged ref AND the text points at a Protocol or a
           // different instrument ("of the Standard Minimum Rules", "of the
           // Universal Declaration", …) — render as plain text rather than
@@ -11299,7 +11355,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           const parts = m[0].match(/^(\d+)(\s*[–-]\s*)([\s\S]*)$/);
           const cited2 = consumeRef(rangeEnd);
           const fallback2 = leadTreatyAbbr || tailTreatyAbbr || opAbbr ||
-            ((hasHomeTail || !(leadExternal || leadDomestic || ofLowerDomestic || hasProtocolTail || hasExternalInstrumentTail)) ? abbr : null);
+            ((hasHomeTail || !(leadExternal || leadDomestic || ofLowerDomestic || seriesPlain || hasProtocolTail || hasExternalInstrumentTail)) ? abbr : null);
           let target2;
           if (cited2 && cited2.treaty) {
             target2 = (cited2.treaty === '?' && leadTreatyAbbr) ? leadTreatyAbbr : cited2.treaty;

@@ -603,7 +603,7 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('profiling');
 });
 
-test('A9. artRefResolution · v19.67-68 rules — OP anaphora, compound lists, qualifier bridge, domestic guards', async ({ page }) => {
+test('A9. artRefResolution · v19.67-69 rules — OP anaphora, compound lists, qualifier bridge, domestic guards', async ({ page }) => {
   /* Distilled from the 2026-07-27 verification-agent audit
      (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
        op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
@@ -648,6 +648,24 @@ test('A9. artRefResolution · v19.67-68 rules — OP anaphora, compound lists, q
     { id: 'lead-near-neg', committee: 'CRPD',
       text: 'he has not made a complaint under section 24 of the Anti-Discrimination Act to request special accommodation (art. 13) and never challenged it.',
       expect: [['13', 'CRPD']] },
+    /* v19.69 — series propagation. The real CRPD 34/2015 sentence: the
+       Constitution is named once and three later parentheticals inherit it.
+       Before this rule they popped CRPD 49/23/10, which exist and mean
+       "Accessible format" / "Respect for home and the family" / "Right to
+       life" — confidently wrong article text. */
+    { id: 'series', committee: 'CRPD',
+      text: 'it violated the fundamental rights to work and to vocational rehabilitation (arts. 35 and 40 of the Constitution), the inclusion of persons with disabilities (art. 49), access to and retention of public employment (art. 23) and respect for human dignity (art. 10).',
+      expect: [] },
+    /* Three bounds that keep the anchor from over-reaching. */
+    { id: 'series-break', committee: 'CCPR',
+      text: 'the detention order (art. 12 of the Criminal Code) was upheld, and the Committee recalls that the Covenant guarantees fair trial (art. 14).',
+      expect: [['14', 'ICCPR']] },
+    { id: 'series-sent', committee: 'CCPR',
+      text: 'The appeal cited the ordinance (art. 7 of the Decree). The author further invoked the right to liberty (art. 9).',
+      expect: [['9', 'ICCPR']] },
+    { id: 'series-home', committee: 'CRC',
+      text: 'the general measures of implementation (arts. 4 and 42 of the Convention) and the best interests principle (art. 3) apply.',
+      expect: [['4', 'CRC'], ['42', 'CRC'], ['3', 'CRC']] },
   ];
   const BUNDLE = {
     iccpr: { abbr: 'ICCPR', name_full: 'International Covenant on Civil and Political Rights',
@@ -664,6 +682,9 @@ test('A9. artRefResolution · v19.67-68 rules — OP anaphora, compound lists, q
       name_full: 'Convention on the Rights of Persons with Disabilities',
       term: 'Convention', committee_codes: ['CRPD'],
       articles: [{ number: '13', paragraphs: [{ num: '1', text: 'States Parties shall ensure effective access to justice.' }] }] },
+    crc: { abbr: 'CRC', name_full: 'Convention on the Rights of the Child',
+      term: 'Convention', committee_codes: ['CRC'],
+      articles: [{ number: '3', paragraphs: [{ num: '1', text: 'The best interests of the child shall be a primary consideration.' }] }] },
     cedaw: { abbr: 'CEDAW',
       name_full: 'Convention on the Elimination of All Forms of Discrimination Against Women',
       term: 'Convention', committee_codes: ['CEDAW'],
