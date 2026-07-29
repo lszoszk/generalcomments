@@ -603,7 +603,7 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('profiling');
 });
 
-test('A9. artRefResolution · v19.67-72 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
+test('A9. artRefResolution · v19.67-73 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
   /* Distilled from the 2026-07-27 verification-agent audit
      (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
        op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
@@ -695,6 +695,18 @@ test('A9. artRefResolution · v19.67-72 rules — OP anaphora, compound lists, d
     /* v19.72 — a specific Convention now resolves too. This case expected
        plain text one commit ago, when only the common-articles entry
        existed; the change of expectation IS the feature. */
+    /* v19.73 — REGRESSION GUARD. "…of the Covenant." at the end of a sentence:
+       the tail matcher's character class keeps "." for abbreviations and so
+       captured "Covenant.", which matched no home term and no treaty name, so
+       the commonest citation form in the corpus rendered as plain text. Every
+       earlier case here happened to put a word after "Covenant" and missed it;
+       a blind random-sample audit found it. Keep BOTH forms. */
+    { id: 'home-tail-eos', committee: 'CCPR',
+      text: 'The seizure violated article 19 of the Covenant.',
+      expect: [['19', 'ICCPR']] },
+    { id: 'home-tail-bridge-eos', committee: 'CCPR',
+      text: 'The author invokes article 19, paragraph 2, of the Covenant.',
+      expect: [['19', 'ICCPR']] },
     { id: 'gc-specific', committee: 'CAT',
       text: 'a violation of article 12 of the Third Geneva Convention was alleged.',
       expect: [['12', 'GC III']] },
@@ -708,6 +720,7 @@ test('A9. artRefResolution · v19.67-72 rules — OP anaphora, compound lists, d
   const arts = (...nums) => nums.map((n) => ({
     number: String(n), paragraphs: [{ num: null, text: `Text of unit ${n}.` }],
   }));
+  let CURRENT = CASES;
   const BUNDLE = {
     /* CAT must be present: annotateTreatyText resolves the committee's own
        treaty first and returns early when the bundle does not hold it, which
@@ -757,9 +770,9 @@ test('A9. artRefResolution · v19.67-72 rules — OP anaphora, compound lists, d
     route.fulfill({
       status: 200,
       body: JSON.stringify({
-        query: 'artref rules', scope: 'all', total: CASES.length,
-        breakdown: { gc: CASES.length, jur: 0, sp: 0 }, page: 1, page_size: 50,
-        hits: CASES.map((c, i) => ({
+        query: 'artref rules', scope: 'all', total: CURRENT.length,
+        breakdown: { gc: CURRENT.length, jur: 0, sp: 0 }, page: 1, page_size: 50,
+        hits: CURRENT.map((c, i) => ({
           rowid: i + 1, para_id: `a9-${c.id}`, doc_id: `a9-doc-${c.id}`, idx: i, n: String(i),
           section: null, text: c.text, type: 'gc', treaty: c.committee, committee: c.committee,
           mandate: null, country: null, year: 2020, adoption_date: '2020-01-01',
@@ -769,19 +782,26 @@ test('A9. artRefResolution · v19.67-72 rules — OP anaphora, compound lists, d
       }),
     })
   );
-  await page.goto('/index.html?api=1&scope=all&q=artref%20rules', { waitUntil: 'commit' });
-  await expect
-    .poll(async () => page.locator('#result-list li').count(), { timeout: 30000 })
-    .toBeGreaterThanOrEqual(CASES.length);
-  // Treaties bundle lands async after first paint; buttons appear on re-annotate.
-  await expect
-    .poll(async () => page.locator('#result-list .treaty-article-ref[data-treaty="ICCPR-OP1"]').count(), { timeout: 15000 })
-    .toBeGreaterThan(0);
-  for (const c of CASES) {
-    const li = page.locator('#result-list li', { hasText: c.text.slice(0, 40) });
-    const got = await li.locator('.treaty-article-ref').evaluateAll((els) =>
-      els.map((b) => [b.getAttribute('data-article'), b.getAttribute('data-treaty')])
-    );
-    expect(got, `case ${c.id}`).toEqual(c.expect);
+  /* The result list appends 20 rows per page and the reader has no loader to
+     call, so a suite larger than one page silently stops asserting on its
+     tail — which is exactly how a stale expectation hid here once. Drive the
+     cases in chunks that always fit. */
+  for (let start = 0; start < CASES.length; start += 12) {
+    const chunk = CASES.slice(start, start + 12);
+    CURRENT = chunk;
+    await page.goto(`/index.html?api=1&scope=all&q=artref%20rules&n=${start}`, { waitUntil: 'commit' });
+    await expect
+      .poll(async () => page.locator('#result-list li').count(), { timeout: 30000 })
+      .toBeGreaterThanOrEqual(chunk.length);
+    await expect
+      .poll(async () => page.locator('#result-list .treaty-article-ref').count(), { timeout: 15000 })
+      .toBeGreaterThan(0);
+    for (const c of chunk) {
+      const li = page.locator('#result-list li', { hasText: c.text.slice(0, 40) });
+      const got = await li.locator('.treaty-article-ref').evaluateAll((els) =>
+        els.map((b) => [b.getAttribute('data-article'), b.getAttribute('data-treaty')])
+      );
+      expect(got, `case ${c.id}`).toEqual(c.expect);
+    }
   }
 });

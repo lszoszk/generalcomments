@@ -11207,6 +11207,15 @@ function annotateTreatyText(html, committee, citedArticles) {
       // trailer at all → home-treaty link as before).
       const homeWord = String(term).replace(/^the\s+/i, '').trim().split(/\s+/)[0].toLowerCase();
       const ofOther = tail.match(new RegExp(OF_HEAD + String.raw`([A-Z][A-Za-z'’.\-]+)`));
+      /* v19.73: the class keeps "." so abbreviations survive ("U.N. Charter"),
+         but it also swallows a SENTENCE-ending period — "of the Covenant."
+         captured as "Covenant.", which matched neither the home term nor any
+         treaty name, so the commonest citation form in the corpus was read as
+         an unknown external instrument and silently rendered as plain text.
+         Strip trailing dots before comparing; a real abbreviation keeps its
+         internal ones. Found by a blind random-sample audit — every earlier
+         test happened to put a word after "Covenant". */
+      const ofWord = ofOther ? ofOther[1].replace(/\.+$/, '').toLowerCase() : null;
       // v19.67: when the tail spells the instrument out in FULL — "articles
       // 2 (c), 3, 5 (a) and 15 of the Convention on the Elimination of All
       // Forms of Discrimination Against Women" — resolve to that treaty
@@ -11220,8 +11229,8 @@ function annotateTreatyText(html, committee, citedArticles) {
       const tailTreatyAbbr = tailNamed && tailNamed.abbr.toUpperCase() !== String(abbr).toUpperCase() ? tailNamed.abbr : null;
       const hasExternalInstrumentTail = !!ofOther
         && !tailTreatyAbbr
-        && ofOther[1].toLowerCase() !== homeWord
-        && ofOther[1].toLowerCase() !== 'protocol';
+        && ofWord !== homeWord
+        && ofWord !== 'protocol';
       // "… (art. 2 of the Covenant)" — the tail names the HOME instrument
       // explicitly. That must outrank every lead-side plain-text guard: a
       // lead like "…equality before domestic law and the Constitution
@@ -11229,7 +11238,7 @@ function annotateTreatyText(html, committee, citedArticles) {
       // pre-v19.67 code got this right only because no lead guard could
       // fire on such phrases. Now that Constitution/Code/Act DO fire, the
       // explicit home tail keeps them from stealing a correct link.
-      const hasHomeTail = !!ofOther && ofOther[1].toLowerCase() === homeWord;
+      const hasHomeTail = !!ofOther && ofWord === homeWord;
       // Lowercase domestic tail ("of the decree"), which hasHomeTail can never
       // claim (home terms are Covenant/Convention/Charter, all capitalised).
       const ofLowerDomestic = !hasHomeTail && !tailTreatyAbbr && OF_LOWER_RE.test(tail);
