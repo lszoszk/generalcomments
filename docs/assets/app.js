@@ -10878,7 +10878,7 @@ async function _loadTreaties() {
       // immutable): without it, anyone who visited in the last 24h keeps
       // the pre-instruments 18-treaty bundle until their cache expires.
       // Bump the tag whenever the server-side bundle contents change.
-      const res = await fetch(`${ASK_API_BASE}/api/treaties?v=20260729-softlaw`);
+      const res = await fetch(`${ASK_API_BASE}/api/treaties?v=20260729-geneva`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       _treatiesCache = data;
@@ -10910,7 +10910,10 @@ async function _loadTreaties() {
         .flatMap(t => [String(t.name_full), ...(t.alt_names || [])]
           .map(n => ({
             name: n.replace(/\s+/g, ' ').trim().toLowerCase(),
-            abbr: String(t.abbr).toUpperCase(),
+            // Case preserved: every treaty abbr is an acronym, so this is a
+            // no-op for them, but the Geneva Conventions entry is a proper
+            // name the popover header prints. Comparisons below normalise.
+            abbr: String(t.abbr),
           })))
         .filter(x => x.name.length >= 10)
         .sort((a, b) => b.name.length - a.name.length);
@@ -11097,7 +11100,11 @@ function annotateTreatyText(html, committee, citedArticles) {
        across a clause: no word characters beyond the listed tokens are
        allowed, so "article 6 (right to life)" still finds no tail. */
     const TAIL_BRIDGE = String.raw`(?:[\s,]*(?:and\s+)?(?:(?:sub-?)?paras?\.?|(?:sub-?)?paragraphs?|sects?\.?|sections?|\([\da-z]+\)|\d+)){0,4}`;
-    const OF_HEAD = String.raw`^${TAIL_BRIDGE}[\s,]*(?:of|in|under)\s+(?:the\s+|that\s+|its\s+)?`;
+    /* "…of the FOUR Geneva Conventions of 12 August 1949" — a quantifier or
+       year may sit between the article and the instrument's name. Without
+       this the commonest Geneva citation in the corpus resolved to nothing
+       and fell through to the committee's own treaty. */
+    const OF_HEAD = String.raw`^${TAIL_BRIDGE}[\s,]*(?:of|in|under)\s+(?:the\s+|that\s+|its\s+)?(?:(?:four|two|three|1949|1977)\s+)?`;
     const PROTOCOL_TRAILING_RE = new RegExp(
       String.raw`^${TAIL_BRIDGE}[\s,]*(?:as\s+\w+\s+(?:in|under)\s+)?(?:of|in|under)\s+(?:that|the|its)\s+(?:(First|Second|Third)\s+)?(?:Optional\s+)?Protocol\b`, 'i');
     /* Lowercase domestic instruments in the tail: "article 26 of the decree of
@@ -11210,7 +11217,7 @@ function annotateTreatyText(html, committee, citedArticles) {
       const tailNamed = ofPhrase
         ? _treatyNameIndex.find(x => ofPhrase[1].replace(/\s+/g, ' ').trim().toLowerCase().startsWith(x.name))
         : null;
-      const tailTreatyAbbr = tailNamed && tailNamed.abbr !== String(abbr).toUpperCase() ? tailNamed.abbr : null;
+      const tailTreatyAbbr = tailNamed && tailNamed.abbr.toUpperCase() !== String(abbr).toUpperCase() ? tailNamed.abbr : null;
       const hasExternalInstrumentTail = !!ofOther
         && !tailTreatyAbbr
         && ofOther[1].toLowerCase() !== homeWord
@@ -11254,7 +11261,7 @@ function annotateTreatyText(html, committee, citedArticles) {
         const named = _treatyNameIndex.find(x => phrase.endsWith(x.name));
         const leadOp = !named && rawPhrase.match(LEAD_OP_RE);
         if (named) {
-          if (named.abbr !== String(abbr).toUpperCase()) leadTreatyAbbr = named.abbr;
+          if (named.abbr.toUpperCase() !== String(abbr).toUpperCase()) leadTreatyAbbr = named.abbr;
         } else if (leadOp) {
           // "…inadmissible under the Optional Protocol (art. 5 (2) (b))" —
           // same anaphora as the "of the Optional Protocol" tail, on the
@@ -11363,7 +11370,23 @@ function annotateTreatyText(html, committee, citedArticles) {
         //                  multi-target popover UI, plain text is safer.
         // Both markers are preserved in citedArticles so a future
         // iteration (e.g. UDHR popover) can light them up.
-        const isPlain = a => (!a || a === '?' || a === 'AMBIGUOUS');
+        /* v19.71: PHANTOM-ARTICLE GUARD. Render plain text when the target
+           instrument has no such unit. Three things need it:
+             · the Geneva Conventions entry holds ONLY common articles 1-3
+               (identical across GC I-IV); "article 47 of the Geneva
+               Conventions" must not become a button whose popover never
+               opens — the audit's category B;
+             · OCR damage mints numbers that do not exist (a phantom
+               "article 95" in a 33-article treaty, agent finding);
+             · citedArticles may name a treaty absent from the bundle.
+           Only applies once the bundle is loaded, which by this point it is:
+           annotateTreatyText returns early without it. */
+        const _hasUnit = (a, n) => {
+          const tr = _treatiesCache && _treatiesCache[String(a || '').toLowerCase()];
+          if (!tr || !Array.isArray(tr.articles) || !tr.articles.length) return true;
+          return tr.articles.some(x => String(x.number) === String(n));
+        };
+        const isPlain = (a, n) => (!a || a === '?' || a === 'AMBIGUOUS' || !_hasUnit(a, n));
         const mkBtn = (treaty, artNo, para, label) => {
           const attrs = `data-treaty="${treaty}" data-article="${artNo}"` +
                         (para ? ` data-paragraph="${para}"` : '');
@@ -11371,7 +11394,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           return `<button type="button" class="treaty-article-ref" ${attrs}>${label}</button>`;
         };
         if (!rangeEnd) {
-          out += isPlain(targetAbbr) ? m[0] : mkBtn(targetAbbr, art, targetPara, m[0]);
+          out += isPlain(targetAbbr, art) ? m[0] : mkBtn(targetAbbr, art, targetPara, m[0]);
         } else {
           // Range "arts. 13–14" → a button per endpoint, dash kept as text.
           // The second endpoint consumes its OWN citedArticles entry, so a
@@ -11388,9 +11411,9 @@ function annotateTreatyText(html, committee, citedArticles) {
           } else {
             target2 = fallback2;
           }
-          out += (isPlain(targetAbbr) ? parts[1] : mkBtn(targetAbbr, art, null, parts[1]))
+          out += (isPlain(targetAbbr, art) ? parts[1] : mkBtn(targetAbbr, art, null, parts[1]))
                + parts[2]
-               + (isPlain(target2) ? parts[3] : mkBtn(target2, rangeEnd, inlinePara, parts[3]));
+               + (isPlain(target2, rangeEnd) ? parts[3] : mkBtn(target2, rangeEnd, inlinePara, parts[3]));
         }
         lastIdx = m.index + m[0].length;
       }

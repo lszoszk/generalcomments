@@ -603,7 +603,7 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('profiling');
 });
 
-test('A9. artRefResolution · v19.67-70 rules — OP anaphora, compound lists, domestic guards, soft-law units', async ({ page }) => {
+test('A9. artRefResolution · v19.67-71 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
   /* Distilled from the 2026-07-27 verification-agent audit
      (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
        op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
@@ -678,41 +678,62 @@ test('A9. artRefResolution · v19.67-70 rules — OP anaphora, compound lists, d
     { id: 'series-home', committee: 'CRC',
       text: 'the general measures of implementation (arts. 4 and 42 of the Convention) and the best interests principle (art. 3) apply.',
       expect: [['4', 'CRC'], ['42', 'CRC'], ['3', 'CRC']] },
+    /* v19.71 — the Geneva family. Common articles 1-3 are IDENTICAL across
+       GC I-IV, so the plural citation is NOT ambiguous for them and one
+       canonical entry is correct. Before this, "common article 3 of the four
+       Geneva Conventions" popped CAT article 3 — non-refoulement — for what
+       the text says is humane treatment in non-international conflict. */
+    { id: 'gc-common', committee: 'CAT',
+      text: 'evidence of its violation of common article 3 of the four Geneva Conventions of 12 August 1949 was presented.',
+      expect: [['3', 'Geneva Conventions']] },
+    /* Past article 3 the four Conventions diverge, so the entry holds no
+       such unit and the phantom guard must render plain text rather than a
+       button whose popover never opens. */
+    { id: 'gc-phantom', committee: 'CCPR',
+      text: 'the deportation prohibition in article 47 of the Geneva Conventions is absolute.',
+      expect: [] },
+    { id: 'gc-specific', committee: 'CAT',
+      text: 'a violation of article 12 of the Third Geneva Convention was alleged.',
+      expect: [] },
   ];
+  /* Every article a case references must exist in the mock: since v19.71 the
+     renderer refuses to button a unit the instrument does not hold (the
+     phantom-article guard), so a thin mock silently disables half the suite. */
+  const arts = (...nums) => nums.map((n) => ({
+    number: String(n), paragraphs: [{ num: null, text: `Text of unit ${n}.` }],
+  }));
   const BUNDLE = {
-    iccpr: { abbr: 'ICCPR', name_full: 'International Covenant on Civil and Political Rights',
-      term: 'Covenant', committee_codes: ['CCPR'],
-      articles: [{ number: '26', paragraphs: [{ num: null, text: 'All persons are equal before the law.' }] }] },
-    'iccpr-op1': { abbr: 'ICCPR-OP1',
-      name_full: 'Optional Protocol to the International Covenant on Civil and Political Rights',
-      term: 'Optional Protocol', committee_codes: ['CCPR'],
-      articles: [{ number: '2', paragraphs: [{ num: null, text: 'Individuals who claim…' }] }] },
-    'iccpr-op2': { abbr: 'ICCPR-OP2',
-      name_full: 'Second Optional Protocol to the International Covenant on Civil and Political Rights, aiming at the abolition of the death penalty',
-      term: 'Optional Protocol', committee_codes: ['CCPR'], articles: [] },
-    crpd: { abbr: 'CRPD',
-      name_full: 'Convention on the Rights of Persons with Disabilities',
-      term: 'Convention', committee_codes: ['CRPD'],
-      articles: [{ number: '13', paragraphs: [{ num: '1', text: 'States Parties shall ensure effective access to justice.' }] }] },
-    crc: { abbr: 'CRC', name_full: 'Convention on the Rights of the Child',
-      term: 'Convention', committee_codes: ['CRC'],
-      articles: [{ number: '3', paragraphs: [{ num: '1', text: 'The best interests of the child shall be a primary consideration.' }] }] },
     /* CAT must be present: annotateTreatyText resolves the committee's own
        treaty first and returns early when the bundle does not hold it, which
        would silently disable the soft-law pass too. */
-    cat: { abbr: 'CAT',
-      name_full: 'Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment',
-      term: 'Convention', committee_codes: ['CAT'],
-      articles: [{ number: '3', paragraphs: [{ num: '1', text: 'No State Party shall expel a person where there are substantial grounds.' }] }] },
+    cat: { abbr: 'CAT', name_full: 'Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment',
+      term: 'Convention', committee_codes: ['CAT'], articles: arts(3) },
+    iccpr: { abbr: 'ICCPR', name_full: 'International Covenant on Civil and Political Rights',
+      term: 'Covenant', committee_codes: ['CCPR'], articles: arts(7, 9, 14, 19, 26) },
+    'iccpr-op1': { abbr: 'ICCPR-OP1',
+      name_full: 'Optional Protocol to the International Covenant on Civil and Political Rights',
+      term: 'Optional Protocol', committee_codes: ['CCPR'], articles: arts(1, 2, 5) },
+    'iccpr-op2': { abbr: 'ICCPR-OP2',
+      name_full: 'Second Optional Protocol to the International Covenant on Civil and Political Rights, aiming at the abolition of the death penalty',
+      term: 'Optional Protocol', committee_codes: ['CCPR'], articles: arts(1) },
+    cedaw: { abbr: 'CEDAW', name_full: 'Convention on the Elimination of All Forms of Discrimination Against Women',
+      term: 'Convention', committee_codes: ['CEDAW'], articles: arts(2, 3, 5, 15) },
+    crpd: { abbr: 'CRPD', name_full: 'Convention on the Rights of Persons with Disabilities',
+      term: 'Convention', committee_codes: ['CRPD'], articles: arts(13) },
+    crc: { abbr: 'CRC', name_full: 'Convention on the Rights of the Child',
+      term: 'Convention', committee_codes: ['CRC'], articles: arts(3, 4, 42) },
+    icescr: { abbr: 'ICESCR', name_full: 'International Covenant on Economic, Social and Cultural Rights',
+      term: 'Covenant', committee_codes: ['CESCR'], articles: arts(2, 3, 26) },
     'mandela rules': { abbr: 'Mandela Rules',
       name_full: 'United Nations Standard Minimum Rules for the Treatment of Prisoners',
       alt_names: ['Nelson Mandela Rules'], term: 'United', unit_term: 'rule',
-      committee_codes: [],
-      articles: [{ number: '44', paragraphs: [{ num: null, text: 'For the purpose of these rules, solitary confinement shall refer to confinement for 22 hours or more a day.' }] }] },
-    cedaw: { abbr: 'CEDAW',
-      name_full: 'Convention on the Elimination of All Forms of Discrimination Against Women',
-      term: 'Convention', committee_codes: ['CEDAW'],
-      articles: [{ number: '15', paragraphs: [{ num: '1', text: 'States Parties shall accord to women equality with men before the law.' }] }] },
+      committee_codes: [], articles: arts(44) },
+    /* Common articles 1-3 only — identical across GC I-IV. Article 47 is
+       deliberately absent so the phantom guard has something to catch. */
+    'geneva conventions': { abbr: 'Geneva Conventions',
+      name_full: 'Geneva Conventions of 12 August 1949 (common articles)',
+      alt_names: ['four Geneva Conventions', 'Geneva Conventions'],
+      term: 'Geneva', committee_codes: [], articles: arts(1, 2, 3) },
   };
   await page.route('**/unhrdb-api/api/stats', (route) =>
     route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
