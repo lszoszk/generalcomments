@@ -10976,10 +10976,24 @@ async function _loadTreaties() {
 // absent (backward compat for paragraphs without pre-tagged metadata).
 function annotateTreatyText(html, committee, citedArticles) {
   if (!html || !committee || !_treatiesCache) return html;
-  const treaty = _treatiesByCommittee[String(committee).toUpperCase()];
-  if (!treaty) return html;
-  const term = treaty.term || 'Covenant';
-  const abbr = treaty.abbr;
+  /* v19.74: a committee with no treaty of its own no longer disables
+     annotation outright. Special Procedures mandates ("SR Torture", "WG
+     Arbitrary Detention", …) own no instrument, so this returned early and
+     left the WHOLE paragraph untouched — 11,310 SP paragraphs carry article
+     references and not one of them linked, not even an explicit "article 19
+     of the Covenant" with the instrument spelled out in the sentence. A
+     blind random sample found 21 of 21 SP paragraphs completely unannotated.
+
+     What a missing home treaty must switch off is the HOME FALLBACK, not
+     resolution: everything the text names for itself — a treaty by name in
+     the lead or the tail, an Optional Protocol, the Geneva family, soft-law
+     rules — resolves exactly as it does for a treaty body. `hasHome` gates
+     the fallback below; when it is false an unnamed reference stays plain
+     text, which is the correct answer rather than a guess. */
+  const treaty = _treatiesByCommittee[String(committee).toUpperCase()] || null;
+  const hasHome = !!treaty;
+  const term = (treaty && treaty.term) || 'Covenant';
+  const abbr = treaty ? treaty.abbr : null;
 
   // Build a per-article queue from citedArticles so the n-th occurrence
   // of "article N" in the text grabs the n-th cited treaty for that
@@ -11349,12 +11363,15 @@ function annotateTreatyText(html, committee, citedArticles) {
           // this committee — link the OP instead of plain-texting.
           targetAbbr = opAbbr;
           targetPara = inlinePara;
-        } else if (hasHomeTail) {
+        } else if (hasHomeTail && hasHome) {
           // Explicit "of the Covenant/Convention" tail — home, and immune
-          // to the lead-side guards.
+          // to the lead-side guards. Requires a home treaty to exist: in a
+          // Special Procedures report "of the Covenant" does not say WHICH
+          // covenant, and plain text beats a coin flip between ICCPR and
+          // ICESCR.
           targetAbbr = abbr;
           targetPara = inlinePara;
-        } else if (leadExternal || leadDomestic || ofLowerDomestic || seriesPlain || hasProtocolTail || hasExternalInstrumentTail) {
+        } else if (!hasHome || leadExternal || leadDomestic || ofLowerDomestic || seriesPlain || hasProtocolTail || hasExternalInstrumentTail) {
           // No pre-tagged ref AND the text points at a Protocol or a
           // different instrument ("of the Standard Minimum Rules", "of the
           // Universal Declaration", …) — render as plain text rather than
@@ -11363,6 +11380,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           lastIdx = m.index + m[0].length;
           continue;
         } else {
+          // Home fallback — only reachable when the committee owns a treaty.
           targetAbbr = abbr;
           targetPara = inlinePara;
         }
@@ -11413,7 +11431,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           const parts = m[0].match(/^(\d+)(\s*[–-]\s*)([\s\S]*)$/);
           const cited2 = consumeRef(rangeEnd);
           const fallback2 = leadTreatyAbbr || tailTreatyAbbr || opAbbr ||
-            ((hasHomeTail || !(leadExternal || leadDomestic || ofLowerDomestic || seriesPlain || hasProtocolTail || hasExternalInstrumentTail)) ? abbr : null);
+            ((hasHome && (hasHomeTail || !(leadExternal || leadDomestic || ofLowerDomestic || seriesPlain || hasProtocolTail || hasExternalInstrumentTail))) ? abbr : null);
           let target2;
           if (cited2 && cited2.treaty) {
             target2 = (cited2.treaty === '?' && leadTreatyAbbr) ? leadTreatyAbbr : cited2.treaty;

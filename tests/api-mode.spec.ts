@@ -603,7 +603,7 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('profiling');
 });
 
-test('A9. artRefResolution · v19.67-73 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
+test('A9. artRefResolution · v19.67-74 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
   /* Distilled from the 2026-07-27 verification-agent audit
      (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
        op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
@@ -707,6 +707,19 @@ test('A9. artRefResolution · v19.67-73 rules — OP anaphora, compound lists, d
     { id: 'home-tail-bridge-eos', committee: 'CCPR',
       text: 'The author invokes article 19, paragraph 2, of the Covenant.',
       expect: [['19', 'ICCPR']] },
+    /* v19.74 — Special Procedures own no treaty. That used to abort
+       annotation for the whole paragraph: 11,310 SP paragraphs carry article
+       references and none linked, not even when the instrument was spelled
+       out. A missing home treaty must switch off only the FALLBACK. */
+    { id: 'sp-named', committee: 'SR Torture',
+      text: 'The Special Rapporteur recalls article 75 of Additional Protocol I in this context.',
+      expect: [['75', 'AP I']] },
+    /* …and an unnamed reference must stay plain: "the Covenant" in an SP
+       report does not say which one, and a coin flip between ICCPR and
+       ICESCR is worse than no link. */
+    { id: 'sp-bare', committee: 'SR Freedom of Expression',
+      text: 'The restriction must satisfy the three-part test in article 19, paragraph 3, of the Covenant.',
+      expect: [] },
     { id: 'gc-specific', committee: 'CAT',
       text: 'a violation of article 12 of the Third Geneva Convention was alleged.',
       expect: [['12', 'GC III']] },
