@@ -607,7 +607,7 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('profiling');
 });
 
-test('A9. artRefResolution · v19.67-74 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
+test('A9. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
   /* Distilled from the 2026-07-27 verification-agent audit
      (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
        op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
@@ -724,6 +724,22 @@ test('A9. artRefResolution · v19.67-74 rules — OP anaphora, compound lists, d
     { id: 'sp-bare', committee: 'SR Freedom of Expression',
       text: 'The restriction must satisfy the three-part test in article 19, paragraph 3, of the Covenant.',
       expect: [] },
+    /* v19.75 — the committee's OWN treaty named in full. tailTreatyAbbr is
+       null (it equals home) and the external-instrument guard then read the
+       first word, "International", as a foreign instrument. The most explicit
+       home citation there is was the one shape that rendered plain. */
+    { id: 'home-fullname', committee: 'CCPR',
+      text: 'the facts disclose violations of articles 7 and 10, paragraph 1, of the International Covenant on Civil and Political Rights.',
+      expect: [['7', 'ICCPR'], ['10', 'ICCPR']] },
+    /* v19.75 — backward propagation: a list can put its numbers BEFORE the
+       instrument governing them. Only list glue may sit in between, so the
+       two negatives below must NOT propagate. */
+    { id: 'backward', committee: 'CCPR',
+      text: 'a violation of articles 6, 7 and 9, read together with article 2 of the Convention on the Rights of the Child.',
+      expect: [['6', 'CRC'], ['7', 'CRC'], ['9', 'CRC'], ['2', 'CRC']] },
+    { id: 'backward-neg-verb', committee: 'CCPR',
+      text: 'The Committee examined articles 9 and 14 before turning to the obligations of the Convention on the Rights of the Child.',
+      expect: [['9', 'ICCPR'], ['14', 'ICCPR']] },
     { id: 'gc-specific', committee: 'CAT',
       text: 'a violation of article 12 of the Third Geneva Convention was alleged.',
       expect: [['12', 'GC III']] },
@@ -745,7 +761,7 @@ test('A9. artRefResolution · v19.67-74 rules — OP anaphora, compound lists, d
     cat: { abbr: 'CAT', name_full: 'Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment',
       term: 'Convention', committee_codes: ['CAT'], articles: arts(3) },
     iccpr: { abbr: 'ICCPR', name_full: 'International Covenant on Civil and Political Rights',
-      term: 'Covenant', committee_codes: ['CCPR'], articles: arts(7, 9, 14, 19, 26) },
+      term: 'Covenant', committee_codes: ['CCPR'], articles: arts(6, 7, 9, 10, 14, 19, 26) },
     'iccpr-op1': { abbr: 'ICCPR-OP1',
       name_full: 'Optional Protocol to the International Covenant on Civil and Political Rights',
       term: 'Optional Protocol', committee_codes: ['CCPR'], articles: arts(1, 2, 5) },
@@ -757,7 +773,7 @@ test('A9. artRefResolution · v19.67-74 rules — OP anaphora, compound lists, d
     crpd: { abbr: 'CRPD', name_full: 'Convention on the Rights of Persons with Disabilities',
       term: 'Convention', committee_codes: ['CRPD'], articles: arts(13) },
     crc: { abbr: 'CRC', name_full: 'Convention on the Rights of the Child',
-      term: 'Convention', committee_codes: ['CRC'], articles: arts(3, 4, 42) },
+      term: 'Convention', committee_codes: ['CRC'], articles: arts(2, 3, 4, 6, 7, 9, 42) },
     icescr: { abbr: 'ICESCR', name_full: 'International Covenant on Economic, Social and Cultural Rights',
       term: 'Covenant', committee_codes: ['CESCR'], articles: arts(2, 3, 26) },
     'mandela rules': { abbr: 'Mandela Rules',

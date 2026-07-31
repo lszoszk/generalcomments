@@ -10937,12 +10937,36 @@ async function _loadTreaties() {
         .filter(x => x.name.length >= 10)
         .sort((a, b) => b.name.length - a.name.length);
       _opByCommittee = {};
+      // Each committee's MAIN treaty name, so an OP's distinguishing clause
+      // can be found by subtracting it.
+      const _mainByCommittee = {};
+      for (const t of Object.values(data)) {
+        if ((t.term || '') === 'Optional Protocol' || !t.name_full) continue;
+        for (const cc of (t.committee_codes || [])) {
+          const k = String(cc).toUpperCase();
+          if (!_mainByCommittee[k]) _mainByCommittee[k] = t.name_full;
+        }
+      }
       for (const t of Object.values(data)) {
         if ((t.term || '') !== 'Optional Protocol') continue;
         const isSecond = /^Second\b/i.test(t.name_full || '');
+        /* v19.75: keep every OP, plus the part of its name that DISTINGUISHES
+           it from its siblings, so a committee with several can still be
+           resolved from the text ("…of the Optional Protocol on the sale of
+           children" → CRC-OPSC). The distinguisher is whatever remains after
+           the parent treaty's own name — subtracted from the bundle rather
+           than hardcoded, so a protocol added later disambiguates itself. */
+        const parent = (t.committee_codes || [])
+          .map(cc => _mainByCommittee[String(cc).toUpperCase()])
+          .find(Boolean) || '';
+        const norm = (x) => String(x || '').replace(/\s+/g, ' ').trim().toLowerCase();
+        let hint = norm(t.name_full).replace(/^(?:second |third )?optional protocol\s*(?:to the)?\s*/i, '');
+        if (parent && hint.startsWith(norm(parent))) hint = hint.slice(norm(parent).length);
+        hint = hint.replace(/^[\s,]*/, '').replace(/[^a-z ]+/g, ' ').replace(/\s+/g, ' ').trim();
         for (const cc of (t.committee_codes || [])) {
           const k = String(cc).toUpperCase();
-          const slot = (_opByCommittee[k] = _opByCommittee[k] || { bare: null, second: null, bareCount: 0 });
+          const slot = (_opByCommittee[k] = _opByCommittee[k] || { bare: null, second: null, bareCount: 0, all: [] });
+          slot.all.push({ abbr: String(t.abbr).toUpperCase(), hint });
           if (isSecond) slot.second = String(t.abbr).toUpperCase();
           else { slot.bareCount++; slot.bare = slot.bareCount === 1 ? String(t.abbr).toUpperCase() : null; }
         }
@@ -11194,11 +11218,27 @@ function annotateTreatyText(html, committee, citedArticles) {
       return SERIES_PLAIN_RE.test(phrase);
     };
     const LEAD_OP_RE = /(?:^|[\s(])(?:the\s+)?(?:(first|second|third)\s+)?optional\s+protocol$/i;
-    const _resolveOp = (ordinal) => {
+    /* `context` is the text right after the "Optional Protocol" mention. When a
+       committee has several protocols (CRC has three) the bare name resolves to
+       nothing on its own, but the sentence almost always says which one:
+       "…of the Optional Protocol on the sale of children" → CRC-OPSC. Match on
+       the distinguishing clause computed from each protocol's own name. A
+       committee with a single protocol never reaches this and keeps its
+       previous behaviour; an ambiguous CRC mention with no clause still
+       resolves to nothing, which is the honest answer. */
+    const _resolveOp = (ordinal, context) => {
       const ops = _opByCommittee[String(committee || '').toUpperCase()];
       if (!ops) return null;
       if (/^(second|third)$/i.test(ordinal || '')) return ops.second || null;
-      return ops.bare || null;
+      if (ops.bare) return ops.bare;
+      const ctx = String(context || '').replace(/[^A-Za-z ]+/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+      if (!ctx) return null;
+      // Longest distinguishing clause first: "on the sale of children child
+      // prostitution…" must win over any shorter clause that also matches.
+      const hits = (ops.all || [])
+        .filter(o => o.hint && o.hint.length >= 8 && ctx.startsWith(o.hint.slice(0, Math.min(o.hint.length, 40))))
+        .sort((a, b) => b.hint.length - a.hint.length);
+      return hits.length ? hits[0].abbr : null;
     };
     t = t.replace(artListPat, (match, prefix, ws, body, offset, fullStr) => {
       // Look ~200 chars after the match for a trailing instrument name.
@@ -11208,7 +11248,7 @@ function annotateTreatyText(html, committee, citedArticles) {
       const tail = (fullStr || '').slice(offset + match.length, offset + match.length + 200);
       const protTail = tail.match(PROTOCOL_TRAILING_RE);
       const hasProtocolTail = !!protTail;
-      const opAbbr = protTail ? _resolveOp(protTail[1]) : null;
+      const opAbbr = protTail ? _resolveOp(protTail[1], tail.slice(protTail[0].length)) : null;
       // v19.63: external-instrument guard. When the article list is
       // followed by "of [the] <Instrument>" and <Instrument> is NOT this
       // committee's own treaty term (and not a Protocol — handled above),
@@ -11241,8 +11281,18 @@ function annotateTreatyText(html, committee, citedArticles) {
         ? _treatyNameIndex.find(x => ofPhrase[1].replace(/\s+/g, ' ').trim().toLowerCase().startsWith(x.name))
         : null;
       const tailTreatyAbbr = tailNamed && tailNamed.abbr.toUpperCase() !== String(abbr).toUpperCase() ? tailNamed.abbr : null;
+      /* v19.75: the tail names the committee's OWN treaty in full —
+         "articles 7 and 10, paragraph 1, of the International Covenant on
+         Civil and Political Rights" in a CCPR case. tailTreatyAbbr is null
+         (it equals home), and the guard below then read the first word
+         ("International") as a foreign instrument because it is not the home
+         TERM ("Covenant"), so the reference rendered as plain text. The full
+         formal name is the most explicit home citation there is; it must not
+         be the one shape that fails. */
+      const tailIsHomeNamed = !!tailNamed && !tailTreatyAbbr;
       const hasExternalInstrumentTail = !!ofOther
         && !tailTreatyAbbr
+        && !tailIsHomeNamed
         && ofWord !== homeWord
         && ofWord !== 'protocol';
       // "… (art. 2 of the Covenant)" — the tail names the HOME instrument
@@ -11252,7 +11302,35 @@ function annotateTreatyText(html, committee, citedArticles) {
       // pre-v19.67 code got this right only because no lead guard could
       // fire on such phrases. Now that Constitution/Code/Act DO fire, the
       // explicit home tail keeps them from stealing a correct link.
-      const hasHomeTail = !!ofOther && ofWord === homeWord;
+      const hasHomeTail = !!ofOther && (ofWord === homeWord || tailIsHomeNamed);
+      /* Only consulted when this match resolved nothing of its own — see the
+         chain below. Resolves the same two ways a direct tail does: a treaty
+         named in full, or an Optional Protocol (with its distinguishing
+         clause, so CRC still picks the right one of three). */
+      let aheadAbbr = null;
+      if (!tailTreatyAbbr && !hasHomeTail && !hasProtocolTail && !hasExternalInstrumentTail) {
+        const ah = tail.match(/\b(?:of|in|under)\s+(?:the\s+|that\s+|its\s+)?(?:(?:four|two|three|1949|1977)\s+)?([\s\S]{0,130})/i);
+        // Everything between this match and that instrument must be list glue
+        // and nothing else. Tested by REMOVING the permitted tokens and
+        // checking no letters survive — a whitelist regex with a repeated
+        // alternation group would backtrack catastrophically on a 200-char
+        // tail and freeze the render, which is exactly what the first version
+        // of this rule did.
+        if (ah && ah.index <= 90) {
+          const residue = tail.slice(0, ah.index)
+            .replace(/\b(?:and|or|read|together|conjunction|with|articles?|arts?|paragraphs?|paras?)\b/gi, ' ')
+            .replace(/[\s,;()\d.]+/g, '');
+          if (!residue) {
+            const phrase = ah[1].replace(/\s+/g, ' ').trim().toLowerCase();
+            const nm = _treatyNameIndex.find(x => phrase.startsWith(x.name));
+            if (nm) aheadAbbr = nm.abbr;
+            else if (/^(?:(?:first|second|third)\s+)?(?:optional\s+)?protocol\b/i.test(phrase)) {
+              const ord = (phrase.match(/^(first|second|third)\b/i) || [])[1];
+              aheadAbbr = _resolveOp(ord, phrase.replace(/^(?:(?:first|second|third)\s+)?(?:optional\s+)?protocol\b/i, ''));
+            }
+          }
+        }
+      }
       // Lowercase domestic tail ("of the decree"), which hasHomeTail can never
       // claim (home terms are Covenant/Convention/Charter, all capitalised).
       const ofLowerDomestic = !hasHomeTail && !tailTreatyAbbr && OF_LOWER_RE.test(tail);
@@ -11273,6 +11351,22 @@ function annotateTreatyText(html, committee, citedArticles) {
       // Charter, Rules, …) renders as plain text; anything else — including
       // the home treaty's own name or a bare "the Convention (art. N)" —
       // keeps the home-treaty behaviour unchanged.
+      /* v19.75: BACKWARD PROPAGATION. A list can put its numbers BEFORE the
+         instrument that governs them:
+           "violation of articles 1, 2 and 6, read together with article 3
+            of the Optional Protocol on the sale of children…"
+         Every rule so far reads the tail immediately after its own match, so
+         "articles 1, 2 and 6" saw only ", read together with article 3 …" and
+         fell to the committee's treaty while "article 3" resolved correctly —
+         one list, two different answers. Both agents in the blind audit named
+         this their most frequent pattern.
+
+         The reach is deliberately narrow: the text between this match and the
+         instrument may contain ONLY list glue — commas, "and"/"or", "read
+         together/in conjunction with", further article numbers and their
+         qualifiers. Anything else (a verb, a second instrument, a sentence
+         end) stops it, so this cannot jump across clauses the way a plain
+         proximity search would. */
       const lead = (fullStr || '').slice(Math.max(0, offset - 130), offset);
       let leadTreatyAbbr = null;
       let leadExternal = false;
@@ -11293,7 +11387,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           // guard below picks it up via leadExternal? No — bare protocol
           // with no resolution stays home-safe as before, so flag it
           // external explicitly.
-          const op = _resolveOp(leadOp[1]);
+          const op = _resolveOp(leadOp[1], tail);
           if (op) leadTreatyAbbr = op; else leadExternal = true;
         } else if (/\b(?:declaration|charter|rules|principles|guidelines)\b[^()]*$/i.test(leadParen[1])) {
           leadExternal = true;
@@ -11362,6 +11456,10 @@ function annotateTreatyText(html, committee, citedArticles) {
           // "…of the Optional Protocol" tail, unambiguously resolvable for
           // this committee — link the OP instead of plain-texting.
           targetAbbr = opAbbr;
+          targetPara = inlinePara;
+        } else if (aheadAbbr) {
+          // The instrument governing this list is named after it.
+          targetAbbr = aheadAbbr;
           targetPara = inlinePara;
         } else if (hasHomeTail && hasHome) {
           // Explicit "of the Covenant/Convention" tail — home, and immune
