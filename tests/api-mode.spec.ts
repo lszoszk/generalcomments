@@ -384,7 +384,11 @@ test('A5e. askSpSource · Special Procedures source opens docs.un.org', async ({
   await page.route('**/ask-api/api/health', (route) =>
     route.fulfill({ status: 200, body: JSON.stringify({ status: 'ok' }) })
   );
-  await page.route('**/ask-api/api/treaties', (route) =>
+  /* Trailing ** is load-bearing: the bundle fetch carries a ?v= cache-buster
+     (app.js _loadTreaties), and a glob ending at "treaties" does not match a
+     URL with a query string — verified, not assumed. Without it the request
+     escapes the mock and this test silently depends on the live VM. */
+  await page.route('**/ask-api/api/treaties**', (route) =>
     route.fulfill({ status: 200, body: JSON.stringify({}) })
   );
   await page.route('**/ask-api/api/ask**', (route) =>
