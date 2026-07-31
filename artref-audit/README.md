@@ -1,0 +1,1263 @@
+# Article-reference audit — verification checklist
+
+**For:** an Opus 5 verification agent (same tier as the original tagging pipeline, `source: "opus"`).
+**Scope:** every article-number reference whose treaty resolution is doubtful under the
+runtime heuristic in `docs/assets/app.js` (`annotateTreatyText`, v19.65) — audited by
+replicating that logic over the full GC corpus (7,216 ¶), all 40 JUR shards and all 46 SP
+shards on 2026-07-27.
+
+## How to verify one item
+1. Open the paragraph in the reader (`#search` → paste the para id) or find it in
+   `docs/corpus.json` / `docs/jur/shards/*` / `docs/sp/shards/*` by `id`.
+2. Read the sentence containing the flagged `(art. N)` / `article N` reference.
+3. Decide which instrument the number belongs to, **from the text alone**.
+4. Emit one verdict per item:
+```json
+{"para": "...", "article": "N", "verdict": "home-correct | relink | plain-text",
+ "treaty": "<abbr or null>", "paragraph": null, "note": "<one line>"}
+```
+`relink` + a treaty abbr present in the bundle → becomes a `citedArticles` entry.
+`plain-text` → becomes `{"treaty": "?"}`. Batch the verdicts as JSON lines.
+
+**Ground rules** (same as the original pipeline): never guess — if the text does not name
+the instrument and the home treaty is not the obvious antecedent, prefer `plain-text`.
+A national constitution, domestic code or statute is ALWAYS `plain-text`.
+
+## A-HIGH — probable wrong links (108 items, verify ALL)
+
+The runtime resolves these to the committee's home treaty, but the leading phrase names a different instrument.
+
+- [ ] `cat-c-49-d-389-2009-0010` art **32** — home-link (CAT) but leading phrase looks like another instrument: …'e asylum application on the grounds that, under the Federal Asylum Act'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…ation dismissed the asylum application on the grounds that, under the Federal Asylum Act (art. 32, para. (2) (f)), there is no need to consider a request for…”
+- [ ] `cat-c-55-d-571-2013-0013` art **7** — home-link (CAT) but leading phrase looks like another instrument: …'k of persecution or abuse, as provided for under the Danish Aliens Act'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…were at a real risk of persecution or abuse, as provided for under the Danish Aliens Act (art. 7). The complainant argues that the Appeals Board did not con…”
+- [ ] `cat-c-60-d-579-2013-0031` art **557** — home-link (CAT) but leading phrase looks like another instrument: …' in Act No. 1/05 of 22 April 2009 revising the Burundian Criminal Code'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…rape is mentioned in Act No. 1/05 of 22 April 2009 revising the Burundian Criminal Code (art. 557 (2) and (5)). The State party also gave another account of the…”
+- [ ] `cat-c-60-d-579-2013-0033` art **538** — home-link (CAT) but leading phrase looks like another instrument: …'ion, the State party refers to Act No. 1/05 revising the Criminal Code'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…ion unit. In addition, the State party refers to Act No. 1/05 revising the Criminal Code (arts. 538 to 563) and Act No. 1/10 of 3 April 2013 establishing the C…”
+- [ ] `ccpr-c-13-d-24-1977-0026` art **12** — home-link (ICCPR) but leading phrase looks like another instrument: …"under article 27 of the Covenant. The rights to choose one's residence"
+      - why flagged: unparsed
+      - excerpt: “…tuation are those under article 27 of the Covenant. The rights to choose one's residence (article 12), and the rights aimed at protecting family life and childr…”
+- [ ] `ccpr-c-16-d-46-1979-0016` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …"ute of Security' are not only not competent, independent and impartial"
+      - why flagged: unparsed
+      - excerpt: “…No. 1923 the 'Statute of Security' are not only not competent, independent and impartial (article 14 (1) of the Covenant), but they were not up under a proper law p…”
+- [ ] `ccpr-c-46-d-387-1989-0034` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …'the corresponding provision of the European Convention on Human Rights'
+      - why flagged: instrument word 'Convention' ≠ home term 'Covenant'
+      - excerpt: “…en spelled out in the corresponding provision of the European Convention on Human Rights (art. 6, para. 3 (c)). This in my opinion explains why the European…”
+- [ ] `ccpr-c-52-d-453-1991-0034` art **8** — home-link (ICCPR) but leading phrase looks like another instrument: …'who with reference to the similar provision of the European Convention'
+      - why flagged: instrument word 'Convention' ≠ home term 'Covenant'
+      - excerpt: “…aken from Jacobs, who with reference to the similar provision of the European Convention (article 8) asserts that “the organs of the Convention have not develo…”
+- [ ] `ccpr-c-52-d-539-1993-0059` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'nal Protocol (paragraph 10.4) insofar as claims relating to fair trial'
+      - why flagged: instrument word 'Protocol' ≠ home term 'Covenant'
+      - excerpt: “…cle 2 of the Optional Protocol (paragraph 10.4) insofar as claims relating to fair trial (article 14) and discrimination before the law (article 26) are concern…”
+- [ ] `ccpr-c-64-d-628-1995-0024` art **37** — home-link (ICCPR) but leading phrase looks like another instrument: …'The Korean Constitution contains a provision'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…The Korean Constitution contains a provision (article 37, paragraph 2) stipulating that "the freedoms and rights of…”
+- [ ] `ccpr-c-66-d-717-1996-0017` art **73** — home-link (ICCPR) but leading phrase looks like another instrument: …'The Government emphasizes that the Chilean Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…The Government emphasizes that the Chilean Constitution (article 73) protects the independence of the judiciary. As such, the E…”
+- [ ] `ccpr-c-60-d-758-1997-0003` art **23** — home-link (ICCPR) but leading phrase looks like another instrument: …'ms that this is a requirement imposed by the 1978 Spanish Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…servants, and claims that this is a requirement imposed by the 1978 Spanish Constitution (article 23.2).…”
+- [ ] `ccpr-c-66-d-746-1997-0018` art **73** — home-link (ICCPR) but leading phrase looks like another instrument: …'The Government emphasizes that the Chilean Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…The Government emphasizes that the Chilean Constitution (article 73) protects the independence of the judiciary. As such, the E…”
+- [ ] `ccpr-c-76-d-757-1997-0049` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …'ist persecution. While the Act No. 229/1991 refers to Act No. 142/1947'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…truments of Communist persecution. While the Act No. 229/1991 refers to Act No. 142/1947 (art. 6, para. 1 (b)) it also stipulates that the transfer of the p…”
+- [ ] `ccpr-c-84-d-879-1999-0017` art **5** — home-link (ICCPR) but leading phrase looks like another instrument: …'ence to the Optional Protocol’s provision for a written procedure only'
+      - why flagged: instrument word 'Protocol' ≠ home term 'Covenant'
+      - excerpt: “…idence, with reference to the Optional Protocol’s provision for a written procedure only (article 5, paragraph 1, of the Optional Protocol). By letter dated 7…”
+- [ ] `ccpr-c-81-d-1033-2001-0025` art **126** — home-link (ICCPR) but leading phrase looks like another instrument: …'rds constitutional remedies, he notes that the Sri Lankan Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…eme Court. As regards constitutional remedies, he notes that the Sri Lankan Constitution (article 126(1)) only permits judicial review of executive or administrativ…”
+- [ ] `ccpr-c-84-d-969-2001-0009` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'gard, they point out that the present Portuguese Constitution provides'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…ection. In that regard, they point out that the present Portuguese Constitution provides (art. 14) that “Portuguese citizens who are located or reside abroad…”
+- [ ] `ccpr-c-98-d-1246-2004-0033` art **154** — home-link (ICCPR) but leading phrase looks like another instrument: …'ce with family life was not a fundamental right under the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…against interference with family life was not a fundamental right under the Constitution (Article 154 (a) (2) of the Constitution). Moreover, she was not entitle…”
+- [ ] `ccpr-c-87-d-1421-2005-0013` art **3** — home-link (ICCPR) but leading phrase looks like another instrument: …'abolished when the new Constitution came into force on 2 February 1987'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…death penalty was abolished when the new Constitution came into force on 2 February 1987 (article 3(19)(1)). On 13 December 1993, Congress adopted the Republic Act…”
+- [ ] `ccpr-c-100-d-1768-2008-0014` art **3** — home-link (ICCPR) but leading phrase looks like another instrument: …'the Public Health Code, and in the European Convention on Human Rights'
+      - why flagged: instrument word 'Convention' ≠ home term 'Covenant'
+      - excerpt: “…s provided for in the Public Health Code, and in the European Convention on Human Rights (arts. 3 and 5) and the Covenant (art. 7), which are detailed at length in…”
+- [ ] `ccpr-c-100-d-1768-2008-0014` art **5** — home-link (ICCPR) but leading phrase looks like another instrument: …'the Public Health Code, and in the European Convention on Human Rights'
+      - why flagged: instrument word 'Convention' ≠ home term 'Covenant'
+      - excerpt: “…s provided for in the Public Health Code, and in the European Convention on Human Rights (arts. 3 and 5) and the Covenant (art. 7), which are detailed at length in…”
+- [ ] `ccpr-c-107-d-1791-2008-0020` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in accordance with the Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-107-d-1791-2008-0020` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in accordance with the Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-108-d-1796-2008-0022` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in accordance with the Constitution (arts. 87 and 91), protective measures were taken and the Algerian Governmen…”
+- [ ] `ccpr-c-108-d-1796-2008-0022` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in accordance with the Constitution (arts. 87 and 91), protective measures were taken and the Algerian Governmen…”
+- [ ] `ccpr-c-108-d-1798-2008-0017` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in accordance with the Constitution (arts. 87 and 91), protective measures were taken and the Algerian Governmen…”
+- [ ] `ccpr-c-108-d-1798-2008-0017` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in accordance with the Constitution (arts. 87 and 91), protective measures were taken and the Algerian Governmen…”
+- [ ] `ccpr-c-108-d-1808-2008-0022` art **33** — home-link (ICCPR) but leading phrase looks like another instrument: …'their incorporation in national law and its Constitution in particular'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…including through their incorporation in national law and its Constitution in particular (arts. 33 and 35). Furthermore, article 23 of the Constitution permits restr…”
+- [ ] `ccpr-c-108-d-1808-2008-0022` art **35** — home-link (ICCPR) but leading phrase looks like another instrument: …'their incorporation in national law and its Constitution in particular'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…including through their incorporation in national law and its Constitution in particular (arts. 33 and 35). Furthermore, article 23 of the Constitution permits restr…”
+- [ ] `ccpr-c-108-d-1831-2008-0021` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in accordance with the Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-108-d-1831-2008-0021` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in accordance with the Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-104-d-1866-2009-0027` art **15** — home-link (ICCPR) but leading phrase looks like another instrument: …'trict adherence to the Constitution and laws of the Russian Federation'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…, which requires strict adherence to the Constitution and laws of the Russian Federation (art. 15, para. 2, of the Constitution). The State party submits tha…”
+- [ ] `ccpr-c-105-d-1863-2009-0041` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …'the Act provides for a maximum compensation of 100,000 Nepalese rupees'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…urther notes that the Act provides for a maximum compensation of 100,000 Nepalese rupees (art. 6, para. 1, of the Act). Reiterating its previous jurispruden…”
+- [ ] `ccpr-c-107-d-1861-2009-0012` art **89** — home-link (ICCPR) but leading phrase looks like another instrument: …'is capacity as the head of State, and is enshrined in the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…the president in his capacity as the head of State, and is enshrined in the Constitution (art. 89 (c)).[[fn:5]] Pardon is not linked with the issue of crimin…”
+- [ ] `ccpr-c-109-d-1884-2009-0021` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'dent country. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…life as an independent country. In this context, and in accordance with the Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-109-d-1884-2009-0021` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'dent country. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…life as an independent country. In this context, and in accordance with the Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-110-d-1889-2009-0020` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'dent country. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…life as an independent country. In this context, and in accordance with the Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-110-d-1889-2009-0020` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'dent country. In this context, and in accordance with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…life as an independent country. In this context, and in accordance with the Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-110-d-1899-2009-0016` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'try. In this context, and in accordance with the Algerian Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…n independent country. In this context, and in accordance with the Algerian Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-110-d-1899-2009-0016` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'try. In this context, and in accordance with the Algerian Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…n independent country. In this context, and in accordance with the Algerian Constitution (arts. 87 and 91), precautionary measures were implemented, and the Algerian…”
+- [ ] `ccpr-c-110-d-1960-2010-0026` art **7** — home-link (ICCPR) but leading phrase looks like another instrument: …'der the system of registration introduced by the Act of 3 January 1969'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…nge of domicile under the system of registration introduced by the Act of 3 January 1969 (art. 7 et seq.). The Committee observes that the author does not c…”
+- [ ] `ccpr-c-111-d-1931-2010-0021` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'State”. It is in this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…of the Republican State”. It is in this context, and in conformity with the Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-111-d-1931-2010-0021` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'State”. It is in this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…of the Republican State”. It is in this context, and in conformity with the Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-112-d-2083-2011-0020` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in conformity with the Constitution (arts. 87 and 91), the Algerian Government implemented precautionary measure…”
+- [ ] `ccpr-c-112-d-2083-2011-0020` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'lican State”. In this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…lapse of the Republican State”. In this context, and in conformity with the Constitution (arts. 87 and 91), the Algerian Government implemented precautionary measure…”
+- [ ] `ccpr-c-112-d-2098-2011-0016` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'tate”. It was in this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…f the Republican State”. It was in this context, and in conformity with the Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-112-d-2098-2011-0016` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'tate”. It was in this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…f the Republican State”. It was in this context, and in conformity with the Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-121-d-2203-2012-0003` art **4** — home-link (ICCPR) but leading phrase looks like another instrument: …'author notes that this occurred despite the fact that the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…heir liberty. The author notes that this occurred despite the fact that the Constitution (art. 4) prohibits the retroactive application of criminal provisio…”
+- [ ] `ccpr-c-121-d-2203-2012-0024` art **49** — home-link (ICCPR) but leading phrase looks like another instrument: …'ing. Both article 14 (1) of the Covenant[[fn:11]] and the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…ir and public hearing. Both article 14 (1) of the Covenant[[fn:11]] and the Constitution (art. 49) guarantee due process in all criminal and civil proceeding…”
+- [ ] `ccpr-c-121-d-2203-2012-0026` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'ed, despite the fact that the Organic Act on Administrative Procedures'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…ufficiently reasoned, despite the fact that the Organic Act on Administrative Procedures (arts. 9 and 12) requires administrative decisions to be well founded, this…”
+- [ ] `ccpr-c-121-d-2203-2012-0026` art **12** — home-link (ICCPR) but leading phrase looks like another instrument: …'ed, despite the fact that the Organic Act on Administrative Procedures'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…ufficiently reasoned, despite the fact that the Organic Act on Administrative Procedures (arts. 9 and 12) requires administrative decisions to be well founded, this…”
+- [ ] `ccpr-c-123-d-2189-2012-0050` art **56** — home-link (ICCPR) but leading phrase looks like another instrument: …' either applicable Russian domestic provisions or the Minsk Convention'
+      - why flagged: instrument word 'Convention' ≠ home term 'Covenant'
+      - excerpt: “…take into account either applicable Russian domestic provisions or the Minsk Convention (articles 56, 57 and 60), which foresee only a formal assessment of the criteria fo…”
+- [ ] `ccpr-c-123-d-2189-2012-0050` art **57** — home-link (ICCPR) but leading phrase looks like another instrument: …' either applicable Russian domestic provisions or the Minsk Convention'
+      - why flagged: instrument word 'Convention' ≠ home term 'Covenant'
+      - excerpt: “…take into account either applicable Russian domestic provisions or the Minsk Convention (articles 56, 57 and 60), which foresee only a formal assessment of the criteria fo…”
+- [ ] `ccpr-c-123-d-2189-2012-0050` art **60** — home-link (ICCPR) but leading phrase looks like another instrument: …' either applicable Russian domestic provisions or the Minsk Convention'
+      - why flagged: instrument word 'Convention' ≠ home term 'Covenant'
+      - excerpt: “…take into account either applicable Russian domestic provisions or the Minsk Convention (articles 56, 57 and 60), which foresee only a formal assessment of the criteria fo…”
+- [ ] `ccpr-c-119-d-2259-2013-0021` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'tate”. It was in this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…f the Republican State”. It was in this context, and in conformity with the Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-119-d-2259-2013-0021` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'tate”. It was in this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…f the Republican State”. It was in this context, and in conformity with the Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-121-d-2283-2013-0022` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …'tate”. It was in this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…f the Republican State”. It was in this context, and in conformity with the Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-121-d-2283-2013-0022` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …'tate”. It was in this context, and in conformity with the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…f the Republican State”. It was in this context, and in conformity with the Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-122-d-2398-2014-0022` art **87** — home-link (ICCPR) but leading phrase looks like another instrument: …' was in this context, and in conformity with the Algerian Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…ublican State”. It was in this context, and in conformity with the Algerian Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-122-d-2398-2014-0022` art **91** — home-link (ICCPR) but leading phrase looks like another instrument: …' was in this context, and in conformity with the Algerian Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…ublican State”. It was in this context, and in conformity with the Algerian Constitution (arts. 87 and 91), that the Algerian Government implemented precautionary me…”
+- [ ] `ccpr-c-122-d-2490-2014-0020` art **191** — home-link (ICCPR) but leading phrase looks like another instrument: …'n domestic law. Both the Constitution[[fn:15]] and Act No. 600 of 2000'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…ere all grounded in domestic law. Both the Constitution[[fn:15]] and Act No. 600 of 2000 (art. 191), in force at the time of the events, provide for the right…”
+- [ ] `ccpr-c-123-d-2414-2014-0065` art **186** — home-link (ICCPR) but leading phrase looks like another instrument: …' No. 001 of 2018, the legislature of Colombia amended the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…gh Legislative Act No. 001 of 2018, the legislature of Colombia amended the Constitution (arts. 186, 234 and 235) to guarantee the right to a second hearing in criminal cas…”
+- [ ] `ccpr-c-123-d-2414-2014-0065` art **234** — home-link (ICCPR) but leading phrase looks like another instrument: …' No. 001 of 2018, the legislature of Colombia amended the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…gh Legislative Act No. 001 of 2018, the legislature of Colombia amended the Constitution (arts. 186, 234 and 235) to guarantee the right to a second hearing in criminal cas…”
+- [ ] `ccpr-c-123-d-2414-2014-0065` art **235** — home-link (ICCPR) but leading phrase looks like another instrument: …' No. 001 of 2018, the legislature of Colombia amended the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…gh Legislative Act No. 001 of 2018, the legislature of Colombia amended the Constitution (arts. 186, 234 and 235) to guarantee the right to a second hearing in criminal cas…”
+- [ ] `ccpr-c-125-d-2373-2014-0032` art **56** — home-link (ICCPR) but leading phrase looks like another instrument: …'ppealed to the ordinary Danish courts, as stipulated in the Aliens Act'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…Board cannot be appealed to the ordinary Danish courts, as stipulated in the Aliens Act (art. 56, sect. 8), which can be seen as a breach of the right to ap…”
+- [ ] `ccpr-c-125-d-2373-2014-0032` art **63** — home-link (ICCPR) but leading phrase looks like another instrument: …'breach of the right to appeal enshrined in the Constitution of Denmark'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…can be seen as a breach of the right to appeal enshrined in the Constitution of Denmark (art. 63). Moreover, the proceedings of the Refugee Appeals Board, a…”
+- [ ] `ccpr-c-122-d-2628-2015-0020` art **285** — home-link (ICCPR) but leading phrase looks like another instrument: …'omestic provisions in an arbitrary manner, since both the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…Paz interpreted domestic provisions in an arbitrary manner, since both the Constitution (arts. 285.I and 287.I) and circular No. 52/2014 require candidates to…”
+- [ ] `ccpr-c-122-d-2628-2015-0028` art **172** — home-link (ICCPR) but leading phrase looks like another instrument: …'sident of the Supreme Electoral Court is regulated by the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…nt of the Vice-President of the Supreme Electoral Court is regulated by the Constitution (art. 172) and Act No. 18 on the Plurinational Electoral Branch (art.…”
+- [ ] `ccpr-c-122-d-2628-2015-0028` art **13** — home-link (ICCPR) but leading phrase looks like another instrument: …'tution (art. 172) and Act No. 18 on the Plurinational Electoral Branch'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…ated by the Constitution (art. 172) and Act No. 18 on the Plurinational Electoral Branch (art. 13).…”
+- [ ] `ccpr-c-122-d-2629-2015-0021` art **285** — home-link (ICCPR) but leading phrase looks like another instrument: …'omestic provisions in an arbitrary manner, since both the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…Paz interpreted domestic provisions in an arbitrary manner, since both the Constitution (arts. 285.I and 287.I) and circular No. 52/2014 require candidates to…”
+- [ ] `ccpr-c-122-d-2629-2015-0029` art **172** — home-link (ICCPR) but leading phrase looks like another instrument: …'sident of the Supreme Electoral Court is regulated by the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…nt of the Vice-President of the Supreme Electoral Court is regulated by the Constitution (art. 172) and Act No. 18 on the Plurinational Electoral Branch (art.…”
+- [ ] `ccpr-c-122-d-2629-2015-0029` art **13** — home-link (ICCPR) but leading phrase looks like another instrument: …'tution (art. 172) and Act No. 18 on the Plurinational Electoral Branch'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…ated by the Constitution (art. 172) and Act No. 18 on the Plurinational Electoral Branch (art. 13).…”
+- [ ] `ccpr-c-132-d-2675-2015-0021` art **13** — home-link (ICCPR) but leading phrase looks like another instrument: …'d by law were respected, as required by the Constitution of Kazakhstan'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…ribunal established by law were respected, as required by the Constitution of Kazakhstan (arts. 13 (2) and 14 (2)) and the Code of Criminal Procedure (art. 21 (2)). The Stat…”
+- [ ] `ccpr-c-132-d-2675-2015-0021` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'d by law were respected, as required by the Constitution of Kazakhstan'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…ribunal established by law were respected, as required by the Constitution of Kazakhstan (arts. 13 (2) and 14 (2)) and the Code of Criminal Procedure (art. 21 (2)). The Stat…”
+- [ ] `ccpr-c-129-d-2922-2016-0023` art **1** — home-link (ICCPR) but leading phrase looks like another instrument: …'tee the rights provided for in the American Convention on Human Rights'
+      - why flagged: instrument word 'Convention' ≠ home term 'Covenant'
+      - excerpt: “…respect and guarantee the rights provided for in the American Convention on Human Rights (art. 1 (1)). This stems from alleged irregularities in the investigati…”
+- [ ] `ccpr-c-142-d-2749-2016-0044` art **1** — home-link (ICCPR) but leading phrase looks like another instrument: …'Committee’s exercise of jurisdiction pursuant to the Optional Protocol'
+      - why flagged: instrument word 'Protocol' ≠ home term 'Covenant'
+      - excerpt: “…onditions for the Committee’s exercise of jurisdiction pursuant to the Optional Protocol (article 1).…”
+- [ ] `ccpr-c-144-d-2853-2016-0045` art **5** — home-link (ICCPR) but leading phrase looks like another instrument: …'th the no evidence model adopted under the Model Treaty on Extradition'
+      - why flagged: instrument word 'Treaty' ≠ home term 'Covenant'
+      - excerpt: “…e is consistent with the no evidence model adopted under the Model Treaty on Extradition (art. 5), which acknowledges that different countries have differen…”
+- [ ] `ccpr-c-128-d-3043-2017-0054` art **98** — home-link (ICCPR) but leading phrase looks like another instrument: …'onventions – i.e., the United Nations Convention on the Law of the Sea'
+      - why flagged: instrument word 'Convention' ≠ home term 'Covenant'
+      - excerpt: “…ed both the core conventions – i.e., the United Nations Convention on the Law of the Sea (art. 98), the International Convention for the Safety of Life at Se…”
+- [ ] `ccpr-c-134-d-2959-2017-0036` art **62** — home-link (ICCPR) but leading phrase looks like another instrument: …' basis of the provisions of Act No. 757/2004 on organization of courts'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…roceedings, on the basis of the provisions of Act No. 757/2004 on organization of courts (art. 62 (1)). The Chair also found that the author had contributed to p…”
+- [ ] `ccpr-c-130-d-3248-2018-0005` art **299** — home-link (ICCPR) but leading phrase looks like another instrument: …'ate to foreign bodies; (e) Violating the supremacy of the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…the name of the State to foreign bodies; (e) Violating the supremacy of the Constitution (art. 299) and the principle of rule of law; (f) Providing false info…”
+- [ ] `ccpr-c-130-d-3599-2019-0042` art **22** — home-link (ICCPR) but leading phrase looks like another instrument: …' security agencies was already guaranteed by the Historical Memory Act'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…aw enforcement and security agencies was already guaranteed by the Historical Memory Act (article 22 of which establishes a requirement to adopt measures to pro…”
+- [ ] `ccpr-c-134-d-3589-2019-0022` art **1** — home-link (ICCPR) but leading phrase looks like another instrument: …'nge for a hearing well beyond the term contemplated in Act No. 89/2001'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…he request to arrange for a hearing well beyond the term contemplated in Act No. 89/2001 (art. 1-ter (3)), i.e. after more than three and a half years from…”
+- [ ] `ccpr-c-145-d-3742-2020-0018` art **5** — home-link (ICCPR) but leading phrase looks like another instrument: …'wever, the Court ruled in favour of the author, citing the Refugee Act'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…ch application. However, the Court ruled in favour of the author, citing the Refugee Act (art. 5 (4)) which stipulates that “an immigration control official sha…”
+- [ ] `ccpr-c-122-d-2490-2014-rev-1-0020` art **191** — home-link (ICCPR) but leading phrase looks like another instrument: …'n domestic law. Both the Constitution[[fn:16]] and Act No. 600 of 2000'
+      - why flagged: instrument word 'Act' ≠ home term 'Covenant'
+      - excerpt: “…ere all grounded in domestic law. Both the Constitution[[fn:16]] and Act No. 600 of 2000 (art. 191), in force at the time of the events, provide for the right…”
+- [ ] `ccpr-c-66-d-718-1996-rev-1-0015` art **73** — home-link (ICCPR) but leading phrase looks like another instrument: …'The Government emphasizes that the Chilean Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…The Government emphasizes that the Chilean Constitution (article 73) protects the independence of the judiciary. As such, the E…”
+- [ ] `cedaw-c-49-d-17-2008-0072` art **196** — home-link (CEDAW) but leading phrase looks like another instrument: …'ty’s responsibility is strongly anchored in the Brazilian Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…ase, the State party’s responsibility is strongly anchored in the Brazilian Constitution (articles 196-200) which affirms the right to health as a general human r…”
+- [ ] `cedaw-c-56-d-29-2011-0014` art **45** — home-link (CEDAW) but leading phrase looks like another instrument: …'ganic Act 4/2000), which authorizes the permit holder to work in Spain'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…s (art. 31.3 of Organic Act 4/2000), which authorizes the permit holder to work in Spain (art. 45.7 of Royal Decree 2393/2004). The decision under appeal thu…”
+- [ ] `e-c-12-79-d-222-2021-0043` art **47** — home-link (ICESCR) but leading phrase looks like another instrument: …'notably absent from the Constitution, leaving only indirect references'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Covenant'
+      - excerpt: “…ght to housing is notably absent from the Constitution, leaving only indirect references (art. 47) and weak legislative measures, while private property righ…”
+- [ ] `crc-c-93-d-139-2021-0025` art **452** — home-link (CRC) but leading phrase looks like another instrument: …'ovisions contained in Act No. 292/2013 on Special Judicial Proceedings'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…ty, the special provisions contained in Act No. 292/2013 on Special Judicial Proceedings (arts. 452 (1) and arts. 453465) are systematically circumvented through t…”
+- [ ] `cerd-c-109-d-63-2018-0009` art **92** — home-link (CERD) but leading phrase looks like another instrument: …'onsiders that such a statement violates the State party’s Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…ould abscond. He considers that such a statement violates the State party’s Constitution (art. 92),[[fn:12]] the International Convention on the Elimination…”
+- [ ] `cerd-c-109-d-63-2018-0009` art **1** — home-link (CERD) but leading phrase looks like another instrument: …'rnational Convention on the Elimination of All Forms of Discrimination'
+      - why flagged: phrase is a truncated prefix of CEDAW's full name
+      - excerpt: “…[[fn:12]] the International Convention on the Elimination of All Forms of Discrimination (arts. 1, 2, 5 and 6) and Norwegian legislation.[[fn:13]] The author affirms tha…”
+- [ ] `cerd-c-109-d-63-2018-0009` art **2** — home-link (CERD) but leading phrase looks like another instrument: …'rnational Convention on the Elimination of All Forms of Discrimination'
+      - why flagged: phrase is a truncated prefix of CEDAW's full name
+      - excerpt: “…[[fn:12]] the International Convention on the Elimination of All Forms of Discrimination (arts. 1, 2, 5 and 6) and Norwegian legislation.[[fn:13]] The author affirms tha…”
+- [ ] `cerd-c-109-d-63-2018-0009` art **5** — home-link (CERD) but leading phrase looks like another instrument: …'rnational Convention on the Elimination of All Forms of Discrimination'
+      - why flagged: phrase is a truncated prefix of CEDAW's full name
+      - excerpt: “…[[fn:12]] the International Convention on the Elimination of All Forms of Discrimination (arts. 1, 2, 5 and 6) and Norwegian legislation.[[fn:13]] The author affirms tha…”
+- [ ] `cerd-c-109-d-63-2018-0009` art **6** — home-link (CERD) but leading phrase looks like another instrument: …'rnational Convention on the Elimination of All Forms of Discrimination'
+      - why flagged: phrase is a truncated prefix of CEDAW's full name
+      - excerpt: “…[[fn:12]] the International Convention on the Elimination of All Forms of Discrimination (arts. 1, 2, 5 and 6) and Norwegian legislation.[[fn:13]] The author affirms tha…”
+- [ ] `crpd-c-22-d-17-2013-0061` art **13** — home-link (CRPD) but leading phrase looks like another instrument: …'ion 24 of the Anti-Discrimination Act to request special accommodation'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…ination under section 24 of the Anti-Discrimination Act to request special accommodation (art. 13) and that he has never challenged the custodial supervision…”
+- [ ] `crpd-c-22-d-18-2013-0061` art **13** — home-link (CRPD) but leading phrase looks like another instrument: …'ion 24 of the Anti-Discrimination Act to request special accommodation'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…ination under section 24 of the Anti-Discrimination Act to request special accommodation (art. 13) and that he has never challenged the custodial supervision…”
+- [ ] `crpd-c-21-d-34-2015-0005` art **49** — home-link (CRPD) but leading phrase looks like another instrument: …'nd 40 of the Constitution), the inclusion of persons with disabilities'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…tation (arts. 35 and 40 of the Constitution), the inclusion of persons with disabilities (art. 49), access to and retention of public employment (art. 23) an…”
+- [ ] `crpd-c-21-d-34-2015-0008` art **9** — home-link (CRPD) but leading phrase looks like another instrument: …'of the Constitution) in relation to the right to equality and legality'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…ction (article 24 of the Constitution) in relation to the right to equality and legality (article 9 (2) and (3) of the Constitution). On 18 November 2014, the Cons…”
+- [ ] `crpd-c-21-d-34-2015-0022` art **10** — home-link (CRPD) but leading phrase looks like another instrument: …'he law. Moreover, the author refers to a provision of the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…ed and undermine the law. Moreover, the author refers to a provision of the Constitution (art. 10 (2)) under which domestic provisions relating to fundamental ri…”
+- [ ] `crpd-c-23-d-37-2016-0035` art **10** — home-link (CRPD) but leading phrase looks like another instrument: …'cial proceedings. The author refers to a provision of the Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…t of domestic judicial proceedings. The author refers to a provision of the Constitution (art. 10 (2)) under which domestic provisions relating to fundamental ri…”
+- [ ] `crpd-c-23-d-40-2017-0053` art **13** — home-link (CRPD) but leading phrase looks like another instrument: …'rocedure, which is hierarchically inferior to the federal Constitution'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…he Code of Civil Procedure, which is hierarchically inferior to the federal Constitution (article 13 of the Convention). In this respect, the Committee notes th…”
+- [ ] `crpd-c-26-d-48-2018-0010` art **23** — home-link (CRPD) but leading phrase looks like another instrument: …'on of discrimination (Constitution, art. 14), access to public service'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…and the prohibition of discrimination (Constitution, art. 14), access to public service (art. 23), the right to work (art. 35) and human dignity and the obl…”
+- [ ] `crpd-c-26-d-48-2018-0012` art **35** — home-link (CRPD) but leading phrase looks like another instrument: …'to effective protection (Constitution, art. 24 (1)), his right to work'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…ions of his right to effective protection (Constitution, art. 24 (1)), his right to work (art. 35), his right to have access to public service (art. 23) and…”
+- [ ] `crpd-c-29-d-47-2018-0007` art **49** — home-link (CRPD) but leading phrase looks like another instrument: …'e Constitution), the right of persons with disabilities to integration'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…s. 35 and 40 of the Constitution), the right of persons with disabilities to integration (art. 49), the right to have access to and to hold public office (ar…”
+- [ ] `crpd-c-29-d-47-2018-0011` art **14** — home-link (CRPD) but leading phrase looks like another instrument: …'right to work (art. 35 of the Constitution), the principle of equality'
+      - why flagged: instrument word 'Constitution' ≠ home term 'Convention'
+      - excerpt: “…ncil violated his right to work (art. 35 of the Constitution), the principle of equality (art. 14), the right to have access to and to hold public office on…”
+- [ ] `crpd-c-29-d-47-2018-0048` art **43** — home-link (CRPD) but leading phrase looks like another instrument: …' of the facts, the authorities’ interpretation of the Local Police Act'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…d duty at the time of the facts, the authorities’ interpretation of the Local Police Act (arts. 43 and 44) and the Public Service Regulations Act (art. 67) led them…”
+- [ ] `crpd-c-29-d-47-2018-0048` art **44** — home-link (CRPD) but leading phrase looks like another instrument: …' of the facts, the authorities’ interpretation of the Local Police Act'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…d duty at the time of the facts, the authorities’ interpretation of the Local Police Act (arts. 43 and 44) and the Public Service Regulations Act (art. 67) led them…”
+- [ ] `crpd-c-29-d-47-2018-0048` art **67** — home-link (CRPD) but leading phrase looks like another instrument: …'al Police Act (arts. 43 and 44) and the Public Service Regulations Act'
+      - why flagged: instrument word 'Act' ≠ home term 'Convention'
+      - excerpt: “…etation of the Local Police Act (arts. 43 and 44) and the Public Service Regulations Act (art. 67) led them to consider that the situation of retirement as a…”
+
+## A-LOW — probably fine, sample-check 20 (211 items)
+
+Leading phrase contains the home treaty's own term (bare “the Convention/Covenant (art. N)”) — home link is most likely correct. Listed for completeness; sample 20 at random.
+
+- [ ] `hri-gen-1-rev-9-vol-i-p-189-0009` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'est, the safeguards of the Covenant relating to deprivation of liberty'
+      - excerpt: “…cedures entail arrest, the safeguards of the Covenant relating to deprivation of liberty (arts. 9 and 10) may also be applicable. If the arrest is for the particula…”
+- [ ] `hri-gen-1-rev-9-vol-i-p-189-0009` art **10** — home-link (ICCPR) but leading phrase looks like another instrument: …'est, the safeguards of the Covenant relating to deprivation of liberty'
+      - excerpt: “…cedures entail arrest, the safeguards of the Covenant relating to deprivation of liberty (arts. 9 and 10) may also be applicable. If the arrest is for the particula…”
+- [ ] `cerd-c-gc-36-0021` art **2** — home-link (CERD) but leading phrase looks like another instrument: …'iversal Declaration of Human Rights (arts. 2 and 7) and the Convention'
+      - excerpt: “…anchors of the Universal Declaration of Human Rights (arts. 2 and 7) and the Convention (arts. 2 and 5 (a)).…”
+- [ ] `cerd-c-gc-36-0021` art **5** — home-link (CERD) but leading phrase looks like another instrument: …'iversal Declaration of Human Rights (arts. 2 and 7) and the Convention'
+      - excerpt: “…anchors of the Universal Declaration of Human Rights (arts. 2 and 7) and the Convention (arts. 2 and 5 (a)).…”
+- [ ] `cerd-c-gc-36-0029` art **13** — home-link (CERD) but leading phrase looks like another instrument: …' on Economic, Social and Cultural Rights), health (art. 12), education'
+      - excerpt: “…rnational Covenant on Economic, Social and Cultural Rights), health (art. 12), education (arts. 13–14) and work (art. 6), could also be affected by racial pro…”
+- [ ] `crc-c-gc-20-0037` art **42** — home-link (CRC) but leading phrase looks like another instrument: …'s No. 5 (2003) on general measures of implementation of the Convention'
+      - excerpt: “…th general comments No. 5 (2003) on general measures of implementation of the Convention (arts. 4, 42 and 44, para. 6) and No. 19 (2016) on public budgeting for the rea…”
+- [ ] `crc-c-gc-20-0037` art **44** — home-link (CRC) but leading phrase looks like another instrument: …'s No. 5 (2003) on general measures of implementation of the Convention'
+      - excerpt: “…th general comments No. 5 (2003) on general measures of implementation of the Convention (arts. 4, 42 and 44, para. 6) and No. 19 (2016) on public budgeting for the rea…”
+- [ ] `crc-c-gc-20-0037` art **4** — home-link (CRC) but leading phrase looks like another instrument: …'19 (2016) on public budgeting for the realization of children’s rights'
+      - excerpt: “…para. 6) and No. 19 (2016) on public budgeting for the realization of children’s rights (art. 4), the Committee draws attention to States parties’ obligati…”
+- [ ] `crc-gc-2003-5-0044` art **2** — home-link (CRC) but leading phrase looks like another instrument: …'n the full recognition and realization of all rights in the Convention'
+      - excerpt: “…in its jurisdiction the full recognition and realization of all rights in the Convention (arts. 2 (1) and 3 (2)). Article 3 (1) establishes that the best interests of the…”
+- [ ] `crc-c-gc-9-corr-1-0073` art **40** — home-link (CRC) but leading phrase looks like another instrument: …'isions of the Convention which specifically relate to juvenile justice'
+      - excerpt: “…t only by the provisions of the Convention which specifically relate to juvenile justice (arts. 40, 37 and 39) but by all other relevant provisions and guarantees contai…”
+- [ ] `crc-c-gc-9-corr-1-0073` art **37** — home-link (CRC) but leading phrase looks like another instrument: …'isions of the Convention which specifically relate to juvenile justice'
+      - excerpt: “…t only by the provisions of the Convention which specifically relate to juvenile justice (arts. 40, 37 and 39) but by all other relevant provisions and guarantees contai…”
+- [ ] `crc-c-gc-9-corr-1-0073` art **39** — home-link (CRC) but leading phrase looks like another instrument: …'isions of the Convention which specifically relate to juvenile justice'
+      - excerpt: “…t only by the provisions of the Convention which specifically relate to juvenile justice (arts. 40, 37 and 39) but by all other relevant provisions and guarantees contai…”
+- [ ] `crpd-c-gc-8-0010` art **6** — home-link (CRPD) but leading phrase looks like another instrument: …'on on Human Rights in the Area of Economic, Social and Cultural Rights'
+      - excerpt: “…American Convention on Human Rights in the Area of Economic, Social and Cultural Rights (arts. 6–8) – and affirm the principle that respect for the right to…”
+- [ ] `e-1991-23-0005` art **2** — home-link (ICESCR) but leading phrase looks like another instrument: …'gnized in that Covenant are violated, “shall have an effective remedy”'
+      - excerpt: “…scrimination) recognized in that Covenant are violated, “shall have an effective remedy” (art. 2 (3) (a)). In addition, there are a number of other provisions i…”
+- [ ] `cat-c-18-d-34-1995-0019` art **3** — home-link (CAT) but leading phrase looks like another instrument: …' the existence of serious, concrete and personal danger of persecution'
+      - excerpt: “…onvention, namely, the existence of serious, concrete and personal danger of persecution (art. 3, para. 1; cf. B. Mutombo v. Switzerland, ...), in the deter…”
+- [ ] `cat-c-26-d-128-1999-0007` art **33** — home-link (CAT) but leading phrase looks like another instrument: …'of non-refoulement set out in the Convention on the Status of Refugees'
+      - excerpt: “…of the principle of non-refoulement set out in the Convention on the Status of Refugees (art. 33), the prohibition of torture contained in article 3 of the…”
+- [ ] `cat-c-38-d-249-2004-0076` art **18** — home-link (CAT) but leading phrase looks like another instrument: …' established there under. The Committee also notes that the Convention'
+      - excerpt: “…ividual complaints established there under. The Committee also notes that the Convention (art. 18) vests it with competence to establish its own rules of pro…”
+- [ ] `cat-c-38-d-300-2006-0032` art **18** — home-link (CAT) but leading phrase looks like another instrument: …'The Committee also notes that the Convention'
+      - excerpt: “…The Committee also notes that the Convention (art. 18) vests it with competence to establish its own rules of pro…”
+- [ ] `cat-c-53-d-482-2011-0039` art **18** — home-link (CAT) but leading phrase looks like another instrument: …'e established thereunder. The Committee also notes that the Convention'
+      - excerpt: “…omplaints procedure established thereunder. The Committee also notes that the Convention (art. 18) vests it with competence to establish its own rules of pro…”
+- [ ] `cat-c-63-d-678-2015-0016` art **3** — home-link (CAT) but leading phrase looks like another instrument: …' Convention against Torture in the European Convention on Human Rights'
+      - excerpt: “…article 16 of the Convention against Torture in the European Convention on Human Rights (art. 3) and the International Covenant on Civil and Political Righ…”
+- [ ] `cat-c-67-d-813-2017-0044` art **99** — home-link (CAT) but leading phrase looks like another instrument: …'not deviate from the provisions of the Third Geneva Convention of 1949'
+      - excerpt: “…Conventions, did not deviate from the provisions of the Third Geneva Convention of 1949 (arts. 99–108). The individual is either a prisoner of war[[fn:19]] o…”
+- [ ] `cat-c-73-d-879-2018-0036` art **12** — home-link (CAT) but leading phrase looks like another instrument: …'he light of the State party’s current obligations under the Convention'
+      - excerpt: “…she underwent in the light of the State party’s current obligations under the Convention (arts. 12–14 and 16).[[fn:16]]…”
+- [ ] `cat-c-75-d-922-2019-0044` art **2** — home-link (CAT) but leading phrase looks like another instrument: …'ation to implement the Convention, with regard to both acts of torture'
+      - excerpt: “…as a general obligation to implement the Convention, with regard to both acts of torture (article 2 (1)) and acts of inhuman and degrading treatment (article 16).…”
+- [ ] `cat-c-75-d-922-2019-0044` art **16** — home-link (CAT) but leading phrase looks like another instrument: …'of torture (article 2 (1)) and acts of inhuman and degrading treatment'
+      - excerpt: “…gard to both acts of torture (article 2 (1)) and acts of inhuman and degrading treatment (article 16). This means that, although repatriation is not the subject…”
+- [ ] `cat-c-75-d-922-2019-0067` art **30** — home-link (CAT) but leading phrase looks like another instrument: …'gn ourselves with this ultra vires approach. Under both the Convention'
+      - excerpt: “…aty. We cannot align ourselves with this ultra vires approach. Under both the Convention (art. 30 (1)) and the Vienna Convention on the Law of Treaties (art. 31)…”
+- [ ] `cat-c-75-d-922-2019-0067` art **31** — home-link (CAT) but leading phrase looks like another instrument: …'vention (art. 30 (1)) and the Vienna Convention on the Law of Treaties'
+      - excerpt: “…Under both the Convention (art. 30 (1)) and the Vienna Convention on the Law of Treaties (art. 31), interpretation of a treaty is the domain of States partie…”
+- [ ] `cat-c-78-d-1045-2020-0036` art **2** — home-link (CAT) but leading phrase looks like another instrument: …'ation to implement the Convention, with regard both to acts of torture'
+      - excerpt: “…as a general obligation to implement the Convention, with regard both to acts of torture (article 2 (1)) and to acts of inhuman and degrading treatment (article 16…”
+- [ ] `cat-c-78-d-1045-2020-0036` art **16** — home-link (CAT) but leading phrase looks like another instrument: …'torture (article 2 (1)) and to acts of inhuman and degrading treatment'
+      - excerpt: “…d both to acts of torture (article 2 (1)) and to acts of inhuman and degrading treatment (article 16). This means that, although repatriation is not the subject…”
+- [ ] `ccpr-c-13-d-24-1977-0026` art **17** — home-link (ICCPR) but leading phrase looks like another instrument: …'ticle 12), and the rights aimed at protecting family life and children'
+      - excerpt: “…ne's residence (article 12), and the rights aimed at protecting family life and children (articles 17, 23 and 24) are only indirectly at stake in the present case. The fact…”
+- [ ] `ccpr-c-13-d-24-1977-0026` art **23** — home-link (ICCPR) but leading phrase looks like another instrument: …'ticle 12), and the rights aimed at protecting family life and children'
+      - excerpt: “…ne's residence (article 12), and the rights aimed at protecting family life and children (articles 17, 23 and 24) are only indirectly at stake in the present case. The fact…”
+- [ ] `ccpr-c-13-d-24-1977-0026` art **24** — home-link (ICCPR) but leading phrase looks like another instrument: …'ticle 12), and the rights aimed at protecting family life and children'
+      - excerpt: “…ne's residence (article 12), and the rights aimed at protecting family life and children (articles 17, 23 and 24) are only indirectly at stake in the present case. The fact…”
+- [ ] `ccpr-c-13-d-24-1977-0026` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'e (para. 12), to examine the general provisions against discrimination'
+      - excerpt: “…as suggested above (para. 12), to examine the general provisions against discrimination (arts. 2, 3 and 26) in the context of the present case, and in particular to d…”
+- [ ] `ccpr-c-13-d-24-1977-0026` art **3** — home-link (ICCPR) but leading phrase looks like another instrument: …'e (para. 12), to examine the general provisions against discrimination'
+      - excerpt: “…as suggested above (para. 12), to examine the general provisions against discrimination (arts. 2, 3 and 26) in the context of the present case, and in particular to d…”
+- [ ] `ccpr-c-13-d-24-1977-0026` art **26** — home-link (ICCPR) but leading phrase looks like another instrument: …'e (para. 12), to examine the general provisions against discrimination'
+      - excerpt: “…as suggested above (para. 12), to examine the general provisions against discrimination (arts. 2, 3 and 26) in the context of the present case, and in particular to d…”
+- [ ] `ccpr-c-9-d-8-1977-0001` art **4** — home-link (ICCPR) but leading phrase looks like another instrument: …'w, in particular the "prompt security measures". However, the Covenant'
+      - excerpt: “…ns of Uruguayan law, in particular the "prompt security measures". However, the Covenant (art. 4) does not allow national measures derogating from any of it…”
+- [ ] `ccpr-c-12-d-33-1978-0018` art **4** — home-link (ICCPR) but leading phrase looks like another instrument: …' Uruguayan law, including the "prompt security measures". The Covenant'
+      - excerpt: “…d to provisions of Uruguayan law, including the "prompt security measures". The Covenant (art. 4) allows national measures derogating from some of its provi…”
+- [ ] `ccpr-c-12-d-37-1978-0021` art **4** — home-link (ICCPR) but leading phrase looks like another instrument: …'yan law, such as the "prompt security measures". However, the Covenant'
+      - excerpt: “…ovisions of Uruguayan law, such as the "prompt security measures". However, the Covenant (art. 4) does not allow national measures derogating from any of it…”
+- [ ] `ccpr-c-12-d-44-1979-0023` art **4** — home-link (ICCPR) but leading phrase looks like another instrument: …' Uruguayan law, including the "prompt security measures". The Covenant'
+      - excerpt: “…d to provisions of Uruguayan law, including the "prompt security measures". The Covenant (art. 4) allows national measures derogating from some of its provi…”
+- [ ] `ccpr-c-13-d-52-1979-0027` art **4** — home-link (ICCPR) but leading phrase looks like another instrument: …'in Uruguayan law, of "prompt security measures". However, the Covenant'
+      - excerpt: “…ed to provisions, in Uruguayan law, of "prompt security measures". However, the Covenant (art. 4) does not allow national measures derogating from any of it…”
+- [ ] `ccpr-c-29-d-182-1984-0006` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'90ively the full realization of tho rights recognized in that Covenant'
+      - excerpt: “…o achieving proqro90ively the full realization of tho rights recognized in that Covenant (art. 2, pllra. 1). (c) -The prooeao of gradual realization to the…”
+- [ ] `ccpr-c-35-d-218-1986-0004` art **26** — home-link (ICCPR) but leading phrase looks like another instrument: …'on of 1 November 1983, statedl "From the wording of these two articles'
+      - excerpt: “…urt, in its decision of 1 November 1983, statedl "From the wording of these two articles (articles 26 and 2 0,; of the Covenant), taken conjointly, it is apparent that…”
+- [ ] `ccpr-c-35-d-218-1986-0004` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'on of 1 November 1983, statedl "From the wording of these two articles'
+      - excerpt: “…urt, in its decision of 1 November 1983, statedl "From the wording of these two articles (articles 26 and 2 0,; of the Covenant), taken conjointly, it is apparent that…”
+- [ ] `ccpr-c-43-d-230-1987-0022` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'ly imposes a duty to provide legal aid in respect of criminal offenses'
+      - excerpt: “…at the Covenant only imposes a duty to provide legal aid in respect of criminal offenses (article 14, paragraph 3(d)). Furthermore, international conventions de…”
+- [ ] `ccpr-c-37-d-290-1988-0009` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'party submits that the provigion of the Covenant invoked by the author'
+      - excerpt: “…ontext, the State party submits that the provigion of the Covenant invoked by the author (art. 14) is coterminous with the right guaranteed by Section 20 of…”
+- [ ] `ccpr-c-38-d-275-1988-0008` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'essary to give effect to the rights recognized in the present Covenant'
+      - excerpt: “…ures as may be necessary to give effect to the rights recognized in the present Covenant (art. 2, para. 2), to ensure that any person whose rights or freedo…”
+- [ ] `ccpr-c-38-d-275-1988-0019` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 95 1 5 2 5 7 1330 3516 102 43 94.358917 and 10) but in connect…”
+- [ ] `ccpr-c-38-d-275-1988-0019` art **7** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 95 1 5 2 5 7 1330 3516 102 43 94.358917 and 10) but in connect…”
+- [ ] `ccpr-c-38-d-275-1988-0019` art **95** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 95 1 5 2 5 7 1330 3516 102 43 94.358917 and 10) but in connect…”
+- [ ] `ccpr-c-38-d-343-1988-0015` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-343-1988-0015` art **7** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-343-1988-0015` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-343-1988-0015` art **10** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-344-1988-0015` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-344-1988-0015` art **7** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-344-1988-0015` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-344-1988-0015` art **10** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-345-1988-0015` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-345-1988-0015` art **7** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-345-1988-0015` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-38-d-345-1988-0015` art **10** — home-link (ICCPR) but leading phrase looks like another instrument: …'claims not only under the respective material articles in the Covenant'
+      - excerpt: “…ment, may lead to claims not only under the respective material articles in the Covenant (articles 6, 7, 9 and 10) but in connection therewith also under article 2 of the Co…”
+- [ ] `ccpr-c-46-d-292-1988-0008` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …'arty submits that the provisions of the Covenant invoked by the author'
+      - excerpt: “…ntext, the State party submits that the provisions of the Covenant invoked by the author (arts. 6, 7, and 14) are coterminous with the rights protected by secti…”
+- [ ] `ccpr-c-46-d-292-1988-0008` art **7** — home-link (ICCPR) but leading phrase looks like another instrument: …'arty submits that the provisions of the Covenant invoked by the author'
+      - excerpt: “…ntext, the State party submits that the provisions of the Covenant invoked by the author (arts. 6, 7, and 14) are coterminous with the rights protected by secti…”
+- [ ] `ccpr-c-46-d-338-1988-0014` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'ly imposes a duty to provide legal aid in respect of criminal offences'
+      - excerpt: “…at the Covenant only imposes a duty to provide legal aid in respect of criminal offences (art. 14, para. 3 (d)). Further, international conventions dealing w…”
+- [ ] `ccpr-c-45-d-349-1989-0026` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'ly imposes a duty to provide legal aid in respect of criminal offences'
+      - excerpt: “…at the Covenant only imposes a duty to provide legal aid in respect of criminal offences (article 14, paragraph 3(d)). Moreover, international conventions deali…”
+- [ ] `ccpr-c-49-d-352-1989-0022` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'ly imposes a duty to provide legal aid in respect of criminal offences'
+      - excerpt: “…at the Covenant only imposes a duty to provide legal aid in respect of criminal offences (article 14, paragraph 3(d)). Moreover, international conventions deali…”
+- [ ] `ccpr-c-19-d-90-1991-0003` art **10** — home-link (ICCPR) but leading phrase looks like another instrument: …'infringed and that he was not treated with humanity while in detention'
+      - excerpt: “…venant) have been infringed and that he was not treated with humanity while in detention (art. 10).…”
+- [ ] `ccpr-c-52-d-539-1993-0059` art **26** — home-link (ICCPR) but leading phrase looks like another instrument: …' relating to fair trial (article 14) and discrimination before the law'
+      - excerpt: “…insofar as claims relating to fair trial (article 14) and discrimination before the law (article 26) are concerned. We agree. But this negative finding cannot…”
+- [ ] `ccpr-c-59-d-558-1993-0048` art **12** — home-link (ICCPR) but leading phrase looks like another instrument: …'r, more limited situation of arbitrariness, as covered by the Covenant'
+      - excerpt: “…nfused with another, more limited situation of arbitrariness, as covered by the Covenant (art. 12, para. 4), which in this instance concerns the actual decis…”
+- [ ] `ccpr-c-56-d-588-1994-0032` art **5** — home-link (ICCPR) but leading phrase looks like another instrument: …'ght of all the written information made available to it by the parties'
+      - excerpt: “…Covenant in the light of all the written information made available to it by the parties (art. 5S, para. 1, of the Optional Protocol); in the instant case,…”
+- [ ] `ccpr-c-70-d-833-1998-0012` art **26** — home-link (ICCPR) but leading phrase looks like another instrument: …'that the order of 11 October 1993 was taken in accordance with the law'
+      - excerpt: “…context, it notes that the order of 11 October 1993 was taken in accordance with the law (article 26 of the decree of 2 November 1945 as amended). The law provi…”
+- [ ] `ccpr-c-70-d-833-1998-0017` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'s recognized in the Covenant, such as the right to freedom of movement'
+      - excerpt: “…of numerous rights recognized in the Covenant, such as the right to freedom of movement (articles 9 and 12), the right to dignity of the human person (article 10), th…”
+- [ ] `ccpr-c-70-d-833-1998-0017` art **12** — home-link (ICCPR) but leading phrase looks like another instrument: …'s recognized in the Covenant, such as the right to freedom of movement'
+      - excerpt: “…of numerous rights recognized in the Covenant, such as the right to freedom of movement (articles 9 and 12), the right to dignity of the human person (article 10), th…”
+- [ ] `ccpr-c-70-d-833-1998-0017` art **10** — home-link (ICCPR) but leading phrase looks like another instrument: …'movement (articles 9 and 12), the right to dignity of the human person'
+      - excerpt: “…ght to freedom of movement (articles 9 and 12), the right to dignity of the human person (article 10), the right to review (article 13) and the right to family…”
+- [ ] `ccpr-c-78-d-950-2000-0055` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'in the Covenant, including the right to liberty and security of person'
+      - excerpt: “…rights enshrined in the Covenant, including the right to liberty and security of person (article 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-78-d-953-2000-0015` art **3** — home-link (ICCPR) but leading phrase looks like another instrument: …'oes not enjoy the Covenant rights on the same basis as women in Canada'
+      - excerpt: “…tantiate that he does not enjoy the Covenant rights on the same basis as women in Canada (article 3), and that his exclusion from parliamentary precincts amoun…”
+- [ ] `ccpr-c-78-d-960-2000-0009` art **315** — home-link (ICCPR) but leading phrase looks like another instrument: …'declares, in the transitional provisions relating to the Criminal Code'
+      - excerpt: “…23 September 1990 declares, in the transitional provisions relating to the Criminal Code (articles 315 to 315c of the Introductory Act to the Criminal Code), that…”
+- [ ] `ccpr-c-76-d-1001-2001-0020` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'qual treatment (article 26 of the Covenant), and freedom of expression'
+      - excerpt: “…or’s claims of unequal treatment (article 26 of the Covenant), and freedom of expression (article 19 of the Covenant), the State party contends that the author…”
+- [ ] `ccpr-c-86-d-992-2001-0029` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'he Covenant, including the right to liberty and security of the person'
+      - excerpt: “…hts enshrined in the Covenant, including the right to liberty and security of the person (art. 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-79-d-1069-2002-0044` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …' otherwise utilised in the Covenant, it clearly refers to domestic law'
+      - excerpt: “…”. Where lawful is otherwise utilised in the Covenant, it clearly refers to domestic law (arts. 9(1), 17(2), 18(3) and 22(2)). Nor do the Committee’s General Comments, nor the travaux…”
+- [ ] `ccpr-c-79-d-1069-2002-0044` art **17** — home-link (ICCPR) but leading phrase looks like another instrument: …' otherwise utilised in the Covenant, it clearly refers to domestic law'
+      - excerpt: “…”. Where lawful is otherwise utilised in the Covenant, it clearly refers to domestic law (arts. 9(1), 17(2), 18(3) and 22(2)). Nor do the Committee’s General Comments, nor the travaux…”
+- [ ] `ccpr-c-79-d-1069-2002-0044` art **18** — home-link (ICCPR) but leading phrase looks like another instrument: …' otherwise utilised in the Covenant, it clearly refers to domestic law'
+      - excerpt: “…”. Where lawful is otherwise utilised in the Covenant, it clearly refers to domestic law (arts. 9(1), 17(2), 18(3) and 22(2)). Nor do the Committee’s General Comments, nor the travaux…”
+- [ ] `ccpr-c-79-d-1069-2002-0044` art **22** — home-link (ICCPR) but leading phrase looks like another instrument: …' otherwise utilised in the Covenant, it clearly refers to domestic law'
+      - excerpt: “…”. Where lawful is otherwise utilised in the Covenant, it clearly refers to domestic law (arts. 9(1), 17(2), 18(3) and 22(2)). Nor do the Committee’s General Comments, nor the travaux…”
+- [ ] `ccpr-c-86-d-1085-2002-0010` art **7** — home-link (ICCPR) but leading phrase looks like another instrument: …'il rights, which in their view constitutes cruel and inhuman treatment'
+      - excerpt: “…iture of their civil rights, which in their view constitutes cruel and inhuman treatment (art. 7 of the Covenant) and impairment of the inherent dignity of…”
+- [ ] `ccpr-c-86-d-1085-2002-0010` art **10** — home-link (ICCPR) but leading phrase looks like another instrument: …'e Covenant) and impairment of the inherent dignity of the human person'
+      - excerpt: “…ment (art. 7 of the Covenant) and impairment of the inherent dignity of the human person (art. 10, para. 1) and of their honour and reputation (art. 17).…”
+- [ ] `ccpr-c-86-d-1085-2002-0010` art **17** — home-link (ICCPR) but leading phrase looks like another instrument: …'the human person (art. 10, para. 1) and of their honour and reputation'
+      - excerpt: “…herent dignity of the human person (art. 10, para. 1) and of their honour and reputation (art. 17).…”
+- [ ] `ccpr-c-81-d-1179-2003-0028` art **23** — home-link (ICCPR) but leading phrase looks like another instrument: …'he Covenant and thus cannot invoke protection by society and the State'
+      - excerpt: “…of article 23 of the Covenant and thus cannot invoke protection by society and the State (art. 23, para. 1), which is not applicable in their case.…”
+- [ ] `ccpr-c-86-d-1196-2003-0031` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'he Covenant, including the right to liberty and security of the person'
+      - excerpt: “…hts enshrined in the Covenant, including the right to liberty and security of the person (art. 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-87-d-1229-2003-0012` art **23** — home-link (ICCPR) but leading phrase looks like another instrument: …'he author points out that the State party failed to protect his family'
+      - excerpt: “…of the Covenant, the author points out that the State party failed to protect his family (art. 23, para. 1) in all the above-mentioned situations and when th…”
+- [ ] `ccpr-c-88-d-1187-2003-0017` art **5** — home-link (ICCPR) but leading phrase looks like another instrument: …'t the same matter is pending before the European Court of Human Rights'
+      - excerpt: “…onal Protocol; that the same matter is pending before the European Court of Human Rights (article 5, paragraph 2 (a), of the Optional Protocol); and that the a…”
+- [ ] `ccpr-c-88-d-1187-2003-0017` art **5** — home-link (ICCPR) but leading phrase looks like another instrument: …'ocol); and that the author did not exhaust available domestic remedies'
+      - excerpt: “…the Optional Protocol); and that the author did not exhaust available domestic remedies (article 5, paragraph 2 (b), of the Optional Protocol).…”
+- [ ] `ccpr-c-90-d-1295-2004-0016` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'he Covenant, including the right to liberty and security of the person'
+      - excerpt: “…hts enshrined in the Covenant, including the right to liberty and security of the person (article 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-90-d-1327-2004-0030` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'he Covenant, including the right to liberty and security of the person'
+      - excerpt: “…hts enshrined in the Covenant, including the right to liberty and security of the person (art. 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-90-d-1328-2004-0030` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'he Covenant, including the right to liberty and security of the person'
+      - excerpt: “…hts enshrined in the Covenant, including the right to liberty and security of the person (art. 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-88-d-1416-2005-0090` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'icle 7 of the Covenant); exposure to risk of a manifestly unfair trial'
+      - excerpt: “…unishment (all article 7 of the Covenant); exposure to risk of a manifestly unfair trial (article 14 of the Covenant); inadequate process of expulsion of an ali…”
+- [ ] `ccpr-c-88-d-1416-2005-0090` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …' process of expulsion of an alien and insufficient, ineffective remedy'
+      - excerpt: “…enant); inadequate process of expulsion of an alien and insufficient, ineffective remedy (articles 2 and 13 of the Covenant); and violation of the right to effective i…”
+- [ ] `ccpr-c-88-d-1416-2005-0090` art **13** — home-link (ICCPR) but leading phrase looks like another instrument: …' process of expulsion of an alien and insufficient, ineffective remedy'
+      - excerpt: “…enant); inadequate process of expulsion of an alien and insufficient, ineffective remedy (articles 2 and 13 of the Covenant); and violation of the right to effective i…”
+- [ ] `ccpr-c-88-d-1424-2005-0008` art **12** — home-link (ICCPR) but leading phrase looks like another instrument: …'nt); (b) loss of the right to choose one’s residence freely in Algeria'
+      - excerpt: “…le 1 of the Covenant); (b) loss of the right to choose one’s residence freely in Algeria (art. 12); (c) unlawful interference with the applicants’ home in Al…”
+- [ ] `ccpr-c-89-d-1341-2005-0040` art **13** — home-link (ICCPR) but leading phrase looks like another instrument: …'ed as satisfactory,[[fn:22]] and which is consistent with the Covenant'
+      - excerpt: “…Committee has viewed as satisfactory,[[fn:22]] and which is consistent with the Covenant (article 13).…”
+- [ ] `ccpr-c-91-d-1422-2005-0026` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'in the Covenant, including the right to liberty and security of person'
+      - excerpt: “…rights enshrined in the Covenant, including the right to liberty and security of person (art. 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-94-d-1469-2006-0041` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'in the Covenant, including the right to liberty and security of person'
+      - excerpt: “…rights enshrined in the Covenant, including the right to liberty and security of person (art. 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-94-d-1495-2006-0028` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'in the Covenant, including the right to liberty and security of person'
+      - excerpt: “…rights enshrined in the Covenant, including the right to liberty and security of person (art. 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-96-d-1536-2006-0048` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …' Clearly it arises in connection with the right to an effective remedy'
+      - excerpt: “…e in the Covenant? Clearly it arises in connection with the right to an effective remedy (art. 2, para. 3 (a)), read in conjunction with the general obligat…”
+- [ ] `ccpr-c-96-d-1536-2006-0048` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'the rights recognized in the Covenant, without distinction of any kind'
+      - excerpt: “…o all individuals the rights recognized in the Covenant, without distinction of any kind (art. 2, para. 1).…”
+- [ ] `ccpr-c-101-d-1604-2007-0035` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …' of the Covenant, may be subject to limitations as provided for by law'
+      - excerpt: “…e 19, paragraph 2, of the Covenant, may be subject to limitations as provided for by law (article 19, paragraph 3, of the Covenant and article 32 of the Belarus…”
+- [ ] `ccpr-c-97-d-1573-2007-0033` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …' violations of individual rights. These rights are set out in part III'
+      - excerpt: “…t do not relate to violations of individual rights. These rights are set out in part III (articles 6 to 27) of the Covenant. It follows that this part of the co…”
+- [ ] `ccpr-c-99-d-1588-2007-0040` art **16** — home-link (ICCPR) but leading phrase looks like another instrument: …' Covenant, such as the right to recognition as a person before the law'
+      - excerpt: “…s enshrined in the Covenant, such as the right to recognition as a person before the law (art. 16), the right to liberty and security of person (art. 9), the…”
+- [ ] `ccpr-c-99-d-1588-2007-0040` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …' before the law (art. 16), the right to liberty and security of person'
+      - excerpt: “…nition as a person before the law (art. 16), the right to liberty and security of person (art. 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-99-d-1640-2007-0027` art **16** — home-link (ICCPR) but leading phrase looks like another instrument: …'ovenant, including the right to recognition as a person before the law'
+      - excerpt: “…enshrined in the Covenant, including the right to recognition as a person before the law (art. 16), the right to liberty and security of person (art. 9), the…”
+- [ ] `ccpr-c-99-d-1640-2007-0027` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …' before the law (art. 16), the right to liberty and security of person'
+      - excerpt: “…nition as a person before the law (art. 16), the right to liberty and security of person (art. 9), the right not to be subjected to torture or to cruel, inh…”
+- [ ] `ccpr-c-100-d-1768-2008-0014` art **7** — home-link (ICCPR) but leading phrase looks like another instrument: …'e European Convention on Human Rights (arts. 3 and 5) and the Covenant'
+      - excerpt: “…th Code, and in the European Convention on Human Rights (arts. 3 and 5) and the Covenant (art. 7), which are detailed at length in the author’s submission.…”
+- [ ] `ccpr-c-103-d-1819-2008-0019` art **7** — home-link (ICCPR) but leading phrase looks like another instrument: …'er right to freedom of opinion and expression without fear of reprisal'
+      - excerpt: “…he Covenant) and her right to freedom of opinion and expression without fear of reprisal (articles 7, 9, paragraph 1, 13 and 19 of the Covenant), in addition to th…”
+- [ ] `ccpr-c-103-d-1819-2008-0019` art **9** — home-link (ICCPR) but leading phrase looks like another instrument: …'er right to freedom of opinion and expression without fear of reprisal'
+      - excerpt: “…he Covenant) and her right to freedom of opinion and expression without fear of reprisal (articles 7, 9, paragraph 1, 13 and 19 of the Covenant), in addition to th…”
+- [ ] `ccpr-c-103-d-1838-2008-0032` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'other measures to give effect to the rights recognized in the Covenant'
+      - excerpt: “…te legislative or other measures to give effect to the rights recognized in the Covenant (art. 2, para. 2), and consequently, the obligation not to adopt no…”
+- [ ] `ccpr-c-104-d-1782-2008-0040` art **16** — home-link (ICCPR) but leading phrase looks like another instrument: …'cluding the right to recognition everywhere as a person before the law'
+      - excerpt: “…n the Covenant, including the right to recognition everywhere as a person before the law (art. 16), the right to liberty and security of person (art. 9), the…”
+- [ ] `ccpr-c-106-d-1786-2008-0035` art **18** — home-link (ICCPR) but leading phrase looks like another instrument: …'e Human Rights Committee holds that freedom of conscience and religion'
+      - excerpt: “…litical Rights. The Human Rights Committee holds that freedom of conscience and religion (article 18 of the Covenant) includes the right to conscientious object…”
+- [ ] `ccpr-c-106-d-1804-2008-0027` art **16** — home-link (ICCPR) but leading phrase looks like another instrument: …'cluding the right to recognition everywhere as a person before the law'
+      - excerpt: “…n the Covenant, including the right to recognition everywhere as a person before the law (art. 16), the right to liberty and security of person (art. 9), the…”
+- [ ] `ccpr-c-99-d-1799-2008-0044` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'ant on Civil and Political Rights. The principle of non-discrimination'
+      - excerpt: “…nternational Covenant on Civil and Political Rights. The principle of non-discrimination (art. 2, para. 1), equality before the law (art. 26), the prohibiti…”
+- [ ] `ccpr-c-99-d-1799-2008-0044` art **26** — home-link (ICCPR) but leading phrase looks like another instrument: …'ciple of non-discrimination (art. 2, para. 1), equality before the law'
+      - excerpt: “…l Rights. The principle of non-discrimination (art. 2, para. 1), equality before the law (art. 26), the prohibition of torture and cruel, inhuman or degradin…”
+- [ ] `ccpr-c-109-d-1922-2009-0007` art **12** — home-link (ICCPR) but leading phrase looks like another instrument: …'); (b) denial of the right to freely choose one’s residence in Algeria'
+      - excerpt: “…1 of the Covenant); (b) denial of the right to freely choose one’s residence in Algeria (art. 12); (c) unlawful interference with the authors’ homes in Alge…”
+- [ ] `ccpr-c-116-d-1941-2010-0007` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'nocence; that was a further violation of his rights under the Covenant'
+      - excerpt: “…established his innocence; that was a further violation of his rights under the Covenant (art. 14 (3) (e)).…”
+- [ ] `ccpr-c-117-d-2089-2011-0008` art **1** — home-link (ICCPR) but leading phrase looks like another instrument: …'orth in the Covenant. The provision on the competence of the Committee'
+      - excerpt: “…f any rights set forth in the Covenant. The provision on the competence of the Committee (art. 1) was recognized in conjunction with other provisions of the…”
+- [ ] `ccpr-c-108-d-2202-2012-0013` art **13** — home-link (ICCPR) but leading phrase looks like another instrument: …' Human Rights (Pact of San José, Costa Rica), of access to information'
+      - excerpt: “…ican Convention on Human Rights (Pact of San José, Costa Rica), of access to information (arts. 13.1 and 13.2) and to an effective remedy (art. 25.1), both in…”
+- [ ] `ccpr-c-108-d-2202-2012-0045` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'mmittee’s general comment No. 34 on freedoms of opinion and expression'
+      - excerpt: “…ccording to the Committee’s general comment No. 34 on freedoms of opinion and expression (article 19 of the Covenant) (CCPR/C/GC/34), the right of access to inf…”
+- [ ] `ccpr-c-116-d-2244-2013-0045` art **257** — home-link (ICCPR) but leading phrase looks like another instrument: …'as defined as an offence in the 1938 Criminal Code, as amended in 1971'
+      - excerpt: “…nt, embezzlement was defined as an offence in the 1938 Criminal Code, as amended in 1971 (art. 257). This provision was amended again in 1977. Pursuant to the…”
+- [ ] `ccpr-c-122-d-2252-2013-0051` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'the Covenant is arbitrary, including freedom of opinion and expression'
+      - excerpt: “…as guaranteed by the Covenant is arbitrary, including freedom of opinion and expression (art. 19).[[fn:21]] The Committee notes the author’s claims regardin…”
+- [ ] `ccpr-c-124-d-2266-2013-0009` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'l communications from persons who have not exhausted domestic remedies'
+      - excerpt: “…sidering individual communications from persons who have not exhausted domestic remedies (articles 2 and 5 (2b)) and from third parties, including those who are not s…”
+- [ ] `ccpr-c-124-d-2266-2013-0009` art **5** — home-link (ICCPR) but leading phrase looks like another instrument: …'l communications from persons who have not exhausted domestic remedies'
+      - excerpt: “…sidering individual communications from persons who have not exhausted domestic remedies (articles 2 and 5 (2b)) and from third parties, including those who are not s…”
+- [ ] `ccpr-c-126-d-2434-2014-0023` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'mmunications from persons who have not exhausted all domestic remedies'
+      - excerpt: “…ring individual communications from persons who have not exhausted all domestic remedies (arts. 2 and 5 (2) (b) of the Optional Protocol) and from third parties, inclu…”
+- [ ] `ccpr-c-126-d-2434-2014-0023` art **5** — home-link (ICCPR) but leading phrase looks like another instrument: …'mmunications from persons who have not exhausted all domestic remedies'
+      - excerpt: “…ring individual communications from persons who have not exhausted all domestic remedies (arts. 2 and 5 (2) (b) of the Optional Protocol) and from third parties, inclu…”
+- [ ] `ccpr-c-126-d-2495-2014-0004` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'District Court had failed to respect the Constitution and the Covenant'
+      - excerpt: “…arguing that the District Court had failed to respect the Constitution and the Covenant (art. 19), which guarantee the right to freedom of expression, espec…”
+- [ ] `ccpr-c-129-d-2455-2014-0004` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …' the lower court had failed to apply the Constitution and the Covenant'
+      - excerpt: “…ourt, arguing that the lower court had failed to apply the Constitution and the Covenant (art. 19) or to justify why it had not done so. The author also argu…”
+- [ ] `ccpr-c-120-d-2640-2015-0023` art **33** — home-link (ICCPR) but leading phrase looks like another instrument: …'ees, which stipulated compliance with the principle of non-refoulement'
+      - excerpt: “…he Status of Refugees, which stipulated compliance with the principle of non-refoulement (art. 33 (1)).…”
+- [ ] `ccpr-c-132-d-2675-2015-0021` art **21** — home-link (ICCPR) but leading phrase looks like another instrument: …'azakhstan (arts. 13 (2) and 14 (2)) and the Code of Criminal Procedure'
+      - excerpt: “…Constitution of Kazakhstan (arts. 13 (2) and 14 (2)) and the Code of Criminal Procedure (art. 21 (2)). The State party also observed its obligations under artic…”
+- [ ] `ccpr-c-127-d-2834-2016-0013` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'5 of the Covenant) and of his right to appeal the judgment against him'
+      - excerpt: “…rights (article 25 of the Covenant) and of his right to appeal the judgment against him (article 14 (5) of the Covenant) that he claims to have occurred in the pro…”
+- [ ] `ccpr-c-128-d-2846-2016-0012` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'protected by the Covenant, including freedom of opinion and expression'
+      - excerpt: “…ng certain rights protected by the Covenant, including freedom of opinion and expression (art. 19),12 freedom of assembly (art. 21),13 freedom of association…”
+- [ ] `ccpr-c-128-d-2846-2016-0012` art **21** — home-link (ICCPR) but leading phrase looks like another instrument: …'ing freedom of opinion and expression (art. 19),12 freedom of assembly'
+      - excerpt: “…e Covenant, including freedom of opinion and expression (art. 19),12 freedom of assembly (art. 21),13 freedom of association (art. 22),14 freedom of religion…”
+- [ ] `ccpr-c-128-d-2846-2016-0012` art **22** — home-link (ICCPR) but leading phrase looks like another instrument: …'n (art. 19),12 freedom of assembly (art. 21),13 freedom of association'
+      - excerpt: “…nion and expression (art. 19),12 freedom of assembly (art. 21),13 freedom of association (art. 22),14 freedom of religion (art. 18)15 and the right to privac…”
+- [ ] `ccpr-c-144-d-2853-2016-0038` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'a are inadmissible as incompatible with the provisions of the Covenant'
+      - excerpt: “…reatment in Croatia are inadmissible as incompatible with the provisions of the Covenant (art. 2 (1)). The alleged treatment did not occur under the jurisdictio…”
+- [ ] `ccpr-c-131-d-2944-2017-0015` art **23** — home-link (ICCPR) but leading phrase looks like another instrument: …'nant, art. 17 (1)), the right of the family to protection by the State'
+      - excerpt: “…h the family (Covenant, art. 17 (1)), the right of the family to protection by the State (art. 23 (1)) and the right of the child to protection by the State (art…”
+- [ ] `ccpr-c-138-d-3025-3037-2017-0032` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'the Covenant is arbitrary, including freedom of opinion and expression'
+      - excerpt: “…as guaranteed by the Covenant is arbitrary, including freedom of opinion and expression (art. 19), freedom of assembly (art. 21), freedom of association (ar…”
+- [ ] `ccpr-c-138-d-3025-3037-2017-0032` art **21** — home-link (ICCPR) but leading phrase looks like another instrument: …'uding freedom of opinion and expression (art. 19), freedom of assembly'
+      - excerpt: “…is arbitrary, including freedom of opinion and expression (art. 19), freedom of assembly (art. 21), freedom of association (art. 22), freedom of religion (ar…”
+- [ ] `ccpr-c-138-d-3025-2017-0032` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'uaranteed by the Covenant, including freedom of opinion and expression'
+      - excerpt: “…of the rights as guaranteed by the Covenant, including freedom of opinion and expression (art. 19), freedom of assembly (art. 21), freedom of association (ar…”
+- [ ] `ccpr-c-138-d-3025-2017-0032` art **21** — home-link (ICCPR) but leading phrase looks like another instrument: …'uding freedom of opinion and expression (art. 19), freedom of assembly'
+      - excerpt: “…the Covenant, including freedom of opinion and expression (art. 19), freedom of assembly (art. 21), freedom of association (art. 22), freedom of religion (ar…”
+- [ ] `ccpr-c-138-d-3025-2017-0032` art **22** — home-link (ICCPR) but leading phrase looks like another instrument: …'ssion (art. 19), freedom of assembly (art. 21), freedom of association'
+      - excerpt: “…opinion and expression (art. 19), freedom of assembly (art. 21), freedom of association (art. 22), freedom of religion (art. 18) and the right to privacy (a…”
+- [ ] `ccpr-c-130-d-3248-2018-0042` art **1** — home-link (ICCPR) but leading phrase looks like another instrument: …' requirement when authors lodge individual complaints to the Committee'
+      - excerpt: “…col poses a victim requirement when authors lodge individual complaints to the Committee (arts. 1 and 2). Before considering the merits of a claim of a violation,…”
+- [ ] `ccpr-c-130-d-3248-2018-0042` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …' requirement when authors lodge individual complaints to the Committee'
+      - excerpt: “…col poses a victim requirement when authors lodge individual complaints to the Committee (arts. 1 and 2). Before considering the merits of a claim of a violation,…”
+- [ ] `ccpr-c-133-d-3258-2018-0044` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'the Covenant is arbitrary, including freedom of opinion and expression'
+      - excerpt: “…as guaranteed by the Covenant is arbitrary, including freedom of opinion and expression (art. 19) and freedom of religion (art. 18).[[fn:14]] The Committee…”
+- [ ] `ccpr-c-133-d-3258-2018-0044` art **18** — home-link (ICCPR) but leading phrase looks like another instrument: …'ng freedom of opinion and expression (art. 19) and freedom of religion'
+      - excerpt: “…arbitrary, including freedom of opinion and expression (art. 19) and freedom of religion (art. 18).[[fn:14]] The Committee also recalls that the term “arrest…”
+- [ ] `ccpr-c-133-d-3258-2018-0044` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'the Covenant is arbitrary, including freedom of opinion and expression'
+      - excerpt: “…as guaranteed by the Covenant is arbitrary, including freedom of opinion and expression (art. 19), freedom of assembly (art. 21), freedom of association (ar…”
+- [ ] `ccpr-c-133-d-3258-2018-0044` art **21** — home-link (ICCPR) but leading phrase looks like another instrument: …'uding freedom of opinion and expression (art. 19), freedom of assembly'
+      - excerpt: “…is arbitrary, including freedom of opinion and expression (art. 19), freedom of assembly (art. 21), freedom of association (art. 22), freedom of religion (ar…”
+- [ ] `ccpr-c-141-d-3193-2018-0050` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …' the State party’s Constitution and its obligations under the Covenant'
+      - excerpt: “…n contradiction to the State party’s Constitution and its obligations under the Covenant (arts. 2 (3) (a) and (c)) to prevent irreparable harm. The counsel rebut…”
+- [ ] `ccpr-c-145-d-3192-2018-0044` art **26** — home-link (ICCPR) but leading phrase looks like another instrument: …'enant) but also, the violation of the right to equality before the law'
+      - excerpt: “…18 (1) of the Covenant) but also, the violation of the right to equality before the law (article 26) and protection of religious minorities’ rights (article 27…”
+- [ ] `ccpr-c-130-d-3593-2019-0014` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'aranteed in the Covenant, including the right to freedom of expression'
+      - excerpt: “…olitical rights guaranteed in the Covenant, including the right to freedom of expression (art. 19), the right to freedom of association (art. 22) and the rig…”
+- [ ] `ccpr-c-130-d-3593-2019-0014` art **22** — home-link (ICCPR) but leading phrase looks like another instrument: …'o freedom of expression (art. 19), the right to freedom of association'
+      - excerpt: “…luding the right to freedom of expression (art. 19), the right to freedom of association (art. 22) and the right to take part in the conduct of public affair…”
+- [ ] `ccpr-c-132-d-3313-2019-0051` art **182** — home-link (ICCPR) but leading phrase looks like another instrument: …'article 15 of the Covenant that the newer version of the Criminal Code'
+      - excerpt: “…hor’s claim under article 15 of the Covenant that the newer version of the Criminal Code (article 182 (2)) was wrongly applied to him, and that the old version of th…”
+- [ ] `ccpr-c-143-d-3665-2019-0056` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'r the Covenant to all individuals under the State Party’s jurisdiction'
+      - excerpt: “…is guaranteed under the Covenant to all individuals under the State Party’s jurisdiction (art. 2 (1)). The Committee observes that the removal of the author wou…”
+- [ ] `ccpr-c-135-d-3736-2020-0088` art **14** — home-link (ICCPR) but leading phrase looks like another instrument: …'n breach of essential procedural guarantees that are also human rights'
+      - excerpt: “…he Covenant) and in breach of essential procedural guarantees that are also human rights (article 14 (3) (b), (d) and (e) of the Covenant), violations found by the…”
+- [ ] `ccpr-c-139-d-3788-2020-0057` art **19** — home-link (ICCPR) but leading phrase looks like another instrument: …'uaranteed by the Covenant, including freedom of opinion and expression'
+      - excerpt: “…of the rights as guaranteed by the Covenant, including freedom of opinion and expression (art. 19), is arbitrary. Arrest or detention on discriminatory groun…”
+- [ ] `ccpr-c-145-d-3697-2020-0115` art **27** — home-link (ICCPR) but leading phrase looks like another instrument: …'man Rights explicitly recognizes procedural guarantees as nonderogable'
+      - excerpt: “…n Convention on Human Rights explicitly recognizes procedural guarantees as nonderogable (art. 27, para. 2), underscoring the fundamental role such guarantee…”
+- [ ] `ccpr-c-143-d-4367-2023-0076` art **17** — home-link (ICCPR) but leading phrase looks like another instrument: …'ted under the Covenant, including the right to privacy and family life'
+      - excerpt: “…eral rights protected under the Covenant, including the right to privacy and family life (art. 17 of the Covenant).…”
+- [ ] `ccpr-c143-d-4367-2023-0076` art **17** — home-link (ICCPR) but leading phrase looks like another instrument: …'tected by the Covenant, including the right to privacy and family life'
+      - excerpt: “…several rights protected by the Covenant, including the right to privacy and family life (Art. 17 of the Covenant).…”
+- [ ] `ccpr-c-103-d-1815-2008-rev-1-0051` art **2** — home-link (ICCPR) but leading phrase looks like another instrument: …'ent obligations assumed by a State party under part II of the Covenant'
+      - excerpt: “…y view, the different obligations assumed by a State party under part II of the Covenant (arts. 2–5) are basic and general in character. They apply to all th…”
+- [ ] `ccpr-c-103-d-1815-2008-rev-1-0051` art **6** — home-link (ICCPR) but leading phrase looks like another instrument: …'They apply to all the rights guaranteed under part III of the Covenant'
+      - excerpt: “…ral in character. They apply to all the rights guaranteed under part III of the Covenant (arts. 6–27) and apply to all individuals in the territory of the St…”
+- [ ] `ccpr-c-87-d-1229-2003-rev-1-0012` art **23** — home-link (ICCPR) but leading phrase looks like another instrument: …'he author points out that the State party failed to protect his family'
+      - excerpt: “…of the Covenant, the author points out that the State party failed to protect his family (art. 23, para. 1) in all the above-mentioned situations and when th…”
+- [ ] `cedaw-c-39-d-7-2005-0028` art **1** — home-link (CEDAW) but leading phrase looks like another instrument: …'tion suffered by women in all spheres of life, without any limitations'
+      - excerpt: “…adicate discrimination suffered by women in all spheres of life, without any limitations (article 1). Therefore, the same matter has not been examined under an…”
+- [ ] `cedaw-c-44-d-12-2007-0026` art **5** — home-link (CEDAW) but leading phrase looks like another instrument: …' law; the European Convention on Human Rights and Fundamental Freedoms'
+      - excerpt: “…f spouses in civil law; the European Convention on Human Rights and Fundamental Freedoms (articles 5, 8 and 14); and the 1789 French Declaration on Human Rights.…”
+- [ ] `cedaw-c-44-d-12-2007-0026` art **8** — home-link (CEDAW) but leading phrase looks like another instrument: …' law; the European Convention on Human Rights and Fundamental Freedoms'
+      - excerpt: “…f spouses in civil law; the European Convention on Human Rights and Fundamental Freedoms (articles 5, 8 and 14); and the 1789 French Declaration on Human Rights.…”
+- [ ] `cedaw-c-44-d-12-2007-0026` art **14** — home-link (CEDAW) but leading phrase looks like another instrument: …' law; the European Convention on Human Rights and Fundamental Freedoms'
+      - excerpt: “…f spouses in civil law; the European Convention on Human Rights and Fundamental Freedoms (articles 5, 8 and 14); and the 1789 French Declaration on Human Rights.…”
+- [ ] `cedaw-c-44-d-12-2007-0042` art **18** — home-link (CEDAW) but leading phrase looks like another instrument: …'n of French legislation was already made through the reporting process'
+      - excerpt: “…such an evaluation of French legislation was already made through the reporting process (article 18 of the Convention).…”
+- [ ] `cedaw-c-50-d-26-2010-0019` art **24** — home-link (CEDAW) but leading phrase looks like another instrument: …' at the national level aimed at achieving the rights in the Convention'
+      - excerpt: “…necessary measures at the national level aimed at achieving the rights in the Convention (art. 24). According to the State party, the communication should as…”
+- [ ] `cedaw-c-57-d-36-2012-0074` art **18** — home-link (CEDAW) but leading phrase looks like another instrument: …' thus an obligation to give effect to the provisions of the Convention'
+      - excerpt: “…he State party has thus an obligation to give effect to the provisions of the Convention (art. 18 of the Convention) or to fulfil or ensure the application o…”
+- [ ] `cedaw-c-65-d-61-2013-0025` art **2** — home-link (CEDAW) but leading phrase looks like another instrument: …'Convention for the Protection of Human Rights and Fundamental Freedoms'
+      - excerpt: “…6 and 7) and the Convention for the Protection of Human Rights and Fundamental Freedoms (arts. 2 and 3).…”
+- [ ] `cedaw-c-65-d-61-2013-0025` art **3** — home-link (CEDAW) but leading phrase looks like another instrument: …'Convention for the Protection of Human Rights and Fundamental Freedoms'
+      - excerpt: “…6 and 7) and the Convention for the Protection of Human Rights and Fundamental Freedoms (arts. 2 and 3).…”
+- [ ] `cedaw-c-65-d-74-2014-0026` art **14** — home-link (CEDAW) but leading phrase looks like another instrument: …'ered under the same article of the European Convention on Human Rights'
+      - excerpt: “…ation would be covered under the same article of the European Convention on Human Rights (art. 14), that she did not invoke these elements means that they we…”
+- [ ] `cedaw-c-88-d-166-2021-0034` art **1** — home-link (CEDAW) but leading phrase looks like another instrument: …'d that her rights to possess and enjoy property without discrimination'
+      - excerpt: “…ntion); (b) to find that her rights to possess and enjoy property without discrimination (articles 1 and 2 of the Convention) have been violated directly and indirect…”
+- [ ] `cedaw-c-88-d-166-2021-0034` art **2** — home-link (CEDAW) but leading phrase looks like another instrument: …'d that her rights to possess and enjoy property without discrimination'
+      - excerpt: “…ntion); (b) to find that her rights to possess and enjoy property without discrimination (articles 1 and 2 of the Convention) have been violated directly and indirect…”
+- [ ] `e-c-12-79-d-222-2021-0043` art **42** — home-link (ICESCR) but leading phrase looks like another instrument: …'(art. 47) and weak legislative measures, while private property rights'
+      - excerpt: “…direct references (art. 47) and weak legislative measures, while private property rights (art. 42) remain strongly protected. Despite laws supporting the soc…”
+- [ ] `e-c-12-76-d-251-2022-0082` art **6** — home-link (ICESCR) but leading phrase looks like another instrument: …'le 15 (1) (a) of the Covenant, read in the light of the rights to work'
+      - excerpt: “…claim under article 15 (1) (a) of the Covenant, read in the light of the rights to work (art. 6) and to health (art. 12), and their claim under article 7 (…”
+- [ ] `e-c-12-76-d-251-2022-0082` art **12** — home-link (ICESCR) but leading phrase looks like another instrument: …'venant, read in the light of the rights to work (art. 6) and to health'
+      - excerpt: “…(1) (a) of the Covenant, read in the light of the rights to work (art. 6) and to health (art. 12), and their claim under article 7 (a) (ii), read alone and…”
+- [ ] `e-c-12-76-d-251-2022-0124` art **1** — home-link (ICESCR) but leading phrase looks like another instrument: …'articular the rights to freely dispose of natural wealth and resources'
+      - excerpt: “…the Covenant, in particular the rights to freely dispose of natural wealth and resources (art. 1 (2)) and to pursue economic, social and cultural development wi…”
+- [ ] `e-c-12-76-d-289-2022-0082` art **6** — home-link (ICESCR) but leading phrase looks like another instrument: …'le 15 (1) (a) of the Covenant, read in the light of the rights to work'
+      - excerpt: “…claim under article 15 (1) (a) of the Covenant, read in the light of the rights to work (art. 6) and to health (art. 12), and their claim under article 7 (…”
+- [ ] `e-c-12-76-d-289-2022-0082` art **12** — home-link (ICESCR) but leading phrase looks like another instrument: …'venant, read in the light of the rights to work (art. 6) and to health'
+      - excerpt: “…(1) (a) of the Covenant, read in the light of the rights to work (art. 6) and to health (art. 12), and their claim under article 7 (a) (ii), read alone and…”
+- [ ] `e-c-12-76-d-289-2022-0124` art **1** — home-link (ICESCR) but leading phrase looks like another instrument: …'articular the rights to freely dispose of natural wealth and resources'
+      - excerpt: “…the Covenant, in particular the rights to freely dispose of natural wealth and resources (art. 1 (2)) and to pursue economic, social and cultural development wi…”
+- [ ] `crc-c-83-d-23-2017-0039` art **2** — home-link (CRC) but leading phrase looks like another instrument: …'ale and intersex persons violates several provisions of the Convention'
+      - excerpt: “…tting of male, female and intersex persons violates several provisions of the Convention (arts. 2, 6 (2), 12, 14, 16, 19 (1), 24 (1) and (3), 34, 36 and 37 (a)–(b)), among other human rights p…”
+- [ ] `crc-c-83-d-23-2017-0039` art **6** — home-link (CRC) but leading phrase looks like another instrument: …'ale and intersex persons violates several provisions of the Convention'
+      - excerpt: “…tting of male, female and intersex persons violates several provisions of the Convention (arts. 2, 6 (2), 12, 14, 16, 19 (1), 24 (1) and (3), 34, 36 and 37 (a)–(b)), among other human rights p…”
+- [ ] `crc-c-83-d-23-2017-0039` art **12** — home-link (CRC) but leading phrase looks like another instrument: …'ale and intersex persons violates several provisions of the Convention'
+      - excerpt: “…tting of male, female and intersex persons violates several provisions of the Convention (arts. 2, 6 (2), 12, 14, 16, 19 (1), 24 (1) and (3), 34, 36 and 37 (a)–(b)), among other human rights p…”
+- [ ] `crc-c-83-d-23-2017-0039` art **14** — home-link (CRC) but leading phrase looks like another instrument: …'ale and intersex persons violates several provisions of the Convention'
+      - excerpt: “…tting of male, female and intersex persons violates several provisions of the Convention (arts. 2, 6 (2), 12, 14, 16, 19 (1), 24 (1) and (3), 34, 36 and 37 (a)–(b)), among other human rights p…”
+- [ ] `crc-c-83-d-23-2017-0039` art **16** — home-link (CRC) but leading phrase looks like another instrument: …'ale and intersex persons violates several provisions of the Convention'
+      - excerpt: “…tting of male, female and intersex persons violates several provisions of the Convention (arts. 2, 6 (2), 12, 14, 16, 19 (1), 24 (1) and (3), 34, 36 and 37 (a)–(b)), among other human rights p…”
+- [ ] `crc-c-83-d-23-2017-0039` art **19** — home-link (CRC) but leading phrase looks like another instrument: …'ale and intersex persons violates several provisions of the Convention'
+      - excerpt: “…tting of male, female and intersex persons violates several provisions of the Convention (arts. 2, 6 (2), 12, 14, 16, 19 (1), 24 (1) and (3), 34, 36 and 37 (a)–(b)), among other human rights p…”
+- [ ] `crc-c-83-d-23-2017-0039` art **24** — home-link (CRC) but leading phrase looks like another instrument: …'ale and intersex persons violates several provisions of the Convention'
+      - excerpt: “…tting of male, female and intersex persons violates several provisions of the Convention (arts. 2, 6 (2), 12, 14, 16, 19 (1), 24 (1) and (3), 34, 36 and 37 (a)–(b)), among other human rights p…”
+- [ ] `crc-c-85-d-79-2019-0018` art **2** — home-link (CRC) but leading phrase looks like another instrument: …' measures to ensure respect for the rights set forth in the Convention'
+      - excerpt: “…: to take positive measures to ensure respect for the rights set forth in the Convention (art. 2); to guarantee that children receive the necessary protecti…”
+- [ ] `crc-c-89-d-77-2019-crc-c-89-d-79-2019-0027` art **19** — home-link (CRC) but leading phrase looks like another instrument: …'he rights to protection provided by the State party and to health care'
+      - excerpt: “…ion, arts. 7–8), the rights to protection provided by the State party and to health care (arts. 19–20 and 24) and the right to education (art. 28).…”
+- [ ] `crc-c-87-d-115-2020-0063` art **28** — home-link (CRC) but leading phrase looks like another instrument: …'s not only for the right of every child to have access to an education'
+      - excerpt: “…Convention provides not only for the right of every child to have access to an education (art. 28) but also for an “individual and subjective right to a spec…”
+- [ ] `crc-c-91-d-114-2020-crc-c-91-d-116-2020-0057` art **28** — home-link (CRC) but leading phrase looks like another instrument: …'s not only for the right of every child to have access to an education'
+      - excerpt: “…Convention provides not only for the right of every child to have access to an education (art. 28), but also for an “individual and subjective right to a spe…”
+- [ ] `crc-c-92-d-129-2020-0009` art **3** — home-link (CRC) but leading phrase looks like another instrument: …'f the Convention on the Civil Aspects of International Child Abduction'
+      - excerpt: “…thin the meaning of the Convention on the Civil Aspects of International Child Abduction (arts. 3 and 13 (a)). The author adds that the return of C.A.K.O. is also p…”
+- [ ] `crc-c-92-d-129-2020-0009` art **13** — home-link (CRC) but leading phrase looks like another instrument: …'f the Convention on the Civil Aspects of International Child Abduction'
+      - excerpt: “…thin the meaning of the Convention on the Civil Aspects of International Child Abduction (arts. 3 and 13 (a)). The author adds that the return of C.A.K.O. is also p…”
+- [ ] `crc-c-95-d-165-2021-0037` art **28** — home-link (CRC) but leading phrase looks like another instrument: …'s not only for the right of every child to have access to an education'
+      - excerpt: “…Convention provides not only for the right of every child to have access to an education (art. 28) but also for an individual and subjective right to a speci…”
+- [ ] `crc-c-93-d-194-2022-0004` art **3** — home-link (CRC) but leading phrase looks like another instrument: …'was the situation of the children assessed, contrary to the Convention'
+      - excerpt: “…taken against her was the situation of the children assessed, contrary to the Convention (article 3).…”
+- [ ] `cerd-c-67-d-30-2003-0012` art **1** — home-link (CERD) but leading phrase looks like another instrument: …'e dissemination of racists ideas as such, but also the effects of this'
+      - excerpt: “…d not only with the dissemination of racists ideas as such, but also the effects of this (article 1, paragraph 1). Further, it will rarely be the case that rac…”
+- [ ] `cerd-c-106-d-61-2017-0024` art **1** — home-link (CERD) but leading phrase looks like another instrument: …' which establishes Ecuador as an intercultural and plurinational State'
+      - excerpt: “…2008 Constitution, which establishes Ecuador as an intercultural and plurinational State (art. 1), recognizes and guarantees that “indigenous communes, comm…”
+- [ ] `cerd-c-106-d-61-2017-0025` art **5** — home-link (CERD) but leading phrase looks like another instrument: …'atified, protects the practices and institutions of indigenous peoples'
+      - excerpt: “…State party has ratified, protects the practices and institutions of indigenous peoples (art. 5) and stipulates that, in applying national laws to indigeno…”
+- [ ] `crpd-c-22-d-17-2013-0061` art **14** — home-link (CRPD) but leading phrase looks like another instrument: …' 13) and that he has never challenged the custodial supervision orders'
+      - excerpt: “…ccommodation (art. 13) and that he has never challenged the custodial supervision orders (art. 14). However, the Committee also recalls that domestic remedie…”
+- [ ] `crpd-c-22-d-17-2013-0076` art **26** — home-link (CRPD) but leading phrase looks like another instrument: …' 25 of the Convention) and to habilitation and rehabilitation services'
+      - excerpt: “…health care (art. 25 of the Convention) and to habilitation and rehabilitation services (art. 26), and that his right to an adequate standard of living and…”
+- [ ] `crpd-c-22-d-18-2013-0061` art **14** — home-link (CRPD) but leading phrase looks like another instrument: …' 13) and that he has never challenged the custodial supervision orders'
+      - excerpt: “…ccommodation (art. 13) and that he has never challenged the custodial supervision orders (art. 14). However, the Committee also recalls that domestic remedie…”
+- [ ] `crpd-c-22-d-18-2013-0076` art **26** — home-link (CRPD) but leading phrase looks like another instrument: …' (art. 25 of the Convention), habilitation and rehabilitation services'
+      - excerpt: “…ess to health care (art. 25 of the Convention), habilitation and rehabilitation services (art. 26), and that his right to an adequate standard of living and…”
+- [ ] `crpd-c-22-d-25-2014-0029` art **11** — home-link (CRPD) but leading phrase looks like another instrument: …'on recognizes the right to non-discrimination on grounds of disability'
+      - excerpt: “…on. The Constitution recognizes the right to non-discrimination on grounds of disability (art. 11 (2)) as well as the obligation to design special programmes to…”
+- [ ] `crpd-c-21-d-34-2015-0005` art **23** — home-link (CRPD) but leading phrase looks like another instrument: …'h disabilities (art. 49), access to and retention of public employment'
+      - excerpt: “…ion of persons with disabilities (art. 49), access to and retention of public employment (art. 23) and respect for human dignity (art. 10). The author also h…”
+- [ ] `crpd-c-25-d-44-2017-0045` art **12** — home-link (CRPD) but leading phrase looks like another instrument: …'ely, the lack of consultation. She reiterates that both the Convention'
+      - excerpt: “…her petition, namely, the lack of consultation. She reiterates that both the Convention (arts. 12 (4) and (5)), and the Civil Code oblige the authorities to init…”
+- [ ] `crpd-c-26-d-48-2018-0010` art **35** — home-link (CRPD) but leading phrase looks like another instrument: …'ution, art. 14), access to public service (art. 23), the right to work'
+      - excerpt: “…imination (Constitution, art. 14), access to public service (art. 23), the right to work (art. 35) and human dignity and the obligation to comply with intern…”
+- [ ] `crpd-c-26-d-48-2018-0012` art **23** — home-link (CRPD) but leading phrase looks like another instrument: …'is right to work (art. 35), his right to have access to public service'
+      - excerpt: “…n, art. 24 (1)), his right to work (art. 35), his right to have access to public service (art. 23) and the principle of legality (art. 9 (3)). On 29 January…”
+- [ ] `crpd-c-29-d-47-2018-0011` art **23** — home-link (CRPD) but leading phrase looks like another instrument: …', the right to have access to and to hold public office on equal terms'
+      - excerpt: “…equality (art. 14), the right to have access to and to hold public office on equal terms (art. 23 (2)), the principle of vocational retraining (art. 40), the rig…”
+
+## C1 — citedArticles queue misalignment (9 items, verify ALL)
+
+Text contains MORE occurrences of the number than citedArticles has entries — later occurrences silently fall through to the heuristic. Verify each occurrence and add the missing entries.
+
+- [ ] `cerd-c-gc-37-0017` art **2** — citedArticles has 3 entr(y/ies) for art 2, regex finds 4 in text
+      - excerpt: “…17. In accordance with the Convention, States parties should: recognize and remedy the effect of racial bias and stigmatization (arts. 2 (1) (d) and 4);[[fn:41]…”
+- [ ] `cmw-c-gc-2-0015` art **69** — citedArticles has 2 entr(y/ies) for art 69, regex finds 3 in text
+      - excerpt: “…15. Article 35 of the Convention clarifies that the fact that Part III protects the rights of all migrant workers and members of their families, irrespective of…”
+- [ ] `crc-gc-2001-1-0028` art **4** — citedArticles has 1 entr(y/ies) for art 4, regex finds 2 in text
+      - excerpt: “…Implementation of comprehensive national plans of action to enhance compliance with article 29 (1) will require human and financial resources which should be av…”
+- [ ] `crc-c-gc-10-0016` art **29** — citedArticles has 2 entr(y/ies) for art 29, regex finds 4 in text
+      - excerpt: “…16. One of the most important goals of the implementation of CRC is to promote the full and harmonious development of the child’s personality, talents and menta…”
+- [ ] `crc-c-gc-20-0037` art **4** — citedArticles has 1 entr(y/ies) for art 4, regex finds 2 in text
+      - excerpt: “…In accordance with general comments No. 5 (2003) on general measures of implementation of the Convention (arts. 4, 42 and 44, para. 6) and No. 19 (2016) on publ…”
+- [ ] `crc-gc-2003-5-0044` art **3** — citedArticles has 2 entr(y/ies) for art 3, regex finds 3 in text
+      - excerpt: “…The Committee emphasizes that enabling the private sector to provide services, run institutions and so on does not in any way lessen the State’s obligation to e…”
+- [ ] `crc-c-gc-7-rev-1-0018` art **18** — citedArticles has 1 entr(y/ies) for art 18, regex finds 2 in text
+      - excerpt: “…18. Respecting parental roles. Article 18 of the Convention reaffirms that parents or legal guardians have the primary responsibility for promoting children’s d…”
+- [ ] `crc-c-gc-9-corr-1-0073` art **40** — citedArticles has 1 entr(y/ies) for art 40, regex finds 2 in text
+      - excerpt: “…In the light of article 2 States parties have the obligation to ensure that children with disabilities who are in conflict with the law (as described in article…”
+- [ ] `e-1991-23-0005` art **2** — citedArticles has 1 entr(y/ies) for art 2, regex finds 2 in text
+      - excerpt: “…Among the measures which might be considered appropriate, in addition to legislation, is the provision of judicial remedies with respect to rights which may, in…”
+
+## C2 — tagged but not rendered (148 items, quick pass)
+
+citedArticles has entries the regex never finds in the text (ranges like “articles 12-14”, roman numerals, refs inside footnotes). Harmless at runtime (no button renders), but each is a regex blind spot worth cataloguing. Confirm the ref exists in the text and note its written form.
+
+- [ ] `ccpr-c-gc-33-0014` art **2** — citedArticles has 3 entr(y/ies) for art 2, regex finds 1 in text
+      - excerpt: “…14. Under article 2, paragraph 3 (a), of the Covenant, each State party undertakes “to ensure that any person whose rights or freedoms as herein recognized are…”
+- [ ] `cedaw-c-gc-36-0068` art **12** — citedArticles has 1 entr(y/ies) for art 12, regex finds 0 in text
+      - excerpt: “…68. The sexual abuse of girls may result in unwanted pregnancies, and there is therefore a need to alert girls, in particular during adolescence to that problem…”
+- [ ] `cedaw-c-gc-37-0036` art **4** — citedArticles has 1 entr(y/ies) for art 4, regex finds 0 in text
+      - excerpt: “…36. To ensure that women and girls are provided with equal opportunities to lead and to participate and engage in decision-making in activities relating to disa…”
+- [ ] `cedaw-c-gc-39-0046` art **18** — citedArticles has 1 entr(y/ies) for art 18, regex finds 0 in text
+      - excerpt: “…46. The Committee recommends that States parties:…”
+- [ ] `cedaw-c-gc-39-0046` art **19** — citedArticles has 1 entr(y/ies) for art 19, regex finds 0 in text
+      - excerpt: “…46. The Committee recommends that States parties:…”
+- [ ] `cedaw-c-gc-39-0046` art **32** — citedArticles has 1 entr(y/ies) for art 32, regex finds 0 in text
+      - excerpt: “…46. The Committee recommends that States parties:…”
+- [ ] `cedaw-c-gc-39-0048` art **14** — citedArticles has 1 entr(y/ies) for art 14, regex finds 0 in text
+      - excerpt: “…48. The Committee recommends that States parties:…”
+- [ ] `cedaw-c-gc-39-0048` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…48. The Committee recommends that States parties:…”
+- [ ] `cedaw-2009-wp-1-r-0023` art **3** — citedArticles has 2 entr(y/ies) for art 3, regex finds 1 in text
+      - excerpt: “…Common responsibilities of countries of origin and destination include: (d) Formulating a comprehensive gender-sensitive and rights-based policy: States parties…”
+- [ ] `cedaw-2009-wp-1-r-0024` art **3** — citedArticles has 6 entr(y/ies) for art 3, regex finds 5 in text
+      - excerpt: “…Countries of origin must respect and protect the human rights of their female nationals who migrate for purposes of work. Measures that may be required include,…”
+- [ ] `cedaw-2009-wp-1-r-0024` art **12** — citedArticles has 1 entr(y/ies) for art 12, regex finds 0 in text
+      - excerpt: “…Countries of origin must respect and protect the human rights of their female nationals who migrate for purposes of work. Measures that may be required include,…”
+- [ ] `cedaw-2009-wp-1-r-0026` art **5** — citedArticles has 3 entr(y/ies) for art 5, regex finds 2 in text
+      - excerpt: “…States parties in countries where migrant women work should take all appropriate measures to ensure non-discrimination and the equal rights of women migrant wor…”
+- [ ] `cedaw-c-gc-28-0005` art **5** — citedArticles has 1 entr(y/ies) for art 5, regex finds 0 in text
+      - excerpt: “…Although the Convention only refers to sex-based discrimination, interpreting article 1 together with articles 2 (f) and 5 (a) indicates that the Convention cov…”
+- [ ] `cedaw-c-gc-30-0062` art **16** — citedArticles has 2 entr(y/ies) for art 16, regex finds 1 in text
+      - excerpt: “…Inequalities in marriage and family relations affect women’s experiences in conflict and post-conflict situations. In such situations, women and girls may be fo…”
+- [ ] `cedaw-c-gc-30-0073` art **1** — citedArticles has 1 entr(y/ies) for art 1, regex finds 0 in text
+      - excerpt: “…73. The Committee recommends that States parties:…”
+- [ ] `cedaw-c-gc-32-0006` art **5** — citedArticles has 1 entr(y/ies) for art 5, regex finds 0 in text
+      - excerpt: “…6. The Committee has, in previous general recommendations, clarified that articles 1, 2 (f) and 5 (a) of the Convention read together indicate that the Conventi…”
+- [ ] `cedaw-c-gc-32-0032` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…32. Consistent with articles 2 (c) and 15 (1) of the Convention, States parties must take steps to eliminate discrimination against women in the public and priv…”
+- [ ] `cedaw-c-gc-32-0034` art **12** — citedArticles has 1 entr(y/ies) for art 12, regex finds 0 in text
+      - excerpt: “…34. Gender sensitivity should be reflected in reception arrangements, taking into account the specific needs of victims of sexual abuse and exploitation, of tra…”
+- [ ] `cedaw-c-gc-33-0011` art **3** — citedArticles has 1 entr(y/ies) for art 3, regex finds 0 in text
+      - excerpt: “…11. In addition to articles 2 (c), 3, 5 (a) and 15 of the Convention, States parties have further treaty-based obligations to ensure that all women have access…”
+- [ ] `cedaw-c-gc-33-0011` art **5** — citedArticles has 1 entr(y/ies) for art 5, regex finds 0 in text
+      - excerpt: “…11. In addition to articles 2 (c), 3, 5 (a) and 15 of the Convention, States parties have further treaty-based obligations to ensure that all women have access…”
+- [ ] `cedaw-c-gc-33-0011` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…11. In addition to articles 2 (c), 3, 5 (a) and 15 of the Convention, States parties have further treaty-based obligations to ensure that all women have access…”
+- [ ] `cedaw-c-gc-33-0014` art **2** — citedArticles has 1 entr(y/ies) for art 2, regex finds 0 in text
+      - excerpt: “…14. Six interrelated and essential components — justiciability, availability, accessibility, good quality, provision of remedies for victims and accountability…”
+- [ ] `cedaw-c-gc-33-0041` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…41. The Committee has observed that, in practice, States parties that have adopted constitutional guarantees relating to substantive equality between men and wo…”
+- [ ] `cedaw-c-gc-33-0044` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…44. The Committee recommends that States parties:…”
+- [ ] `cedaw-c-gc-33-0054` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…54. Other specialized judicial and quasi-judicial mechanisms,[[fn:18]] including labour,[[fn:19]] land claims, electoral and military courts, inspectorates and…”
+- [ ] `cedaw-c-gc-33-0061` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…61. The Committee notes that State laws, regulations, procedures and decisions can sometimes coexist, within a given State party, with religious, customary, ind…”
+- [ ] `cedaw-c-gc-33-0066` art **5** — citedArticles has 1 entr(y/ies) for art 5, regex finds 0 in text
+      - excerpt: “…66. In view of the fundamental importance of women’s access to justice, the Committee recommends that States parties withdraw their reservations to the Conventi…”
+- [ ] `cedaw-c-gc-33-0066` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…66. In view of the fundamental importance of women’s access to justice, the Committee recommends that States parties withdraw their reservations to the Conventi…”
+- [ ] `cedaw-c-gc-33-0066` art **16** — citedArticles has 1 entr(y/ies) for art 16, regex finds 0 in text
+      - excerpt: “…66. In view of the fundamental importance of women’s access to justice, the Committee recommends that States parties withdraw their reservations to the Conventi…”
+- [ ] `cedaw-c-gc-34-0041` art **14** — citedArticles has 1 entr(y/ies) for art 14, regex finds 0 in text
+      - excerpt: “…41. To eliminate discrimination against rural women in economic and social life, States parties should:…”
+- [ ] `cedaw-c-gc-34-0095` art **5** — citedArticles has 1 entr(y/ies) for art 5, regex finds 0 in text
+      - excerpt: “…95. Reservations to any article of the Convention, and in particular articles 2 (f), 5 (a), 7, 9 and 14 to 16, may have a disproportionate impact on rural women…”
+- [ ] `cedaw-c-gc-34-0095` art **7** — citedArticles has 1 entr(y/ies) for art 7, regex finds 0 in text
+      - excerpt: “…95. Reservations to any article of the Convention, and in particular articles 2 (f), 5 (a), 7, 9 and 14 to 16, may have a disproportionate impact on rural women…”
+- [ ] `cedaw-c-gc-34-0095` art **9** — citedArticles has 1 entr(y/ies) for art 9, regex finds 0 in text
+      - excerpt: “…95. Reservations to any article of the Convention, and in particular articles 2 (f), 5 (a), 7, 9 and 14 to 16, may have a disproportionate impact on rural women…”
+- [ ] `cedaw-c-gc-34-0095` art **14** — citedArticles has 1 entr(y/ies) for art 14, regex finds 0 in text
+      - excerpt: “…95. Reservations to any article of the Convention, and in particular articles 2 (f), 5 (a), 7, 9 and 14 to 16, may have a disproportionate impact on rural women…”
+- [ ] `cedaw-c-gc-35-0026` art **2** — citedArticles has 5 entr(y/ies) for art 2, regex finds 1 in text
+      - excerpt: “…26. The general obligations described above encompass all areas of State action, including in the legislative, executive and judicial branches and at the federa…”
+- [ ] `cedaw-c-gc-35-0026` art **5** — citedArticles has 1 entr(y/ies) for art 5, regex finds 0 in text
+      - excerpt: “…26. The general obligations described above encompass all areas of State action, including in the legislative, executive and judicial branches and at the federa…”
+- [ ] `cedaw-c-gc-35-0026` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…26. The general obligations described above encompass all areas of State action, including in the legislative, executive and judicial branches and at the federa…”
+- [ ] `annotated-cedaw-gr19-violence-0009` art **2** — citedArticles has 3 entr(y/ies) for art 2, regex finds 2 in text
+      - excerpt: “…It is emphasized, however, that discrimination under the Convention is not restricted to action by or on behalf of Governments (see articles 2 (e), 2 (f) and 5)…”
+- [ ] `annotated-cedaw-gr19-violence-0009` art **5** — citedArticles has 1 entr(y/ies) for art 5, regex finds 0 in text
+      - excerpt: “…It is emphasized, however, that discrimination under the Convention is not restricted to action by or on behalf of Governments (see articles 2 (e), 2 (f) and 5)…”
+- [ ] `cerd-c-gc-36-0041` art **6** — citedArticles has 1 entr(y/ies) for art 6, regex finds 0 in text
+      - excerpt: “…41. States are encouraged to adopt victim-centred approaches and to coordinate their support services effectively by promoting models of cooperation among the a…”
+- [ ] `cmw-c-gc-5-0063` art **23** — citedArticles has 1 entr(y/ies) for art 23, regex finds 0 in text
+      - excerpt: “…63. Under articles 16 (7) (b) and 23 of the Convention, migrant workers and members of their families have the right to communicate with the consular or diploma…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0020` art **1** — citedArticles has 1 entr(y/ies) for art 1, regex finds 0 in text
+      - excerpt: “…20. The Committees reaffirm the application of articles 41 of the Convention on the Rights of the Child and 81 of the International Convention on the Protection…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0020` art **7** — citedArticles has 1 entr(y/ies) for art 7, regex finds 0 in text
+      - excerpt: “…20. The Committees reaffirm the application of articles 41 of the Convention on the Rights of the Child and 81 of the International Convention on the Protection…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0020` art **2** — citedArticles has 1 entr(y/ies) for art 2, regex finds 0 in text
+      - excerpt: “…20. The Committees reaffirm the application of articles 41 of the Convention on the Rights of the Child and 81 of the International Convention on the Protection…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0039` art **9** — citedArticles has 1 entr(y/ies) for art 9, regex finds 0 in text
+      - excerpt: “…39. States parties should adopt measures directed at facilitating the participation of all children in the context of international migration in the design, imp…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0039` art **6** — citedArticles has 1 entr(y/ies) for art 6, regex finds 0 in text
+      - excerpt: “…39. States parties should adopt measures directed at facilitating the participation of all children in the context of international migration in the design, imp…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0044` art **9** — citedArticles has 1 entr(y/ies) for art 9, regex finds 0 in text
+      - excerpt: “…44. The Committees are concerned that policies or practices that deny or restrict basic rights, including labour rights and other social rights, to adult migran…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0044` art **10** — citedArticles has 1 entr(y/ies) for art 10, regex finds 0 in text
+      - excerpt: “…44. The Committees are concerned that policies or practices that deny or restrict basic rights, including labour rights and other social rights, to adult migran…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0044` art **22** — citedArticles has 2 entr(y/ies) for art 22, regex finds 0 in text
+      - excerpt: “…44. The Committees are concerned that policies or practices that deny or restrict basic rights, including labour rights and other social rights, to adult migran…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0044` art **6** — citedArticles has 1 entr(y/ies) for art 6, regex finds 0 in text
+      - excerpt: “…44. The Committees are concerned that policies or practices that deny or restrict basic rights, including labour rights and other social rights, to adult migran…”
+- [ ] `crc-c-gc-22-cmw-c-gc-3-0044` art **37** — citedArticles has 1 entr(y/ies) for art 37, regex finds 0 in text
+      - excerpt: “…44. The Committees are concerned that policies or practices that deny or restrict basic rights, including labour rights and other social rights, to adult migran…”
+- [ ] `crc-c-gc-23-cmw-c-gc-4-0019` art **23** — citedArticles has 1 entr(y/ies) for art 23, regex finds 0 in text
+      - excerpt: “…19. The Committees are of the opinion that a comprehensive interpretation of the Convention on the Rights of the Child with articles 7 (a), 23 and 65 (2) of the…”
+- [ ] `crc-c-gc-23-cmw-c-gc-4-0019` art **65** — citedArticles has 1 entr(y/ies) for art 65, regex finds 0 in text
+      - excerpt: “…19. The Committees are of the opinion that a comprehensive interpretation of the Convention on the Rights of the Child with articles 7 (a), 23 and 65 (2) of the…”
+- [ ] `crc-gc-2001-1-0004` art **29** — citedArticles has 3 entr(y/ies) for art 29, regex finds 2 in text
+      - excerpt: “…4. Article 29 (1) states that the States parties agree that education should be directed to a wide range of values. This agreement overcomes the boundaries of r…”
+- [ ] `crc-c-gc-10-0004` art **37** — citedArticles has 2 entr(y/ies) for art 37, regex finds 1 in text
+      - excerpt: “…4. At the outset, the Committee wishes to underscore that CRC requires States parties to develop and implement a comprehensive juvenile justice policy. This com…”
+- [ ] `crc-c-gc-10-0004` art **40** — citedArticles has 2 entr(y/ies) for art 40, regex finds 1 in text
+      - excerpt: “…4. At the outset, the Committee wishes to underscore that CRC requires States parties to develop and implement a comprehensive juvenile justice policy. This com…”
+- [ ] `crc-c-gc-10-0008` art **56** — citedArticles has 1 entr(y/ies) for art 56, regex finds 0 in text
+      - excerpt: “…8. It is quite common that criminal codes contain provisions criminalizing behavioural problems of children, such as vagrancy, truancy, runaways and other acts,…”
+- [ ] `crc-c-gc-10-0061` art **14** — citedArticles has 1 entr(y/ies) for art 14, regex finds 0 in text
+      - excerpt: “…61. This seems to be the reason why quite a few States parties have made reservations regarding this provision in order to limit this right of appeal by the chi…”
+- [ ] `crc-c-gc-10-0061` art **41** — citedArticles has 1 entr(y/ies) for art 41, regex finds 0 in text
+      - excerpt: “…61. This seems to be the reason why quite a few States parties have made reservations regarding this provision in order to limit this right of appeal by the chi…”
+- [ ] `crc-c-gc-10-0061` art **40** — citedArticles has 1 entr(y/ies) for art 40, regex finds 0 in text
+      - excerpt: “…61. This seems to be the reason why quite a few States parties have made reservations regarding this provision in order to limit this right of appeal by the chi…”
+- [ ] `crc-c-gc-11-0040` art **30** — citedArticles has 1 entr(y/ies) for art 30, regex finds 0 in text
+      - excerpt: “…40. The Committee underlines the importance that the media have particular regard for the linguistic needs of indigenous children, in accordance with articles 1…”
+- [ ] `crc-c-gc-12-0004` art **12** — citedArticles has 2 entr(y/ies) for art 12, regex finds 1 in text
+      - excerpt: “…4. States parties reaffirmed their commitment to the realization of article 12 at the twentyseventh special session of the General Assembly on children in 2002.…”
+- [ ] `crc-c-gc-12-0008` art **12** — citedArticles has 4 entr(y/ies) for art 12, regex finds 1 in text
+      - excerpt: “…8. The overall objective of the general comment is to support States parties in the effective implementation of article 12. In so doing it seeks to:…”
+- [ ] `crc-c-gc-12-0021` art **12** — citedArticles has 2 entr(y/ies) for art 12, regex finds 1 in text
+      - excerpt: “…21. The Committee emphasizes that article 12 imposes no age limit on the right of the child to express her or his views, and discourages States parties from int…”
+- [ ] `crc-c-gc-12-0049` art **12** — citedArticles has 2 entr(y/ies) for art 12, regex finds 0 in text
+      - excerpt: “…49. In order to fulfil these obligations, States parties should adopt the following strategies:…”
+- [ ] `crc-c-gc-14-0015` art **3** — citedArticles has 3 entr(y/ies) for art 3, regex finds 0 in text
+      - excerpt: “…To ensure compliance, States parties should undertake a number of implementation measures in accordance with articles 4, 42 and 44, paragraph 6, of the Conventi…”
+- [ ] `crc-c-gc-17-0014` art **31** — citedArticles has 1 entr(y/ies) for art 31, regex finds 0 in text
+      - excerpt: “…States parties recognize the right of the child to:…”
+- [ ] `crc-c-gc-17-0015` art **4** — citedArticles has 1 entr(y/ies) for art 4, regex finds 0 in text
+      - excerpt: “…States Parties shall respect and promote the right of the child:…”
+- [ ] `crc-c-gc-17-0015` art **31** — citedArticles has 2 entr(y/ies) for art 31, regex finds 0 in text
+      - excerpt: “…States Parties shall respect and promote the right of the child:…”
+- [ ] `crc-c-gc-17-0032` art **31** — citedArticles has 2 entr(y/ies) for art 31, regex finds 1 in text
+      - excerpt: “…Children have a spontaneous urge to play and participate in recreational activities and will seek out opportunities to do so in the most unfavourable environmen…”
+- [ ] `crc-c-gc-17-0054` art **31** — citedArticles has 4 entr(y/ies) for art 31, regex finds 1 in text
+      - excerpt: “…Article 31 imposes three obligations on States parties to guarantee that the rights it covers are realized by every child without discrimination:…”
+- [ ] `crc-c-gc-17-0056` art **31** — citedArticles has 4 entr(y/ies) for art 31, regex finds 1 in text
+      - excerpt: “…The obligation to respect includes the adoption of specific measures aimed at achieving respect for the right of every child, individually or in association wit…”
+- [ ] `crc-c-gc-17-0056` art **18** — citedArticles has 1 entr(y/ies) for art 18, regex finds 0 in text
+      - excerpt: “…The obligation to respect includes the adoption of specific measures aimed at achieving respect for the right of every child, individually or in association wit…”
+- [ ] `crc-c-gc-17-0057` art **31** — citedArticles has 6 entr(y/ies) for art 31, regex finds 1 in text
+      - excerpt: “…The obligation to protect requires that States parties take action to prevent third parties from interfering in or restricting the rights provided for in articl…”
+- [ ] `crc-c-gc-17-0057` art **13** — citedArticles has 1 entr(y/ies) for art 13, regex finds 0 in text
+      - excerpt: “…The obligation to protect requires that States parties take action to prevent third parties from interfering in or restricting the rights provided for in articl…”
+- [ ] `crc-c-gc-17-0057` art **18** — citedArticles has 1 entr(y/ies) for art 18, regex finds 0 in text
+      - excerpt: “…The obligation to protect requires that States parties take action to prevent third parties from interfering in or restricting the rights provided for in articl…”
+- [ ] `crc-c-gc-17-0058` art **31** — citedArticles has 11 entr(y/ies) for art 31, regex finds 1 in text
+      - excerpt: “…The obligation to fulfil requires that States parties adopt a wide range of measures to ensure the fulfilment of all the rights provided for under article 31. I…”
+- [ ] `crc-c-gc-17-0058` art **29** — citedArticles has 1 entr(y/ies) for art 29, regex finds 0 in text
+      - excerpt: “…The obligation to fulfil requires that States parties adopt a wide range of measures to ensure the fulfilment of all the rights provided for under article 31. I…”
+- [ ] `crc-c-gc-19-0001` art **4** — citedArticles has 2 entr(y/ies) for art 4, regex finds 1 in text
+      - excerpt: “…1. Article 4 of the Convention on the Rights of the Child reads:…”
+- [ ] `crc-gc-2003-4-0016` art **27** — citedArticles has 3 entr(y/ies) for art 27, regex finds 2 in text
+      - excerpt: “…The Committee calls upon States parties to develop and implement, in a manner consistent with adolescents’ evolving capacities, legislation, policies and progra…”
+- [ ] `crc-gc-2003-5-0012` art **2** — citedArticles has 1 entr(y/ies) for art 2, regex finds 0 in text
+      - excerpt: “…The development of a children’s rights perspective throughout Government, parliament and the judiciary is required for effective implementation of the whole Con…”
+- [ ] `crc-gc-2003-5-0012` art **6** — citedArticles has 1 entr(y/ies) for art 6, regex finds 0 in text
+      - excerpt: “…The development of a children’s rights perspective throughout Government, parliament and the judiciary is required for effective implementation of the whole Con…”
+- [ ] `crc-gc-2003-5-0012` art **12** — citedArticles has 3 entr(y/ies) for art 12, regex finds 0 in text
+      - excerpt: “…The development of a children’s rights perspective throughout Government, parliament and the judiciary is required for effective implementation of the whole Con…”
+- [ ] `crc-gc-2005-6-0031` art **8** — citedArticles has 1 entr(y/ies) for art 8, regex finds 0 in text
+      - excerpt: “…31. The best interests of the child must also be a guiding principle for determining the priority of protection needs and the chronology of measures to be appli…”
+- [ ] `crc-gc-2005-6-0031` art **1** — citedArticles has 2 entr(y/ies) for art 1, regex finds 0 in text
+      - excerpt: “…31. The best interests of the child must also be a guiding principle for determining the priority of protection needs and the chronology of measures to be appli…”
+- [ ] `crc-gc-2005-6-0041` art **30** — citedArticles has 1 entr(y/ies) for art 30, regex finds 0 in text
+      - excerpt: “…States should ensure that access to education is maintained during all phases of the displacement cycle. Every unaccompanied and separated child, irrespective o…”
+- [ ] `crc-gc-2005-6-0041` art **32** — citedArticles has 1 entr(y/ies) for art 32, regex finds 0 in text
+      - excerpt: “…States should ensure that access to education is maintained during all phases of the displacement cycle. Every unaccompanied and separated child, irrespective o…”
+- [ ] `crc-gc-2005-6-0084` art **12** — citedArticles has 1 entr(y/ies) for art 12, regex finds 0 in text
+      - excerpt: “…84. Return to the country of origin is not an option if it would lead to a “reasonable risk” that such return would result in the violation of fundamental human…”
+- [ ] `crc-gc-2005-6-0084` art **8** — citedArticles has 1 entr(y/ies) for art 8, regex finds 0 in text
+      - excerpt: “…84. Return to the country of origin is not an option if it would lead to a “reasonable risk” that such return would result in the violation of fundamental human…”
+- [ ] `crc-gc-2005-6-0084` art **20** — citedArticles has 1 entr(y/ies) for art 20, regex finds 0 in text
+      - excerpt: “…84. Return to the country of origin is not an option if it would lead to a “reasonable risk” that such return would result in the violation of fundamental human…”
+- [ ] `crc-gc-2005-6-0093` art **8** — citedArticles has 2 entr(y/ies) for art 8, regex finds 1 in text
+      - excerpt: “…93. The best-interests assessment determination, prior to a decision to resettle, needs also to take into account other factors such as: the envisaged duration…”
+- [ ] `crc-gc-2005-6-0093` art **20** — citedArticles has 1 entr(y/ies) for art 20, regex finds 0 in text
+      - excerpt: “…93. The best-interests assessment determination, prior to a decision to resettle, needs also to take into account other factors such as: the envisaged duration…”
+- [ ] `crc-c-gc-7-rev-1-0014` art **12** — citedArticles has 3 entr(y/ies) for art 12, regex finds 1 in text
+      - excerpt: “…14. Respect for the views and feelings of the young child. Article 12 states that the child has a right to express his or her views freely in all matters affect…”
+- [ ] `crc-c-gc-7-rev-1-0027` art **24** — citedArticles has 2 entr(y/ies) for art 24, regex finds 1 in text
+      - excerpt: “…27. Health-care provision. States parties should ensure that all children have access to the highest attainable standard of health care and nutrition during the…”
+- [ ] `crc-c-gc-7-rev-1-0029` art **18** — citedArticles has 1 entr(y/ies) for art 18, regex finds 0 in text
+      - excerpt: “…29. Parental and public responsibilities for early childhood education. The principle that parents (and other primary caregivers) are children’s first educators…”
+- [ ] `crc-c-gc-7-rev-1-0029` art **29** — citedArticles has 1 entr(y/ies) for art 29, regex finds 0 in text
+      - excerpt: “…29. Parental and public responsibilities for early childhood education. The principle that parents (and other primary caregivers) are children’s first educators…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **19** — citedArticles has 1 entr(y/ies) for art 19, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **20** — citedArticles has 1 entr(y/ies) for art 20, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **21** — citedArticles has 2 entr(y/ies) for art 21, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **3** — citedArticles has 1 entr(y/ies) for art 3, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **22** — citedArticles has 1 entr(y/ies) for art 22, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **23** — citedArticles has 1 entr(y/ies) for art 23, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **32** — citedArticles has 1 entr(y/ies) for art 32, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **33** — citedArticles has 1 entr(y/ies) for art 33, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **34** — citedArticles has 1 entr(y/ies) for art 34, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **35** — citedArticles has 1 entr(y/ies) for art 35, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **40** — citedArticles has 1 entr(y/ies) for art 40, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `crc-c-gc-7-rev-1-0036` art **18** — citedArticles has 1 entr(y/ies) for art 18, regex finds 0 in text
+      - excerpt: “…36. Young children’s vulnerability to risks. Throughout this general comment the Committee notes that large numbers of young children grow up in difficult circu…”
+- [ ] `cedaw-c-gc-31-rev-1-crc-c-gc-18-rev-1-0085` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…85. Victims seeking justice for violations of their rights as a result of harmful practices often face stigmatization, a risk of revictimization, harassment and…”
+- [ ] `e-c-12-1999-10-0006` art **13** — citedArticles has 3 entr(y/ies) for art 13, regex finds 0 in text
+      - excerpt: “…6. While the precise and appropriate application of the terms will depend upon the conditions prevailing in a particular State party, education in all its forms…”
+- [ ] `e-c-12-1999-10-0015` art **26** — citedArticles has 1 entr(y/ies) for art 26, regex finds 0 in text
+      - excerpt: “…15. Technical and vocational education (TVE) forms part of both the right to education and the right to work (art. 6 (2)). Article 13 (2) (b) presents TVE as pa…”
+- [ ] `e-c-12-1999-10-0018` art **13** — citedArticles has 5 entr(y/ies) for art 13, regex finds 4 in text
+      - excerpt: “…18. While article 13 (2) (c) is formulated on the same lines as article 13 (2) (b), there are three differences between the two provisions. Article 13 (2) (c) d…”
+- [ ] `e-c-12-1999-10-0018` art **6** — citedArticles has 1 entr(y/ies) for art 6, regex finds 0 in text
+      - excerpt: “…18. While article 13 (2) (c) is formulated on the same lines as article 13 (2) (b), there are three differences between the two provisions. Article 13 (2) (c) d…”
+- [ ] `e-c-12-1999-10-0018` art **26** — citedArticles has 1 entr(y/ies) for art 26, regex finds 0 in text
+      - excerpt: “…18. While article 13 (2) (c) is formulated on the same lines as article 13 (2) (b), there are three differences between the two provisions. Article 13 (2) (c) d…”
+- [ ] `e-c-12-1999-10-0027` art **13** — citedArticles has 3 entr(y/ies) for art 13, regex finds 2 in text
+      - excerpt: “…27. While the Covenant requires that “the material conditions of teaching staff shall be continuously improved”, in practice the general working conditions of t…”
+- [ ] `e-c-12-1999-10-0027` art **2** — citedArticles has 1 entr(y/ies) for art 2, regex finds 0 in text
+      - excerpt: “…27. While the Covenant requires that “the material conditions of teaching staff shall be continuously improved”, in practice the general working conditions of t…”
+- [ ] `e-c-12-1999-10-0027` art **3** — citedArticles has 1 entr(y/ies) for art 3, regex finds 0 in text
+      - excerpt: “…27. While the Covenant requires that “the material conditions of teaching staff shall be continuously improved”, in practice the general working conditions of t…”
+- [ ] `e-c-12-1999-10-0027` art **6** — citedArticles has 1 entr(y/ies) for art 6, regex finds 0 in text
+      - excerpt: “…27. While the Covenant requires that “the material conditions of teaching staff shall be continuously improved”, in practice the general working conditions of t…”
+- [ ] `e-c-12-1999-10-0030` art **13** — citedArticles has 3 entr(y/ies) for art 13, regex finds 2 in text
+      - excerpt: “…30. Under article 13 (4), everyone, including nonnationals, has the liberty to establish and direct educational institutions. The liberty also extends to “bodie…”
+- [ ] `e-c-12-1999-10-0041` art **13** — citedArticles has 1 entr(y/ies) for art 13, regex finds 0 in text
+      - excerpt: “…41. In the Committee’s view, corporal punishment is inconsistent with the fundamental guiding principle of international human rights law enshrined in the Pream…”
+- [ ] `e-c-12-2000-4-0002` art **12** — citedArticles has 2 entr(y/ies) for art 12, regex finds 0 in text
+      - excerpt: “…2. The human right to health is recognized in numerous international instruments. Article 25.1 of the Universal Declaration of Human Rights affirms: “Everyone h…”
+- [ ] `e-c-12-2000-4-0002` art **5** — citedArticles has 1 entr(y/ies) for art 5, regex finds 0 in text
+      - excerpt: “…2. The human right to health is recognized in numerous international instruments. Article 25.1 of the Universal Declaration of Human Rights affirms: “Everyone h…”
+- [ ] `e-c-12-2000-4-0002` art **11** — citedArticles has 2 entr(y/ies) for art 11, regex finds 0 in text
+      - excerpt: “…2. The human right to health is recognized in numerous international instruments. Article 25.1 of the Universal Declaration of Human Rights affirms: “Everyone h…”
+- [ ] `e-c-12-2000-4-0002` art **24** — citedArticles has 1 entr(y/ies) for art 24, regex finds 0 in text
+      - excerpt: “…2. The human right to health is recognized in numerous international instruments. Article 25.1 of the Universal Declaration of Human Rights affirms: “Everyone h…”
+- [ ] `e-c-12-2000-4-0002` art **16** — citedArticles has 1 entr(y/ies) for art 16, regex finds 0 in text
+      - excerpt: “…2. The human right to health is recognized in numerous international instruments. Article 25.1 of the Universal Declaration of Human Rights affirms: “Everyone h…”
+- [ ] `e-c-12-2000-4-0002` art **10** — citedArticles has 1 entr(y/ies) for art 10, regex finds 0 in text
+      - excerpt: “…2. The human right to health is recognized in numerous international instruments. Article 25.1 of the Universal Declaration of Human Rights affirms: “Everyone h…”
+- [ ] `e-c-12-2000-4-0017` art **12** — citedArticles has 2 entr(y/ies) for art 12, regex finds 1 in text
+      - excerpt: “…17. “The creation of conditions which would assure to all medical service and medical attention in the event of sickness” (art. 12.2 (d)), both physical and men…”
+- [ ] `e-c-12-2000-4-0065` art **12** — citedArticles has 1 entr(y/ies) for art 12, regex finds 0 in text
+      - excerpt: “…65. The role of WHO, the Office of the United Nations High Commissioner for Refugees, the International Committee of the Red Cross/Red Crescent and UNICEF, as w…”
+- [ ] `e-c-12-2005-4-0002` art **3** — citedArticles has 3 entr(y/ies) for art 3, regex finds 2 in text
+      - excerpt: “…2. The travaux préparatoires state that article 3 was included in the Covenant, as well as in ICCPR, to indicate that beyond a prohibition of discrimination, “t…”
+- [ ] `e-c-12-2005-4-0002` art **2** — citedArticles has 2 entr(y/ies) for art 2, regex finds 1 in text
+      - excerpt: “…2. The travaux préparatoires state that article 3 was included in the Covenant, as well as in ICCPR, to indicate that beyond a prohibition of discrimination, “t…”
+- [ ] `e-c-12-2005-4-0002` art **26** — citedArticles has 1 entr(y/ies) for art 26, regex finds 0 in text
+      - excerpt: “…2. The travaux préparatoires state that article 3 was included in the Covenant, as well as in ICCPR, to indicate that beyond a prohibition of discrimination, “t…”
+- [ ] `e-c-12-gc-17-0004` art **15** — citedArticles has 9 entr(y/ies) for art 15, regex finds 1 in text
+      - excerpt: “…4. The right to benefit from the protection of the moral and material interests resulting from one’s scientific, literary and artistic productions seeks to enco…”
+- [ ] `e-c-12-gc-17-0004` art **6** — citedArticles has 1 entr(y/ies) for art 6, regex finds 0 in text
+      - excerpt: “…4. The right to benefit from the protection of the moral and material interests resulting from one’s scientific, literary and artistic productions seeks to enco…”
+- [ ] `e-c-12-gc-17-0004` art **7** — citedArticles has 1 entr(y/ies) for art 7, regex finds 0 in text
+      - excerpt: “…4. The right to benefit from the protection of the moral and material interests resulting from one’s scientific, literary and artistic productions seeks to enco…”
+- [ ] `e-c-12-gc-17-0004` art **11** — citedArticles has 1 entr(y/ies) for art 11, regex finds 0 in text
+      - excerpt: “…4. The right to benefit from the protection of the moral and material interests resulting from one’s scientific, literary and artistic productions seeks to enco…”
+- [ ] `e-c-12-gc-17-0018` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…18. The right to the protection of the moral and material interests of authors contains the following essential and interrelated elements, the precise applicati…”
+- [ ] `e-c-12-gc-17-0028` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…28. The right of everyone to benefit from the protection of the moral and material benefits resulting from any scientific, literary or artistic production of wh…”
+- [ ] `e-c-12-gc-18-0012` art **2** — citedArticles has 2 entr(y/ies) for art 2, regex finds 0 in text
+      - excerpt: “…12. The exercise of work in all its forms and at all levels requires the existence of the following interdependent and essential elements, implementation of whi…”
+- [ ] `e-c-12-gc-18-0012` art **3** — citedArticles has 1 entr(y/ies) for art 3, regex finds 0 in text
+      - excerpt: “…12. The exercise of work in all its forms and at all levels requires the existence of the following interdependent and essential elements, implementation of whi…”
+- [ ] `e-c-12-gc-18-0015` art **6** — citedArticles has 1 entr(y/ies) for art 6, regex finds 0 in text
+      - excerpt: “…15. The protection of children is covered by article 10 of the Covenant. The Committee recalls its general comment No. 14 (2000) and in particular paragraphs 22…”
+- [ ] `e-c-12-gc-18-0033` art **2** — citedArticles has 1 entr(y/ies) for art 2, regex finds 0 in text
+      - excerpt: “…33. Violations of the obligation to respect the right to work include laws, policies and actions that contravene the standards laid down in article 6 of the Cov…”
+- [ ] `e-c-12-gc-20-0008` art **15** — citedArticles has 1 entr(y/ies) for art 15, regex finds 0 in text
+      - excerpt: “…8. In order for States parties to “guarantee” that the Covenant rights will be exercised without discrimination of any kind, discrimination must be eliminated b…”
+- [ ] `e-c-12-gc-20-0008` art **6** — citedArticles has 1 entr(y/ies) for art 6, regex finds 0 in text
+      - excerpt: “…8. In order for States parties to “guarantee” that the Covenant rights will be exercised without discrimination of any kind, discrimination must be eliminated b…”
+- [ ] `e-c-12-gc-21-0050` art **19** — citedArticles has 1 entr(y/ies) for art 19, regex finds 0 in text
+      - excerpt: “…50. In many instances, the obligations to respect and to protect freedoms, cultural heritage and diversity are interconnected. Consequently, the obligation to p…”
+- [ ] `e-c-12-gc-21-0050` art **20** — citedArticles has 1 entr(y/ies) for art 20, regex finds 0 in text
+      - excerpt: “…50. In many instances, the obligations to respect and to protect freedoms, cultural heritage and diversity are interconnected. Consequently, the obligation to p…”
+- [ ] `e-c-12-gc-21-0050` art **4** — citedArticles has 1 entr(y/ies) for art 4, regex finds 0 in text
+      - excerpt: “…50. In many instances, the obligations to respect and to protect freedoms, cultural heritage and diversity are interconnected. Consequently, the obligation to p…”
+- [ ] `e-c-12-gc-25-0052` art **4** — citedArticles has 2 entr(y/ies) for art 4, regex finds 0 in text
+      - excerpt: “…52. Core obligations related to the right to participate in and to enjoy the benefits of scientific progress and its applications require States parties to:…”
+- [ ] `annotated-cedaw-gr16-unpaid-women-workers-0001` art **11** — citedArticles has 1 entr(y/ies) for art 11, regex finds 0 in text
+      - excerpt: “…The Committee on the Elimination of Discrimination against Women, Bearing in mind articles 2 (c) and 11 (c), (d) and (e) of the Convention on the Elimination of…”
+
+## D — untagged multi-instrument paragraphs (top 150 of 16240, tagging queue)
+
+No citedArticles at all, article refs present, ≥2 instruments named. These are the highest-value candidates for extending the tagging pipeline (JUR and SP have no tags by design). Not individual verdicts — run the full 4-stage pipeline on these paragraphs, hardest first.
+
+- [ ] `a-56-210-0129` (8 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Constitution', 'Convention', 'Covenant', 'ILO', 'Protocol', 'Statute', 'Treaty']
+- [ ] `e-cn-4-1999-49-0087` (7 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Convention', 'Covenant', 'ILO', 'Protocol', 'Treaty', 'UNESCO']
+- [ ] `a-hrc-39-48-0116` (7 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Covenant', 'ILO', 'Protocol', 'Treaty']
+- [ ] `e-cn-4-2002-58-0149` (6 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Constitution', 'Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `ccpr-c-28-d-118-1982-0008` (5 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'ILO', 'Protocol']
+- [ ] `a-72-335-0055` (5 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute', 'Treaty']
+- [ ] `a-hrc-4-20-0074` (5 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'ECHR', 'Protocol']
+- [ ] `e-cn-4-1995-91-0009` (5 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Covenant', 'UNESCO']
+- [ ] `e-cn-4-1995-91-0061` (5 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Covenant', 'UNESCO']
+- [ ] `a-hrc-10-16-0020` (5 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'ILO', 'Protocol', 'Statute']
+- [ ] `a-hrc-14-22-0015` (5 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute', 'Treaty']
+- [ ] `cat-c-65-d-758-2016-0064` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `ccpr-c-15-d-10-1977-0015` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-12-d-40-1978-0011` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-32-d-191-1985-0004` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'UNESCO']
+- [ ] `ccpr-c-37-d-220-1987-0023` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-37-d-222-1987-0024` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-43-d-401-1990-0005` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Treaty']
+- [ ] `ccpr-c-48-d-470-1991-0120` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol', 'Treaty']
+- [ ] `ccpr-c-51-d-489-1992-0009` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-51-d-567-1993-0010` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-61-d-609-1995-0007` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-84-d-879-1999-0043` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Treaty']
+- [ ] `ccpr-c-74-d-965-2000-0011` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'ECHR', 'Protocol']
+- [ ] `ccpr-c-81-d-904-2000-0012` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-78-d-998-2001-0020` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'ECHR', 'Protocol']
+- [ ] `ccpr-c-87-d-1050-2002-0013` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-87-d-1229-2003-0031` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Treaty']
+- [ ] `ccpr-c-96-d-1493-2006-0014` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Protocol', 'Statute']
+- [ ] `ccpr-c-103-d-1637-2007-1757-1765-2008-0009` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'ILO', 'Protocol']
+- [ ] `ccpr-c-98-d-1754-2008-0011` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-101-d-1994-2010-0006` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'ILO']
+- [ ] `ccpr-c-113-d-2001-2010-0027` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-112-d-2111-2011-0039` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Agreement', 'Constitution', 'Protocol']
+- [ ] `ccpr-c-114-d-2038-2011-0052` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Agreement', 'Constitution', 'Protocol']
+- [ ] `ccpr-c-122-d-2199-2012-0020` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-116-d-2399-2014-0001` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-126-d-2401-2014-0021` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-126-dr-2401-2014-0021` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-132-d-2365-2014-0048` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-117-d-2559-2015-0030` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-122-d-2650-2015-0027` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-126-d-2701-2015-0021` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-130-d-2584-2015-0034` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Covenant']
+- [ ] `ccpr-c-121-d-2868-2016-0020` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-122-d-2756-2016-0022` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Treaty']
+- [ ] `ccpr-c-140-d-3022-2017-0052` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Treaty']
+- [ ] `ccpr-c-135-d-3154-2018-0007` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Covenant']
+- [ ] `ccpr-c-139-d-3236-2018-0054` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-144-d-3274-2018-0079` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-130-d-3587-2019-0035` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-133-d-3325-2019-0015` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-134-d-3587-2019-0035` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-141-d-3588-2019-0014` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-144-d-3650-2019-0032` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-87-d-1229-2003-rev-1-0031` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Treaty']
+- [ ] `cedaw-c-36-d-3-2004-0015` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'ILO', 'Protocol']
+- [ ] `cedaw-c-37-d-11-2006-0021` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Protocol']
+- [ ] `cedaw-c-65-d-74-2014-0007` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Protocol']
+- [ ] `cedaw-c-67-d-78-2014-0023` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Protocol']
+- [ ] `cedaw-c-84-d-155-2020-0025` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Convention', 'Protocol', 'Treaty']
+- [ ] `e-c-12-58-d-3-2014-0072` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `e-c-12-62-d-14-2016-0065` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant', 'Protocol']
+- [ ] `crc-c-85-d-98-2019-0022` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Protocol']
+- [ ] `crc-c-99-d-162-2021-0025` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Protocol']
+- [ ] `crc-c-88-2-0001` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Protocol']
+- [ ] `e-cn-4-1999-50-0157` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'ILO', 'UNESCO']
+- [ ] `a-hrc-33-40-0118` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Convention', 'ILO', 'Treaty']
+- [ ] `a-74-185-0009` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Treaty']
+- [ ] `a-hrc-35-35-0075` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Treaty']
+- [ ] `a-80-203-0007` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `a-74-183-0086` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Convention', 'Covenant', 'Protocol']
+- [ ] `a-77-190-0077` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `a-hrc-30-35-0017` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'ILO', 'Protocol']
+- [ ] `a-63-223-0009` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `a-78-520-0058` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `a-79-324-0017` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Treaty']
+- [ ] `a-hrc-16-51-0027` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'ECHR']
+- [ ] `e-cn-4-2006-98-0074` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Treaty']
+- [ ] `e-cn-4-1999-49-0052` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'UNESCO']
+- [ ] `a-77-284-0007` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Convention', 'Covenant', 'Protocol']
+- [ ] `a-80-187-0047` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Convention', 'Protocol', 'Treaty']
+- [ ] `a-hrc-34-49-0062` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Protocol', 'Statute']
+- [ ] `a-hrc-37-59-0076` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Convention', 'ILO', 'Protocol']
+- [ ] `a-80-213-0069` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Protocol', 'Statute', 'Treaty']
+- [ ] `a-hrc-58-48-0027` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Treaty']
+- [ ] `e-cn-4-1991-56-0021` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Treaty']
+- [ ] `e-cn-4-1991-56-0024` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'ECHR']
+- [ ] `e-cn-4-1992-52-0190` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Covenant']
+- [ ] `e-cn-4-1992-52-0200` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'Covenant']
+- [ ] `e-cn-4-1998-6-0150` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Treaty']
+- [ ] `a-hrc-43-51-0016` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `a-hrc-43-51-0020` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `e-cn-4-2003-85-0079` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'Protocol']
+- [ ] `a-hrc-11-36-0054` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Treaty']
+- [ ] `a-73-174-0020` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'ILO', 'Protocol']
+- [ ] `a-61-259-0057` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'ECHR']
+- [ ] `e-cn-4-1991-17-0208` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `e-cn-4-2003-68-0026` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `a-hrc-39-48-0023` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'ILO']
+- [ ] `a-65-288-0038` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'ILO', 'Protocol']
+- [ ] `a-hrc-47-34-0021` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'ILO', 'Protocol', 'Statute']
+- [ ] `a-69-518-0015` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `a-76-180-0058` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `a-hrc-54-24-0056` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Statute']
+- [ ] `a-79-183-0009` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol', 'Treaty']
+- [ ] `a-hrc-56-48-0040` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'ILO', 'Protocol']
+- [ ] `e-cn-4-1995-42-0326` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant', 'ILO']
+- [ ] `e-cn-4-2001-73-0135` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'ILO', 'Protocol', 'Statute']
+- [ ] `e-cn-4-2006-61-0117` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'ECHR', 'Statute']
+- [ ] `a-hrc-10-6-0016` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'ILO', 'Protocol']
+- [ ] `a-hrc-12-24-0042` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'ILO', 'Treaty']
+- [ ] `a-hrc-53-39-0029` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Agreement', 'Convention', 'Covenant', 'Protocol']
+- [ ] `a-hrc-56-51-0015` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant', 'Protocol']
+- [ ] `e-cn-4-1435-0225` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Convention', 'UNESCO']
+- [ ] `a-hrc-15-25-0094` (4 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'ILO', 'Statute', 'UNESCO']
+- [ ] `cat-c-36-d-181-2001-0030` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol']
+- [ ] `cat-c-30-d-219-2002-0021` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol']
+- [ ] `cat-c-56-d-613-2014-0021` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'ECHR']
+- [ ] `cat-c-57-d-628-2014-0008` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant']
+- [ ] `cat-c-61-d-614-2014-0045` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol']
+- [ ] `cat-c-63-d-618-2014-0007` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Protocol']
+- [ ] `cat-c-61-d-725-2016-0027` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Covenant']
+- [ ] `cat-c-67-d-813-2017-0033` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol']
+- [ ] `cat-c-75-d-964-2019-0043` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'Protocol']
+- [ ] `cat-c-81-d-1109-2021-0024` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Convention', 'Covenant']
+- [ ] `ccpr-c-8-d-9-1977-0001` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-12-d-34-1978-0005` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-12-d-35-1978-0039` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-12-d-35-1978-0042` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-12-d-58-1979-0016` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-12-d-58-1979-0024` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-15-d-57-1979-0008` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-16-d-46-1979-0017` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Covenant', 'Statute']
+- [ ] `ccpr-c-16-d-46-1979-0031` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant']
+- [ ] `ccpr-c-17-d-67-1980-0014` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-18-d-104-1981-0015` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-18-d-104-1981-0016` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-18-d-104-1981-0020` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-24-d-113-1981-0003` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-28-d-118-1982-0007` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-28-d-118-1982-0021` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Convention', 'ILO']
+- [ ] `ccpr-c-29-d-172-1984-0011` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Constitution', 'Covenant']
+- [ ] `ccpr-c-29-d-172-1984-0020` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-29-d-180-1984-0012` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-29-d-182-1984-0020` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-31-d-176-1984-0030` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-31-d-188-1984-0020` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Convention', 'Covenant', 'UNESCO']
+- [ ] `ccpr-c-34-d-164-1984-0009` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Constitution', 'Covenant', 'Protocol']
+- [ ] `ccpr-c-38-d-167-1984-0004` (3 instruments) — no citedArticles; refs present; instruments mentioned: ['Act', 'Covenant', 'Treaty']
+
+## B — dead popovers: **none found** ✓
+
+Every treaty abbr used by citedArticles across the GC corpus exists in the /api/treaties bundle.

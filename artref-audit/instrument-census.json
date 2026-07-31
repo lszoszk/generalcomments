@@ -1,0 +1,628 @@
+{
+ "missing": [
+  {
+   "instrument": "European Convention on Human Rights (ECHR)",
+   "mentions": 2901,
+   "near_article_ref": 145,
+   "by_corpus": {
+    "GC": 5,
+    "JUR": 2282,
+    "SP": 614
+   }
+  },
+  {
+   "instrument": "Universal Declaration of Human Rights (UDHR)",
+   "mentions": 1652,
+   "near_article_ref": 132,
+   "by_corpus": {
+    "GC": 59,
+    "JUR": 123,
+    "SP": 1470
+   }
+  },
+  {
+   "instrument": "Geneva Conventions 1949 (+Protocols)",
+   "mentions": 914,
+   "near_article_ref": 50,
+   "by_corpus": {
+    "GC": 28,
+    "JUR": 51,
+    "SP": 835
+   }
+  },
+  {
+   "instrument": "UN Guiding Principles on Business and Human Rights",
+   "mentions": 707,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 7,
+    "JUR": 4,
+    "SP": 696
+   }
+  },
+  {
+   "instrument": "UN Charter",
+   "mentions": 665,
+   "near_article_ref": 36,
+   "by_corpus": {
+    "GC": 37,
+    "JUR": 45,
+    "SP": 583
+   }
+  },
+  {
+   "instrument": "UNDRIP (Indigenous Peoples Declaration)",
+   "mentions": 642,
+   "near_article_ref": 31,
+   "by_corpus": {
+    "GC": 14,
+    "JUR": 53,
+    "SP": 575
+   }
+  },
+  {
+   "instrument": "1951 Refugee Convention",
+   "mentions": 548,
+   "near_article_ref": 21,
+   "by_corpus": {
+    "GC": 24,
+    "JUR": 344,
+    "SP": 180
+   }
+  },
+  {
+   "instrument": "Declaration on Human Rights Defenders",
+   "mentions": 455,
+   "near_article_ref": 5,
+   "by_corpus": {
+    "GC": 2,
+    "JUR": 3,
+    "SP": 450
+   }
+  },
+  {
+   "instrument": "Nelson Mandela Rules (SMR)",
+   "mentions": 417,
+   "near_article_ref": 9,
+   "by_corpus": {
+    "GC": 4,
+    "JUR": 198,
+    "SP": 215
+   }
+  },
+  {
+   "instrument": "Rome Statute of the ICC",
+   "mentions": 415,
+   "near_article_ref": 24,
+   "by_corpus": {
+    "GC": 16,
+    "JUR": 53,
+    "SP": 346
+   }
+  },
+  {
+   "instrument": "American Convention on Human Rights (ACHR)",
+   "mentions": 404,
+   "near_article_ref": 53,
+   "by_corpus": {
+    "GC": 9,
+    "JUR": 52,
+    "SP": 343
+   }
+  },
+  {
+   "instrument": "African Charter (Banjul, ACHPR)",
+   "mentions": 328,
+   "near_article_ref": 56,
+   "by_corpus": {
+    "GC": 6,
+    "JUR": 4,
+    "SP": 318
+   }
+  },
+  {
+   "instrument": "Framework Convention on Climate Change (UNFCCC)",
+   "mentions": 309,
+   "near_article_ref": 13,
+   "by_corpus": {
+    "GC": 8,
+    "JUR": 6,
+    "SP": 295
+   }
+  },
+  {
+   "instrument": "Enforced Disappearance Declaration (1992)",
+   "mentions": 269,
+   "near_article_ref": 2,
+   "by_corpus": {
+    "JUR": 15,
+    "SP": 254
+   }
+  },
+  {
+   "instrument": "Guiding Principles on Internal Displacement",
+   "mentions": 265,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 1,
+    "JUR": 2,
+    "SP": 262
+   }
+  },
+  {
+   "instrument": "ILO Conventions (other/unspecified)",
+   "mentions": 247,
+   "near_article_ref": 7,
+   "by_corpus": {
+    "GC": 18,
+    "JUR": 29,
+    "SP": 200
+   }
+  },
+  {
+   "instrument": "Vienna Convention on the Law of Treaties (VCLT)",
+   "mentions": 236,
+   "near_article_ref": 3,
+   "by_corpus": {
+    "GC": 16,
+    "JUR": 149,
+    "SP": 71
+   }
+  },
+  {
+   "instrument": "Vienna Declaration and Programme of Action",
+   "mentions": 226,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 13,
+    "JUR": 1,
+    "SP": 212
+   }
+  },
+  {
+   "instrument": "CTOC (Palermo Convention, org. crime)",
+   "mentions": 203,
+   "near_article_ref": 5,
+   "by_corpus": {
+    "GC": 7,
+    "JUR": 4,
+    "SP": 192
+   }
+  },
+  {
+   "instrument": "Kampala Convention (IDPs, AU)",
+   "mentions": 181,
+   "near_article_ref": 2,
+   "by_corpus": {
+    "SP": 181
+   }
+  },
+  {
+   "instrument": "Hague Conventions (other)",
+   "mentions": 179,
+   "near_article_ref": 2,
+   "by_corpus": {
+    "GC": 3,
+    "JUR": 66,
+    "SP": 110
+   }
+  },
+  {
+   "instrument": "Convention on Biological Diversity",
+   "mentions": 161,
+   "near_article_ref": 6,
+   "by_corpus": {
+    "GC": 1,
+    "SP": 160
+   }
+  },
+  {
+   "instrument": "Istanbul Convention (violence against women)",
+   "mentions": 139,
+   "near_article_ref": 2,
+   "by_corpus": {
+    "JUR": 24,
+    "SP": 115
+   }
+  },
+  {
+   "instrument": "ILO Convention No. 169 (Indigenous)",
+   "mentions": 125,
+   "near_article_ref": 2,
+   "by_corpus": {
+    "GC": 3,
+    "JUR": 14,
+    "SP": 108
+   }
+  },
+  {
+   "instrument": "Genocide Convention",
+   "mentions": 121,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 8,
+    "JUR": 12,
+    "SP": 101
+   }
+  },
+  {
+   "instrument": "Body of Principles (detention)",
+   "mentions": 120,
+   "near_article_ref": 1,
+   "by_corpus": {
+    "GC": 2,
+    "JUR": 16,
+    "SP": 102
+   }
+  },
+  {
+   "instrument": "Arab Charter on Human Rights",
+   "mentions": 97,
+   "near_article_ref": 16,
+   "by_corpus": {
+    "SP": 97
+   }
+  },
+  {
+   "instrument": "Aarhus Convention",
+   "mentions": 94,
+   "near_article_ref": 2,
+   "by_corpus": {
+    "SP": 94
+   }
+  },
+  {
+   "instrument": "European Social Charter",
+   "mentions": 89,
+   "near_article_ref": 10,
+   "by_corpus": {
+    "GC": 7,
+    "JUR": 10,
+    "SP": 72
+   }
+  },
+  {
+   "instrument": "Basic Principles on the Use of Force (law enforcement)",
+   "mentions": 88,
+   "near_article_ref": 2,
+   "by_corpus": {
+    "GC": 4,
+    "JUR": 11,
+    "SP": 73
+   }
+  },
+  {
+   "instrument": "Paris Principles (NHRIs)",
+   "mentions": 88,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 6,
+    "JUR": 5,
+    "SP": 77
+   }
+  },
+  {
+   "instrument": "Bangkok Rules (women prisoners)",
+   "mentions": 85,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 1,
+    "JUR": 17,
+    "SP": 67
+   }
+  },
+  {
+   "instrument": "Slavery Conventions (1926/1956)",
+   "mentions": 84,
+   "near_article_ref": 5,
+   "by_corpus": {
+    "JUR": 2,
+    "SP": 82
+   }
+  },
+  {
+   "instrument": "EU Charter of Fundamental Rights",
+   "mentions": 64,
+   "near_article_ref": 6,
+   "by_corpus": {
+    "GC": 1,
+    "JUR": 16,
+    "SP": 47
+   }
+  },
+  {
+   "instrument": "Beijing Rules (juvenile justice)",
+   "mentions": 63,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 5,
+    "JUR": 6,
+    "SP": 52
+   }
+  },
+  {
+   "instrument": "ILO Convention No. 182 (Worst Forms of Child Labour)",
+   "mentions": 61,
+   "near_article_ref": 1,
+   "by_corpus": {
+    "GC": 4,
+    "SP": 57
+   }
+  },
+  {
+   "instrument": "UNESCO Convention against Discrimination in Education",
+   "mentions": 56,
+   "near_article_ref": 3,
+   "by_corpus": {
+    "GC": 7,
+    "JUR": 4,
+    "SP": 45
+   }
+  },
+  {
+   "instrument": "Havana Rules (juveniles deprived of liberty)",
+   "mentions": 44,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 2,
+    "SP": 42
+   }
+  },
+  {
+   "instrument": "ILO Convention No. 189 (Domestic Workers)",
+   "mentions": 40,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 2,
+    "SP": 38
+   }
+  },
+  {
+   "instrument": "Paris Agreement (climate)",
+   "mentions": 40,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 1,
+    "JUR": 8,
+    "SP": 31
+   }
+  },
+  {
+   "instrument": "1954/1961 Statelessness Conventions",
+   "mentions": 39,
+   "near_article_ref": 1,
+   "by_corpus": {
+    "GC": 4,
+    "JUR": 4,
+    "SP": 31
+   }
+  },
+  {
+   "instrument": "ILO Convention No. 138 (Minimum Age)",
+   "mentions": 27,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 3,
+    "SP": 24
+   }
+  },
+  {
+   "instrument": "Hague Convention on Child Abduction (1980)",
+   "mentions": 27,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "JUR": 25,
+    "SP": 2
+   }
+  },
+  {
+   "instrument": "Mine Ban / Cluster Munitions",
+   "mentions": 23,
+   "near_article_ref": 1,
+   "by_corpus": {
+    "GC": 3,
+    "SP": 20
+   }
+  },
+  {
+   "instrument": "Oviedo Convention (biomedicine)",
+   "mentions": 18,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "JUR": 1,
+    "SP": 17
+   }
+  },
+  {
+   "instrument": "Tokyo Rules (non-custodial measures)",
+   "mentions": 18,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "JUR": 1,
+    "SP": 17
+   }
+  },
+  {
+   "instrument": "Palermo Protocol (Trafficking)",
+   "mentions": 11,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "SP": 11
+   }
+  },
+  {
+   "instrument": "Riyadh Guidelines",
+   "mentions": 8,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 2,
+    "SP": 6
+   }
+  },
+  {
+   "instrument": "Migrant Smuggling Protocol",
+   "mentions": 7,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 1,
+    "SP": 6
+   }
+  },
+  {
+   "instrument": "Apartheid Convention",
+   "mentions": 7,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "SP": 7
+   }
+  },
+  {
+   "instrument": "Firearms Protocol",
+   "mentions": 1,
+   "near_article_ref": 0,
+   "by_corpus": {
+    "GC": 1
+   }
+  }
+ ],
+ "have": {
+  "CAT": 863,
+  "ICCPR": 4596,
+  "CRPD": 792,
+  "CERD": 582,
+  "CEDAW": 911,
+  "ICESCR": 1279,
+  "ICCPR-OP1": 999,
+  "CMW": 248,
+  "CRC": 1543,
+  "CED": 385,
+  "CRC-OPAC": 27,
+  "CRC-OPIC": 113,
+  "CRC-OPSC": 101,
+  "CEDAW-OP": 41,
+  "CRPD-OP": 8,
+  "ICESCR-OP": 238
+ },
+ "raw_unmatched_top": [
+  [
+   "of the Covenant",
+   43562
+  ],
+  [
+   "of the Convention",
+   19577
+  ],
+  [
+   "of the Declaration",
+   1525
+  ],
+  [
+   "the Optional Protocol to the Covenant",
+   1166
+  ],
+  [
+   "the Declaration",
+   1006
+  ],
+  [
+   "to the Covenant",
+   933
+  ],
+  [
+   "the Guiding Principles",
+   860
+  ],
+  [
+   "to the Convention",
+   755
+  ],
+  [
+   "of the Guiding Principles",
+   633
+  ],
+  [
+   "The Declaration",
+   287
+  ],
+  [
+   "the Durban Declaration",
+   207
+  ],
+  [
+   "of the Optional Protocol to the Covenant",
+   191
+  ],
+  [
+   "of the Convention against Torture",
+   162
+  ],
+  [
+   "The Guiding Principles",
+   160
+  ],
+  [
+   "of the Durban Declaration",
+   142
+  ],
+  [
+   "and Guidelines on the Right to a Remedy and Reparation for Victims of Gross Violations of ",
+   122
+  ],
+  [
+   "the Basic Principles",
+   117
+  ],
+  [
+   "and Recommendation",
+   113
+  ],
+  [
+   "Basic Principles",
+   109
+  ],
+  [
+   "of the International Covenant",
+   106
+  ],
+  [
+   "of the Declaration on the Rights of Persons Belonging to National or Ethnic, Religious and",
+   101
+  ],
+  [
+   "of the Declaration on the Elimination of All Forms of Intolerance and of Discrimination Ba",
+   99
+  ],
+  [
+   "The Basic Principles",
+   90
+  ],
+  [
+   "to the Declaration",
+   76
+  ],
+  [
+   "Committee of Experts on the Application of Convention",
+   74
+  ],
+  [
+   "of the Optional Protocol to the Convention",
+   72
+  ],
+  [
+   "Guiding Principles",
+   72
+  ],
+  [
+   "to the Guiding Principles",
+   72
+  ],
+  [
+   "on the Guiding Principles",
+   70
+  ],
+  [
+   "of the Charter for Peace and National Reconciliation",
+   63
+  ]
+ ]
+}
