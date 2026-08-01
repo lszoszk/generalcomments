@@ -11032,6 +11032,10 @@ function annotateTreatyText(html, committee, citedArticles) {
      text, which is the correct answer rather than a guess. */
   const treaty = _treatiesByCommittee[String(committee).toUpperCase()] || null;
   const hasHome = !!treaty;
+  // Whether this committee's communications run under a protocol at all —
+  // scopes the bare-admissibility withdrawal below to bodies where that idiom
+  // is even possible.
+  const hasCommsProtocol = !!_opByCommittee[String(committee || '').toUpperCase()];
   const term = (treaty && treaty.term) || 'Covenant';
   const abbr = treaty ? treaty.abbr : null;
 
@@ -11164,6 +11168,12 @@ function annotateTreatyText(html, committee, citedArticles) {
     String.raw`(\d+)(?:\s*(?:[–—-]|\bto\b)\s*(\d+))?(${QUAL})`,
     'g'
   );
+  /* "5 (2) (b)" / "5, paragraph 2 (a)" — paragraph 2 WITH a letter. The letter
+     is the whole test: article 5 (2) of a covenant or convention exists, but
+     none of them subdivides it into letters, so a lettered citation belongs to
+     the communications protocol. Used by the withdrawal in the chain below. */
+  const OP_ADMISSIBILITY_RE =
+    /(?:\(\s*2\s*\)|,\s*para(?:graph)?s?\.?\s*2)\s*\(\s*[ab]\s*\)/i;
 
   return segments.map(seg => {
     if (seg.tag) return seg.value;
@@ -11541,6 +11551,31 @@ function annotateTreatyText(html, committee, citedArticles) {
           // ICESCR.
           targetAbbr = abbr;
           targetPara = inlinePara;
+        } else if (hasCommsProtocol && art === '5' && OP_ADMISSIBILITY_RE.test(qualifier)) {
+          /* v19.79: the admissibility idiom, cited bare. "The communication is
+             inadmissible under article 5, paragraph 2 (b)." is article 5 (2)
+             (b) of the OPTIONAL PROTOCOL — exhaustion of domestic remedies —
+             but with no instrument named the home fallback below linked it to
+             article 5 of the COVENANT, which is the savings clause ("nothing
+             in the present Covenant may be interpreted as implying…"). A
+             different provision entirely, popped confidently. 238 corpus
+             occurrences carry no instrument name, 235 of them CCPR; the other
+             5,308 do say "Protocol" nearby and resolve correctly above.
+
+             The LETTER is what makes this safe to act on: article 5 (2) of the
+             Covenant exists but has no lettered sub-paragraphs, so a lettered
+             citation cannot be the Covenant. A bare "article 5, paragraph 2"
+             still links home, as before.
+
+             It withdraws the link rather than resolving to the protocol. The
+             text does not name one, and the rule this renderer has held since
+             v19.69 is that an anchor may strip a link, never invent one —
+             "every CCPR communication means OP1 here" is knowledge from
+             outside the sentence, however reliable. Plain text is the honest
+             answer; the reader still sees the citation. */
+          out += m[0];
+          lastIdx = m.index + m[0].length;
+          continue;
         } else if (!hasHome || leadExternal || leadDomestic || ofLowerDomestic || seriesPlain || hasProtocolTail || hasExternalInstrumentTail) {
           // No pre-tagged ref AND the text points at a Protocol or a
           // different instrument ("of the Standard Minimum Rules", "of the

@@ -784,6 +784,27 @@ test('A9. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, d
     { id: 'apostrophe', committee: 'SR Freedom of Expression',
       text: "It aims at evaluating States' compliance with article 9 of the African Charter on Human and Peoples' Rights.",
       expect: [['9', 'African Charter']] },
+    /* v19.79 — the admissibility idiom cited bare. Article 5 (2) (b) of the
+       OPTIONAL PROTOCOL is exhaustion of domestic remedies; article 5 of the
+       COVENANT is the savings clause. With no instrument named the home
+       fallback popped the wrong provision, 238 times in the corpus. The link
+       is withdrawn rather than resolved: the sentence does not name a
+       protocol, and this renderer does not invent links from outside it. */
+    { id: 'op-admis-bare', committee: 'CCPR',
+      text: 'A later visa application proved successful. The communication is accordingly inadmissible under article 5, paragraph 2 (b).',
+      expect: [] },
+    /* …and the three controls that keep the withdrawal from over-reaching:
+       naming the Protocol still resolves, an unlettered paragraph 2 is still
+       a Covenant reference, and a different article is untouched. */
+    { id: 'op-admis-named', committee: 'CCPR',
+      text: 'The Committee finds the claim inadmissible under article 5 (2) (b) of the Optional Protocol, domestic remedies being unexhausted.',
+      expect: [['5', 'ICCPR-OP1']] },
+    { id: 'op-admis-noletter', committee: 'CCPR',
+      text: 'No derogation is permitted, as recalled in article 5, paragraph 2, which the State party overlooks.',
+      expect: [['5', 'ICCPR']] },
+    { id: 'op-admis-otherart', committee: 'CCPR',
+      text: 'The restriction was assessed under article 19, paragraph 2 (b), by the domestic courts.',
+      expect: [['19', 'ICCPR']] },
   ];
   /* Every article a case references must exist in the mock: since v19.71 the
      renderer refuses to button a unit the instrument does not hold (the
@@ -799,7 +820,7 @@ test('A9. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, d
     cat: { abbr: 'CAT', name_full: 'Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment',
       term: 'Convention', committee_codes: ['CAT'], articles: arts(2, 3, 11, 14, 16) },
     iccpr: { abbr: 'ICCPR', name_full: 'International Covenant on Civil and Political Rights',
-      term: 'Covenant', committee_codes: ['CCPR'], articles: arts(2, 3, 6, 7, 9, 10, 14, 15, 19, 26) },
+      term: 'Covenant', committee_codes: ['CCPR'], articles: arts(2, 3, 5, 6, 7, 9, 10, 14, 15, 19, 26) },
     'iccpr-op1': { abbr: 'ICCPR-OP1',
       name_full: 'Optional Protocol to the International Covenant on Civil and Political Rights',
       term: 'Optional Protocol', committee_codes: ['CCPR'], articles: arts(1, 2, 5) },
