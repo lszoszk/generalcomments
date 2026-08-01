@@ -746,6 +746,44 @@ test('A9. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, d
     { id: 'ap-protocol', committee: 'CCPR',
       text: 'the fundamental guarantees in article 75 of Additional Protocol I bind all parties.',
       expect: [['75', 'AP I']] },
+    /* v19.78 — the list grammar itself. Every text below is a real corpus
+       sentence that the blind measurement caught; the first two produced
+       WRONG links, not merely missing ones, because an unparsable qualifier
+       pushed the instrument out of the tail's reach and the whole list fell
+       to the committee's own treaty. */
+    { id: 'qual-nested', committee: 'CCPR',
+      text: 'Registered in violation of articles 2 and 5 (para. 2 (b)) of the Optional Protocol, the State party submits.',
+      expect: [['2', 'ICCPR-OP1'], ['5', 'ICCPR-OP1']] },
+    { id: 'desc-paren', committee: 'CCPR',
+      text: 'Kadirić claimed a violation of articles 3 (prohibition of torture) and 8 (right to respect for private and family life) of the European Convention on Human Rights.',
+      expect: [['3', 'ECHR'], ['8', 'ECHR']] },
+    /* "and (3)" qualifies article 2 again; only "and 26" starts a new one. */
+    { id: 'qual-continue', committee: 'CCPR',
+      text: 'The Committee has noted the claims under articles 2 (1) and (3) (a), 9 (5), 14 (1) and (5) and 26 of the Covenant.',
+      expect: [['2', 'ICCPR'], ['9', 'ICCPR'], ['14', 'ICCPR'], ['26', 'ICCPR']] },
+    { id: 'semicolons', committee: 'CCPR',
+      text: 'He claims to be the victim of violations of articles 3; 6, paragraph 1; 9, paragraphs 1 and 3; 10, paragraph 2 (a); 14, paragraph 1; and 26 of the Covenant.',
+      expect: [['3', 'ICCPR'], ['6', 'ICCPR'], ['9', 'ICCPR'], ['10', 'ICCPR'], ['14', 'ICCPR'], ['26', 'ICCPR']] },
+    /* A range gets a button per endpoint — 12 and 13 are nowhere in the text,
+       so there is nothing to hang them on. "to" now reads like the dash. */
+    { id: 'word-range', committee: 'CAT',
+      text: 'The complainant submitted claims under articles 2 (1), 11 to 14 and 16 of the Convention.',
+      expect: [['2', 'CAT'], ['11', 'CAT'], ['14', 'CAT'], ['16', 'CAT']] },
+    /* Negative control for the plural qualifier: the trailing "and 5" is
+       paragraph 5 of article 14, and must NOT become a fourth button. */
+    { id: 'plural-qual', committee: 'CCPR',
+      text: 'As to the alleged violations under article 14, paragraphs 2, 3 (a) and (b) and 5; article 15, paragraph 1; and article 2, paragraph 1, the Committee notes the claim.',
+      expect: [['14', 'ICCPR'], ['15', 'ICCPR'], ['2', 'ICCPR']] },
+    /* An abbreviation before the number, with no parenthesis to anchor on —
+       and in an SP report, where there is no home treaty to fall back to. */
+    { id: 'lead-abbr', committee: 'SR Freedom of Expression',
+      text: 'The freedom to seek information is guaranteed in ICCPR Article 19 (2), the report states.',
+      expect: [['19', 'ICCPR']] },
+    /* The bundle spells the name with a typographic apostrophe, UN documents
+       type a straight one. Comparison normalises both. */
+    { id: 'apostrophe', committee: 'SR Freedom of Expression',
+      text: "It aims at evaluating States' compliance with article 9 of the African Charter on Human and Peoples' Rights.",
+      expect: [['9', 'African Charter']] },
   ];
   /* Every article a case references must exist in the mock: since v19.71 the
      renderer refuses to button a unit the instrument does not hold (the
@@ -759,9 +797,9 @@ test('A9. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, d
        treaty first and returns early when the bundle does not hold it, which
        would silently disable the soft-law pass too. */
     cat: { abbr: 'CAT', name_full: 'Convention against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment',
-      term: 'Convention', committee_codes: ['CAT'], articles: arts(3) },
+      term: 'Convention', committee_codes: ['CAT'], articles: arts(2, 3, 11, 14, 16) },
     iccpr: { abbr: 'ICCPR', name_full: 'International Covenant on Civil and Political Rights',
-      term: 'Covenant', committee_codes: ['CCPR'], articles: arts(6, 7, 9, 10, 14, 19, 26) },
+      term: 'Covenant', committee_codes: ['CCPR'], articles: arts(2, 3, 6, 7, 9, 10, 14, 15, 19, 26) },
     'iccpr-op1': { abbr: 'ICCPR-OP1',
       name_full: 'Optional Protocol to the International Covenant on Civil and Political Rights',
       term: 'Optional Protocol', committee_codes: ['CCPR'], articles: arts(1, 2, 5) },
@@ -788,6 +826,12 @@ test('A9. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, d
     'ap i': { abbr: 'AP I',
       name_full: 'Protocol Additional to the Geneva Conventions of 12 August 1949, and relating to the Protection of Victims of International Armed Conflicts (Protocol I)',
       alt_names: ['Additional Protocol I'], term: 'Protocol', committee_codes: [], articles: arts(75) },
+    echr: { abbr: 'ECHR', name_full: 'Convention for the Protection of Human Rights and Fundamental Freedoms',
+      alt_names: ['European Convention on Human Rights', 'European Convention'],
+      term: 'Convention', committee_codes: [], articles: arts(3, 8) },
+    /* Typographic apostrophe on purpose — the documents use a straight one. */
+    'african charter': { abbr: 'African Charter', name_full: 'African Charter on Human and Peoples\u2019 Rights',
+      alt_names: ['Banjul Charter'], term: 'Charter', committee_codes: [], articles: arts(9) },
     'geneva conventions': { abbr: 'Geneva Conventions',
       name_full: 'Geneva Conventions of 12 August 1949 (common articles)',
       alt_names: ['four Geneva Conventions', 'Geneva Conventions'],

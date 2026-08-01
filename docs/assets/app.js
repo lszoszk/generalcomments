@@ -10859,7 +10859,23 @@ if (typeof window !== 'undefined') {
 // that pop up the actual treaty article text on demand.
 let _treatiesCache = null;
 let _treatiesByCommittee = {};   // CCPR → iccpr_treaty_obj
-let _treatyNameIndex = [];       // [{name: lowercased name_full, abbr}], longest first
+let _treatyNameIndex = [];       // [{name: normalised name_full, abbr}], longest first
+/* Every treaty-name comparison in this file goes through here. Lowercase and
+   collapsed whitespace were always applied; the apostrophe is v19.78. Two
+   things diverge on it: UN documents type "Peoples' Rights" with a straight
+   quote while the bundle carries the typographic one, AND annotateTreatyText
+   runs on escaped HTML, where that quote has already become "&#39;". So the
+   text side read "peoples&#39; rights" and the index side "peoples’ rights" —
+   two ways of writing the same name, neither matching the other. "article 9
+   of the African Charter on Human and Peoples' Rights" is a title spelled out
+   in full, the strongest evidence a citation can carry, and it rendered as
+   plain text. */
+const _normName = (s) => String(s || '')
+  .replace(/&(?:#0*39|#x0*27|apos);/gi, "'")
+  .replace(/[’‘`´]/g, "'")
+  .replace(/\s+/g, ' ')
+  .trim()
+  .toLowerCase();
 // committee code → {bare, second}: which OP "the Optional Protocol" means
 // in that committee's documents. bare stays null when the committee has
 // several plausible OPs (CRC: OPAC/OPSC/OPIC) — resolution then falls back
@@ -10909,7 +10925,7 @@ async function _loadTreaties() {
         .filter(t => t.name_full && t.abbr)
         .flatMap(t => [String(t.name_full), ...(t.alt_names || [])]
           .map(n => ({
-            name: n.replace(/\s+/g, ' ').trim().toLowerCase(),
+            name: _normName(n),
             // Case preserved: every treaty abbr is an acronym, so this is a
             // no-op for them, but the Geneva Conventions entry is a proper
             // name the popover header prints. Comparisons below normalise.
@@ -10926,7 +10942,7 @@ async function _loadTreaties() {
         .filter(t => t.unit_term && t.abbr && t.name_full)
         .flatMap(t => [String(t.name_full), ...(t.alt_names || [])]
           .map(n => ({
-            name: n.replace(/\s+/g, ' ').trim().toLowerCase(),
+            name: _normName(n),
             // Case preserved, unlike the treaty index: these abbrs are proper
             // names ("Mandela Rules"), and the popover header prints them.
             // Lookup is case-insensitive anyway (_treatiesCache is keyed
@@ -11090,10 +11106,50 @@ function annotateTreatyText(html, committee, citedArticles) {
   // descriptive parentheticals ("article 6 (right to life)") still stay
   // outside the button. Ranges render as two buttons (both endpoints);
   // the numbers in between are not individually cited by the text.
-  const QUAL = String.raw`(?:\s*\(\s*(?:para(?:graph)?s?\.?\s+)?(?:\d+|[a-z])(?:(?:\s+and\s+|\s*,\s*)(?:\d+|[a-z]))*\s*\)){0,2}`;
-  const NUM = String.raw`\d+(?:\s*[–-]\s*\d+)?`;
+  /* v19.78: the blind measurement's misses were not a dozen separate gaps but
+     THIS production, written four ways the corpus uses and the grammar did not
+     read. Each unread form cut the list short at the first item it could not
+     parse, so every number after it lost the instrument the list had already
+     established. Two of the four also produced WRONG links, which is why this
+     is a precision fix and not only a coverage one:
+
+       "articles 2 and 5 (para. 2 (b)) of the Optional Protocol"
+          — a sub-letter NESTED inside the qualifier. Unread, the tail began
+            "(para. 2 (b)) of the …", the Optional-Protocol rule could not
+            reach past it, and both articles linked to the ICCPR instead.
+       "articles 3 (prohibition of torture) and 8 (…) of the European
+        Convention on Human Rights"
+          — a DESCRIPTIVE parenthetical. It stays outside the button, as it
+            always has, but the list must survive it: it used to end there, so
+            8 lost its button and 3 linked to the ICCPR rather than the ECHR.
+       "articles 2 (1) and (3) (a), 9 (5), 14 (1) and (5) and 26"
+          — "and (3)" is a further qualifier of the SAME article, not the next
+            article. Unread, everything from 9 onwards was dropped.
+       "articles 3; 6, paragraph 1; 9, paragraphs 1 and 3; …; and 26"
+          — semicolons as separators, and qualifiers with no brackets.
+
+     Singular and plural are read differently on purpose, and that asymmetry
+     is the whole trick: ", paragraph 1 and 14" continues into article 14,
+     while ", paragraphs 1 and 3" is one article with two paragraphs. Reading
+     the plural greedily and the singular tightly is the only split that gets
+     both right. */
+  const QUAL_ONE = String.raw`\(\s*(?:para(?:graph)?s?\.?\s+)?(?:\d+|[a-z])(?:(?:\s+and\s+|\s*,\s*)(?:\d+|[a-z]))*(?:\s*\(\s*(?:\d+|[a-z])\s*\))*\s*\)`;
+  /* The plural form must swallow its sub-letters too, or the list resumes in
+     the middle of a qualifier and reads a PARAGRAPH as the next article:
+     "article 14, paragraphs 2, 3 (a) and (b) and 5" ends in paragraph 5 of
+     article 14, and stopping after "3" turned the trailing "and 5" into a
+     button for a non-existent reference to article 5. */
+  const QUAL_SUB = String.raw`(?:\s*\(\s*[a-z\d]{1,3}\s*\))*`;
+  const QUAL_BARE = String.raw`,\s*paragraphs\.?\s+\d+${QUAL_SUB}(?:\s*(?:,|\band\b)\s*(?:\d+${QUAL_SUB}|\(\s*[a-z\d]{1,3}\s*\)))*|,\s*(?:paragraph|paras?\.?)\s+\d+`;
+  const QUAL = String.raw`(?:\s*(?:,\s*)?(?:and\s+)?${QUAL_ONE}|${QUAL_BARE}){0,4}`;
+  /* Never part of the button — "article 6 (right to life)" has always printed
+     the gloss as plain text after the number — but no longer ends the list.
+     Digits are excluded so a nested citation is never mistaken for prose. */
+  const DESC = String.raw`(?:\s*\([^()\d]{1,60}\))?`;
+  const NUM = String.raw`\d+(?:\s*(?:[–—-]|\bto\b)\s*\d+)?`;
+  const SEP = String.raw`(?:\s*[,;]\s*)+(?:(?:and|or)\s+)?|\s+(?:and|or)\s+`;
   const artListPat = new RegExp(
-    String.raw`\b(articles?|arts?\.?)(\s+)(${NUM}${QUAL}(?:\s*(?:,|\band\b|\bor\b)\s*${NUM}${QUAL})*)`,
+    String.raw`\b(articles?|arts?\.?)(\s+)(${NUM}${QUAL}${DESC}(?:(?:${SEP})${NUM}${QUAL}${DESC})*)`,
     'gi'
   );
   /* "rule 44", "rules 44 and 45", "principle 12", "guiding principles 1-3, 11
@@ -11101,8 +11157,11 @@ function annotateTreatyText(html, committee, citedArticles) {
   const unitListPat = new RegExp(
     String.raw`\b(guiding\s+principles?|rules?|principles?|guidelines?)(\s+)(${NUM}(?:\s*(?:,|\band\b|\bor\b)\s*${NUM})*)`, 'gi');
   const unitItemPat = /(\d+)/g;
+  /* Same qualifier grammar as the list matcher above — it must be, or the
+     per-item pass would re-scan text the list already claimed and emit a
+     button inside a qualifier. */
   const itemPat = new RegExp(
-    String.raw`(\d+)(?:\s*[–-]\s*(\d+))?((?:\s*\(\s*(?:para(?:graph)?s?\.?\s+)?(?:\d+|[a-z])(?:(?:\s+and\s+|\s*,\s*)(?:\d+|[a-z]))*\s*\)){0,2})`,
+    String.raw`(\d+)(?:\s*(?:[–—-]|\bto\b)\s*(\d+))?(${QUAL})`,
     'g'
   );
 
@@ -11211,7 +11270,7 @@ function annotateTreatyText(html, committee, citedArticles) {
       if (!all.length) return false;
       const last = all[all.length - 1];
       if (SERIES_BREAK_RE.test(sent.slice(last.index + last[0].length))) return false;
-      const phrase = last[1].replace(/\s+/g, ' ').trim().toLowerCase();
+      const phrase = _normName(last[1]);
       // A named treaty, or the committee's own term, is not our business here.
       if (_treatyNameIndex.some(x => phrase.endsWith(x.name))) return false;
       if (phrase.split(' ').pop() === String(term).replace(/^the\s+/i, '').trim().split(/\s+/)[0].toLowerCase()) return false;
@@ -11278,7 +11337,7 @@ function annotateTreatyText(html, committee, citedArticles) {
       // right one.
       const ofPhrase = tail.match(new RegExp(OF_HEAD + String.raw`([\s\S]{0,130})`));
       const tailNamed = ofPhrase
-        ? _treatyNameIndex.find(x => ofPhrase[1].replace(/\s+/g, ' ').trim().toLowerCase().startsWith(x.name))
+        ? _treatyNameIndex.find(x => _normName(ofPhrase[1]).startsWith(x.name))
         : null;
       const tailTreatyAbbr = tailNamed && tailNamed.abbr.toUpperCase() !== String(abbr).toUpperCase() ? tailNamed.abbr : null;
       /* v19.75: the tail names the committee's OWN treaty in full —
@@ -11321,7 +11380,7 @@ function annotateTreatyText(html, committee, citedArticles) {
             .replace(/\b(?:and|or|read|together|conjunction|with|articles?|arts?|paragraphs?|paras?)\b/gi, ' ')
             .replace(/[\s,;()\d.]+/g, '');
           if (!residue) {
-            const phrase = ah[1].replace(/\s+/g, ' ').trim().toLowerCase();
+            const phrase = _normName(ah[1]);
             const nm = _treatyNameIndex.find(x => phrase.startsWith(x.name));
             if (nm) aheadAbbr = nm.abbr;
             else if (/^(?:(?:first|second|third)\s+)?(?:optional\s+)?protocol\b/i.test(phrase)) {
@@ -11371,10 +11430,22 @@ function annotateTreatyText(html, committee, citedArticles) {
       let leadTreatyAbbr = null;
       let leadExternal = false;
       let leadDomestic = false;
+      /* v19.78: the instrument's ABBREVIATION standing immediately before the
+         number — "the freedom to seek information is guaranteed in ICCPR
+         Article 19 (2)" — with no parenthesis for the lead rule below to
+         anchor on. An abbreviation is the least ambiguous citation a text can
+         carry, and it was the one fully explicit form still falling through to
+         the committee's own treaty (or, in a Special Procedures report with no
+         home treaty, to plain text). Matched all-caps and resolved by LOOKUP
+         rather than by pattern, so prose can never trip it: an unknown token
+         simply finds nothing in the bundle. */
+      const leadAbbrM = lead.match(/\b([A-Z][A-Z0-9]{1,9}(?:-[A-Z0-9]{1,5})?)[\s,]{0,2}$/);
+      const leadAbbrHit = leadAbbrM && _treatiesCache[leadAbbrM[1].toLowerCase()];
+      if (leadAbbrHit) leadTreatyAbbr = leadAbbrHit.abbr;
       const leadParen = lead.match(/([\s\S]*?)\(\s*$/);
       if (leadParen) {
         const rawPhrase = leadParen[1].replace(/\s+/g, ' ').trim();
-        const phrase = rawPhrase.toLowerCase();
+        const phrase = _normName(rawPhrase);
         const named = _treatyNameIndex.find(x => phrase.endsWith(x.name));
         const leadOp = !named && rawPhrase.match(LEAD_OP_RE);
         if (named) {
@@ -11426,8 +11497,9 @@ function annotateTreatyText(html, committee, citedArticles) {
         // and 2", sub-letters "(a)", stacked "(3) (a)") fall back to the
         // whole-article popover — the stacked form keeps the paragraph
         // from its first qual: "2 (3) (a)" → article 2, paragraph 3.
-        const firstQual = qualifier.match(/^\(\s*(?:para(?:graph)?s?\.?\s+)?(\d+)\s*\)/i);
-        const inlinePara = firstQual ? firstQual[1] : null;
+        const firstQual = qualifier.match(
+          /^(?:\(\s*(?:para(?:graph)?s?\.?\s+)?(\d+)\s*\)|,\s*(?:paragraph|para\.?)\s+(\d+)\b)/i);
+        const inlinePara = firstQual ? (firstQual[1] || firstQual[2]) : null;
 
         // Resolve treaty: prefer pre-tagged citedArticles when present.
         const cited = consumeRef(art);
@@ -11526,7 +11598,7 @@ function annotateTreatyText(html, committee, citedArticles) {
           // tagged pair like {13:ICESCR}{14:ICESCR} lands on both buttons;
           // untagged endpoints share the fallback the whole match resolved
           // to (lead name, OP, home — or plain under the guards).
-          const parts = m[0].match(/^(\d+)(\s*[–-]\s*)([\s\S]*)$/);
+          const parts = m[0].match(/^(\d+)(\s*(?:[–—-]|to)\s*)([\s\S]*)$/);
           const cited2 = consumeRef(rangeEnd);
           const fallback2 = leadTreatyAbbr || tailTreatyAbbr || opAbbr ||
             ((hasHome && (hasHomeTail || !(leadExternal || leadDomestic || ofLowerDomestic || seriesPlain || hasProtocolTail || hasExternalInstrumentTail))) ? abbr : null);
@@ -11576,7 +11648,7 @@ function annotateTreatyText(html, committee, citedArticles) {
       ) || (() => {
         const m2 = tail.match(/^[\s,]*(?:of|in|under)\s+(?:the\s+)?([\s\S]{0,120})/);
         if (!m2) return null;
-        const p = m2[1].replace(/\s+/g, ' ').trim().toLowerCase();
+        const p = _normName(m2[1]);
         return _unitNameIndex.find(x => p.startsWith(x.name)) || null;
       })();
       if (!named || named.unit !== unit) return match;
