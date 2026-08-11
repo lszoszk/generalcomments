@@ -1,10 +1,27 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-08-10T04:26:23.792354+00:00",
-  "finishedAt": "2026-08-10T04:38:26.813459+00:00",
-  "totalUnique": 1745,
+  "checkedAt": "2026-08-11T11:47:07.069023+00:00",
+  "finishedAt": "2026-08-11T11:51:17.791587+00:00",
+  "totalUnique": 1695,
   "totalRecords": 1746,
-  "okCount": 1745,
-  "brokenCount": 0,
-  "broken": []
+  "okCount": 1693,
+  "brokenCount": 2,
+  "broken": [
+    {
+      "signature": "A/HRC/18/56",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/18/56",
+      "status": 404,
+      "reason": "UN Documents has no record of A/HRC/18/56"
+    },
+    {
+      "signature": "A/HRC/1/15",
+      "docName": "Report of the Special Rapporteur on freedom of religion or belief",
+      "committee": "SR Freedom of Religion or Belief",
+      "link": "https://undocs.org/A/HRC/1/15",
+      "status": 404,
+      "reason": "UN Documents has no record of A/HRC/1/15"
+    }
+  ]
 }
