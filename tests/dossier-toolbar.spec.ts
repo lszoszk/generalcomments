@@ -86,7 +86,7 @@ test('D3. copyParagraph · Copy button puts para text on clipboard', async ({ pa
 // exercised by hand and via the dossier note-toggle round-trip in
 // production. Removed v19.51.6 to clean up the suite's skipped count.
 
-test('D5. citeMenu · 9 formats incl. legal-IL ones → UN footnote copies', async ({ page, browserName }) => {
+test('D5. citeMenu · 10 formats incl. legal-IL ones → UN footnote copies', async ({ page, browserName }) => {
   test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
   await openDossier(page);
   // v19.43-fix8: the cite popover is opened from the "Cite in another
@@ -102,7 +102,7 @@ test('D5. citeMenu · 9 formats incl. legal-IL ones → UN footnote copies', asy
   const formats = await page.locator('#cite-pop .cite-opt').evaluateAll((els) =>
     els.map((e) => (e as HTMLElement).dataset.citeKey)
   );
-  expect(formats).toEqual(['unfn', 'oscola', 'bluebook', 'mcgill', 'apa', 'chicago', 'bibtex', 'ris', 'url']);
+  expect(formats).toEqual(['unfn', 'oscola', 'bluebook', 'mcgill', 'apa', 'harvard', 'chicago', 'bibtex', 'ris', 'url']);
   // Click UN treaty-body footnote → copy + flash
   await page.locator('#cite-pop .cite-opt[data-cite-key="unfn"]').click();
   await expect(page.locator('#cite-pop .cite-opt[data-cite-key="unfn"] .cite-fmt')).toContainText(/COPIED/);

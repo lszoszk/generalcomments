@@ -541,6 +541,16 @@ function paragraphPermalink(para, { preserveSearch = false } = {}) {
   return url;
 }
 
+// Whole-document permalink — what a document-level citation points at, and
+// the fallback share URL when no paragraph is active.
+function documentPermalink(doc) {
+  const docId = doc?.docId;
+  if (!docId) return null;
+  const url = new URL(window.location.pathname, window.location.origin);
+  url.hash = `documents/${encodeURIComponent(docId)}`;
+  return url;
+}
+
 function upgradeLegacyParagraphLink() {
   const url = new URL(window.location.href);
   const paraId = url.searchParams.get(URL_KEYS.p);
@@ -883,27 +893,13 @@ function formatDocHeadline(doc, { compact = false } = {}) {
       : parts.join(' · ');
   }
   if (doc.type === 'sp') {
-    const mandate = doc.mandate ? mandateShortLabel(doc.mandate) : '';
+    // Lead with the mandate, the way the GC branch leads with the committee.
+    // `doc.mandate` holds the individual mandate holder, not the mandate, so
+    // it belongs in the meta row rather than in front of the title.
+    const mandate = doc.committee || '';
     return mandate ? `${mandate} · ${baseTitle}` : baseTitle;
   }
   return baseTitle;
-}
-
-// SP mandate names are long ("Special Rapporteur on freedom of religion or
-// belief") — for headlines we want a tight 1-3 word label. Heuristic: take
-// "Rapporteur on X" → X, otherwise the first significant noun phrase.
-function mandateShortLabel(mandate) {
-  if (!mandate) return '';
-  const m = mandate.match(/Rapporteur on (?:the )?(.+)$/i);
-  if (m) {
-    const phrase = m[1].replace(/\s+(of|and)\s+/i, ' & ').trim();
-    // If it's still too long, keep first 4 words.
-    const words = phrase.split(/\s+/);
-    return words.length > 4 ? words.slice(0, 4).join(' ') + '…' : phrase;
-  }
-  // Otherwise take first 3 words.
-  const words = mandate.split(/\s+/);
-  return words.length > 3 ? words.slice(0, 3).join(' ') + '…' : mandate;
 }
 
 function yearFromDate(value) {
@@ -1092,6 +1088,46 @@ function currentRelationshipHtml(doc, className = '') {
   </aside>`;
 }
 
+// OHCHR's document endpoints. They serve session-scoped download handlers off an
+// origin that has gone unreachable for long stretches (an outage in August 2026
+// put every path behind a Cloudflare 520). UN Documents carries the same texts
+// under a stable symbol-addressed URL, so a stored link to either of these is
+// worth less than one rebuilt from the symbol.
+const STALE_SOURCE_HOSTS = new Set(['tbinternet.ohchr.org', 'docstore.ohchr.org']);
+
+// Signatures carry things UN Documents doesn't index: a locator into a
+// compilation ("HRI/GEN/1/Rev.9 (Vol. I) p. 181"), a stray dot
+// ("CCPR/C/21/Rev.1./Add.9"), or a joint form naming both committees. Reduce to
+// the symbol of the document that actually holds the text.
+function unDocsSymbol(signature) {
+  let s = String(signature || '').replace(/[–—]/g, '-').replace(/\s+/g, ' ').trim();
+  if (!s) return '';
+  s = s.replace(/\.\s*\//g, '/');
+  s = s.replace(/\/(Add|Rev|Corr|Amend|Suppl)\.\s+(?=\d)/gi, '/$1.');
+  // Leading whitespace is required so a locator is only stripped when it is a
+  // separate token — otherwise "Supp.2" reads as a page reference.
+  let prev;
+  do {
+    prev = s;
+    s = s.replace(/[,;]?\s+(?:annex\s+[IVXLC\d]+|chap(?:ter|\.)?\s*[\dIVXLC]+|pp?\.?\s*\d+)$/i, '')
+      .trim().replace(/[,;]$/, '');
+  } while (s !== prev);
+  // Joint comments are issued under each committee's own symbol, dash-joined
+  // ("CEDAW/…–CRC/…") or comma-joined ("CRC/C/GC/22, CMW/C/GC/3"). Either way
+  // UN Documents indexes the parts, not the pair.
+  for (const sep of [/-(?=[A-Z]{2,}\/)/, /\s*,\s*(?=[A-Z]{2,}\/)/]) {
+    const parts = s.split(sep);
+    if (parts.length > 1) s = parts[0].trim();
+  }
+  return s;
+}
+
+function unDocsUrl(signature) {
+  const symbol = unDocsSymbol(signature);
+  if (!symbol) return '';
+  return `https://docs.un.org/en/${symbol.split('/').map(encodeURIComponent).join('/')}`;
+}
+
 function officialSourceUrl(doc) {
   if (!doc) return '';
   const link = String(doc.link || '').trim();
@@ -1099,24 +1135,18 @@ function officialSourceUrl(doc) {
   let host = '';
   try { host = link ? new URL(link).hostname.toLowerCase() : ''; } catch {}
 
-  const isOfficialHost = host === 'un.org' || host.endsWith('.un.org')
-    || host === 'ohchr.org' || host.endsWith('.ohchr.org');
-  if (isOfficialHost) return link;
+  // A stored UN Documents link wins over anything derived here: validate_links.py
+  // resolves each one through the access API, so it also covers the records UN
+  // Documents indexes under something other than the signature we display.
+  if (host === 'un.org' || host.endsWith('.un.org')) return link;
 
-  // undocs.org is the retired short-link surface. Keep old records usable,
-  // but send new clicks to the current official UN Documents host.
-  const isSpSymbol = doc.type === 'sp' || (!doc.type && /^(?:A|E)\//i.test(signature));
-  if ((host === 'undocs.org' || isSpSymbol) && signature) {
-    const path = signature.split('/').map(encodeURIComponent).join('/');
-    return `https://docs.un.org/en/${path}`;
+  // Rebuild anything on a dead or retired surface. Other ohchr.org pages — the
+  // mandate pages a couple of SP records point at — are left alone.
+  if (!link || host === 'undocs.org' || STALE_SOURCE_HOSTS.has(host)) {
+    return unDocsUrl(signature) || link;
   }
-
-  // Treaty-body records can always be resolved by their UN symbol. This
-  // repairs missing links and replaces secondary mirrors with OHCHR.
-  if (signature) {
-    return `https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=${encodeURIComponent(signature)}&Lang=en`;
-  }
-  return link;
+  if (host === 'ohchr.org' || host.endsWith('.ohchr.org')) return link;
+  return unDocsUrl(signature) || link;
 }
 
 function jurCommitteeFacets() {
@@ -2510,6 +2540,36 @@ function setupReaderFind() {
   }
 }
 
+// Document-level "Cite" menu in the reader header. Same format list and
+// same stored preference as the per-paragraph menu, but built with no
+// paragraph, so the citation refers to the report as a whole.
+function setupDocumentCite(doc) {
+  const wrap = document.getElementById('docs-reader-cite');
+  if (!wrap || !doc) return;
+  wrap.querySelectorAll('.cite-opt').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const fmt = CITE_FORMATS.find(f => f.key === btn.dataset.citeKey);
+      if (!fmt) return;
+      try {
+        await navigator.clipboard?.writeText(fmt.build(doc, null));
+      } catch {
+        showFeedbackToast({ ok: false, _msg: 'Clipboard write failed', _mark: '⚠' });
+        return;
+      }
+      setPrefCiteFmt(fmt.key);
+      wrap.querySelectorAll('.cite-opt').forEach(b => b.classList.remove('is-default'));
+      btn.classList.add('is-default');
+      wrap.open = false;
+      showFeedbackToast({ ok: true, _msg: `${fmt.name} citation copied`, _mark: '”' });
+    });
+  });
+  // Click outside closes the popover — <details> has no such behaviour.
+  document.addEventListener('click', (e) => {
+    if (wrap.open && !wrap.contains(e.target)) wrap.open = false;
+  });
+}
+
 // Cmd/Ctrl+F → open the in-reader find, but ONLY when the documents
 // reader is the visible view (otherwise leave native find alone).
 document.addEventListener('keydown', (e) => {
@@ -2674,10 +2734,22 @@ function paintDocReaderBody(doc, paraId) {
           ? `<span>${escape(profile.dateLabel)} ${escape(doc.adoptionDate)}</span>`
           : (doc.year ? `<span>${escape(profile.dateLabel)} ${escape(doc.year)}</span>` : '')}
         ${doc.country ? `<span>${escape(doc.country)}${doc.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''}
-        ${doc.committee || doc.treaty ? `<span>${escape(doc.committee || doc.treaty)}</span>` : ''}
+        ${doc.type === 'sp' && doc.mandate
+          ? `<span title="Mandate holder">${escape(doc.mandate)}</span>`
+          : (doc.committee || doc.treaty ? `<span>${escape(doc.committee || doc.treaty)}</span>` : '')}
         <span>${paragraphs.length} paragraphs</span>
         ${sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener" class="docs-reader-source">↗ official source</a>` : ''}
         <button type="button" class="docs-reader-find-toggle" id="docs-reader-find-toggle" title="Find in document (⌘F / Ctrl+F)" aria-label="Find in document">⌕ Find</button>
+        <details class="docs-reader-cite" id="docs-reader-cite">
+          <summary class="docs-reader-find-toggle" title="Copy a citation for the whole document" aria-label="Cite this document">” Cite</summary>
+          <div class="docs-reader-cite-pop">
+            ${(() => { const pk = getPrefCiteFmt(); return CITE_FORMATS.map(c => `
+              <button type="button" class="cite-opt ${c.key === pk ? 'is-default' : ''}" data-cite-key="${escape(c.key)}">
+                <span class="cite-fmt">${escape(c.fmt)}</span>
+                <span class="cite-name">${escape(c.name)}</span>
+              </button>`).join(''); })()}
+          </div>
+        </details>
       </div>
       <aside class="dossier-authority-note docs-reader-authority ${escape(doc.type || 'gc')}" role="note">
         <span class="folio">Legal character · ${escape(profile.label)}</span>
@@ -2770,6 +2842,7 @@ function paintDocReaderBody(doc, paraId) {
     </div>`;
   host.innerHTML = findBar + head + `<div class="docs-reader-stream">${body}</div>`;
   setupReaderFind();
+  setupDocumentCite(doc);
 
   // Per-paragraph click handlers (delegated by data-act).
   host.querySelectorAll('.docs-reader-para').forEach(el => {
@@ -4646,7 +4719,7 @@ function exportBibtex(rows, provenance) {
       `  title        = {${escBib(doc.doc_name)}},`,
       `  number       = {${escBib(doc.signature)}},`,
       `  year         = {${doc.year}},`,
-      `  url          = {${doc.link}},`,
+      `  url          = {${officialSourceUrl(doc)}},`,
       `  note         = {Paragraphs cited: ${paragraphs.join(', ')}}`,
       `}`,
     ].join('\n');
@@ -8122,26 +8195,132 @@ function paintDossier() {
 //
 // Academic/export formats include the canonical document + paragraph URL;
 // legal footnotes keep the conventional source citation only.
+// ─────────── Special-procedures citation identity (v19.57) ───────────
+//
+// OSCOLA §(f) "UN Special Rapporteurs or Representatives" cites a mandate
+// report by the ORGAN the report was submitted to, not by the individual
+// mandate holder:
+//     UNCHR 'Report of the Special Rapporteur on Torture' (1986)
+//         UN Doc E/CN.4/1986/15
+// Our SP records carry `mandate` = the holder's personal name and
+// `committee` = a short mandate label ('SR Privacy'), so the holder used to
+// end up in the author slot. The organ comes from the symbol instead, and
+// the mandate is named inside the title where OSCOLA puts it.
+//
+// Full mandate designations: source of truth is the MANDATES registry in
+// ingest_sp_mandate.py (`committee_label` → `full_name`). Keep in sync when
+// a mandate is added or renamed.
+const SP_MANDATE_NAMES = {
+  'IE Albinism': 'Independent Expert on the enjoyment of human rights by persons with albinism',
+  'IE Foreign Debt': 'Independent Expert on the effects of foreign debt and other related international financial obligations of States on the full enjoyment of all human rights, particularly economic, social and cultural rights',
+  'IE International Order': 'Independent Expert on the promotion of a democratic and equitable international order',
+  'IE International Solidarity': 'Independent Expert on human rights and international solidarity',
+  'IE Older Persons': 'Independent Expert on the enjoyment of all human rights by older persons',
+  'IE Sexual Orientation and Gender Identity': 'Independent Expert on protection against violence and discrimination based on sexual orientation and gender identity',
+  'SR Adequate Housing': 'Special Rapporteur on adequate housing as a component of the right to an adequate standard of living, and on the right to non-discrimination in this context',
+  'SR Climate Change': 'Special Rapporteur on the promotion and protection of human rights in the context of climate change',
+  'SR Contemporary Slavery': 'Special Rapporteur on contemporary forms of slavery, including its causes and consequences',
+  'SR Counter-Terrorism': 'Special Rapporteur on the promotion and protection of human rights and fundamental freedoms while countering terrorism',
+  'SR Cultural Rights': 'Special Rapporteur in the field of cultural rights',
+  'SR Development': 'Special Rapporteur on the right to development',
+  'SR Disability': 'Special Rapporteur on the rights of persons with disabilities',
+  'SR Education': 'Special Rapporteur on the right to education',
+  'SR Environment': 'Special Rapporteur on the human right to a clean, healthy and sustainable environment',
+  'SR Executions': 'Special Rapporteur on extrajudicial, summary or arbitrary executions',
+  'SR Extreme Poverty': 'Special Rapporteur on extreme poverty and human rights',
+  'SR Food': 'Special Rapporteur on the right to food',
+  'SR Freedom of Assembly and Association': 'Special Rapporteur on the rights to freedom of peaceful assembly and of association',
+  'SR Freedom of Expression': 'Special Rapporteur on the promotion and protection of the right to freedom of opinion and expression',
+  'SR Freedom of Religion or Belief': 'Special Rapporteur on freedom of religion or belief',
+  'SR Health': 'Special Rapporteur on the right of everyone to the enjoyment of the highest attainable standard of physical and mental health',
+  'SR Human Rights Defenders': 'Special Rapporteur on the situation of human rights defenders',
+  'SR Independence of Judges and Lawyers': 'Special Rapporteur on the independence of judges and lawyers',
+  'SR Indigenous Peoples': 'Special Rapporteur on the rights of indigenous peoples',
+  'SR Internally Displaced Persons': 'Special Rapporteur on the human rights of internally displaced persons',
+  'SR Leprosy': 'Special Rapporteur on the elimination of discrimination against persons affected by leprosy (Hansen\'s disease) and their family members',
+  'SR Migrants': 'Special Rapporteur on the human rights of migrants',
+  'SR Minority Issues': 'Special Rapporteur on minority issues',
+  'SR Privacy': 'Special Rapporteur on the right to privacy',
+  'SR Racism': 'Special Rapporteur on contemporary forms of racism, racial discrimination, xenophobia and related intolerance',
+  'SR Sale of Children': 'Special Rapporteur on the sale, sexual exploitation and sexual abuse of children',
+  'SR Torture': 'Special Rapporteur on torture and other cruel, inhuman or degrading treatment or punishment',
+  'SR Toxics and Human Rights': 'Special Rapporteur on the implications for human rights of the environmentally sound management and disposal of hazardous substances and wastes',
+  'SR Trafficking': 'Special Rapporteur on trafficking in persons, especially women and children',
+  'SR Truth Justice and Reparation': 'Special Rapporteur on the promotion of truth, justice, reparation and guarantees of non-recurrence',
+  'SR Unilateral Coercive Measures': 'Special Rapporteur on the negative impact of unilateral coercive measures on the enjoyment of human rights',
+  'SR Violence against Women': 'Special Rapporteur on violence against women and girls, its causes and consequences',
+  'SR Water and Sanitation': 'Special Rapporteur on the human rights to safe drinking water and sanitation',
+  'WG African Descent': 'Working Group of Experts on People of African Descent',
+  'WG Arbitrary Detention': 'Working Group on Arbitrary Detention',
+  'WG Business and Human Rights': 'Working Group on the issue of human rights and transnational corporations and other business enterprises',
+  'WG Discrimination against Women and Girls': 'Working Group on discrimination against women and girls',
+  'WG Enforced Disappearances': 'Working Group on Enforced or Involuntary Disappearances',
+  'WG Mercenaries': 'Working Group on the use of mercenaries as a means of violating human rights and impeding the exercise of the right of peoples to self-determination',
+  'WG Peasants': 'Working Group on the rights of peasants and other people working in rural areas',
+};
+
+// The organ a UN document belongs to, read off its symbol. `short` is the
+// OSCOLA-style abbreviation used in footnotes; `long` is spelled out for
+// author-date styles (APA / Harvard), which do not abbreviate institutions.
+function _unOrgan(symbol = '') {
+  const s = String(symbol).toUpperCase();
+  if (s.startsWith('A/HRC/'))  return { short: 'UNHRC',  long: 'United Nations Human Rights Council' };
+  if (s.startsWith('E/CN.4/')) return { short: 'UNCHR',  long: 'United Nations Commission on Human Rights' };
+  if (s.startsWith('E/'))      return { short: 'ECOSOC', long: 'United Nations Economic and Social Council' };
+  if (s.startsWith('A/CONF'))  return { short: 'UN',     long: 'United Nations' };
+  if (s.startsWith('A/'))      return { short: 'UNGA',   long: 'United Nations General Assembly' };
+  return { short: 'UN', long: 'United Nations' };
+}
+
+// SP records store a thematic title ("Foundations and principles for…"),
+// which on its own does not say the document is a mandate report. OSCOLA's
+// own examples name the mandate inside the title, so append it — unless the
+// stored title already does (184 of 1 560 records carry the formal wording).
+function _spCiteTitle(doc, fullTitle) {
+  const mandateName = SP_MANDATE_NAMES[doc?.committee] || '';
+  if (!mandateName) return fullTitle;
+  if (/\b(Special Rapporteur|Independent Expert|Working Group|Special Representative)\b/i.test(fullTitle)) {
+    return fullTitle;
+  }
+  return `${fullTitle}: Report of the ${mandateName}`;
+}
+
 function _citeBaseFields(doc, para) {
   const type = doc?.type || 'gc';
   const year = doc?.year ?? doc?.communicationYear ?? '';
   const date = doc?.adoptionDate || (year ? String(year) : 'n.d.');
+  const symbol = doc?.signature || doc?.symbol || doc?.docId || '';
+  const organ = _unOrgan(symbol);
   const author = type === 'jur'
     ? _committeeLong(doc)
     : type === 'sp'
-      ? (doc?.mandate || doc?.committee || 'United Nations')
+      ? organ.short
       : (doc?.committees?.length
           ? doc.committees.join(' / ')
           : (doc?.committee || doc?.treaty || 'United Nations'));
-  const symbol = doc?.signature || doc?.symbol || doc?.docId || '';
+  // Author-date and reference-manager formats spell the institution out:
+  // "Human Rights Committee (2020)", not "CCPR (2020)".
+  const authorLong = type === 'sp'
+    ? organ.long
+    : type === 'jur'
+      ? author
+      : (doc?.committees?.length
+          ? doc.committees.map(c => _CITE_LONG_COMMITTEE[c] || c).join(' / ')
+          : (_CITE_LONG_COMMITTEE[doc?.committee] || author));
+  // Citations take the full official title; the reader shows `nameShort`.
   const title = type === 'jur'
     ? (doc?.caseName || publicDocTitle(doc) || symbol)
-    : (publicDocTitle(doc) || symbol);
+    : type === 'sp'
+      ? _spCiteTitle(doc, doc?.name || doc?.nameShort || symbol)
+      : (publicDocTitle(doc) || symbol);
+  const mandateName = type === 'sp' ? (SP_MANDATE_NAMES[doc?.committee] || '') : '';
+  const holder = type === 'sp' ? (doc?.mandate || '') : '';
   const country = doc?.country || '';
   const communicationNumber = _communicationNumber(doc, symbol);
   const paraNum = para?.n ?? para?.idx ?? '';
-  const shareUrl = paragraphPermalink(para)?.toString() || '';
-  return { type, year, date, author, symbol, title, country, communicationNumber, paraNum, shareUrl };
+  const shareUrl = (paragraphPermalink(para) || documentPermalink(doc))?.toString() || '';
+  return { type, year, date, author, authorLong, symbol, title, mandateName, holder,
+           country, communicationNumber, paraNum, shareUrl };
 }
 
 // ─────────── Legal citation formats (v19.15) ───────────
@@ -8206,7 +8385,7 @@ function _citeUnFootnote(doc, para) {
   if (f.type === 'sp') {
     const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
     const date = f.date && f.date !== 'n.d.' ? ` (${f.date})` : '';
-    return `${f.author}, Report, “${f.title}”${_paragraphPart(f)}${symbol}${date}.`;
+    return `${f.author}, “${f.title}”${_paragraphPart(f)}${symbol}${date}.`;
   }
   const gc = _gcLongRef(doc);
   const para_ = f.paraNum !== '' ? `, ¶ ${f.paraNum}` : '';
@@ -8228,9 +8407,11 @@ function _citeOSCOLA(doc, para) {
     return `${f.title}${communication ? `, ${communication}` : ''} (${bodyAndDate})${docPart}${_paragraphPart(f, 'oscola')}.`;
   }
   if (f.type === 'sp') {
+    // OSCOLA's own §(f) examples take no comma after the organ:
+    //   UNCHR 'Report of the Special Rapporteur on Torture' (1986) UN Doc …
     const datePart = f.date !== 'n.d.' ? ` (${f.date})` : '';
     const docPart = f.symbol ? ` UN Doc ${f.symbol}` : '';
-    return `${f.author}, ‘${f.title}’${datePart}${docPart}${_paragraphPart(f, 'oscola')}.`;
+    return `${f.author} ‘${f.title}’${datePart}${docPart}${_paragraphPart(f, 'oscola')}.`;
   }
   const c = doc?.committee || 'UN';
   const short = c === 'CCPR' ? 'UNHRC' : c;
@@ -8276,7 +8457,7 @@ function _citeBluebook(doc, para) {
   if (f.type === 'sp') {
     const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
     const yr = f.year ? ` (${f.year})` : '';
-    return `${f.author}, Report, ${f.title}${_paragraphPart(f)}${symbol}${yr}.`;
+    return `${f.author}, ${f.title}${_paragraphPart(f)}${symbol}${yr}.`;
   }
   const ish = (c === 'CEDAW' || c === 'CERD');
   const m = /(?:GC|GR)\s*(\d+)/i.exec(doc?.nameShort || '')
@@ -8304,7 +8485,7 @@ function _citeMcGill(doc, para) {
   if (f.type === 'sp') {
     const datePart = f.date !== 'n.d.' ? ` (${f.date})` : '';
     const docPart = f.symbol ? `, UN Doc ${f.symbol}` : '';
-    return `${f.author}, Report: ${f.title}${datePart}${docPart}${_paragraphPart(f, 'mcgill')}.`;
+    return `${f.author}, ${f.title}${datePart}${docPart}${_paragraphPart(f, 'mcgill')}.`;
   }
   // McGill: drop the period after No (Canadian style).
   const gc = (_gcLongRef(doc) || '').replace(/^General (Comment|Recommendation) No\./, 'General $1 No');
@@ -8317,15 +8498,32 @@ function _citeMcGill(doc, para) {
 
 function _citeAPA(doc, para) {
   const f = _citeBaseFields(doc, para);
+  // Author-date styles spell the institution out rather than abbreviating it.
   const identity = f.type === 'jur' && f.communicationNumber
     ? `Communication No. ${f.communicationNumber}; `
-    : f.type === 'sp' ? 'Report; ' : '';
-  return `${f.author}. (${f.year || 'n.d.'}). ${f.title}${f.country ? ' — ' + f.country : ''} (${identity}UN Doc. ${f.symbol})${_paragraphPart(f)}. UN Human Rights Database. ${f.shareUrl}`;
+    : '';
+  return `${f.authorLong}. (${f.year || 'n.d.'}). ${f.title}${f.country ? ' — ' + f.country : ''} (${identity}UN Doc. ${f.symbol})${_paragraphPart(f)}. UN Human Rights Database. ${f.shareUrl}`;
+}
+
+// Harvard (author-date). Institution spelled out, title in plain text, the
+// UN symbol as the identifying number, then the retrieval URL.
+function _citeHarvard(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  const communication = f.type === 'jur' && f.communicationNumber
+    ? ` (Communication No. ${f.communicationNumber})`
+    : '';
+  const country = f.type === 'jur' && f.country ? `, ${f.country}` : '';
+  const paraPart = f.paraNum !== '' ? `, para. ${f.paraNum}` : '';
+  return `${f.authorLong} (${f.year || 'no date'}) ${f.title}${country}${communication}. UN Doc ${f.symbol}${paraPart}. Available at: ${f.shareUrl} (Accessed: ${_citeAccessDate()}).`;
+}
+// Harvard requires an access date for online sources.
+function _citeAccessDate() {
+  return new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 function _citeChicago(doc, para) {
   const f = _citeBaseFields(doc, para);
   const communication = f.type === 'jur' ? _jurCommunicationPart(f) : '';
-  return `${f.author}, "${f.title}${f.country ? ', ' + f.country : ''},"${communication ? ` ${communication},` : ''} UN Doc. ${f.symbol}${_paragraphPart(f)} (${f.date}), UN Human Rights Database, ${f.shareUrl}.`;
+  return `${f.authorLong}, "${f.title}${f.country ? ', ' + f.country : ''},"${communication ? ` ${communication},` : ''} UN Doc. ${f.symbol}${_paragraphPart(f)} (${f.date}), UN Human Rights Database, ${f.shareUrl}.`;
 }
 function _citeBibTeX(doc, para) {
   const f = _citeBaseFields(doc, para);
@@ -8336,7 +8534,7 @@ function _citeBibTeX(doc, para) {
     ? `Communication No. ${f.communicationNumber}`
     : f.type === 'sp' ? 'Special Procedures report' : 'Treaty-body general comment or recommendation';
   return `@misc{${key},
-  author       = {${esc(f.author)}},
+  author       = {${esc(f.authorLong)}},
   title        = {${esc(f.title)}},
   year         = {${esc(f.year || 'n.d.')}},
   howpublished = {UN Doc. ${esc(f.symbol)}${f.paraNum !== '' ? ', \\P\\,' + f.paraNum : ''}},
@@ -8349,7 +8547,7 @@ function _citeRIS(doc, para) {
   const risType = f.type === 'jur' ? 'CASE' : f.type === 'sp' ? 'RPRT' : 'GEN';
   return [
     'TY  - ' + risType,
-    'AU  - ' + f.author,
+    'AU  - ' + f.authorLong,
     'PY  - ' + (f.year || 'n.d.'),
     'TI  - ' + f.title,
     'PB  - UN Human Rights Database',
@@ -8357,7 +8555,7 @@ function _citeRIS(doc, para) {
     f.communicationNumber ? 'M1  - Communication No. ' + f.communicationNumber : '',
     f.country ? 'CY  - ' + f.country : '',
     'UR  - ' + f.shareUrl,
-    'N1  - Paragraph-level extract' + (f.paraNum !== '' ? ', ¶ ' + f.paraNum : ''),
+    f.paraNum !== '' ? 'N1  - Paragraph-level extract, ¶ ' + f.paraNum : '',
     'ER  - ',
   ].filter(Boolean).join('\n');
 }
@@ -8375,6 +8573,7 @@ const CITE_FORMATS = [
   { key: 'mcgill',  name: 'McGill (Canada)', fmt: 'MCGILL', build: _citeMcGill },
   // Academic + tooling formats kept for cross-discipline use.
   { key: 'apa',     name: 'APA (7th ed.)',  fmt: 'APA',     build: _citeAPA },
+  { key: 'harvard', name: 'Harvard (author–date)', fmt: 'HARVARD', build: _citeHarvard },
   { key: 'chicago', name: 'Chicago notes',  fmt: 'CHICAGO', build: _citeChicago },
   { key: 'bibtex',  name: 'BibTeX',          fmt: '.BIB',    build: _citeBibTeX },
   { key: 'ris',     name: 'RIS / EndNote',   fmt: '.RIS',    build: _citeRIS },
@@ -8385,7 +8584,7 @@ const CITE_FORMATS = [
 // toolbar + docs-drawer <details>) write this every time a format is
 // clicked. Mid-panel buttons (result rows, docs-reader paragraph rows)
 // read it for one-click cite — no popover.
-const DEFAULT_CITE_FMT = 'unfn';
+const DEFAULT_CITE_FMT = 'oscola';
 function getPrefCiteFmt() {
   const k = _lsGet(_LS.prefCiteFmt, DEFAULT_CITE_FMT);
   return CITE_FORMATS.some(f => f.key === k) ? k : DEFAULT_CITE_FMT;

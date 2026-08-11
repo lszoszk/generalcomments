@@ -36,6 +36,7 @@ import ssl
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timezone
@@ -79,10 +80,68 @@ def _is_un(url: str) -> bool:
     return any(h in url for h in UN_HOSTS)
 
 
+UN_DOC_LANGS = frozenset({'ar', 'zh', 'en', 'fr', 'ru', 'es'})
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+def check_un_docs_symbol(url: str, timeout: float = 15.0) -> tuple[int, str]:
+    """Resolve a docs.un.org/<lang>/<symbol> link through the UN access API.
+
+    docs.un.org is a client-side viewer: it answers 200 for every symbol,
+    including ones the UN document system has never heard of. Fetching the page
+    therefore proves nothing. The viewer's own iframe calls
+    documents.un.org/api/symbol/access, which redirects to the PDF for a symbol
+    it knows and to /error for one it doesn't — that is the real check.
+    """
+    path = urllib.parse.urlsplit(url).path.strip('/')
+    if not path:
+        return (-1, 'no symbol in docs.un.org path')
+    # The language segment is optional — undocs.org/A/50/440 and
+    # docs.un.org/en/A/50/440 name the same document. Only strip a leading
+    # segment that really is a language, or "A" gets eaten off the symbol.
+    head, _, rest = path.partition('/')
+    symbol = urllib.parse.unquote(
+        rest if (rest and head.lower() in UN_DOC_LANGS) else path)
+    api = ('https://documents.un.org/api/symbol/access?s='
+           + urllib.parse.quote(symbol, safe='') + '&l=en&t=pdf')
+
+    opener = urllib.request.build_opener(
+        _NoRedirect, urllib.request.HTTPSHandler(context=SSL_CTX))
+    try:
+        req = urllib.request.Request(api, headers={'User-Agent': USER_AGENT},
+                                     method='GET')
+        try:
+            with opener.open(req, timeout=timeout) as resp:
+                return (resp.status, 'no redirect from the access API')
+        except urllib.error.HTTPError as e:
+            if e.code not in (301, 302, 303, 307, 308):
+                return (e.code, e.reason or 'HTTPError')
+            target = (e.headers.get('Location') or '') if e.headers else ''
+            if '/error' in target:
+                return (404, f'UN Documents has no record of {symbol}')
+            if not target.upper().endswith('.PDF'):
+                # A bare /doc/ target means the symbol is indexed but no file
+                # sits behind it. E/1991/23 behaves this way; the (SUPP) form
+                # of the same report resolves properly.
+                return (404, f'{symbol} resolves to no file ({target or "empty"})')
+            return (200, 'ok')
+    except urllib.error.URLError as e:
+        return (0, f'URLError: {e.reason}')
+    except Exception as e:
+        return (0, f'{type(e).__name__}: {str(e)[:80]}')
+
+
 def check_url(url: str, timeout: float = 15.0) -> tuple[int, str]:
     """Returns (status_code, reason). status_code 0 means a network error."""
     if not url or not url.startswith('http'):
         return (-1, 'invalid url')
+
+    if urllib.parse.urlsplit(url).hostname in ('docs.un.org', 'undocs.org'):
+        return check_un_docs_symbol(url, timeout)
 
     headers = {'User-Agent': USER_AGENT, 'Accept': '*/*'}
     ctx = SSL_CTX if _is_un(url) else None

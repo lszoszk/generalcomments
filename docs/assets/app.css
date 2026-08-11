@@ -3400,6 +3400,46 @@ body[data-active-view] .about-title {
   font-size: 12px;
 }
 .docs-reader-find-toggle:hover { background: var(--paper-3); color: var(--ink); }
+
+/* Whole-document cite menu. Sits in the reader meta row next to Find; the
+   panel is absolutely positioned so opening it doesn't reflow the header. */
+.docs-reader-cite { position: relative; display: inline-block; }
+.docs-reader-cite > summary { list-style: none; display: inline-block; }
+.docs-reader-cite > summary::-webkit-details-marker { display: none; }
+.docs-reader-cite-pop {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 12%);
+}
+.docs-reader-cite-pop .cite-opt {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 8px;
+  padding: 4px 8px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 11px;
+  text-align: left;
+  color: var(--ink-2);
+  border-radius: 2px;
+}
+.docs-reader-cite-pop .cite-opt:hover { background: var(--paper-3); color: var(--ink); }
+.docs-reader-cite-pop .cite-fmt { font-family: var(--mono); color: var(--garnet); font-size: 10px; }
+@media (max-width: 640px) {
+  .docs-reader-cite-pop { left: auto; right: 0; }
+}
+
 /* CSS Custom Highlight API targets (no DOM mutation). */
 ::highlight(reader-find) { background: var(--garnet-soft); }
 ::highlight(reader-find-current) { background: var(--garnet); color: var(--paper); }

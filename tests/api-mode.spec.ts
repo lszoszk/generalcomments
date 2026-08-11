@@ -312,12 +312,12 @@ test('A5c. jurCitation · legal citation identifies the case and communication',
   await expect(result.locator('.result-date-label')).toHaveText('Decision adopted 2024');
   await expect(result.locator('.sig-link')).toHaveAttribute(
     'href',
-    /tbinternet\.ohchr\.org\/.*symbolno=CRPD%2FC%2F31%2FD%2F94%2F2021/,
+    'https://docs.un.org/en/CRPD/C/31/D/94/2021',
   );
   await result.click();
   await expect(page.locator('#dossier .dossier-sig-link')).toHaveAttribute(
     'href',
-    /tbinternet\.ohchr\.org\/.*symbolno=CRPD%2FC%2F31%2FD%2F94%2F2021/,
+    'https://docs.un.org/en/CRPD/C/31/D/94/2021',
   );
   await expect(page.locator('#dossier .dossier-authority-note')).toContainText(
     'Outcome of an individual communication examined by a UN treaty body',
@@ -373,8 +373,15 @@ test('A5d. spCitation · report citation identifies author, title, symbol, and p
   );
   const citation = await copyDossierCitation(page, 'oscola');
 
-  expect(citation).toContain('David Kaye');
-  expect(citation).toContain('Artificial Intelligence and implications for the information environment');
+  // OSCOLA §(f): the author is the organ the report was submitted to — an
+  // A/… symbol means the General Assembly — and the mandate is named inside
+  // the title. David Kaye held the mandate; he is not the author.
+  expect(citation).toMatch(/^UNGA ‘/);
+  expect(citation).not.toContain('David Kaye');
+  expect(citation).toContain('Artificial Intelligence technologies and implications for the information environment');
+  expect(citation).toContain(
+    'Report of the Special Rapporteur on the promotion and protection of the right to freedom of opinion and expression',
+  );
   expect(citation).toContain('UN Doc A/73/348');
   expect(citation).toContain('para 23');
   expect(citation).not.toContain('General Comment');

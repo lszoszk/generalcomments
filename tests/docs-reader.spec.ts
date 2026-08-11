@@ -14,7 +14,10 @@ import { bootApp, resetWorkspace } from './_helpers';
  *  R8. titleSyncReader     — browser tab title reflects open doc (v17.1 fix)
  */
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, context }) => {
+  try {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  } catch { /* WebKit does not expose these permissions. */ }
   await resetWorkspace(page);
 });
 
@@ -227,4 +230,43 @@ test('R8. titleSyncReader · browser tab <title> follows the open doc', async ({
     null,
     { timeout: 8_000 }
   );
+});
+
+test('R17. documentCite · SP report cites the organ, not the mandate holder', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
+  // OSCOLA §(f) cites a special-procedures report by the UN organ it was
+  // submitted to ("UNHRC 'title' (date) UN Doc …"). Ana Brian Nougrères is
+  // the mandate holder of A/HRC/58/58 and must NOT open the citation.
+  await bootApp(page, '/index.html#documents/a-hrc-58-58');
+  await page.waitForTimeout(900);
+
+  const cite = page.locator('#docs-reader-cite');
+  await expect(cite).toBeVisible();
+  await cite.evaluate((el: Element) => (el as HTMLDetailsElement).open = true);
+
+  // OSCOLA is the default, marked in the menu.
+  await expect(page.locator('#docs-reader-cite .cite-opt.is-default'))
+    .toHaveAttribute('data-cite-key', 'oscola');
+
+  await page.locator('#docs-reader-cite .cite-opt[data-cite-key="oscola"]').click();
+  const text = await page.evaluate(() => navigator.clipboard.readText());
+
+  expect(text).toMatch(/^UNHRC ‘/);
+  expect(text).toContain('Report of the Special Rapporteur on the right to privacy');
+  expect(text).toContain('UN Doc A/HRC/58/58');
+  expect(text).not.toContain('Nougrères');
+  // Document-level citation carries no paragraph pinpoint.
+  expect(text).not.toMatch(/para \d/);
+});
+
+test('R18. documentCite · organ follows the symbol (A/… → UNGA)', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
+  await bootApp(page, '/index.html#documents/a-50-440');
+  await page.waitForTimeout(900);
+  const cite = page.locator('#docs-reader-cite');
+  await cite.evaluate((el: Element) => (el as HTMLDetailsElement).open = true);
+  await page.locator('#docs-reader-cite .cite-opt[data-cite-key="oscola"]').click();
+  const text = await page.evaluate(() => navigator.clipboard.readText());
+  expect(text).toMatch(/^UNGA ‘/);
+  expect(text).toContain('UN Doc A/50/440');
 });

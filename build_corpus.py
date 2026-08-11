@@ -86,9 +86,16 @@ def slugify(value: str, maxlen: int = 64) -> str:
     return norm[:maxlen]
 
 
-def doc_id_for(signature: str, fallback_filename: str, unique_signatures: set[str]) -> str:
+def doc_id_for(signature: str, fallback_filename: str, unique_signatures: set[str],
+               pinned: str = "") -> str:
     """Prefer signature when globally unique (e.g. 'CRC/C/GC/25' → 'crc-c-gc-25').
-    Fall back to filename slug otherwise (e.g. CEDAW GR9–GR13 share signature A/44/38)."""
+    Fall back to filename slug otherwise (e.g. CEDAW GR9–GR13 share signature A/44/38).
+
+    A metadata record may pin its own docId. Paragraph ids are built from the
+    docId, so a record whose signature is later corrected must keep the id it
+    was first published under — otherwise every saved citation into it breaks."""
+    if pinned:
+        return pinned
     if signature and signature in unique_signatures:
         sid = slugify(signature)
         if sid:
@@ -212,7 +219,8 @@ def collect_documents(
         matched_meta_keys.add(meta_basename)
 
         signature = meta.get("Signature", "") or ""
-        d_id = doc_id_for(signature, filename, unique_signatures)
+        d_id = doc_id_for(signature, filename, unique_signatures,
+                          (meta.get("docId") or "").strip())
         # Final safety net: if even the filename-derived id collides (shouldn't happen),
         # append a deterministic hash of the full filename.
         if d_id in seen_doc_ids and seen_doc_ids[d_id] != filename:
