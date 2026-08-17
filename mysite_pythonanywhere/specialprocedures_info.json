@@ -34293,5 +34293,49 @@
       "en"
     ],
     "gaSession": 73
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/IE_International_Order_A_HRC_60_31.json",
+    "Name": "Major geopolitical trends and structural drivers of the North-South divide",
+    "Simplified Name": "Major geopolitical trends and structural drivers of the North-South divide",
+    "Signature": "A/HRC/60/31",
+    "Adoption Date": "2025",
+    "Adoption Year": 2025,
+    "Committee": "IE International Order",
+    "Mandate holder": "George Katrougalos",
+    "Presented": "HRC 60th session",
+    "Link": "https://docs.un.org/en/A/HRC/60/31",
+    "reportType": "thematic",
+    "paragraphCount": 65,
+    "wordCount": 10099,
+    "labelCount": 17,
+    "firstAddedAt": "2026-08-17",
+    "lastVerifiedAt": "2026-08-17",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 60
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data_sp/SR_Leprosy_A_HRC_59_55.json",
+    "Name": "Strengthening international cooperation and solidarity to protect the rights of persons affected by leprosy (Hansen's disease)",
+    "Simplified Name": "Strengthening international cooperation and solidarity to protect the rights of persons af",
+    "Signature": "A/HRC/59/55",
+    "Adoption Date": "2025",
+    "Adoption Year": 2025,
+    "Committee": "SR Leprosy",
+    "Mandate holder": "Beatriz Miranda-Galarza",
+    "Presented": "HRC 59th session",
+    "Link": "https://docs.un.org/en/A/HRC/59/55",
+    "reportType": "thematic",
+    "paragraphCount": 86,
+    "wordCount": 10892,
+    "labelCount": 33,
+    "firstAddedAt": "2026-08-17",
+    "lastVerifiedAt": "2026-08-17",
+    "languagesAvailable": [
+      "en"
+    ],
+    "hrcSession": 59
   }
 ]

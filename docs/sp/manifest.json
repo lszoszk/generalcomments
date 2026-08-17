@@ -1,9 +1,9 @@
 {
-  "version": "20260618",
-  "builtAt": "2026-07-11T18:36:01.059294+00:00",
+  "version": "20260817",
+  "builtAt": "2026-08-17T20:52:12+00:00",
   "counts": {
-    "documents": 1560,
-    "paragraphs": 160008,
+    "documents": 1562,
+    "paragraphs": 160159,
     "shards": 46,
     "committees": 46
   },
@@ -21,10 +21,10 @@
       "paragraphs": 3549
     },
     "shards/sp_IE_International_Order.json": {
-      "sha": "4bb5f83624f01b33",
-      "bytes": 2288579,
-      "documents": 26,
-      "paragraphs": 1968
+      "sha": "c10eac9703cf053e",
+      "bytes": 2375898,
+      "documents": 27,
+      "paragraphs": 2033
     },
     "shards/sp_IE_International_Solidarity.json": {
       "sha": "8c50cd39c0f407a8",
@@ -165,10 +165,10 @@
       "paragraphs": 3395
     },
     "shards/sp_SR_Leprosy.json": {
-      "sha": "c74f303dbc3888fb",
-      "bytes": 965586,
-      "documents": 11,
-      "paragraphs": 926
+      "sha": "c374a86e78036d5f",
+      "bytes": 1064209,
+      "documents": 12,
+      "paragraphs": 1012
     },
     "shards/sp_SR_Migrants.json": {
       "sha": "fa1e98a7208c2e7b",

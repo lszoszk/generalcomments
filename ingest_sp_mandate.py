@@ -1395,7 +1395,12 @@ MANDATES: dict[str, dict] = {
         # https://www.ohchr.org/en/special-procedures/ie-international-order/annual-thematic-reports
         # Corrigenda (A/HRC/36/40/Corr.1, A/HRC/30/44/Corr.1, A/70/285/Corr.1,
         # A/HRC/21/45/Corr.1) and the A/67/277/Add.1 addendum excluded.
+        # The 2025 GA report is not here: the Third Committee's provisional list
+        # for the eightieth session schedules Katrougalos for 23 October 2025
+        # under item 71, so the report exists, but its A/80 symbol could not be
+        # confirmed against UN Documents — add it once it is.
         'reports': [
+            (2025, 'A/HRC/60/31', 'HRC 60th session', 'Major geopolitical trends and structural drivers of the North-South divide'),
             (2024, 'A/HRC/57/49', 'HRC 57th session', 'Vision report of the new Independent Expert'),
             (2023, 'A/78/262',    'GA 78th session',  "Main observations and recommendations from the Independent Expert's past reports"),
             (2023, 'A/HRC/54/28', 'HRC 54th session', "Youth's participation and engagement in intergovernmental forums: challenges and opportunities"),
@@ -1749,11 +1754,15 @@ MANDATES: dict[str, dict] = {
         # https://www.ohchr.org/en/special-procedures/sr-leprosy/annual-thematic-reports
         # (that page omits the 2022/2023 GA reports A/77/139 & A/78/173; added
         # from OHCHR /documents/thematic-reports pages, WebSearch-verified).
-        # GA reports began 2021. NB the 2025 GA report (A/80…, "right to
-        # medication"; symbol not yet confirmable) and the forthcoming 2026
-        # HRC 62 report ("Rights, Memory and Belonging", still call-for-input)
-        # are NOT yet included — add once their symbols are published.
+        # GA reports began 2021. The 2025 HRC report is A/HRC/59/55, taken from
+        # OHCHR's own A–Z guide to the fifty-ninth session and verified against
+        # the PDF on UN Documents. Still NOT included: the 2025 GA report
+        # (A/80…, "right to medication" — the Third Committee list schedules
+        # Miranda-Galarza for 22 October 2025, so it exists, but its symbol
+        # could not be confirmed) and the 2026 HRC 62 report ("Rights, Memory
+        # and Belonging", still at call-for-input).
         'reports': [
+            (2025, 'A/HRC/59/55', 'HRC 59th session', "Strengthening international cooperation and solidarity to protect the rights of persons affected by leprosy (Hansen's disease)"),
             (2024, 'A/79/152',    'GA 79th session',  "Care and support for persons affected by leprosy (Hansen's disease) and their family members from a human rights perspective"),
             (2024, 'A/HRC/56/59', 'HRC 56th session', 'Vision report of the Special Rapporteur on the elimination of discrimination against persons affected by leprosy and their family members'),
             (2023, 'A/78/173',    'GA 78th session',  'Legal framework for eliminating discrimination on the grounds of leprosy'),
