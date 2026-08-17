@@ -270,3 +270,63 @@ test('R18. documentCite · organ follows the symbol (A/… → UNGA)', async ({ 
   expect(text).toMatch(/^UNGA ‘/);
   expect(text).toContain('UN Doc A/50/440');
 });
+
+test('R19. trailingSubhead · SP section headings break out of the paragraph', async ({ page }) => {
+  // The SP PDF extraction glues a section heading onto the tail of the
+  // paragraph before it, so A/80/283 ¶42 ends "…use of neurotechnologies
+  // E. Precautionary principle in the use…". The reader promotes that tail
+  // to its own line rather than running it into the prose.
+  await bootApp(page, '/index.html#documents/a-80-283');
+  await page.waitForTimeout(900);
+
+  const heads = page.locator('.docs-reader-para .docs-reader-subhead');
+  expect(await heads.count()).toBeGreaterThan(5);
+  await expect(heads.filter({ hasText: 'Precautionary principle' })).toHaveCount(1);
+
+  // The heading must not still sit inside the running text of ¶42.
+  const para42 = page.locator('.docs-reader-para', { hasText: 'In that connection, from the time neurodata' }).first();
+  const ownText = await para42.locator('.docs-reader-para-text').evaluate((el: Element) => {
+    const clone = el.cloneNode(true) as HTMLElement;
+    clone.querySelectorAll('.docs-reader-subhead').forEach((n) => n.remove());
+    return clone.textContent || '';
+  });
+  expect(ownText).not.toContain('Precautionary principle');
+  expect(ownText).toContain('improper use of neurotechnologies');
+});
+
+test('R20. trailingSubhead · the lettered rule stays off outside the SP corpus', async ({ page }) => {
+  // In jurisprudence the same shape matches a signature block, so a treaty
+  // body decision must not sprout headings.
+  await bootApp(page, '/index.html#documents/ccpr-c-gc-37');
+  await page.waitForTimeout(900);
+  const text = await page.locator('.docs-reader-stream').innerText();
+  expect(text.length).toBeGreaterThan(500);
+  await expect(page.locator('.docs-reader-para .docs-reader-subhead')).toHaveCount(0);
+});
+
+test('R21. derivedOutline · a report with no extracted sections still gets a table of contents', async ({ page, viewport }) => {
+  test.skip((viewport?.width || 0) < 1100, 'Drawer hidden below 1100 px viewport');
+  // A/80/283's section structure was never extracted, so the drawer used to
+  // say "No headings detected". The headings the prose announces now drive it.
+  await bootApp(page, '/index.html#documents/a-80-283');
+  await page.waitForTimeout(1000);
+
+  await expect(page.locator('#docs-drawer')).not.toContainText('No headings detected');
+  const rows = page.locator('.docs-outline-item');
+  expect(await rows.count()).toBeGreaterThan(8);
+
+  // Roman markers are sections, letters nest beneath them. "I." here is the
+  // letter after "H.", not roman one — the depth proves the disambiguation.
+  await expect(rows.filter({ hasText: 'IV. Advances in neurotechnologies' })).toHaveClass(/depth-0/);
+  await expect(rows.filter({ hasText: 'I. Equality, non-discrimination' })).toHaveClass(/depth-1/);
+
+  // The heading must not ALSO appear as a section rollup — it is already
+  // rendered at the tail of the paragraph that carries it.
+  await expect(page.locator('.docs-reader-section')).toHaveCount(0);
+  expect(await page.locator('.docs-reader-subhead').count()).toBeGreaterThan(5);
+
+  // Outline rows navigate.
+  await page.locator('.docs-outline-link', { hasText: 'Precautionary principle' }).click();
+  await page.waitForTimeout(600);
+  await expect(page.locator('.docs-reader-para.is-active')).toHaveAttribute('data-para-id', 'a-80-283-0044');
+});

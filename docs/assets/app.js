@@ -2772,6 +2772,7 @@ function paintDocReaderBody(doc, paraId) {
   // level. The right-pane outline holds the full hierarchy so users can
   // always recover where they are; the middle pane stays scannable.
   let prevPath = [];
+  const derivedKeys = derivedSpOutline(doc, paragraphs)?.keyByParaId || null;
   const body = paragraphs.map(p => {
     const isPre = p.isPreamble === true || p.n === 0;
     const marker = isPre
@@ -2803,6 +2804,10 @@ function paintDocReaderBody(doc, paraId) {
       }
       prevPath = path;
     } else {
+      // No extracted section: fall back to the derived key so the outline
+      // scroll-spy can still follow along. No rollup <h3> is emitted — the
+      // heading is already visible at the tail of the preceding paragraph.
+      curSectionKey = derivedKeys?.get(p.id) || '';
       prevPath = [];
     }
     return `
@@ -2822,7 +2827,7 @@ function paintDocReaderBody(doc, paraId) {
           </button>
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">✎</span>' : ''}
         </div>
-        <p class="docs-reader-para-text serif">${annotateTreatyText(emphasiseTrailingSubhead(renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms })), doc?.committee, p?.citedArticles)}</p>
+        <p class="docs-reader-para-text serif">${annotateTreatyText(emphasiseTrailingSubhead(renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms }), doc?.type), doc?.committee, p?.citedArticles)}</p>
       </div>`;
   }).join('');
 
@@ -3039,6 +3044,13 @@ function paintDocDrawer(doc) {
       cur.lastN = p.n ?? cur.lastN;
     }
   }
+  // Reports with no extracted structure fall back to the headings the prose
+  // itself announces, so the drawer can navigate them too.
+  if (!outlineGroups.length) {
+    const derived = derivedSpOutline(doc, paragraphs);
+    if (derived) outlineGroups.push(...derived.groups);
+  }
+
   const formatRange = g => (
     g.firstN != null && g.lastN != null && g.firstN !== g.lastN
       ? `¶${g.firstN}–${g.lastN}`
@@ -10649,23 +10661,129 @@ function stripFnMarkers(text) {
 // respect" before ¶21–23 elaborate that obligation. Visually break the
 // label onto its own line so it reads as a heading rather than a sentence
 // continuation.
-function emphasiseTrailingSubhead(html) {
-  // Promote a trailing "(letter) Capitalized phrase" into a styled subheader.
-  // Common in CESCR GCs (e.g. GC15 ¶20 ends with "(a) Obligations to
-  // respect" — a label introducing the next subsection's content).
-  //
+// "(letter) Capitalized phrase" — CESCR general comments (GC15 ¶20 ends with
+// "(a) Obligations to respect", a label introducing the next subsection).
+const SUBHEAD_PAREN_RE = /(\([a-z]\)\s+[A-Z][^<]*)\s*$/;
+// "E. Precautionary principle in the use…" — special-procedures reports,
+// where the PDF extraction glued the next section's heading onto the tail of
+// the paragraph before it (10 363 paragraphs across the SP corpus). Markers
+// run A–Z, I–XL and 1–99, all three interleaved within a single report, and
+// the sentence before them is often cut off mid-flow with no full stop.
+//
+// The token before the marker must therefore START lowercase, or be sentence
+// punctuation. That is what separates a heading from a middle initial: "…of
+// neurotechnologies E. Precautionary principle" is a heading, "Juan E.
+// Méndez" is a name. A trailing colon is rejected for the same reason.
+const SUBHEAD_SECTION_RE =
+  /((?:[.!?,;:)”"']|\b[a-z][a-z’'-]*))\s+((?:[A-Z]|[IVXL]{1,5}|\d{1,2})\.\s+[A-Z][^.<:]{6,110})\s*$/;
+
+function emphasiseTrailingSubhead(html, docType) {
   // We have to be careful: many paragraphs contain in-line enumerated lists
   // (a) … (b) … (c) … which we must NOT collapse into a single subheader.
   // The two heuristics below reject those:
   //   • the label must be reasonably short (subheaders are 3–8 words);
   //   • the label must not itself contain another "(letter)" marker.
-  const re = /(\([a-z]\)\s+[A-Z][^<]*)\s*$/;
-  const m = String(html || '').match(re);
-  if (!m) return html;
-  const label = m[1].trim();
-  if (label.length > 80) return html;
-  if (/\([a-z]\)/.test(label.slice(3))) return html;
-  return html.replace(re, `<span class="docs-reader-subhead">${label}</span>`);
+  const s = String(html || '');
+  const m = s.match(SUBHEAD_PAREN_RE);
+  if (m) {
+    const label = m[1].trim();
+    if (label.length <= 80 && !/\([a-z]\)/.test(label.slice(3))) {
+      return s.replace(SUBHEAD_PAREN_RE, `<span class="docs-reader-subhead">${label}</span>`);
+    }
+    return s;
+  }
+  // The lettered form stays off outside the special-procedures corpus: in
+  // jurisprudence the same shape matches a signature block, where
+  // "R. Lallah Appendix English" is a Committee member, not a heading.
+  if (docType !== 'sp') return s;
+  return s.replace(SUBHEAD_SECTION_RE, (_all, before, label) =>
+    `${before} <span class="docs-reader-subhead">${label.trim()}</span>`);
+}
+
+// Rebuild an outline for special-procedures reports whose section structure
+// was never extracted. They still announce their sections in the prose — the
+// heading is glued to the tail of the paragraph before it — so the same
+// detection that breaks those headings out visually can drive the drawer.
+//
+// This deliberately does NOT set `p.section`. That field makes the reader emit
+// an <h3> rollup before the paragraph, which would print the heading twice:
+// once at the tail of the paragraph that carries it, once as the rollup. The
+// 342 reports whose sections WERE extracted keep using the real field.
+//
+// Markers nest the way UN reports do: roman = section, letter = subsection,
+// digit = sub-subsection.
+const _spOutlineCache = new Map();
+function derivedSpOutline(doc, paragraphs) {
+  if (doc?.type !== 'sp' || !paragraphs?.length) return null;
+  const cacheKey = `${doc.docId}:${paragraphs.length}`;
+  if (_spOutlineCache.has(cacheKey)) return _spOutlineCache.get(cacheKey);
+
+  let result = null;
+  // Only for reports that have no extracted structure of their own.
+  if (!paragraphs.some(p => p.section)) {
+    const groups = [];
+    const keyByParaId = new Map();
+    let roman = '', letter = '', path = null;
+    // I, V, X and L are both letters and roman numerals. "H." then "I." is a
+    // letter series; "IV." then "V." is a roman one. Decide by which series
+    // the marker continues.
+    let lastLetter = '', lastRoman = 0;
+    const ROMAN = { I: 1, V: 5, X: 10, L: 50 };
+    const romanValue = (s) => {
+      let total = 0;
+      for (let i = 0; i < s.length; i++) {
+        const v = ROMAN[s[i]] || 0;
+        total += (ROMAN[s[i + 1]] || 0) > v ? -v : v;
+      }
+      return total;
+    };
+    const classify = (marker) => {
+      if (/^\d{1,2}$/.test(marker)) return 'digit';
+      if (!/^[IVXL]+$/.test(marker)) return /^[A-Z]$/.test(marker) ? 'letter' : 'digit';
+      if (marker.length > 1) return 'roman';
+      const nextLetter = lastLetter && marker.charCodeAt(0) === lastLetter.charCodeAt(0) + 1;
+      const nextRoman = romanValue(marker) === lastRoman + 1;
+      if (nextLetter && !nextRoman) return 'letter';
+      if (nextRoman && !nextLetter) return 'roman';
+      return lastLetter ? 'letter' : 'roman';
+    };
+
+    for (const p of paragraphs) {
+      // A paragraph belongs to the section announced before it — including
+      // the one whose own tail announces the next section.
+      if (path) {
+        const key = path.join(' › ');
+        keyByParaId.set(p.id, key);
+        const cur = groups[groups.length - 1];
+        if (cur && cur.key === key) {
+          cur.lastN = p.n ?? cur.lastN;
+        } else {
+          groups.push({ key, path: path.slice(), depth: path.length - 1,
+                        firstId: p.id, firstN: p.n ?? null, lastN: p.n ?? null });
+        }
+      }
+      const m = SUBHEAD_SECTION_RE.exec(String(p.text || ''));
+      if (!m) continue;
+      const label = m[2].trim();
+      const marker = /^([^.]+)\./.exec(label)?.[1] || '';
+      const kind = classify(marker);
+      if (kind === 'roman') {
+        roman = label; letter = ''; lastLetter = ''; lastRoman = romanValue(marker);
+        path = [label];
+      } else if (kind === 'letter') {
+        letter = label; lastLetter = marker;
+        path = roman ? [roman, label] : [label];
+      } else {
+        path = [roman, letter, label].filter(Boolean);
+      }
+    }
+    if (groups.length) result = { groups, keyByParaId };
+  }
+  // Each entry holds a per-paragraph key map; drop them wholesale rather than
+  // letting a long browsing session accumulate one per report.
+  if (_spOutlineCache.size > 32) _spOutlineCache.clear();
+  _spOutlineCache.set(cacheKey, result);
+  return result;
 }
 
 function renderParagraphHtml(text, footnotes, opts = {}) {
