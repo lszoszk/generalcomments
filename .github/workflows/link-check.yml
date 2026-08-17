@@ -14,6 +14,7 @@ on:
     paths:
       - 'mysite_pythonanywhere/crc_gc_info.json'
       - 'mysite_pythonanywhere/specialprocedures_info.json'
+      - 'mysite_pythonanywhere/jurisprudence_info.json'
       - 'validate_links.py'
   workflow_dispatch:        # Manual trigger from the Actions tab
 
@@ -28,6 +29,10 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    # The jurisprudence corpus tripled the URL count (≈5 500 unique links), and
+    # the serial re-check pass deliberately paces itself. Cap the job so a hung
+    # UN host cannot burn the runner budget.
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -53,6 +58,7 @@ jobs:
           print(f"broken={s['brokenCount']}")
           print(f"ok={s['okCount']}")
           print(f"total={s['totalUnique']}")
+          print(f"known={s.get('knownUnavailableCount', 0)}")
           PY
 
       - name: Commit lastVerifiedAt updates
@@ -65,8 +71,9 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add mysite_pythonanywhere/crc_gc_info.json \
                     mysite_pythonanywhere/specialprocedures_info.json \
+                    mysite_pythonanywhere/jurisprudence_info.json \
                     link_status.json
-            git commit -m "chore(links): weekly validation — ${{ steps.validate.outputs.ok }}/${{ steps.validate.outputs.total }} OK, ${{ steps.validate.outputs.broken }} broken"
+            git commit -m "chore(links): weekly validation — ${{ steps.validate.outputs.ok }}/${{ steps.validate.outputs.total }} OK, ${{ steps.validate.outputs.broken }} broken, ${{ steps.validate.outputs.known }} without a UN Documents entry"
             # The scheduled run checks out main at trigger time; a manual
             # push can land while the validator is running (it takes a few
             # minutes). Without a rebase the plain `git push` is rejected
@@ -101,6 +108,9 @@ jobs:
               `**Weekly link validation found ${status.brokenCount} broken link(s).**`,
               `\nChecked at: \`${status.checkedAt}\``,
               `OK: ${status.okCount} / ${status.totalUnique} unique URLs`,
+              status.knownUnavailableCount
+                ? `\n<sub>${status.knownUnavailableCount} further record(s) have no UN Documents entry for their symbol — pre-2000 communications published only inside the committees' annual reports. Counted separately, not listed here.</sub>`
+                : '',
               `\n## Broken links\n`,
               '| Signature | Committee | HTTP | URL |',
               '|-----------|-----------|------|-----|',

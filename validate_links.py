@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
 """
-Link validator — HEAD-checks every Link in the GC + SP metadata, updates
-`lastVerifiedAt` for successful checks, and writes a status report.
+Link validator — HEAD-checks every source link in the GC + SP + jurisprudence
+metadata, updates `lastVerifiedAt` for successful checks, and writes a status
+report.
 
 Designed to run both:
   - Locally:           python3 validate_links.py
   - GitHub Actions:    .github/workflows/link-check.yml (weekly cron)
 
 Behaviour:
-  • Reads crc_gc_info.json + specialprocedures_info.json.
+  • Reads crc_gc_info.json + specialprocedures_info.json + jurisprudence_info.json.
   • For each unique URL, sends a HEAD request (falls back to GET on 405).
+  • docs.un.org is a client-side viewer and answers 200 for ANY string, so a
+    link there is resolved through documents.un.org/api/symbol/access instead.
   • Considers status 2xx as OK; anything else as broken.
+  • Links still on the retired OHCHR hosts are counted under
+    `knownUnavailable`, not `broken`: UN Documents has no entry for those
+    symbols, so there is nothing to fix and no reason to reopen an issue
+    about them every week.
   • For OK links: bumps `lastVerifiedAt` to today's date in the metadata.
   • For broken links: collects (signature, link, status, reason) and writes
     a JSON report.
@@ -46,7 +53,38 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 GC_META = ROOT / 'mysite_pythonanywhere' / 'crc_gc_info.json'
 SP_META = ROOT / 'mysite_pythonanywhere' / 'specialprocedures_info.json'
+JUR_META = ROOT / 'mysite_pythonanywhere' / 'jurisprudence_info.json'
 STATUS_OUT = ROOT / 'link_status.json'
+
+# The jurisprudence metadata predates the GC/SP files and uses lower-case
+# field names. Read and write through these rather than assuming one shape.
+FIELD_ALIASES = {
+    'link':      ('Link', 'link'),
+    'signature': ('Signature', 'signature'),
+    'name':      ('Name', 'name'),
+    'committee': ('Committee', 'committee'),
+}
+
+
+def field(record: dict, logical: str) -> str:
+    for key in FIELD_ALIASES[logical]:
+        value = record.get(key)
+        if value:
+            return str(value)
+    return ''
+
+
+# Hosts that were retired when OHCHR took its document servers down. A record
+# still pointing at one of them has no UN Documents entry to move to — the
+# decision was published only inside a committee's annual report — so it is
+# reported separately rather than counted as fresh link rot. See the
+# 2026-08 migration in docs/assets/app.js (officialSourceUrl).
+RETIRED_HOSTS = ('tbinternet.ohchr.org', 'docstore.ohchr.org', 'juris.ohchr.org')
+
+
+def is_retired_host(url: str) -> bool:
+    host = urllib.parse.urlsplit(url).hostname or ''
+    return host.lower() in RETIRED_HOSTS
 
 # OHCHR's TLS chain is occasionally flaky from Python's stdlib; mirror what
 # browsers tolerate. We do NOT skip this for arbitrary hosts — only OHCHR/UN.
@@ -164,9 +202,9 @@ def check_url(url: str, timeout: float = 15.0) -> tuple[int, str]:
 
 
 def collect_records() -> list[dict]:
-    """Load both metadata files and tag each record with its source for write-back."""
+    """Load every metadata file and tag each record with its source for write-back."""
     out = []
-    for src_file in (GC_META, SP_META):
+    for src_file in (GC_META, SP_META, JUR_META):
         if src_file.exists():
             try:
                 data = json.loads(src_file.read_text())
@@ -198,11 +236,19 @@ def run(args) -> int:
         print('No metadata records found.', file=sys.stderr)
         return 1
 
-    # Build URL → list of records sharing that URL.
+    # Build URL → list of records sharing that URL. Links still on the retired
+    # OHCHR hosts are held aside: they cannot be checked into a healthy state,
+    # and re-testing them every week would keep the link-rot issue permanently
+    # open over something already known and unfixable.
     by_url: dict[str, list[dict]] = {}
+    retired: list[dict] = []
     for r in records:
-        link = (r.get('Link') or '').strip()
-        if link:
+        link = field(r, 'link').strip()
+        if not link:
+            continue
+        if is_retired_host(link):
+            retired.append(r)
+        else:
             by_url.setdefault(link, []).append(r)
 
     total = len(by_url)
@@ -262,16 +308,19 @@ def run(args) -> int:
         else:
             for r in by_url[url]:
                 broken.append({
-                    'signature': r.get('Signature', ''),
-                    'docName':   r.get('Name', '')[:120],
-                    'committee': r.get('Committee', ''),
+                    'signature': field(r, 'signature'),
+                    'docName':   field(r, 'name')[:120],
+                    'committee': field(r, 'committee'),
                     'link':      url,
                     'status':    status,
                     'reason':    reason,
                 })
 
+    known_unavailable = sorted(
+        {field(r, 'signature') for r in retired if field(r, 'signature')})
+
     report = {
-        'schemaVersion': 1,
+        'schemaVersion': 2,
         'checkedAt':   started,
         'finishedAt':  datetime.now(timezone.utc).isoformat(),
         'totalUnique': total,
@@ -279,6 +328,12 @@ def run(args) -> int:
         'okCount':     n_ok,
         'brokenCount': len(broken),
         'broken':      broken,
+        # Records whose symbol UN Documents has no entry for — pre-2000
+        # communications and early-2000s CAT decisions, published only inside
+        # the committees' annual reports. Not actionable, so kept out of
+        # brokenCount, but counted so the gap stays visible.
+        'knownUnavailableCount': len(retired),
+        'knownUnavailable': known_unavailable,
     }
     Path(args.out).write_text(json.dumps(report, ensure_ascii=False, indent=2))
 
@@ -288,6 +343,9 @@ def run(args) -> int:
 
     print()
     print(f'Result: {n_ok}/{total} OK · {len(broken)} broken')
+    if retired:
+        print(f'        {len(retired)} record(s) skipped — no UN Documents entry '
+              f'for the symbol (still on the retired OHCHR hosts)')
     print(f'Status report: {args.out}')
     if broken[:5]:
         print('First broken links:')
