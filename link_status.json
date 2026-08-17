@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "checkedAt": "2026-08-17T20:33:15.002569+00:00",
-  "finishedAt": "2026-08-17T20:46:42.475470+00:00",
-  "totalUnique": 5531,
-  "totalRecords": 6080,
-  "okCount": 5529,
+  "checkedAt": "2026-08-17T21:09:29.073474+00:00",
+  "finishedAt": "2026-08-17T21:23:08.191018+00:00",
+  "totalUnique": 5533,
+  "totalRecords": 6082,
+  "okCount": 5531,
   "brokenCount": 2,
   "broken": [
     {
