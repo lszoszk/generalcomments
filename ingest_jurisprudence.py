@@ -119,6 +119,24 @@ EXCLUDED_SYMBOLS = {
 }
 
 
+# Symbols OHCHR's catalogue gets wrong, corrected on the way in. The docId and
+# shardId stay pinned to what the record was first published under: paragraph
+# ids are {docId}-{n}, so re-slugging one would invalidate every saved citation
+# into it, and the shard is only a lazy-loading bucket.
+SYMBOL_CORRECTIONS = {
+    'CCPR/C/19/D/90/1991': {
+        'symbol': 'CCPR/C/19/D/90/1981',
+        'docId': 'ccpr-c-19-d-90-1991',
+        'shardId': 'jur_CCPR_1990-1991',
+        # A/38/40 lists the case as communication 90/1981, the decision's own
+        # front matter reads "Communication No. 90/1981", and it was submitted
+        # on 30 March 1981 — ten years before OHCHR's 1991, and two years
+        # before the Committee adopted its Views at the nineteenth session.
+        'why': 'A/38/40 and the decision front matter both read 90/1981',
+    },
+}
+
+
 # ---------------------------------------------------------------------------
 # docId slug — `CRPD/C/18/D/22/2014` → `crpd-c-18-d-22-2014`
 # ---------------------------------------------------------------------------
@@ -1669,6 +1687,12 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
         print(f'    [skip] {sym}: {EXCLUDED_SYMBOLS[sym]}')
         return None
     doc_id = slug(sym)
+    correction = SYMBOL_CORRECTIONS.get(sym)
+    if correction:
+        # Publish the corrected symbol, but keep the ids the record already has.
+        print(f'    [fix] {sym} -> {correction["symbol"]}: {correction["why"]}')
+        sym = correction['symbol']
+        doc_id = correction['docId']
 
     # Pick the English manifest entry — prefer DOCX, fall back to PDF, then DOC.
     chosen = choose_english_entry(manifest_entries)
@@ -1755,7 +1779,7 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
         'link': catalog_record.get('download_page_url', '').strip(),
         'sourceFile': f'json_jurisprudence/{doc_id}.json',
         'sourceFormat': source_format,
-        'shardId': shard_id_for(catalog_record.get('treaty', ''), year),
+        'shardId': (correction or {}).get('shardId') or shard_id_for(catalog_record.get('treaty', ''), year),
         'paragraphCount': len(paragraphs),
         'wordCount': sum(len(p['Text'].split()) for p in paragraphs),
         'labelCount': sum(len(p['Labels']) for p in paragraphs),

@@ -16,12 +16,12 @@
   },
   "files": {
     "documents.json": {
-      "sha": "d19c421b4113d944",
-      "bytes": 21606711
+      "sha": "cb9720670590dd22",
+      "bytes": 21246301
     },
     "documents-lite.json": {
-      "sha": "c9602782cd72719a",
-      "bytes": 10832838
+      "sha": "a2161f6effba1d0c",
+      "bytes": 10472428
     },
     "facets.json": {
       "sha": "e9cb8045b34f0623",
@@ -118,7 +118,7 @@
       "paragraphs": 1858
     },
     "shards/jur_CCPR_1990-1991.json": {
-      "sha": "41baf7209c20d01f",
+      "sha": "52f9476793395343",
       "bytes": 1986792,
       "documents": 73,
       "paragraphs": 1851
