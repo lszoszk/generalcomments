@@ -330,3 +330,14 @@ test('R21. derivedOutline · a report with no extracted sections still gets a ta
   await page.waitForTimeout(600);
   await expect(page.locator('.docs-reader-para.is-active')).toHaveAttribute('data-para-id', 'a-80-283-0044');
 });
+
+test('R22. mergedDuplicate · the retired Narymbaev stub id still opens the case', async ({ page }) => {
+  // ccpr-c-133-d-2904-2016-2907-2016 was a bare duplicate of the Narymbaev
+  // record, merged away 2026-08-18. Its docId lives on via alternativeIds, and
+  // a paragraph pinpoint carries over because the paragraphs are positional.
+  await bootApp(page, '/index.html?p=ccpr-c-133-d-2904-2016-2907-2016-0005#documents/ccpr-c-133-d-2904-2016-2907-2016');
+  await page.waitForTimeout(1200);
+  await expect(page.locator('.docs-reader-title')).toContainText(/Narymbaev/i);
+  await expect(page.locator('.docs-reader-para.is-active'))
+    .toHaveAttribute('data-para-id', 'ccpr-c-133-d-2904-2907-2016-0005', { timeout: 10_000 });
+});

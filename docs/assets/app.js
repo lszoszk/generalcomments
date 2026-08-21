@@ -520,6 +520,13 @@ function documentIdForParagraphId(paraId) {
   const positional = id.replace(/-\d{4}$/, '');
   if (state.documents.has(positional)) return positional;
 
+  // A merged duplicate keeps its old id alive through alternativeIds
+  // (e.g. the Narymbaev stub folded into ccpr-c-133-d-2904-2907-2016) —
+  // resolve those before the prefix fallback.
+  for (const d of state.documents.values()) {
+    if (Array.isArray(d.alternativeIds) && d.alternativeIds.includes(positional)) return d.docId;
+  }
+
   // Defensive fallback for legacy/non-positional paragraph IDs: choose the
   // longest document-id prefix so similarly named documents cannot collide.
   let best = null;
@@ -2304,6 +2311,12 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
     for (const d of state.documents.values()) {
       if (Array.isArray(d.alternativeIds) && d.alternativeIds.includes(docId)) {
         doc = d;
+        // Paragraph ids are positional, and a merged duplicate's paragraphs
+        // are position-identical to the survivor's — carry the pinpoint over
+        // before the URL is rewritten below.
+        if (paraId && paraId.startsWith(`${docId}-`)) {
+          paraId = d.docId + paraId.slice(docId.length);
+        }
         // Rewrite the URL silently to the new canonical id so subsequent
         // shares use the current scheme.
         if (!fromUrl) {

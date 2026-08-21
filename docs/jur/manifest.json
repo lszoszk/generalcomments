@@ -3,8 +3,8 @@
   "builtAt": "2026-05-13T08:45:23+00:00",
   "scope": "all",
   "counts": {
-    "documents": 4334,
-    "paragraphs": 152794,
+    "documents": 4333,
+    "paragraphs": 152731,
     "shards": 40,
     "treaties": 8,
     "countries": 170,
@@ -16,15 +16,15 @@
   },
   "files": {
     "documents.json": {
-      "sha": "cb9720670590dd22",
-      "bytes": 21246301
+      "sha": "1b504a20c1860c12",
+      "bytes": 21242209
     },
     "documents-lite.json": {
-      "sha": "a2161f6effba1d0c",
-      "bytes": 10472428
+      "sha": "87eee59a83713da5",
+      "bytes": 10468789
     },
     "facets.json": {
-      "sha": "e9cb8045b34f0623",
+      "sha": "9e35bb527f8ba671",
       "bytes": 17126
     },
     "shards/jur_CAT_1990-1994.json": {
@@ -196,8 +196,8 @@
       "paragraphs": 13740
     },
     "shards/jur_CCPR_2016-2017.json": {
-      "sha": "773609d0dccf40a9",
-      "bytes": 18432695,
+      "sha": "b00d1a36e29790fa",
+      "bytes": 18358587,
       "documents": 351,
       "paragraphs": 14241
     },

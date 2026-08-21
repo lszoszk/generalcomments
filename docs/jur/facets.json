@@ -2,7 +2,7 @@
   "treaties": [
     {
       "value": "CCPR",
-      "count": 2862
+      "count": 2861
     },
     {
       "value": "CAT",
@@ -36,7 +36,7 @@
   "outcomes": [
     {
       "value": "violation_found",
-      "count": 1285
+      "count": 1284
     },
     {
       "value": "inadmissible",
@@ -110,7 +110,7 @@
     },
     {
       "value": "Kazakhstan",
-      "count": 101
+      "count": 100
     },
     {
       "value": "Finland",
@@ -752,7 +752,7 @@
     },
     {
       "value": "Persons deprived of their liberty",
-      "count": 9242
+      "count": 9241
     },
     {
       "value": "Women/girls",
@@ -826,7 +826,7 @@
   "formats": [
     {
       "value": "docx",
-      "count": 3543
+      "count": 3542
     },
     {
       "value": "pdf",
@@ -867,7 +867,7 @@
       },
       {
         "year": 1981,
-        "count": 19
+        "count": 20
       },
       {
         "year": 1982,
@@ -907,7 +907,7 @@
       },
       {
         "year": 1991,
-        "count": 35
+        "count": 34
       },
       {
         "year": 1992,
@@ -1007,7 +1007,7 @@
       },
       {
         "year": 2016,
-        "count": 304
+        "count": 303
       },
       {
         "year": 2017,

@@ -116,6 +116,11 @@ EXCLUDED_SYMBOLS = {
     # Local OHCHR download resolves to the neighbouring CEDAW/C/84/D/129/2018
     # PDF, so publishing it as 128 would create a false duplicate.
     'CEDAW/C/84/D/128/2018': 'download resolves to CEDAW/C/84/D/129/2018',
+    # Same decision as CCPR/C/133/D/2904-2907/2016 (Narymbaev v. Kazakhstan) —
+    # OHCHR's catalogue lists the joined case under two symbol spellings, and
+    # this one produced a bare stub merged away on 2026-08-18. Re-ingesting it
+    # would resurrect the duplicate under its own docId.
+    'CCPR/C/133/D/2904/2016,2907/2016': 'duplicate of CCPR/C/133/D/2904-2907/2016 (merged)',
 }
 
 
