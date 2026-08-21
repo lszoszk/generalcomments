@@ -134,6 +134,36 @@ SYMBOL_CORRECTIONS = {
         # before the Committee adopted its Views at the nineteenth session.
         'why': 'A/38/40 and the decision front matter both read 90/1981',
     },
+    'CCPR/C/121/D/2502/2014': {
+        'symbol': 'CCPR/C/119/D/2502/2014',
+        'docId': 'ccpr-c-121-d-2502-2014',
+        'shardId': 'jur_CCPR_2014-2015',
+        'why': 'the document is symbolled 119; its Views were adopted 7 Nov 2017',
+    },
+    'CCPR/C/132/D/2394/2014': {
+        'symbol': 'CCPR/C/133/D/2394/2014',
+        'docId': 'ccpr-c-132-d-2394-2014',
+        'shardId': 'jur_CCPR_2014-2015',
+        'why': 'adopted at the 133rd session (11 Oct-5 Nov 2021)',
+    },
+    'CCPR/C/134/D/2475/2014': {
+        'symbol': 'CCPR/C/131/D/2475/2014',
+        'docId': 'ccpr-c-134-d-2475-2014',
+        'shardId': 'jur_CCPR_2014-2015',
+        'why': 'decided at the 131st session, meeting of 25 March 2021',
+    },
+    'CCPR/C/133/D/2590/2015': {
+        'symbol': 'CCPR/C/135/D/2590/2015',
+        'docId': 'ccpr-c-133-d-2590-2015',
+        'shardId': 'jur_CCPR_2014-2015',
+        'why': 'adopted at the 135th session (27 Jun-27 Jul 2022)',
+    },
+    'CCPR/C/131/D/3094/2018': {
+        'symbol': 'CCPR/C/134/D/3094/2018',
+        'docId': 'ccpr-c-131-d-3094-2018',
+        'shardId': 'jur_CCPR_2018-2019',
+        'why': 'Views adopted 15 March 2022 at the 134th session',
+    },
 }
 
 
