@@ -91,6 +91,12 @@ test('A1. badgeAppears · pingApi paints "API · NN ms" pill (debug only)', asyn
   await page.route('**/unhrdb-api/api/stats', (route) =>
     route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
   );
+  // Boot also fires a browse search through the API. Left unmocked it goes
+  // to the real VM, and when that is unreachable (off the AMU VPN) its
+  // timeout repaints the badge "offline" underneath the assertion below.
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(mockSearchPage({ total: 0, page: 1, pageSize: 200 })) })
+  );
   // v19.59: the happy-state API badge is developer diagnostics — hidden
   // by default (Hick's-law declutter), surfaced with ?debug=1. pingApi()
   // still paints it; boot with the flag so the assertion can see it.
