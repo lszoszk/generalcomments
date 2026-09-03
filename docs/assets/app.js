@@ -564,6 +564,13 @@ function upgradeLegacyParagraphLink() {
   if (!paraId || url.hash.startsWith('#documents/')) return;
   const docId = documentIdForParagraphId(paraId);
   if (!docId) return;
+  // A paragraph of a merged duplicate resolves through alternativeIds to
+  // another document id; rewrite the pinpoint onto that id too, or the
+  // later prefix check discards it and the reader opens at the top.
+  const positional = _docIdFromParaId(paraId);
+  if (positional && positional !== docId) {
+    url.searchParams.set(URL_KEYS.p, docId + paraId.slice(positional.length));
+  }
   url.hash = `documents/${encodeURIComponent(docId)}`;
   history.replaceState(null, '', url.toString());
 }
@@ -639,6 +646,12 @@ function encodeUrlState() {
   history.replaceState(null, '', next);
 }
 
+// `?y1=abc` used to parse to NaN and then persist as `y1=NaN`.
+function _intParam(value) {
+  const n = parseInt(value ?? '', 10);
+  return Number.isFinite(n) ? n : null;
+}
+
 function decodeUrlState() {
   const u = new URLSearchParams(window.location.search);
   const split = (key) => (u.get(URL_KEYS[key]) || '').split('|').filter(Boolean);
@@ -648,8 +661,8 @@ function decodeUrlState() {
     committees: split('tb'),
     labels: split('g'),
     labelsMode: u.get(URL_KEYS.gm) === 'all' ? 'all' : 'any',
-    yearMin: u.get(URL_KEYS.y1) ? parseInt(u.get(URL_KEYS.y1)) : null,
-    yearMax: u.get(URL_KEYS.y2) ? parseInt(u.get(URL_KEYS.y2)) : null,
+    yearMin: _intParam(u.get(URL_KEYS.y1)),
+    yearMax: _intParam(u.get(URL_KEYS.y2)),
     resultSort: u.get(URL_KEYS.sort) || 'relevance',
     // resultGroup: leave undefined when no URL key is present so the
     // boot-time auto-default ("documents" on jurisprudence, "paragraphs"
@@ -924,7 +937,7 @@ function plausibleDecisionYear(value) {
 function canonicalAdoptionDate(d) {
   for (const value of [d?.jurisDecisionDate, d?.juris_decision_date, d?.adoptionDate, d?.adoption_date]) {
     const year = yearFromDate(value);
-    if (value && (year == null || plausibleDecisionYear(year))) return value;
+    if (value && plausibleDecisionYear(year)) return value;
   }
   return '';
 }
@@ -1009,6 +1022,28 @@ const SOURCE_PROFILES = Object.freeze({
 
 function sourceProfile(type) {
   return SOURCE_PROFILES[type] || SOURCE_PROFILES.gc;
+}
+
+// The date line under a document title / on a result card. Jurisprudence
+// records without a known decision date used to fall back to `year`, which
+// for a communication is the year it was REGISTERED (No. 3260/2018 → 2018),
+// so the reader announced "Decision adopted 2018" for Views adopted in
+// 2024. Say only what the record supports.
+// `full` keeps the day-month-year form (reader header); result cards pass
+// false and get the year alone.
+function documentDateText(doc, profile, fallbackYear, { full = true } = {}) {
+  const p = profile || sourceProfile(doc?.type);
+  if (doc?.type === 'jur') {
+    const decided = plausibleDecisionYear(yearFromDate(doc.jurisDecisionDate || doc.juris_decision_date))
+      ?? plausibleDecisionYear(doc.adoptionYear ?? doc.adoption_year)
+      ?? plausibleDecisionYear(yearFromDate(doc.adoptionDate || doc.adoption_date));
+    if (decided) return `${p.dateLabel} ${full && doc.adoptionDate ? doc.adoptionDate : decided}`;
+    const registered = doc.communicationYear ?? doc.year ?? fallbackYear;
+    return registered ? `Communication registered ${registered}` : '';
+  }
+  if (full && doc?.adoptionDate) return `${p.dateLabel} ${doc.adoptionDate}`;
+  const year = doc?.year ?? fallbackYear;
+  return year ? `${p.dateLabel} ${year}` : '';
 }
 
 function documentStatusDetails(doc) {
@@ -2581,9 +2616,12 @@ function setupDocumentCite(doc) {
     });
   });
   // Click outside closes the popover — <details> has no such behaviour.
-  document.addEventListener('click', (e) => {
+  // Replace the previous paint's listener instead of stacking one per paint.
+  if (setupDocumentCite._outside) document.removeEventListener('click', setupDocumentCite._outside);
+  setupDocumentCite._outside = (e) => {
     if (wrap.open && !wrap.contains(e.target)) wrap.open = false;
-  });
+  };
+  document.addEventListener('click', setupDocumentCite._outside);
 }
 
 // Cmd/Ctrl+F → open the in-reader find, but ONLY when the documents
@@ -2746,14 +2784,12 @@ function paintDocReaderBody(doc, paraId) {
       <h1 class="docs-reader-title"${isShortened ? ` title="${escape(doc.caseName)}"` : ''}>${escape(publicDocTitle(doc) || doc.docId)}</h1>
       <div class="docs-reader-meta mono">
         ${doc.signature ? `<span>${escape(doc.signature)}</span>` : ''}
-        ${doc.adoptionDate
-          ? `<span>${escape(profile.dateLabel)} ${escape(doc.adoptionDate)}</span>`
-          : (doc.year ? `<span>${escape(profile.dateLabel)} ${escape(doc.year)}</span>` : '')}
+        ${documentDateText(doc, profile) ? `<span>${escape(documentDateText(doc, profile))}</span>` : ''}
         ${doc.country ? `<span>${escape(doc.country)}${doc.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''}
         ${doc.type === 'sp' && doc.mandate
           ? `<span title="Mandate holder">${escape(doc.mandate)}</span>`
           : (doc.committee || doc.treaty ? `<span>${escape(doc.committee || doc.treaty)}</span>` : '')}
-        <span>${paragraphs.length} paragraphs</span>
+        <span>${paragraphs.length} ${paragraphs.length === 1 ? 'paragraph' : 'paragraphs'}</span>
         ${sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener" class="docs-reader-source">↗ official source</a>` : ''}
         <button type="button" class="docs-reader-find-toggle" id="docs-reader-find-toggle" title="Find in document (⌘F / Ctrl+F)" aria-label="Find in document">⌕ Find</button>
         <details class="docs-reader-cite" id="docs-reader-cite">
@@ -3019,6 +3055,9 @@ function setupOutlineScrollSpy(host) {
 }
 
 function paintDocDrawer(doc) {
+  // Remember the document for the once-bound collapse button (see below).
+  const _collapseBtn = $('#docs-drawer-collapse');
+  if (_collapseBtn) _collapseBtn._drawerDoc = doc;
   const drawer = $('#docs-drawer');
   const body = $('#docs-drawer-body');
   if (!drawer || !body) return;
@@ -3120,11 +3159,17 @@ function paintDocDrawer(doc) {
     </div>
     ${wsHtml}`;
 
-  // Collapse button.
-  $('#docs-drawer-collapse')?.addEventListener('click', () => {
-    state.docsDrawerCollapsed = !state.docsDrawerCollapsed;
-    paintDocDrawer(doc);
-  });
+  // Collapse button. It lives outside the rebuilt drawer body, so bind it
+  // once and let the handler read the current document — binding on every
+  // paint stacked one listener per repaint and the toggle fired N times.
+  const collapseBtn = $('#docs-drawer-collapse');
+  if (collapseBtn && !collapseBtn.dataset.bound) {
+    collapseBtn.dataset.bound = '1';
+    collapseBtn.addEventListener('click', () => {
+      state.docsDrawerCollapsed = !state.docsDrawerCollapsed;
+      paintDocDrawer(collapseBtn._drawerDoc);
+    });
+  }
 
   // Outline jump links — scroll the centre pane.
   body.querySelectorAll('.docs-outline-link').forEach(a => {
@@ -4528,7 +4573,9 @@ function buildExportRows(results = state.results) {
       outcome: p.outcome || doc?.outcome || '',
       section: p.section || '',
       year: p.year ?? '',
-      date_type: profile.dateLabel,
+      date_type: isJur && !doc?.adoptionDate && !plausibleDecisionYear(doc?.adoptionYear ?? doc?.adoption_year)
+        ? 'Communication registered'
+        : profile.dateLabel,
       adoption_date: doc?.adoptionDate ?? '',
       communication_date: isJur ? (doc?.communicationDate ?? '') : '',
       mandate_holder: doc?.mandate ?? '',
@@ -6765,9 +6812,13 @@ function _attachResultSentinel(list, terms) {
     return r.width > 0 || r.height > 0;
   };
 
+  const run = state.searchRun;
   const tick = async () => {
     scheduled = false;
     if (inflight) return;
+    // The query changed since this sentinel was attached: its closure holds
+    // the old highlight terms, so it must stop rather than page the new list.
+    if (run !== state.searchRun) { sentinel.style.display = 'none'; return; }
     if (sentinel.style.display === 'none') return;
     if (!isLaidOut()) return;
 
@@ -6794,6 +6845,7 @@ function _attachResultSentinel(list, terms) {
           sentinel.querySelector('.dot')?.classList.add('is-loading');
           await fetchNextApiPage();
           sentinel.querySelector('.dot')?.classList.remove('is-loading');
+          if (run !== state.searchRun) { sentinel.style.display = 'none'; return; }
         }
 
         const more = appendNextPage(list, terms);
@@ -7039,8 +7091,9 @@ function renderResult(p, rank, terms, opts = {}) {
   const statusPill = status
     ? `<span class="docs-status legal-status-pill ${status.tone}" title="${escape(status.note)}">${escape(status.label)}</span>`
     : '';
-  const dateLabel = researchYear
-    ? `<span class="folio result-date-label">${escape(profile.dateLabel)} ${escape(researchYear)}</span>`
+  const dateText = documentDateText(doc, profile, researchYear, { full: false });
+  const dateLabel = dateText
+    ? `<span class="folio result-date-label">${escape(dateText)}</span>`
     : '';
 
   // OCR-provenance pill on the result headline. Shown when the
@@ -7290,12 +7343,21 @@ function setActive(id) {
   // so hydrate the full record before opening the dossier. Otherwise the
   // `[[fn:N]]` marker renders but its popover has no text.
   const apiPara = state.paragraphById.get(id);
-  if (apiPara?.type === 'sp' && apiPara._apiOnly) {
+  // A JUR hit only needs its shard when it actually carries footnote
+  // markers and the case has a shard to load; everything else paints at once.
+  const jurNeedsShard = apiPara?.type === 'jur' && apiPara._apiOnly
+    && /\[\[fn:\d+\]\]/.test(apiPara.text || '')
+    && Boolean(state.documents.get(apiPara.docId)?.shardId);
+  if ((apiPara?.type === 'sp' && apiPara._apiOnly) || jurNeedsShard) {
     const doc = state.documents.get(apiPara.docId);
     document.body.classList.remove('dossier-collapsed');
     const host = $('#dossier');
     if (host) host.innerHTML = '<div class="docs-reader-loading" id="dossier-hydrating">Loading paragraph context and citations…</div>';
-    const hydration = doc?.shardId ? loadSpShard(doc.shardId) : ensureSpCorpusReady();
+    // JUR hits carry `[[fn:N]]` markers but no footnote bodies either —
+    // those live in the case's shard, so pull it the same way.
+    const hydration = apiPara.type === 'jur'
+      ? loadJurShard(doc.shardId)
+      : (doc?.shardId ? loadSpShard(doc.shardId) : ensureSpCorpusReady());
     hydration.then(paintActive).catch((e) => {
       console.warn('[sp dossier hydration failed]', e);
       if (state.activeId === id && host) {
@@ -10127,7 +10189,15 @@ async function jumpToParagraph(paraId) {
   window.history.replaceState(null, '', url.toString());
   state.activeId = paraId;
   setView('search');                              // explicit — replaceState doesn't fire hashchange
-  runSearch();
+  await runSearch();
+  if (runId !== state.jumpRun) return;
+  // paintResults drops an active id that is not in the current result set
+  // (the bookmark may come from an earlier query); the paragraph itself is
+  // resident, so restore it and paint the dossier from paragraphById.
+  if (state.activeId !== paraId && state.paragraphById.has(paraId)) {
+    state.activeId = paraId;
+    paintDossier();
+  }
 }
 
 // Saved-search anchor → navigate as if the user typed the saved URL,
@@ -10267,9 +10337,13 @@ function _buildLatexExport(rows, ss, bms, notes, pins) {
       const key = _texCiteKey(r.sig, r.paraId);
       if (seen.has(key)) continue;
       seen.add(key);
-      const author = r.country
-        ? `UN Human Rights Committee`           // JUR: Committee author
-        : `UN Treaty Body`;                     // GC/SP: treaty body author
+      // The issuing body from the same fields the citation copy uses —
+      // a CAT or CRPD decision is not a Human Rights Committee decision,
+      // and a mandate-holder report is not a treaty body's at all.
+      const doc = state.documents.get(_docIdFromParaId(r.paraId) || '') || null;
+      let author = '';
+      try { author = doc ? (_citeBaseFields(doc).authorLong || '') : ''; } catch {}
+      author = _texEscape(author || (r.country ? 'UN Human Rights Committee' : 'UN Treaty Body'));
       const title = _texEscape(r.title || r.sig);
       const sig   = _texEscape(r.sig);
       const yr    = r.year || '';
@@ -10612,7 +10686,9 @@ function highlight(text, terms) {
   // v19.46: build an accent-insensitive pattern so a query for "Sanjuan"
   // still highlights "Sanjuán" in the displayed text. accentInsensitivePattern()
   // expands each ASCII letter into a class covering its accented variants.
-  const re = new RegExp('(' + sorted.map(t => accentInsensitivePattern(t)).join('|') + ')', 'gi');
+  // The text is already escaped, so a term must not match inside an
+  // entity (&#39; &amp; …): "39" in "child&#39;s" would otherwise split it.
+  const re = new RegExp('(' + sorted.map(t => accentInsensitivePattern(t)).join('|') + ')(?![^&\\s<]*;)', 'gi');
   return escaped.replace(re, '<mark class="hl">$1</mark>');
 }
 
@@ -10634,7 +10710,7 @@ function highlightTagAware(html, terms) {
     .sort((a, b) => b.length - a.length);
   if (!cleanTerms.length) return html;
   const re = new RegExp(
-    '(' + cleanTerms.map(t => accentInsensitivePattern(t)).join('|') + ')',
+    '(' + cleanTerms.map(t => accentInsensitivePattern(t)).join('|') + ')(?![^&\\s<]*;)',
     'gi'
   );
   const tagRe = /<[^>]*>/g;
