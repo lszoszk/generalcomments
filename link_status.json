@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "checkedAt": "2026-09-03T13:03:24.184475+00:00",
-  "finishedAt": "2026-09-03T13:13:28.759864+00:00",
+  "checkedAt": "2026-09-03T21:24:24.586069+00:00",
+  "finishedAt": "2026-09-03T21:35:48.565138+00:00",
   "totalUnique": 5976,
   "totalRecords": 6111,
   "okCount": 5974,
@@ -24,7 +24,7 @@
       "reason": "UN Documents has no record of A/HRC/1/15"
     }
   ],
-  "knownUnavailableCount": 59,
+  "knownUnavailableCount": 58,
   "knownUnavailable": [
     "CCPR/C/107/D/1835&1837/2008",
     "CCPR/C/116/3",
@@ -83,7 +83,6 @@
     "CCPR/C/D/122/2190/2012",
     "CCPR/C/D/124/2296/2013",
     "CCPR/C/D/127/2505/2014",
-    "CCPR/C143/D/4367/2023",
     "CEDAW/C/75/D/117/2016"
   ]
 }
