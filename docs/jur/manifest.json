@@ -16,12 +16,12 @@
   },
   "files": {
     "documents.json": {
-      "sha": "1b504a20c1860c12",
-      "bytes": 21242209
+      "sha": "d91b664c8b915bcd",
+      "bytes": 21262334
     },
     "documents-lite.json": {
-      "sha": "87eee59a83713da5",
-      "bytes": 10468789
+      "sha": "58c53882a1b3297a",
+      "bytes": 10488914
     },
     "facets.json": {
       "sha": "9e35bb527f8ba671",

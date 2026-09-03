@@ -14,10 +14,12 @@ Behaviour:
   • docs.un.org is a client-side viewer and answers 200 for ANY string, so a
     link there is resolved through documents.un.org/api/symbol/access instead.
   • Considers status 2xx as OK; anything else as broken.
-  • Links still on the retired OHCHR hosts are counted under
-    `knownUnavailable`, not `broken`: UN Documents has no entry for those
-    symbols, so there is nothing to fix and no reason to reopen an issue
-    about them every week.
+  • Records with no checkable source — no link at all, or a link still on a
+    retired OHCHR host — are counted under `knownUnavailable`, not `broken`:
+    UN Documents has no entry for those symbols, so there is nothing to fix
+    and no reason to reopen an issue about them every week.
+  • docstore.ohchr.org answers 200 with an HTML error page for a dead
+    FilesHandler token, so those links are judged by content type (status -2).
   • For OK links: bumps `lastVerifiedAt` to today's date in the metadata.
   • For broken links: collects (signature, link, status, reason) and writes
     a JSON report.
@@ -79,7 +81,9 @@ def field(record: dict, logical: str) -> str:
 # decision was published only inside a committee's annual report — so it is
 # reported separately rather than counted as fresh link rot. See the
 # 2026-08 migration in docs/assets/app.js (officialSourceUrl).
-RETIRED_HOSTS = ('tbinternet.ohchr.org', 'docstore.ohchr.org', 'juris.ohchr.org')
+# docstore.ohchr.org is deliberately not listed: it came back, and its
+# FilesHandler links were re-keyed record by record in 2026-09.
+RETIRED_HOSTS = ('tbinternet.ohchr.org', 'juris.ohchr.org')
 
 
 def is_retired_host(url: str) -> bool:
@@ -183,11 +187,18 @@ def check_url(url: str, timeout: float = 15.0) -> tuple[int, str]:
 
     headers = {'User-Agent': USER_AGENT, 'Accept': '*/*'}
     ctx = SSL_CTX if _is_un(url) else None
+    # docstore's FilesHandler answers 200 for any token; a dead one just
+    # carries an HTML error page instead of the PDF/DOC, so look at the type.
+    docstore = urllib.parse.urlsplit(url).hostname == 'docstore.ohchr.org'
 
-    for method in ('HEAD', 'GET'):
+    for method in ('GET',) if docstore else ('HEAD', 'GET'):
         try:
             req = urllib.request.Request(url, headers=headers, method=method)
             with urllib.request.urlopen(req, timeout=timeout, context=ctx) as resp:
+                ctype = (resp.headers.get('Content-Type') or '').lower()
+                if docstore and (ctype.startswith('text/html')
+                                 or is_retired_host(resp.geturl())):
+                    return (-2, 'docstore: HTML error page (dead FilesHandler token)')
                 return (resp.status, 'ok')
         except urllib.error.HTTPError as e:
             # Some servers don't support HEAD; retry with GET.
@@ -236,17 +247,16 @@ def run(args) -> int:
         print('No metadata records found.', file=sys.stderr)
         return 1
 
-    # Build URL → list of records sharing that URL. Links still on the retired
-    # OHCHR hosts are held aside: they cannot be checked into a healthy state,
-    # and re-testing them every week would keep the link-rot issue permanently
-    # open over something already known and unfixable.
+    # Build URL → list of records sharing that URL. Records without a link, and
+    # links still on the retired OHCHR hosts, are held aside: they cannot be
+    # checked into a healthy state, and re-testing them every week would keep
+    # the link-rot issue permanently open over something already known and
+    # unfixable.
     by_url: dict[str, list[dict]] = {}
     retired: list[dict] = []
     for r in records:
         link = field(r, 'link').strip()
-        if not link:
-            continue
-        if is_retired_host(link):
+        if not link or is_retired_host(link):
             retired.append(r)
         else:
             by_url.setdefault(link, []).append(r)
@@ -345,7 +355,7 @@ def run(args) -> int:
     print(f'Result: {n_ok}/{total} OK · {len(broken)} broken')
     if retired:
         print(f'        {len(retired)} record(s) skipped — no UN Documents entry '
-              f'for the symbol (still on the retired OHCHR hosts)')
+              f'for the symbol (no link, or still on a retired OHCHR host)')
     print(f'Status report: {args.out}')
     if broken[:5]:
         print('First broken links:')

@@ -1095,12 +1095,15 @@ function currentRelationshipHtml(doc, className = '') {
   </aside>`;
 }
 
-// OHCHR's document endpoints. They serve session-scoped download handlers off an
-// origin that has gone unreachable for long stretches (an outage in August 2026
-// put every path behind a Cloudflare 520). UN Documents carries the same texts
-// under a stable symbol-addressed URL, so a stored link to either of these is
-// worth less than one rebuilt from the symbol.
-const STALE_SOURCE_HOSTS = new Set(['tbinternet.ohchr.org', 'docstore.ohchr.org']);
+// OHCHR's retired document surfaces: tbinternet went behind a permanent
+// Cloudflare 520 in August 2026 and juris.ohchr.org only ever served a chooser
+// page. UN Documents carries the same texts under a stable symbol-addressed URL,
+// so a stored link to either of these is worth less than one rebuilt from the
+// symbol. docstore.ohchr.org is NOT here: its FilesHandler links are the only
+// copy of the pre-2000 communications UN Documents never indexed, and the
+// September 2026 re-keying was repaired record by record (validate_links.py
+// checks them by content type, since dead tokens answer 200 with an HTML page).
+const STALE_SOURCE_HOSTS = new Set(['tbinternet.ohchr.org', 'juris.ohchr.org']);
 
 // Signatures carry things UN Documents doesn't index: a locator into a
 // compilation ("HRI/GEN/1/Rev.9 (Vol. I) p. 181"), a stray dot
