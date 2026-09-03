@@ -18,14 +18,14 @@ original document symbol and context.
 
 ## Coverage
 
-The September 2026 public build contains 322,683 searchable paragraphs across 6,112
+The September 2026 public build contains 322,619 searchable paragraphs across 6,111
 documents:
 
 | Collection | Coverage |
 |---|---:|
 | Treaty Body General Comments and Recommendations | 187 documents |
 | Individual-communication jurisprudence | 4,333 cases from 8 mechanisms |
-| Thematic Special Procedures reports | 1,592 reports from 46 mandates |
+| Thematic Special Procedures reports | 1,591 reports from 46 mandates |
 
 Coverage changes as the source collections are synchronised. The application
 publishes build dates, collection-level provenance, and known gaps alongside

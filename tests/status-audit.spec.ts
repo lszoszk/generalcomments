@@ -9,9 +9,12 @@ test('S1. statusGraph · audited supersessions are complete and reciprocal', asy
   const facetsResponse = await request.get('/facets.json');
   expect(facetsResponse.ok()).toBeTruthy();
   const facets = await facetsResponse.json();
+  // `final` grows with every ingestion (status-less SP reports count as
+  // final), so derive it from the catalogue instead of pinning a number
+  // that has to be bumped in every corpus commit.
+  const expectedFinal = documents.filter((doc: any) => (doc.status ?? 'final') === 'final').length;
   expect(facets.statuses).toEqual([
-    // Grows with the corpus; the audited values below are the fixed ones.
-    { value: 'final', count: 1763 },
+    { value: 'final', count: expectedFinal },
     { value: 'superseded', count: 13 },
     { value: 'revised', count: 2 },
     { value: 'corrected', count: 1 },

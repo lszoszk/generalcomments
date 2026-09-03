@@ -129,6 +129,16 @@ EXCLUDED_SYMBOLS = {
 # ids are {docId}-{n}, so re-slugging one would invalidate every saved citation
 # into it, and the shard is only a lazy-loading bucket.
 SYMBOL_CORRECTIONS = {
+    'CCPR/C143/D/4367/2023': {
+        'symbol': 'CCPR/C/143/D/4367/2023',
+        'docId': 'ccpr-c143-d-4367-2023',
+        'shardId': 'jur_CCPR_2022-2023',
+        # OHCHR's catalogue dropped the slash between the organ and the
+        # session; UN Documents knows the decision only under the proper
+        # symbol (the access API resolves CCPR/C/143/D/4367/2023 to a PDF and
+        # sends CCPR/C143/D/4367/2023 to its error page).
+        'why': 'missing slash — UN Documents resolves only CCPR/C/143/D/4367/2023',
+    },
     'CCPR/C/19/D/90/1991': {
         'symbol': 'CCPR/C/19/D/90/1981',
         'docId': 'ccpr-c-19-d-90-1991',

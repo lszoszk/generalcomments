@@ -2,8 +2,8 @@
   "version": "20260903",
   "builtAt": "2026-09-03T12:45:13.131104+00:00",
   "counts": {
-    "documents": 1592,
-    "paragraphs": 162736,
+    "documents": 1591,
+    "paragraphs": 162672,
     "shards": 46,
     "committees": 46
   },
@@ -81,10 +81,10 @@
       "paragraphs": 1659
     },
     "shards/sp_SR_Disability.json": {
-      "sha": "2a0f2d8095818150",
-      "bytes": 2359776,
-      "documents": 24,
-      "paragraphs": 2065
+      "sha": "f3e2e54764fb592a",
+      "bytes": 2273351,
+      "documents": 23,
+      "paragraphs": 2001
     },
     "shards/sp_SR_Education.json": {
       "sha": "b863dffe4ec1bbd1",

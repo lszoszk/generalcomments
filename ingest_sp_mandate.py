@@ -77,6 +77,9 @@ MANDATES: dict[str, dict] = {
             (2020, 'Philip Alston'),
             (9999, 'Olivier De Schutter'),
         ],
+        'holder_overrides': {
+            'A/75/181/Rev.1': 'Olivier De Schutter',
+        },
         # Catalogue from OHCHR's "Annual reports" page
         # https://www.ohchr.org/en/special-procedures/sr-poverty/annual-reports
         # Thematic reports only — addenda excluded.
@@ -126,6 +129,11 @@ MANDATES: dict[str, dict] = {
             (2020, 'Hilal Elver'),
             (9999, 'Michael Fakhri'),
         ],
+        'holder_overrides': {
+            'A/75/219': 'Michael Fakhri',
+            'A/69/275': 'Hilal Elver',
+            'A/HRC/7/5': 'Jean Ziegler',
+        },
         # Catalogue transcribed from OHCHR's "Annual thematic reports" page
         # https://www.ohchr.org/en/special-procedures/sr-food/annual-thematic-reports
         # Main thematic reports only — addenda (mission/communications),
@@ -262,6 +270,9 @@ MANDATES: dict[str, dict] = {
             (2021, 'Agnès Callamard'),
             (9999, 'Morris Tidball-Binz'),
         ],
+        'holder_overrides': {
+            'A/76/264': 'Morris Tidball-Binz',
+        },
         # Catalogue from OHCHR's "Annual thematic reports" page
         # https://www.ohchr.org/en/special-procedures/sr-executions/annual-thematic-reports
         # THEMATIC reports only (HRC + GA, 2007–2025). The pre-2007 CHR/GA
@@ -384,6 +395,9 @@ MANDATES: dict[str, dict] = {
             (2023, 'Fionnuala Ní Aoláin'),
             (9999, 'Ben Saul'),
         ],
+        'holder_overrides': {
+            'A/72/495': 'Fionnuala Ní Aoláin',
+        },
         # Catalogue from OHCHR's annual-reports page
         # https://www.ohchr.org/en/special-procedures/sr-terrorism/annual-reports-human-rights-council-and-general-assembly
         # The SR-mandate thematic reports (HRC + GA, 2005–2026). The
@@ -517,6 +531,11 @@ MANDATES: dict[str, dict] = {
             (2020, 'Michel Forst'),
             (9999, 'Mary Lawlor'),
         ],
+        'holder_overrides': {
+            'A/75/165': 'Mary Lawlor',
+            'A/69/259': 'Michel Forst',
+            'A/63/288': 'Margaret Sekaggya',
+        },
         # Catalogue from OHCHR's "Annual thematic reports" page
         # https://www.ohchr.org/en/special-procedures/sr-human-rights-defenders/annual-thematic-reports
         # Full thematic series (HRC + GA) 2007–2025, plus the distinct-theme
@@ -763,7 +782,8 @@ MANDATES: dict[str, dict] = {
         # duty-to-prevent — are treated as Tuncak's final; Orellana's series
         # begins 2021.)
         'mandate_holders': [
-            (2011, 'Okechukwu Ibeanu'),
+            (2010, 'Okechukwu Ibeanu'),
+            (2012, 'Calin Georgescu'),  # Aug 2010–Jul 2012; A/HRC/18/31 and A/HRC/21/48 are his
             (2013, 'Marc Pallemaerts'),
             (2020, 'Başkut Tuncak'),
             (9999, 'Marcos Orellana'),
@@ -820,6 +840,10 @@ MANDATES: dict[str, dict] = {
             (2024, 'Clément Nyaletsossi Voule'),
             (9999, 'Gina Romero'),
         ],
+        'holder_overrides': {
+            'A/79/263': 'Gina Romero',
+            'A/72/135': 'Annalisa Ciampi',
+        },
         # Catalogue from OHCHR's "Annual thematic reports" page
         # https://www.ohchr.org/en/special-procedures/sr-freedom-of-assembly-and-association/annual-thematic-reports
         # Main thematic reports (GA + HRC) 2012–2026. Addenda excluded.
@@ -876,6 +900,9 @@ MANDATES: dict[str, dict] = {
             (2023, 'Fabián Salvioli'),
             (9999, 'Bernard Duhaime'),
         ],
+        'holder_overrides': {
+            'A/HRC/37/65': 'Pablo de Greiff',
+        },
         # Catalogue from OHCHR's "Annual thematic reports" page
         # https://www.ohchr.org/en/special-procedures/sr-truth-justice-reparation-and-non-recurrence/annual-thematic-reports
         # Full thematic series (HRC + GA) 2012–2025. A/HRC/36/50/Add.1
@@ -1406,6 +1433,11 @@ MANDATES: dict[str, dict] = {
             (2024, 'Livingstone Sewanyana'),
             (9999, 'George Katrougalos'),
         ],
+        'holder_overrides': {
+            'A/HRC/57/49': 'George Katrougalos',
+            'A/73/158': 'Livingstone Sewanyana',
+            'A/HRC/39/47': 'Livingstone Sewanyana',
+        },
         # Catalogue from OHCHR annual-thematic-reports page (HRC + GA per year).
         # https://www.ohchr.org/en/special-procedures/ie-international-order/annual-thematic-reports
         # Corrigenda (A/HRC/36/40/Corr.1, A/HRC/30/44/Corr.1, A/70/285/Corr.1,
@@ -1564,6 +1596,11 @@ MANDATES: dict[str, dict] = {
             (2021, 'Yuefen Li'),
             (9999, 'Attiya Waris'),
         ],
+        'holder_overrides': {
+            'A/75/164': 'Yuefen Li',
+            'A/69/273': 'Juan Pablo Bohoslavsky',
+            'A/63/289': 'Cephas Lumina',
+        },
         # Catalogue from OHCHR annual-thematic-reports page
         # https://www.ohchr.org/en/special-procedures/ie-foreign-debt/annual-thematic-reports
         # Corrigenda (A/HRC/20/23/Corr.1, A/65/260/Corr.1) excluded. Early
@@ -1672,7 +1709,8 @@ MANDATES: dict[str, dict] = {
         # boundary sits at 2019 and the year rule needs NO per-report fix.
         'mandate_holders': [
             (2019, 'Rosa Kornfeld-Matte'),
-            (9999, 'Claudia Mahler'),
+            (2025, 'Claudia Mahler'),
+            (9999, 'Zvezdan Pirtošek'),  # took office 2026; A/HRC/63/35 is his
         ],
         # Catalogue from OHCHR annual-reports page
         # https://www.ohchr.org/en/special-procedures/ie-older-persons/annual-reports
@@ -1714,8 +1752,13 @@ MANDATES: dict[str, dict] = {
         'mandate_holders': [
             (2014, 'Gulnara Shahinian'),
             (2020, 'Urmila Bhoola'),
-            (9999, 'Tomoya Obokata'),
+            (2025, 'Tomoya Obokata'),
+            (9999, 'Katarina Schwarz'),  # took office 2026; A/HRC/63/36 is hers (mandate now also covers trafficking in persons)
         ],
+        'holder_overrides': {
+            'A/75/166': 'Tomoya Obokata',
+            'A/HRC/27/53': 'Urmila Bhoola',
+        },
         # Catalogue from OHCHR annual-thematic-reports page
         # https://www.ohchr.org/en/special-procedures/sr-slavery/annual-thematic-reports
         # All full HRC+GA reports 2008-2025; corrigenda (A/HRC/24/43/Corr.1-2,
@@ -1816,6 +1859,11 @@ MANDATES: dict[str, dict] = {
             (2020, 'Maud de Boer-Buquicchio'),
             (9999, 'Mama Fatima Singhateh'),
         ],
+        'holder_overrides': {
+            'A/75/210': 'Mama Fatima Singhateh',
+            'A/69/262': 'Maud de Boer-Buquicchio',
+            'A/HRC/9/21': "Najat Maalla M'jid",
+        },
         # Catalogue from OHCHR's annual-reports page
         # https://www.ohchr.org/en/special-procedures/sr-sale-of-children/annual-reports-human-rights-council-and-general-assembly
         # Thematic series 2001–2026. The 1991–2000 era (Muntarbhorn +
@@ -2007,6 +2055,9 @@ MANDATES: dict[str, dict] = {
             (2024, 'David R. Boyd'),
             (9999, 'Astrid Puentes Riaño'),
         ],
+        'holder_overrides': {
+            'A/79/270': 'Astrid Puentes Riaño',
+        },
         # Catalogue transcribed from OHCHR's "Annual thematic reports" page
         # https://www.ohchr.org/en/special-procedures/sr-environment/annual-thematic-reports
         # Substantive thematic reports only — expert-seminar/meeting summaries
@@ -2120,6 +2171,11 @@ MANDATES: dict[str, dict] = {
             (2020, 'Leilani Farha'),
             (9999, 'Balakrishnan Rajagopal'),
         ],
+        'holder_overrides': {
+            'A/75/148': 'Balakrishnan Rajagopal',
+            'A/69/274': 'Leilani Farha',
+            'A/63/275': 'Raquel Rolnik',
+        },
         # Catalogue transcribed from OHCHR's "Annual thematic reports" page
         # https://www.ohchr.org/en/special-procedures/sr-housing/annual-thematic-reports
         # Thematic reports only — country/mission addenda, communications
@@ -2187,7 +2243,8 @@ MANDATES: dict[str, dict] = {
         # (year, signature, presented, subject)
         'reports': [
             (2026, 'A/HRC/61/46', 'HRC 61st session', 'Equal participation of persons with disabilities in political life'),
-            (2026, 'A/HRC/61/26', 'HRC 61st session', 'Equal participation of persons with disabilities in political life'),
+            # A/HRC/61/26 is NOT this mandate's report (it is the High Commissioner's
+            # OPT accountability report); the 61st-session report is A/HRC/61/46.
             (2025, 'A/80/170',     'GA 80th session',  'Care and support for children with disabilities within the family environment and its gendered dimensions'),
             (2025, 'A/HRC/58/56',  'HRC 58th session', 'Thirty years of implementation of the Beijing Declaration and Platform for Action: its potential for women and girls with disabilities'),
             (2024, 'A/79/179',     'GA 79th session',  'Including people with disabilities in the review of the 2030 Agenda for Sustainable Development'),
@@ -2356,6 +2413,9 @@ MANDATES: dict[str, dict] = {
             (2022, 'Nils Melzer'),
             (9999, 'Alice Jill Edwards'),
         ],
+        'holder_overrides': {
+            'A/77/502': 'Alice Jill Edwards',
+        },
         # Catalogue transcribed from OHCHR's "Annual thematic reports"
         # page: ohchr.org/en/special-procedures/sr-torture/
         #       annual-thematic-reports-special-rapporteur
@@ -2444,8 +2504,12 @@ MANDATES: dict[str, dict] = {
             (2007, 'Rodolfo Stavenhagen'),
             (2013, 'James Anaya'),
             (2019, 'Victoria Tauli-Corpuz'),
-            (9999, 'José Francisco Calí Tzay'),
+            (2024, 'José Francisco Calí Tzay'),
+            (9999, 'Albert Kwokwo Barume'),  # took office 2025; A/HRC/60/29 and A/80/181 are his
         ],
+        'holder_overrides': {
+            'A/HRC/45/34': 'Victoria Tauli-Corpuz',
+        },
         # Catalogue transcribed from OHCHR's "Annual thematic reports"
         # page: ohchr.org/en/special-procedures/sr-indigenous-peoples/
         #       annual-thematic-reports
@@ -2777,7 +2841,11 @@ def ingest(mandate_slug: str, *, force: bool = False, limit: int | None = None) 
             continue
 
         print(f'\n[{sig}] ({year}) {subject[:60]}…')
-        holder = holder_for_year(cfg['mandate_holders'], year)
+        # The year rule cannot see a mid-year handover; a report the
+        # outgoing holder wrote in July but the GA received in October is
+        # pinned by symbol in 'holder_overrides' (read off the title page).
+        holder = (cfg.get('holder_overrides') or {}).get(sig) \
+            or holder_for_year(cfg['mandate_holders'], year)
         hrc, ga = parse_sessions(sig)
 
         # 1. Discover PDF URL
@@ -2856,8 +2924,12 @@ def ingest(mandate_slug: str, *, force: bool = False, limit: int | None = None) 
             rec['gaSession'] = ga
         new_records.append(rec)
 
-    # Append metadata
+    # Append metadata (under --force, replace the old record instead of
+    # leaving two records with the same signature behind).
     if new_records:
+        if force:
+            replaced = {(r.get('Committee'), r.get('Signature')) for r in new_records}
+            sp_meta[:] = [r for r in sp_meta if (r.get('Committee'), r.get('Signature')) not in replaced]
         sp_meta.extend(new_records)
         SP_META.write_text(json.dumps(sp_meta, ensure_ascii=False, indent=2))
 

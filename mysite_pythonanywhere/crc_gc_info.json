@@ -41,7 +41,7 @@
       "CRC/C/GC/18"
     ],
     "abstract": "The Committees affirm that harmful practices, primarily affecting women and girls, violate binding obligations under both the Convention on the Elimination of All Forms of Discrimination against Women and the Convention on the Rights of the Child, and call on States parties to prevent, respond to and ultimately eliminate such practices through coordinated legal, institutional and educational measures.",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CEDAW%2FC%2FGC%2F31%2FREV.1&Lang=en",
+    "statusSource": "https://docs.un.org/en/CEDAW/C/GC/31/Rev.1",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -471,7 +471,7 @@
     "File PATH": "/home/lszoszk/mysite/json_data/Annotated_CRC-GC6-UASC.json",
     "Name": "General Comment No. 6: Treatment of Unaccompanied and Separated Children Outside Their Country of Origin",
     "Simplified Name": "GC6: Treatment of unaccompanied and separated children outside their country of origin",
-    "Signature": "CRC/GC/2003/6",
+    "Signature": "CRC/GC/2005/6",
     "Adoption Date": "1 September 2005",
     "Adoption Year": 2005,
     "Committee": "CRC",
@@ -526,7 +526,7 @@
     "supersededBy": null,
     "jointWith": [],
     "abstract": "The Committee emphasizes that very young children are rights-holders entitled to the full range of Convention guarantees, and identifies States parties' obligations to provide adequate care, education, health and protection during early childhood while supporting parents and caregivers in their primary role.",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CRC%2FC%2FGC%2F7%2FRev.1&Lang=en",
+    "statusSource": "https://docs.un.org/en/CRC/C/GC/7/Rev.1",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -588,7 +588,7 @@
     "supersededBy": null,
     "jointWith": [],
     "abstract": "The Committee draws attention to the multiple barriers faced by children with disabilities and clarifies that States parties' obligations under the Convention require non-discrimination, accessibility, inclusive education, family support and participation, with disability addressed across all areas of children's rights, not solely through health or welfare policy.",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CRC%2FC%2FGC%2F9%2FCorr.1&Lang=en",
+    "statusSource": "https://docs.un.org/en/CRC/C/GC/9/Corr.1",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -623,7 +623,7 @@
     "supersededBy": "CRC/C/GC/24",
     "jointWith": [],
     "abstract": "The Committee provides authoritative guidance on the rights of children alleged as, accused of, or recognized as having infringed the penal law, calling for child justice systems that emphasize prevention, diversion, restorative measures and the use of deprivation of liberty only as a last resort and for the shortest appropriate period. (This general comment has since been replaced by general comment No. 24.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CRC%2FC%2FGC%2F24&Lang=en",
+    "statusSource": "https://docs.un.org/en/CRC/C/GC/24",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -2292,7 +2292,7 @@
     "Adoption Year": 1992,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/47/38%28SUPP%29",
-    "paragraphCount": 2,
+    "paragraphCount": 5,
     "wordCount": 113,
     "labelCount": 0,
     "ohchrSymbol": "INT/CEDAW/GEC/4730",
@@ -2389,7 +2389,7 @@
     "Adoption Year": 1992,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/46/38",
-    "paragraphCount": 1,
+    "paragraphCount": 4,
     "wordCount": 270,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/5833",
@@ -2421,7 +2421,7 @@
     "Adoption Year": 1992,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/46/38",
-    "paragraphCount": 1,
+    "paragraphCount": 4,
     "wordCount": 212,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/3730",
@@ -2451,7 +2451,7 @@
     "Adoption Year": 1990,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/45/38",
-    "paragraphCount": 1,
+    "paragraphCount": 5,
     "wordCount": 367,
     "labelCount": 4,
     "ohchrSymbol": "INT/CEDAW/GEC/4726",
@@ -2481,7 +2481,7 @@
     "Adoption Year": 1990,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/45/38",
-    "paragraphCount": 1,
+    "paragraphCount": 5,
     "wordCount": 439,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/3729",
@@ -2511,7 +2511,7 @@
     "Adoption Year": 1990,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/44/38",
-    "paragraphCount": 1,
+    "paragraphCount": 4,
     "wordCount": 286,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/5832",
@@ -2541,7 +2541,7 @@
     "Adoption Year": 1990,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/44/38",
-    "paragraphCount": 1,
+    "paragraphCount": 5,
     "wordCount": 155,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/5831",
@@ -2604,7 +2604,7 @@
     "Adoption Year": 1990,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/44/38",
-    "paragraphCount": 1,
+    "paragraphCount": 5,
     "wordCount": 348,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/3728",
@@ -2696,7 +2696,7 @@
     "Adoption Year": 1988,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/43/38%28SUPP%29",
-    "paragraphCount": 1,
+    "paragraphCount": 5,
     "wordCount": 239,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/5829",
@@ -2726,7 +2726,7 @@
     "Adoption Year": 1988,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/43/38%28SUPP%29",
-    "paragraphCount": 1,
+    "paragraphCount": 5,
     "wordCount": 175,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/5828",
@@ -2788,7 +2788,7 @@
     "Adoption Year": 1987,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/42/38",
-    "paragraphCount": 1,
+    "paragraphCount": 2,
     "wordCount": 79,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/5826",
@@ -2848,7 +2848,7 @@
     "Adoption Year": 1987,
     "Committee": "CEDAW",
     "Link": "https://docs.un.org/en/A/42/38",
-    "paragraphCount": 1,
+    "paragraphCount": 4,
     "wordCount": 189,
     "labelCount": 1,
     "ohchrSymbol": "INT/CEDAW/GEC/3726",
@@ -3703,7 +3703,7 @@
     "supersededBy": "CCPR/C/GC/36",
     "jointWith": [],
     "abstract": "The Committee, considering the right to life enunciated in article 6 as the supreme right from which no derogation is permitted even in time of public emergency, draws attention to the threat posed by nuclear weapons to human life and considers that their production, deployment and use should be prohibited and recognized as a crime against humanity. (Replaced by general comment No. 36.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CCPR%2FC%2FGC%2F36&Lang=en",
+    "statusSource": "https://docs.un.org/en/CCPR/C/GC/36",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -3738,7 +3738,7 @@
     "supersededBy": "CCPR/C/GC/32",
     "jointWith": [],
     "abstract": "The Committee, considering article 14 to be of a complex nature, draws attention to the need for States parties to provide more detailed information in their reports on the implementation of each of its provisions on the proper administration of justice, including the guarantees of equality before courts, fair and public hearing, and rights of the defence. (Replaced by general comment No. 32.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CCPR%2FC%2FGC%2F32&Lang=en",
+    "statusSource": "https://docs.un.org/en/CCPR/C/GC/32",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -3839,7 +3839,7 @@
     "supersededBy": "CCPR/C/GC/34",
     "jointWith": [],
     "abstract": "The Committee considers that the right to hold opinions without interference under article 19, paragraph 1, is a right to which the Covenant permits no exception or restriction, and requests States parties to provide information on the implementation of this right and on the conditions under which any restrictions on freedom of expression are imposed. (Replaced by general comment No. 34.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CCPR%2FC%2FGC%2F34&Lang=en",
+    "statusSource": "https://docs.un.org/en/CCPR/C/GC/34",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -3875,7 +3875,7 @@
     "supersededBy": "HRI/GEN/1/Rev.9 (Vol. I), p. 202",
     "jointWith": [],
     "abstract": "The Committee considers that article 10 (1) requires that all persons deprived of their liberty be treated with humanity and with respect for the inherent dignity of the human person, and requests States parties to provide specific information on the legal measures and concrete practices designed to give effect to this right. (Replaced by general comment No. 21.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=INT%2FCCPR%2FGEC%2F4731&Lang=en",
+    "statusSource": "https://docs.un.org/en/HRI/GEN/1/Rev.9(Vol.I)",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -3912,7 +3912,7 @@
     "supersededBy": "CCPR/C/GC/35",
     "jointWith": [],
     "abstract": "The Committee considers that article 9 — the right to liberty and security of person — applies to all deprivations of liberty, including in non-criminal contexts such as mental illness, vagrancy, drug addiction, educational purposes and immigration control, and clarifies the procedural guarantees applicable to each. (Replaced by general comment No. 35.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CCPR%2FC%2FGC%2F35&Lang=en",
+    "statusSource": "https://docs.un.org/en/CCPR/C/GC/35",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -3949,7 +3949,7 @@
     "supersededBy": "HRI/GEN/1/Rev.9 (Vol. I), p. 200",
     "jointWith": [],
     "abstract": "The Committee considers that the prohibition of torture and cruel, inhuman or degrading treatment or punishment under article 7 is non-derogable even in situations of public emergency, and clarifies that its implementation requires more than legal prohibition — it demands education, training, and effective remedies including the right to lodge complaints. (Replaced by general comment No. 20.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=INT%2FCCPR%2FGEC%2F6621&Lang=en",
+    "statusSource": "https://docs.un.org/en/HRI/GEN/1/Rev.9(Vol.I)",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -3985,7 +3985,7 @@
     "supersededBy": "CCPR/C/GC/36",
     "jointWith": [],
     "abstract": "The Committee considers that the right to life under article 6 is the supreme right from which no derogation is permitted even in time of public emergency, and that it should not be interpreted narrowly — it requires States parties to take positive measures to prevent loss of life, including by reducing infant mortality, increasing life expectancy and addressing the causes of unnatural death. (Replaced by general comment No. 36.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CCPR%2FC%2FGC%2F36&Lang=en",
+    "statusSource": "https://docs.un.org/en/CCPR/C/GC/36",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -4021,7 +4021,7 @@
     "supersededBy": "CCPR/C/21/Rev.1/Add. 11",
     "jointWith": [],
     "abstract": "The Committee considers that article 4 of the Covenant has posed a number of problems for the Committee in considering reports, and clarifies that any derogation in time of public emergency must be officially proclaimed, strictly required by the exigencies of the situation, non-discriminatory and notified to other States parties through the Secretary-General. (Replaced by general comment No. 29.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CCPR%2FC%2F21%2FRev.1%2FAdd.11&Lang=en",
+    "statusSource": "https://docs.un.org/en/CCPR/C/21/Rev.1/Add.11",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -4057,7 +4057,7 @@
     "supersededBy": "CCPR/C/21/Rev.1/Add. 10",
     "jointWith": [],
     "abstract": "The Committee considers that article 3 — the equal right of men and women to the enjoyment of all civil and political rights — has been insufficiently dealt with in many States reports, and clarifies that legal equality alone is not sufficient: States parties must also report on the practical measures taken to give effect to substantive equality. (Replaced by general comment No. 28.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CCPR%2FC%2F21%2FRev.1%2FAdd.10&Lang=en",
+    "statusSource": "https://docs.un.org/en/HRI/GEN/1/Rev.9(Vol.I)",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -4093,7 +4093,7 @@
     "supersededBy": "CCPR/C/21/Rev.1/Add. 13",
     "jointWith": [],
     "abstract": "The Committee considers that article 2 generally leaves it to States parties to choose their method of implementation, but recognizes that the obligation under the Covenant is not confined to the respect of human rights — States parties have also undertaken to ensure their enjoyment, including through legislative measures and effective remedies. (Replaced by general comment No. 31.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CCPR%2FC%2F21%2FRev.1%2FAdd.13&Lang=en",
+    "statusSource": "https://docs.un.org/en/CCPR/C/21/Rev.1/Add.13",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -5022,7 +5022,7 @@
     "Committee": "CERD",
     "Link": "https://docs.un.org/en/A/49/18",
     "Simplified Name": "GR18: the establishment of an international tribunal to prosecute crimes against humanity",
-    "paragraphCount": 3,
+    "paragraphCount": 4,
     "wordCount": 131,
     "labelCount": 1,
     "ohchrSymbol": "INT/CERD/GEC/7490",
@@ -5402,7 +5402,7 @@
     "Committee": "CERD",
     "Link": "https://docs.un.org/en/A/37/18%28SUPP%29",
     "Simplified Name": "GR6: overdue reports",
-    "paragraphCount": 1,
+    "paragraphCount": 3,
     "wordCount": 198,
     "labelCount": 0,
     "ohchrSymbol": "INT/CERD/GEC/7478",
@@ -5654,7 +5654,7 @@
     "supersededBy": "CAT/C/GC/4",
     "jointWith": [],
     "abstract": "The Committee considers that article 3 of the Convention applies where there are substantial grounds for believing that a person would be in danger of being subjected to torture as defined in article 1, and elaborates the test, the burden and the procedural standards for assessing the risk in the context of individual communications under article 22. (Replaced by general comment No. 4.)",
-    "statusSource": "https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/Download.aspx?symbolno=CAT%2FC%2FGC%2F4&Lang=en",
+    "statusSource": "https://docs.un.org/en/CAT/C/GC/4",
     "statusVerifiedAt": "2026-07-13"
   },
   {
@@ -6013,5 +6013,40 @@
     "abstract": "The Committee, marking the 25th anniversary of Security Council resolution 1325 (2000), updates general recommendation No. 30 to reflect the changing nature of conflict, the weaponization of technology and shifts in the global political economy, and reaffirms States parties' obligations to ensure women's full and meaningful participation in the Women, Peace and Security agenda.",
     "supplements": "CEDAW/C/GC/30",
     "relationshipVerifiedAt": "2026-07-13"
+  },
+  {
+    "File PATH": "/home/lszoszk/mysite/json_data/Annotated_CAT_OP_GC1_art4.json",
+    "Name": "General comment No. 1 (2024) on article 4 of the Optional Protocol (places of deprivation of liberty)",
+    "Simplified Name": "SPT GC1: Article 4 OPCAT — places of deprivation of liberty",
+    "Signature": "CAT/OP/GC/1",
+    "Adoption Date": "7 June 2024",
+    "Adoption Year": 2024,
+    "Committee": "CAT-OP",
+    "Link": "https://docs.un.org/en/CAT/OP/GC/1",
+    "paragraphCount": 59,
+    "wordCount": 7074,
+    "labelCount": 0,
+    "ohchrSymbol": "CAT/OP/GC/1",
+    "firstAddedAt": "2026-04-30",
+    "lastVerifiedAt": "2026-04-30",
+    "articles": [
+      "Art. 4"
+    ],
+    "languagesAvailable": [
+      "en",
+      "fr",
+      "es",
+      "ar",
+      "ru",
+      "zh"
+    ],
+    "status": "final",
+    "supersedes": null,
+    "supersededBy": null,
+    "jointWith": [],
+    "alternativeSignatures": null,
+    "abstract": "The Subcommittee on Prevention of Torture (SPT) clarifies the comprehensive scope of \"places of deprivation of liberty\" under article 4 of the Optional Protocol to the Convention against Torture (OPCAT). It addresses the object and purpose of the Optional Protocol, identifies illustrative categories of facilities subject to preventive visits, and reaffirms that any restrictive interpretation would defeat the preventive aim of the OPCAT regime.",
+    "statusSource": null,
+    "statusVerifiedAt": null
   }
 ]
