@@ -207,7 +207,7 @@ test('F10. fnToggleHidesPill · OFF state suppresses match-in-citation hits', as
   await expect(page.locator('.match-in-citation')).toHaveCount(0);
 });
 
-test('F7. realDataCatOpGC1 · production footnotes render in the SPT general comment', async ({ page }) => {
+test('F7b. realDataCatOpGC1 · production footnotes render in the SPT general comment', async ({ page }) => {
   // CAT/OP/GC/1 was ingested in v19.8 with real footnotes from the OHCHR DOCX.
   // ¶1 carries [[fn:2]] [[fn:3]] [[fn:4]] markers anchored in the prose; this
   // test guards against an extraction regression that would silently drop them.

@@ -7,8 +7,10 @@ import { type ConsoleMessage, type Page } from '@playwright/test';
  * "no console errors" assertion stays meaningful.
  */
 export const TOLERATED_PATTERNS: RegExp[] = [
-  /Failed to load resource/i,
-  /net::ERR_/i,
+  // Only the cross-origin VM/CDN failures are benign; a 404 on one of our
+  // own assets (a renamed shard, a moved font) must still fail the boot check.
+  /Failed to load resource.*(150\.254\.115\.204|unhrdb-api|gstatic|jsdelivr)/i,
+  /net::ERR_.*(150\.254\.115\.204|unhrdb-api|gstatic|jsdelivr)/i,
   /\/unhrdb-api\//i,                              // VM API down during tests
   /150\.254\.115\.204/i,
   /Access-Control-Allow-Origin/i,
@@ -18,7 +20,6 @@ export const TOLERATED_PATTERNS: RegExp[] = [
   /fonts\.gstatic\.com/i,
   /flexsearch/i,                                  // FlexSearch internal warnings
   /\[unhrdb-api\] (online|unreachable)/i,         // benign info logs from pingApi
-  /\[unhrdb\]/i,                                  // any internal info logs
   /sentinel observer attached/i,
 ];
 

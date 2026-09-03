@@ -46,6 +46,10 @@ def main():
     sp_meta = load(SP_META)
     report: list[str] = []
     all_docs, all_paras = bc.collect_documents(SP_PARA_DIR, sp_meta, "sp", report)
+    # A labelled file whose basename matches no metadata record would
+    # otherwise vanish silently behind "Nothing to merge".
+    for line in report:
+        print(f"  [collect] {line}")
 
     # 2. Load existing artifacts. v19.60: SP paragraphs live in their
     #    own sp-corpus.json (split out of corpus.json — corpus.json is
@@ -97,10 +101,8 @@ def main():
     # SP paragraphs are written as per-committee shards (docs/sp/shards/),
     # which also stamps shardId on every SP doc record in `documents`.
     write_sp_shards(documents, sp_corpus, DOCS)
-    # documents.json: committed convention is single-line with DEFAULT
-    # (spaced) separators — NOT bc.write_json's compact form.
-    (DOCS / "documents.json").write_text(
-        json.dumps(documents, ensure_ascii=False), encoding="utf-8")
+    # documents.json is committed in bc.write_json's compact form.
+    bc.write_json(DOCS / "documents.json", documents)
     bc.write_json(DOCS / "facets.json", facets)
 
     # 5b. Strip extraction artifacts (glued page-footers + collapsed bullet

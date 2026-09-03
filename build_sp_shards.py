@@ -82,7 +82,10 @@ def write_sp_shards(documents: list, sp_paras: list, docs_dir: Path) -> dict:
     files = {}
     for sid in sorted(shard_paras):
         path = shards_dir / f"{sid}.json"
-        bc.write_json(path, shard_paras[sid])               # compact flat array
+        # Spaced single-line JSON — the form the shards are committed in and
+        # the form clean_sp_reader_artifacts.py rewrites, so an untouched
+        # shard does not flip serialisation (and hash) on every run.
+        path.write_text(json.dumps(shard_paras[sid], ensure_ascii=False), encoding="utf-8")
         files[f"shards/{sid}.json"] = {
             "sha": bc.sha256_file(path),
             "bytes": path.stat().st_size,
@@ -133,10 +136,8 @@ def main() -> int:
         return 0
 
     summary = write_sp_shards(documents, sp_paras, DOCS)
-    # documents.json uses the committed convention: single-line, DEFAULT
-    # (spaced) separators — NOT bc.write_json's compact form.
-    (DOCS / "documents.json").write_text(
-        json.dumps(documents, ensure_ascii=False), encoding="utf-8")
+    # documents.json is committed in bc.write_json's compact form.
+    bc.write_json(DOCS / "documents.json", documents)
     monolith.unlink()
     print(f"\n✅ wrote {summary['shards']} shards / {summary['paragraphs']} paragraphs "
           f"to docs/sp/shards/, stamped shardId on {summary['documents']} SP docs, "

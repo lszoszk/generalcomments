@@ -80,11 +80,16 @@ jobs:
             # non-fast-forward and the whole job fails even though no link
             # is broken. link_status.json + the two metadata files are
             # touched ONLY by this workflow, so the rebase is always clean.
+            pushed=0
             for attempt in 1 2 3; do
-              git pull --rebase origin main && git push && break
+              git rebase --abort 2>/dev/null || true
+              if git pull --rebase origin main && git push; then pushed=1; break; fi
               echo "push attempt $attempt failed — retrying after rebase"
               sleep 5
             done
+            # A swallowed failure here would silently drop the week's
+            # lastVerifiedAt stamps; make the job red instead.
+            [ "$pushed" = 1 ] || { echo "::error::could not push the validation commit"; exit 1; }
           fi
 
       - name: Open issue if broken links found

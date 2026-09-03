@@ -112,16 +112,20 @@ test('R6. railFilterText · typing narrows rail rows', async ({ page }) => {
   expect(after).toBeGreaterThanOrEqual(1);          // CEDAW GR38 at least
 });
 
-test('R7. railScopeTabs · clicking GC narrows rail to GC docs only', async ({ page }) => {
+test('R7. railScopeTabs · switching scope narrows the rail to that collection', async ({ page }) => {
   await bootApp(page, '/index.html#documents');
-  await page.waitForTimeout(600);
-  await page.locator('.docs-scope-opt[data-docs-scope="gc"]').click();
-  await page.waitForTimeout(300);
-  // All visible rows must be GC type (CSS class .gc on row)
-  const rows = page.locator('.docs-rail-row');
-  const total = await rows.count();
-  const gcRows = await page.locator('.docs-rail-row.gc').count();
-  expect(gcRows).toBe(total);
+  // GC is the default scope, so start by measuring it once rows exist.
+  await expect.poll(async () => page.locator('.docs-rail-row').count(), { timeout: 15_000 }).toBeGreaterThan(0);
+  const gcTotal = await page.locator('.docs-rail-row').count();
+  expect(await page.locator('.docs-rail-row.gc').count()).toBe(gcTotal);
+
+  // Switching to jurisprudence must replace the rail with JUR rows only.
+  await page.locator('.docs-scope-opt[data-docs-scope="jur"]').click();
+  await expect.poll(async () => page.locator('.docs-rail-row.jur').count(), { timeout: 20_000 }).toBeGreaterThan(0);
+  const jurTotal = await page.locator('.docs-rail-row').count();
+  expect(await page.locator('.docs-rail-row.jur').count()).toBe(jurTotal);
+  expect(await page.locator('.docs-rail-row.gc').count()).toBe(0);
+  expect(jurTotal).not.toBe(gcTotal);
 });
 
 test('R9. spSectionHeadings · SP docs now render section rollups', async ({ page }) => {
@@ -186,7 +190,7 @@ test('R13. auditedHrcSupersession · old HRC guidance links its official replace
   const warning = page.locator('.docs-reader-status-warning');
   await expect(warning).toContainText('Superseded');
   await expect(warning).toContainText('CCPR/C/GC/34');
-  await expect(warning.locator('a')).toHaveAttribute('href', /symbolno=CCPR%2FC%2FGC%2F34/);
+  await expect(warning.locator('a')).toHaveAttribute('href', /docs\.un\.org\/en\/CCPR\/C\/GC\/34/);
 });
 
 test('R14. updatedNotSuperseded · CEDAW GR19 remains relevant alongside GR35', async ({ page }) => {

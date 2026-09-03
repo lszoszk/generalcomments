@@ -158,7 +158,9 @@ def check_un_docs_symbol(url: str, timeout: float = 15.0) -> tuple[int, str]:
                                      method='GET')
         try:
             with opener.open(req, timeout=timeout) as resp:
-                return (resp.status, 'no redirect from the access API')
+                # The access API always redirects; a bare 200 is a
+                # maintenance or error page, not a verified document.
+                return (0, f'no redirect from the access API (HTTP {resp.status})')
         except urllib.error.HTTPError as e:
             if e.code not in (301, 302, 303, 307, 308):
                 return (e.code, e.reason or 'HTTPError')
@@ -289,7 +291,11 @@ def run(args) -> int:
     # too is reported broken. Without this, the weekly CI run flags
     # ~30 working SP-report links every time it runs from GitHub
     # Actions (local runs from a residential IP see 360/360).
-    recheck = [u for u, (s, _) in results.items() if not (200 <= s < 300)]
+    # Only transient outcomes deserve the slow serial pass: network errors
+    # (0), throttling and server errors. A 404 from the access API, an
+    # invalid URL (-1) or a dead docstore token (-2) will not change.
+    recheck = [u for u, (s, _) in results.items()
+               if s == 0 or s in (403, 408, 425, 429) or 500 <= s < 600]
     if recheck:
         slow_timeout = max(args.timeout * 2, 40.0)
         print(f'\n  Re-checking {len(recheck)} non-2xx URL(s) serially '

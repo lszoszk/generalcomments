@@ -66,7 +66,6 @@ export default defineConfig({
       // Mobile project skips desktop-only specs.
       testIgnore: [
         '**/contracts/**',
-        '**/dossier-resize.spec.ts',
         '**/docs-reader.spec.ts',
       ],
     },

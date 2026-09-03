@@ -112,13 +112,13 @@ test('A2. fallbackOnError · 500 from /api/stats → no infinite loop', async ({
   await page.route('**/unhrdb-api/api/stats', (route) =>
     route.fulfill({ status: 500, body: 'oops' })
   );
-  await page.route('**/unhrdb-api/api/search', (route) =>
+  await page.route('**/unhrdb-api/api/search**', (route) =>
     route.fulfill({ status: 500, body: 'oops' })
   );
   await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
   // Local fallback kicks in: rows render OR an "unavailable" message
   // shows. Either way: no infinite recursion (page didn't hang).
-  await page.waitForTimeout(2000);
+  await expect(page.locator('.result').first().or(page.locator('.result-empty'))).toBeVisible({ timeout: 30_000 });
   // Badge says "API · offline"
   await expect(page.locator('#api-badge')).toContainText(/offline/i);
 });
@@ -620,7 +620,7 @@ test('A8. alsoTryRendered · 0-result + alsoTry → synonym buttons', async ({ p
   expect(suggestions).toContain('profiling');
 });
 
-test('A9. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
+test('A9b. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, domestic guards, soft law, Geneva', async ({ page }) => {
   /* Distilled from the 2026-07-27 verification-agent audit
      (artref-audit/VERDICT-SUMMARY.md). Each hit is one rule:
        op-lead   — "under the Optional Protocol (article 2)" in a CCPR case
@@ -909,6 +909,9 @@ test('A9. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, d
       .toBeGreaterThan(0);
     for (const c of chunk) {
       const li = page.locator('#result-list li', { hasText: c.text.slice(0, 40) });
+      // A negative case must be judged on its own row — an unmatched row
+      // would otherwise yield [] and pass every "expect: []" case.
+      await expect(li, `case ${c.id} row`).toHaveCount(1);
       const got = await li.locator('.treaty-article-ref').evaluateAll((els) =>
         els.map((b) => [b.getAttribute('data-article'), b.getAttribute('data-treaty')])
       );
