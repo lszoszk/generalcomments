@@ -3,7 +3,7 @@
   "upload_type": "software",
   "access_right": "open",
   "license": "PolyForm-Noncommercial-1.0.0",
-  "description": "Open-source paragraph-level research environment for UN human rights law. UNHRDB combines Treaty Body General Comments and Recommendations, individual-communication jurisprudence, and thematic Special Procedures reports in a source-first interface with faceted search, citation export, document workspaces, and extractive retrieval. The software and curated datasets have separate licences; see LICENSE, LICENSE-DATA, and NOTICE in the repository.",
+  "description": "Open-source paragraph-level research environment for UN human rights law. UNHRDB combines Treaty Body General Comments and Recommendations, individual-communication jurisprudence, and thematic Special Procedures reports in a source-first interface with faceted search, citation export, document workspaces, and extractive retrieval. The software and curated datasets have separate licences; see LICENSE, LICENSE-DATA, and NOTICE in the repository. The v2.1.0 release (3 September 2026) covers 6,112 documents and 322,683 paragraphs: 187 General Comments and Recommendations, 4,333 individual-communication decisions from 8 treaty bodies, and 1,592 thematic Special Procedures reports from all 46 mandates.",
   "creators": [
     {
       "name": "Szoszkiewicz, Łukasz",
