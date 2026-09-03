@@ -1,0 +1,552 @@
+[
+  {
+    "ID": "1.",
+    "Labels": [],
+    "Text": "Mercenaries, mercenary-related actors and private military and security companies rely on a wide range of interconnected technologies in their services, operations and activities. Technology platforms, software and applications enable and facilitate the recruitment, planning, financing, coordination and execution of their activities and operations."
+  },
+  {
+    "ID": "2.",
+    "Labels": [],
+    "Text": "The aforementioned actors are key providers and users of technology who offer advanced digital, cyber, geospatial, satellite and data services that can rival the capabilities of States in the military, security and intelligence spheres.1"
+  },
+  {
+    "ID": "3.",
+    "Labels": [],
+    "Text": "For this report, the Working Group considers the integrated set of technologies employed by the above actors to be composed of: artificial intelligence and machine learning systems, including predictive analytics, autonomous and semi-autonomous platforms; synthetic media and information operations capabilities; surveillance systems including, commercial satellite, geospatial, and signals intelligence; uncrewed aerial systems, including combat and precision intelligence surveillance reconnaissance and first-person view drones, quadcopters and counter-uncrewed aerial systems; cloud and content delivery infrastructure; data brokerage and advertising-technology ecosystems; and tech-financing instruments including “in app” crowdfunding and cryptoassets utilization and facilitation.2"
+  },
+  {
+    "ID": "4.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "“Technology-enabled mercenarism” refers to the provision of “for-profit” services by individuals, groups of individuals and/or private actors, including mercenaries, mercenaryrelated actors and private military and security companies, who develop, sell and/or deploy offensive and/or defensive cyber, digital, geospatial or autonomous tools, on behalf of State and non-State clients. This enables influence or information operations, espionage, surveillance, disruption, attack, sabotage and/or warfare, across or through online accounts or platforms, networks, devices and other technology infrastructures. This technologization of private force can occur in the context of armed hostilities, concerted acts of violence and the undermining of constitutional order, territorial integrity and the right of peoples to self-determination."
+  },
+  {
+    "ID": "5.",
+    "Labels": [],
+    "Text": "The present report is based on extensive desktop research, numerous multi-stakeholder expert consultations and written submissions received in response to a call for inputs.3"
+  },
+  {
+    "ID": "6.",
+    "Labels": [
+      "Children",
+      "Persons affected by armed conflict"
+    ],
+    "Text": "The Working Group expresses its appreciation to the contributions received from Member States, United Nations entities, civil society organizations, regional and international research institutions, academics and experts. 1 See https://www.rusi.org/explore-our-research/publications/commentary/drones-data-privatecontractors-and-cyber-mercenaries; expert consultation, I. Martínez, May 2026; and submission of Microsoft. 2 See submissions of Burundi, Citizen Lab, the Instituto Internacional de Responsabilidad Social y Derechos Humanos (IIRESODH), the Geneva Centre for Security Sector Governance (DCAF), the United Nations Regional Centre for Peace, Disarmament and Development in Latin America and the Caribbean, Land is Life B.Ş. Şeker and the Special Representative of the Secretary-General for Children and Armed Conflict. Microsoft notes in observed cases private actors who develop, sell, integrate or operate intrusive digital capabilities for hire, including cyber intrusion, surveillance and influence tools increasingly integrate artificial intelligence, machine learning and automated analytics into surveillance, intrusion and influence operations: submission of Microsoft. 3 Expert consultations held between December 2025 to May 2026. See https://www.ohchr.org/en/callsfor-input/2026/call-inputs-use-technology-operations-and-activities-mercenaries-mercenary. GE.26-10653 II. Evolving context: trends in the use of technology by mercenaries, mercenary-related actors and private military and security companies"
+  },
+  {
+    "ID": "7.",
+    "Labels": [],
+    "Text": "The current geopolitical context has resulted in increased securitization and militarization by, and between, States and their institutions.4 Recent developments in several jurisdictions demonstrate the expanding reliance of State security institutions on mercenaries, mercenary-related actors and private military and security companies, which place technology at the core of their provision of for-profit military and security services."
+  },
+  {
+    "ID": "8.",
+    "Labels": [],
+    "Text": "States increasingly engaged private military and security companies in digital surveillance and mass collection of data from civilians at borders, security checkpoints, roadblocks and food distribution sites, among others.5 Digital surveillance is also routinely employed, particularly against targeted populations, including students, activists, journalists, human rights defenders, ethnic and religious minorities and Indigenous Peoples.6"
+  },
+  {
+    "ID": "9.",
+    "Labels": [],
+    "Text": "Digital surveillance involves the use of closed-circuit television cameras, drones enabled with facial recognition technology, biometric databases, identification systems and artificial intelligence tools to monitor and track people.7 In many instances, online services are followed by operations entailing the deployment of rapid response units equipped with military grade weapons (such as M4 rifles) to apprehend or in some instances use lethal force against individuals identified through the use of online services. Online services and features are embedded into kinetic operations (e.g. aerial strikes).8"
+  },
+  {
+    "ID": "10.",
+    "Labels": [],
+    "Text": "States are increasingly using mercenaries, mercenary-related actors and private military and security companies to carry out electronic warfare activities9 and aerial, satellite and geospatial operations. These activities often rely on autonomous software and predictive analytics, including in the operation of uncrewed aerial systems and aircraft used to conduct kinetic attacks.10"
+  },
+  {
+    "ID": "11.",
+    "Labels": [],
+    "Text": "Mercenaries, mercenary-related actors and private military and security companies are increasingly engaged in training and advising national militaries and non-State armed actors on the use of military technology systems, including drones, missiles, anti-aircraft missiles and communication, and tools, including sensors, signals and optics.11"
+  },
+  {
+    "ID": "12.",
+    "Labels": [],
+    "Text": "As conflicts proliferate, States are increasingly relying on private military and security companies and technology companies to collect, store, process, analyse and manage battlefield data. These activities are supported by cloud data infrastructure and advance technologies.12 The deregulation and transfer of key technology services to individuals, private actors and private military and security companies represents a significant shift away from direct State control, blurring the boundaries between public and private actors. In certain instances, recent strategic and regulatory decisions have signalled an increasing reliance of national security, law enforcement and intelligence institutions on commercial providers of artificial intelligence, surveillance technologies and offensive cybercapabilities, often with limited or no oversight.13 4 See A/80/329. 5 See ISR 10/2025. 6 See A/HRC/62/45. 7 See ISR 10/2025; and https://www.amnesty.nl/content/uploads/2023/05/automated_apartheid.pdf?x19869; and submission of Amnesty International. 8 Confidential submission. 9 See RUS 5/2021. 10 See MLI 4/2025, ISR 26/2025 and OTH 6/2026; also from confidential submission and submission of J. Pierre. 11 See ARE 1/2026, OTH 6/2026 and A/HRC/63/31/Add.1; and submission of J. Pierre. 12 See A/HRC/59/23; Who Profits Research Center, “Digitizing occupation: the role of big tech in Israeli military infrastructure“, June 2026; and Carnegie Endowment for International Peace, “Private tech companies, the State and the new character of war”, 1 December 2025. 13 Submission of Citizen Lab. GE.26-10653"
+  },
+  {
+    "ID": "13.",
+    "Labels": [],
+    "Text": "Private military and security companies have been among the first developers and users of advanced military and security technologies, particularly when States face urgent operational needs that cannot be met internally within the required time frame or within available resources. The greater the technological complexity of the capability, the more likely it is to be acquired through commercial contracting, resulting in increased dependence by the contracting State on the provider.14 A similar trend is emerging in relation to artificial intelligence, autonomous systems, commercial satellite and geospatial intelligence, and cloud-based data fusion capabilities."
+  },
+  {
+    "ID": "14.",
+    "Labels": [],
+    "Text": "The combined technological and regulatory landscape has significantly expanded the range of services, activities and operations provided by private military and security companies, who are now no longer only providers of armed personnel. Private military and security companies increasingly provide military and security services that combine technology systems with information and data analytics derived from sensors, closed-circuit television, thermal imaging, biometrics, facial recognition, encrypted communications and open source intelligence, with autonomous software, packages and tools that deliver composite service packages.15 Some packages supply software-mediated services, including platforms marketed for autonomous tipping and cueing, integrated risk-intelligence dashboards and machine-learning-based forecasting of political and security conditions and/or targets and operations.16 III. Regulatory and legal framework"
+  },
+  {
+    "ID": "15.",
+    "Labels": [],
+    "Text": "The definitions of “mercenary”, “mercenary-related actor” and “private military and security company” are set out in the Working Group’s previous reports.17 In this report, the Working Group considers how existing definitions apply to a range of actors in the military and security sector who provide for-hire, for-profit technology or technology-related services. This includes actors whose activities are connected to, support, enable or perform activities that may contribute or constitute acts of mercenarism.18"
+  },
+  {
+    "ID": "16.",
+    "Labels": [],
+    "Text": "The activities of mercenaries, mercenary-related actors and private military and security companies are regulated by a range of international legal frameworks. Currently, no single binding instrument addresses the full range of technology-enabled services and activities carried out by mercenaries, mercenary-related actors and private military and security companies examined in this report."
+  },
+  {
+    "ID": "17.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "In the field of emerging weapons technology, binding instruments apply indirectly. The Arms Trade Treaty regulates the international trade in conventional weapons and is relevant insofar as emerging technologies, such as drones or cyber tools, are integrated into weapons systems. The Protocol Additional to the Geneva Conventions of 12 August 1949, and relating to the Protection of Victims of International Armed Conflicts (Protocol I) requires States to review new weapons, means and methods of warfare, which may include artificial intelligence-enabled or autonomous systems (art. 36). The Treaty on Principles Governing the Activities of States in the Exploration and Use of Outer Space, including the Moon and Other Celestial Bodies (Outer Space Treaty) governs the use of outer space and is relevant for satellite-based intelligence and military applications. Ongoing discussions under the Convention on Prohibitions or Restrictions on the Use of Certain Conventional Weapons Which May Be Deemed to Be Excessively Injurious or to Have Indiscriminate Effects (Convention on Certain Conventional Weapons) address lethal autonomous weapons systems, although no binding treaty has yet been adopted. 14 Submission of O. Swed and D. Burland. 15 Submission of B.Ş. Şeker. 16 Submission of IIRESODH. 17 See A/76/151, A/78/535 and A/HRC/54/29. 18 As per International Convention Against the Recruitment, Use, Financing and Training of Mercenaries and Organization of African Unity Convention for the elimination of mercenarism in Africa: partaking in armed hostilities, concerted acts of violence, the overthrowing a government and the undermining of constitutional order, territorial integrity and the right of people to self-determination. GE.26-10653"
+  },
+  {
+    "ID": "18.",
+    "Labels": [],
+    "Text": "International human rights treaties, including the International Covenant on Civil and Political Rights, provide a framework for addressing human rights issues arising from digital surveillance, data protection and artificial intelligence-driven decision-making, where they affect the rights to privacy, life, liberty, security of person, to freedom of assembly, to freedom of association, freedom of expression and to an effective remedy."
+  },
+  {
+    "ID": "19.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "International criminal law forms an important part of the governance regime in holding individuals, such as mercenaries and private military and security personnel, to account for serious violations of international human rights law, grave breaches of international humanitarian law and the commission of “crimes”, namely the crime of genocide, crimes against humanity, war crimes and crimes of aggression."
+  },
+  {
+    "ID": "20.",
+    "Labels": [],
+    "Text": "Soft law instruments also contribute to the governance of emerging technologies, including the Wassenaar Arrangement on Export Controls for Conventional Arms and Dual-Use Goods and Technologies, which promotes transparency and accountability in exports of dual-use technologies, including cybersurveillance tools, through voluntary export controls.19 Its influence is limited, however, with only 42 States being participating members."
+  },
+  {
+    "ID": "21.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "The Tallinn Manual 2.0 provides an authoritative, although non-binding, interpretation of how international law applies to cyberoperations, including in situations of armed conflict. 20 Rule 90 thereof explicitly addresses the status of mercenaries in cybercontexts, mirroring article 47 of Protocol I, and notes that individuals conducting cyberoperations may qualify as mercenaries under certain conditions.21"
+  },
+  {
+    "ID": "22.",
+    "Labels": [],
+    "Text": "The artificial intelligence principles of the Organisation for Economic Co-operation and Development22 and the recommendation on the ethics of artificial intelligence of the United Nations Educational, Scientific and Cultural Organization (UNESCO) 23 provide guidance on responsible artificial intelligence governance that places responsibility and accountability on actors to take measures to ensure that artificial intelligence systems are trustworthy, benefit people, respect human rights and fairness, are transparent and explainable, are robust, secure, and safe throughout the artificial intelligence system life cycle – from planning and design, to data collection and processing, to model building and validation, to deployment, operation and monitoring.24"
+  },
+  {
+    "ID": "23.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "The Guiding Principles on Business and Human Rights are particularly important in extending responsibilities (“the corporate responsibility to respect”) to corporate actors, including private military and security companies and technology companies, to respect the human rights of their users in all artificial intelligence applications (principle 16); avoid causing or contributing to adverse human rights impacts through their use of artificial intelligence technology and prevent and mitigate any adverse effects linked to their operations (principle 13); conduct due diligence on artificial intelligence systems to identify and address actual and potential human rights impacts (principles 17–19); engage in prevention and mitigation strategies (principle 24); conduct ongoing review of artificial intelligence-related activities, including through stakeholder and public consultation (principles 20 and 21); and provide accessible remedies to remediate adverse human rights impacts from artificial intelligence systems (principles 22, 29 and 31).25 19 Submission of Burundi. 20 See https://ilmc.univie.ac.at/fileadmin/user_upload/p_ilmc/Bilder/Bewerbung/Case_2/Michael_N._Schmi tt_-_Tallinn_Manual_2.0_on_the_International_Law_Applicable_to_Cyber_OperationsCambridge_University_Press__2017_.pdf. 21 Additionally, the commentary to rule 90 in the Tallin Manual includes the following example: “consider a private company located in State A that is engaged by State B to conduct cyber operations on its behalf in its armed conflict with State C. So long as the six criteria are fully met, its employees who conduct the cyber operations are mercenaries, and thus unprivileged belligerents. The same would be true with regard to a ‘hacker for hire’ who meets the criteria, even if operating alone and far from the battlefield”. 22 See https://www.oecd.org/en/topics/sub-issues/ai-principles.html. 23 See https://www.unesco.org/en/articles/recommendation-ethics-artificial-intelligence. 24 See https://www.oecd.org/en/topics/sub-issues/ai-principles.html. 25 See https://www.ohchr.org/sites/default/files/Documents/Publications/HR.PUB.12.2_En.pdf. GE.26-10653"
+  },
+  {
+    "ID": "24.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "The voluntary, non-binding, multilateral and multi-stakeholder Pall Mall Process, which seeks to govern the responsible and irresponsible uses of commercial spyware and cyberintrusion capabilities through a voluntary code of conduct, marks an important development in promoting distinct but complementary responsible behaviour of States and industry, and clarifying mutual obligations under international humanitarian law and international human rights law. 26 While such initiatives demonstrate value in aligning government and industry expectations, including supply-chain transparency standards and beneficial ownership disclosure,27 the Process has had limited take up."
+  },
+  {
+    "ID": "25.",
+    "Labels": [],
+    "Text": "The work of the open-ended working group on security of and in the use of information and communications technologies 2021–2025,28 the work of the International Committee of the Red Cross on a guidance document on cyberoperations29 and the work of the International Code of Conduct for Private Security Service Providers’ Association (International Code of Conduct Association) and the ICT for Peace Foundation on the Toolkit on the Responsible Use of Technology in Private Security 30 contribute to the evolving normative and regulatory framework of the actors and activities considered in this report. The work of the open-ended intergovernmental working group on a possible international regulatory framework relating to private military and security companies31 has an important role in contributing to drafting an international legally binding instrument that applies to the full range of technology-enabled services and activities."
+  },
+  {
+    "ID": "26.",
+    "Labels": [],
+    "Text": "Overall, the existing regulatory and legal frameworks have significant accountability gaps. These stem from a combination of binding and non-binding regulatory and jurisdictional fragmentation, the absence of binding international regulation for private military and security companies and the limitations on controls on dual-use export. These gaps insulate the actors concerned from accountability and deny effective remedy to victims."
+  },
+  {
+    "ID": "27.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "Substantial categories of technology fall outside the scope of binding export controls. These include artificial intelligence-enabled surveillance systems, biometric identification technologies, predictive analytics tools and cloud-based offensive capabilities. Further, major exporters of relevant technology are not parties to the principal multilateral arrangements, while the public domain exemption for free and open-source software exempts a substantial category of weaponizable code from licensing, resulting in further limits on regulatory oversight. For instance, international criminal law forms an important part of the governance regime in holding individuals, such as mercenaries and private military and security personnel, to account for serious violations of international human rights law, grave breaches of international humanitarian law and the commission of “crimes”, namely the crime of genocide, crimes against humanity, war crimes and crimes of aggression. However, international humanitarian law, international criminal law and international human rights law present an issue of enforcement by States rather than a problem of applicable law."
+  },
+  {
+    "ID": "28.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "The Montreux Document on pertinent international legal obligations and good practices for States related to operations of private military and security companies during armed conflict and the International Code of Conduct for Private Security Service Providers set out good practices.32 However, they are non-binding and are not designed to address the technology-enabled service models, the diffuse corporate structures and the platform-mediated forms of labour considered in the present report.33 26 See https://www.gov.uk/government/publications/the-pall-mall-process-declaration-tacklingproliferation-and-irresponsible-use-of-commercial-cyber-intrusion-capabilities; and submission of DCAF. 27 Submission of Microsoft. 28 A/80/257. 29 See https://www.icrc.org/en/document/international-humanitarian-law-and-cyber-operations-duringarmed-conflicts. 30 See https://ict4peace.org/activities/launch-of-toolkit-from-boots-on-the-ground-to-bytes-incyberspace/. 31 See https://www.ohchr.org/en/hr-bodies/hrc/pms-cs/igwg-index1. 32 Submission of DCAF. 33 Submission of J. Pierre. GE.26-10653 IV. Technology-enabled activities and operations of mercenaries, mercenary-related actors and private military and security companies"
+  },
+  {
+    "ID": "29.",
+    "Labels": [],
+    "Text": "The following section sets out the various ways in which mercenaries, mercenary-related actors and private military and security companies use technology in their service offerings and operations to carry out their activities. A. Technology-enabled attacks"
+  },
+  {
+    "ID": "30.",
+    "Labels": [],
+    "Text": "Technology-enabled attacks take a number of forms: (a) cyberintrusion, cybersabotage and cyberespionage; (b) malware, ransomware and spyware on interconnected networks and devices; (c) remote drone-piloted, laser and/or thermal beam-guided and modulated munition strikes; and (d) geospatial surveillance, targeting and aerial bombardment.34"
+  },
+  {
+    "ID": "31.",
+    "Labels": [],
+    "Text": "Cyberoperations, including cyberinfluence, cybersabotage and cyberespionage, as scoped previously by the Working Group,35 continue unabated across many jurisdictions. Actors covered under the Working Group’s mandate are leveraging advances in machine learning and generative artificial intelligence to generate automated malware, decode passwords and override security features and settings.36"
+  },
+  {
+    "ID": "32.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "A range of actors, from individuals to technology companies, hacker groups, mercenaries, mercenary-related actors and private military and security companies are increasingly engaged in the digitalization of armed conflict and belligerent activities and operations, which is of particular concern. The use of uncrewed and autonomous platforms, known as “eyes in the sky”, 37 by private contractors and non-State armed groups has expanded considerably and is increasingly resulting in lethal harm to civilians. Reportedly, private contractors have conducted sustained drone strike campaigns, with one company linked to 141 operations and at least 1,243 reported casualties between March 2025 and January 2026.38 In Latin America and the Caribbean, the use of armed drones for lethal purposes by non-State criminal groups, some of whom utilize mercenaries or individual contractors in their operations, has been documented in multiple jurisdictions.39 The same technologies and methodologies have been observed by mercenary-related actors in Africa and other regions.40"
+  },
+  {
+    "ID": "33.",
+    "Labels": [],
+    "Text": "Uncrewed and autonomous platforms now constitute a core component of the technology offerings of mercenaries, mercenary-related actors and private military and security companies and are becoming increasingly accessible to non-State actors.41 Fusing signals intelligence and synthetic aperture radar technologies enable autonomous monitoring in theatres of operation. The diffusion of military-grade and commercially modified platforms across State, private and non-State users, including mercenaries, mercenary-related actors and private military and security companies, and the consequent erosion of the distinction between the use of regulated force and unregulated lethal violence are of particular concern. 34 Submission of Burundi; and expert consultations, February 2026. 35 See A/76/151. 36 Submission of Burundi and confidential submission. 37 Submission of UNRILEC. 38 See A/HRC/61/74; and https://www.hrw.org/news/2026/03/10/haiti-drone-strikes-put-residents-atrisk. 39 A/HRC/63/31/Add.1. 40 Submissions of the United Nations Regional Centre for Peace, Disarmament and Development in Latin America and the Caribbean, K. O. Ndege, and the Association of Reintegration of Crimea. 41 Submission of IIRESODH. GE.26-10653"
+  },
+  {
+    "ID": "34.",
+    "Labels": [],
+    "Text": "Commercial firms market artificial intelligence-enabled drones that can operate without relying on satellite navigation signals. They also provide autonomous control platforms that manage sensor networks and intercept missions with limited human oversight.42 The position of the International Committee of the Red Cross on weapon systems with autonomy in the critical functions of target selection and engagement43 and the concern expressed in submissions received indicate that the compression of human verification, the opacity of training data and operator automation bias may substantially erode meaningful human control over the use of force.44 Such discriminatory algorithms enable the construction of “targeting lists” of individuals with racial or religious bias, or predetermined ideological or political agendas. B. War data analytics services"
+  },
+  {
+    "ID": "35.",
+    "Labels": [],
+    "Text": "Cloud computing services, content delivery networks and platform programming interfaces operate as the underlying infrastructure that enable many of the activities considered in the report feasible at scale.45"
+  },
+  {
+    "ID": "36.",
+    "Labels": [],
+    "Text": "Mercenaries, mercenary-related actors and private military and security companies are increasingly involved in the harvesting, mining and analysis of large data sets and the provision of war data analytic services. At times, these actors, along with tech companies, plan and execute operations in “war rooms” with national military and security forces.46"
+  },
+  {
+    "ID": "37.",
+    "Labels": [],
+    "Text": "Artificial intelligence and machine learning systems are increasingly integrated into the targeting, intelligence and decision-support functions performed by or for actors covered by the Working Group’s mandate.47 Commercial decision-support platforms developed by major providers fuse data from satellites, drones, signals intelligence and open sources into targeting outputs for military operations in near real time.48"
+  },
+  {
+    "ID": "38.",
+    "Labels": [],
+    "Text": "In certain instances, artificial intelligence-assisted targeting systems have reportedly generated tens of thousands of targets, with human verification compressed to a matter of seconds per target.49 In a documented case in 2025, a national computer emergency response team reported a cyberoperation in which autonomous artificial intelligence agents reportedly performed approximately 90 per cent of the intrusion cycle, with limited human authorization. The case illustrates the potential for large-scale, simultaneous machine-led offensive operations against multiple targets.50"
+  },
+  {
+    "ID": "39.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "Technology and cybersecurity companies’ development and deployment of software, software tools and operational platforms and systems have crossed over into offensive and belligerent action.51 As the battlefield becomes more reliant on integrated data systems, private actors, private companies and civilians will play a greater and more active role in operational analytics and decision-making that may constitute direct and indirect participation in armed hostilities.52 42 Submission of IIRESODH, referring inter alia to artificial intelligence-enabled attack drones marketed by Helsing GmbH (HF-1 and HX-2 platforms), and to autonomous sensor management and interception systems developed by Anduril Industries (Lattice operating system and Roadrunner interceptor). 43 See https://www.icrc.org/en/document/icrc-position-autonomous-weapon-systems. 44 Submission of IIRESODH. 45 Submissions of Burundi, IIRESODH and the United Nations Regional Centre for Peace, Disarmament and Development in Latin America and the Caribbean. 46 Confidential submission, mentioning, for example, the Nimbus Project, Where’s Daddy and Lavender. 47 Confidential submission. 48 Submission of IIRESODH, citing Gotham and Maven Systems. 49 See A/HRC/61/74; and from a confidential submission. 50 Submission of IIRESODH. 51 Submission of D. Burland, O. Swed and D. Travis (available at https://www.ohchr.org/en/calls-forinput/2025/call-inputs-use-mercenaries-mercenary-related-actors-and-private-military); and expert consultation, December 2025. 52 Expert consultation, January 2026. GE.26-10653"
+  },
+  {
+    "ID": "40.",
+    "Labels": [],
+    "Text": "Technology companies that provide software specializing in big data mining, management and manipulation to accommodate military and security needs are one example of the danger of this crossover. These technology services harvest large amounts of data, often collected from cyber and digital surveillance, and analyse it alongside other digital tools (such as artificial intelligence) to identify patterns and trends (through algorithms) and predict target behaviour (profiling). When combined with combat drones, lethal autonomous prediction, targeting, selection and decision-making capabilities become possible.53"
+  },
+  {
+    "ID": "41.",
+    "Labels": [],
+    "Text": "Multifunctional digital platforms that combine information from satellites, drones, Internet searches and human reports demonstrate the pervasive nature of technological resources available to State, non-State and private actors, including mercenaries, mercenaryrelated actors and private military and security companies, for war data analytic purposes.54 C. Synthetic and social media, and “disinformation for hire”"
+  },
+  {
+    "ID": "42.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "Mercenaries, mercenary-related actors and private military and security companies are utilizing artificial intelligence-generated content and social media in a number of ways to: (a) mine social media data; (b) conduct information operations; and (c) recruit individuals into armed conflict."
+  },
+  {
+    "ID": "43.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "The aforementioned actors mine social media data to carry out contracted tasks, particularly in information and narrative warfare termed “disinformation for hire” or “disinformation as a service”. 55 Documented cases include: the dissemination of voice-cloned content and deepfake video content purporting to depict surrender orders by senior State officials during an armed conflict;56 coordinated networks of automated and semi-automated accounts producing political and social content at scale (“astroturfing”); and artificial intelligence-generated avatars, coordinated inauthentic behaviour and reputational attack campaigns, with reported involvement in electoral processes in multiple regions and countries.57 In other contexts, large-scale propaganda networks, including synthetic media and manipulated content, has been used in occupied or contested territories to discredit authorities, opposition groups, civil society organizations and suppress dissent."
+  },
+  {
+    "ID": "44.",
+    "Labels": [
+      "Adolescents",
+      "Children"
+    ],
+    "Text": "Manipulated digital content generated by mercenary-related actors and private military and security companies has been used to recruit children and young people into fighting by exploiting platform design features and content moderation gaps. For children, coded language, music, filters and emojis are used to enhance the emotional appeal of and engagement with algorithmically amplified content: algorithmic recommendation systems have been documented as amplifying content used for the recruitment of children and young people.58 Platform design itself shapes the human rights impacts of the activities described: engagement-oriented design features, including infinite scroll, autoplay and push notifications, structurally amplify content that maximizes user interaction."
+  },
+  {
+    "ID": "45.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Some States outsource the task of recruiting military and security personnel to mercenary-related actors 59 and private military and security companies, 60 which utilize synthetic media and social media platforms to target, entice and recruit individuals from regions across the world. Technology applications and social media platforms utilized in recruitment drives include Tik Tok, Telegram, WhatsApp, Facebook, Instagram, Discord, Arma 3 and VK.61 Artificial intelligence-manipulated and/or staged content glorifying war, fighting, pay, conditions and lifestyle, and synthetic media that objectifies masculinities, 53 Submission of D. Burland, O. Swed and D. Travis on Palantir. 54 Submission of I. Martínez on Meta Constellation. 55 Submissions of Burundi and IIRESODH. 56 See https://www.bbc.com/news/technology-60780142; and submission of IIRESODH. 57 Submission of the United Nations Regional Centre for Peace, Disarmament and Development in Latin America and the Caribbean reported 33 electoral interference information campaigns in 12 countries in the Latin America and the Caribbean region; see also submissions of Burundi and IIRESODH. 58 Submission of Land is Life. 59 See OTH 8/2023. 60 See A/HRC/63/31/Add.1. 61 Expert consultations, December 2025. GE.26-10653 and/or pushes sexualized, gendered and fetishized accounts of women feature prominently.62 Microblogger recruitment channels and statuses propagate these images, narratives and posts to entice personnel in what amounts to both “war influencing” (sharing of incidents and war crimes), and technology-facilitated gender-based violence. The latter entails the circulation of exaggerated images of women’s anatomy accompanied by derogatory captions, particularly in the African context, such as “chocolate panthers”, “local chocolates”, “local aunties” and “tanned girls” and takes the form of exploiting and filming the exploitation of women, who were forced to expose themselves by mercenaries and private military and security personnel in return for food or water. 63 This exemplifies the direct connection between online harm and offline action. Automated bots play an instrumental role in replicating the spread of such content."
+  },
+  {
+    "ID": "46.",
+    "Labels": [],
+    "Text": "Mercenary-related actors have also been contracted to mine the social media data of activists, students and human rights defenders in order to constrain and restrain their protest and assembly."
+  },
+  {
+    "ID": "47.",
+    "Labels": [],
+    "Text": "Platform-mediated, informal and subcontracted digital and cyber functions, including information operations, open-source intelligence and surveillance-adjacent monitoring, are increasingly central to the operational profile of actors within the mandate yet fall, in many instances, outside the formal scope of existing regulatory frameworks.64 D. Spyware"
+  },
+  {
+    "ID": "48.",
+    "Labels": [],
+    "Text": "Spyware tools65 generally involve the surreptitious extraction of the contents of a targeted device, including communications, location data and biometric identifiers. Many “spyware companies” are owned and staffed by former intelligence, military and security officers, reflecting a revolving door and blurring line between the public and private sectors.66"
+  },
+  {
+    "ID": "49.",
+    "Labels": [],
+    "Text": "Information received indicates the continued expansion of the commercial spyware sector, with reports identifying a substantial number of companies in many countries developing intrusion software and Internet Protocol network surveillance systems for State clients.67 Intrusion software has reportedly incorporated geolimitation features that protect devices in particular jurisdictions from infection, while permitting their use against devices in others, raising questions of consistency with the principle of non-discrimination.68 The use of spyware in such instances does not satisfy the requirements of legality, necessity and proportionality and, in most documented cases, the use was not subject to oversight."
+  },
+  {
+    "ID": "50.",
+    "Labels": [],
+    "Text": "Intrusion software and other commercial spyware tools developed and sold by mercenary-related actors in the cyberdomain have been used against journalists, human rights defenders, lawyers, political opposition figures and members of marginalized communities in numerous jurisdictions.69 62 Submission of the Centre for Information Resilience (CIR). 63 Submission of CIR. 64 Submissions of Land is Life and IIRESODH. 65 These include such technologies as Candiru, Cyrus, Fin Spy, Pegasus and Predator: see confidential submission and submission of I. Martínez. 66 Confidential submission. 67 Submission of Citizen Lab. See also https://carnegieendowment.org/research/2019/09/the-globalexpansion-of-ai-surveillance. 68 Submission of Citizen Lab. 69 Submissions of Citizen Lab and the Belgrade Centre for Security Policy, identifying a range of commercial spyware products procured and reportedly used by State authorities, including Pegasus (NSO Group, Israel), Predator (Cytrox, North Macedonia), Cyberbit Solutions (Israel), Fin Spy (Fin Fisher, Germany), Cognyte (Israel), Hacking Team (Italy) and Trovicor (Germany). GE.26-10653"
+  },
+  {
+    "ID": "51.",
+    "Labels": [],
+    "Text": "Facial recognition and behavioural analytics technologies supplied by foreign commercial vendors have been deployed against participants in peaceful assemblies, without clear legal basis or independent oversight.70 United Nations human rights mechanisms and regional courts have repeatedly found the use of intrusive surveillance technologies against human rights defenders, journalists and political dissidents incompatible with international human rights law. E. Surveillance"
+  },
+  {
+    "ID": "52.",
+    "Labels": [],
+    "Text": "A highly concerning practice in digital surveillance is the use of private military and security companies, staffed by former military officers, to conduct video, biometric and facial recognition surveillance of civilian populations. In a closed expert consultation and a submission received,71 it was detailed how a private intelligence firm had been contracted by universities to monitor students and compile “encampment updates” on their activities. The firm provided an integrated service packaging utilizing digital tools, open source intelligence scrapping from social media posts and deep web databases to identify students.72"
+  },
+  {
+    "ID": "53.",
+    "Labels": [],
+    "Text": "Biometric and behavioural surveillance systems supplied by foreign vendors are being procured and deployed by State institutions in arrangements that, in certain instances, lack adequate domestic legal foundations. Documented cases include the procurement of smart camera systems with facial recognition and behavioural analytics capabilities in connection with State data centres; the active use of commercial network-mapping and data-extraction platforms by State authorities not statutorily empowered to conduct biometric processing; the reported use of facial recognition technology against participants in peaceful assemblies without a clear legal basis; and the deployment of artificial intelligence-enabled video surveillance to monitor movement and identify dissidents in territories under foreign occupation.73 In many cases, private military and security companies serve as integrators and providers of these technologies and services."
+  },
+  {
+    "ID": "54.",
+    "Labels": [],
+    "Text": "Conservation-related security operations and the deployment of surveillance and predictive analytics technologies by private and non-governmental actors has, in certain instances, been accompanied by lethal violence against Indigenous Peoples and local communities.74 Documented cases include the killing of community members in protected areas by armed personnel acting in conservation roles, in circumstances in which the use of technology for the identification and tracking of persons preceded the use of lethal force. In many cases, effective accountability mechanisms in relation to such violence are absent."
+  },
+  {
+    "ID": "55.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "Intelligence, surveillance and reconnaissance functions are increasingly being performed by private contractors operating aircraft and other platforms on behalf of State clients. In one documented case, a contractor reportedly operated surveillance flights over Gaza under a contractor-owned, contractor-operated arrangement. Flight-tracking evidence and subsequent reporting indicated that the aircraft’s transponder was left active on at least one occasion, revealing the route of the flight. 75 The use of contractor-owned, contractor-operated service models in respect of intelligence, surveillance and reconnaissance raises questions relating to attribution and accountability, and direct participation in armed hostilities. 70 Submissions of the Belgrade Centre for Security Policy, the Association of Reintegration of Crimea, Citizen Lab and IIRESODH. 71 Submission of I. Martínez; and expert consultation, April 2026. 72 Submission of I. Martínez. 73 Submissions of the Belgrade Centre for Security Policy and the Association of Reintegration of Crimea. 74 Submission of Land is Life. 75 Confidential submission. See also https://www.palestinedeepdive.com/p/revealed-gaza-spy-flightsfrom-uk and https://www.timesofisrael.com/liveblog_entry/uk-outsourcing-its-gaza-spy-flights-to-uscontractors-report/. GE.26-10653"
+  },
+  {
+    "ID": "56.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "Commercial satellite and geospatial intelligence services are increasingly accessible to mercenary and mercenary-related actors. Submissions to the Working Group referred to the reported acquisition by a private military and security company of operational access to high-resolution satellites for Earth observation through a front company, for the surveillance of troop movements and infrastructure across multiple armed conflict environments. 76 Commercial providers of radio-frequency geolocation, synthetic aperture radar imagery and automatic identification system tracking now offer services that materially extend the operational reach of private security activities, including in respect of the detection of communications, the monitoring of vessels and the mapping of human settlements."
+  },
+  {
+    "ID": "57.",
+    "Labels": [],
+    "Text": "Several reports and communications by special procedure mandate holders have highlighted the scale and impact of digital surveillance on civilian populations in multiple jurisdictions.77 Such surveillance is often accompanied by the deployment of spyware. This has a cumulative effect on the enjoyment of the right to privacy and the consequent chilling effects on the exercise of other rights.78 F. Digital financing and cryptoassets"
+  },
+  {
+    "ID": "58.",
+    "Labels": [],
+    "Text": "In the Working Group’s report to the General Assembly at its seventy-ninth session on trends and challenges in the financing of mercenaries and related actors, 79 it was documented how cryptoassets, including stablecoins denominated in major reserve currencies, are increasingly used as a means of payment for mercenaries, mercenary-related actors and private military and security companies services."
+  },
+  {
+    "ID": "59.",
+    "Labels": [],
+    "Text": "Technological systems are being used in diverse ways that facilitate the financing of illicit activities and flows. 80 The use of mixing services, decentralized exchanges, privacy-oriented cryptoassets and “laundering as a service” arrangements for the obfuscation of payment flows to mercenary-related actors and providers of intrusion software and offensive cybercapabilities was highlighted in submissions to the Working Group.81"
+  },
+  {
+    "ID": "60.",
+    "Labels": [],
+    "Text": "Furthermore, the use of “in-app” features, such as badges and emoticons, in some social media applications are used as a source for generating crowdfunding and self-funding that are redeemed via services such as Google Pay and Apple Pay.82"
+  },
+  {
+    "ID": "61.",
+    "Labels": [],
+    "Text": "Smart contracts deployed on decentralized platforms have been used to automate the payment of contractors upon the verification of operational milestones, thereby permitting financial settlement without the involvement of regulated financial intermediaries. Mercenary-related activities are in some cases supported, indirectly, by financial-sector mechanisms, including insurance and reinsurance, venture capital and private equity, and corporate banking services.83"
+  },
+  {
+    "ID": "62.",
+    "Labels": [],
+    "Text": "Venture capital is also used in the financing of technology providers that develop the capabilities described in the preceding sections of the present report, and the consequent diffusion of human rights risk through the financial sector to actors that do not themselves directly engage in mercenary or private military and security activity. The absence in many jurisdictions of effective know-your-customer obligations in respect of decentralized financial infrastructure is a significant enabler of illicit financing. 76 Submission of IIRESODH, citing radio-frequency geolocation (HawkEye 360 and Spire), synthetic aperture radar imagery and automatic identification system and automatic dependent surveillance broadcast tracking and triangulation services. 77 See A/HRC/41/35, A/HRC/46/37 and A/HRC/62/45. 78 See A/HRC/62/45. 79 See A/79/305; and from confidential submission. 80 See A/HRC/52/34. 81 Submissions of Burundi and of IIRESODH, identifying the use of stablecoins (including Tether), privacy-oriented crypto-assets (including Monero), mixing services (including Tornado Cash), decentralized exchanges and smart-contract-based arrangements as instruments of financial settlement and obfuscation in the technology-enabled service market within the scope of the mandate. 82 Expert consultations, December 2025 and March 2026. 83 Submission of IIRESODH. See also A/HRC/17/31. GE.26-10653"
+  },
+  {
+    "ID": "63.",
+    "Labels": [],
+    "Text": "The illicit financing of mercenary-related actors84 involves access to natural resources, particularly with respect to gold, oil, timber, and mineral concessions, and through preferential security and political arrangements with the contracting State. Such arrangements do not necessarily transit conventional financial systems and accordingly fall outside the scope of conventional sanctions and anti-money-laundering enforcement. 85 Constraining technology-enabled mercenarism will require greater scrutiny over the financial ecosystems that enable it.86 V. Barriers to accountability, remedy and justice"
+  },
+  {
+    "ID": "64.",
+    "Labels": [],
+    "Text": "The technologies described in the report entail multi-tiered actors and supply chains comprising primary developers, systems integrators, intermediaries, resellers and end users, each operating under different regulatory regimes, in different jurisdictions, and with differing degrees of human rights due diligence.87 The attribution of technology-enabled conduct to specific actors raises significant technical, regulatory and legal difficulties, which cumulatively inhibit accountability and produce a “responsibility gap”.88"
+  },
+  {
+    "ID": "65.",
+    "Labels": [],
+    "Text": "Technical barriers may include the use of anonymizing services, the routing of operations through commercial infrastructure under standard transport encryption that limits visibility to third-party observers and the rotation of operational infrastructure."
+  },
+  {
+    "ID": "66.",
+    "Labels": [],
+    "Text": "Accountability barriers can stem from opaque corporate structures, including shell companies, intermediaries, “one-day” front companies and forged end user certificates, which obscure the beneficial ownership of providers and the eventual operational use of the technology supplied.89 Furthermore, domain registrars and hosting services often do not require personal identifiable information for registration, which obscures the real or full identity of the operator of the infrastructure. These two forms of opacity compound one another. A provider may be incorporated in a jurisdiction with limited oversight, run the technology on commercial servers and hosting services located in a second jurisdiction, and supply end users in a third. The conduct concerned is thereby distributed across the territories of States with differing legal frameworks, differing investigative capacities and differing willingness to assert jurisdiction.90"
+  },
+  {
+    "ID": "67.",
+    "Labels": [],
+    "Text": "With respect to intangible transfers of controlled software, software offered as a service from cloud infrastructure and operations conducted at distance through commercial telecommunications networks, the very concept of the location of the conduct has become contested. Jurisdictions differ in the criteria they apply to determine whether and where a transfer or operation has occurred."
+  },
+  {
+    "ID": "68.",
+    "Labels": [],
+    "Text": "The layering of intermediaries between the developer and the end user materially obscures the eventual operational use of the technology and the identity of the actor in whose hands it is placed. The complexity of such layered attribution has been demonstrated. In security operations in the conservation sector, for example, a typical accountability cascade comprises technology software manufacturers, technology integrators, non-governmental implementing partners, governmental purchasers and local operators. 91 Encrypted communications, encrypted tools and digital payments further prevent accountability, particularly where timed messaging and cryptoassets or alternative banking schemes are used with no or a deleted digital trace.92 84 See A/79/305 and A/HRC/60/27. 85 Submission of IIRESODH. 86 Submission of Microsoft. 87 Submissions of IIRESODH, Privacy International and Microsoft. 88 Submission of Citizen Lab; confidential submission; and expert consultation, December 2025. 89 Submission of IIRESODH. 90 Submission of D. Burland, O. Swed and D. Travis. 91 Submission of Land is Life. 92 Submission of C. Edmond. GE.26-10653"
+  },
+  {
+    "ID": "69.",
+    "Labels": [],
+    "Text": "Increasing reliance on artificial intelligence and machine learning systems in operational functions introduces a further category of difficulty to ensuring attribution, namely the opacity of the algorithmic decision processes themselves.93 The training data, model architecture and decision logic of commercial and proprietary systems used in targeting, intelligence, surveillance and predictive functions are, in most documented cases, not accessible to victims, investigators or oversight institutions; in many instances, those features may not be accessible even to the operators of the systems concerned."
+  },
+  {
+    "ID": "70.",
+    "Labels": [],
+    "Text": "In the digital world, adaptive digital techniques, including modifications and alterations of images, emojis and codes, are deliberately used by mercenaries, mercenary-related actors and private military and security companies to evade web-scrapping methodologies of content moderators and digital investigations and thereby evade accountability. Furthermore, actors employ “false flag” tactics that mimic the modalities of other groups to obfuscate their identity and attribution.94"
+  },
+  {
+    "ID": "71.",
+    "Labels": [],
+    "Text": "The online, remote, anonymized, obscure and highly technical features of the technology and digital sphere evade public scrutiny and deny victims access to forensic evidence relating to actors, technologies, chains of command, contractual information, export licensing records and platform logs employed in the suppression of their rights, movement, assembly, security and life.95 This is compounded by asymmetries in power, resources and legal expertise, especially when wielded by State-sponsored actors.96 Furthermore, digital evidence is often cloud-based, volatile and easy to alter. VI. Impact on human rights, self-determination and territorial integrity"
+  },
+  {
+    "ID": "72.",
+    "Labels": [],
+    "Text": "Historically, the involvement of mercenaries, mercenary-related actors and private military and security companies in the commission of human rights violations was physical, based on kinetic warfare. However, with a shift to a digital, cyber, artificial intelligence, geospatial and cloud realm technology is enabling and multiplying harms online and offline.97"
+  },
+  {
+    "ID": "73.",
+    "Labels": [],
+    "Text": "Technology-enabled activities by mercenaries, mercenary-related actors and private military and security companies have disproportionate impacts on persons in vulnerable situations. Human rights violations committed through digital means include online harassment, 98 intimidation, verbal and psychological abuse and threats, racist and misogynistic abuse (which may occur more often than abuse in offline contexts), 99 surveillance100 and reputational harm.101 Such activities further affect trust in institutions, social cohesion, national security and international stability.102"
+  },
+  {
+    "ID": "74.",
+    "Labels": [
+      "Children"
+    ],
+    "Text": "The recruitment of children to partake in the armed operations and activities of mercenaries, mercenary-related actors and private military and security companies continues to occur. 103 Children are particularly susceptible to both online and offline targeting, recruitment and messaging."
+  },
+  {
+    "ID": "75.",
+    "Labels": [
+      "Children",
+      "Women/girls"
+    ],
+    "Text": "Children are incited to hate, to fight, to commit acts of violence and to partake in killing and sexual and gender-based violence. Videos and images glorifying and romanticizing fighting, war and violence, particularly against “enemy” populations, ethnic, 93 Submissions of IIRESODH and K.O. Ndege. 94 Submissions of Burundi and IIRESODH. 95 Submissions of Land is Life, A.M. Gielas and Microsoft. 96 Submission of Microsoft. 97 Submission of I. Martínez. 98 Submissions of Amnesty International and Privacy International. 99 Submission of CIR. 100 See https://pulitzercenter.org/stories/war-poaching-has-gone-full-tech-dystopia-and-it-may-not-beworking. 101 Ibid. 102 Submission of Microsoft. 103 See A/HRC/39/49 and A/HRC/39/49/Corr.1; and submission of Burundi. GE.26-10653 religious and racial groups, and women, are persuasive and manipulative.104 Children are also exposed to further harms, including abduction, verbal, physical and sexual violence, torture and maiming enacted by the groups that recruit them. These may amount to grave violations against children, including the fact that children are being exposed to those grave violations. Furthermore, children who are recruited and used by mercenaries, mercenary-related actors and private military and security companies are denied a right to education, safety, wellbeing, protection and peaceful and sustainable livelihoods, which undermines Sustainable Development Goals 4 and 16.105"
+  },
+  {
+    "ID": "76.",
+    "Labels": [
+      "Indigenous peoples",
+      "Persons affected by armed conflict"
+    ],
+    "Text": "Technology-enabled activities by mercenaries, mercenary-related actors and private military and security companies have direct implications for the right to self-determination.106 The deployment of advanced surveillance, commercial satellite and aerial imagery, and geospatial and predictive analytic technologies in the territories of Indigenous Peoples has, in many instances, occurred without the free, prior and informed consent of those Peoples and in support of activities that materially affect their territories, resources and cultural integrity.107 Individuals have been subjected to arbitrary detention, forced displacement, forced removal, restricted movement and torture and lethal force."
+  },
+  {
+    "ID": "77.",
+    "Labels": [],
+    "Text": "In occupied territories or under de facto external control, biometric artificial intelligence-enabled surveillance and information-shaping technologies have been used to constrain the political, cultural and linguistic life of the affected populations and minorities.108 The use of advanced surveillance and predictive analytics technologies by actors falling under the Working Group’s mandate has been used to suppress political opposition and directly undermines the right of peoples to self-determination."
+  },
+  {
+    "ID": "78.",
+    "Labels": [],
+    "Text": "The deployment of mercenaries, mercenary-related actors and private military and security companies in support of State interests, whereby information operations, combined with uncrewed aerial systems attacks, have been used to displace populations and designate “kill-chain” lists, has resulted in direct and indirect deaths and serious injuries.109 Remote, privatized and autonomous warfare dehumanizes conflict by turning humans into data points and targets on a screen. Uncrewed aerial system attacks generate constant psychological terror and trauma for individuals and populations due the perpetual threat of attack.110"
+  },
+  {
+    "ID": "79.",
+    "Labels": [],
+    "Text": "Automated technologies are prone to inaccuracies, hallucinations, bias and error and indiscriminate application. 111 Furthermore, artificial intelligence programmes used to generate targets for assassination and bombardment have eliminated entire families, residences and buildings.112 As noted, “algorithmic systems are not neutral; they reflect the values and power relations embedded in their design and deployment”. 113 Furthermore, biometric facial recognition systems and algorithms utilized by actors covered by the mandate of the Working Group perpetuate and reinforce racial, religious and gender stereotypes.114"
+  },
+  {
+    "ID": "80.",
+    "Labels": [],
+    "Text": "Synthetic media and information operations, conducted by mercenary-related actors and private contractors, including the propagation of deep fakes and manufactured content proliferated across social media platforms, may undermine constitutional orders by manipulating political discourse and subverting electoral processes, participation and outcomes in numerous jurisdictions. 104 Confidential submission. 105 Idem. 106 Submissions of IIRESODH, the United Nations Regional Centre for Peace, Disarmament and Development in Latin America and the Caribbean, B.Ş. Şeker; K.O. Ndege, and the Association of Reintegration of Crimea. 107 Submission of Land is Life. 108 Submission of the Association of Reintegration of Crimea. 109 Submission of C. Edmond. 110 Submission of IIRESODH. 111 Expert consultation, December 2025. 112 Confidential submission. 113 Submission of L. Khabure, citing the UNESCO recommendation on the ethics of artificial intelligence. 114 Submissions of Burundi and B. Ş. Şeker. GE.26-10653"
+  },
+  {
+    "ID": "81.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "Furthermore, the use of synthetic media information operations for propaganda and recruitment purposes normalizes, amplifies and enables offline violence, particularly against ethnic and religious minorities, and women and girls.115 As noted, “online spaces do not merely mirror offline gender-based violence but often amplify and accelerate it”.116"
+  },
+  {
+    "ID": "82.",
+    "Labels": [],
+    "Text": "States are increasingly relying on the private sector and actors, including private military and security companies, cybersecurity companies, private intelligence companies and technology companies, whose training and support services in the use of technology in the military and security domain have significant implications for sovereignty and the territorial integrity of States. Concern is consistently raised regarding the level of control and oversight States have over the technologies urging that “control … should remain in the hands of the State in order to ensure that the use cases and implementation of such technologies serve the interests of the public rather than the private sector”.117 VII. Good practices"
+  },
+  {
+    "ID": "83.",
+    "Labels": [],
+    "Text": "A number of developments constitute good practices in the use, governance, guidance and oversight on the use of technology in the private military and security sector.118"
+  },
+  {
+    "ID": "84.",
+    "Labels": [],
+    "Text": "The use of technology by private security providers (such as closed-circuit television cameras, artificial intelligence-enabled surveillance software and licence-plate recognition systems) plays an important role in enhancing security, and is included in coordinated, regulated and transparent crime prevention programmes and partnerships with State and local authorities.119 This has proved instrumental in incident responses to kidnappings, hijackings, armed robberies and cash-in-transit heists, to name a few. Furthermore, some States promulgate and promote transparency and accountability in the use of surveillance by private security companies by way of compulsory annual reporting to national commissions and national assemblies for the purposes of oversight.120"
+  },
+  {
+    "ID": "85.",
+    "Labels": [],
+    "Text": "Private security and cybersecurity companies play a critical role in utilizing remote monitoring, predictive analytics, real-time threat assessment and automated responses to counter digital intrusion, cyberthreats and cyberattacks. Many private security and military companies and cybersecurity companies are providing essential expertise, knowledge and maintenance of digital and cyber infrastructures that States utilize and rely upon for critical infrastructures (such as dams, electricity grids and databases) in peacetime settings.121"
+  },
+  {
+    "ID": "86.",
+    "Labels": [
+      "Indigenous peoples"
+    ],
+    "Text": "In the area of community-led monitoring, the experience of Indigenous communities, including the A’i Cofán people of Sinangoe in Ecuador, in the development of community-led monitoring of their territories with the use of technology under the control of the community concerned is an example of an alternative model to private technology-enabled surveillance territorial management and is consistent with the right of peoples to self-determination and the principle of free, prior and informed consent.122"
+  },
+  {
+    "ID": "87.",
+    "Labels": [],
+    "Text": "The International Code of Conduct Association continues to play an important and ongoing role in the vetting and certification of private security providers, alongside the promotion of best practices and industry standards through the International Code of Conduct for Private Security Service Providers.123 The International Code of Conduct Association’s Toolkit for the Responsible Use of Technologies by Private Security Services, developed jointly with the ICT for Peace Foundation, provides important operational guidance to private security providers in respect of the use of technology considered in the present report. 115 Submission of CIR. 116 Ibid. 117 Submission of Citizen Lab. 118 Submission of Microsoft. 119 See Safe City Initiative (https://vumacam.co.za/safecity) and E2 Plus Initiative (https://e2.bac.org.za/). 120 Submission of Ecuador. 121 Expert consultation, December 2025. 122 Submission of Land is Life. 123 See https://icoca.ch/what-we-do/certification/. GE.26-10653"
+  },
+  {
+    "ID": "88.",
+    "Labels": [],
+    "Text": "In the area of procurement-based and export control enforcement, the following are noteworthy: the inclusion of human rights criteria in European Union Regulation 2021/821 setting up a Union regime for the control of exports, brokering, technical assistance, transit and transfer of dual-use items; the inclusion of commercial spyware providers in national export control lists in several jurisdictions; and the adoption by certain States of executive measures restricting the procurement and use of commercial spyware that has been determined to pose a national security or human rights risk. These serve as a good model for other regions and States in the world, and at the global governance level."
+  },
+  {
+    "ID": "89.",
+    "Labels": [],
+    "Text": "The crucial work of independent research institutions, civil society organizations and journalists in promoting transparency by forensically documenting the conduct of commercial spyware providers, private intelligence contractors, information operations actors and private military and security companies, and detailing public-private operations and activities through open source intelligence flight-tracking and satellite-imagery platforms. VIII. Conclusion"
+  },
+  {
+    "ID": "90.",
+    "Labels": [],
+    "Text": "Technology and digital infrastructures are driving transformations in the recruitment, organization, financing, training, services and activities of mercenaries, mercenary-related actors and private military and security companies, across national, regional and international jurisdictions. Integrated technology suites and stacks materially extend the operational reach, scalability and deniability of actors falling under the Working Group’s mandate."
+  },
+  {
+    "ID": "91.",
+    "Labels": [
+      "Children",
+      "Women/girls"
+    ],
+    "Text": "The adverse human rights impacts of mercenaries, mercenary-related actors and private military and security companies and their use of technology are harmful and cumulative, affecting, inter alia, the rights to privacy, freedom of expression, freedom of association, freedom of access to information, life, physical security, equality and non-discrimination, which affects women, children, Indigenous Peoples, ethnic and religious minorities, human rights defenders, journalists, students and persons in occupied territories disproportionately.124"
+  },
+  {
+    "ID": "92.",
+    "Labels": [],
+    "Text": "Existing legal and regulatory frameworks, while highly fragmented and having limits in relation to oversight and monitoring, represent a problem of implementation and enforcement rather than applicability. This ultimately denies effective access to remedy for victims. IX. Recommendations"
+  },
+  {
+    "ID": "93.",
+    "Labels": [],
+    "Text": "On the basis of its findings in the present report, the Working Group sets out the following recommendations. Due to the opacity, secrecy and lack of transparency in this area, the Working Group recommends further and ongoing research."
+  },
+  {
+    "ID": "94.",
+    "Labels": [],
+    "Text": "States bear the primary responsibility under international law to protect human rights within their jurisdiction. This unequivocally includes regulating corporate entities, private actors and individuals domiciled or operating within their borders.125 States should therefore: (a) Implement and integrate binding human rights criteria into the licensing of dual-use exports of artificial intelligence, biometrics, predictive analytics and offensive cybercapabilities, including licensing and procurement controls of intangible transfers and software-as-a-service offerings and capabilities not presently covered by existing multilateral arrangements;126 124 See ISR 10/2025; and submission of Amnesty International. 125 Submission of I. Martínez. 126 Submission of DCAF. GE.26-10653 (b) Establish human rights standards for public procurement and provide public information on contracts, contractors, subcontractors, supply chains, end users and clients and the roles and functions delegated to private military and security companies, commercial and private actors, online and offline, by State institutions, departments and agencies;127 (c) Ensure that contracted private military and security companies operating from their territory or licensed under their jurisdiction are subject to effective regulation, monitoring and oversight, online and offline, across domains; (d) Develop national domestic legislation that clearly delineates prohibited activities (in relation to mercenaries and mercenary-related actors), and regulates permissible activities (in relation to private military and security companies), with dedicated institutions that oversee and monitor such activities and services, including in the domain of cyber, digital, emerging and dual-use technologies;128 (e) Refrain from procuring, using or otherwise enabling the use of intrusive surveillance technologies by mercenaries, mercenary-related actors, private military and security companies and other commercial and private actors that do not satisfy the principles of legality, necessity and proportionality, in peacetime and conflict settings, and ensure that such surveillance is subject to prior independent civilian authorization, ongoing oversight and monitoring and effective justice and remedy in domestic law; (f) Prohibit private military and security companies and commercial and private entities from developing and selling monetized zero-day vulnerabilities and conducting covert domestic intelligence operations, including the deployment of advanced surveillance of and mass data-harvesting from civilian populations;129 (g) Ensure any private military and security companies and commercial or private entities offering war data analysis, biometric identification systems or digital intelligence be required to undergo rigorous, continuous and independent audits; (h) Penalize, deregister, investigate and prosecute private military and security companies and cybersecurity, intelligence, commercial and private actors who orchestrate information campaigns and deliberately circulate false or misleading information; (i) Regulate cross-border data extraction and flows and mitigate algorithmic analytic discrimination by private military and security companies and commercial and private actors; (j) Establish separate data centres for civilian and military purposes; (k) Develop and deepen greater State cooperation in the cyber and digital sphere through the mutual investigation and prosecution of violations, the exercise of extraterritorial jurisdiction in appropriate cases to deny safe-haven jurisdictions, the preservation of evidence and platform cooperation, and the development of evidentiary standards for algorithmically mediated conduct, encrypted networks and clandestine platforms;130 (l) Ensure access to effective remedy for victims, including through the removal of procedural and evidentiary barriers, the provision of legal aid and the protection of witnesses and whistle-blowers; (m) Support, and defend civil society, human right defenders, think tanks and journalists by funding their capacity, providing protective and security guarantees and ensuring access to secure communication channels, advanced digital hygiene training and independent forensic resources. 127 Submissions of Citizen Lab and DCAF; and https://eiti.org/eiti-requirements. 128 Submission of Senegal. 129 Submission of I. Martínez. 130 Submissions of Senegal, Citizen Lab and C. Edmond; and https://www.dcaf.ch/security-and-humanrights-implementation-mechanism-shrim. GE.26-10653"
+  },
+  {
+    "ID": "95.",
+    "Labels": [
+      "Persons affected by armed conflict"
+    ],
+    "Text": "The United Nations, its associated organs and bodies should take the following actions: (a) Investigate and sanction States that sponsor, recruit, use, organize, equip, train, finance, transit and transport mercenaries and mercenary-related actors, particularly in situations where their service, activities and operations include armed hostilities, concerted acts of violence, human rights abuses, the overthrow of legitimate governments and the undermining of constitutional order, territorial integrity and the right of peoples to self-determination;131 (b) Establish global guidelines and robust international standards on the processing of personal and biometric data during armed conflicts particularly with regard to the deployment of facial recognition tools and the use of battlefield data, training and analysis, ensuring that such information does not result in algorithmic discrimination, false positive identifications or automated targeting without rigorous human oversight;132 (c) Push for a moratorium on the use of artificial intelligence systems for the use of force and on autonomous weapons that have no meaningful human control;133 (d) Continue to host multilateral and multi-stakeholder forums that promote dialogue, grow cooperation and secure agreement on good practices and principles, such as through the open-ended working group on security of and in the use of information and communications technologies and the Global Mechanism on developments in the field of information and communications technologies in the context of international security and advancing responsible State behaviour in the use of information and communications technologies."
+  },
+  {
+    "ID": "96.",
+    "Labels": [
+      "Women/girls"
+    ],
+    "Text": "The Secretary-General, in collaboration with the Working Group on the use of mercenaries, should commission a global study on evolving practices and concepts with respect to mercenaries, mercenary-related actors and private military and security companies, their interconnections and the nexus of their activities with other crimes, such as illicit financing, arms trafficking and proliferation, the exploitation of natural resources, predatory recruitment and digital, information and cyberoperations, including the scoping the multiple impacts on human rights, with a view to updating and strengthening the International Convention against the Recruitment, Use, Financing and Training of Mercenaries;"
+  },
+  {
+    "ID": "97.",
+    "Labels": [],
+    "Text": "The Working Group addresses the following recommendations to private military and security companies and cybersecurity, intelligence and technology companies: (a) Due to the cascading and integrated chain between providers and actors in the technology sector, it is imperative that companies such as technology companies, cybersecurity companies, private intelligence companies, digital marketing companies and private military and security companies enhance vigilance and due diligence regarding the services and activities in which they engage directly and indirectly; (b) Ultimately, the development and deployment of technology should serve to enhance international, national and human security rather than undermine it and, in this regard, actors should stop supplying, developing, selling, transferring and servicing autonomous weapons systems that operate without meaningful human control;134 131 International Convention against the Recruitment, Use, Financing and Training of Mercenaries, arts. 1, 3 and 5. 132 Submission of I. Martínez. 133 See https://paxforpeace.nl/publications/when-algorithms-go-to-war/. 134 Ibid. GE.26-10653 (c) Such companies should mandate and implement continuous human rights due diligence, oversight and monitoring over technologies and technological services supplied and ensure immediate termination and financial penalization if the vendor’s products and/or services are discovered to be involved in unlawful surveillance, autonomous targeting without human oversight or weaponized malware; (d) Such companies should embed technical and ethical safeguards into technological software architecture, particularly ensuring that algorithmic determinations are subject to human legal review before any action resulting in the deprivation of liberty or life is taken;135 (e) Such companies should establish robust controls over artificial intelligence models including mandatory cryptographic watermarking for artificial intelligence-generated content and transparent provenance tracking; (f) Such companies should ensure transparency in client portfolios by publicizing contracts of services rendered, including data extraction, methodologies and tools used; (g) Such companies should establish independent, transparent grievance mechanisms that allow individuals harmed by their cyberintelligence solutions or information manipulation campaigns to seek direct redress and financial compensation; (h) Technology and cybersecurity companies should provide mandatory notification to subjects of surveillance and monitoring and destroy illegally obtained data.136"
+  },
+  {
+    "ID": "98.",
+    "Labels": [],
+    "Text": "Social media companies and platforms should: (a) Increase content moderation and moderators; track traffic, narratives, images, emojis, filters, tokens and badges used in messaging, channels and statuses relating to war, conflict, fighting and violence; (b) Combat information manipulation and mitigate deepfakes by establishing and increasing dedicated task teams that detect, track, remove and counter information campaigns, while preserving and archiving digital evidence and identifiers; (c) Implement strict terms of service that explicitly prohibit the use of platforms for conducting misinformation, disinformation and informational warfare campaigns; (d) Report violations and preserve digital evidence.137"
+  },
+  {
+    "ID": "99.",
+    "Labels": [],
+    "Text": "Civil society organizations, academic institutions, researchers and the media should continue to observe and document violations and abuses committed by States, mercenaries, mercenary-related actors, private military and security companies, technology companies, commercial and private actors, online and offline, vis-à-vis cybermercenarism and technology-enabled mercenarism. 135 Submission of I. Martínez. 136 Submission of the Belgrade Centre for Security Policy. 137 Submission of C. Edmond."
+  }
+]

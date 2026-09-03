@@ -11,7 +11,7 @@ test('S1. statusGraph · audited supersessions are complete and reciprocal', asy
   const facets = await facetsResponse.json();
   expect(facets.statuses).toEqual([
     // Grows with the corpus; the audited values below are the fixed ones.
-    { value: 'final', count: 1733 },
+    { value: 'final', count: 1763 },
     { value: 'superseded', count: 13 },
     { value: 'revised', count: 2 },
     { value: 'corrected', count: 1 },

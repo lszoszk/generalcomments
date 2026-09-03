@@ -132,6 +132,7 @@ MANDATES: dict[str, dict] = {
         # corrigenda and country-visit docs excluded.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/61/51', 'HRC 61st session', 'Land and the right to food'),
             (2025, 'A/HRC/58/48',    'HRC 58th session', 'The right to food, finance and national action plans'),
             (2025, 'A/80/213',       'GA 80th session',  'Corporate power and human rights in food systems'),
             (2024, 'A/HRC/55/49',    'HRC 55th session', 'Fisheries and the right to food in the context of climate change'),
@@ -205,6 +206,7 @@ MANDATES: dict[str, dict] = {
         # special report excluded.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/63/34', 'HRC 63rd session', 'Making the human right to sanitation a reality for all'),
             (2025, 'A/80/117',    'GA 80th session',  'Democratic water governance under a human rights-based approach'),
             (2025, 'A/HRC/60/30', 'HRC 60th session', 'Water and energy nexus'),
             (2024, 'A/79/190',    'GA 79th session',  'The water/food nexus: a human rights perspective'),
@@ -268,6 +270,7 @@ MANDATES: dict[str, dict] = {
         # studies), corrigenda and the Khashoggi CRP annex excluded.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/62/37', 'HRC 62nd session', 'The death penalty from the perspective of the prohibition of torture and other ill-treatment and the protection of human dignity'),
             (2025, 'A/HRC/59/54', 'HRC 59th session', 'Rights of families of victims of unlawful killings'),
             (2025, 'A/80/214',    'GA 80th session',  'Investigation and prevention of unlawful killings by law enforcement officials'),
             (2024, 'A/HRC/56/56', 'HRC 56th session', 'Protection of the dead'),
@@ -331,6 +334,7 @@ MANDATES: dict[str, dict] = {
         # thematic component") and are excluded as non-thematic.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/62/55', 'HRC 62nd session', 'Racism and sport'),
             (2025, 'A/80/496',    'GA 80th session',  'Conflict and racism, racial discrimination and xenophobia'),
             (2025, 'A/HRC/59/62', 'HRC 59th session', 'Intersectionality from a racial justice perspective'),
             (2024, 'A/79/316',    'GA 79th session',  'Special measures to achieve substantive racial equality'),
@@ -524,6 +528,7 @@ MANDATES: dict[str, dict] = {
         # (A/HRC/76/143 -> A/76/143). A/HRC/52/29 is dated 2023 (52nd session).
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/61/40', 'HRC 61st session', 'Defending dignity and claiming rights: human rights defenders hold firm to universal values as others desert them'),
             (2025, 'A/80/114',    'GA 80th session',  'Human rights defenders, climate change and a just transition'),
             (2025, 'A/HRC/58/53', 'HRC 58th session', 'Human rights defenders working in isolated, remote and rural contexts'),
             (2024, 'A/79/123',    'GA 79th session',  'Human rights defenders working on the Sustainable Development Goals'),
@@ -642,6 +647,7 @@ MANDATES: dict[str, dict] = {
         # Full thematic series (HRC/CHR + GA) 2006–2026.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/61/65', 'HRC 61st session', 'Recommendations made by the Forum on Minority Issues at its eighteenth session, on the theme “The contribution of minorities to diverse, resilient and peaceful societies”'),
             (2026, 'A/HRC/61/41', 'HRC 61st session', 'Addressing minority issues through their root causes'),
             (2025, 'A/80/186',    'GA 80th session',  'Minority issues in the context of the United Nations reform process'),
             (2025, 'A/HRC/58/54', 'HRC 58th session', 'The right to identity of persons belonging to minorities'),
@@ -769,6 +775,7 @@ MANDATES: dict[str, dict] = {
         # paper), communications addenda and corrigenda.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/63/27', 'HRC 63rd session', 'Forever chemicals and human rights'),
             (2025, 'A/80/174',    'GA 80th session',  'Military activities and toxics'),
             (2025, 'A/HRC/60/34', 'HRC 60th session', 'Guidelines on access to justice and effective remedies in the context of toxics'),
             (2024, 'A/79/163',    'GA 79th session',  'Gender and hazardous substances'),
@@ -875,6 +882,7 @@ MANDATES: dict[str, dict] = {
         # (global-study addendum) excluded.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/63/25', 'HRC 63rd session', 'Denialism, negationism and revisionism of serious violations of human rights and humanitarian law in transitional justice contexts'),
             (2025, 'A/80/175',    'GA 80th session',  'Transitional justice and economic, social and cultural rights'),
             (2025, 'A/HRC/60/32', 'HRC 60th session', 'Documentation of gross violations of human rights and serious violations of international humanitarian law'),
             (2024, 'A/79/180',    'GA 79th session',  'Approach to the mandate and areas of engagement with the General Assembly'),
@@ -922,6 +930,7 @@ MANDATES: dict[str, dict] = {
         # Secretariat", a procedural pointer to A/HRC/36/49) excluded.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/63/32', 'HRC 63rd session', 'Participation in development: taking the right to development seriously'),
             (2025, 'A/80/206',    'GA 80th session',  'Financing for inclusive, sustainable and participatory development'),
             (2025, 'A/HRC/60/25', 'HRC 60th session', 'The nexus between gender equality and the right to development'),
             (2024, 'A/79/168',    'GA 79th session',  'Climate justice: loss and damage'),
@@ -960,6 +969,7 @@ MANDATES: dict[str, dict] = {
         # Notes by the Secretariat, addenda and corrigenda.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/63/29', 'HRC 63rd session', 'Stocktaking and vision-mapping'),
             (2025, 'A/80/208',    'GA 80th session',  'Impact of unilateral coercive measures on the right to education and other academic rights'),
             (2025, 'A/HRC/60/36', 'HRC 60th session', 'The impact of unilateral coercive measures on economic, labour and social rights'),
             (2024, 'A/79/183',    'GA 79th session',  'Access to justice in the face of unilateral sanctions and overcompliance'),
@@ -1076,6 +1086,7 @@ MANDATES: dict[str, dict] = {
             (9999, 'Working Group'),
         ],
         'reports': [
+            (2026, 'A/HRC/63/26', 'HRC 63rd session', 'Right to seeds: custodianship, enclosure and resistance'),
             (2025, 'A/80/180',    'GA 80th session',  'Right to participation of peasants and other people working in rural areas'),
             (2025, 'A/HRC/60/33', 'HRC 60th session', 'Global trends and challenges affecting peasants and other people working in rural areas'),
             (2024, 'A/HRC/57/51', 'HRC 57th session', 'Report of the Working Group on the rights of peasants and other people working in rural areas'),
@@ -1124,6 +1135,7 @@ MANDATES: dict[str, dict] = {
             (9999, 'Working Group'),
         ],
         'reports': [
+            (2026, 'A/HRC/63/31', 'HRC 63rd session', 'Use of technology by mercenaries, mercenary-related actors and private military and security companies in their services, operations and activities'),
             (2025, 'A/80/329',    'GA 80th session',  'Role of mercenaries, mercenary-related actors and private military and/or security companies as proxies, enablers and facilitators'),
             (2025, 'A/HRC/60/27', 'HRC 60th session', 'Role of mercenaries, mercenary-related actors and private military and security companies in the exploitation of natural resources'),
             (2024, 'A/79/305',    'GA 79th session',  'Trends and challenges in the financing of mercenaries and related actors'),
@@ -1222,6 +1234,7 @@ MANDATES: dict[str, dict] = {
             (9999, 'Working Group'),
         ],
         'reports': [
+            (2026, 'A/HRC/62/53', 'HRC 62nd session', 'Fourteenth session of the Forum on Business and Human Rights'),
             (2026, 'A/HRC/62/36', 'HRC 62nd session', 'Agribusiness, food security and human rights'),
             (2025, 'A/80/171',    'GA 80th session',  'Labour migration, business and human rights'),
             (2025, 'A/HRC/59/53', 'HRC 59th session', 'Artificial intelligence procurement and deployment: ensuring alignment with the Guiding Principles on Business and Human Rights'),
@@ -1268,6 +1281,7 @@ MANDATES: dict[str, dict] = {
         # visit addenda), corrigenda, A/HRC/60/CRP.2, and the 1991 Sri Lanka
         # country-visit report (E/CN.4/1992/18). No 2013-cycle report listed.
         'reports': [
+            (2026, 'A/HRC/63/28', 'HRC 63rd session', 'Enforced or involuntary disappearance'),
             (2025, 'A/HRC/60/35', 'HRC 60th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
             (2024, 'A/HRC/57/54', 'HRC 57th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
             (2023, 'A/HRC/54/22', 'HRC 54th session', 'Annual report of the Working Group on Enforced or Involuntary Disappearances'),
@@ -1337,6 +1351,7 @@ MANDATES: dict[str, dict] = {
         # Excluded: the 2006 Guantánamo joint situation report (E/CN.4/2006/120).
         # 2014 & 2015 each carry a second substantive thematic study.
         'reports': [
+            (2026, 'A/HRC/63/33', 'HRC 63rd session', 'Arbitrary detention'),
             (2025, 'A/HRC/60/26', 'HRC 60th session', 'Annual report: alternatives to pre-trial detention'),
             (2024, 'A/HRC/57/44', 'HRC 57th session', 'Annual report: arbitrary detention and mandatory sentencing'),
             (2023, 'A/HRC/54/51', 'HRC 54th session', 'Annual report: disinformation laws, COVID-19, and deprivation of liberty of environmental human rights defenders'),
@@ -1400,6 +1415,8 @@ MANDATES: dict[str, dict] = {
         # under item 71, so the report exists, but its A/80 symbol could not be
         # confirmed against UN Documents — add it once it is.
         'reports': [
+            (2026, 'A/HRC/63/24', 'HRC 63rd session', 'Embedded multipolarity in a polarized world'),
+            (2025, 'A/80/279', 'GA 80th session', 'Promotion of a democratic and equitable international order'),
             (2025, 'A/HRC/60/31', 'HRC 60th session', 'Major geopolitical trends and structural drivers of the North-South divide'),
             (2024, 'A/HRC/57/49', 'HRC 57th session', 'Vision report of the new Independent Expert'),
             (2023, 'A/78/262',    'GA 78th session',  "Main observations and recommendations from the Independent Expert's past reports"),
@@ -1624,6 +1641,7 @@ MANDATES: dict[str, dict] = {
         # https://www.ohchr.org/en/special-procedures/ie-sexual-orientation-and-gender-identity/annual-thematic-reports
         # Both HRC (sessions 35-59) and GA (sessions 72-80) reports annual & contiguous 2017-2025.
         'reports': [
+            (2026, 'A/HRC/62/46', 'HRC 62nd session', 'Violence and discrimination experienced by lesbian, bisexual and queer women'),
             (2025, 'A/80/183',    'GA 80th session',  'Protection against violence and discrimination based on SOGI in relation to the human right to education'),
             (2025, 'A/HRC/59/43', 'HRC 59th session', 'Protection against violence and discrimination based on SOGI in relation to forced displacement'),
             (2024, 'A/79/151',    'GA 79th session',  'Electoral participation and protection against violence and discrimination based on SOGI'),
@@ -1661,6 +1679,7 @@ MANDATES: dict[str, dict] = {
         # HRC reports annual from 2014; GA reports annual from 2020 (both
         # contiguous). A/HRC/42/43's Vienna Declaration annex excluded.
         'reports': [
+            (2026, 'A/HRC/63/35', 'HRC 63rd session', 'Cognitive impairment and the continuing exercise of human rights by older persons'),
             (2025, 'A/80/203',    'GA 80th session',  'Older persons in armed conflict and peacebuilding'),
             (2025, 'A/HRC/60/24', 'HRC 60th session', "Intersection between older persons' right to social protection and their right to work"),
             (2024, 'A/79/167',    'GA 79th session',  'Future generations of older persons'),
@@ -1702,6 +1721,7 @@ MANDATES: dict[str, dict] = {
         # All full HRC+GA reports 2008-2025; corrigenda (A/HRC/24/43/Corr.1-2,
         # A/HRC/21/41/Corr.1) and the A/HRC/33/46 annex excluded. (No 2011 report.)
         'reports': [
+            (2026, 'A/HRC/63/36', 'HRC 63rd session', 'Contemporary forms of slavery and trafficking in persons'),
             (2025, 'A/80/182',    'GA 80th session',  'The role of financial sector actors in eradicating contemporary forms of slavery'),
             (2025, 'A/HRC/60/28', 'HRC 60th session', 'Worst forms of child labour: assessing progress and persisting challenges'),
             (2024, 'A/79/159',    'GA 79th session',  "Role of workers' organizations in preventing workers from being subjected to contemporary forms of slavery"),
@@ -1762,6 +1782,7 @@ MANDATES: dict[str, dict] = {
         # could not be confirmed) and the 2026 HRC 62 report ("Rights, Memory
         # and Belonging", still at call-for-input).
         'reports': [
+            (2026, 'A/HRC/62/40', 'HRC 62nd session', 'Truth, justice and reparation for persons affected by leprosy: a human rights framework to address historical and systematic forced segregation and discrimination'),
             (2025, 'A/HRC/59/55', 'HRC 59th session', "Strengthening international cooperation and solidarity to protect the rights of persons affected by leprosy (Hansen's disease)"),
             (2024, 'A/79/152',    'GA 79th session',  "Care and support for persons affected by leprosy (Hansen's disease) and their family members from a human rights perspective"),
             (2024, 'A/HRC/56/59', 'HRC 56th session', 'Vision report of the Special Rapporteur on the elimination of discrimination against persons affected by leprosy and their family members'),
@@ -1867,6 +1888,7 @@ MANDATES: dict[str, dict] = {
         # corrigenda and country-situation docs excluded.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/62/49', 'HRC 62nd session', 'Violence against mothers'),
             (2025, 'A/HRC/59/47',   'HRC 59th session', 'Sex-based violence against women and girls: new frontiers and emerging issues'),
             (2025, 'A/80/158',      'GA 80th session',  'The different manifestations of violence against women and girls in the context of surrogacy'),
             (2024, 'A/HRC/56/48',   'HRC 56th session', 'Prostitution and violence against women and girls'),
@@ -1933,6 +1955,7 @@ MANDATES: dict[str, dict] = {
         # Thematic reports only — consultation/meeting addenda excluded.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/62/41', 'HRC 62nd session', 'Child trafficking in the context of statelessness, migration and forced displacement'),
             (2025, 'A/80/166',      'GA 80th session',  'Child rights and child trafficking in conflict situations'),
             (2025, 'A/HRC/59/56',  'HRC 59th session', 'Migrant domestic workers and trafficking in persons: prevention, rights protection and access to justice'),
             (2024, 'A/79/161',      'GA 79th session',  'Trafficking in persons and gender and peace and security'),
@@ -2033,6 +2056,7 @@ MANDATES: dict[str, dict] = {
         # Thematic reports only — communications reports, CRPs and addenda excluded.
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/62/35', 'HRC 62nd session', 'Externalization of migration governance: new trends and specific aspects'),
             (2025, 'A/80/302',       'GA 80th session',  'Externalization of migration governance and its effect on the human rights of migrants'),
             (2025, 'A/HRC/59/49',    'HRC 59th session', 'Phenomenon of migrants going missing or subjected to enforced disappearance: a human rights analysis'),
             (2024, 'A/79/213',       'GA 79th session',  'Children are children first and foremost: protecting child rights in migration contexts'),
@@ -2162,6 +2186,7 @@ MANDATES: dict[str, dict] = {
         # https://www.ohchr.org/en/special-procedures/sr-disability/annual-thematic-reports
         # (year, signature, presented, subject)
         'reports': [
+            (2026, 'A/HRC/61/46', 'HRC 61st session', 'Equal participation of persons with disabilities in political life'),
             (2026, 'A/HRC/61/26', 'HRC 61st session', 'Equal participation of persons with disabilities in political life'),
             (2025, 'A/80/170',     'GA 80th session',  'Care and support for children with disabilities within the family environment and its gendered dimensions'),
             (2025, 'A/HRC/58/56',  'HRC 58th session', 'Thirty years of implementation of the Beijing Declaration and Platform for Action: its potential for women and girls with disabilities'),
@@ -2202,6 +2227,7 @@ MANDATES: dict[str, dict] = {
         # Corr.1) excluded. Pre-2007 reports went to the Commission on
         # Human Rights (E/CN.4 symbols); the UN ODS serves those too.
         'reports': [
+            (2026, 'A/HRC/62/66', 'HRC 62nd session', 'Health as an enabler of dignity'),
             (2025, 'A/80/184',      'GA 80th session',  'Health and care workers: the oath takers and defenders of the right to health'),
             (2025, 'A/HRC/59/48',   'HRC 59th session', 'Health and care workers as defenders of the right to health'),
             (2024, 'A/79/177',      'GA 79th session',  'Harm reduction for sustainable peace and development'),
@@ -2272,6 +2298,7 @@ MANDATES: dict[str, dict] = {
         # dated by their HRC session (20th = 2012, 17th = 2011); the OHCHR
         # page mislabels their calendar year.
         'reports': [
+            (2026, 'A/HRC/62/39', 'HRC 62nd session', 'Curriculum, pedagogy and assessment as elements of the right to education'),
             (2025, 'A/80/479',      'GA 80th session',  'Right to education in armed conflict: a human rights imperative'),
             (2025, 'A/HRC/59/41',   'HRC 59th session', 'The right to be safe in education'),
             (2024, 'A/79/520',      'GA 79th session',  'Artificial intelligence in education'),
@@ -2426,6 +2453,7 @@ MANDATES: dict[str, dict] = {
         # Rights reports. Communications-observation addenda (Add.N)
         # excluded. No GA report for 2008 or 2010 (none was issued).
         'reports': [
+            (2026, 'A/HRC/63/30', 'HRC 63rd session', 'Historical and contemporary forms of violations against the sexual and reproductive health and rights of Indigenous women and girls'),
             (2025, 'A/HRC/60/29',   'HRC 60th session', 'Recognition of Indigenous Peoples'),
             (2024, 'A/HRC/57/47',   'HRC 57th session', 'Indigenous persons with disabilities'),
             (2023, 'A/HRC/54/31',   'HRC 54th session', 'Green financing: a just transition to protect the rights of Indigenous Peoples'),

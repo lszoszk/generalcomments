@@ -1,13 +1,13 @@
 {
-  "version": "20260817",
-  "builtAt": "2026-08-17T20:52:21+00:00",
+  "version": "20260903",
+  "builtAt": "2026-09-03T12:45:13+00:00",
   "counts": {
-    "documents": 1749,
-    "paragraphs": 167375,
+    "documents": 1779,
+    "paragraphs": 169952,
     "gcDocuments": 187,
     "gcParagraphs": 7216,
-    "spDocuments": 1562,
-    "spParagraphs": 160159,
+    "spDocuments": 1592,
+    "spParagraphs": 162736,
     "labels": 20,
     "committees": 56,
     "yearRange": [
@@ -21,13 +21,13 @@
       "bytes": 7972632
     },
     "documents.json": {
-      "sha": "0096a957410b8034",
-      "bytes": 1303525
+      "sha": "42ac6e642ee37a80",
+      "bytes": 1324331
     },
     "facets.json": {
-      "sha": "aeed87cc6ed3683f",
-      "bytes": 13981
+      "sha": "7ba372e66b850cdb",
+      "bytes": 13983
     }
   },
-  "note": "Incremental append (append_sp_docs.py): +2 SP docs."
+  "note": "Incremental append (append_sp_docs.py): +30 SP docs."
 }
