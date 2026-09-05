@@ -6912,3 +6912,18 @@ body[data-active-view="ask"] section[data-view="ask"] {
    lite-note marker that was showing even outside lite mode. */
 .btn[hidden],
 .lite-note[hidden] { display: none; }
+
+/* Case decision line (type · outcome · articles) on result cards and the reader header. */
+.jur-decision-line {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 34ch;
+}
+.docs-reader-meta .jur-decision-line { white-space: normal; max-width: none; font-size: 11px; }
+.jur-offline-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }

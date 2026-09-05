@@ -63,6 +63,9 @@ const state = {
     reportTypes: new Set(),      // SP only — annual / thematic / communications / addendum / country-visit
     countries: new Set(),        // JUR only — state party of the case
     outcomes: new Set(),         // JUR only — case outcome (violation_found, inadmissible, …)
+    decisionTypes: new Set(),    // JUR only — juris.ohchr.org type of decision
+    substantiveIssues: new Set(),// JUR only — juris.ohchr.org substantive issues (ANY)
+    proceduralIssues: new Set(), // JUR only — juris.ohchr.org procedural issues (ANY)
     rightsKeywords: new Set(),   // JUR / CCPR only — rights-based topic tags from CCPR Centre
     articles: new Set(),         // JUR only — substantive Covenant articles cited
     showSuperseded: false,       // hide superseded GCs by default
@@ -169,16 +172,16 @@ function apiActive(scope) {
   // (one-time, ~3-4 MB) — acceptable in exchange for correct results.
   // Drop this gate per-filter as the API gains support.
   const f = state.filters;
+  // countries / outcomes / articles / decision types / issues are forwarded
+  // to the server since the 2026-09 API update — selecting a State party used
+  // to push the whole session onto the 180 MB offline path.
   const usesUnsupportedFilter =
     (f.rightsKeywords && f.rightsKeywords.size) ||
-    (f.articles && f.articles.size) ||
-    (f.countries && f.countries.size) ||
-    (f.outcomes && f.outcomes.size) ||
     (f.reportTypes && f.reportTypes.size);
   if (usesUnsupportedFilter) return false;
   return true;
 }
-async function apiFetch(path, params) {
+async function apiFetch(path, params, timeoutMs = API_TIMEOUT_MS) {
   const url = new URL(API_BASE + path);
   for (const [k, v] of Object.entries(params || {})) {
     if (v !== null && v !== undefined && v !== '') url.searchParams.set(k, v);
@@ -188,7 +191,7 @@ async function apiFetch(path, params) {
   // browser-default 30+ seconds. AbortSignal.timeout() is widely
   // supported in modern browsers; older Safari needs the manual variant.
   const ac = new AbortController();
-  const timer = setTimeout(() => ac.abort(new Error('timeout')), API_TIMEOUT_MS);
+  const timer = setTimeout(() => ac.abort(new Error('timeout')), timeoutMs);
   try {
     const res = await fetch(url.toString(), { credentials: 'omit', signal: ac.signal });
     if (!res.ok) {
@@ -215,19 +218,24 @@ async function apiFetch(path, params) {
 // can decide between API vs local for subsequent searches.
 async function pingApi() {
   if (!apiEnabled()) return;
-  const t0 = performance.now();
-  try {
-    const r = await apiFetch('/api/stats', {});
-    const ms = Math.round(performance.now() - t0);
-    console.info(`[unhrdb-api] online · ${r.version} · ${r.totalParagraphs.toLocaleString()} ¶ · ${ms} ms`);
-    state.apiOnline = true;
-    state.apiStats = r;
-    paintApiBadge(true, ms);
-  } catch (e) {
-    console.warn('[unhrdb-api] unreachable:', e.message);
-    state.apiOnline = false;
-    paintApiBadge(false);
+  // Two attempts, the second with a longer budget: one slow round trip must
+  // not push a visitor onto the offline path for the rest of the session.
+  for (const timeoutMs of [API_TIMEOUT_MS, API_TIMEOUT_MS * 2]) {
+    const t0 = performance.now();
+    try {
+      const r = await apiFetch('/api/stats', {}, timeoutMs);
+      const ms = Math.round(performance.now() - t0);
+      console.info(`[unhrdb-api] online · ${r.version} · ${r.totalParagraphs.toLocaleString()} ¶ · ${ms} ms`);
+      state.apiOnline = true;
+      state.apiStats = r;
+      paintApiBadge(true, ms);
+      return;
+    } catch (e) {
+      console.warn(`[unhrdb-api] unreachable (${timeoutMs} ms budget):`, e.message);
+    }
   }
+  state.apiOnline = false;
+  paintApiBadge(false);
 }
 // v19: API-backed runSearch. Maps an /api/search response into the
 // same `{p, score}` shape the local renderer expects, hydrates
@@ -282,6 +290,16 @@ async function runSearchViaApi(runId) {
   }
   if (f.yearMin && f.yearMin !== state.facets?.years?.min) params.year_from = f.yearMin;
   if (f.yearMax && f.yearMax !== state.facets?.years?.max) params.year_to   = f.yearMax;
+  // JUR document-level filters. Values may contain commas ("cruel, inhuman
+  // or degrading treatment"; joint cases carry "Afghanistan,Sweden"), so
+  // they travel pipe-separated; a leading "|" tells the server which mode.
+  const pipe = (set) => '|' + [...set].join('|');
+  if (f.countries.size) params.countries = pipe(f.countries);
+  if (f.outcomes.size) params.outcomes = [...f.outcomes].join(',');
+  if (f.articles.size) params.articles = [...f.articles].join('|');
+  if (f.decisionTypes.size) params.decision_types = [...f.decisionTypes].join('|');
+  if (f.substantiveIssues.size) params.substantive_issues = [...f.substantiveIssues].join('|');
+  if (f.proceduralIssues.size) params.procedural_issues = [...f.proceduralIssues].join('|');
   // Footnote search is opt-in (default OFF). Forward the toggle so the
   // server column-filters the FTS match to body columns unless ON. Sent
   // explicitly both ways so a mid-session toggle always round-trips.
@@ -512,7 +530,7 @@ const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard mat
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', rk: 'rk', ar: 'ar', fn: 'fn', pre: 'pre' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', rk: 'rk', ar: 'ar', dt: 'dt', si: 'si', pi: 'pi', fn: 'fn', pre: 'pre' };
 
 function documentIdForParagraphId(paraId) {
   if (!paraId) return null;
@@ -620,6 +638,9 @@ function encodeUrlState() {
   if (state.filters.countries.size) u.set(URL_KEYS.cy, [...state.filters.countries].join('|'));
   // v19.46: outcome filter (JUR-only). Encoded as pipe-separated values.
   if (state.filters.outcomes.size) u.set(URL_KEYS.oc, [...state.filters.outcomes].join('|'));
+  if (state.filters.decisionTypes.size) u.set(URL_KEYS.dt, [...state.filters.decisionTypes].join('|'));
+  if (state.filters.substantiveIssues.size) u.set(URL_KEYS.si, [...state.filters.substantiveIssues].join('|'));
+  if (state.filters.proceduralIssues.size) u.set(URL_KEYS.pi, [...state.filters.proceduralIssues].join('|'));
   // v19.47: rights-keywords + article-cited filters (JUR-only).
   if (state.filters.rightsKeywords.size) u.set(URL_KEYS.rk, [...state.filters.rightsKeywords].join('|'));
   if (state.filters.articles.size) u.set(URL_KEYS.ar, [...state.filters.articles].join('|'));
@@ -672,6 +693,9 @@ function decodeUrlState() {
     reportTypes: split('rt'),
     countries: split('cy'),
     outcomes: split('oc'),
+    decisionTypes: split('dt'),
+    substantiveIssues: split('si'),
+    proceduralIssues: split('pi'),
     rightsKeywords: split('rk'),
     articles: split('ar'),
     showSuperseded: u.get(URL_KEYS.sup) === '1',
@@ -771,11 +795,13 @@ async function boot() {
     paintStatusFilter();
     paintCountryFilter();
     paintOutcomeFilter();
+    paintJurDocFilters();
     paintRightsFilter();
     paintArticleFilter();
     syncReportTypeFilterVisibility();
     syncCountryFilterVisibility();
     syncOutcomeFilterVisibility();
+    syncJurDocFiltersVisibility();
     syncRightsFilterVisibility();
     syncArticleFilterVisibility();
     syncStatusFilterVisibility();
@@ -1249,6 +1275,19 @@ function jurResearchYearFacet() {
     : state.jur.facets?.years;
 }
 
+// Document-level facet from the case catalogue (documents-lite carries the
+// juris.ohchr.org taxonomy on every case record).
+function jurDocFacet(field) {
+  const counts = new Map();
+  for (const d of state.documents.values()) {
+    if (d.type !== 'jur') continue;
+    const v = d[field];
+    for (const x of (Array.isArray(v) ? v : (v ? [v] : []))) counts.set(x, (counts.get(x) || 0) + 1);
+  }
+  return [...counts].map(([value, count]) => ({ value, count }))
+    .sort((a, b) => b.count - a.count || String(a.value).localeCompare(String(b.value)));
+}
+
 function mergeJurFacets(base) {
   if (!base || !state.jur.facets) return base;
   return {
@@ -1263,6 +1302,9 @@ function mergeJurFacets(base) {
     // alongside committees/labels/years.
     outcomes: state.jur.facets.outcomes || [],
     outcomesDetailed: state.jur.facets.outcomesDetailed || [],
+    decisionTypes: jurDocFacet('jurisDecisionType'),
+    substantiveIssues: jurDocFacet('jurisSubstantiveIssues'),
+    proceduralIssues: jurDocFacet('jurisProceduralIssues'),
     rightsKeywords: state.jur.facets.rightsKeywords || [],
     countryCodes: state.jur.facets.countryCodes || [],
   };
@@ -1400,6 +1442,12 @@ function applyUrlState(parsed) {
   // v19.46: JUR outcome filter — same scoping pattern.
   const validOutcomes = new Set((state.facets.outcomes || []).map(o => o.value));
   state.filters.outcomes = new Set((parsed.outcomes || []).filter(o => validOutcomes.has(o)));
+  // Decision-type / issue filters (juris.ohchr.org taxonomy) — same pattern.
+  const validValues = (items) => new Set((items || []).map(o => o.value));
+  const vDt = validValues(state.facets.decisionTypes), vSi = validValues(state.facets.substantiveIssues), vPi = validValues(state.facets.proceduralIssues);
+  state.filters.decisionTypes = new Set((parsed.decisionTypes || []).filter(v => vDt.has(v)));
+  state.filters.substantiveIssues = new Set((parsed.substantiveIssues || []).filter(v => vSi.has(v)));
+  state.filters.proceduralIssues = new Set((parsed.proceduralIssues || []).filter(v => vPi.has(v)));
 
   // v19.47: JUR rights-keywords + articles filters
   const validRights = new Set((state.facets.rightsKeywords || []).map(o => o.value));
@@ -2789,6 +2837,7 @@ function paintDocReaderBody(doc, paraId) {
         ${doc.type === 'sp' && doc.mandate
           ? `<span title="Mandate holder">${escape(doc.mandate)}</span>`
           : (doc.committee || doc.treaty ? `<span>${escape(doc.committee || doc.treaty)}</span>` : '')}
+        ${doc.type === 'jur' && jurDecisionSummary(doc) ? `<span class="jur-decision-line" title="${escape(jurDecisionSummary(doc, { full: true }))}">${escape(jurDecisionSummary(doc, { full: true }))}</span>` : ''}
         <span>${paragraphs.length} ${paragraphs.length === 1 ? 'paragraph' : 'paragraphs'}</span>
         ${sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener" class="docs-reader-source">↗ official source</a>` : ''}
         <button type="button" class="docs-reader-find-toggle" id="docs-reader-find-toggle" title="Find in document (⌘F / Ctrl+F)" aria-label="Find in document">⌕ Find</button>
@@ -3629,6 +3678,74 @@ function syncOutcomeFilterVisibility() {
   block.hidden = state.scope !== 'jur';
 }
 
+// ─────────── JUR decision-type + issue filters (juris.ohchr.org taxonomy) ───────────
+const JUR_DOC_FILTERS = [
+  { key: 'decisionTypes',     facet: 'decisionTypes',     host: '#filter-decision-types',     count: '#filter-decision-type-count',     block: '#filter-block-decision-type',     noun: 'types',  search: null },
+  { key: 'substantiveIssues', facet: 'substantiveIssues', host: '#filter-substantive-issues', count: '#filter-substantive-issue-count', block: '#filter-block-substantive-issue', noun: 'issues', search: '#filter-substantive-issues-search' },
+  { key: 'proceduralIssues',  facet: 'proceduralIssues',  host: '#filter-procedural-issues',  count: '#filter-procedural-issue-count',  block: '#filter-block-procedural-issue',  noun: 'issues', search: null },
+];
+
+function paintJurDocFilters() {
+  if (!state.facets) return;
+  for (const spec of JUR_DOC_FILTERS) {
+    const host = $(spec.host);
+    if (!host) continue;
+    const items = state.facets[spec.facet] || [];
+    const selected = state.filters[spec.key];
+    const counter = $(spec.count);
+    if (counter) counter.textContent = selected.size ? `${selected.size} of ${items.length}` : `${items.length} ${spec.noun}`;
+    host.innerHTML = '';
+    for (const { value, count } of items) {
+      const wrap = document.createElement('label');
+      wrap.dataset.value = String(value).toLowerCase();
+      wrap.innerHTML = `
+        <input type="checkbox" data-value="${escape(value)}" ${selected.has(value) ? 'checked' : ''} />
+        <span>${escape(value)}</span>
+        <span class="count">${count.toLocaleString()}</span>`;
+      wrap.querySelector('input').addEventListener('change', e => {
+        if (e.target.checked) selected.add(value); else selected.delete(value);
+        runSearch();
+      });
+      host.appendChild(wrap);
+    }
+    const search = spec.search ? $(spec.search) : null;
+    if (search && !search.dataset.bound) {
+      search.dataset.bound = '1';
+      search.addEventListener('input', () => {
+        const q = (search.value || '').toLowerCase().trim();
+        host.querySelectorAll('label').forEach(lbl => { lbl.hidden = Boolean(q) && !lbl.dataset.value.includes(q); });
+      });
+    }
+  }
+}
+
+function syncJurDocFiltersVisibility() {
+  for (const spec of JUR_DOC_FILTERS) {
+    const block = $(spec.block);
+    if (block) block.hidden = state.scope !== 'jur';
+  }
+}
+
+// One-line decision header for a case card / reader: type · outcome ·
+// substantive articles (short), with procedural issues in the long form.
+function jurDecisionSummary(doc, { full = false } = {}) {
+  if (!doc || doc.type !== 'jur') return '';
+  const parts = [];
+  if (doc.jurisDecisionType) parts.push(doc.jurisDecisionType);
+  if (doc.outcome && OUTCOME_LABELS[doc.outcome] && !['other', 'decision', 'views'].includes(doc.outcome)) parts.push(OUTCOME_LABELS[doc.outcome]);
+  const arts = (doc.jurisSubstantiveArticles || []).map(a => String(a).replace(/\s+/g, ''));
+  if (arts.length) {
+    const cap = full ? arts.length : 3;
+    parts.push(`art. ${arts.slice(0, cap).join(', ')}${arts.length > cap ? ` +${arts.length - cap}` : ''}`);
+  }
+  if (full) {
+    const proc = doc.jurisProceduralIssues || [];
+    if (proc.length) parts.push(`procedural: ${proc.join('; ')}`);
+    if (doc.interimMeasuresMentioned === true) parts.push('interim measures mentioned');
+  }
+  return parts.join(' · ');
+}
+
 // ─────────── JUR rights-keywords filter (v19.47) ───────────
 // 119-tag CCPR Centre rights vocabulary — too many for a flat list,
 // so we render top-N by paragraph count plus a typeahead input that
@@ -4271,6 +4388,7 @@ function bindUI() {
     syncReportTypeFilterVisibility();
     syncCountryFilterVisibility();
     syncOutcomeFilterVisibility();
+    syncJurDocFiltersVisibility();
     syncRightsFilterVisibility();
     syncArticleFilterVisibility();
     syncStatusFilterVisibility();
@@ -4402,6 +4520,9 @@ function bindUI() {
     state.filters.reportTypes.clear();
     state.filters.countries.clear();
     state.filters.outcomes.clear();
+    state.filters.decisionTypes.clear();
+    state.filters.substantiveIssues.clear();
+    state.filters.proceduralIssues.clear();
     state.filters.rightsKeywords.clear();
     state.filters.articles.clear();
     state.filters.showSuperseded = false;
@@ -4411,6 +4532,7 @@ function bindUI() {
     $$('#filter-committees .chip, #filter-mandates .chip, #filter-countries .chip, #filter-articles .chip').forEach(c => c.classList.remove('on'));
     $$('#filter-labels input').forEach(i => i.checked = false);
     $$('#filter-outcomes input').forEach(i => i.checked = false);
+    $$('#filter-decision-types input, #filter-substantive-issues input, #filter-procedural-issues input').forEach(i => i.checked = false);
     $$('#filter-rights input').forEach(i => i.checked = false);
     const rkSearch = $('#filter-rights-search'); if (rkSearch) rkSearch.value = '';
     $$('#filter-rights label').forEach(l => { l.hidden = false; });
@@ -4422,6 +4544,7 @@ function bindUI() {
     paintStatusFilter();
     paintCountryFilter();
     paintOutcomeFilter();
+    paintJurDocFilters();
     paintRightsFilter();
     paintArticleFilter();
     runSearch();
@@ -4715,6 +4838,9 @@ function buildExportProvenance(exportedCount, expectedTotal, resultSource) {
       reportTypes: [...state.filters.reportTypes],
       countries: [...state.filters.countries],
       outcomes: [...state.filters.outcomes],
+      decisionTypes: [...state.filters.decisionTypes],
+      substantiveIssues: [...state.filters.substantiveIssues],
+      proceduralIssues: [...state.filters.proceduralIssues],
       rightsKeywords: [...state.filters.rightsKeywords],
       articles: [...state.filters.articles],
       includeSuperseded: state.filters.showSuperseded,
@@ -5602,9 +5728,48 @@ function flexSearchPrefixIds(prefix) {
 }
 
 // ─────────── Lazy jurisprudence loader ───────────
+const JUR_OFFLINE_KEY = 'unhrdb_jur_offline_ok';
+function jurOfflineConsent() {
+  try { return localStorage.getItem(JUR_OFFLINE_KEY) === '1'; } catch { return false; }
+}
+
+// Offline jurisprudence search means fetching every shard (~180 MB). When the
+// visitor expected the server and it merely failed to answer, ask before
+// spending that much of their connection — and offer to try the server again.
+function paintJurOfflineChoice() {
+  const files = state.jur.manifest?.files || {};
+  const bytes = Object.entries(files).filter(([n]) => n.startsWith('shards/')).reduce((sum, [, f]) => sum + (f?.bytes || 0), 0);
+  const mb = bytes ? `~${Math.round(bytes / 1048576)} MB` : 'about 180 MB';
+  $('#results-title').textContent = 'The search server did not answer';
+  $('#results-sub').textContent = 'Searching the decisions needs the server or an offline copy of every case.';
+  const list = $('#result-list');
+  if (!list) return;
+  list.innerHTML = `<li class="result-empty jur-offline-choice">
+      <p>Searching 4,000+ decisions offline means downloading ${mb} of case text into this browser (kept for later visits). Case pages in <a href="#documents">Documents</a> load one case at a time and work now.</p>
+      <div class="jur-offline-actions">
+        <button type="button" class="btn" id="jur-retry-api">Retry the server</button>
+        <button type="button" class="btn btn-ghost" id="jur-load-offline">Download offline copy (${mb})</button>
+      </div>
+    </li>`;
+  $('#jur-retry-api')?.addEventListener('click', async () => {
+    state.apiOnline = null;
+    await pingApi();
+    runSearch();
+  });
+  $('#jur-load-offline')?.addEventListener('click', () => {
+    try { localStorage.setItem(JUR_OFFLINE_KEY, '1'); } catch {}
+    runSearch();
+  });
+  paintApiBadge(false);
+}
+
 async function ensureScopeLoaded(scope) {
   if (scope !== 'jur' && scope !== 'all') return;
   if (!state.jur.manifest || state.jur.loaded) return;
+  if (apiEnabled() && state.apiOnline === false && !jurOfflineConsent()) {
+    paintJurOfflineChoice();
+    return 'pending-consent';
+  }
   if (!state.jur.loading) {
     state.jur.loading = loadJurCorpus().finally(() => { state.jur.loading = null; });
   }
@@ -6141,8 +6306,9 @@ async function runSearch() {
     // searches are instant.
     await ensureCorpusReady();
     if (runId !== state.searchRun) return;
-    await ensureScopeLoaded(state.scope);
+    const gate = await ensureScopeLoaded(state.scope);
     if (runId !== state.searchRun) return;
+    if (gate === 'pending-consent') return;
   } catch (err) {
     $('#results-title').textContent = 'Failed to load search index';
     $('#results-sub').textContent = err.message;
@@ -6207,6 +6373,14 @@ async function runSearch() {
     // countries; a non-empty set drops every non-JUR paragraph because
     // GC/SP paragraphs lack `p.outcome`.
     if (f.outcomes.size && (!p.outcome || !f.outcomes.has(p.outcome))) continue;
+    // Decision-type / issue filters live on the case record.
+    if (f.decisionTypes.size || f.substantiveIssues.size || f.proceduralIssues.size) {
+      const jdoc = state.documents.get(p.docId);
+      if (!jdoc) continue;
+      if (f.decisionTypes.size && !f.decisionTypes.has(jdoc.jurisDecisionType)) continue;
+      if (f.substantiveIssues.size && !(jdoc.jurisSubstantiveIssues || []).some(v => f.substantiveIssues.has(v))) continue;
+      if (f.proceduralIssues.size && !(jdoc.jurisProceduralIssues || []).some(v => f.proceduralIssues.has(v))) continue;
+    }
     // v19.47: rights-keywords + article-cited filters — JUR-only.
     // These live on the DOC, not the paragraph. Pull the doc record once.
     if (f.rightsKeywords.size || f.articles.size) {
@@ -7106,6 +7280,9 @@ function renderResult(p, rank, terms, opts = {}) {
     ? `<span class="ocr-pill" title="Recovered from a scanned PDF via OCR. Residual character-level errors may remain — click the title to open the document and use the “report issue” link to flag any. Cleanup: ~1,388 fixes applied (TSV-leak strip, letter-substitution sweep, mangled-word audit).">OCR</span>`
     : '';
 
+  const decisionLine = p.type === 'jur' && jurDecisionSummary(doc)
+    ? `<span class="jur-decision-line" title="${escape(jurDecisionSummary(doc, { full: true }))}">${escape(jurDecisionSummary(doc))}</span>`
+    : '';
   const labelChips = (p.labels || []).slice(0, 4).map(l => `<span class="chip">${escape(l)}</span>`).join('');
   const committeeChips = p.committees.map(c => `<span class="chip ${isSp(c) ? 'sp-chip' : p.type === 'jur' ? 'jur-chip' : ''}">${escape(c)}</span>`).join('');
 
@@ -7114,6 +7291,7 @@ function renderResult(p, rank, terms, opts = {}) {
         ${badge}
         ${sourceKindLabel}
         ${statusPill}
+        ${decisionLine}
         ${ocrPill}
         <span class="folio">MATCHED PARAGRAPH</span>
         <span class="result-spacer"></span>
@@ -7123,6 +7301,7 @@ function renderResult(p, rank, terms, opts = {}) {
         ${badge}
         ${sourceKindLabel}
         ${statusPill}
+        ${decisionLine}
         ${ocrPill}
         <span class="result-doc">${escape(formatDocHeadline(doc) || p.docId)}</span>
         <span class="result-spacer"></span>

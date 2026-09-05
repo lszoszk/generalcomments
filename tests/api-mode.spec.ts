@@ -127,7 +127,9 @@ test('A2b. spRecoversAfterBootFailure · SP retries API instead of showing zero 
   let statsCalls = 0;
   await page.route('**/unhrdb-api/api/stats', (route) => {
     statsCalls++;
-    if (statsCalls === 1) return route.fulfill({ status: 500, body: 'temporary outage' });
+    // pingApi() tries twice at boot; both attempts must fail for the boot to
+    // end offline, which is the situation this test is about.
+    if (statsCalls <= 2) return route.fulfill({ status: 500, body: 'temporary outage' });
     return route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) });
   });
   await page.route('**/unhrdb-api/api/search**', (route) =>
@@ -918,4 +920,55 @@ test('A9b. artRefResolution · v19.67-75 rules — OP anaphora, compound lists, 
       expect(got, `case ${c.id}`).toEqual(c.expect);
     }
   }
+});
+
+test('A10. jurDocFiltersForwarded · decision-type and issue filters reach the server pipe-separated', async ({ page }) => {
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  const urls: string[] = [];
+  await page.route('**/unhrdb-api/api/search**', (route) => {
+    urls.push(route.request().url());
+    return route.fulfill({ status: 200, body: JSON.stringify(mockSearchPage({ total: 2, page: 1, pageSize: 200 })) });
+  });
+  await bootApp(page, '/index.html?api=1&scope=jur&q=torture'
+    + '&dt=Decision%20on%20merits'
+    + '&si=fair%20trial%7Ctorture'
+    + '&pi=exhaustion%20of%20domestic%20remedies'
+    + '&oc=violation_found');
+  await expect.poll(() => urls.length, { timeout: 15_000 }).toBeGreaterThan(0);
+  const last = new URL(urls[urls.length - 1]);
+  expect(last.searchParams.get('decision_types')).toBe('Decision on merits');
+  expect(last.searchParams.get('substantive_issues')).toBe('fair trial|torture');
+  expect(last.searchParams.get('procedural_issues')).toBe('exhaustion of domestic remedies');
+  // Outcome used to disable the API path altogether; it is a server filter now.
+  expect(last.searchParams.get('outcomes')).toBe('violation_found');
+  await expect(page.locator('#results-sub')).not.toContainText(/local jurisprudence fallback/i);
+  // The filter panel reflects the URL state.
+  await expect(page.locator('#filter-decision-types input:checked')).toHaveCount(1);
+  await expect(page.locator('#filter-procedural-issues input:checked')).toHaveCount(1);
+});
+
+test('A11. jurOfflineChoice · a dead server asks before the 180 MB download and can retry', async ({ page }) => {
+  let serverUp = false;
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    serverUp
+      ? route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+      : route.fulfill({ status: 503, body: 'down' })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) =>
+    serverUp
+      ? route.fulfill({ status: 200, body: JSON.stringify(mockSearchPage({ total: 3, page: 1, pageSize: 200 })) })
+      : route.fulfill({ status: 503, body: 'down' })
+  );
+  await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
+  const choice = page.locator('.jur-offline-choice');
+  await expect(choice).toBeVisible({ timeout: 30_000 });
+  await expect(choice).toContainText(/MB/);
+  await expect(page.locator('#results-sub')).not.toContainText(/Loaded \d+\/\d+ jurisprudence shards/);
+  // The server comes back: one click, no download.
+  serverUp = true;
+  await page.locator('#jur-retry-api').click();
+  await expect(page.locator('.result').first()).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('#api-badge')).toContainText(/API/);
 });
