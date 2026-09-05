@@ -345,3 +345,20 @@ test('R22. mergedDuplicate · the retired Narymbaev stub id still opens the case
   await expect(page.locator('.docs-reader-para.is-active'))
     .toHaveAttribute('data-para-id', 'ccpr-c-133-d-2904-2907-2016-0005', { timeout: 10_000 });
 });
+
+test('R23. zoteroMetadata · an open document exposes Highwire citation tags; the shell does not', async ({ page }) => {
+  await bootApp(page, '/index.html#documents/crc-c-gc-25');
+  await expect(page.locator('.docs-reader-title')).toContainText(/digital environment/i, { timeout: 15_000 });
+  const meta = (name: string) => page.locator(`head meta[name="${name}"]`).getAttribute('content');
+  expect(await meta('citation_technical_report_number')).toBe('CRC/C/GC/25');
+  // Trailing comma keeps the institution in one name field in Zotero.
+  expect(await meta('citation_author')).toBe('Committee on the Rights of the Child,');
+  expect(await meta('citation_technical_report_institution')).toBe('United Nations');
+  expect(await meta('citation_publication_date')).toBe('2021/03/02');
+  expect(await meta('citation_public_url')).toContain('documents/crc-c-gc-25');
+  expect(await meta('citation_title')).toMatch(/digital environment/i);
+  // Leaving the reader for the empty search view removes the tags, so the
+  // connector falls back to saving a plain web page for the app itself.
+  await page.locator('nav a[href="#search"]').first().click();
+  await expect(page.locator('head meta[data-unhrdb-cite]')).toHaveCount(0);
+});

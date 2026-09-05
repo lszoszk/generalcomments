@@ -1603,6 +1603,8 @@ function setView(view) {
   if (!VIEWS.includes(view)) view = 'search';
   state.view = view;
   document.body.dataset.activeView = view;
+  // Outside the reader and an open dossier there is no document to save.
+  if (view !== 'documents' && !(view === 'search' && state.activeId)) clearScholarlyMeta();
 
   // v19.51.6 (audit Tier A): toggle the section[data-view] `hidden`
   // attribute in lockstep with the body[data-active-view] selector.
@@ -2512,6 +2514,8 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
   paintDocsRail();
   // v19.6 (B1): tab <title> reflects the open doc.
   updateDocumentTitle();
+  // Reference managers see the open document, not the app shell.
+  updateScholarlyMeta(doc);
   // Scroll the rail so the active row is visible.
   document.querySelector('.docs-rail-row.is-active')?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
 }
@@ -7783,6 +7787,7 @@ function paintDossier() {
             || state.paragraphs.find(p => p.id === state.activeId);
   if (!para) return;
   const doc = state.documents.get(para.docId);
+  if (state.view === 'search') updateScholarlyMeta(doc);
   const sourceUrl = officialSourceUrl(doc);
   const isSpDoc = para.type === 'sp';
   const isJurDoc = para.type === 'jur';
@@ -8832,6 +8837,92 @@ function _citePlainURL(doc, para) {
   return _citeBaseFields(doc, para).shareUrl;
 }
 
+// ─────────── Reference-manager metadata (Zotero et al.) ───────────
+// Zotero's Embedded Metadata translator reads Highwire `citation_*` tags
+// from <head> and re-detects on history-state changes, which is how this
+// single-page app navigates — so the tags are (re)written whenever a
+// document is open in the reader or the dossier. `citation_technical_
+// report_institution` makes the saved item a Report and the UN symbol goes
+// into its report number, so OSCOLA/Bluebook styles print "UN Doc …".
+// The trailing comma on the author keeps an institution in one field
+// (ZU.cleanAuthor splits "Human Rights Committee" into a person otherwise).
+function clearScholarlyMeta() {
+  document.querySelectorAll('meta[data-unhrdb-cite]').forEach(m => m.remove());
+}
+function _citeIsoDate(doc) {
+  const raw = doc?.adoptionDate || '';
+  const t = raw ? Date.parse(raw) : NaN;
+  if (Number.isFinite(t)) {
+    const d = new Date(t);
+    return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
+  }
+  const y = doc?.year ?? doc?.adoptionYear;
+  return y ? String(y) : '';
+}
+function updateScholarlyMeta(doc) {
+  clearScholarlyMeta();
+  if (!doc) return;
+  const f = _citeBaseFields(doc, null);
+  const keywords = (doc.caseLabels || doc.labels || []).filter(Boolean).join('; ');
+  // General comments: the full official title, not the reader's short form.
+  const title = doc.type === 'gc' ? (doc.name || f.title) : f.title;
+  const tags = [
+    ['citation_title', title],
+    ['citation_author', f.authorLong ? `${f.authorLong},` : ''],
+    ['citation_technical_report_institution', 'United Nations'],
+    ['citation_technical_report_number', f.symbol],
+    ['citation_publication_date', _citeIsoDate(doc)],
+    ['citation_language', 'en'],
+    ['citation_public_url', f.shareUrl],
+    ['citation_publisher', 'United Nations'],
+    ['citation_abstract', doc.abstract || ''],
+    ['citation_keywords', keywords],
+  ];
+  for (const [name, content] of tags) {
+    if (!content) continue;
+    const m = document.createElement('meta');
+    m.setAttribute('name', name);
+    m.setAttribute('content', String(content));
+    m.dataset.unhrdbCite = '1';
+    document.head.appendChild(m);
+  }
+}
+
+// CSL-JSON — the exchange format Zotero, Pandoc and citeproc consume
+// directly (File → Import in Zotero; `--citeproc` in Pandoc).
+function _cslDateParts(doc) {
+  const raw = doc?.adoptionDate || '';
+  const t = raw ? Date.parse(raw) : NaN;
+  if (Number.isFinite(t)) { const d = new Date(t); return { 'date-parts': [[d.getFullYear(), d.getMonth() + 1, d.getDate()]] }; }
+  const y = doc?.year ?? doc?.adoptionYear;
+  return y ? { 'date-parts': [[Number(y)]] } : undefined;
+}
+function _citeCSLJSON(doc, para) {
+  const f = _citeBaseFields(doc, para);
+  const today = new Date();
+  const item = {
+    id: `unhrdb-${(doc?.docId || f.symbol).replace(/[^A-Za-z0-9-]/g, '-')}${f.paraNum !== '' ? `-p${String(f.paraNum).replace(/\W/g, '')}` : ''}`,
+    type: f.type === 'jur' ? 'legal_case' : 'report',
+    title: f.title,
+    author: [{ literal: f.authorLong }],
+    number: f.symbol,
+    publisher: 'United Nations',
+    URL: f.shareUrl,
+    language: 'en',
+    accessed: { 'date-parts': [[today.getFullYear(), today.getMonth() + 1, today.getDate()]] },
+  };
+  const issued = _cslDateParts(doc);
+  if (issued) item.issued = issued;
+  if (f.type === 'jur') {
+    item.authority = f.authorLong;
+    if (f.communicationNumber) item['number'] = `${f.symbol} (Communication No. ${f.communicationNumber})`;
+    if (f.country) item.jurisdiction = f.country;
+  }
+  if (f.type === 'sp' && f.mandateName) item.genre = `Report of the ${f.mandateName}`;
+  if (f.paraNum !== '') item.note = `Paragraph ${f.paraNum}; cite with locator "para. ${f.paraNum}".`;
+  return JSON.stringify(item, null, 2);
+}
+
 const CITE_FORMATS = [
   // Legal-citation formats first — what HR lawyers actually
   // paste into briefs. Default order surfaces the UN treaty-body
@@ -8846,6 +8937,7 @@ const CITE_FORMATS = [
   { key: 'chicago', name: 'Chicago notes',  fmt: 'CHICAGO', build: _citeChicago },
   { key: 'bibtex',  name: 'BibTeX',          fmt: '.BIB',    build: _citeBibTeX },
   { key: 'ris',     name: 'RIS / EndNote',   fmt: '.RIS',    build: _citeRIS },
+  { key: 'csl',     name: 'CSL-JSON (Zotero / Pandoc)', fmt: '.JSON', build: _citeCSLJSON },
   { key: 'url',     name: 'Plain URL',       fmt: 'LINK',    build: _citePlainURL },
 ];
 
