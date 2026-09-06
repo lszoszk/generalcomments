@@ -6101,7 +6101,13 @@ async function loadSpShard(shardName) {
   if (inflight) return inflight;
 
   const promise = (async () => {
-    const arr = await fetchJson(`${SP_BASE}shards/${shardId}.json`);
+    // Version the URL by the manifest hash so a rebuilt shard is never
+    // served from a browser or CDN cache that still holds the old bytes.
+    if (state.sp && !state.sp.manifest) {
+      try { state.sp.manifest = await fetchJson(`${SP_BASE}manifest.json`); } catch { state.sp.manifest = { files: {} }; }
+    }
+    const spSha = state.sp?.manifest?.files?.[`shards/${shardId}.json`]?.sha || '';
+    const arr = await fetchJson(`${SP_BASE}shards/${shardId}.json${spSha ? `?v=${spSha}` : ''}`);
     for (const p of arr) {
       // Push unless already array-resident; an `_apiOnly` Map entry (from
       // an SP search hit) is Map-only and must not block the full record.
@@ -6244,7 +6250,8 @@ async function loadJurShard(shardName) {
   if (inflight) return inflight;
 
   const promise = (async () => {
-    const shard = await fetchJson(`${JUR_BASE}${key}`);
+    const jurSha = state.jur?.manifest?.files?.[key]?.sha || '';
+    const shard = await fetchJson(`${JUR_BASE}${key}${jurSha ? `?v=${jurSha}` : ''}`);
     const added = _ingestJurShardData(shard);
     state.jur.loadedShards.add(shardId);
     _flushDfCache();
