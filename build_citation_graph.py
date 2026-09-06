@@ -309,7 +309,7 @@ def main():
     }
     (out / "graph.json").write_text(json.dumps(graph, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     with open(out / "graph.csv", "w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh)
+        w = csv.writer(fh, lineterminator="\n")
         w.writerow(["from", "to", "paragraphs"])
         for e in graph["edges"]:
             w.writerow([e["from"], e["to"], e["paragraphs"]])

@@ -219,3 +219,6 @@ docs/corpus.json.bak.*
 *.key
 *-secret.json
 *-secrets.json
+
+# DOCX copies fetched from documents.un.org by sp_footnotes_from_docx.py (re-downloadable)
+sp_docx_cache/
