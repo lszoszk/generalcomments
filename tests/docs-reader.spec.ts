@@ -406,3 +406,19 @@ test('R26. newSinceVisit · documents added after the previous visit carry a chi
   await expect(page.locator('.freshness-new')).toContainText(/added since your last visit/i);
   await expect(page.locator('.freshness-new a[href="changelog.html"]')).toBeVisible();
 });
+
+test('R27. mastheadNoOverlap · the open document\'s name never runs under the site title', async ({ page }) => {
+  await page.setViewportSize({ width: 1000, height: 800 });
+  await bootApp(page, '/index.html#documents/ccpr-c-gc-33');
+  await expect(page.locator('.docs-reader-title')).toContainText(/Optional Protocol/i, { timeout: 15_000 });
+  const ctx = page.locator('#mast-doc-context');
+  await expect(ctx).toBeVisible();
+  const boxes = await page.evaluate(() => {
+    const t = document.querySelector('.mast-title')!.getBoundingClientRect();
+    const c = document.querySelector('#mast-doc-context')!.getBoundingClientRect();
+    const title = document.querySelector('.mast-title') as HTMLElement;
+    return { titleRight: t.right, ctxLeft: c.left, overflow: title.scrollWidth - title.clientWidth };
+  });
+  expect(boxes.overflow).toBeLessThanOrEqual(1);
+  expect(boxes.ctxLeft).toBeGreaterThanOrEqual(boxes.titleRight);
+});

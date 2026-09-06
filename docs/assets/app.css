@@ -3030,6 +3030,12 @@ body[data-active-view] .mast-title {
   margin: 0;
   white-space: nowrap;
 }
+/* The brand keeps its own width: with min-width:0 it used to shrink under
+   the nowrap title, which then ran underneath the open document's name.
+   The document context is the flexible item and ellipsises instead. */
+body[data-active-view] .mast-brand {
+  flex: 0 0 auto;
+}
 body[data-active-view] .mast-sub,
 body[data-active-view] #mast-folio {
   display: none;
