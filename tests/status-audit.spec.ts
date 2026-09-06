@@ -60,3 +60,22 @@ test('S2. nuancedRelationships · updates, addenda, revisions, and corrections s
   expect(byId.get('crc-c-gc-7-rev-1')).toMatchObject({ status: 'revised' });
   expect(byId.get('crc-c-gc-9-corr-1')).toMatchObject({ status: 'corrected' });
 });
+
+test('S3. citationGraph · the built graph is consistent with the catalogue', async ({ request }) => {
+  const index = await (await request.get('/citations/index.json')).json();
+  const graph = await (await request.get('/citations/graph.json')).json();
+  const documents = await (await request.get('/documents.json')).json();
+  const jur = await (await request.get('/jur/documents-lite.json')).json();
+  const ids = new Set([...documents, ...jur].map((d: any) => d.docId));
+  expect(graph.counts.edges).toBe(graph.edges.length);
+  expect(graph.counts.edges).toBeGreaterThan(20_000);
+  for (const e of graph.edges.slice(0, 500)) {
+    expect(ids.has(e.from), e.from).toBeTruthy();
+    expect(ids.has(e.to), e.to).toBeTruthy();
+    expect(e.from).not.toBe(e.to);
+  }
+  // The most-cited general comment of the Human Rights Committee.
+  const gc31 = index.docs['ccpr-c-21-rev-1-add-13'];
+  expect(gc31.citedBy.length).toBeGreaterThan(300);
+  expect(gc31.citedBy[0][1]).toBeGreaterThanOrEqual(gc31.citedBy[1][1]);
+});

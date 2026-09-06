@@ -6927,3 +6927,15 @@ body[data-active-view="ask"] section[data-view="ask"] {
 }
 .docs-reader-meta .jur-decision-line { white-space: normal; max-width: none; font-size: 11px; }
 .jur-offline-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+
+/* Citation graph panels in the reader drawer (build_citation_graph.py). */
+.docs-drawer-cites { margin-top: 28px; }
+.docs-drawer-cites h3 { margin: 18px 0 8px; }
+.docs-cite-list { list-style: none; margin: 0; padding: 0; }
+.docs-cite-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; padding: 6px 4px; border-radius: 4px; text-decoration: none; color: var(--ink); font-size: 12.5px; line-height: 1.35; }
+.docs-cite-row:hover { background: var(--paper-2, rgba(0,0,0,.04)); }
+.docs-cite-row .mono { font-size: 10px; grid-column: 1; }
+.docs-cite-row .docs-cite-title { grid-column: 1; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.docs-cite-row .docs-cite-count { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 11px; }
+.docs-cite-more { margin-top: 6px; font-size: 12px; }
+.docs-cite-note { font-size: 11.5px; margin-top: 12px; }

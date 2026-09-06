@@ -27,6 +27,14 @@
     "facets.json": {
       "sha": "8a7dd81c5ae46705",
       "bytes": 14178
+    },
+    "citations/graph.json": {
+      "sha": "0c88951ae471bf12",
+      "bytes": 3632132
+    },
+    "citations/index.json": {
+      "sha": "db8b3ec1e5036ad2",
+      "bytes": 3484803
     }
   },
   "note": "Incremental append (append_sp_docs.py): +30 SP docs."

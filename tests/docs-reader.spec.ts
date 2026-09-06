@@ -362,3 +362,20 @@ test('R23. zoteroMetadata · an open document exposes Highwire citation tags; th
   await page.locator('nav a[href="#search"]').first().click();
   await expect(page.locator('head meta[data-unhrdb-cite]')).toHaveCount(0);
 });
+
+test('R24. citationPanels · the reader drawer lists who cites GC 34 and jumps to the citing paragraph', async ({ page }) => {
+  await bootApp(page, '/index.html#documents/ccpr-c-gc-34');
+  await expect(page.locator('.docs-reader-title')).toContainText(/opinion and expression/i, { timeout: 15_000 });
+  const panel = page.locator('#docs-drawer-cites');
+  await expect(panel).toBeVisible({ timeout: 15_000 });
+  await expect(panel).toContainText(/Cited by/);
+  const rows = panel.locator('.docs-cite-list[data-direction="citedBy"] .docs-cite-row');
+  await expect.poll(async () => rows.count()).toBeGreaterThan(5);
+  const first = rows.first();
+  const target = await first.getAttribute('data-doc');
+  const para = await first.getAttribute('data-para');
+  expect(para).toMatch(new RegExp(`^${target}-\\d{4}$`));
+  await first.click();
+  await expect(page).toHaveURL(new RegExp(`documents/${target}`));
+  await expect(page).toHaveURL(new RegExp(`p=${para}`));
+});

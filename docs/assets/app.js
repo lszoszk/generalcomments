@@ -33,6 +33,8 @@ const state = {
   // reachable, false = unreachable (local fallback engaged for the session).
   apiOnline: null,
   apiStats: null,               // /api/stats snapshot used in reproducible exports
+  citations: null,              // docs/citations/index.json → {docId: {cites, citedBy}}
+  citationsLoading: null,
   view: 'search',               // 'search' | 'documents' | 'about' — driven by URL hash
   docsScope: 'gc',              // documents-view scope: 'gc' | 'jur' | 'sp' (v19.49: dropped "all" tab — GC is primary)
   docsFilter: '',               // documents-view free-text filter
@@ -3107,6 +3109,87 @@ function setupOutlineScrollSpy(host) {
   _outlineScrollSpy = observer;
 }
 
+// ─────────── Citation graph (build_citation_graph.py) ───────────
+// docs/citations/index.json holds, per document, the documents it cites
+// (its authorities) and the documents citing it, each with the number of
+// citing paragraphs and the first citing paragraph id. Loaded once, lazily,
+// the first time a reader drawer or dossier asks for it.
+async function loadCitationIndex() {
+  if (state.citations) return state.citations;
+  if (!state.citationsLoading) {
+    const sha = state.manifest?.files?.['citations/index.json']?.sha || '';
+    state.citationsLoading = fetchJson(`${DATA_BASE}citations/index.json${sha ? `?v=${sha}` : ''}`)
+      .then(data => { state.citations = data?.docs || {}; return state.citations; })
+      .catch(e => { console.warn('[citations] index unavailable:', e.message); state.citations = {}; return state.citations; })
+      .finally(() => { state.citationsLoading = null; });
+  }
+  return state.citationsLoading;
+}
+function citationLinks(docId) {
+  const entry = state.citations?.[docId];
+  return { cites: entry?.cites || [], citedBy: entry?.citedBy || [] };
+}
+function _citeRowHtml([otherId, count, firstPara], direction) {
+  const other = state.documents.get(otherId);
+  if (!other) return '';
+  const label = other.type === 'jur' ? publicDocTitle(other) : (other.nameShort || other.name || otherId);
+  // "Cited by" rows land on the citing paragraph; "Cites" rows open the authority itself.
+  const para = direction === 'citedBy' ? (firstPara || '') : '';
+  return `<li><a class="docs-cite-row" href="#" data-doc="${escape(otherId)}" data-para="${escape(para)}" title="${escape(other.signature || '')}">
+      <span class="mono dim">${escape(other.signature || '')}</span>
+      <span class="docs-cite-title">${escape(label)}</span>
+      <span class="docs-cite-count mono dim" title="${count === 1 ? 'one citing paragraph' : `${count} citing paragraphs`}">${count}¶</span>
+    </a></li>`;
+}
+function _citeListHtml(rows, direction, limit = 12) {
+  const shown = rows.slice(0, limit).map(r => _citeRowHtml(r, direction)).join('');
+  const rest = rows.length > limit
+    ? `<li><button type="button" class="btn btn-ghost docs-cite-more" data-direction="${direction}">Show all ${rows.length}</button></li>`
+    : '';
+  return `<ol class="docs-cite-list" data-direction="${direction}">${shown}${rest}</ol>`;
+}
+async function paintDrawerCitations(doc) {
+  const host = $('#docs-drawer-cites');
+  if (!host || !doc) return;
+  await loadCitationIndex();
+  // The drawer may have moved on to another document while the index loaded.
+  if (host.dataset.doc && host.dataset.doc !== doc.docId) return;
+  const { cites, citedBy } = citationLinks(doc.docId);
+  host.dataset.doc = doc.docId;
+  if (!cites.length && !citedBy.length) { host.hidden = true; return; }
+  host.hidden = false;
+  host.innerHTML = `
+    <h3 class="folio">Cited by <span class="dim">${citedBy.length}</span></h3>
+    ${citedBy.length ? _citeListHtml(citedBy, 'citedBy') : '<p class="serif dim" style="font-size:12px">No document in the corpus cites this one.</p>'}
+    <h3 class="folio">Cites <span class="dim">${cites.length}</span></h3>
+    ${cites.length ? _citeListHtml(cites, 'cites') : '<p class="serif dim" style="font-size:12px">No reference to another document in the corpus was found.</p>'}
+    <p class="serif dim docs-cite-note">References found in the text and footnotes (UN symbols, "general comment No. N", "communication No. N/YYYY"). Whole graph: <a href="${DATA_BASE}citations/graph.json" download>JSON</a> · <a href="${DATA_BASE}citations/graph.csv" download>CSV</a>.</p>`;
+  host.querySelectorAll('.docs-cite-row').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    openDocReader(a.dataset.doc, { paraId: a.dataset.para || null });
+  }));
+  host.querySelectorAll('.docs-cite-more').forEach(btn => btn.addEventListener('click', () => {
+    const direction = btn.dataset.direction;
+    const rows = direction === 'citedBy' ? citedBy : cites;
+    const list = host.querySelector(`.docs-cite-list[data-direction="${direction}"]`);
+    if (!list) return;
+    list.outerHTML = _citeListHtml(rows, direction, rows.length);
+    host.querySelectorAll('.docs-cite-row').forEach(a => a.addEventListener('click', e => {
+      e.preventDefault();
+      openDocReader(a.dataset.doc, { paraId: a.dataset.para || null });
+    }));
+  }));
+}
+async function fillDossierCitations(doc) {
+  const slot = $('#dossier-cites');
+  if (!slot || !doc) return;
+  await loadCitationIndex();
+  if (!$('#dossier-cites') || state.activeId !== slot.dataset.para) return;
+  const { cites, citedBy } = citationLinks(doc.docId);
+  slot.textContent = `cited by ${citedBy.length} · cites ${cites.length}`;
+  slot.title = 'Documents in this corpus citing this one / cited by it — open the document for the lists.';
+}
+
 function paintDocDrawer(doc) {
   // Remember the document for the once-bound collapse button (see below).
   const _collapseBtn = $('#docs-drawer-collapse');
@@ -3210,7 +3293,9 @@ function paintDocDrawer(doc) {
       <h3 class="folio">Outline</h3>
       ${outlineHtml}
     </div>
-    ${wsHtml}`;
+    ${wsHtml}
+    <div class="docs-drawer-cites" id="docs-drawer-cites" hidden></div>`;
+  paintDrawerCitations(doc);
 
   // Collapse button. It lives outside the rebuilt drawer body, so bind it
   // once and let the handler read the current document — binding on every
@@ -7788,6 +7873,7 @@ function paintDossier() {
   if (!para) return;
   const doc = state.documents.get(para.docId);
   if (state.view === 'search') updateScholarlyMeta(doc);
+  queueMicrotask(() => fillDossierCitations(doc));
   const sourceUrl = officialSourceUrl(doc);
   const isSpDoc = para.type === 'sp';
   const isJurDoc = para.type === 'jur';
@@ -7986,6 +8072,7 @@ function paintDossier() {
           <div class="dossier-dp"><div class="folio">Communication</div><div class="v">${doc?.communicationYear ?? doc?.year ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">Treaty body</div><div class="v">${escape(doc?.committees?.join(' · ') || doc?.treaty || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
+          <div class="dossier-dp"><div class="folio">Citations</div><div class="v" id="dossier-cites" data-para="${escape(state.activeId || '')}">…</div></div>
           ${'' /* v19.15: section moved to a breadcrumb above the quote — see dossier-breadcrumb. */}
           ${articlesInvokedHtml}
         `
@@ -7994,6 +8081,7 @@ function paintDossier() {
           <div class="dossier-dp"><div class="folio">Year</div><div class="v">${doc?.year ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">${actorLabel}</div><div class="v">${escape(doc?.committees?.join(' · ') || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
+          <div class="dossier-dp"><div class="folio">Citations</div><div class="v" id="dossier-cites" data-para="${escape(state.activeId || '')}">…</div></div>
           ${articlesHtml}
           ${statusHtml}
           ${isSpDoc && doc?.mandate ? `<div class="dossier-dp"><div class="folio">Mandate holder</div><div class="v accent">${escape(doc.mandate)}</div></div>` : ''}

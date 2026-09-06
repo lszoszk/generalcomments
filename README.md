@@ -92,6 +92,15 @@ UN document symbol and printed paragraph number, for example `CRC/C/GC/25 ¶12`.
 The database citation supplements rather than replaces the primary legal
 source.
 
+## Citation graph
+
+`build_citation_graph.py` extracts every reference one document makes to
+another (UN symbols, "general comment No. N", "communication No. N/YYYY",
+in bodies and footnotes) and writes `docs/citations/graph.json` (edges with
+citing-paragraph ids), `docs/citations/graph.csv` and `docs/citations/index.json`
+(per-document adjacency the reader uses for "Cited by" / "Cites"). Re-run it
+after any corpus change; it registers the files' hashes in `docs/manifest.json`.
+
 ## Licensing
 
 This repository contains distinct works under distinct terms:
