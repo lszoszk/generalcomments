@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>UNHRDB — SR Executions</title>
+  <link href="https://lszoszk.github.io/generalcomments/" />
+  <link rel="self" href="https://lszoszk.github.io/generalcomments/feeds/body-sr-executions.xml" />
+  <id>https://lszoszk.github.io/generalcomments/feeds/body-sr-executions</id>
+  <updated>2026-09-03T00:00:00Z</updated>
+  <author><name>UN Human Rights Database</name></author>
+  <subtitle>Documents newly added to the paragraph-level corpus of UN treaty-body general comments, individual-communication decisions and Special Procedures thematic reports.</subtitle>
+  <entry>
+    <title>The death penalty from the perspective of the prohibition of torture and other ill-treatment and the protection of human dignity</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-62-37" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-62-37</id>
+    <updated>2026-09-03T00:00:00Z</updated>
+    <published>2026-09-03T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/62/37 · SR Executions · Morris Tidball-Binz · 2026</summary>
+  </entry>
+  <entry>
+    <title>National commissions of inquiry; the right to seek pardon or commutation of a death sentence; prisoners running prisons</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-8-3" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-8-3</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/8/3 · SR Executions · Philip Alston · 2008</summary>
+  </entry>
+  <entry>
+    <title>Rights of families of victims of unlawful killings</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-59-54" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-59-54</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/59/54 · SR Executions · Morris Tidball-Binz · 2025</summary>
+  </entry>
+  <entry>
+    <title>Protection of the dead</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-56-56" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-56-56</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/56/56 · SR Executions · Morris Tidball-Binz · 2024</summary>
+  </entry>
+  <entry>
+    <title>Deaths in prisons</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-53-29" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-53-29</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/53/29 · SR Executions · Morris Tidball-Binz · 2023</summary>
+  </entry>
+  <entry>
+    <title>Medico-legal death investigations</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-50-34" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-50-34</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/50/34 · SR Executions · Morris Tidball-Binz · 2022</summary>
+  </entry>
+  <entry>
+    <title>Reflection on five years of the mandate (Agnès Callamard)</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-47-33" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-47-33</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/47/33 · SR Executions · Agnès Callamard · 2021</summary>
+  </entry>
+  <entry>
+    <title>Targeted killings through armed drones</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-44-38" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-44-38</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/44/38 · SR Executions · Agnès Callamard · 2020</summary>
+  </entry>
+  <entry>
+    <title>Investigation, accountability and prevention of intentional State killings of human rights defenders, journalists and dissidents</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-41-36" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-41-36</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/41/36 · SR Executions · Agnès Callamard · 2019</summary>
+  </entry>
+  <entry>
+    <title>The mandate in armed conflicts; the death penalty for the most serious crimes; the mandatory death penalty</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-4-20" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-4-20</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/4/20 · SR Executions · Philip Alston · 2007</summary>
+  </entry>
+  <entry>
+    <title>Armed non-State actors and the protection of the right to life</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-38-44" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-38-44</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/38/44 · SR Executions · Agnès Callamard · 2018</summary>
+  </entry>
+  <entry>
+    <title>A gender-sensitive approach to arbitrary killings</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-35-23" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-35-23</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/35/23 · SR Executions · Agnès Callamard · 2017</summary>
+  </entry>
+  <entry>
+    <title>The right to life and the use of force by private security providers in law enforcement</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-32-39" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-32-39</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/32/39 · SR Executions · Christof Heyns · 2016</summary>
+  </entry>
+  <entry>
+    <title>Practical recommendations for the proper management of assemblies (joint report)</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-31-66" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-31-66</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/31/66 · SR Executions · Christof Heyns · 2016</summary>
+  </entry>
+  <entry>
+    <title>Use of information and communications technologies to secure the right to life</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-29-37" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-29-37</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/29/37 · SR Executions · Christof Heyns · 2015</summary>
+  </entry>
+  <entry>
+    <title>Protection of the right to life during law enforcement; armed drones and autonomous weapons systems</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-26-36" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-26-36</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/26/36 · SR Executions · Christof Heyns · 2014</summary>
+  </entry>
+  <entry>
+    <title>Lethal autonomous robotics and the protection of life</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-23-47" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-23-47</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/23/47 · SR Executions · Christof Heyns · 2013</summary>
+  </entry>
+  <entry>
+    <title>Protection of the right to life of journalists</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-20-22" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-20-22</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/20/22 · SR Executions · Christof Heyns · 2012</summary>
+  </entry>
+  <entry>
+    <title>Protecting the right to life in the context of policing assemblies</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-17-28" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-17-28</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/17/28 · SR Executions · Christof Heyns · 2011</summary>
+  </entry>
+  <entry>
+    <title>Reprisals; execution of juvenile offenders; the killing of &quot;witches&quot;; lethal force in policing assemblies</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-11-2" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-11-2</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/11/2 · SR Executions · Philip Alston · 2009</summary>
+  </entry>
+  <entry>
+    <title>Investigation and prevention of unlawful killings by law enforcement officials</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-80-214" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-80-214</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/80/214 · SR Executions · Morris Tidball-Binz · 2025</summary>
+  </entry>
+  <entry>
+    <title>Investigating and preventing unlawful deaths of LGBTIQ+ persons</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-79-172" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-79-172</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/79/172 · SR Executions · Morris Tidball-Binz · 2024</summary>
+  </entry>
+  <entry>
+    <title>Investigation of femicide</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-78-254" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-78-254</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/78/254 · SR Executions · Morris Tidball-Binz · 2023</summary>
+  </entry>
+  <entry>
+    <title>Reflection on the fortieth anniversary of the mandate</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-77-270" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-77-270</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/77/270 · SR Executions · Morris Tidball-Binz · 2022</summary>
+  </entry>
+  <entry>
+    <title>Vision report</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-76-264" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-76-264</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/76/264 · SR Executions · Morris Tidball-Binz · 2021</summary>
+  </entry>
+  <entry>
+    <title>The respectful and lawful handling of mass graves</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-75-384" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-75-384</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/75/384 · SR Executions · Agnès Callamard · 2020</summary>
+  </entry>
+  <entry>
+    <title>Application of the death penalty to foreign nationals and consular assistance</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-74-318" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-74-318</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/74/318 · SR Executions · Agnès Callamard · 2019</summary>
+  </entry>
+  <entry>
+    <title>Saving lives is not a crime</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-73-314" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-73-314</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/73/314 · SR Executions · Agnès Callamard · 2018</summary>
+  </entry>
+  <entry>
+    <title>Unlawful death of refugees and migrants</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-72-335" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-72-335</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/72/335 · SR Executions · Agnès Callamard · 2017</summary>
+  </entry>
+  <entry>
+    <title>Review and update of issues considered between 2010 and 2016</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-71-372" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-71-372</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/71/372 · SR Executions · Christof Heyns · 2016</summary>
+  </entry>
+  <entry>
+    <title>The role of forensic investigations in protecting the right to life; the death penalty and foreign nationals</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-70-304" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-70-304</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/70/304 · SR Executions · Christof Heyns · 2015</summary>
+  </entry>
+  <entry>
+    <title>Regional human rights systems; less lethal and unmanned weapons in law enforcement</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-69-265" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-69-265</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/69/265 · SR Executions · Christof Heyns · 2014</summary>
+  </entry>
+  <entry>
+    <title>Armed drones and the right to life</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-68-382" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-68-382</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/68/382 · SR Executions · Christof Heyns · 2013</summary>
+  </entry>
+  <entry>
+    <title>Restrictions on the death penalty</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-67-275" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-67-275</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/67/275 · SR Executions · Christof Heyns · 2012</summary>
+  </entry>
+  <entry>
+    <title>Protection of the right to life in the context of arrests</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-66-330" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-66-330</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/66/330 · SR Executions · Christof Heyns · 2011</summary>
+  </entry>
+  <entry>
+    <title>New technologies and human rights fact-finding; targeted killings and accountability</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-65-321" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-65-321</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/65/321 · SR Executions · Philip Alston · 2010</summary>
+  </entry>
+  <entry>
+    <title>Vigilante killings and mob justice</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-64-187" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-64-187</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/64/187 · SR Executions · Philip Alston · 2009</summary>
+  </entry>
+  <entry>
+    <title>Witness protection and ending impunity; making military justice systems human rights compatible</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-63-313" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-63-313</id>
+    <updated>2026-06-16T00:00:00Z</updated>
+    <published>2026-06-16T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/63/313 · SR Executions · Philip Alston · 2008</summary>
+  </entry>
+</feed>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>UNHRDB — Subcommittee on Prevention of Torture</title>
+  <link href="https://lszoszk.github.io/generalcomments/" />
+  <link rel="self" href="https://lszoszk.github.io/generalcomments/feeds/body-cat-op.xml" />
+  <id>https://lszoszk.github.io/generalcomments/feeds/body-cat-op</id>
+  <updated>2026-04-30T00:00:00Z</updated>
+  <author><name>UN Human Rights Database</name></author>
+  <subtitle>Documents newly added to the paragraph-level corpus of UN treaty-body general comments, individual-communication decisions and Special Procedures thematic reports.</subtitle>
+  <entry>
+    <title>General comment No. 1 (2024) on article 4 of the Optional Protocol (places of deprivation of liberty)</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-op-gc-1" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-op-gc-1</id>
+    <updated>2026-04-30T00:00:00Z</updated>
+    <published>2026-04-30T00:00:00Z</published>
+    <category term="gc" />
+    <summary>General Comment / Recommendation · CAT/OP/GC/1 · Subcommittee on Prevention of Torture · 2024 — The Subcommittee on Prevention of Torture (SPT) clarifies the comprehensive scope of &quot;places of deprivation of liberty&quot; under article 4 of the Optional Protocol to the Convention against Torture (OPCAT). It addresses the object and purpose of the Optional Protocol, identifies illustrative categories of facilities subject to preventive visits, and reaffirms that any restrictive interpretation would</summary>
+  </entry>
+</feed>

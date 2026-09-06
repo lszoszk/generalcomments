@@ -35,6 +35,10 @@
     "citations/index.json": {
       "sha": "db8b3ec1e5036ad2",
       "bytes": 3484803
+    },
+    "related/gc.json": {
+      "sha": "3781d45b62f698f6",
+      "bytes": 1267496
     }
   },
   "note": "Incremental append (append_sp_docs.py): +30 SP docs."

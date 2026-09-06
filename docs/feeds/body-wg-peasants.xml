@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>UNHRDB — WG Peasants</title>
+  <link href="https://lszoszk.github.io/generalcomments/" />
+  <link rel="self" href="https://lszoszk.github.io/generalcomments/feeds/body-wg-peasants.xml" />
+  <id>https://lszoszk.github.io/generalcomments/feeds/body-wg-peasants</id>
+  <updated>2026-09-03T00:00:00Z</updated>
+  <author><name>UN Human Rights Database</name></author>
+  <subtitle>Documents newly added to the paragraph-level corpus of UN treaty-body general comments, individual-communication decisions and Special Procedures thematic reports.</subtitle>
+  <entry>
+    <title>Right to seeds: custodianship, enclosure and resistance</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-63-26" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-63-26</id>
+    <updated>2026-09-03T00:00:00Z</updated>
+    <published>2026-09-03T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/63/26 · WG Peasants · 2026</summary>
+  </entry>
+  <entry>
+    <title>Global trends and challenges affecting peasants and other people working in rural areas</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-60-33" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-60-33</id>
+    <updated>2026-06-18T00:00:00Z</updated>
+    <published>2026-06-18T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/60/33 · WG Peasants · 2025</summary>
+  </entry>
+  <entry>
+    <title>Report of the Working Group on the rights of peasants and other people working in rural areas</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-hrc-57-51" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-hrc-57-51</id>
+    <updated>2026-06-18T00:00:00Z</updated>
+    <published>2026-06-18T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/HRC/57/51 · WG Peasants · 2024</summary>
+  </entry>
+  <entry>
+    <title>Right to participation of peasants and other people working in rural areas</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/a-80-180" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/a-80-180</id>
+    <updated>2026-06-18T00:00:00Z</updated>
+    <published>2026-06-18T00:00:00Z</published>
+    <category term="sp" />
+    <summary>Special Procedures report · A/80/180 · WG Peasants · 2025</summary>
+  </entry>
+</feed>

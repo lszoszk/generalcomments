@@ -27,7 +27,11 @@ export function collectConsoleErrors(page: Page): string[] {
   const errors: string[] = [];
   page.on('console', (msg: ConsoleMessage) => {
     if (msg.type() !== 'error') return;
-    const text = msg.text();
+    // Chromium logs a failed resource as a bare "Failed to load resource"
+    // with the URL only in location(); append it so the tolerance patterns
+    // can see the host and a failure names the file.
+    const loc = typeof msg.location === 'function' ? msg.location() : null;
+    const text = msg.text() + (loc?.url ? ` @ ${loc.url}` : '');
     if (TOLERATED_PATTERNS.some((p) => p.test(text))) return;
     errors.push(text);
   });

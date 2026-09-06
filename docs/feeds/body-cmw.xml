@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>UNHRDB — Committee on Migrant Workers</title>
+  <link href="https://lszoszk.github.io/generalcomments/" />
+  <link rel="self" href="https://lszoszk.github.io/generalcomments/feeds/body-cmw.xml" />
+  <id>https://lszoszk.github.io/generalcomments/feeds/body-cmw</id>
+  <updated>2026-04-28T00:00:00Z</updated>
+  <author><name>UN Human Rights Database</name></author>
+  <subtitle>Documents newly added to the paragraph-level corpus of UN treaty-body general comments, individual-communication decisions and Special Procedures thematic reports.</subtitle>
+  <entry>
+    <title>CMW GC8 / CERD GR39: Thematic guidelines on xenophobia towards migrants</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-8-cerd-c-gc-39" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-8-cerd-c-gc-39</id>
+    <updated>2026-04-28T00:00:00Z</updated>
+    <published>2026-04-28T00:00:00Z</published>
+    <category term="gc" />
+    <summary>General Comment / Recommendation · CMW/C/GC/8–CERD/C/GC/39 · Committee on Migrant Workers · 2025 — The Committees jointly provide thematic guidance — complementary to the general guidelines adopted at the same time — on combating xenophobia towards migrants and others perceived as such across specific fields including the labour market, access to services, the digital environment, criminal justice, and political discourse, and on the substantive equality measures States parties must adopt.</summary>
+  </entry>
+  <entry>
+    <title>CMW GC7 / CERD GR38: General guidelines on xenophobia towards migrants</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-7-cerd-c-gc-38" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-7-cerd-c-gc-38</id>
+    <updated>2026-04-28T00:00:00Z</updated>
+    <published>2026-04-28T00:00:00Z</published>
+    <category term="gc" />
+    <summary>General Comment / Recommendation · CMW/C/GC/7–CERD/C/GC/38 · Committee on Migrant Workers · 2025 — The Committees jointly clarify that xenophobia towards migrants and others perceived as such constitutes a form of racial discrimination prohibited by both Conventions, and provide general guidance to States parties on the comprehensive legislative, institutional and educational measures required to prevent, prohibit and combat xenophobia.</summary>
+  </entry>
+  <entry>
+    <title>GC6: Convergent protection of migrant workers and Global Compact</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-6" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-6</id>
+    <updated>2026-04-28T00:00:00Z</updated>
+    <published>2026-04-28T00:00:00Z</published>
+    <category term="gc" />
+    <summary>General Comment / Recommendation · CMW/C/GC/6 · Committee on Migrant Workers · 2024 — The Committee considers that the Convention and the Global Compact for Safe, Orderly and Regular Migration are mutually reinforcing instruments, and clarifies how States parties may give convergent effect to their obligations to protect the human rights of migrant workers and members of their families through coordinated implementation of both frameworks.</summary>
+  </entry>
+  <entry>
+    <title>General Comment No. 5 (2021) on migrants’ rights to liberty, freedom from arbitrary detention and their connection with other human rights</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-5" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-5</id>
+    <updated>2026-04-28T00:00:00Z</updated>
+    <published>2026-04-28T00:00:00Z</published>
+    <category term="gc" />
+    <summary>General Comment / Recommendation · CMW/C/GC/5 · Committee on Migrant Workers · 2021 — The Committee, deeply concerned by the trend towards the criminalization of migration and the increasing use of immigration detention, clarifies that detention of migrants must be a measure of last resort, exceptional in nature, ordered for the shortest period possible, and subject to judicial review and effective alternatives.</summary>
+  </entry>
+  <entry>
+    <title>General Comment No. 2 on the rights of migrant workers in an irregular situation and members of their family</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-2" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-2</id>
+    <updated>2026-04-28T00:00:00Z</updated>
+    <published>2026-04-28T00:00:00Z</published>
+    <category term="gc" />
+    <summary>General Comment / Recommendation · CMW/C/GC/2 · Committee on Migrant Workers · 2013 — The Committee considers that migrant workers in an irregular situation and members of their families are entitled to the rights set out in part III of the Convention, and clarifies that States parties&#x27; obligations to respect and ensure those rights apply regardless of migration status, including with respect to liberty, due process, education, health and labour rights.</summary>
+  </entry>
+  <entry>
+    <title>General Comment No. 1 on migrant domestic workers</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-1" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cmw-c-gc-1</id>
+    <updated>2026-04-28T00:00:00Z</updated>
+    <published>2026-04-28T00:00:00Z</published>
+    <category term="gc" />
+    <summary>General Comment / Recommendation · CMW/C/GC/1 · Committee on Migrant Workers · 2011 — The Committee considers that domestic work is an important occupation accounting for a significant share of employment globally and is increasingly performed by migrants, predominantly women, and elaborates States parties&#x27; obligations under the Convention to ensure migrant domestic workers&#x27; rights to fair conditions of work, freedom from abuse and access to remedies.</summary>
+  </entry>
+</feed>

@@ -79,3 +79,27 @@ test('S3. citationGraph · the built graph is consistent with the catalogue', as
   expect(gc31.citedBy.length).toBeGreaterThan(300);
   expect(gc31.citedBy[0][1]).toBeGreaterThanOrEqual(gc31.citedBy[1][1]);
 });
+
+test('S4. feedsChangelogRelated · the current-awareness and related-paragraph artefacts are built', async ({ request }) => {
+  const all = await request.get('/feeds/all.xml');
+  expect(all.ok()).toBeTruthy();
+  const xml = await all.text();
+  expect(xml).toContain('<feed xmlns="http://www.w3.org/2005/Atom">');
+  expect((xml.match(/<entry>/g) || []).length).toBeGreaterThan(50);
+  const index = await (await request.get('/feeds/index.json')).json();
+  expect(index.feeds.length).toBeGreaterThan(40);
+  expect(index.feeds.map((f: any) => f.id)).toEqual(expect.arrayContaining(['all', 'gc', 'jur', 'sp', 'body-ccpr']));
+  const changelog = await request.get('/changelog.html');
+  expect(changelog.ok()).toBeTruthy();
+  expect(await changelog.text()).toContain('What is new');
+  const related = await (await request.get('/related/gc.json')).json();
+  expect(related.scope).toBe('gc');
+  expect(Object.keys(related.related).length).toBeGreaterThan(7000);
+  for (const [id, rows] of Object.entries(related.related).slice(0, 200)) {
+    const doc = id.replace(/-\d{4}$/, '');
+    for (const [other, score] of rows as any[]) {
+      expect(other.replace(/-\d{4}$/, '')).not.toBe(doc);
+      expect(score).toBeGreaterThanOrEqual(0.55);
+    }
+  }
+});

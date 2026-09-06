@@ -1,0 +1,365 @@
+{
+  "builtAt": "2026-09-06T15:15:37+00:00",
+  "feeds": [
+    {
+      "id": "all",
+      "title": "UN Human Rights Database — new documents",
+      "documents": 6111,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "gc",
+      "title": "UNHRDB — new General Comments and Recommendations",
+      "documents": 187,
+      "latest": "2026-04-30"
+    },
+    {
+      "id": "jur",
+      "title": "UNHRDB — new treaty-body decisions",
+      "documents": 4333,
+      "latest": "2026-05-13"
+    },
+    {
+      "id": "sp",
+      "title": "UNHRDB — new Special Procedures reports",
+      "documents": 1591,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-cat",
+      "title": "UNHRDB — Committee against Torture",
+      "documents": 839,
+      "latest": "2026-05-13"
+    },
+    {
+      "id": "body-cat-op",
+      "title": "UNHRDB — Subcommittee on Prevention of Torture",
+      "documents": 1,
+      "latest": "2026-04-30"
+    },
+    {
+      "id": "body-ccpr",
+      "title": "UNHRDB — Human Rights Committee",
+      "documents": 2898,
+      "latest": "2026-04-30"
+    },
+    {
+      "id": "body-ced",
+      "title": "UNHRDB — Committee on Enforced Disappearances",
+      "documents": 8,
+      "latest": "2026-05-12"
+    },
+    {
+      "id": "body-cedaw",
+      "title": "UNHRDB — Committee on the Elimination of Discrimination against Women",
+      "documents": 212,
+      "latest": "2026-05-12"
+    },
+    {
+      "id": "body-cerd",
+      "title": "UNHRDB — Committee on the Elimination of Racial Discrimination",
+      "documents": 95,
+      "latest": "2026-05-12"
+    },
+    {
+      "id": "body-cescr",
+      "title": "UNHRDB — Committee on Economic, Social and Cultural Rights",
+      "documents": 182,
+      "latest": "2026-05-13"
+    },
+    {
+      "id": "body-cmw",
+      "title": "UNHRDB — Committee on Migrant Workers",
+      "documents": 6,
+      "latest": "2026-04-28"
+    },
+    {
+      "id": "body-crc",
+      "title": "UNHRDB — Committee on the Rights of the Child",
+      "documents": 176,
+      "latest": "2026-05-13"
+    },
+    {
+      "id": "body-crpd",
+      "title": "UNHRDB — Committee on the Rights of Persons with Disabilities",
+      "documents": 103,
+      "latest": "2026-05-12"
+    },
+    {
+      "id": "body-ie-albinism",
+      "title": "UNHRDB — IE Albinism",
+      "documents": 21,
+      "latest": "2026-06-17"
+    },
+    {
+      "id": "body-ie-foreign-debt",
+      "title": "UNHRDB — IE Foreign Debt",
+      "documents": 51,
+      "latest": "2026-06-17"
+    },
+    {
+      "id": "body-ie-international-order",
+      "title": "UNHRDB — IE International Order",
+      "documents": 29,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-ie-international-solidarity",
+      "title": "UNHRDB — IE International Solidarity",
+      "documents": 30,
+      "latest": "2026-06-17"
+    },
+    {
+      "id": "body-ie-older-persons",
+      "title": "UNHRDB — IE Older Persons",
+      "documents": 19,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-ie-sexual-orientation-and-gender-identity",
+      "title": "UNHRDB — IE Sexual Orientation and Gender Identity",
+      "documents": 19,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-adequate-housing",
+      "title": "UNHRDB — SR Adequate Housing",
+      "documents": 45,
+      "latest": "2026-06-16"
+    },
+    {
+      "id": "body-sr-climate-change",
+      "title": "UNHRDB — SR Climate Change",
+      "documents": 9,
+      "latest": "2026-06-17"
+    },
+    {
+      "id": "body-sr-contemporary-slavery",
+      "title": "UNHRDB — SR Contemporary Slavery",
+      "documents": 26,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-counter-terrorism",
+      "title": "UNHRDB — SR Counter-Terrorism",
+      "documents": 42,
+      "latest": "2026-06-16"
+    },
+    {
+      "id": "body-sr-cultural-rights",
+      "title": "UNHRDB — SR Cultural Rights",
+      "documents": 31,
+      "latest": "2026-06-16"
+    },
+    {
+      "id": "body-sr-development",
+      "title": "UNHRDB — SR Development",
+      "documents": 18,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-disability",
+      "title": "UNHRDB — SR Disability",
+      "documents": 23,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-education",
+      "title": "UNHRDB — SR Education",
+      "documents": 44,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-environment",
+      "title": "UNHRDB — SR Environment",
+      "documents": 23,
+      "latest": "2026-06-16"
+    },
+    {
+      "id": "body-sr-executions",
+      "title": "UNHRDB — SR Executions",
+      "documents": 38,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-extreme-poverty",
+      "title": "UNHRDB — SR Extreme Poverty",
+      "documents": 24,
+      "latest": "2026-06-16"
+    },
+    {
+      "id": "body-sr-food",
+      "title": "UNHRDB — SR Food",
+      "documents": 51,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-freedom-of-assembly-and-association",
+      "title": "UNHRDB — SR Freedom of Assembly and Association",
+      "documents": 30,
+      "latest": "2026-06-16"
+    },
+    {
+      "id": "body-sr-freedom-of-expression",
+      "title": "UNHRDB — SR Freedom of Expression",
+      "documents": 47,
+      "latest": "2026-06-18"
+    },
+    {
+      "id": "body-sr-freedom-of-religion-or-belief",
+      "title": "UNHRDB — SR Freedom of Religion or Belief",
+      "documents": 93,
+      "latest": "2026-06-18"
+    },
+    {
+      "id": "body-sr-health",
+      "title": "UNHRDB — SR Health",
+      "documents": 51,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-human-rights-defenders",
+      "title": "UNHRDB — SR Human Rights Defenders",
+      "documents": 44,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-independence-of-judges-and-lawyers",
+      "title": "UNHRDB — SR Independence of Judges and Lawyers",
+      "documents": 38,
+      "latest": "2026-06-16"
+    },
+    {
+      "id": "body-sr-indigenous-peoples",
+      "title": "UNHRDB — SR Indigenous Peoples",
+      "documents": 45,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-internally-displaced-persons",
+      "title": "UNHRDB — SR Internally Displaced Persons",
+      "documents": 39,
+      "latest": "2026-06-16"
+    },
+    {
+      "id": "body-sr-leprosy",
+      "title": "UNHRDB — SR Leprosy",
+      "documents": 13,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-migrants",
+      "title": "UNHRDB — SR Migrants",
+      "documents": 49,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-minority-issues",
+      "title": "UNHRDB — SR Minority Issues",
+      "documents": 37,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-privacy",
+      "title": "UNHRDB — SR Privacy",
+      "documents": 21,
+      "latest": "2026-06-18"
+    },
+    {
+      "id": "body-sr-racism",
+      "title": "UNHRDB — SR Racism",
+      "documents": 32,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-sale-of-children",
+      "title": "UNHRDB — SR Sale of Children",
+      "documents": 41,
+      "latest": "2026-06-17"
+    },
+    {
+      "id": "body-sr-torture",
+      "title": "UNHRDB — SR Torture",
+      "documents": 69,
+      "latest": "2026-05-19"
+    },
+    {
+      "id": "body-sr-toxics-and-human-rights",
+      "title": "UNHRDB — SR Toxics and Human Rights",
+      "documents": 28,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-trafficking",
+      "title": "UNHRDB — SR Trafficking",
+      "documents": 38,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-truth-justice-and-reparation",
+      "title": "UNHRDB — SR Truth Justice and Reparation",
+      "documents": 30,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-unilateral-coercive-measures",
+      "title": "UNHRDB — SR Unilateral Coercive Measures",
+      "documents": 19,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-violence-against-women",
+      "title": "UNHRDB — SR Violence against Women",
+      "documents": 46,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-sr-water-and-sanitation",
+      "title": "UNHRDB — SR Water and Sanitation",
+      "documents": 36,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-wg-african-descent",
+      "title": "UNHRDB — WG African Descent",
+      "documents": 29,
+      "latest": "2026-06-17"
+    },
+    {
+      "id": "body-wg-arbitrary-detention",
+      "title": "UNHRDB — WG Arbitrary Detention",
+      "documents": 37,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-wg-business-and-human-rights",
+      "title": "UNHRDB — WG Business and Human Rights",
+      "documents": 31,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-wg-discrimination-against-women-and-girls",
+      "title": "UNHRDB — WG Discrimination against Women and Girls",
+      "documents": 14,
+      "latest": "2026-06-18"
+    },
+    {
+      "id": "body-wg-enforced-disappearances",
+      "title": "UNHRDB — WG Enforced Disappearances",
+      "documents": 46,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-wg-mercenaries",
+      "title": "UNHRDB — WG Mercenaries",
+      "documents": 41,
+      "latest": "2026-09-03"
+    },
+    {
+      "id": "body-wg-peasants",
+      "title": "UNHRDB — WG Peasants",
+      "documents": 4,
+      "latest": "2026-09-03"
+    }
+  ]
+}

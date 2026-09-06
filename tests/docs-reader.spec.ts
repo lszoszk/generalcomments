@@ -379,3 +379,30 @@ test('R24. citationPanels · the reader drawer lists who cites GC 34 and jumps t
   await expect(page).toHaveURL(new RegExp(`documents/${target}`));
   await expect(page).toHaveURL(new RegExp(`p=${para}`));
 });
+
+test('R25. printAndRelated · the reader prints with footnotes at the end and shows related General Comment paragraphs', async ({ page }) => {
+  await bootApp(page, '/index.html?p=crc-c-gc-25-0076#documents/crc-c-gc-25');
+  await expect(page.locator('.docs-reader-title')).toContainText(/digital environment/i, { timeout: 15_000 });
+  await expect(page.locator('#docs-reader-print')).toBeVisible();
+  // beforeprint collects the open document's footnotes into a print-only list.
+  await page.evaluate(() => window.dispatchEvent(new Event('beforeprint')));
+  await expect.poll(async () => page.locator('#print-footnotes li').count()).toBeGreaterThan(20);
+  await page.evaluate(() => window.dispatchEvent(new Event('afterprint')));
+  await expect(page.locator('#print-footnotes')).toHaveCount(0);
+  // Related paragraphs for the active paragraph, other documents only.
+  const related = page.locator('#docs-drawer-related');
+  await expect(related).toBeVisible({ timeout: 15_000 });
+  const rows = related.locator('.related-row');
+  await expect.poll(async () => rows.count()).toBeGreaterThan(0);
+  const docs = await rows.evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.doc));
+  expect(docs).not.toContain('crc-c-gc-25');
+});
+
+test('R26. newSinceVisit · documents added after the previous visit carry a chip and a count', async ({ page }) => {
+  await page.addInitScript(() => { try { localStorage.setItem('unhrdb_last_visit_v1', '2026-01-01'); } catch {} });
+  await bootApp(page, '/index.html#documents');
+  await expect.poll(async () => page.locator('.docs-rail-row .docs-status.new').count(), { timeout: 15_000 }).toBeGreaterThan(0);
+  await page.locator('nav a[href="#about"]').first().click();
+  await expect(page.locator('.freshness-new')).toContainText(/added since your last visit/i);
+  await expect(page.locator('.freshness-new a[href="changelog.html"]')).toBeVisible();
+});

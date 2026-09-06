@@ -53,6 +53,9 @@
 <meta name="description" content="Paragraph-level search across UN Treaty Body General Comments and Special Procedures (all 46 thematic mandates), plus near-complete treaty-body jurisprudence — for human rights researchers, academics and legal practitioners." />
 <link rel="canonical" href="https://lszoszk.github.io/generalcomments/" />
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="alternate" type="application/atom+xml" title="UNHRDB — new documents" href="feeds/all.xml" />
+<link rel="alternate" type="application/atom+xml" title="UNHRDB — new treaty-body decisions" href="feeds/jur.xml" />
+<link rel="alternate" type="application/atom+xml" title="UNHRDB — new Special Procedures reports" href="feeds/sp.xml" />
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
 <!-- Open Graph -->
@@ -115,8 +118,8 @@
 }
 </script>
 
-<link rel="stylesheet" href="assets/tokens.css?v=20260906-cfda1a1" />
-<link rel="stylesheet" href="assets/app.css?v=20260906-cfda1a1" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260906-56f2833" />
+<link rel="stylesheet" href="assets/app.css?v=20260906-56f2833" />
 
 <!-- Google Analytics 4 is loaded LAZILY, only after the visitor opts in
      via the consent banner — see initConsent()/loadAnalytics() in app.js.
@@ -1323,6 +1326,23 @@
             a case cited by name only, without symbol or communication number,
             is not linked.
           </p>
+          <p class="serif">
+            <strong>New documents.</strong> Atom feeds list every addition, newest
+            first: <a class="about-link" href="feeds/all.xml">all</a>,
+            <a class="about-link" href="feeds/gc.xml">General Comments</a>,
+            <a class="about-link" href="feeds/jur.xml">decisions</a>,
+            <a class="about-link" href="feeds/sp.xml">Special Procedures</a>, and one
+            per treaty body or mandate (<a class="about-link" href="feeds/index.json">index</a>).
+            The <a class="about-link" href="changelog.html">changelog</a> shows the same
+            additions by day; returning visitors see a “new” chip on documents added
+            since their last visit.
+          </p>
+          <p class="serif">
+            <strong>Related paragraphs.</strong> For every General Comment paragraph the
+            reader and the dossier list the five most similar paragraphs of other General
+            Comments (BGE-large embeddings, cosine similarity). Decisions and Special
+            Procedures reports have no vectors yet, so the panel is General Comments only.
+          </p>
           <pre class="serif" style="margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; background: var(--paper-3); border-left: 3px solid var(--garnet); border-radius: 2px; font-family: var(--mono, monospace); font-size: 12.5px; white-space: pre-wrap; word-break: break-word;"><code>from datasets import load_dataset
 ds = load_dataset(
     "lszoszk/treaty-bodies-general-comments",
@@ -1469,6 +1489,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260906-cfda1a1"></script>
+<script type="module" src="assets/app.js?v=20260906-56f2833"></script>
 </body>
 </html>

@@ -200,3 +200,19 @@ test('D10. legalCharacter · General Comment authority is explicit', async ({ pa
   await expect(note).toContainText('not a judgment');
   await expect(note).toContainText('not formally binding as such');
 });
+
+test('D11. copyWithCiteAndLink · one click copies text, citation and a resolving link', async ({ page, context, browserName }) => {
+  test.skip(browserName === 'webkit', 'WebKit headless blocks clipboard read');
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await bootApp(page, '/index.html?p=crc-c-gc-25-0076#documents/crc-c-gc-25');
+  await expect(page.locator('.docs-reader-title')).toContainText(/digital environment/i, { timeout: 15_000 });
+  const btn = page.locator('#reader-para-crc-c-gc-25-0076 .docs-para-act-copycite');
+  await btn.scrollIntoViewIfNeeded();
+  await btn.click();
+  const text = await page.evaluate(() => navigator.clipboard.readText());
+  expect(text).toMatch(/^76\. The digital environment/);
+  expect(text).toContain('\n\n— ');
+  expect(text).toMatch(/CRC\/C\/GC\/25/);
+  expect(text).toMatch(/p=crc-c-gc-25-0076/);
+  expect(text).toMatch(/:~:text=/);
+});

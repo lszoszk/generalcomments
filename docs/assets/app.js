@@ -35,6 +35,8 @@ const state = {
   apiStats: null,               // /api/stats snapshot used in reproducible exports
   citations: null,              // docs/citations/index.json → {docId: {cites, citedBy}}
   citationsLoading: null,
+  related: null,                // docs/related/gc.json → {paraId: [[otherId, score]]}
+  relatedLoading: null,
   view: 'search',               // 'search' | 'documents' | 'about' — driven by URL hash
   docsScope: 'gc',              // documents-view scope: 'gc' | 'jur' | 'sp' (v19.49: dropped "all" tab — GC is primary)
   docsFilter: '',               // documents-view free-text filter
@@ -1344,9 +1346,38 @@ function paintMastFolio(m) {
 // total paragraph count and the latest GC + JUR + SP build dates. Adapted
 // from UHRI's dashboard-methodology.js renderFreshnessCard() pattern but
 // driven entirely from our static manifest (no API).
+// "New since your last visit": the date of the previous visit is kept in
+// localStorage; every document whose firstAddedAt is later gets a chip in
+// the Documents rail and a line in the freshness card (plus the changelog).
+function rememberVisit() {
+  if (state.lastVisit !== undefined) return;
+  let prev = null;
+  try { prev = localStorage.getItem(_LS.lastVisit); } catch {}
+  state.lastVisit = prev && /^\d{4}-\d{2}-\d{2}$/.test(prev) ? prev : null;
+  try { localStorage.setItem(_LS.lastVisit, new Date().toISOString().slice(0, 10)); } catch {}
+}
+function isNewSinceVisit(doc) {
+  return Boolean(state.lastVisit && doc?.firstAddedAt && String(doc.firstAddedAt).slice(0, 10) > state.lastVisit);
+}
+function newSinceVisitCount() {
+  let n = 0;
+  for (const d of state.documents.values()) if (isNewSinceVisit(d)) n++;
+  return n;
+}
+
 function paintFreshnessCard(m) {
   const card = $('#freshness-card');
   if (!card || !m?.builtAt) return;
+  rememberVisit();
+  const newCount = newSinceVisitCount();
+  const sinceLabel = state.lastVisit
+    ? new Date(state.lastVisit + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })
+    : '';
+  const newLine = state.lastVisit
+    ? (newCount
+        ? `<strong>${newCount.toLocaleString()} ${newCount === 1 ? 'document' : 'documents'} added since your last visit</strong> (${escape(sinceLabel)}) — <a href="changelog.html">what is new</a>.`
+        : `Nothing added since your last visit (${escape(sinceLabel)}) — <a href="changelog.html">changelog</a>.`)
+    : `<a href="changelog.html">What is new</a> · <a href="feeds/all.xml">Atom feed</a>.`;
 
   const built = new Date(m.builtAt);
   const ageDays = Math.max(0, Math.round((Date.now() - built.getTime()) / 86_400_000));
@@ -1384,6 +1415,7 @@ function paintFreshnessCard(m) {
         <a href="https://github.com/lszoszk/generalcomments/blob/main/.github/workflows/link-check.yml"
            target="_blank" rel="noopener">GitHub Actions</a>.
       </div>
+      <div class="freshness-meta freshness-new">${newLine}</div>
     </div>`;
 }
 
@@ -2352,8 +2384,9 @@ function renderRailCommittee(committee, list, type) {
   const open = state.docsRailExpanded.has(collapseKey) || isActiveCommittee || isFiltered;
   const rows = list.map(d => {
     const isActive = state.docsActiveDocId === d.docId;
-    const statusBadge = d.status === 'superseded' ? '<span class="docs-status superseded">superseded</span>'
-                      : d.status === 'revised'   ? '<span class="docs-status revised">revised</span>' : '';
+    const statusBadge = (d.status === 'superseded' ? '<span class="docs-status superseded">superseded</span>'
+                      : d.status === 'revised'   ? '<span class="docs-status revised">revised</span>' : '')
+                      + (isNewSinceVisit(d) ? '<span class="docs-status new" title="Added since your last visit">new</span>' : '');
     // v19.46: when the rail title is a shortened "First et al." form, surface
     // the full applicant list as a hover tooltip so users can still see who
     // is involved without leaving the rail.
@@ -2521,6 +2554,34 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
   // Scroll the rail so the active row is visible.
   document.querySelector('.docs-rail-row.is-active')?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
 }
+
+// ===== Print (roadmap item 6) =====
+// The print stylesheet hides the app chrome; this collects the open
+// document's footnotes into a numbered list at the end, since the in-page
+// popovers cannot print.
+function buildPrintFootnotes() {
+  document.getElementById('print-footnotes')?.remove();
+  const docId = state.docsReaderDocId || document.querySelector('#docs-reader-body .docs-reader-para')?.dataset.paraId?.replace(/-\d{4}$/, '');
+  if (!docId) return;
+  const items = [];
+  for (const el of document.querySelectorAll('#docs-reader-body .docs-reader-para')) {
+    const para = state.paragraphById.get(el.dataset.paraId);
+    for (const fn of (para?.footnotes || [])) {
+      if (fn && typeof fn === 'object' && fn.text) items.push(`<li><span class="mono">${escape(String(fn.n ?? ''))}</span> ${escape(fn.text)}</li>`);
+    }
+  }
+  if (!items.length) return;
+  const box = document.createElement('section');
+  box.id = 'print-footnotes';
+  box.className = 'print-only';
+  box.innerHTML = `<h2>Footnotes</h2><ol class="print-footnotes-list">${items.join('')}</ol>`;
+  document.getElementById('docs-reader-body')?.appendChild(box);
+}
+window.addEventListener('beforeprint', buildPrintFootnotes);
+window.addEventListener('afterprint', () => document.getElementById('print-footnotes')?.remove());
+document.addEventListener('click', (e) => {
+  if (e.target.closest?.('#docs-reader-print')) { buildPrintFootnotes(); window.print(); }
+});
 
 // ===== In-reader find-in-document (v19.62) =====
 // Native Cmd/Ctrl+F cannot reach text inside the reader's nested
@@ -2847,6 +2908,7 @@ function paintDocReaderBody(doc, paraId) {
         <span>${paragraphs.length} ${paragraphs.length === 1 ? 'paragraph' : 'paragraphs'}</span>
         ${sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener" class="docs-reader-source">↗ official source</a>` : ''}
         <button type="button" class="docs-reader-find-toggle" id="docs-reader-find-toggle" title="Find in document (⌘F / Ctrl+F)" aria-label="Find in document">⌕ Find</button>
+        <button type="button" class="docs-reader-find-toggle" id="docs-reader-print" title="Print or save as PDF — the document alone, footnotes at the end" aria-label="Print this document">⎙ Print</button>
         <details class="docs-reader-cite" id="docs-reader-cite">
           <summary class="docs-reader-find-toggle" title="Copy a citation for the whole document" aria-label="Cite this document">” Cite</summary>
           <div class="docs-reader-cite-pop">
@@ -2929,6 +2991,9 @@ function paintDocReaderBody(doc, paraId) {
           <button class="docs-para-act docs-para-act-copy" data-act="copy" title="Copy paragraph text to clipboard" aria-label="Copy paragraph text">
             <span class="mono">copy</span>
           </button>
+          <button class="docs-para-act docs-para-act-copycite" data-act="copycite" title="Copy the paragraph with its citation and a link that resolves it" aria-label="Copy paragraph with citation and link">
+            <span class="mono">copy+cite</span>
+          </button>
           <button class="docs-para-act docs-para-act-flag" data-act="flag" title="Report a problem with this paragraph (wrong article link, OCR, metadata…)" aria-label="Report a problem with this paragraph">
             <span class="mono">flag</span>
           </button>
@@ -2990,6 +3055,12 @@ function paintDocReaderBody(doc, paraId) {
           const para = state.paragraphById.get(id);
           if (para) copyCiteWithPref(btn, para);
           return;                                  // skip the re-paint
+        }
+        if (btn.dataset.act === 'copycite') {
+          e.stopPropagation();
+          const para = state.paragraphById.get(id);
+          if (para) copyParagraphWithCite(btn, para);
+          return;
         }
         if (btn.dataset.act === 'copy') {
           // Copy raw paragraph text to clipboard.  Strips inline
@@ -3114,6 +3185,53 @@ function setupOutlineScrollSpy(host) {
 // (its authorities) and the documents citing it, each with the number of
 // citing paragraphs and the first citing paragraph id. Loaded once, lazily,
 // the first time a reader drawer or dossier asks for it.
+// Related paragraphs (build_related.py): BGE nearest neighbours from other
+// General Comments, for the GC paragraphs that have vectors.
+async function loadRelatedIndex() {
+  if (state.related) return state.related;
+  if (!state.relatedLoading) {
+    const sha = state.manifest?.files?.['related/gc.json']?.sha || '';
+    state.relatedLoading = fetchJson(`${DATA_BASE}related/gc.json${sha ? `?v=${sha}` : ''}`)
+      .then(data => { state.related = data?.related || {}; return state.related; })
+      .catch(e => { console.warn('[related] index unavailable:', e.message); state.related = {}; return state.related; })
+      .finally(() => { state.relatedLoading = null; });
+  }
+  return state.relatedLoading;
+}
+function _relatedRowsHtml(paraId) {
+  const rows = state.related?.[paraId] || [];
+  return rows.map(([otherId, score]) => {
+    const p = state.paragraphById.get(otherId);
+    const doc = state.documents.get(p?.docId || otherId.replace(/-\d{4}$/, ''));
+    if (!doc) return '';
+    const snippet = String(p?.text || '').replace(/\[\[fn:\d+\]\]/g, '').replace(/\s+/g, ' ').trim().slice(0, 150);
+    return `<li><a class="related-row" href="#" data-doc="${escape(doc.docId)}" data-para="${escape(otherId)}" title="similarity ${score}">
+        <span class="related-head"><span class="mono dim">${escape(doc.signature || '')}</span> <span class="related-doc">${escape(doc.nameShort || doc.name || doc.docId)}</span> <span class="mono dim">¶${escape(String(p?.n ?? ''))}</span></span>
+        <span class="related-snip">${escape(snippet)}${snippet.length === 150 ? '…' : ''}</span>
+      </a></li>`;
+  }).join('');
+}
+function _bindRelatedRows(host) {
+  host.querySelectorAll('.related-row').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    openDocReader(a.dataset.doc, { paraId: a.dataset.para });
+    if (state.view !== 'documents') setView('documents');
+  }));
+}
+async function paintRelatedForParagraph(host, para) {
+  if (!host || !para || para.type !== 'gc') { if (host) host.hidden = true; return; }
+  await loadRelatedIndex();
+  if (host.dataset.para && host.dataset.para !== para.id) return;
+  host.dataset.para = para.id;
+  const html = _relatedRowsHtml(para.id);
+  if (!html) { host.hidden = true; return; }
+  host.hidden = false;
+  host.innerHTML = `<h3 class="folio">Related paragraphs <span class="dim">General Comments</span></h3>
+    <ol class="related-list">${html}</ol>
+    <p class="serif dim docs-cite-note">Nearest neighbours by BGE-large embedding, other documents only; General Comments have vectors today, decisions and reports do not.</p>`;
+  _bindRelatedRows(host);
+}
+
 async function loadCitationIndex() {
   if (state.citations) return state.citations;
   if (!state.citationsLoading) {
@@ -3294,8 +3412,14 @@ function paintDocDrawer(doc) {
       ${outlineHtml}
     </div>
     ${wsHtml}
+    <div class="docs-drawer-related" id="docs-drawer-related" hidden></div>
     <div class="docs-drawer-cites" id="docs-drawer-cites" hidden></div>`;
   paintDrawerCitations(doc);
+  {
+    const activeEl = document.querySelector('#docs-reader-body .docs-reader-para.is-active');
+    const activePara = activeEl ? state.paragraphById.get(activeEl.dataset.paraId) : null;
+    if (activePara) paintRelatedForParagraph($('#docs-drawer-related'), activePara);
+  }
 
   // Collapse button. It lives outside the rebuilt drawer body, so bind it
   // once and let the handler read the current document — binding on every
@@ -7874,6 +7998,7 @@ function paintDossier() {
   const doc = state.documents.get(para.docId);
   if (state.view === 'search') updateScholarlyMeta(doc);
   queueMicrotask(() => fillDossierCitations(doc));
+  queueMicrotask(() => paintRelatedForParagraph($('#dossier-related'), para));
   const sourceUrl = officialSourceUrl(doc);
   const isSpDoc = para.type === 'sp';
   const isJurDoc = para.type === 'jur';
@@ -8073,6 +8198,7 @@ function paintDossier() {
           <div class="dossier-dp"><div class="folio">Treaty body</div><div class="v">${escape(doc?.committees?.join(' · ') || doc?.treaty || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">Citations</div><div class="v" id="dossier-cites" data-para="${escape(state.activeId || '')}">…</div></div>
+          <div class="dossier-dp dossier-dp-wide dossier-related" id="dossier-related" hidden></div>
           ${'' /* v19.15: section moved to a breadcrumb above the quote — see dossier-breadcrumb. */}
           ${articlesInvokedHtml}
         `
@@ -8082,6 +8208,7 @@ function paintDossier() {
           <div class="dossier-dp"><div class="folio">${actorLabel}</div><div class="v">${escape(doc?.committees?.join(' · ') || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">Citations</div><div class="v" id="dossier-cites" data-para="${escape(state.activeId || '')}">…</div></div>
+          <div class="dossier-dp dossier-dp-wide dossier-related" id="dossier-related" hidden></div>
           ${articlesHtml}
           ${statusHtml}
           ${isSpDoc && doc?.mandate ? `<div class="dossier-dp"><div class="folio">Mandate holder</div><div class="v accent">${escape(doc.mandate)}</div></div>` : ''}
@@ -8222,6 +8349,11 @@ function paintDossier() {
         <summary class="dossier-icon-btn dossier-more-summary"
                  title="More actions" aria-label="More actions" aria-haspopup="menu">⋯</summary>
         <div class="dossier-more-pop" role="menu">
+          <button type="button" id="ws-copy-cite" class="dossier-more-opt" role="menuitem"
+                  title="Copy the paragraph with its citation and a link that resolves it">
+            <span class="dossier-more-icon" aria-hidden="true">⎘</span>
+            <span>Copy with citation and link</span>
+          </button>
           <button type="button" id="ws-bookmark" class="dossier-more-opt${bmHas(para.id) ? ' is-on' : ''}" role="menuitem"
                   aria-pressed="${bmHas(para.id) ? 'true' : 'false'}">
             <span class="dossier-more-icon" aria-hidden="true">${bmHas(para.id) ? '★' : '☆'}</span>
@@ -8354,6 +8486,10 @@ function paintDossier() {
   // Copy paragraph text — visible icon button now (was
    // moved up from the More menu). Uses the icon-btn flash pattern:
    // is-flash class + textContent swap.
+  $('#ws-copy-cite')?.addEventListener('click', (e) => {
+    copyParagraphWithCite(e.currentTarget, para);
+    $('#dossier-more')?.removeAttribute('open');
+  });
   $('#ws-copy')?.addEventListener('click', (e) => {
     const btn = e.currentTarget;
     copyParagraphText(btn, para);   // strips fn markers, toasts confirmation
@@ -9072,6 +9208,33 @@ async function copyParagraphText(anchorEl, para) {
   showFeedbackToast({ ok: true, _msg: 'Paragraph text copied', _mark: '⎘' });
 }
 
+// Text-fragment deep link: the paragraph's first and last words as a
+// `:~:text=` directive after the app's own hash, so a browser without the
+// app's JS (or a PDF reader following the link) still lands on the text.
+function paragraphTextFragmentUrl(para) {
+  const base = paragraphPermalink(para)?.toString() || '';
+  const words = String(para?.text || '').replace(/\[\[fn:\d+\]\]/g, '').replace(/\s+/g, ' ').trim().split(' ');
+  if (!base || words.length < 8) return base;
+  const enc = (w) => encodeURIComponent(w).replace(/-/g, '%2D');
+  return `${base}:~:text=${enc(words.slice(0, 6).join(' '))},${enc(words.slice(-4).join(' '))}`;
+}
+// Copy Mode, CanLII-style: the paragraph, its citation in the preferred
+// style and a link that resolves the paragraph — one clipboard write.
+async function copyParagraphWithCite(anchorEl, para) {
+  const doc = state.documents.get(para.docId);
+  const fmt = CITE_FORMATS.find(f => f.key === getPrefCiteFmt()) || CITE_FORMATS[0];
+  let text = (para.text || '').replace(/\[\[fn:\d+\]\]/g, '').replace(/\s{2,}/g, ' ').trim();
+  const payload = `${text}\n\n— ${fmt.build(doc, para)}\n${paragraphTextFragmentUrl(para)}`;
+  try {
+    await navigator.clipboard?.writeText(payload);
+  } catch (e) {
+    showFeedbackToast({ ok: false, _msg: 'Clipboard write failed', _mark: '⚠' });
+    return;
+  }
+  if (anchorEl) { anchorEl.classList.add('is-flash'); setTimeout(() => anchorEl.classList.remove('is-flash'), 700); }
+  showFeedbackToast({ ok: true, _msg: `Paragraph + ${fmt.fmt} citation + link copied`, _mark: '⎘' });
+}
+
 async function copyCiteWithPref(anchorEl, para) {
   const doc = state.documents.get(para.docId);
   const key = getPrefCiteFmt();
@@ -9556,6 +9719,7 @@ document.addEventListener('keydown', (e) => {
 //   unhrdb_pins_v1        → array of {paraId, docId, addedAt}, max 2 (FIFO)
 //   unhrdb_searches_v1    → array of {name, url, savedAt}
 const _LS = {
+  lastVisit: 'unhrdb_last_visit_v1',      // ISO date of the previous visit — drives the "new" chips
   bm:    'unhrdb_bookmarks_v1',
   notes: 'unhrdb_notes_v1',
   pins:  'unhrdb_pins_v1',

@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>UNHRDB — Committee against Torture</title>
+  <link href="https://lszoszk.github.io/generalcomments/" />
+  <link rel="self" href="https://lszoszk.github.io/generalcomments/feeds/body-cat.xml" />
+  <id>https://lszoszk.github.io/generalcomments/feeds/body-cat</id>
+  <updated>2026-05-13T00:00:00Z</updated>
+  <author><name>UN Human Rights Database</name></author>
+  <subtitle>Documents newly added to the paragraph-level corpus of UN treaty-body general comments, individual-communication decisions and Special Procedures thematic reports.</subtitle>
+  <entry>
+    <title>Follow-up report v. Algeria,Australia,Bulgaria,Burundi,Germany,Kazakhstan,Russian Federation,Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-54-3" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-54-3</id>
+    <updated>2026-05-13T00:00:00Z</updated>
+    <published>2026-05-13T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/54/3 · Committee against Torture · Algeria,Australia,Bulgaria,Burundi,Germany,Kazakhstan,Russian Federation,Switzerland · 2015</summary>
+  </entry>
+  <entry>
+    <title>R. D. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-34-d-220-2002" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-34-d-220-2002</id>
+    <updated>2026-05-13T00:00:00Z</updated>
+    <published>2026-05-13T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/34/D/220/2002 · Committee against Torture · Sweden · 2005</summary>
+  </entry>
+  <entry>
+    <title>R. C. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-33-d-218-2002" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-33-d-218-2002</id>
+    <updated>2026-05-13T00:00:00Z</updated>
+    <published>2026-05-13T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/33/D/218/2002 · Committee against Torture · Sweden · 2004</summary>
+  </entry>
+  <entry>
+    <title>O.H. v. Ukraine</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-82-d-987-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-82-d-987-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/82/D/987/2020 · Committee against Torture · Ukraine · 2025</summary>
+  </entry>
+  <entry>
+    <title>A.L. and S.K. v. Tunisia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-82-d-1185-2023" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-82-d-1185-2023</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/82/D/1185/2023 · Committee against Torture · Tunisia · 2025</summary>
+  </entry>
+  <entry>
+    <title>C.C. v. Argentina</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-82-d-1116-2022" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-82-d-1116-2022</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/82/D/1116/2022 · Committee against Torture · Argentina · 2025</summary>
+  </entry>
+  <entry>
+    <title>J.B. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-998-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-998-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/998/2020 · Committee against Torture · Switzerland · 2024</summary>
+  </entry>
+  <entry>
+    <title>H.A. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-945-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-945-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/945/2019 · Committee against Torture · Sweden · 2024</summary>
+  </entry>
+  <entry>
+    <title>K.S.S. v. Canada</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-938-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-938-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/938/2019 · Committee against Torture · Canada · 2024</summary>
+  </entry>
+  <entry>
+    <title>A.G. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-886-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-886-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/886/2018 · Committee against Torture · Australia · 2024</summary>
+  </entry>
+  <entry>
+    <title>P.A. v. Finland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-836-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-836-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/836/2017 · Committee against Torture · Finland · 2024</summary>
+  </entry>
+  <entry>
+    <title>J.S. v. Canada</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-831-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-831-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/831/2017 · Committee against Torture · Canada · 2024</summary>
+  </entry>
+  <entry>
+    <title>Z.H. v. Tunisia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1158-2022" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1158-2022</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1158/2022 · Committee against Torture · Tunisia · 2024</summary>
+  </entry>
+  <entry>
+    <title>J.V. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1092-2021" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1092-2021</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1092/2021 · Committee against Torture · Australia · 2024</summary>
+  </entry>
+  <entry>
+    <title>M.V. and E.A. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1063-2021" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1063-2021</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1063/2021 · Committee against Torture · Sweden · 2024</summary>
+  </entry>
+  <entry>
+    <title>H.N. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1053-2021" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1053-2021</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1053/2021 · Committee against Torture · Sweden · 2024</summary>
+  </entry>
+  <entry>
+    <title>Q.A.A. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1048-2021" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1048-2021</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1048/2021 · Committee against Torture · Sweden · 2024</summary>
+  </entry>
+  <entry>
+    <title>K.K. v. Russian Federation</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1043-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1043-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1043/2020 · Committee against Torture · Russian Federation · 2024</summary>
+  </entry>
+  <entry>
+    <title>T.S. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1028-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1028-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1028/2020 · Committee against Torture · Australia · 2024</summary>
+  </entry>
+  <entry>
+    <title>V.K. and U.K. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1027-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1027-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1027/2020 · Committee against Torture · Sweden · 2024</summary>
+  </entry>
+  <entry>
+    <title>J.R. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1025-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1025-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1025/2020 · Committee against Torture · Sweden · 2024</summary>
+  </entry>
+  <entry>
+    <title>R.M. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1023-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1023-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1023/2020 · Committee against Torture · Australia · 2024</summary>
+  </entry>
+  <entry>
+    <title>S.K. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1013-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-79-d-1013-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/79/D/1013/2020 · Committee against Torture · Australia · 2024</summary>
+  </entry>
+  <entry>
+    <title>M.J. v. Finland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-875-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-875-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/78/D/875/2018 · Committee against Torture · Finland · 2023</summary>
+  </entry>
+  <entry>
+    <title>A.H. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1059-2021" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1059-2021</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/78/D/1059/2021 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>Z et al. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1031-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1031-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/78/D/1031/2020 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>A.A. et al. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1014-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1014-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/78/D/1014/2020 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>M.S. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1006-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1006-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/78/D/1006/2020 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>M.A. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1005-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1005-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/78/D/1005/2020 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>A.A. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1002-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1002-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/78/D/1002/2020 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>Y.H. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1001-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-78-d-1001-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/78/D/1001/2020 · Committee against Torture · Australia · 2023</summary>
+  </entry>
+  <entry>
+    <title>A.H. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-996-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-996-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/996/2020 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>H.A. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-994-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-994-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/994/2020 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>E.D. and P.K. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-978-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-978-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/978/2020 · Committee against Torture · Switzerland · 2023</summary>
+  </entry>
+  <entry>
+    <title>N.K., K.K. and D.K. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-977-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-977-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/977/2020 · Committee against Torture · Switzerland · 2023</summary>
+  </entry>
+  <entry>
+    <title>X et al. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-969-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-969-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/969/2019 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>K.S. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-917-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-917-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/917/2019 · Committee against Torture · Australia · 2023</summary>
+  </entry>
+  <entry>
+    <title>A.C. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1101-2021" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1101-2021</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/1101/2021 · Committee against Torture · Australia · 2023</summary>
+  </entry>
+  <entry>
+    <title>S.J. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1098-2021" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1098-2021</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/1098/2021 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>T.K.M.H. and M.F.B. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1071-2021" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1071-2021</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/1071/2021 · Committee against Torture · Switzerland · 2023</summary>
+  </entry>
+  <entry>
+    <title>M.K.B. v. Netherlands</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1008-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1008-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/1008/2020 · Committee against Torture · Netherlands · 2023</summary>
+  </entry>
+  <entry>
+    <title>H.S. et al. v. Belgium</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1003-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-77-d-1003-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/77/D/1003/2020 · Committee against Torture · Belgium · 2023</summary>
+  </entry>
+  <entry>
+    <title>D.S. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-953-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-953-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/76/D/953/2019 · Committee against Torture · Switzerland · 2023</summary>
+  </entry>
+  <entry>
+    <title>G.I. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-931-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-931-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/76/D/931/2019 · Committee against Torture · Sweden · 2023</summary>
+  </entry>
+  <entry>
+    <title>M.M. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-910-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-910-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/76/D/910/2019 · Committee against Torture · Switzerland · 2023</summary>
+  </entry>
+  <entry>
+    <title>I.D. et al. v. Finland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-907-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-907-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/76/D/907/2019 · Committee against Torture · Finland · 2023</summary>
+  </entry>
+  <entry>
+    <title>S.R. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-794-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-794-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/76/D/794/2017 · Committee against Torture · Australia · 2023</summary>
+  </entry>
+  <entry>
+    <title>K.R. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-1018-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-76-d-1018-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/76/D/1018/2020 · Committee against Torture · Switzerland · 2023</summary>
+  </entry>
+  <entry>
+    <title>M.H. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-75-d-965-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-75-d-965-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/75/D/965/2019 · Committee against Torture · Sweden · 2022</summary>
+  </entry>
+  <entry>
+    <title>F.M.J. v. Canada</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-75-d-926-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-75-d-926-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/75/D/926/2019 · Committee against Torture · Canada · 2022</summary>
+  </entry>
+  <entry>
+    <title>N.A.H. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-75-d-892-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-75-d-892-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/75/D/892/2018 · Committee against Torture · Switzerland · 2022</summary>
+  </entry>
+  <entry>
+    <title>Y.N.B. v. Canada</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-75-d-823-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-75-d-823-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/75/D/823/2017 · Committee against Torture · Canada · 2022</summary>
+  </entry>
+  <entry>
+    <title>H.R. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-74-d-955-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-74-d-955-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/74/D/955/2019 · Committee against Torture · Sweden · 2022</summary>
+  </entry>
+  <entry>
+    <title>M.I. et al. v. Finland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-74-d-948-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-74-d-948-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/74/D/948/2019 · Committee against Torture · Finland · 2022</summary>
+  </entry>
+  <entry>
+    <title>R.K. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-74-d-927-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-74-d-927-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/74/D/927/2019 · Committee against Torture · Australia · 2022</summary>
+  </entry>
+  <entry>
+    <title>E.T. and R.S. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-74-d-901-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-74-d-901-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/74/D/901/2018 · Committee against Torture · Switzerland · 2022</summary>
+  </entry>
+  <entry>
+    <title>R.G. v. Russian Federation</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-902-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-902-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/73/D/902/2018 · Committee against Torture · Russian Federation · 2022</summary>
+  </entry>
+  <entry>
+    <title>S.M. v. Canada</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-899-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-899-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/73/D/899/2018 · Committee against Torture · Canada · 2022</summary>
+  </entry>
+  <entry>
+    <title>T.S. v. Canada</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-769-2016" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-769-2016</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/73/D/769/2016 · Committee against Torture · Canada · 2022</summary>
+  </entry>
+  <entry>
+    <title>S.T. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-734-2016" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-734-2016</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/73/D/734/2016 · Committee against Torture · Australia · 2022</summary>
+  </entry>
+  <entry>
+    <title>A.A. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-546-2013" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-73-d-546-2013</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/73/D/546/2013 · Committee against Torture · Sweden · 2022</summary>
+  </entry>
+  <entry>
+    <title>N.R. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-72-d-851-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-72-d-851-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/72/D/851/2017 · Committee against Torture · Switzerland · 2021</summary>
+  </entry>
+  <entry>
+    <title>K.S. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-72-d-751-2016" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-72-d-751-2016</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/72/D/751/2016 · Committee against Torture · Australia · 2021</summary>
+  </entry>
+  <entry>
+    <title>M.K. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-72-d-706-2015" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-72-d-706-2015</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/72/D/706/2015 · Committee against Torture · Switzerland · 2021</summary>
+  </entry>
+  <entry>
+    <title>N.N. v. Algeria</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-72-d-1038-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-72-d-1038-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/72/D/1038/2020 · Committee against Torture · Algeria · 2021</summary>
+  </entry>
+  <entry>
+    <title>Follow-up report v. Canada,Russian Federation</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-72-2" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-72-2</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/72/2 · Committee against Torture · Canada,Russian Federation · 2021</summary>
+  </entry>
+  <entry>
+    <title>P.T. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-974-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-974-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/974/2019 · Committee against Torture · Australia · 2021</summary>
+  </entry>
+  <entry>
+    <title>A.K. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-956-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-956-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/956/2019 · Committee against Torture · Sweden · 2021</summary>
+  </entry>
+  <entry>
+    <title>M.K. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-942-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-942-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/942/2019 · Committee against Torture · Australia · 2021</summary>
+  </entry>
+  <entry>
+    <title>J.H. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-929-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-929-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/929/2019 · Committee against Torture · Sweden · 2021</summary>
+  </entry>
+  <entry>
+    <title>N.M. et al. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-920-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-920-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/920/2019 · Committee against Torture · Sweden · 2021</summary>
+  </entry>
+  <entry>
+    <title>A.F.M.I. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-878-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-878-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/878/2018 · Committee against Torture · Sweden · 2021</summary>
+  </entry>
+  <entry>
+    <title>T.S. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-853-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-853-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/853/2017 · Committee against Torture · Australia · 2021</summary>
+  </entry>
+  <entry>
+    <title>I.M. et al. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-842-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-842-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/842/2017 · Committee against Torture · Sweden · 2021</summary>
+  </entry>
+  <entry>
+    <title>B.W. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-835-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-835-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/835/2017 · Committee against Torture · Switzerland · 2021</summary>
+  </entry>
+  <entry>
+    <title>K.L.P. and N.L.P. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-779-2016" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-779-2016</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/779/2016 · Committee against Torture · Australia · 2021</summary>
+  </entry>
+  <entry>
+    <title>A.T. et al. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-774-2016" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-774-2016</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/774/2016 · Committee against Torture · Switzerland · 2021</summary>
+  </entry>
+  <entry>
+    <title>A.K. v. Ukraine</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-674-2015" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-674-2015</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/674/2015 · Committee against Torture · Ukraine · 2021</summary>
+  </entry>
+  <entry>
+    <title>A.V.B. v. Kazakhstan</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-524-2012" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-71-d-524-2012</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/71/D/524/2012 · Committee against Torture · Kazakhstan · 2021</summary>
+  </entry>
+  <entry>
+    <title>H.H. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-990-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-990-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/990/2020 · Committee against Torture · Sweden · 2021</summary>
+  </entry>
+  <entry>
+    <title>S.I.A.M. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-976-2020" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-976-2020</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/976/2020 · Committee against Torture · Switzerland · 2021</summary>
+  </entry>
+  <entry>
+    <title>M.B. v. Montenegro</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-970-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-970-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/970/2019 · Committee against Torture · Montenegro · 2020</summary>
+  </entry>
+  <entry>
+    <title>J.A. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-966-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-966-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/966/2019 · Committee against Torture · Sweden · 2021</summary>
+  </entry>
+  <entry>
+    <title>S.N. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-961-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-961-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/961/2019 · Committee against Torture · Australia · 2021</summary>
+  </entry>
+  <entry>
+    <title>O.E. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-959-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-959-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/959/2019 · Committee against Torture · Switzerland · 2021</summary>
+  </entry>
+  <entry>
+    <title>A.R. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-950-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-950-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/950/2019 · Committee against Torture · Sweden · 2020</summary>
+  </entry>
+  <entry>
+    <title>R.D. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-940-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-940-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/940/2019 · Committee against Torture · Sweden · 2021</summary>
+  </entry>
+  <entry>
+    <title>B.T. v. Serbia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-936-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-936-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/936/2019 · Committee against Torture · Serbia · 2020</summary>
+  </entry>
+  <entry>
+    <title>R.T. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-932-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-932-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/932/2019 · Committee against Torture · Australia · 2020</summary>
+  </entry>
+  <entry>
+    <title>M.S.K. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-925-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-925-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/925/2019 · Committee against Torture · Switzerland · 2021</summary>
+  </entry>
+  <entry>
+    <title>A.H. v. Sweden</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-919-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-919-2019</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/919/2019 · Committee against Torture · Sweden · 2021</summary>
+  </entry>
+  <entry>
+    <title>S.S. v. Australia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-895-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-895-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/895/2018 · Committee against Torture · Australia · 2020</summary>
+  </entry>
+  <entry>
+    <title>H.S.D. v. Canada</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-877-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-877-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/877/2018 · Committee against Torture · Canada · 2020</summary>
+  </entry>
+  <entry>
+    <title>F.S. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-876-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-876-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/876/2018 · Committee against Torture · Switzerland · 2020</summary>
+  </entry>
+  <entry>
+    <title>B.K. et al. v. Canada</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-873-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-873-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/873/2018 · Committee against Torture · Canada · 2020</summary>
+  </entry>
+  <entry>
+    <title>R.K.K. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-870-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-870-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/870/2018 · Committee against Torture · Switzerland · 2020</summary>
+  </entry>
+  <entry>
+    <title>E.D. v. Switzerland</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-867-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-867-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/867/2018 · Committee against Torture · Switzerland · 2021</summary>
+  </entry>
+  <entry>
+    <title>T.Ç. and M.E.Ç. v. Georgia</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-861-2018" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-861-2018</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/861/2018 · Committee against Torture · Georgia · 2020</summary>
+  </entry>
+  <entry>
+    <title>M.P. v. Bulgaria</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-847-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-847-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/847/2017 · Committee against Torture · Bulgaria · 2021</summary>
+  </entry>
+  <entry>
+    <title>B.S. v. Canada</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-838-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/cat-c-70-d-838-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CAT/C/70/D/838/2017 · Committee against Torture · Canada · 2020</summary>
+  </entry>
+</feed>

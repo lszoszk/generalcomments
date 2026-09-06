@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>UNHRDB — Committee on Enforced Disappearances</title>
+  <link href="https://lszoszk.github.io/generalcomments/" />
+  <link rel="self" href="https://lszoszk.github.io/generalcomments/feeds/body-ced.xml" />
+  <id>https://lszoszk.github.io/generalcomments/feeds/body-ced</id>
+  <updated>2026-05-12T00:00:00Z</updated>
+  <author><name>UN Human Rights Database</name></author>
+  <subtitle>Documents newly added to the paragraph-level corpus of UN treaty-body general comments, individual-communication decisions and Special Procedures thematic reports.</subtitle>
+  <entry>
+    <title>Follow-up report v. Argentina</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/ced-c-22-3" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/ced-c-22-3</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CED/C/22/3 · Committee on Enforced Disappearances · Argentina · 2022</summary>
+  </entry>
+  <entry>
+    <title>Follow-up report v. Argentina</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/ced-c-19-3" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/ced-c-19-3</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CED/C/19/3 · Committee on Enforced Disappearances · Argentina · 2020</summary>
+  </entry>
+  <entry>
+    <title>M.I. v. Czech Republic</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/ced-c-14-d-2-2017" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/ced-c-14-d-2-2017</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CED/C/14/D/2/2017 · Committee on Enforced Disappearances · Czech Republic · 2018</summary>
+  </entry>
+  <entry>
+    <title>Follow-up report v. Argentina</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/ced-c-13-2" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/ced-c-13-2</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CED/C/13/2 · Committee on Enforced Disappearances · Argentina · 2017</summary>
+  </entry>
+  <entry>
+    <title>Berrospe Medina v. Mexico</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/ced-c-24-d-4-2021" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/ced-c-24-d-4-2021</id>
+    <updated>2026-05-11T00:00:00Z</updated>
+    <published>2026-05-11T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CED/C/24/D/4/2021 · Committee on Enforced Disappearances · Mexico · 2023</summary>
+  </entry>
+  <entry>
+    <title>E.L.A. v. France</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/ced-c-19-d-3-2019" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/ced-c-19-d-3-2019</id>
+    <updated>2026-05-11T00:00:00Z</updated>
+    <published>2026-05-11T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CED/C/19/D/3/2019 · Committee on Enforced Disappearances · France · 2020</summary>
+  </entry>
+  <entry>
+    <title>Yrusta v. Argentina</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/ced-c-10-d-1-2013" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/ced-c-10-d-1-2013</id>
+    <updated>2026-05-11T00:00:00Z</updated>
+    <published>2026-05-11T00:00:00Z</published>
+    <category term="jur" />
+    <summary>Treaty-body decision · CED/C/10/D/1/2013 · Committee on Enforced Disappearances · Argentina · 2016</summary>
+  </entry>
+  <entry>
+    <title>General Comment No. 1 (2023) on enforced disappearance in the context of migration</title>
+    <link href="https://lszoszk.github.io/generalcomments/#documents/ced-c-gc-1" />
+    <id>https://lszoszk.github.io/generalcomments/#documents/ced-c-gc-1</id>
+    <updated>2026-04-28T00:00:00Z</updated>
+    <published>2026-04-28T00:00:00Z</published>
+    <category term="gc" />
+    <summary>General Comment / Recommendation · CED/C/GC/1 · Committee on Enforced Disappearances · 2023 — The Committee provides authoritative guidance on the obligations of States parties under the International Convention for the Protection of All Persons from Enforced Disappearance in the context of migration, and clarifies that migrants are particularly vulnerable to enforced disappearance and that States parties have specific duties of prevention, search, investigation and reparation.</summary>
+  </entry>
+</feed>

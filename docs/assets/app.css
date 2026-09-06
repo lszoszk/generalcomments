@@ -6939,3 +6939,43 @@ body[data-active-view="ask"] section[data-view="ask"] {
 .docs-cite-row .docs-cite-count { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 11px; }
 .docs-cite-more { margin-top: 6px; font-size: 12px; }
 .docs-cite-note { font-size: 11.5px; margin-top: 12px; }
+
+/* ─────────── Print (roadmap item 6) ─────────── */
+.print-only { display: none; }
+@media print {
+  @page { margin: 18mm 16mm; }
+  html, body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  /* App chrome goes; the open document stays. */
+  .masthead, .mast, nav, header.masthead, .site-header, .searchbar, .filters, .docs-rail, .docs-drawer, #dossier,
+  .consent-banner, .tour, .toast, .cmdk, .site-footer, footer, .docs-reader-find, .docs-reader-find-toggle,
+  .docs-para-act, .docs-para-bm, .docs-para-note-flag, .fn-marker-popover, .result-list, .results,
+  #docs-drawer-collapse, .legal-character-note, .docs-reader-source, [hidden] { display: none !important; }
+  body[data-active-view="documents"] section[data-view="documents"] { display: block !important; }
+  .docs-layout, .layout, .docs-main, #docs-reader, #docs-reader-body { display: block !important; width: auto !important; max-width: none !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; height: auto !important; }
+  .docs-reader-head { border-bottom: 1px solid #000; padding-bottom: 6pt; margin-bottom: 12pt; }
+  .docs-reader-title { font-size: 18pt; }
+  .docs-reader-meta { font-size: 9pt; }
+  .docs-reader-para { break-inside: avoid; page-break-inside: avoid; border: 0; background: none !important; }
+  .docs-reader-para-marker .mono { color: #444; }
+  .docs-reader-para a { color: #000; text-decoration: none; }
+  .fn-marker { color: #000; background: none; border: 0; padding: 0; font-size: 8pt; vertical-align: super; }
+  .print-only { display: block; }
+  #print-footnotes { margin-top: 18pt; border-top: 1px solid #000; padding-top: 8pt; font-size: 9.5pt; }
+  #print-footnotes h2 { font-size: 11pt; margin: 0 0 6pt; }
+  .print-footnotes-list { list-style: none; padding: 0; margin: 0; }
+  .print-footnotes-list li { margin: 0 0 3pt; break-inside: avoid; }
+  .print-footnotes-list .mono { display: inline-block; min-width: 2.4em; }
+}
+
+/* New-since-visit chip, related paragraphs. */
+.docs-status.new { background: var(--garnet-soft, #f1e2e3); color: var(--garnet, #7a1f2b); }
+.freshness-new { margin-top: 6px; }
+.docs-drawer-related { margin-top: 24px; }
+.related-list { list-style: none; margin: 0; padding: 0; }
+.related-row { display: block; padding: 6px 4px; border-radius: 4px; text-decoration: none; color: var(--ink); font-size: 12.5px; line-height: 1.35; }
+.related-row:hover { background: var(--paper-2, rgba(0,0,0,.04)); }
+.related-head { display: block; }
+.related-head .mono { font-size: 10px; }
+.related-doc { font-weight: 600; }
+.related-snip { display: block; color: var(--ink-3); font-size: 12px; }
+.dossier-related .related-row { font-size: 13px; }
