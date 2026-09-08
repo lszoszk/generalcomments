@@ -48,6 +48,11 @@ the data.
   the indexed path; negative-only searches are rejected with an explanation.
 - Keeps General Comments, jurisprudence, and Special Procedures as distinct
   source collections rather than blending their authority or provenance.
+- Checks the UN citations in a pasted text (`#check`): symbols, "General
+  Comment No. N", "Communication No. N/YYYY" and case names are resolved
+  against the catalogue, superseded texts and invented ones are flagged,
+  pinpointed paragraphs are verified and quotations compared word by word
+  with the source, all in the browser.
 - Opens results in a source-first document reader with paragraph identifiers,
   context, bookmarks, notes, and citation export.
 - Reconstructs and audits document structure, OCR provenance, footnotes, and

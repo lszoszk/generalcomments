@@ -43,6 +43,7 @@ section[data-view="documents"] {
   overflow: hidden;       /* nested panes scroll */
 }
 section[data-view="workspace"],
+section[data-view="check"],
 section[data-view="about"] {
   overflow-y: auto;       /* full-section scroll for content-only views */
 }
@@ -3029,6 +3030,7 @@ section[data-view] { display: none; }
 body[data-active-view="search"]    section[data-view="search"]    { display: flex; }
 body[data-active-view="documents"] section[data-view="documents"] { display: flex; }
 body[data-active-view="workspace"] section[data-view="workspace"] { display: block; }
+body[data-active-view="check"]     section[data-view="check"]     { display: block; }
 body[data-active-view="about"]     section[data-view="about"]     { display: block; }
 
 /* ─────────────  DOCUMENTS VIEW  ───────────── */
@@ -7037,3 +7039,80 @@ body[data-active-view="ask"] section[data-view="ask"] {
 .related-doc { font-weight: 600; }
 .related-snip { display: block; color: var(--ink-3); font-size: 12px; }
 .dossier-related .related-row { font-size: 13px; }
+
+
+/* ─────────────  CITATION CHECK ("check my text")  ───────────── */
+.check-shell { max-width: 1100px; margin: 0 auto; padding: 28px var(--shell-pad) 64px; }
+.check-head { margin-bottom: 18px; }
+.check-title { font-size: 28px; margin: 6px 0 8px; }
+.check-sub { max-width: 72ch; color: var(--ink-2); margin: 0; font-size: 15px; line-height: 1.55; }
+.check-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+.check-input label.folio { display: block; margin-bottom: 6px; }
+#check-text {
+  width: 100%; box-sizing: border-box; min-height: 200px; resize: vertical;
+  padding: 12px 14px; font-size: 15px; line-height: 1.55;
+  color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 3px;
+}
+#check-text:focus { outline: 2px solid var(--garnet); outline-offset: 1px; }
+.check-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 10px; }
+.check-run { background: var(--garnet); color: var(--paper); border-color: var(--garnet); }
+.check-run:hover { filter: brightness(1.08); }
+.check-toggle { margin-left: auto; }
+.check-output { border-top: 1px solid var(--rule); padding-top: 16px; }
+.check-summary { font-size: 16px; margin: 0 0 10px; }
+.check-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.ck-pill {
+  display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em;
+  padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); background: var(--paper-2); color: var(--ink-2);
+  white-space: nowrap;
+}
+.ck-pill.ck-ok        { color: var(--status-good, #2f6b3a); border-color: var(--status-good, #2f6b3a); background: var(--status-good-soft, #e4efe3); }
+.ck-pill.ck-warn      { color: var(--status-warn, #8a5a12); border-color: var(--status-warn, #8a5a12); background: var(--status-warn-soft, #f3e8d2); }
+.ck-pill.ck-bad       { color: var(--status-bad, #8b1e2b); border-color: var(--status-bad, #8b1e2b); background: var(--status-bad-soft, #f2dfe1); }
+.ck-pill.ck-ambiguous { color: var(--garnet); border-color: var(--garnet); background: var(--garnet-soft); }
+.ck-pill.ck-outside   { color: var(--ink-3); border-style: dashed; }
+.check-annotated {
+  white-space: pre-wrap; font-size: 15.5px; line-height: 1.7; padding: 16px 18px;
+  background: var(--paper-2); border: 1px solid var(--rule); border-radius: 3px; margin-bottom: 18px;
+}
+mark.ck { padding: 1px 3px; border-radius: 2px; cursor: pointer; color: inherit; background: var(--paper-3); border-bottom: 2px solid var(--rule); }
+mark.ck-ok        { background: var(--status-good-soft, #e4efe3); border-bottom-color: var(--status-good, #2f6b3a); }
+mark.ck-warn      { background: var(--status-warn-soft, #f3e8d2); border-bottom-color: var(--status-warn, #8a5a12); }
+mark.ck-bad       { background: var(--status-bad-soft, #f2dfe1); border-bottom-color: var(--status-bad, #8b1e2b); }
+mark.ck-ambiguous { background: var(--garnet-soft); border-bottom-color: var(--garnet); }
+mark.ck-outside   { background: transparent; border-bottom: 2px dashed var(--ink-4); }
+mark.ck-pin       { background: transparent; border-bottom-style: dotted; }
+mark.ck-quote     { border-bottom-width: 1px; }
+mark.ck-pending, mark.ck-pin.ck-pin { background: transparent; }
+mark.ck del { color: var(--status-bad, #8b1e2b); text-decoration: line-through; }
+mark.ck ins { color: var(--status-good, #2f6b3a); text-decoration: none; font-style: italic; }
+.check-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.ck-row { border: 1px solid var(--rule); border-left: 3px solid var(--rule); border-radius: 3px; padding: 10px 14px; background: var(--paper); }
+.ck-row.ck-ok        { border-left-color: var(--status-good, #2f6b3a); }
+.ck-row.ck-warn      { border-left-color: var(--status-warn, #8a5a12); }
+.ck-row.ck-bad       { border-left-color: var(--status-bad, #8b1e2b); }
+.ck-row.ck-ambiguous { border-left-color: var(--garnet); }
+.ck-row.ck-outside   { border-left-style: dashed; }
+.ck-row.is-flash { background: var(--hl); }
+.ck-row-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+.ck-num { font-size: 11px; color: var(--ink-3); }
+.ck-raw { font-size: 15px; }
+.ck-raw .dim { font-size: 12px; }
+.ck-resolved { margin-top: 6px; font-size: 13px; color: var(--ink-2); display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.ck-resolved .badge { margin-right: 2px; }
+.ck-copy-cite { font: inherit; font-size: 12px; background: none; border: 1px solid var(--rule); border-radius: 2px; padding: 1px 8px; color: var(--garnet); cursor: pointer; }
+.ck-copy-cite:hover { background: var(--garnet); color: var(--paper); border-color: var(--garnet); }
+.ck-notes { margin: 8px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); }
+.ck-note { margin: 3px 0; }
+.ck-note-bad { color: var(--status-bad, #8b1e2b); }
+.ck-note-warn { color: var(--status-warn, #8a5a12); }
+.ck-note-ok { color: var(--status-good, #2f6b3a); }
+.ck-diff { margin-top: 4px; padding: 6px 10px; border-left: 2px solid var(--rule); color: var(--ink); font-size: 14px; line-height: 1.55; }
+.ck-diff del { color: var(--status-bad, #8b1e2b); text-decoration: line-through; }
+.ck-diff ins { color: var(--status-good, #2f6b3a); text-decoration: none; font-style: italic; }
+.check-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; }
+.check-note { font-size: 13px; }
+@media (max-width: 720px) {
+  .check-shell { padding: 18px 14px 48px; }
+  .check-toggle { margin-left: 0; }
+}

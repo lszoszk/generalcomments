@@ -118,8 +118,8 @@
 }
 </script>
 
-<link rel="stylesheet" href="assets/tokens.css?v=20260908-14dd289" />
-<link rel="stylesheet" href="assets/app.css?v=20260908-14dd289" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260908-04289ce" />
+<link rel="stylesheet" href="assets/app.css?v=20260908-04289ce" />
 
 <!-- Google Analytics 4 is loaded LAZILY, only after the visitor opts in
      via the consent banner — see initConsent()/loadAnalytics() in app.js.
@@ -234,6 +234,7 @@
       <a href="#ask" id="ask-nav-link" hidden>Ask<span class="nav-beta-badge" aria-label="experimental feature" title="Experimental feature (beta)">β</span></a>
       <a href="#documents">Documents</a>
       <a href="#workspace" id="workspace-nav-link">Workspace<span class="workspace-badge" id="workspace-badge" hidden></span></a>
+      <a href="#check" id="check-nav-link" title="Paste a text: every UN citation is resolved, pinpoints checked, quotations compared with the source">Check</a>
       <a href="#about">About</a>
       <button id="tour-launch" class="btn btn-ghost mast-tour-btn" type="button" title="Take a 30-second tour of the dashboard">
         Tour
@@ -874,6 +875,61 @@
   </div>
 </section><!-- /workspace view -->
 
+<!-- ═══════════════════════════ CHECK VIEW (citation check) ═══════════════════════════
+     Paste a passage; UN symbols, "General Comment No. N", "Communication
+     No. N/YYYY" and case names are resolved against the catalogue in memory,
+     pinpoints are checked against the document's paragraphs and quotations
+     are compared word by word. The text never leaves the browser. -->
+<section data-view="check" hidden tabindex="0">
+  <div class="check-shell">
+    <header class="check-head">
+      <div class="folio garnet">CITATION CHECK · IN-BROWSER</div>
+      <h2 class="serif check-title">Check the UN citations in your text</h2>
+      <p class="serif check-sub">
+        Paste a paragraph, a footnote block or a whole section. Every UN document
+        symbol, “General Comment No. N”, “Communication No. N/YYYY” and “X v. State”
+        is resolved against this database; a pinpointed paragraph is checked to exist,
+        and a quotation is compared word by word with the source paragraph. Superseded
+        texts are flagged, invented ones are marked in red. Your text stays in this
+        browser: only the identifiers of cited documents are fetched.
+      </p>
+    </header>
+    <div class="check-grid">
+      <div class="check-input">
+        <label class="folio" for="check-text">Text to check</label>
+        <textarea id="check-text" class="serif" rows="12" spellcheck="false"
+                  placeholder="Paste text with UN citations, e.g. “… (Human Rights Committee, General Comment No. 36, para. 3; CCPR/C/GC/36)”."></textarea>
+        <div class="check-controls">
+          <button id="check-run" class="btn check-run" type="button">Check citations</button>
+          <button id="check-sample" class="btn btn-ghost" type="button" title="Fill the box with a short passage that exercises every case: a correct citation, a superseded text, a wrong paragraph number, an invented General Comment and an ambiguous one">Try a sample</button>
+          <button id="check-clear" class="btn btn-ghost" type="button">Clear</button>
+          <label class="status-toggle check-toggle">
+            <input type="checkbox" id="check-quotes" checked />
+            <span class="serif">Compare quotations with the source</span>
+          </label>
+          <span class="folio dim" id="check-status" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="check-output" id="check-output" hidden>
+        <div class="check-summary serif" id="check-summary"></div>
+        <div class="check-legend folio">
+          <span class="ck-pill ck-ok">✓ found</span>
+          <span class="ck-pill ck-warn">⚠ check</span>
+          <span class="ck-pill ck-bad">✖ not found</span>
+          <span class="ck-pill ck-ambiguous">? ambiguous</span>
+          <span class="ck-pill ck-outside">○ outside this database</span>
+        </div>
+        <div class="check-annotated serif" id="check-annotated" aria-label="Your text with the detected citations highlighted"></div>
+        <ol class="check-list" id="check-list"></ol>
+        <div class="check-actions">
+          <button id="check-copy-report" class="btn btn-ghost" type="button" title="Copy the table of citations and findings as Markdown">⎘ Copy report</button>
+          <span class="serif dim check-note">Resolution runs against the catalogue of 6,111 documents; paragraph texts are loaded per cited document. Concluding observations and UPR recommendations are in the <a href="#search" data-check-scope="rec">Recommendations</a> scope, not here.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- /check view -->
+
 <!-- ═══════════════════════════ ABOUT VIEW ═══════════════════════════ -->
 <section data-view="about" hidden>
   <article class="about">
@@ -1390,6 +1446,17 @@
             web page. The Cite menu on every paragraph also copies CSL-JSON, RIS
             and BibTeX for Zotero, EndNote, Paperpile or Pandoc.
           </p>
+          <p class="serif">
+            <strong>Check your citations.</strong> The <a class="about-link" href="#check">Check</a>
+            tab takes a pasted passage and resolves every UN document symbol, “General
+            Comment No. N” (with the committee named nearby), “Communication No. N/YYYY”
+            and “X v. State” against this database, marks superseded texts and invented
+            ones, verifies that a pinpointed paragraph exists and compares each quotation
+            word by word with the source paragraph. It runs in the browser: the text is
+            not sent anywhere; only the cited documents are fetched by identifier. It is
+            an answer to citations invented by language models, which the Stanford RegLab
+            studies measured in 17–33&nbsp;% of answers from commercial legal tools.
+          </p>
         </div>
 
         <div class="about-block">
@@ -1584,6 +1651,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260908-14dd289"></script>
+<script type="module" src="assets/app.js?v=20260908-04289ce"></script>
 </body>
 </html>

@@ -127,6 +127,14 @@ const state = {
     docCache: new Map(), // docId → records of that document (dossier "all records" list)
     docOpen: null,       // docId whose record list is expanded in the dossier
   },
+  // Citation check ("check my text"): per-document paragraph cache and the
+  // last report (for the copy button).
+  check: {
+    bound: false,
+    paraCache: new Map(),
+    run: 0,
+    last: null,
+  },
 };
 
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
@@ -1692,7 +1700,7 @@ function syncPreambleToggleControl() {
 }
 
 // ─────────── Hash router (Search / Ask / Documents / About) ───────────
-const VIEWS = ['search', 'ask', 'documents', 'about', 'workspace'];
+const VIEWS = ['search', 'ask', 'documents', 'about', 'workspace', 'check'];
 
 // v19.56.14 (audit): explicit allowlist of in-page anchors that live
 // inside the About view (the Methodology accordion TOC). The router
@@ -1764,6 +1772,7 @@ function setView(view) {
   // Lazy-paint the view-specific content
   if (view === 'documents') paintDocumentsView();
   if (view === 'workspace') renderWorkspace();
+  if (view === 'check') paintCheckView();
   // 'about' is static HTML, no paint needed
   // 'search' results are kept in DOM after boot, no need to repaint
 
@@ -4055,6 +4064,666 @@ function jurDecisionSummary(doc, { full = false } = {}) {
     if (doc.interimMeasuresMentioned === true) parts.push('interim measures mentioned');
   }
   return parts.join(' · ');
+}
+
+// ─────────── Citation check ("check my text") ───────────
+//
+// Paste a passage; every UN document symbol, "General Comment No. N",
+// "Communication No. N/YYYY" and "X v. State" case name is resolved against
+// the catalogue already in memory (state.documents), a pinpointed paragraph
+// is checked to exist, and a quotation is compared word by word with the
+// source paragraph. The pasted text never leaves the browser: paragraph
+// texts arrive by document id (local corpus, /api/document, or the shard).
+// The extraction mirrors build_citation_graph.py so the checker and the
+// citation graph agree on what counts as a reference.
+const CHECK_COMMITTEE_NAMES = [
+  ['Human Rights Committee', 'CCPR'],
+  ['Committee on Economic, Social and Cultural Rights', 'CESCR'],
+  ['Committee on the Elimination of Racial Discrimination', 'CERD'],
+  ['Committee on the Elimination of Discrimination against Women', 'CEDAW'],
+  ['Committee against Torture', 'CAT'],
+  ['Subcommittee on Prevention of Torture', 'CAT-OP'],
+  ['Committee on the Rights of the Child', 'CRC'],
+  ['Committee on the Protection of the Rights of All Migrant Workers', 'CMW'],
+  ['Committee on Migrant Workers', 'CMW'],
+  ['Committee on the Rights of Persons with Disabilities', 'CRPD'],
+  ['Committee on Enforced Disappearances', 'CED'],
+  ['ICCPR', 'CCPR'], ['ICESCR', 'CESCR'], ['ICERD', 'CERD'], ['ICRMW', 'CMW'], ['ICPPED', 'CED'], ['CPED', 'CED'], ['SPT', 'CAT-OP'],
+];
+const CHECK_COMMITTEE_CODE = new Map(CHECK_COMMITTEE_NAMES.map(([n, c]) => [n.toLowerCase(), c]));
+const CHECK_COMMITTEE_SRC = '(' + CHECK_COMMITTEE_NAMES.map(([n]) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + '|\\b(?:CCPR|CESCR|CERD|CEDAW|CAT|CRC|CMW|CRPD|CED)\\b)';
+const CHECK_SYMBOL_RE = /\b(?:CCPR|CESCR|CERD|CEDAW|CAT|CRC|CMW|CRPD|CED|HRI|E\/C\.12|E\/CN\.4|A\/HRC|A\/RES|A\/C\.3|A)\/[A-Za-z0-9./()\-]*[A-Za-z0-9)]/g;
+const CHECK_GC_RE = /\bgeneral\s+(comments?|recommendations?)\s+(?:Nos?\.?\s*)?(\d{1,3}(?:\s*(?:,|and|&)\s*(?:No\.?\s*)?\d{1,3})*)\b/gi;
+const CHECK_GC_SHORT_RE = /\b(CCPR|CESCR|CERD|CEDAW|CAT|CRC|CMW|CRPD|CED)\s+(GC|GR)\s*(?:No\.?\s*)?(\d{1,3})\b/g;
+const CHECK_COMM_RE = /\bcommunications?\s+Nos?\.?\s*(\d{1,5}(?:\s*\/\s*\d{4})?(?:\s*(?:,|and|&)\s*\d{1,5}(?:\s*\/\s*\d{4})?)*\s*\/\s*\d{4})\b/gi;
+const CHECK_CASE_RE = /\b([A-Z][\w.'’\-]*(?:\s+(?:[A-Z][\w.'’\-]*|et\s+al\.?|and|&))*)\s+v\.?\s+(?:the\s+)?([A-Z][\w'’\-]+(?:\s+(?:of|and|the|[A-Z][\w'’\-]+))*)/g;
+const CHECK_PIN_AFTER_RE = /^[\s,;:()]*(?:\(\d{4}\)[\s,;:]*)?(?:at\s+)?(?:paras?\.?|paragraphs?|¶{1,2}|§{1,2})\s*(\d{1,4}(?:\.\d{1,3})*)(?:\s*(?:[-–—]|to|and)\s*(\d{1,4}(?:\.\d{1,3})*))?/i;
+const CHECK_PIN_BEFORE_RE = /(?:paras?\.?|paragraphs?|¶{1,2})\s*(\d{1,4}(?:\.\d{1,3})*)(?:\s*(?:[-–—]|to|and)\s*(\d{1,4}(?:\.\d{1,3})*))?\s*(?:of|in)\s*(?:the\s+)?(?:[A-Za-z' ]{0,40}\s)?$/i;
+const CHECK_QUOTE_RE = /[“"]([^”"]{40,1500})[”"]/g;
+const CHECK_NAME_STOP = new Set(['in', 'the', 'see', 'also', 'case', 'and', 'others', 'et', 'al', 'cf', 'compare', 'contrast', 'but', 'however', 'following', 'unlike']);
+
+function checkNormName(s) {
+  return foldDiacritics(String(s || '')).toLowerCase().replace(/[^a-z0-9]+/g, '');
+}
+function checkNameWords(s) {
+  return foldDiacritics(String(s || '')).toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length >= 3 && !CHECK_NAME_STOP.has(w));
+}
+function checkNormSymbol(s) {
+  return String(s || '').replace(/\s+/g, '').toUpperCase().replace(/[.,;:)]+$/, '');
+}
+function checkCommitteeCode(raw) {
+  return CHECK_COMMITTEE_CODE.get(String(raw).toLowerCase()) || String(raw).toUpperCase();
+}
+
+// Lookups over the catalogue in memory, rebuilt when the catalogue grows.
+let _checkLookups = null;
+function checkLookups() {
+  if (_checkLookups && _checkLookups.size === state.documents.size) return _checkLookups;
+  const bySig = new Map();
+  const ambiguous = new Set();
+  const add = (sig, id) => {
+    const n = checkNormSymbol(sig);
+    if (!n) return;
+    if (bySig.has(n) && bySig.get(n) !== id) { ambiguous.add(n); return; }
+    bySig.set(n, id);
+  };
+  const gcByNum = new Map();    // "CCPR|36" → docId, or null when two documents claim it
+  const gcMax = new Map();      // committee → highest GC number known
+  const commByNum = new Map();  // "CCPR|2348/2014" → [docId]
+  const cases = [];
+  const countries = new Set();
+  for (const d of state.documents.values()) {
+    if (d.type === 'rec') continue;
+    for (const key of ['signature', 'symbol', 'ohchrSymbol']) if (d[key]) add(d[key], d.docId);
+    for (const alt of d.alternativeSignatures || []) add(alt, d.docId);
+    const sig = d.signature || '';
+    for (const part of sig.split(/\s*[,–—]\s*/)) if (part && part !== sig) add(part, d.docId);
+    if (d.type === 'gc') {
+      const committees = d.committees?.length ? d.committees : (d.committee ? [d.committee] : []);
+      const nums = [...String(d.nameShort || '').matchAll(/\bG[CR]\s?(\d{1,3})\b/g)].map(m => Number(m[1]));
+      if (!nums.length) {
+        const m = /general\s+(?:comment|recommendation)\s+No\.?\s*(\d{1,3})/i.exec(d.name || '');
+        if (m) nums.push(Number(m[1]));
+      }
+      committees.forEach((com, i) => {
+        const num = nums[i] ?? nums[0];
+        if (num == null) return;
+        const k = `${com}|${num}`;
+        gcByNum.set(k, gcByNum.has(k) && gcByNum.get(k) !== d.docId ? null : d.docId);
+        gcMax.set(com, Math.max(gcMax.get(com) || 0, num));
+      });
+    } else if (d.type === 'jur') {
+      const com = d.committee || d.treaty || '';
+      const numbers = new Set();
+      for (const key of ['communicationNumbers', 'jurisCommunicationNumbers']) {
+        const v = d[key];
+        for (const x of (Array.isArray(v) ? v : (v ? [v] : []))) {
+          const m = /(\d{1,5})\s*\/\s*(\d{4})/.exec(String(x));
+          if (m) numbers.add(`${m[1]}/${m[2]}`);
+        }
+      }
+      const m = /\/D\/([\d\-&,\s]+)\/(\d{4})/.exec(sig);
+      if (m) for (const n of m[1].match(/\d+/g) || []) numbers.add(`${n}/${m[2]}`);
+      for (const n of numbers) {
+        const k = `${com}|${n}`;
+        if (!commByNum.has(k)) commByNum.set(k, []);
+        if (!commByNum.get(k).includes(d.docId)) commByNum.get(k).push(d.docId);
+      }
+      const name = d.caseName || d.caseNameDisplay || '';
+      const vi = name.search(/\s+v\.?\s+/i);
+      if (vi > 0) {
+        const applicant = name.slice(0, vi);
+        cases.push({ docId: d.docId, applicantNorm: checkNormName(applicant), applicantWords: checkNameWords(applicant), countryNorm: checkNormName(d.country || '') });
+      }
+      if (d.country) for (const c of String(d.country).split(/\s*,\s*/)) countries.add(c);
+    }
+  }
+  for (const n of ambiguous) bySig.delete(n);
+  // "/Rev.N" and "/Corr.N" tails: alias the bare symbol when that leaves one document.
+  const tails = new Map();
+  for (const [n, id] of bySig) {
+    const base = n.replace(/\/(REV|CORR)\.?\d+$/, '');
+    if (base !== n) { if (!tails.has(base)) tails.set(base, new Set()); tails.get(base).add(id); }
+  }
+  for (const [base, ids] of tails) if (!bySig.has(base) && ids.size === 1) bySig.set(base, [...ids][0]);
+  _checkLookups = { size: state.documents.size, bySig, gcByNum, gcMax, commByNum, cases, countries: [...countries] };
+  return _checkLookups;
+}
+
+// The committee named within 160 characters before a mention, else within
+// 90 after it ("General Comment No. 36 of the Human Rights Committee").
+function checkCommitteeNear(text, start, end) {
+  const before = text.slice(Math.max(0, start - 160), start);
+  let last = null;
+  for (const m of before.matchAll(new RegExp(CHECK_COMMITTEE_SRC, 'gi'))) last = m[1];
+  if (last) return { code: checkCommitteeCode(last), from: last, where: 'before' };
+  // Looking ahead stays inside the sentence: "General Comment No. 36 of the
+  // Human Rights Committee" counts, the next sentence's committee does not.
+  const after = text.slice(end, end + 90).split(/[.;!?\n](?=\s|$)/)[0];
+  const m = new RegExp(CHECK_COMMITTEE_SRC, 'i').exec(after);
+  return m ? { code: checkCommitteeCode(m[1]), from: m[1], where: 'after' } : null;
+}
+// The longest leading run of words of a greedy "v. …" capture that names a
+// State party known to the jurisprudence catalogue.
+function checkCountryPrefix(candidate, countries) {
+  const words = candidate.trim().split(/\s+/);
+  for (let k = Math.min(6, words.length); k >= 1; k--) {
+    const cand = words.slice(0, k).join(' ');
+    const n = checkNormName(cand);
+    if (n.length < 4 && k === 1 && !/^[A-Z]{2,}$/.test(cand)) continue;
+    const hit = countries.find(c => checkNormName(c) === n) || (n.length >= 5 ? countries.find(c => checkNormName(c).startsWith(n)) : null);
+    if (hit) return { country: hit, raw: cand };
+  }
+  return null;
+}
+function checkMatchCase(applicant, respondent, cases) {
+  const appNorm = checkNormName(applicant);
+  const words = checkNameWords(applicant);
+  const countryNorm = checkNormName(respondent);
+  const scored = [];
+  for (const c of cases) {
+    if (countryNorm && c.countryNorm && c.countryNorm !== countryNorm && !c.countryNorm.includes(countryNorm)) continue;
+    let score = 0;
+    if (appNorm && (c.applicantNorm === appNorm || c.applicantNorm.endsWith(appNorm) || appNorm.endsWith(c.applicantNorm))) score = 10;
+    else score = words.filter(w => c.applicantWords.includes(w)).length * 3;
+    if (score) scored.push([score, c.docId]);
+  }
+  if (!scored.length) return [];
+  scored.sort((a, b) => b[0] - a[0]);
+  const best = scored[0][0];
+  return scored.filter(([sc]) => sc === best).map(([, id]) => id);
+}
+
+// Every reference in the text, with its position, kind and pinpoint.
+function checkDetect(text) {
+  const L = checkLookups();
+  const found = [];
+  const taken = [];
+  const free = (s, e) => !taken.some(([a, b]) => s < b && e > a);
+  const push = (m) => { if (m.end <= m.start || !free(m.start, m.end)) return; taken.push([m.start, m.end]); found.push(m); };
+  for (const m of text.matchAll(CHECK_SYMBOL_RE)) {
+    const norm = checkNormSymbol(m[0]);
+    if (!/\d/.test(norm) || norm.length < 5) continue;
+    push({ kind: 'symbol', start: m.index, end: m.index + m[0].length, raw: m[0], norm });
+  }
+  for (const m of text.matchAll(CHECK_GC_RE)) {
+    const nums = (m[2].match(/\d{1,3}/g) || []).map(Number);
+    push({ kind: 'gc', start: m.index, end: m.index + m[0].length, raw: m[0], gcKind: /recommendation/i.test(m[1]) ? 'gr' : 'gc',
+           context: checkCommitteeNear(text, m.index, m.index + m[0].length), numbers: nums });
+  }
+  for (const m of text.matchAll(CHECK_GC_SHORT_RE)) {
+    push({ kind: 'gc', start: m.index, end: m.index + m[0].length, raw: m[0], gcKind: m[2].toUpperCase() === 'GR' ? 'gr' : 'gc',
+           context: { code: checkCommitteeCode(m[1]), from: m[1], where: 'inline' }, numbers: [Number(m[3])] });
+  }
+  for (const m of text.matchAll(CHECK_COMM_RE)) {
+    const items = [...m[1].matchAll(/(\d{1,5})(?:\s*\/\s*(\d{4}))?/g)].map(x => ({ n: x[1], y: x[2] || null }));
+    for (let i = items.length - 1, y = null; i >= 0; i--) { if (items[i].y) y = items[i].y; else items[i].y = y; }
+    push({ kind: 'comm', start: m.index, end: m.index + m[0].length, raw: m[0],
+           context: checkCommitteeNear(text, m.index, m.index + m[0].length), numbers: items.filter(x => x.y).map(x => `${x.n}/${x.y}`) });
+  }
+  for (const m of text.matchAll(CHECK_CASE_RE)) {
+    const hit = checkCountryPrefix(m[2], L.countries);
+    if (!hit) continue;
+    const end = m.index + m[0].length - (m[2].length - hit.raw.length);
+    // The applicant capture may start at the sentence's first capitalised word ("In Toussaint"); the matcher scores by words.
+    push({ kind: 'case', start: m.index, end, raw: text.slice(m.index, end), applicant: m[1], respondent: hit.country });
+  }
+  found.sort((a, b) => a.start - b.start);
+  for (const f of found) {
+    const after = text.slice(f.end, f.end + 90);
+    const pm = CHECK_PIN_AFTER_RE.exec(after);
+    if (pm) { f.pin = { from: pm[1], to: pm[2] || null, start: f.end, end: f.end + pm[0].length }; continue; }
+    const before = text.slice(Math.max(0, f.start - 80), f.start);
+    const bm = CHECK_PIN_BEFORE_RE.exec(before);
+    f.pin = bm ? { from: bm[1], to: bm[2] || null, start: f.start - (before.length - bm.index), end: f.start } : null;
+  }
+  return found;
+}
+
+function checkOutside(norm) {
+  if (/\/(GC|GR)\/\d+/.test(norm)) return { status: 'bad', note: 'No document with this symbol. The General Comments collection is complete for all ten treaty bodies, so a GC symbol that does not resolve is most likely invented or mistyped.' };
+  if (/\/D\/\d+\/\d{4}/.test(norm)) return { status: 'bad', note: 'No decision with this symbol in the database (about 98 % of the OHCHR JURIS catalogue is indexed). Verify it on juris.ohchr.org before relying on it.' };
+  if (/\/CO\//.test(norm)) return { status: 'outside', note: 'Concluding observations are not in this catalogue; their recommendations are searchable in the Recommendations scope (UHRI records). Open the document on UN Documents to verify.' };
+  return { status: 'outside', note: 'Not in this database. Country reports, communications, resolutions and other UN documents are not indexed here; open the symbol on UN Documents to verify it exists.' };
+}
+function checkItem(f, status, docId, note, label, candidates) {
+  const doc = docId ? state.documents.get(docId) : null;
+  const item = { mention: f, status, docId: docId || null, doc, label: label || (doc ? formatDocHeadline(doc) : f.raw), notes: note ? [note] : [], candidates: candidates || [], pin: f.pin || null, pinResult: null, quotes: [] };
+  if (doc) {
+    if (doc.status === 'superseded') {
+      item.status = 'warn';
+      const rep = doc.supersededBy ? state.documents.get(checkLookups().bySig.get(checkNormSymbol(doc.supersededBy)) || '') : null;
+      item.notes.push(`Superseded${doc.supersededBy ? ` by ${doc.supersededBy}` : ''}${rep ? ` (${publicDocTitle(rep)})` : ''} — cite the replacement unless the historical text is the point.`);
+      if (rep) item.replacement = rep;
+    } else if (doc.status === 'revised' || doc.status === 'corrected') {
+      item.status = item.status === 'ok' ? 'warn' : item.status;
+      item.notes.push(doc.status === 'revised' ? 'A revised text: make sure the symbol you cite is the revision.' : 'Incorporates an official corrigendum: cite the corrected symbol.');
+    }
+    if (doc.updatedBy) {
+      item.status = item.status === 'ok' ? 'warn' : item.status;
+      item.notes.push(`Updated by ${doc.updatedBy}; read and cite the two together where the later guidance applies.`);
+    }
+  }
+  return item;
+}
+function checkResolve(found) {
+  const L = checkLookups();
+  const items = [];
+  for (const f of found) {
+    if (f.kind === 'symbol') {
+      const id = L.bySig.get(f.norm) || L.bySig.get(f.norm.replace(/\/(REV|CORR)\.?\d+$/, ''));
+      if (id) items.push(checkItem(f, 'ok', id, null));
+      else { const o = checkOutside(f.norm); items.push(checkItem(f, o.status, null, o.note, f.norm)); }
+      continue;
+    }
+    if (f.kind === 'gc') {
+      const via = f.context ? (f.context.where === 'inline' ? '' : ` — committee taken from “${f.context.from}” nearby`) : '';
+      for (const num of f.numbers) {
+        const label = `${f.gcKind === 'gr' ? 'General Recommendation' : 'General Comment'} No. ${num}`;
+        if (f.context) {
+          const com = f.context.code;
+          const id = L.gcByNum.get(`${com}|${num}`);
+          if (id) { items.push(checkItem(f, 'ok', id, via ? `Resolved as ${com} ${label}${via}.` : null)); continue; }
+          const max = L.gcMax.get(com);
+          items.push(checkItem(f, 'bad', null, max
+            ? `${_CITE_LONG_COMMITTEE[com] || com} has no ${label}: its ${f.gcKind === 'gr' ? 'general recommendations' : 'general comments'} in this database run up to No. ${max}${via}.`
+            : `No general comments of ${com} in this database${via}.`, `${com} ${label}`));
+          continue;
+        }
+        const wantGr = f.gcKind === 'gr';
+        const cands = [...L.gcByNum.entries()]
+          .filter(([k, id]) => id && Number(k.split('|')[1]) === num && (/^(CEDAW|CERD)$/.test(k.split('|')[0]) === wantGr || !wantGr))
+          .map(([, id]) => id);
+        if (cands.length === 1) items.push(checkItem(f, 'ok', cands[0], `Only one committee has a ${label}.`));
+        else if (cands.length > 1) items.push(checkItem(f, 'ambiguous', null, `${cands.length} committees have a ${label}; name the committee.`, label, cands));
+        else items.push(checkItem(f, 'bad', null, `No committee has a ${label} in this database.`, label));
+      }
+      continue;
+    }
+    if (f.kind === 'comm') {
+      for (const n of f.numbers) {
+        const label = `Communication No. ${n}`;
+        const keys = f.context ? [`${f.context.code}|${n}`] : [...L.commByNum.keys()].filter(k => k.endsWith(`|${n}`));
+        const ids = [...new Set(keys.flatMap(k => L.commByNum.get(k) || []))];
+        if (ids.length === 1) items.push(checkItem(f, 'ok', ids[0], f.context ? null : 'Only one committee has a decision with this number.'));
+        else if (ids.length > 1) items.push(checkItem(f, 'ambiguous', null, `${ids.length} decisions carry this number${f.context ? '' : ' (no committee named)'} — add the symbol.`, label, ids));
+        else items.push(checkItem(f, 'bad', null, `${label}${f.context ? ` of ${f.context.code}` : ''} is not in the database (about 98 % of the OHCHR JURIS catalogue is indexed; verify on juris.ohchr.org).`, label));
+      }
+      continue;
+    }
+    if (f.kind === 'case') {
+      const ids = checkMatchCase(f.applicant, f.respondent, L.cases);
+      const label = `${f.applicant.trim()} v. ${f.respondent}`;
+      if (ids.length === 1) items.push(checkItem(f, 'ok', ids[0], null));
+      else if (ids.length > 1) items.push(checkItem(f, 'ambiguous', null, `${ids.length} decisions match this case name; add the communication number or symbol.`, label, ids));
+      else items.push(checkItem(f, 'outside', null, 'No treaty-body decision with this name in the database (about 98 % of OHCHR JURIS; regional courts and domestic cases are not covered).', label));
+    }
+  }
+  return items;
+}
+
+// Paragraphs of a cited document, by id only: the local corpus for General
+// Comments, /api/document for the rest, the static shard as the fallback.
+async function checkDocParagraphs(doc) {
+  const cache = state.check.paraCache;
+  if (cache.has(doc.docId)) return cache.get(doc.docId);
+  const local = () => state.paragraphs.filter(p => p.docId === doc.docId && !p._apiOnly);
+  const complete = (arr) => arr.length > 0 && (!doc.paragraphCount || arr.length >= doc.paragraphCount - 1);
+  let paras = local();
+  if (!complete(paras)) {
+    if (doc.type === 'gc') {
+      await ensureCorpusReady();
+      paras = local();
+    } else if (apiEnabled() && state.apiOnline !== false) {
+      try {
+        const body = await apiFetch(`/api/document/${encodeURIComponent(doc.docId)}`, {}, 12_000);
+        paras = (body.paragraphs || []).map(p => ({ id: p.para_id, docId: doc.docId, idx: p.idx, n: p.n, section: p.section, text: p.text, type: doc.type }));
+      } catch (e) {
+        console.warn('[check] /api/document failed, trying the shard:', e.message);
+      }
+    }
+    if (!complete(paras) && doc.shardId) {
+      if (doc.type === 'jur') await loadJurShard(doc.shardId);
+      else if (doc.type === 'sp') await loadSpShard(doc.shardId);
+      paras = local();
+    }
+  }
+  paras = paras.slice().sort((a, b) => (a.idx ?? 0) - (b.idx ?? 0));
+  cache.set(doc.docId, paras);
+  return paras;
+}
+function checkParaNumber(n) {
+  return String(n ?? '').trim().replace(/\.$/, '');
+}
+
+// Word-level comparison of a quotation with a source text. Tokens are folded
+// and lower-cased; footnote markers and punctuation are ignored. Returns the
+// share of the quotation's words found in order in the source (containment),
+// the differences inside the aligned window and a redline as HTML.
+function checkTokens(s) {
+  const clean = String(s || '').replace(/\[\[fn:\d+\]\]/g, ' ').replace(/[“”„‟"]/g, ' ').replace(/[‘’‚‛]/g, "'");
+  const out = [];
+  for (const m of clean.matchAll(/[A-Za-zÀ-ɏ0-9]+(?:['’][A-Za-z]+)?/g)) {
+    out.push({ raw: m[0], norm: foldDiacritics(m[0]).toLowerCase().replace(/[^a-z0-9]/g, '') });
+  }
+  return out.filter(t => t.norm);
+}
+function checkCompare(quoteText, sourceText) {
+  const a = checkTokens(quoteText).slice(0, 400);
+  const b = checkTokens(sourceText);
+  if (!a.length || !b.length) return { containment: 0, eq: 0, del: a.length, ins: 0, html: escape(quoteText) };
+  const n = a.length, m = b.length;
+  // LCS table (n+1)×(m+1) as one Uint16Array.
+  const W = m + 1;
+  const T = new Uint16Array((n + 1) * W);
+  for (let i = 1; i <= n; i++) {
+    const an = a[i - 1].norm;
+    for (let j = 1; j <= m; j++) {
+      T[i * W + j] = an === b[j - 1].norm ? T[(i - 1) * W + (j - 1)] + 1 : Math.max(T[(i - 1) * W + j], T[i * W + (j - 1)]);
+    }
+  }
+  // Backtrack into ops.
+  const ops = [];
+  let i = n, j = m;
+  while (i > 0 && j > 0) {
+    if (a[i - 1].norm === b[j - 1].norm) { ops.push(['eq', a[i - 1].raw]); i--; j--; }
+    else if (T[(i - 1) * W + j] >= T[i * W + (j - 1)]) { ops.push(['del', a[i - 1].raw]); i--; }
+    else { ops.push(['ins', b[j - 1].raw]); j--; }
+  }
+  while (i > 0) { ops.push(['del', a[--i].raw]); }
+  while (j > 0) { ops.push(['ins', b[--j].raw]); }
+  ops.reverse();
+  // Source words before the first and after the last matched word are not
+  // differences — the quotation is an excerpt.
+  const firstEq = ops.findIndex(o => o[0] === 'eq');
+  let lastEq = -1;
+  for (let k = ops.length - 1; k >= 0; k--) if (ops[k][0] === 'eq') { lastEq = k; break; }
+  const inner = firstEq === -1 ? [] : ops.slice(firstEq, lastEq + 1);
+  const outerDel = ops.filter((o, k) => o[0] === 'del' && (firstEq === -1 || k < firstEq || k > lastEq));
+  const eq = inner.filter(o => o[0] === 'eq').length;
+  const del = inner.filter(o => o[0] === 'del').length + outerDel.length;
+  const ins = inner.filter(o => o[0] === 'ins').length;
+  const html = [
+    ...ops.slice(0, Math.max(firstEq, 0)).filter(o => o[0] === 'del').map(o => `<del>${escape(o[1])}</del>`),
+    ...inner.map(o => o[0] === 'eq' ? escape(o[1]) : o[0] === 'del' ? `<del>${escape(o[1])}</del>` : `<ins>${escape(o[1])}</ins>`),
+    ...ops.slice(lastEq + 1).filter(o => o[0] === 'del').map(o => `<del>${escape(o[1])}</del>`),
+  ].join(' ');
+  return { containment: eq / n, eq, del, ins, html };
+}
+function checkBestParagraph(quoteText, paras) {
+  let best = null;
+  for (const p of paras) {
+    const r = checkCompare(quoteText, p.text || '');
+    if (!best || r.containment > best.result.containment) best = { para: p, result: r };
+    if (best.result.containment >= 0.99) break;
+  }
+  return best;
+}
+function checkQuoteVerdict(r) {
+  if (r.containment >= 0.97 && r.del + r.ins === 0) return { status: 'ok', text: 'verbatim' };
+  if (r.containment >= 0.9) return { status: 'ok', text: `matches with ${r.del + r.ins} small difference${r.del + r.ins === 1 ? '' : 's'}` };
+  if (r.containment >= 0.7) return { status: 'warn', text: `${Math.round(r.containment * 100)} % of the words match; ${r.del} in the quotation are not in the source, ${r.ins} source words are missing` };
+  return { status: 'bad', text: `only ${Math.round(r.containment * 100)} % of the words match` };
+}
+
+// Attach each quotation to the nearest resolvable citation (after it within
+// 350 characters, else before it), then verify pinpoints and quotations.
+async function checkVerify(items, text, { quotes = true } = {}) {
+  const quoteList = [];
+  if (quotes) {
+    for (const m of text.matchAll(CHECK_QUOTE_RE)) {
+      const q = m[1];
+      if (checkTokens(q).length < 6) continue;
+      const start = m.index + 1, end = m.index + 1 + q.length;
+      const resolvable = items.filter(it => it.doc);
+      const after = resolvable.filter(it => it.mention.start >= end && it.mention.start - end <= 350).sort((x, y) => x.mention.start - y.mention.start)[0];
+      const before = resolvable.filter(it => it.mention.end <= start && start - it.mention.end <= 350).sort((x, y) => y.mention.end - x.mention.end)[0];
+      const owner = after || before;
+      const entry = { text: q, start, end, owner: owner || null, result: null };
+      quoteList.push(entry);
+      if (owner) owner.quotes.push(entry);
+    }
+  }
+  const need = items.filter(it => it.doc && (it.pin || it.quotes.length));
+  const docs = new Map(need.map(it => [it.doc.docId, it.doc]));
+  const setStatus = (msg) => { const el = $('#check-status'); if (el) el.textContent = msg; };
+  let loaded = 0;
+  await Promise.all([...docs.values()].map(async (doc) => {
+    try { await checkDocParagraphs(doc); }
+    catch (e) { console.warn('[check] paragraphs unavailable for', doc.docId, e.message); state.check.paraCache.set(doc.docId, []); }
+    loaded++;
+    setStatus(`Loading cited documents… ${loaded} / ${docs.size}`);
+  }));
+  for (const it of need) {
+    const paras = state.check.paraCache.get(it.doc.docId) || [];
+    if (!paras.length) { it.notes.push('The paragraphs of this document could not be loaded, so the pinpoint and quotation were not checked.'); continue; }
+    const numbers = paras.map(p => checkParaNumber(p.n)).filter(Boolean);
+    let target = null;
+    if (it.pin) {
+      const from = paras.find(p => checkParaNumber(p.n) === checkParaNumber(it.pin.from));
+      const to = it.pin.to ? paras.find(p => checkParaNumber(p.n) === checkParaNumber(it.pin.to)) : from;
+      if (!from || !to) {
+        const missing = !from ? it.pin.from : it.pin.to;
+        it.status = 'bad';
+        it.pinResult = { ok: false, text: `Paragraph ${missing} does not exist in ${it.doc.signature || 'this document'}: it has ${paras.length} paragraphs (¶ ${numbers[0] || '?'}–${numbers[numbers.length - 1] || '?'}).` };
+      } else {
+        const i0 = paras.indexOf(from), i1 = paras.indexOf(to);
+        target = paras.slice(Math.min(i0, i1), Math.max(i0, i1) + 1);
+        it.pinResult = { ok: true, text: `Paragraph${target.length > 1 ? 's' : ''} ${it.pin.from}${it.pin.to ? `–${it.pin.to}` : ''} exist${target.length > 1 ? '' : 's'}.`, para: from };
+      }
+    }
+    for (const q of it.quotes) {
+      const pinned = target ? checkCompare(q.text, target.map(p => p.text || '').join(' ')) : null;
+      const best = (!pinned || pinned.containment < 0.9) ? checkBestParagraph(q.text, paras) : null;
+      if (pinned && (!best || pinned.containment >= best.result.containment - 0.05)) {
+        const v = checkQuoteVerdict(pinned);
+        q.result = { ...v, where: `¶ ${it.pin.from}${it.pin.to ? `–${it.pin.to}` : ''}`, html: pinned.html, para: target[0] };
+      } else if (best && best.result.containment >= 0.7) {
+        const v = checkQuoteVerdict(best.result);
+        const elsewhere = it.pin && checkParaNumber(best.para.n) !== checkParaNumber(it.pin.from);
+        q.result = { ...v, status: elsewhere ? 'warn' : v.status, where: `¶ ${checkParaNumber(best.para.n) || best.para.idx}`, html: best.result.html, para: best.para,
+                     text: elsewhere ? `found in ¶ ${checkParaNumber(best.para.n)}, not in the cited ¶ ${it.pin.from} (${v.text})` : v.text };
+      } else {
+        const b = best || (pinned ? { result: pinned, para: target[0] } : null);
+        q.result = { status: 'bad', where: b?.para ? `best match ¶ ${checkParaNumber(b.para.n) || b.para.idx}` : '', html: b?.result.html || escape(q.text),
+                     text: `not found in ${it.doc.signature || 'this document'}${b ? ` (best match ¶ ${checkParaNumber(b.para.n) || b.para.idx}, ${Math.round(b.result.containment * 100)} % of the words)` : ''}`, para: b?.para || null };
+      }
+      if (q.result.status === 'bad') it.status = 'bad';
+      else if (q.result.status === 'warn' && it.status === 'ok') it.status = 'warn';
+    }
+  }
+  return quoteList;
+}
+
+const CHECK_STATUS_LABEL = { ok: '✓ found', warn: '⚠ check', bad: '✖ not found', ambiguous: '? ambiguous', outside: '○ outside' };
+const CHECK_STATUS_TITLE = {
+  ok: 'Resolved to a document in this database; pinpoint and quotation, if any, agree with it.',
+  warn: 'Resolved, but something needs a second look: a superseded or updated text, or a quotation that differs from the source.',
+  bad: 'No such document, paragraph or quotation in the database.',
+  ambiguous: 'Several documents fit; add the committee, the symbol or the communication number.',
+  outside: 'Not covered by this database; verify at the source.',
+};
+function checkOpenUrl(it) {
+  if (!it.doc) return '';
+  const para = it.pinResult?.para || it.quotes.find(q => q.result?.para)?.result?.para;
+  const url = para?.id ? paragraphPermalink({ id: para.id, docId: it.doc.docId, type: it.doc.type }) : documentPermalink(it.doc);
+  return url ? url.toString() : '';
+}
+function checkRenderAnnotated(text, items, quoteList) {
+  const spans = [];
+  for (let i = 0; i < items.length; i++) {
+    const it = items[i];
+    const key = `${it.mention.start}:${it.mention.end}`;
+    // Several items can share one mention ("general comments Nos. 3 and 14"): worst status wins.
+    const existing = spans.find(s => s.key === key);
+    const rank = { bad: 4, ambiguous: 3, warn: 2, outside: 1, ok: 0 };
+    if (existing) { if (rank[it.status] > rank[existing.status]) existing.status = it.status; existing.ids.push(i); continue; }
+    spans.push({ key, start: it.mention.start, end: it.mention.end, status: it.status, ids: [i], kind: 'cite' });
+    if (it.pin && it.pin.end > it.pin.start) spans.push({ key: `pin${key}`, start: it.pin.start, end: it.pin.end, status: it.pinResult ? (it.pinResult.ok ? 'ok' : 'bad') : 'pin', ids: [i], kind: 'pin' });
+  }
+  for (const q of quoteList) {
+    if (!q.owner) continue;
+    if (spans.some(s => q.start < s.end && q.end > s.start)) continue;
+    spans.push({ key: `q${q.start}`, start: q.start, end: q.end, status: q.result?.status || 'pending', ids: [items.indexOf(q.owner)], kind: 'quote', html: q.result?.html });
+  }
+  spans.sort((a, b) => a.start - b.start);
+  let out = '', pos = 0;
+  for (const s of spans) {
+    if (s.start < pos) continue;
+    out += escape(text.slice(pos, s.start));
+    const body = s.kind === 'quote' && s.html ? s.html : escape(text.slice(s.start, s.end));
+    out += `<mark class="ck ck-${s.kind} ck-${s.status}" data-ck-row="${s.ids[0]}" title="${escape(CHECK_STATUS_TITLE[s.status] || '')}">${body}</mark>`;
+    pos = s.end;
+  }
+  out += escape(text.slice(pos));
+  return out;
+}
+function checkRenderRows(items) {
+  return items.map((it, i) => {
+    const doc = it.doc;
+    const url = checkOpenUrl(it);
+    const resolved = doc
+      ? `<div class="ck-resolved">${sourceBadge(doc.type)} <span class="ck-doc">${escape(formatDocHeadline(doc))}</span> · <span class="mono">${escape(doc.signature || '')}</span>${url ? ` · <a class="about-link" href="${escape(url)}">Open ↗</a>` : ''}${doc.type !== 'rec' ? ` · <button type="button" class="ck-copy-cite" data-ck-cite="${i}" title="Copy the citation in your default format">” Cite</button>` : ''}</div>`
+      : it.candidates.length
+        ? `<div class="ck-resolved"><span class="dim">Candidates:</span> ${it.candidates.slice(0, 6).map(id => { const d = state.documents.get(id); return d ? `<a class="about-link" href="${escape(documentPermalink(d)?.toString() || '#')}">${escape(d.signature || id)}</a>` : escape(id); }).join(' · ')}${it.candidates.length > 6 ? ` · +${it.candidates.length - 6}` : ''}</div>`
+        : (it.mention.kind === 'symbol' ? `<div class="ck-resolved"><a class="about-link" href="${escape(unDocsUrl(it.mention.raw) || '#')}" target="_blank" rel="noopener">Look up ${escape(it.mention.norm)} on UN Documents ↗</a></div>` : '');
+    const notes = [
+      ...(it.pinResult ? [`<li class="ck-note ck-note-${it.pinResult.ok ? 'ok' : 'bad'}">${escape(it.pinResult.text)}</li>`] : (it.pin && doc ? ['<li class="ck-note dim">Pinpoint not checked.</li>'] : [])),
+      ...it.notes.map(n => `<li class="ck-note">${escape(n)}</li>`),
+      ...it.quotes.map(q => q.result
+        ? `<li class="ck-note ck-note-${q.result.status}">Quotation ${q.result.where ? `(${escape(q.result.where)}) ` : ''}${escape(q.result.text)}.<div class="ck-diff serif">${q.result.html}</div></li>`
+        : '<li class="ck-note dim">Quotation not checked.</li>'),
+    ];
+    return `<li class="ck-row ck-${it.status}" id="ck-row-${i}" data-ck-row="${i}">
+      <div class="ck-row-head">
+        <span class="mono ck-num">№ ${String(i + 1).padStart(2, '0')}</span>
+        <span class="ck-pill ck-${it.status}" title="${escape(CHECK_STATUS_TITLE[it.status])}">${CHECK_STATUS_LABEL[it.status]}</span>
+        <span class="ck-raw serif">${escape(it.mention.raw)}${it.pin ? ` <span class="dim">para. ${escape(it.pin.from)}${it.pin.to ? `–${escape(it.pin.to)}` : ''}</span>` : ''}</span>
+      </div>
+      ${resolved}
+      ${notes.length ? `<ul class="ck-notes">${notes.join('')}</ul>` : ''}
+    </li>`;
+  }).join('');
+}
+function checkSummary(items, quoteList) {
+  const c = { ok: 0, warn: 0, bad: 0, ambiguous: 0, outside: 0 };
+  for (const it of items) c[it.status] = (c[it.status] || 0) + 1;
+  const parts = [`<strong>${items.length}</strong> citation${items.length === 1 ? '' : 's'}`];
+  const bits = [];
+  if (c.ok) bits.push(`${c.ok} found`);
+  if (c.warn) bits.push(`${c.warn} to check`);
+  if (c.bad) bits.push(`<strong>${c.bad} not found</strong>`);
+  if (c.ambiguous) bits.push(`${c.ambiguous} ambiguous`);
+  if (c.outside) bits.push(`${c.outside} outside this database`);
+  if (bits.length) parts.push(bits.join(' · '));
+  const qs = quoteList.filter(q => q.owner);
+  if (qs.length) {
+    const q = { ok: 0, warn: 0, bad: 0 };
+    for (const x of qs) if (x.result) q[x.result.status]++;
+    parts.push(`<strong>${qs.length}</strong> quotation${qs.length === 1 ? '' : 's'}: ${q.ok} verbatim or near-verbatim · ${q.warn} differ · ${q.bad} not found`);
+  }
+  const orphan = quoteList.filter(q => !q.owner).length;
+  if (orphan) parts.push(`${orphan} quotation${orphan === 1 ? '' : 's'} without a nearby resolvable citation`);
+  return parts.join(' — ');
+}
+function checkReportMarkdown(items, quoteList) {
+  const lines = ['| # | As written | Status | Resolved to | Notes |', '|---|---|---|---|---|'];
+  items.forEach((it, i) => {
+    const notes = [it.pinResult?.text, ...it.notes, ...it.quotes.map(q => q.result ? `Quotation ${q.result.where || ''}: ${q.result.text}` : '')].filter(Boolean).join(' ');
+    lines.push(`| ${i + 1} | ${it.mention.raw.replace(/\|/g, '\\|')}${it.pin ? ` para. ${it.pin.from}${it.pin.to ? `–${it.pin.to}` : ''}` : ''} | ${CHECK_STATUS_LABEL[it.status]} | ${it.doc ? `${it.doc.signature || ''} — ${formatDocHeadline(it.doc)}` : (it.candidates.length ? it.candidates.map(id => state.documents.get(id)?.signature || id).join(', ') : '—')} | ${notes.replace(/\|/g, '\\|')} |`);
+  });
+  lines.push('', `Checked against the UN Human Rights Database (${location.origin}${location.pathname}#check) on ${new Date().toISOString().slice(0, 10)}.`);
+  return lines.join('\n');
+}
+
+const CHECK_SAMPLE = `General Comment No. 14 is often cited without naming its committee. The Human Rights Committee has stressed that the right to life “is a right that should not be interpreted narrowly” (General Comment No. 36, para. 3; CCPR/C/GC/36). Its earlier General Comment No. 6 on the same article is still widely quoted. On the equality of arms, General Comment No. 32, para. 99, requires that “adequate facilities” include access to all materials the prosecution plans to offer. In Toussaint v. Canada (Communication No. 2348/2014) the Committee found a violation of article 6 in the denial of health care to an irregular migrant. Some authors also rely on General Comment No. 45 of the Human Rights Committee and on CRC/C/GC/99, neither of which exists. The Committee on the Rights of the Child, General Comment No. 25, para. 1, quoted a child consulted for the text: “By the means of digital technology, we can get information from all around the world.”`;
+
+function paintCheckView() {
+  if (state.check.bound) return;
+  state.check.bound = true;
+  const ta = $('#check-text');
+  try { const draft = sessionStorage.getItem('unhrdb_check_draft'); if (draft && ta && !ta.value) ta.value = draft; } catch {}
+  ta?.addEventListener('input', () => { try { sessionStorage.setItem('unhrdb_check_draft', ta.value); } catch {} });
+  $('#check-run')?.addEventListener('click', () => runCitationCheck());
+  $('#check-sample')?.addEventListener('click', () => { if (ta) { ta.value = CHECK_SAMPLE; ta.dispatchEvent(new Event('input')); } runCitationCheck(); });
+  $('#check-clear')?.addEventListener('click', () => {
+    if (ta) { ta.value = ''; ta.dispatchEvent(new Event('input')); ta.focus(); }
+    const out = $('#check-output'); if (out) out.hidden = true;
+    const st = $('#check-status'); if (st) st.textContent = '';
+  });
+  ta?.addEventListener('keydown', (e) => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); runCitationCheck(); } });
+  $('#check-copy-report')?.addEventListener('click', async (e) => {
+    const last = state.check.last;
+    if (!last) return;
+    try { await navigator.clipboard?.writeText(checkReportMarkdown(last.items, last.quotes)); showFeedbackToast({ ok: true, _msg: 'Report copied as Markdown', _mark: '⎘' }); }
+    catch { showFeedbackToast({ ok: false, _msg: 'Clipboard write failed', _mark: '⚠' }); }
+  });
+  const out = $('#check-output');
+  out?.addEventListener('click', async (e) => {
+    const mark = e.target.closest('mark[data-ck-row]');
+    if (mark) {
+      const row = document.getElementById(`ck-row-${mark.dataset.ckRow}`);
+      if (row) { row.scrollIntoView({ block: 'center', behavior: 'smooth' }); row.classList.add('is-flash'); setTimeout(() => row.classList.remove('is-flash'), 900); }
+      return;
+    }
+    const cite = e.target.closest('.ck-copy-cite');
+    if (cite) {
+      const it = state.check.last?.items[Number(cite.dataset.ckCite)];
+      if (!it?.doc) return;
+      const fmt = CITE_FORMATS.find(f => f.key === getPrefCiteFmt()) || CITE_FORMATS[0];
+      const para = it.pinResult?.para || it.quotes.find(q => q.result?.para)?.result?.para || (it.pin ? { n: it.pin.from, docId: it.doc.docId } : null);
+      try { await navigator.clipboard?.writeText(fmt.build(it.doc, para)); showFeedbackToast({ ok: true, _msg: `${fmt.fmt} citation copied`, _mark: '”' }); }
+      catch { showFeedbackToast({ ok: false, _msg: 'Clipboard write failed', _mark: '⚠' }); }
+      return;
+    }
+    const scopeLink = e.target.closest('a[data-check-scope]');
+    if (scopeLink) {
+      e.preventDefault();
+      window.location.hash = 'search';
+      document.querySelector(`.scope-opt[data-scope="${scopeLink.dataset.checkScope}"]`)?.click();
+    }
+  });
+}
+async function runCitationCheck() {
+  const ta = $('#check-text');
+  const text = (ta?.value || '').replace(/\r\n/g, '\n');
+  const out = $('#check-output'), status = $('#check-status'), summary = $('#check-summary'), ann = $('#check-annotated'), list = $('#check-list');
+  if (!out || !summary || !ann || !list) return;
+  const run = ++state.check.run;
+  if (!text.trim()) { if (status) status.textContent = 'Paste some text first.'; return; }
+  if (status) status.textContent = 'Resolving citations…';
+  const found = checkDetect(text);
+  const items = checkResolve(found);
+  const wantQuotes = $('#check-quotes')?.checked !== false;
+  out.hidden = false;
+  if (!items.length) {
+    summary.innerHTML = 'No UN citation recognised. The checker looks for document symbols (CCPR/C/GC/36, A/HRC/44/57), “General Comment No. N”, “Communication No. N/YYYY” and “X v. State”.';
+    ann.innerHTML = escape(text);
+    list.innerHTML = '';
+    if (status) status.textContent = '';
+    state.check.last = { items: [], quotes: [] };
+    trackEvent('citation_check', { citations: 0 }, { dedupeKey: 'check:0', dedupeMs: 1500 });
+    return;
+  }
+  // First paint: resolution only. Paragraph checks land asynchronously.
+  summary.innerHTML = checkSummary(items, []);
+  ann.innerHTML = checkRenderAnnotated(text, items, []);
+  list.innerHTML = checkRenderRows(items);
+  const need = items.filter(it => it.doc && it.pin).length + (wantQuotes ? (text.match(CHECK_QUOTE_RE) || []).length : 0);
+  if (status) status.textContent = need ? 'Loading cited documents…' : '';
+  let quotes = [];
+  try {
+    quotes = await checkVerify(items, text, { quotes: wantQuotes });
+  } catch (e) {
+    console.warn('[check] verification failed:', e);
+  }
+  if (run !== state.check.run) return;
+  summary.innerHTML = checkSummary(items, quotes);
+  ann.innerHTML = checkRenderAnnotated(text, items, quotes);
+  list.innerHTML = checkRenderRows(items);
+  if (status) status.textContent = `Checked ${items.length} citation${items.length === 1 ? '' : 's'}${quotes.filter(q => q.owner).length ? ` and ${quotes.filter(q => q.owner).length} quotation${quotes.filter(q => q.owner).length === 1 ? '' : 's'}` : ''}.`;
+  state.check.last = { items, quotes };
+  trackEvent('citation_check', { citations: items.length, not_found: items.filter(i => i.status === 'bad').length }, { dedupeKey: `check:${items.length}`, dedupeMs: 1500 });
 }
 
 // ─────────── Recommendations to States (UHRI) ───────────
@@ -10359,6 +11028,8 @@ function cmdkBuildItems() {
                } });
   items.push({ kind: 'action', label: 'Reset all filters', sub: 'Clear committees, labels, year range…', icon: '⌫',
                run: () => $('#reset-filters')?.click() });
+  items.push({ kind: 'action', label: 'Check citations', sub: 'Paste a text: symbols, GC numbers, cases, pinpoints, quotations', icon: '✓',
+               run: () => { window.location.hash = 'check'; } });
   items.push({ kind: 'action', label: 'About', sub: 'Methodology, citation, contact', icon: 'ⓘ',
                run: () => { window.location.hash = 'about'; } });
   items.push({ kind: 'action', label: 'Documents', sub: 'Browse the document index', icon: '☰',
