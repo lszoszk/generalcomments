@@ -4242,9 +4242,12 @@ function checkDetect(text) {
   const free = (s, e) => !taken.some(([a, b]) => s < b && e > a);
   const push = (m) => { if (m.end <= m.start || !free(m.start, m.end)) return; taken.push([m.start, m.end]); found.push(m); };
   for (const m of text.matchAll(CHECK_SYMBOL_RE)) {
-    const norm = checkNormSymbol(m[0]);
+    let raw = m[0];
+    // "(… CCPR/C/GC/36)" — a closing parenthesis without its opening one is punctuation.
+    while (raw.endsWith(')') && (raw.split('(').length - 1) < (raw.split(')').length - 1)) raw = raw.slice(0, -1);
+    const norm = checkNormSymbol(raw);
     if (!/\d/.test(norm) || norm.length < 5) continue;
-    push({ kind: 'symbol', start: m.index, end: m.index + m[0].length, raw: m[0], norm });
+    push({ kind: 'symbol', start: m.index, end: m.index + raw.length, raw, norm });
   }
   for (const m of text.matchAll(CHECK_GC_RE)) {
     const nums = (m[2].match(/\d{1,3}/g) || []).map(Number);
@@ -4332,7 +4335,7 @@ function checkResolve(found) {
         }
         const wantGr = f.gcKind === 'gr';
         const cands = [...L.gcByNum.entries()]
-          .filter(([k, id]) => id && Number(k.split('|')[1]) === num && (/^(CEDAW|CERD)$/.test(k.split('|')[0]) === wantGr || !wantGr))
+          .filter(([k, id]) => id && Number(k.split('|')[1]) === num && /^(CEDAW|CERD)$/.test(k.split('|')[0]) === wantGr)
           .map(([, id]) => id);
         if (cands.length === 1) items.push(checkItem(f, 'ok', cands[0], `Only one committee has a ${label}.`));
         else if (cands.length > 1) items.push(checkItem(f, 'ambiguous', null, `${cands.length} committees have a ${label}; name the committee.`, label, cands));
