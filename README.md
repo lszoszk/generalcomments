@@ -26,6 +26,14 @@ documents:
 | Treaty Body General Comments and Recommendations | 187 documents |
 | Individual-communication jurisprudence | 4,333 cases from 8 mechanisms |
 | Thematic Special Procedures reports | 1,591 reports from 46 mandates |
+| Recommendations to States (UHRI, live) | 267,942 records from 70 mechanisms to 199 States, 2006–2026 |
+
+The Recommendations scope is not part of the static corpus: concluding
+observations, Universal Periodic Review and country-visit recommendations are
+queried live from the UHRI dataset service this project runs on its server (a
+mirror of the OHCHR Universal Human Rights Index export); only the filter
+vocabularies ship with the site (`docs/rec/vocab.json`, rebuilt by
+`build_rec_vocab.py`).
 
 Coverage changes as the source collections are synchronised. The application
 publishes build dates, collection-level provenance, and known gaps alongside

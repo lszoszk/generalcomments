@@ -118,8 +118,8 @@
 }
 </script>
 
-<link rel="stylesheet" href="assets/tokens.css?v=20260906-be43406" />
-<link rel="stylesheet" href="assets/app.css?v=20260906-be43406" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260908-14dd289" />
+<link rel="stylesheet" href="assets/app.css?v=20260908-14dd289" />
 
 <!-- Google Analytics 4 is loaded LAZILY, only after the visitor opts in
      via the consent banner — see initConsent()/loadAnalytics() in app.js.
@@ -369,6 +369,11 @@
           <span class="scope-opt-name">Special Procedures</span>
           <span class="scope-count" id="count-sp">—</span>
         </button>
+        <button class="scope-opt" data-scope="rec" role="radio" aria-checked="false" tabindex="-1"
+                title="Concluding observations, Universal Periodic Review and country-visit recommendations addressed to individual States — served live from the OHCHR Universal Human Rights Index mirror">
+          <span class="scope-opt-name">Recommendations</span>
+          <span class="scope-count" id="count-rec">UHRI · live</span>
+        </button>
         <button class="scope-opt" data-scope="all" role="radio" aria-checked="false" tabindex="-1">
           <span class="scope-opt-name">All sources</span>
         </button>
@@ -433,7 +438,7 @@
       </div>
     </div>
 
-    <div class="filter-block">
+    <div class="filter-block" id="filter-block-groups">
       <div class="filter-head">
         <span class="folio">Concerned groups</span>
         <div class="any-all" id="labels-mode" role="group" aria-label="Match mode for groups">
@@ -519,10 +524,54 @@
 
     <details class="filter-block filter-collapsible" id="filter-block-country" hidden>
       <summary>
-        <span class="folio">State party</span>
+        <span class="folio" id="filter-country-label">State party</span>
         <span class="folio dim" id="filter-country-count">—</span>
       </summary>
+      <input type="search" id="filter-countries-search" class="filter-typeahead" hidden
+             placeholder="Filter States…" autocomplete="off" aria-label="Filter States" />
       <div id="filter-countries" class="chip-grid chip-grid-compact"></div>
+    </details>
+
+    <!-- Recommendations (UHRI) — record type, themes, affected persons and
+         SDGs as annotated by OHCHR. Vocabularies come from docs/rec/vocab.json,
+         counts for the current query from the uhri-dataset-api. -->
+    <div class="filter-block" id="filter-block-rec-type" hidden>
+      <div class="filter-head">
+        <span class="folio">Record type</span>
+      </div>
+      <label class="status-toggle">
+        <input type="checkbox" id="filter-rec-only" />
+        <span class="serif">Recommendations only</span>
+        <span class="folio dim" id="filter-rec-only-count" title="Records annotated as recommendations in the current result set">—</span>
+      </label>
+    </div>
+
+    <details class="filter-block filter-collapsible" id="filter-block-rec-theme" hidden open>
+      <summary>
+        <span class="folio">Theme <span class="dim" style="font-weight:normal">(UHRI)</span></span>
+        <span class="folio dim" id="filter-rec-theme-count">—</span>
+      </summary>
+      <input type="search" id="filter-rec-themes-search" class="filter-typeahead"
+             placeholder="Filter themes…" autocomplete="off" aria-label="Filter themes" />
+      <div id="filter-rec-themes" class="checkbox-list checkbox-list-scroll"></div>
+    </details>
+
+    <details class="filter-block filter-collapsible" id="filter-block-rec-group" hidden>
+      <summary>
+        <span class="folio">Affected persons</span>
+        <span class="folio dim" id="filter-rec-group-count">—</span>
+      </summary>
+      <div id="filter-rec-groups" class="checkbox-list checkbox-list-scroll"></div>
+    </details>
+
+    <details class="filter-block filter-collapsible" id="filter-block-rec-sdg" hidden>
+      <summary>
+        <span class="folio">Sustainable Development Goal</span>
+        <span class="folio dim" id="filter-rec-sdg-count">—</span>
+      </summary>
+      <input type="search" id="filter-rec-sdgs-search" class="filter-typeahead"
+             placeholder="Filter goals and targets…" autocomplete="off" aria-label="Filter Sustainable Development Goals" />
+      <div id="filter-rec-sdgs" class="checkbox-list checkbox-list-scroll"></div>
     </details>
 
     <details class="filter-block filter-collapsible" id="filter-block-reporttype" hidden>
@@ -852,6 +901,11 @@
             not binding treaty-body interpretation); the jurisprudence collection is
             near-complete but not yet exhaustive — a small non-English / image-only-scan
             remainder is pending. Secondary collections are loaded lazily on demand.
+            A fourth scope, <strong>Recommendations</strong>, searches what the same
+            mechanisms said to <em>one State</em> — concluding observations, Universal
+            Periodic Review and country-visit recommendations — served live from the
+            OHCHR Universal Human Rights Index (see below); it is not part of the
+            paragraph counts here.
             Across the current published build, <strong>322,619 paragraphs</strong> across
             <strong>6,111 documents</strong> are searchable, filterable and citable down to
             their number.
@@ -1008,6 +1062,39 @@
             retried periodically) and a few are image-only scans with no text layer
             (pending OCR). Reports are added and maintained through a
             <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/ingest_sp_mandate.py" target="_blank" rel="noopener">deterministic ingestion pipeline</a>.
+          </p>
+        </div>
+
+        <div class="about-block" id="about-recommendations">
+          <h3 class="folio">Recommendations to States (UHRI)</h3>
+          <p class="serif">
+            The <strong>Recommendations</strong> scope adds the layer every research
+            guide lists first: what the treaty bodies said to a particular State in
+            their <em>concluding observations</em>, what the Human Rights Council
+            recommended in the <em>Universal Periodic Review</em>, and what Special
+            Procedures recommended after a <em>country visit</em>. The records are the
+            OHCHR
+            <a class="about-link" href="https://uhri.ohchr.org/" target="_blank" rel="noopener">Universal Human Rights Index</a>
+            annotations — <strong>267,942 records</strong> from <strong>70 mechanisms</strong>
+            addressed to <strong>199 States</strong>, 2006 to 2026 — each tagged by OHCHR
+            with themes, affected persons and Sustainable Development Goals. Those tags
+            are the filters; a “Recommendations only” switch drops the concerns and
+            observations that precede them. Records are ordered by publication date, newest
+            first; the service has no relevance ranking.
+          </p>
+          <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px dotted var(--rule); font-size: 13px;">
+            <strong class="folio">How it is served.</strong> Unlike the three
+            collections above, the records are not part of this site’s static
+            corpus. Every search asks the UHRI dataset service that this project runs
+            on its server (a mirror of OHCHR’s export, refreshed from OHCHR; the
+            newest record in the current mirror was published on 20 May 2026), so the
+            scope needs a connection and is absent from the offline copy, the Ask tab
+            and the citation graph. Each record links to its document on UN Documents
+            and to its page in UHRI; the dossier lists every record of the same
+            document. Citation formats treat a record as a paragraph of the concluding
+            observations, UPR Working Group report or visit report it comes from. The
+            filter vocabularies are rebuilt by
+            <a class="about-link" href="https://github.com/lszoszk/generalcomments/blob/main/build_rec_vocab.py" target="_blank" rel="noopener">build_rec_vocab.py</a>.
           </p>
         </div>
 
@@ -1375,7 +1462,9 @@ ds = load_dataset(
             search across the corpus, filterable by treaty body) and
             <code class="mono">lookup_by_citation</code> (resolve a reference
             like <code class="mono">CRC/C/GC/25&nbsp;¶12</code> to its exact
-            paragraph). Source and setup:
+            paragraph), plus <code class="mono">search_recommendations</code> and
+            <code class="mono">lookup_recommendation</code> over the same UHRI records
+            the Recommendations scope shows. Source and setup:
             <a class="about-link" href="https://github.com/lszoszk/mcp-unhrdb" target="_blank" rel="noopener">github.com/lszoszk/mcp-unhrdb</a>.
           </p>
         </div>
@@ -1495,6 +1584,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260906-be43406"></script>
+<script type="module" src="assets/app.js?v=20260908-14dd289"></script>
 </body>
 </html>

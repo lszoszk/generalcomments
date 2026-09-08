@@ -72,6 +72,10 @@ const state = {
     proceduralIssues: new Set(), // JUR only — juris.ohchr.org procedural issues (ANY)
     rightsKeywords: new Set(),   // JUR / CCPR only — rights-based topic tags from CCPR Centre
     articles: new Set(),         // JUR only — substantive Covenant articles cited
+    recThemes: new Set(),        // REC only — UHRI theme labels (ANY)
+    recGroups: new Set(),        // REC only — UHRI affected-persons labels (ANY)
+    recSdgs: new Set(),          // REC only — SDG goal / target labels (ANY)
+    recOnly: false,              // REC only — keep annotation type "Recommendations", drop observations
     showSuperseded: false,       // hide superseded GCs by default
   },
   results: [],
@@ -109,6 +113,20 @@ const state = {
     loadedShards: new Set(),   // shardId names ("sp_SR_Food") fetched so far
     shardLoaders: new Map(),   // shardId → in-flight Promise (coalesce parallel reads)
   },
+  // Recommendations to States (UHRI). Nothing is shipped statically except
+  // the vocabularies (docs/rec/vocab.json); the 268k records live on the
+  // uhri-dataset-api and the browser holds only the current page plus the
+  // counts for the current query.
+  rec: {
+    facets: null,        // vocab.json → { total, bodies, countries, themes, affectedPersons, sdgs, types, years }
+    facetsPromise: null,
+    counts: null,        // { analytics, map } for the current query; null = whole-dataset counts from the vocabulary
+    countsRun: 0,
+    lastPublished: '',   // newest PublicationDate in the dataset (ISO day)
+    deepLink: null,      // ?p=rec-<uuid> to open once the first search has painted
+    docCache: new Map(), // docId → records of that document (dossier "all records" list)
+    docOpen: null,       // docId whose record list is expanded in the dossier
+  },
 };
 
 const DATA_BASE = './';      // corpus.json etc. live alongside index.html
@@ -126,6 +144,10 @@ const SP_BASE = './sp/';      // Special Procedures: per-committee paragraph sha
 // path remains a graceful degradation.
 const API_BASE = 'https://150.254.115.204/unhrdb-api';
 const API_TIMEOUT_MS = 5_000;     // fail fast if the VM is unreachable
+// Recommendations to States: the uhri-dataset-api on the same VM, a separate
+// service on its own base path (nginx caches its facet endpoints for 15 min).
+const UHRI_API_BASE = 'https://150.254.115.204/uhri-api';
+const UHRI_TIMEOUT_MS = 15_000;   // a text query over 268k records takes 0.3–2 s; leave room for slow links
 function apiEnabled() {
   try {
     // Explicit per-session opt-out (URL wins over localStorage).
@@ -163,6 +185,7 @@ function apiActive(scope) {
   // While the ping is in flight (`state.apiOnline === null`) we
   // optimistically try the API; runSearchViaApi handles request failures.
   if (!apiEnabled()) return false;
+  if (scope === 'rec') return false;       // UHRI has its own client — never the unhrdb API
   if (state.apiOnline === false) return false;
   // SP has no local corpus to fall back to, so always use the API.
   if (scope === 'sp') return true;
@@ -186,7 +209,13 @@ function apiActive(scope) {
   return true;
 }
 async function apiFetch(path, params, timeoutMs = API_TIMEOUT_MS) {
-  const url = new URL(API_BASE + path);
+  return _apiGet(API_BASE, path, params, timeoutMs);
+}
+async function uhriFetch(path, params, timeoutMs = UHRI_TIMEOUT_MS) {
+  return _apiGet(UHRI_API_BASE, path, params, timeoutMs);
+}
+async function _apiGet(base, path, params, timeoutMs) {
+  const url = new URL(base + path);
   for (const [k, v] of Object.entries(params || {})) {
     if (v !== null && v !== undefined && v !== '') url.searchParams.set(k, v);
   }
@@ -371,6 +400,7 @@ async function runSearchViaApi(runId) {
   state.apiFacets = body.facets || null;
   // Stash the params + page cursor so the IntersectionObserver
   // can fetch /api/search?page=N+1 when the user scrolls past 200.
+  state.apiKind = 'unhrdb';
   state.apiPage = 1;
   state.apiPageSize = params.page_size;
   state.apiSearchParams = params;
@@ -399,17 +429,12 @@ async function fetchNextApiPage() {
 
   state.apiPageInflight = (async () => {
     try {
-      const body = await apiFetch('/api/search', params);
+      const page = await fetchSearchPage(params);
       if (runId !== state.searchRun) return false;   // query changed mid-flight — drop these rows
-      const more = body.hits.map(h => {
-        const p = adaptApiHit(h);
-        if (!state.paragraphById.has(p.id)) state.paragraphById.set(p.id, p);
-        if (!state.documents.has(p.docId)) state.documents.set(p.docId, adaptApiDoc(h));
-        return { p, score: h.score ?? 0, snippetHtml: h.snippet };
-      });
+      const more = page.rows;
       state.results.push(...more);
       state.apiPage = nextPage;
-      state.apiHasMore = state.results.length < body.total;
+      state.apiHasMore = state.results.length < page.total;
       paintApiBadge(true, Math.round(performance.now() - t0));
       return more.length > 0;
     } catch (e) {
@@ -422,6 +447,18 @@ async function fetchNextApiPage() {
     }
   })();
   return state.apiPageInflight;
+}
+
+// One page of the current server search, whichever service runs it. Returns
+// { rows: [{p, score, snippetHtml}], total } so infinite scroll and the export
+// loop need not know whether the rows are unhrdb paragraphs or UHRI records.
+async function fetchSearchPage(params) {
+  if (state.apiKind === 'uhri') {
+    const body = await uhriFetch('/api/data/records', params);
+    return { rows: (body.records || []).map(adaptRecRecord), total: Number(body.total_records) || 0 };
+  }
+  const body = await apiFetch('/api/search', params);
+  return { rows: (body.hits || []).map(adaptApiExportHit), total: Number(body.total) || 0 };
 }
 
 // Map one `hits[i]` entry from the API into a paragraph object that
@@ -534,7 +571,7 @@ const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard mat
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', rk: 'rk', ar: 'ar', dt: 'dt', si: 'si', pi: 'pi', fn: 'fn', pre: 'pre' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', rk: 'rk', ar: 'ar', dt: 'dt', si: 'si', pi: 'pi', fn: 'fn', pre: 'pre', th: 'th', ap: 'ap', sdg: 'sdg', ro: 'ro' };
 
 function documentIdForParagraphId(paraId) {
   if (!paraId) return null;
@@ -561,6 +598,13 @@ function documentIdForParagraphId(paraId) {
 function paragraphPermalink(para, { preserveSearch = false } = {}) {
   const paraId = para?.id;
   if (!paraId) return null;
+  if (para?.type === 'rec') {
+    // UHRI records open in the search dossier (no reader page): scope + id.
+    const url = new URL(window.location.pathname, window.location.origin);
+    url.searchParams.set(URL_KEYS.scope, 'rec');
+    url.searchParams.set(URL_KEYS.p, paraId);
+    return url;
+  }
   const docId = para?.docId || documentIdForParagraphId(paraId);
   const url = preserveSearch
     ? new URL(window.location.href)
@@ -576,6 +620,16 @@ function documentPermalink(doc) {
   const docId = doc?.docId;
   if (!docId) return null;
   const url = new URL(window.location.pathname, window.location.origin);
+  if (doc.type === 'rec') {
+    // A UHRI pseudo-document is the search narrowed to its mechanism, State
+    // and year — the records endpoint has no per-document filter.
+    url.searchParams.set(URL_KEYS.scope, 'rec');
+    if (doc.committee) url.searchParams.set(URL_KEYS.tb, doc.committee);
+    const first = (doc.countryList && doc.countryList[0]) || doc.country;
+    if (first) url.searchParams.set(URL_KEYS.cy, first);
+    if (doc.year) { url.searchParams.set(URL_KEYS.y1, doc.year); url.searchParams.set(URL_KEYS.y2, doc.year); }
+    return url;
+  }
   url.hash = `documents/${encodeURIComponent(docId)}`;
   return url;
 }
@@ -645,6 +699,14 @@ function encodeUrlState() {
   if (state.filters.decisionTypes.size) u.set(URL_KEYS.dt, [...state.filters.decisionTypes].join('|'));
   if (state.filters.substantiveIssues.size) u.set(URL_KEYS.si, [...state.filters.substantiveIssues].join('|'));
   if (state.filters.proceduralIssues.size) u.set(URL_KEYS.pi, [...state.filters.proceduralIssues].join('|'));
+  // Recommendations (UHRI) filters.
+  if (state.filters.recThemes.size) u.set(URL_KEYS.th, [...state.filters.recThemes].join('|'));
+  if (state.filters.recGroups.size) u.set(URL_KEYS.ap, [...state.filters.recGroups].join('|'));
+  if (state.filters.recSdgs.size) u.set(URL_KEYS.sdg, [...state.filters.recSdgs].join('|'));
+  if (state.filters.recOnly) u.set(URL_KEYS.ro, '1');
+  // A UHRI record has no reader page, so its share link is the search view
+  // carrying the record id; keep it in the URL while the record is open.
+  if (state.scope === 'rec' && state.activeId && state.activeId.startsWith('rec-')) u.set(URL_KEYS.p, state.activeId);
   // v19.47: rights-keywords + article-cited filters (JUR-only).
   if (state.filters.rightsKeywords.size) u.set(URL_KEYS.rk, [...state.filters.rightsKeywords].join('|'));
   if (state.filters.articles.size) u.set(URL_KEYS.ar, [...state.filters.articles].join('|'));
@@ -700,6 +762,10 @@ function decodeUrlState() {
     decisionTypes: split('dt'),
     substantiveIssues: split('si'),
     proceduralIssues: split('pi'),
+    recThemes: split('th'),
+    recGroups: split('ap'),
+    recSdgs: split('sdg'),
+    recOnly: u.get(URL_KEYS.ro) === '1',
     rightsKeywords: split('rk'),
     articles: split('ar'),
     showSuperseded: u.get(URL_KEYS.sup) === '1',
@@ -809,8 +875,11 @@ async function boot() {
     syncRightsFilterVisibility();
     syncArticleFilterVisibility();
     syncStatusFilterVisibility();
+    syncRecFiltersVisibility();
     syncFiltersToDom();                  // checkboxes, chips and ANY/ALL toggle visuals
     bindUI();
+    bindRecFilterControls();
+    loadRecVocab();                      // small static file; fills the scope count and the rail
     bindRouter();
     bindTour();                          // v19.43: first-visit tour controller
     initDossierResizer();                // v15: drag handle + persisted width
@@ -949,6 +1018,10 @@ function formatDocHeadline(doc, { compact = false } = {}) {
     const mandate = doc.committee || '';
     return mandate ? `${mandate} · ${baseTitle}` : baseTitle;
   }
+  if (doc.type === 'rec') {
+    const body = doc.committee || '';
+    return body ? `${body} · ${baseTitle}` : baseTitle;
+  }
   return baseTitle;
 }
 
@@ -1047,6 +1120,11 @@ const SOURCE_PROFILES = Object.freeze({
     label: 'Special Procedures report',
     dateLabel: 'Issued',
     legalCharacter: 'Independent expert or mandate-holder report; not a court judgment or a treaty-body decision.',
+  },
+  rec: {
+    label: 'Recommendation to a State',
+    dateLabel: 'Published',
+    legalCharacter: 'Concluding observation, Universal Periodic Review or country-visit recommendation addressed to one State. It applies the standards to that State’s situation and is not binding as such; the text and its theme / affected-persons / SDG tags come from the OHCHR Universal Human Rights Index.',
   },
 });
 
@@ -1435,12 +1513,15 @@ function paintScopeCounts() {
   }
   $('#count-sp').textContent =
     `${m.spDocuments} · ${spMandates.size} mandate${spMandates.size === 1 ? '' : 's'}`;
+  const recTotal = state.rec.facets?.total;
+  const recCount = $('#count-rec');
+  if (recCount) recCount.textContent = recTotal ? `${recTotal.toLocaleString()} · UHRI` : 'UHRI · live';
 }
 
 // ─────────── State restoration from URL ───────────
 function applyUrlState(parsed) {
   // Scope
-  const validScope = ['gc', 'jur', 'sp', 'all'].includes(parsed.scope) ? parsed.scope : 'gc';
+  const validScope = ['gc', 'jur', 'sp', 'rec', 'all'].includes(parsed.scope) ? parsed.scope : 'gc';
   state.scope = validScope;
   $$('.scope-opt').forEach(b => {
     const on = b.dataset.scope === validScope;
@@ -1459,7 +1540,9 @@ function applyUrlState(parsed) {
   // Committees & labels — only keep values that exist in current facets
   const validCommittees = new Set(state.facets.committees.map(c => c.value));
   const validLabels = new Set(state.facets.labels.map(l => l.value));
-  state.filters.committees = new Set(parsed.committees.filter(c => validCommittees.has(c)));
+  // UHRI mechanism labels ("UPR", "SR Torture") are not in the static facets;
+  // keep them as typed for the recommendations scope.
+  state.filters.committees = new Set(validScope === 'rec' ? parsed.committees : parsed.committees.filter(c => validCommittees.has(c)));
   state.filters.labels = new Set(parsed.labels.filter(l => validLabels.has(l)));
   state.filters.labelsMode = parsed.labelsMode;
 
@@ -1471,7 +1554,7 @@ function applyUrlState(parsed) {
   // JUR state-party filter — only meaningful when jurisprudence is in scope.
   const jurCountrySet = computeJurCountryFacet().map(c => c.value);
   const validCountries = new Set(jurCountrySet);
-  state.filters.countries = new Set((parsed.countries || []).filter(c => validCountries.has(c)));
+  state.filters.countries = new Set(validScope === 'rec' ? (parsed.countries || []) : (parsed.countries || []).filter(c => validCountries.has(c)));
 
   // v19.46: JUR outcome filter — same scoping pattern.
   const validOutcomes = new Set((state.facets.outcomes || []).map(o => o.value));
@@ -1482,6 +1565,14 @@ function applyUrlState(parsed) {
   state.filters.decisionTypes = new Set((parsed.decisionTypes || []).filter(v => vDt.has(v)));
   state.filters.substantiveIssues = new Set((parsed.substantiveIssues || []).filter(v => vSi.has(v)));
   state.filters.proceduralIssues = new Set((parsed.proceduralIssues || []).filter(v => vPi.has(v)));
+
+  // Recommendations (UHRI) filters. The vocabulary loads after boot, so the
+  // values are kept as typed; an unknown one simply matches nothing.
+  state.filters.recThemes = new Set(parsed.recThemes || []);
+  state.filters.recGroups = new Set(parsed.recGroups || []);
+  state.filters.recSdgs = new Set(parsed.recSdgs || []);
+  state.filters.recOnly = !!parsed.recOnly;
+  if (validScope === 'rec' && parsed.activeId && parsed.activeId.startsWith('rec-')) state.rec.deepLink = parsed.activeId;
 
   // v19.47: JUR rights-keywords + articles filters
   const validRights = new Set((state.facets.rightsKeywords || []).map(o => o.value));
@@ -3523,6 +3614,10 @@ function paintCommitteeFilter(scope) {
     sectionLabel.textContent = 'Mandates';
     subSection.hidden = true;
     paintSpRail(tbHost, sp);
+  } else if (scope === 'rec') {
+    sectionLabel.textContent = 'Mechanism';
+    subSection.hidden = true;
+    paintRecBodyChips(tbHost);
   } else {
     sectionLabel.textContent = 'Treaty bodies';
     subSection.hidden = false;
@@ -3813,6 +3908,9 @@ function paintCountryFilter() {
   const host = $('#filter-countries');
   const counter = $('#filter-country-count');
   if (!host) return;
+  if (state.scope === 'rec') { paintRecCountryFilter(); return; }
+  const label = $('#filter-country-label'); if (label) label.textContent = 'State party';
+  const search = $('#filter-countries-search'); if (search) search.hidden = true;
   const facet = computeJurCountryFacet();
   if (counter) counter.textContent = facet.length ? `${facet.length} states` : '';
   host.innerHTML = '';
@@ -3839,7 +3937,7 @@ function paintCountryFilter() {
 function syncCountryFilterVisibility() {
   const block = $('#filter-block-country');
   if (!block) return;
-  block.hidden = state.scope !== 'jur';
+  block.hidden = !(state.scope === 'jur' || state.scope === 'rec');
 }
 
 // ─────────── JUR outcome filter (v19.46) ───────────
@@ -3957,6 +4055,669 @@ function jurDecisionSummary(doc, { full = false } = {}) {
     if (doc.interimMeasuresMentioned === true) parts.push('interim measures mentioned');
   }
   return parts.join(' · ');
+}
+
+// ─────────── Recommendations to States (UHRI) ───────────
+//
+// Fourth scope. The records — concluding observations, Universal Periodic
+// Review and Special Procedures country-visit recommendations addressed to
+// one State — are OHCHR's Universal Human Rights Index annotations, served by
+// the uhri-dataset-api on the project VM (UHRI_API_BASE). Nothing is shipped
+// statically except the vocabularies in docs/rec/vocab.json
+// (build_rec_vocab.py), so the rail paints before the first request and deep
+// links keep their filter values offline. Counts for the current query come
+// from /analytics (exact per-year breakdowns, summed here) and /map (per-State
+// counts). Records are ordered by publication date: the service has no
+// relevance ranking.
+const REC_VOCAB_URL = `${DATA_BASE}rec/vocab.json`;
+const REC_PAGE_SIZE = 200;
+
+function recBodyLabel(raw) {
+  return String(raw || '').replace(/^-\s*/, '').trim();
+}
+// Which family a UHRI issuing-body label belongs to.
+function recMechanismKind(label) {
+  const v = recBodyLabel(label);
+  if (v === 'UPR') return 'upr';
+  if (/^(SR|IE|WG|SSR)\b/.test(v)) return 'sp';
+  return 'tb';
+}
+function recTypeLabel(raw) {
+  const v = recBodyLabel(raw);
+  if (/recommend/i.test(v)) return 'Recommendation';
+  if (/observ|concern/i.test(v)) return 'Observation';
+  return 'Other';
+}
+function recDocName(bodyLabel, country) {
+  const kind = recMechanismKind(bodyLabel);
+  const where = country ? `: ${country}` : '';
+  if (kind === 'upr') return `Universal Periodic Review${where}`;
+  if (kind === 'sp') return `Country visit${where}`;
+  return `Concluding observations${where}`;
+}
+function recHumanDate(iso) {
+  const t = iso ? Date.parse(String(iso).slice(0, 10) + 'T00:00:00Z') : NaN;
+  if (!Number.isFinite(t)) return '';
+  return new Date(t).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+// UHRI keeps the printed paragraph number inside the text ("65. The
+// Committee…", UPR "120.184 Continue…"). Lift it into `n` so the card margin
+// and the citations carry it, and strip it from the body.
+const REC_PARA_NUMBER = /^(\d{1,3}(?:\.\d{1,3})?(?:\s*\([a-z]{1,2}\))?)\s*[.:)]?\s*(?=[A-Z“"(])/;
+function recSplitNumber(text) {
+  const m = REC_PARA_NUMBER.exec(text);
+  if (!m) return { n: null, text };
+  return { n: m[1].replace(/\s+/g, ' '), text: text.slice(m[0].length) };
+}
+function recRecordText(r) {
+  const cleaned = String(r.TextPlainCleaned || '').trim();
+  if (cleaned) return cleaned;
+  const raw = String(r.TextPlainRaw || '').trim();
+  if (raw) return raw;
+  const tmp = document.createElement('div');
+  tmp.innerHTML = String(r.Text || '');
+  return (tmp.textContent || '').replace(/\s+/g, ' ').trim();
+}
+// One UHRI record → a paragraph object the result list, dossier, workspace
+// and citation builders already understand, plus a pseudo-document per UN
+// symbol. Returns the {p, score, snippetHtml} row shape the renderers take.
+function adaptRecRecord(r) {
+  const id = `rec-${r.AnnotationId}`;
+  let p = state.paragraphById.get(id);
+  if (!p) {
+    const bodyLabel = recBodyLabel(r.Body);
+    const countries = (r.Countries || []).filter(Boolean);
+    const country = countries.join(', ');
+    const symbol = String(r.Symbol || '').trim();
+    const docSlug = symbol.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const docId = `rec-doc-${docSlug || r.DocumentId || r.AnnotationId}`;
+    const iso = String(r.PublicationDate || '').slice(0, 10);
+    const year = /^\d{4}/.test(iso) ? Number(iso.slice(0, 4)) : null;
+    const { n, text } = recSplitNumber(recRecordText(r));
+    const sections = (r.SectionHeadings || []).filter(Boolean);
+    p = {
+      id, docId, n,
+      idx: n != null ? parseFloat(n) : null,
+      section: sections.length ? sections : null,
+      text, type: 'rec', year,
+      committee: bodyLabel, committees: bodyLabel ? [bodyLabel] : [],
+      labels: (r.AffectedPersons || []).filter(Boolean),
+      country,
+      recType: recTypeLabel(r.AnnotationType),
+      recThemes: (r.Themes || []).filter(Boolean),
+      recSdgs: (r.Sdgs || []).filter(Boolean),
+      recSections: sections,
+      recRegion: (r.Regions || [])[0] || '',
+      annotationId: r.AnnotationId,
+      recDocumentId: r.DocumentId || '',
+      _apiOnly: true,
+    };
+    state.paragraphById.set(id, p);
+    if (!state.documents.has(docId)) {
+      const name = recDocName(bodyLabel, country);
+      state.documents.set(docId, {
+        docId, type: 'rec', committee: bodyLabel, committees: bodyLabel ? [bodyLabel] : [],
+        treaty: null, mandate: null,
+        name, nameShort: name, title: name,
+        signature: symbol, symbol, link: unDocsUrl(symbol),
+        country, countryList: countries, year,
+        adoptionDate: recHumanDate(iso), adoptionIso: iso,
+        recDocumentId: r.DocumentId || '', recKind: recMechanismKind(bodyLabel),
+      });
+    }
+  }
+  return { p, score: 0, snippetHtml: null };
+}
+
+// Vocabularies + whole-dataset counts from the static file.
+async function loadRecVocab() {
+  if (state.rec.facets) return state.rec.facets;
+  if (state.rec.facetsPromise) return state.rec.facetsPromise;
+  state.rec.facetsPromise = (async () => {
+    const sha = state.manifest?.files?.['rec/vocab.json']?.sha || '';
+    const v = await fetchJson(`${REC_VOCAB_URL}${sha ? `?v=${sha}` : ''}`);
+    const list = (arr) => (arr || []).map(x => ({ value: recBodyLabel(x.value), count: Number(x.count) || 0 })).filter(x => x.value);
+    state.rec.facets = {
+      total: Number(v.total) || 0,
+      documents: Number(v.documents) || 0,
+      lastPublished: v.lastPublished || '',
+      years: v.years || null,
+      bodies: list(v.bodies), countries: list(v.countries), themes: list(v.themes),
+      affectedPersons: list(v.affectedPersons), sdgs: list(v.sdgs), types: list(v.types),
+    };
+    state.rec.lastPublished = state.rec.facets.lastPublished;
+    paintScopeCounts();
+    if (state.scope === 'rec') {
+      paintCommitteeFilter('rec');
+      paintCountryFilter();
+      paintRecFilters();
+      syncScopeBanner();
+      paintYearHistogram();
+    }
+    return state.rec.facets;
+  })().catch((e) => {
+    console.warn('[rec] vocabulary unavailable:', e.message);
+    state.rec.facetsPromise = null;
+    return null;
+  });
+  return state.rec.facetsPromise;
+}
+
+// Counts for the rail: the analytics + map of the current query when there is
+// one, otherwise the whole-dataset counts from the vocabulary.
+function recCountMaps() {
+  const c = state.rec.counts;
+  const f = state.rec.facets;
+  const fromList = (arr) => new Map((arr || []).map(x => [x.value, x.count]));
+  if (!c) {
+    return {
+      bodies: fromList(f?.bodies), countries: fromList(f?.countries), themes: fromList(f?.themes),
+      groups: fromList(f?.affectedPersons), sdgs: fromList(f?.sdgs), types: fromList(f?.types),
+      years: new Map((f?.years?.histogram || []).map(x => [x.year, x.count])),
+    };
+  }
+  const sum = (rows, key, norm = (x) => x) => {
+    const m = new Map();
+    for (const r of rows || []) {
+      const k = norm(r[key]);
+      if (!k) continue;
+      m.set(k, (m.get(k) || 0) + (Number(r.count) || 0));
+    }
+    return m;
+  };
+  const tr = c.analytics?.trends || {};
+  const th = c.analytics?.themes || {};
+  const tx = c.analytics?.text || {};
+  return {
+    bodies: sum(tr.yearly_body_counts, 'body', recBodyLabel),
+    years: new Map((tr.yearly_counts || []).map(x => [x.year, x.count])),
+    types: sum(tr.yearly_type_counts, 'annotation_type', recTypeLabel),
+    themes: new Map((th.theme_counts || []).map(x => [x.theme, x.count])),
+    // The flat affected/SDG counters are sampled above 5k records; the
+    // per-year breakdowns are exact, so sum those instead.
+    groups: sum(tx.yearly_affected_person_counts, 'affected_person'),
+    sdgs: sum(tx.yearly_sdg_counts, 'sdg'),
+    countries: new Map((c.map?.country_counts || []).map(x => [x.country, x.count])),
+  };
+}
+function recYearCounts() {
+  return recCountMaps().years;
+}
+function recHasQueryOrFilter() {
+  const f = state.filters;
+  const yrs = state.facets?.years;
+  return !!((state.query && state.query.trim()) || f.committees.size || f.countries.size
+    || f.recThemes.size || f.recGroups.size || f.recSdgs.size || f.recOnly
+    || (yrs && f.yearMin != null && f.yearMin > yrs.min)
+    || (yrs && f.yearMax != null && f.yearMax < yrs.max));
+}
+
+// Mechanism chips: treaty bodies and the UPR in the open, the ~56 Special
+// Procedures mandates (country visits) behind a disclosure.
+function paintRecBodyChips(host) {
+  host.innerHTML = '';
+  const f = state.rec.facets;
+  if (!f) { host.innerHTML = '<div class="rec-rail-loading dim">Loading the UHRI vocabulary…</div>'; return; }
+  const counts = recCountMaps().bodies;
+  const hasQF = recHasQueryOrFilter();
+  const items = (kind) => f.bodies.filter(b => recMechanismKind(b.value) === kind)
+    .map(b => ({ value: b.value, count: counts.get(b.value) || 0 }))
+    .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value));
+  paintCommitteeChips(host, [...items('tb'), ...items('upr')], 'rec-chip');
+  const sp = items('sp');
+  if (sp.length) {
+    const det = document.createElement('details');
+    det.className = 'rec-sp-mandates';
+    det.open = sp.some(b => state.filters.committees.has(b.value));
+    det.innerHTML = `<summary class="folio">Special Procedures country visits · ${sp.length} mandates</summary><div class="chip-grid rec-sp-grid"></div>`;
+    paintCommitteeChips(det.querySelector('.rec-sp-grid'), sp, 'rec-chip');
+    host.appendChild(det);
+  }
+  host.querySelectorAll('.chip[data-committee]').forEach(chip => {
+    const count = counts.get(chip.dataset.committee) || 0;
+    chip.classList.toggle('is-zero', hasQF && count === 0);
+  });
+}
+
+function paintRecCountryFilter() {
+  const host = $('#filter-countries');
+  const counter = $('#filter-country-count');
+  const label = $('#filter-country-label');
+  const search = $('#filter-countries-search');
+  if (!host) return;
+  if (label) label.textContent = 'State';
+  if (search) search.hidden = false;
+  host.innerHTML = '';
+  const f = state.rec.facets;
+  if (!f) {
+    host.innerHTML = '<div class="rec-rail-loading dim">Loading the UHRI vocabulary…</div>';
+    if (counter) counter.textContent = '';
+    return;
+  }
+  const counts = recCountMaps().countries;
+  const needle = foldDiacritics((search?.value || '').trim().toLowerCase());
+  const hasQF = recHasQueryOrFilter();
+  const rows = f.countries
+    .map(c => ({ value: c.value, count: counts.get(c.value) || 0, on: state.filters.countries.has(c.value) ? 1 : 0 }))
+    .sort((a, b) => (b.on - a.on) || (b.count - a.count) || a.value.localeCompare(b.value));
+  if (counter) counter.textContent = state.filters.countries.size ? `${state.filters.countries.size} of ${rows.length} States` : `${rows.length} States`;
+  for (const { value, count, on } of rows) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip chip-compact rec-chip';
+    if (on) b.classList.add('on');
+    if (hasQF && count === 0) b.classList.add('is-zero');
+    if (needle && !foldDiacritics(value.toLowerCase()).includes(needle)) b.hidden = true;
+    b.dataset.country = value;
+    b.innerHTML = `${escape(value)} <span class="chip-count">${count.toLocaleString()}</span>`;
+    b.addEventListener('click', () => {
+      if (state.filters.countries.has(value)) state.filters.countries.delete(value);
+      else state.filters.countries.add(value);
+      b.classList.toggle('on');
+      runSearch();
+    });
+    host.appendChild(b);
+  }
+}
+
+const REC_LIST_FILTERS = [
+  { key: 'recThemes', vocab: 'themes',          counts: 'themes', host: '#filter-rec-themes', count: '#filter-rec-theme-count', search: '#filter-rec-themes-search', noun: 'themes' },
+  { key: 'recGroups', vocab: 'affectedPersons', counts: 'groups', host: '#filter-rec-groups', count: '#filter-rec-group-count', search: null,                       noun: 'groups' },
+  { key: 'recSdgs',   vocab: 'sdgs',            counts: 'sdgs',   host: '#filter-rec-sdgs',   count: '#filter-rec-sdg-count',   search: '#filter-rec-sdgs-search',   noun: 'goals and targets' },
+];
+// "16 - PEACE…" before "16.3 - …" before "17 - …": goals then their targets.
+function recSdgSortKey(value) {
+  const m = /^(\d{1,2})(?:\.([0-9a-z]+))?/.exec(value);
+  if (!m) return [99, 999];
+  const target = m[2] == null ? -1 : (/^\d+$/.test(m[2]) ? Number(m[2]) : 100 + m[2].charCodeAt(0));
+  return [Number(m[1]), target];
+}
+function paintRecFilters() {
+  const f = state.rec.facets;
+  const maps = recCountMaps();
+  const hasQF = recHasQueryOrFilter();
+  for (const spec of REC_LIST_FILTERS) {
+    const host = $(spec.host);
+    const counter = $(spec.count);
+    if (!host) continue;
+    host.innerHTML = '';
+    if (!f) { host.innerHTML = '<div class="rec-rail-loading dim">Loading the UHRI vocabulary…</div>'; continue; }
+    const selected = state.filters[spec.key];
+    const counts = maps[spec.counts];
+    const rows = f[spec.vocab].map(x => ({ value: x.value, count: counts.get(x.value) || 0 }));
+    if (spec.key === 'recSdgs') {
+      rows.sort((a, b) => { const ka = recSdgSortKey(a.value), kb = recSdgSortKey(b.value); return ka[0] - kb[0] || ka[1] - kb[1] || a.value.localeCompare(b.value); });
+    } else {
+      rows.sort((a, b) => b.count - a.count || a.value.localeCompare(b.value));
+    }
+    const needle = foldDiacritics(($(spec.search)?.value || '').trim().toLowerCase());
+    if (counter) counter.textContent = selected.size ? `${selected.size} of ${rows.length}` : `${rows.length} ${spec.noun}`;
+    for (const { value, count } of rows) {
+      const wrap = document.createElement('label');
+      if (spec.key === 'recSdgs' && /^\d{1,2}\s*-/.test(value)) wrap.classList.add('rec-sdg-goal');
+      if (hasQF && count === 0) wrap.classList.add('is-zero');
+      if (needle && !foldDiacritics(value.toLowerCase()).includes(needle)) wrap.hidden = true;
+      wrap.innerHTML = `<input type="checkbox" data-rec-value="${escape(value)}" ${selected.has(value) ? 'checked' : ''} /><span title="${escape(value)}">${escape(value)}</span><span class="count">${count.toLocaleString()}</span>`;
+      wrap.querySelector('input').addEventListener('change', (e) => {
+        if (e.target.checked) selected.add(value); else selected.delete(value);
+        runSearch();
+      });
+      host.appendChild(wrap);
+    }
+  }
+  const only = $('#filter-rec-only');
+  if (only) only.checked = !!state.filters.recOnly;
+  const onlyCount = $('#filter-rec-only-count');
+  if (onlyCount) {
+    const n = maps.types.get('Recommendation');
+    onlyCount.textContent = n != null ? n.toLocaleString() : '—';
+  }
+}
+function paintRecFacetCounts() {
+  if (state.scope !== 'rec') return;
+  paintCommitteeFilter('rec');
+  paintRecCountryFilter();
+  paintRecFilters();
+}
+// Ask the service for the counts of the current query and repaint the rail
+// when they land. An unfiltered browse keeps the vocabulary's counts.
+function refreshRecFacetCounts(runId, params) {
+  const run = ++state.rec.countsRun;
+  const facetParams = { ...params };
+  for (const k of ['page', 'page_size', 'sort_by', 'sort_dir']) delete facetParams[k];
+  if (!Object.keys(facetParams).length) {
+    state.rec.counts = null;
+    paintRecFacetCounts();
+    paintYearHistogram();
+    return;
+  }
+  Promise.all([
+    uhriFetch('/api/data/analytics', { ...facetParams, sections: 'trends,themes,text' }).catch(() => null),
+    uhriFetch('/api/data/map', facetParams).catch(() => null),
+  ]).then(([analytics, map]) => {
+    if (run !== state.rec.countsRun || runId !== state.searchRun) return;
+    state.rec.counts = (analytics || map) ? { analytics, map } : null;
+    paintRecFacetCounts();
+    paintYearHistogram();
+  });
+}
+
+function syncRecFiltersVisibility() {
+  const rec = state.scope === 'rec';
+  for (const id of ['#filter-block-rec-type', '#filter-block-rec-theme', '#filter-block-rec-group', '#filter-block-rec-sdg']) {
+    const el = $(id);
+    if (el) el.hidden = !rec;
+  }
+  // Footnote/preamble toggles and the General Comments group labels have no
+  // meaning for UHRI records.
+  const textScope = $('#filter-block-textscope');
+  if (textScope) textScope.hidden = rec;
+  const groups = $('#filter-block-groups');
+  if (groups) groups.hidden = rec;
+  if (!rec) {
+    const search = $('#filter-countries-search');
+    if (search) search.hidden = true;
+    const label = $('#filter-country-label');
+    if (label) label.textContent = 'State party';
+  }
+}
+function bindRecFilterControls() {
+  $('#filter-rec-only')?.addEventListener('change', (e) => {
+    state.filters.recOnly = !!e.target.checked;
+    runSearch();
+  });
+  for (const spec of REC_LIST_FILTERS) {
+    if (!spec.search) continue;
+    $(spec.search)?.addEventListener('input', () => {
+      const needle = foldDiacritics(($(spec.search).value || '').trim().toLowerCase());
+      $$(`${spec.host} label`).forEach(l => {
+        const v = l.querySelector('input')?.dataset.recValue || '';
+        l.hidden = !!needle && !foldDiacritics(v.toLowerCase()).includes(needle);
+      });
+    });
+  }
+  $('#filter-countries-search')?.addEventListener('input', () => {
+    if (state.scope !== 'rec') return;
+    const needle = foldDiacritics(($('#filter-countries-search').value || '').trim().toLowerCase());
+    $$('#filter-countries .chip[data-country]').forEach(c => {
+      c.hidden = !!needle && !foldDiacritics(c.dataset.country.toLowerCase()).includes(needle);
+    });
+  });
+}
+
+// The service's FTS parser takes AND / OR / NOT / "phrases" and prefix-
+// matches every bare word, but it does not read grouping parentheses or
+// wildcards — normalise those away rather than send a query that yields
+// nothing.
+function recQueryText(q) {
+  return String(q || '').replace(/[()]/g, ' ').replace(/\*/g, '').replace(/\s+/g, ' ').trim();
+}
+function recSearchParams() {
+  const f = state.filters;
+  const params = {};
+  const q = recQueryText(state.query);
+  if (q) params.text_query = q;
+  // Pipe-separated: theme labels contain commas; the service accepts either
+  // the bare label or UHRI's "- " prefixed form.
+  if (f.committees.size) params.bodies = [...f.committees].join('|');
+  if (f.countries.size) params.countries = [...f.countries].join('|');
+  if (f.recOnly) params.annotation_type = 'Recommendations';
+  if (f.recThemes.size) params.themes = [...f.recThemes].join('|');
+  if (f.recGroups.size) params.affected_persons = [...f.recGroups].join('|');
+  if (f.recSdgs.size) params.sdgs = [...f.recSdgs].join('|');
+  const yrs = state.facets?.years;
+  if (yrs && f.yearMin != null && f.yearMin > yrs.min) params.year_start = f.yearMin;
+  if (yrs && f.yearMax != null && f.yearMax < yrs.max) params.year_end = f.yearMax;
+  return params;
+}
+async function runSearchViaUhri(runId) {
+  if (!apiEnabled()) { paintRecSearchUnavailable('disabled'); return; }
+  loadRecVocab();
+  const params = { ...recSearchParams(), page_size: REC_PAGE_SIZE, sort_by: 'publication_date', sort_dir: 'desc' };
+  let body;
+  try {
+    body = await uhriFetch('/api/data/records', { ...params, page: 1 });
+  } catch (e) {
+    if (runId !== state.searchRun) return;
+    console.warn('[uhri-api] search failed:', e.message);
+    paintRecSearchUnavailable();
+    return;
+  }
+  if (runId !== state.searchRun) return;
+  const matched = (body.records || []).map(adaptRecRecord);
+  state.results = matched;
+  state.matchedIds = new Set(matched.map(m => m.p.id));
+  state.alsoTry = [];
+  state.apiTotal = Number(body.total_records) || 0;
+  state.apiBreakdown = null;
+  state.apiFacets = null;
+  state.apiKind = 'uhri';
+  state.apiPage = Number(body.page) || 1;
+  state.apiPageSize = REC_PAGE_SIZE;
+  state.apiSearchParams = params;
+  state.apiHasMore = state.apiTotal > matched.length;
+  state.apiPageInflight = null;
+  paintResults();
+  updateDocumentTitle();
+  refreshRecFacetCounts(runId, params);
+  if (state.rec.deepLink) {
+    const id = state.rec.deepLink;
+    state.rec.deepLink = null;
+    openRecById(id);
+  }
+}
+function paintRecSearchUnavailable(reason) {
+  state.results = [];
+  state.matchedIds = new Set();
+  state.apiTotal = null;
+  state.apiBreakdown = null;
+  state.apiFacets = null;
+  state.apiHasMore = false;
+  state.apiKind = null;
+  const disabled = reason === 'disabled';
+  const count = $('#result-count');
+  const title = $('#results-title');
+  const sub = $('#results-sub');
+  const list = $('#result-list');
+  const more = $('#result-more');
+  if (count) count.textContent = '— offline';
+  if (title) title.textContent = disabled ? 'Recommendations need the server' : 'The recommendations service did not answer';
+  if (sub) sub.textContent = disabled
+    ? 'Server access is switched off for this session (?api=0). Recommendations are not shipped with the site; drop the flag to search them.'
+    : 'UHRI records are served live from the project server. Your query and filters are kept; retry when the connection is back.';
+  if (more) more.textContent = '';
+  if (list) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="folio">RECOMMENDATIONS · OFFLINE</div>
+        <h3 class="serif empty-title">This is not a zero-result search</h3>
+        <p class="serif empty-body">Recommendations to States are not part of the offline corpus: every search asks the server, and the server could not be reached, so no count can be shown. The same records are searchable at <a href="https://uhri.ohchr.org/en/search/annotations" target="_blank" rel="noopener">uhri.ohchr.org</a>.</p>
+        <div class="empty-actions">
+          ${disabled ? '' : '<button type="button" class="empty-action" id="rec-api-retry">Retry connection</button>'}
+        </div>
+      </div>`;
+    $('#rec-api-retry')?.addEventListener('click', () => runSearch());
+  }
+  paintDossier();
+}
+function paintRecScopeBanner() {
+  const banner = $('#scope-banner');
+  if (!banner) return;
+  const f = state.rec.facets;
+  const total = f?.total ? f.total.toLocaleString() : '267,000+';
+  const facts = f
+    ? `${f.countries.length} States · ${f.bodies.length} mechanisms · ${f.years?.min || 2006}–${f.years?.max || ''}${f.lastPublished ? ` · newest record ${escape(recHumanDate(f.lastPublished))}` : ''}`
+    : 'loading the vocabulary…';
+  banner.innerHTML = `
+    <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
+    <span class="folio">RECOMMENDATIONS</span>What the UN said to <em>one State</em>: concluding observations of the treaty bodies, Universal Periodic Review recommendations and Special Procedures country-visit recommendations — <strong>${total} records</strong> · ${facts}. Each record carries OHCHR’s Universal Human Rights Index annotations (themes, affected persons, SDGs) and is served live from the project server, newest first; it is not part of the offline corpus.
+  `;
+  $('#banner-dismiss')?.addEventListener('click', () => { banner.hidden = true; });
+}
+// Result-card extras: the annotation type in the headline, themes in the meta row.
+function recResultLine(p) {
+  const kind = String(p.recType || 'other').toLowerCase();
+  return `<span class="rec-type-pill rec-type-${escape(kind)}" title="UHRI annotation type">${escape(p.recType || 'Record')}</span>`;
+}
+function recThemeChips(p) {
+  return (p.recThemes || []).slice(0, 3).map(t => `<span class="chip rec-chip rec-theme-chip" title="UHRI theme">${escape(t)}</span>`).join('');
+}
+// ?p=rec-<uuid>: fetch the record if the first page did not carry it.
+async function openRecById(id) {
+  const uuid = String(id).replace(/^rec-/, '');
+  if (!/^[0-9a-f-]{16,}$/i.test(uuid)) return;
+  let p = state.paragraphById.get(`rec-${uuid}`);
+  if (!p) {
+    try {
+      const body = await uhriFetch(`/api/data/record/${encodeURIComponent(uuid)}`);
+      const rec = body?.record || body;
+      if (!rec?.AnnotationId) return;
+      p = adaptRecRecord(rec).p;
+    } catch (e) {
+      console.warn('[uhri-api] record lookup failed:', e.message);
+      return;
+    }
+  }
+  if (state.scope !== 'rec') return;
+  if (!state.results.some(r => r.p.id === p.id)) {
+    // Not on the current page: pin it on top so the dossier has a row to mark.
+    state.results.unshift({ p, score: 0, snippetHtml: null });
+    paintResults();
+  }
+  setActive(p.id);
+}
+// Dossier grid for a record. Theme / group / SDG chips are buttons that
+// toggle the matching filter; the disclosure lists the whole document.
+function recDossierGridHtml(doc, para) {
+  const chips = (label, values, facet, noun) => (values && values.length)
+    ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">${label}</div><div class="v">${
+        values.map(v => `<button type="button" class="dossier-chip dossier-chip-soft rec-facet-chip" data-rec-facet="${facet}" data-rec-value="${escape(v)}" title="Filter the results by this ${noun}">${escape(v)}</button>`).join(' ')
+      }</div></div>`
+    : '';
+  const uhri = para.recDocumentId
+    ? `<a class="about-link" href="https://uhri.ohchr.org/en/document/${encodeURIComponent(para.recDocumentId)}" target="_blank" rel="noopener">Open in UHRI ↗</a>`
+    : '';
+  const open = state.rec.docOpen === doc?.docId;
+  return `
+    <div class="dossier-dp"><div class="folio">Published</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
+    <div class="dossier-dp"><div class="folio">Mechanism</div><div class="v">${escape(doc?.committee || '—')}</div></div>
+    <div class="dossier-dp"><div class="folio">State</div><div class="v">${escape(doc?.country || '—')}</div></div>
+    <div class="dossier-dp"><div class="folio">Record type</div><div class="v">${escape(para.recType || '—')}${para.recRegion ? ` <span class="dim">· ${escape(para.recRegion)}</span>` : ''}</div></div>
+    ${para.recSections?.length ? `<div class="dossier-dp dossier-dp-wide"><div class="folio">Section</div><div class="v">${escape(para.recSections.join(' › '))}</div></div>` : ''}
+    ${chips('Themes', para.recThemes, 'theme', 'theme')}
+    ${chips('Affected persons', para.labels, 'group', 'group')}
+    ${chips('Sustainable Development Goals', para.recSdgs, 'sdg', 'goal or target')}
+    <div class="dossier-dp dossier-dp-wide"><div class="folio">UHRI record</div><div class="v">${uhri}${uhri ? ' · ' : ''}<span class="mono rec-annotation-id" title="UHRI annotation id">${escape(para.annotationId || '')}</span></div></div>
+    <div class="dossier-dp dossier-dp-wide">
+      <details class="rec-doc-details" id="rec-doc-details"${open ? ' open' : ''}>
+        <summary class="folio">All records from ${escape(doc?.signature || 'this document')}</summary>
+        <div id="rec-doc-list" class="rec-doc-list"></div>
+      </details>
+    </div>`;
+}
+function bindRecDossier(host, para, doc) {
+  host.querySelectorAll('.rec-facet-chip').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const set = btn.dataset.recFacet === 'theme' ? state.filters.recThemes
+        : btn.dataset.recFacet === 'group' ? state.filters.recGroups
+        : state.filters.recSdgs;
+      const v = btn.dataset.recValue;
+      if (set.has(v)) set.delete(v); else set.add(v);
+      runSearch();
+    });
+  });
+  const det = host.querySelector('#rec-doc-details');
+  if (!det) return;
+  if (det.open) loadRecDocumentList(doc, para);
+  det.addEventListener('toggle', () => {
+    state.rec.docOpen = det.open ? doc?.docId : null;
+    if (det.open) loadRecDocumentList(doc, para);
+  });
+}
+// The records endpoint has no per-document filter, so the document is
+// approximated as mechanism + State + year and then narrowed to the exact
+// symbol client-side (a body adopts one such document per State and year;
+// revisions and addenda carry their own symbols).
+async function loadRecDocumentList(doc, para) {
+  const host = $('#rec-doc-list');
+  if (!host || !doc) return;
+  const render = (rows) => {
+    if (!rows.length) { host.innerHTML = '<p class="serif dim">No other records of this document are indexed in UHRI.</p>'; return; }
+    host.innerHTML = `<p class="folio dim rec-doc-count">${rows.length} record${rows.length === 1 ? '' : 's'} · ${escape(doc.signature || '')}${doc.link ? ` · <a class="about-link" href="${escape(doc.link)}" target="_blank" rel="noopener">UN Documents ↗</a>` : ''}</p>` +
+      rows.map(p => `<div class="dossier-context-para${p.id === state.activeId ? ' dossier-context-active' : ''}" data-rec-id="${escape(p.id)}"><span class="dossier-context-num mono">${p.n != null ? `¶ ${escape(String(p.n))}` : '—'}</span><p class="dossier-context-prose">${escape(p.text)}</p></div>`).join('');
+    host.querySelectorAll('[data-rec-id]').forEach(el => el.addEventListener('click', () => {
+      const id = el.dataset.recId;
+      if (id === state.activeId) return;
+      if (!state.results.some(r => r.p.id === id)) {
+        const p = state.paragraphById.get(id);
+        if (p) state.results.unshift({ p, score: 0, snippetHtml: null });
+        paintResults();
+      }
+      setActive(id);
+    }));
+  };
+  const cached = state.rec.docCache.get(doc.docId);
+  if (cached) { render(cached); return; }
+  host.innerHTML = '<div class="docs-reader-loading">Loading the document’s records…</div>';
+  const first = (doc.countryList && doc.countryList[0]) || doc.country || '';
+  try {
+    const body = await uhriFetch('/api/data/records', {
+      bodies: doc.committee, countries: first, year_start: doc.year, year_end: doc.year,
+      page_size: 1000, sort_by: 'publication_date', sort_dir: 'asc',
+    });
+    const want = String(doc.signature || '').trim().toUpperCase();
+    const rows = (body.records || [])
+      .filter(r => String(r.Symbol || '').trim().toUpperCase() === want)
+      .map(r => adaptRecRecord(r).p);
+    const key = (p) => String(p.n || '').split(/[.\s()]+/).filter(Boolean).map(x => { const v = parseInt(x, 10); return Number.isFinite(v) ? v : x.charCodeAt(0); });
+    rows.sort((a, b) => {
+      const ka = key(a), kb = key(b);
+      for (let i = 0; i < Math.max(ka.length, kb.length); i++) {
+        const d = (ka[i] ?? -1) - (kb[i] ?? -1);
+        if (d) return d;
+      }
+      return 0;
+    });
+    state.rec.docCache.set(doc.docId, rows);
+    if ($('#rec-doc-list') === host) render(rows);
+  } catch (e) {
+    host.innerHTML = `<p class="serif dim">Could not load the document (${escape(e.message)}).</p>`;
+  }
+}
+// Citation identity of a record: the mechanism is the author and the
+// document is the concluding observations, the UPR Working Group report or
+// the country-visit report the record was lifted from.
+function recCiteAuthor(doc) {
+  const code = recBodyLabel(doc?.committee);
+  const kind = recMechanismKind(code);
+  if (kind === 'upr') return { short: 'UNHRC', long: 'United Nations Human Rights Council' };
+  if (kind === 'sp') {
+    const organ = _unOrgan(doc?.signature || '');
+    return { short: organ.short, long: organ.long };
+  }
+  if (code === 'SPT') return { short: 'SPT', long: 'Subcommittee on Prevention of Torture' };
+  const base = code.replace(/-OP-(AC|SC)$/i, '');
+  const long = _CITE_LONG_COMMITTEE[base] || code || 'United Nations';
+  return { short: base === 'CCPR' ? 'UNHRC' : (base || 'UN'), long };
+}
+function recCiteTitle(doc) {
+  const code = recBodyLabel(doc?.committee);
+  const kind = recMechanismKind(code);
+  const country = doc?.country || '';
+  if (kind === 'upr') return `Report of the Working Group on the Universal Periodic Review${country ? `: ${country}` : ''}`;
+  if (kind === 'sp') {
+    const mandate = SP_MANDATE_NAMES[code];
+    return mandate
+      ? `Report of the ${mandate}${country ? ` on the visit to ${country}` : ''}`
+      : `${code}${country ? `, country visit report: ${country}` : ''}`;
+  }
+  return `Concluding observations${country ? `: ${country}` : ''}`;
+}
+function recCiteBluebookShort(doc) {
+  const code = recBodyLabel(doc?.committee);
+  if (recMechanismKind(code) === 'upr') return 'U.N. Human Rights Council';
+  return _CITE_BLUEBOOK_SHORT[code.replace(/-OP-(AC|SC)$/i, '')] || recCiteAuthor(doc).long;
 }
 
 // ─────────── JUR rights-keywords filter (v19.47) ───────────
@@ -4594,7 +5355,7 @@ function bindUI() {
     }
     // Country filter is JUR-only — drop the chips when leaving the jur tab
     // so a stale state-party doesn't silently zero out GC/SP results.
-    if (state.scope !== 'jur' && state.filters.countries.size) {
+    if (state.scope !== 'jur' && state.scope !== 'rec' && state.filters.countries.size) {
       state.filters.countries.clear();
     }
     paintCommitteeFilter(state.scope);
@@ -4605,6 +5366,9 @@ function bindUI() {
     syncRightsFilterVisibility();
     syncArticleFilterVisibility();
     syncStatusFilterVisibility();
+    syncRecFiltersVisibility();
+    paintCountryFilter();
+    if (state.scope === 'rec') { loadRecVocab(); paintRecFilters(); }
 
     // Jurisprudence has 3,100+ documents and 111k paragraphs, so
     // the default "Paragraphs" view dumps a wall of weakly-related rows on
@@ -4738,6 +5502,10 @@ function bindUI() {
     state.filters.proceduralIssues.clear();
     state.filters.rightsKeywords.clear();
     state.filters.articles.clear();
+    state.filters.recThemes.clear();
+    state.filters.recGroups.clear();
+    state.filters.recSdgs.clear();
+    state.filters.recOnly = false;
     state.filters.showSuperseded = false;
     state.filters.labelsMode = 'any';
     state.filters.yearMin = state.facets.years.min;
@@ -4747,6 +5515,7 @@ function bindUI() {
     $$('#filter-outcomes input').forEach(i => i.checked = false);
     $$('#filter-decision-types input, #filter-substantive-issues input, #filter-procedural-issues input').forEach(i => i.checked = false);
     $$('#filter-rights input').forEach(i => i.checked = false);
+    $$('#filter-rec-themes input, #filter-rec-groups input, #filter-rec-sdgs input, #filter-rec-only').forEach(i => i.checked = false);
     const rkSearch = $('#filter-rights-search'); if (rkSearch) rkSearch.value = '';
     $$('#filter-rights label').forEach(l => { l.hidden = false; });
     $$('#labels-mode .aa-opt').forEach(x => x.classList.toggle('is-active', x.dataset.mode === 'any'));
@@ -4760,6 +5529,7 @@ function bindUI() {
     paintJurDocFilters();
     paintRightsFilter();
     paintArticleFilter();
+    if (state.scope === 'rec') paintRecFilters();
     runSearch();
   });
 
@@ -4864,6 +5634,7 @@ function scopeCommitteeSet(scope) {
   if (scope === 'gc') return new Set(baseCommittees.filter(c => !isSp(c.value)).map(c => c.value));
   if (scope === 'jur') return new Set(jurCommitteeFacets().map(c => c.value));
   if (scope === 'sp') return new Set(baseCommittees.filter(c => isSp(c.value)).map(c => c.value));
+  if (scope === 'rec') return new Set(state.rec.facets ? state.rec.facets.bodies.map(b => b.value) : state.filters.committees);
   return new Set(mergeFacetItems(baseCommittees, jurCommitteeFacets()).map(c => c.value));
 }
 
@@ -4919,6 +5690,14 @@ function buildExportRows(results = state.results) {
       paragraph_n: p.n ?? '',
       paragraph_text: p.text,
       labels: (p.labels || []).join('; '),
+      // UHRI recommendation records (blank for the static collections).
+      record_type: p.recType || '',
+      themes: (p.recThemes || []).join('; '),
+      affected_persons: p.type === 'rec' ? (p.labels || []).join('; ') : '',
+      sdgs: (p.recSdgs || []).join('; '),
+      section_headings: (p.recSections || []).join(' › '),
+      uhri_annotation_id: p.annotationId || '',
+      uhri_document_id: p.recDocumentId || '',
       // JUR-only enriched metadata. Non-JUR rows leave these blank so the
       // CSV header is stable across mixed-scope exports.
       case_name: isJur ? (doc?.caseName ?? '') : '',
@@ -4989,16 +5768,15 @@ async function collectCompleteExportResults(button) {
       pages.push(nextPage);
     }
     const responses = await Promise.all(pages.map(page =>
-      apiFetch('/api/search', { ...state.apiSearchParams, page })
+      fetchSearchPage({ ...state.apiSearchParams, page })
     ));
     if (runId !== state.searchRun) throw new Error('The search changed while the export was being prepared. Try again.');
 
     for (const body of responses) {
-      if (Number(body.total) !== expectedTotal) {
+      if (body.total !== expectedTotal) {
         throw new Error('The result set changed on the server while exporting. Run the search again.');
       }
-      for (const hit of body.hits || []) {
-        const result = adaptApiExportHit(hit);
+      for (const result of body.rows) {
         if (!seen.has(result.p.id)) {
           seen.add(result.p.id);
           results.push(result);
@@ -5056,6 +5834,10 @@ function buildExportProvenance(exportedCount, expectedTotal, resultSource) {
       proceduralIssues: [...state.filters.proceduralIssues],
       rightsKeywords: [...state.filters.rightsKeywords],
       articles: [...state.filters.articles],
+      recThemes: [...state.filters.recThemes],
+      recAffectedPersons: [...state.filters.recGroups],
+      recSdgs: [...state.filters.recSdgs],
+      recommendationsOnly: state.filters.recOnly,
       includeSuperseded: state.filters.showSuperseded,
       searchFootnotes: state.searchInFootnotes,
       searchPreambles: state.searchInPreamble,
@@ -5264,6 +6046,9 @@ function syncScopeBanner() {
   if (!banner) return;
   if (state.scope === 'jur') {
     paintScopeBanner(state.scope);
+    banner.hidden = false;
+  } else if (state.scope === 'rec') {
+    paintRecScopeBanner();
     banner.hidden = false;
   } else {
     banner.hidden = true;
@@ -6137,6 +6922,9 @@ function paintCorpusLoadingState(phase) {
   const sub   = document.getElementById('results-sub');
   const title = document.getElementById('results-title');
   if (!count || !sub) return;
+  // Recommendations never touch the local index; its offline / result state
+  // must not be overwritten by the background corpus build.
+  if (state.scope === 'rec') return;
   // v19.50.1 (audit Step 3.C / A6): suppress the local-index loading
   // chrome when a search has already painted results (typically the
   // API path landed first). Without this guard, the late-arriving
@@ -6471,6 +7259,12 @@ async function runSearch() {
     }, { dedupeKey: `search:${state.scope}:${q}`, dedupeMs: 1500 });
   }
 
+  // Recommendations to States live on the UHRI dataset service; there is no
+  // local copy to fall back to, so the scope has its own client.
+  if (state.scope === 'rec') {
+    return runSearchViaUhri(runId);
+  }
+
   // One boot-time timeout must not disable SP search for the rest of the tab.
   // SP has no lightweight local index, so retry its health check on the next
   // search and resume the API path automatically when the service recovers.
@@ -6510,6 +7304,7 @@ async function runSearch() {
   // export after changing to an unsupported client-side filter cannot fetch
   // pages belonging to the earlier query.
   state.apiSearchParams = null;
+  state.apiKind = null;
   state.apiTotal = null;
   state.apiHasMore = false;
 
@@ -6750,6 +7545,7 @@ function hasSearchQuery() {
 }
 
 function effectiveResultSort() {
+  if (state.scope === 'rec') return 'date';   // UHRI orders by publication date; no relevance rank
   return hasSearchQuery() && state.resultSort === 'relevance' ? 'relevance' : 'date';
 }
 
@@ -6763,7 +7559,10 @@ function syncResultsControls() {
     const on = b.dataset.sort === activeSort;
     b.classList.toggle('is-active', on);
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
-    b.toggleAttribute('disabled', b.dataset.sort === 'relevance' && !hasSearchQuery());
+    b.toggleAttribute('disabled', b.dataset.sort === 'relevance' && (!hasSearchQuery() || state.scope === 'rec'));
+    if (b.dataset.sort === 'relevance') {
+      b.title = state.scope === 'rec' ? 'UHRI records come ordered by publication date; the service has no relevance ranking.' : '';
+    }
   });
 
   $$('#result-group .result-opt').forEach(b => {
@@ -6779,7 +7578,7 @@ function syncResultsControls() {
   if (sortSelect) {
     sortSelect.value = activeSort;
     const relevanceOpt = sortSelect.querySelector('option[value="relevance"]');
-    if (relevanceOpt) relevanceOpt.disabled = !hasSearchQuery();
+    if (relevanceOpt) relevanceOpt.disabled = !hasSearchQuery() || state.scope === 'rec';
   }
   const groupSelect = document.getElementById('result-group-select');
   if (groupSelect) groupSelect.value = state.resultGroup;
@@ -6814,6 +7613,7 @@ function currentResultGroupDocIds() {
       const doc = state.documents.get(p.docId);
       if (doc?.type === 'sp')      keys.add('sp::' + (doc.mandate || 'unknown mandate'));
       else if (doc?.type === 'jur') keys.add('jur::' + (doc.treaty || doc.committee || 'unknown'));
+      else if (doc?.type === 'rec') keys.add('rec::' + (doc.committee || 'unknown'));
       else                          keys.add('gc::' + (doc?.committee || doc?.committees?.[0] || 'unknown'));
     }
     return [...keys];
@@ -7015,6 +7815,7 @@ function _buildEmptyState() {
     f.labels.size > 0 ||
     f.reportTypes.size > 0 ||
     f.countries.size > 0 ||
+    f.recThemes.size > 0 || f.recGroups.size > 0 || f.recSdgs.size > 0 || f.recOnly ||
     (f.yearMin && state.facets && f.yearMin > state.facets.years.min) ||
     (f.yearMax && state.facets && f.yearMax < state.facets.years.max);
 
@@ -7354,6 +8155,9 @@ function renderBodyGroupedResults(list, view, terms) {
     } else if (doc?.type === 'jur') {
       bodyKey = 'jur::' + (doc.treaty || doc.committee || 'unknown');
       label = `${doc.treaty || doc.committee || 'Unknown'} jurisprudence`;
+    } else if (doc?.type === 'rec') {
+      bodyKey = 'rec::' + (doc.committee || 'unknown');
+      label = `${doc.committee || 'Unknown mechanism'} · recommendations`;
     } else {
       bodyKey = 'gc::' + (doc?.committee || (doc?.committees?.[0]) || 'unknown');
       label = doc?.committee || doc?.committees?.[0] || 'Unknown body';
@@ -7463,6 +8267,10 @@ function scopeNotice() {
     span.innerHTML = ` <span class="badge badge-jur">JUR</span> · ${escape(jurTreatyLabel())} jurisprudence · ~98% of OHCHR JURIS.`;
   } else if (state.scope === 'sp') {
     span.innerHTML = ` Independent mandate-holder reports · all 46 thematic mandates.`;
+  } else if (state.scope === 'rec') {
+    const total = state.rec.facets?.total;
+    const latest = state.rec.lastPublished ? ` · newest record ${escape(recHumanDate(state.rec.lastPublished))}` : '';
+    span.innerHTML = ` <span class="badge badge-rec">REC</span> · Recommendations to States, OHCHR Universal Human Rights Index${total ? ` · ${total.toLocaleString()} records` : ''}${latest}. Served live, newest first.`;
   } else if (state.scope === 'all') {
     span.innerHTML = ` Mixed scope: General Comments + Jurisprudence + Special Procedures.`;
   }
@@ -7503,8 +8311,9 @@ function renderResult(p, rank, terms, opts = {}) {
   const decisionLine = p.type === 'jur' && jurDecisionSummary(doc)
     ? `<span class="jur-decision-line" title="${escape(jurDecisionSummary(doc, { full: true }))}">${escape(jurDecisionSummary(doc))}</span>`
     : '';
+  const recLine = p.type === 'rec' ? recResultLine(p) : '';
   const labelChips = (p.labels || []).slice(0, 4).map(l => `<span class="chip">${escape(l)}</span>`).join('');
-  const committeeChips = p.committees.map(c => `<span class="chip ${isSp(c) ? 'sp-chip' : p.type === 'jur' ? 'jur-chip' : ''}">${escape(c)}</span>`).join('');
+  const committeeChips = p.committees.map(c => `<span class="chip ${p.type === 'rec' ? 'rec-chip' : isSp(c) ? 'sp-chip' : p.type === 'jur' ? 'jur-chip' : ''}">${escape(c)}</span>`).join('');
 
   const headline = opts.grouped
     ? `
@@ -7512,6 +8321,7 @@ function renderResult(p, rank, terms, opts = {}) {
         ${sourceKindLabel}
         ${statusPill}
         ${decisionLine}
+        ${recLine}
         ${ocrPill}
         <span class="folio">MATCHED PARAGRAPH</span>
         <span class="result-spacer"></span>
@@ -7522,6 +8332,7 @@ function renderResult(p, rank, terms, opts = {}) {
         ${sourceKindLabel}
         ${statusPill}
         ${decisionLine}
+        ${recLine}
         ${ocrPill}
         <span class="result-doc">${escape(formatDocHeadline(doc) || p.docId)}</span>
         <span class="result-spacer"></span>
@@ -7597,6 +8408,7 @@ function renderResult(p, rank, terms, opts = {}) {
       <div class="result-meta">
         ${committeeChips}
         ${labelChips}
+        ${p.type === 'rec' ? recThemeChips(p) : ''}
       </div>
     </div>
     <div class="result-aside">
@@ -7716,6 +8528,7 @@ function isSp(committee) {
 function sourceBadge(type) {
   if (type === 'jur') return '<span class="badge badge-jur">JUR</span>';
   if (type === 'sp') return '<span class="badge badge-sp">SP</span>';
+  if (type === 'rec') return '<span class="badge badge-rec">REC</span>';
   return '<span class="badge badge-gc">GC</span>';
 }
 
@@ -8009,6 +8822,7 @@ function paintDossier() {
   const sourceUrl = officialSourceUrl(doc);
   const isSpDoc = para.type === 'sp';
   const isJurDoc = para.type === 'jur';
+  const isRecDoc = para.type === 'rec';
   const profile = sourceProfile(para.type);
   const ast = parseQuery(state.query);
   const terms = ast ? leafTermsForHighlight(ast).map(t => t.value) : [];
@@ -8028,10 +8842,12 @@ function paintDossier() {
   // next to it (e.g. " · VIOLATION FOUND ").
   const dossierKind = isJurDoc
     ? `JURISPRUDENCE · ${escape(doc?.treaty || 'TREATY BODY')}`
-    : isSpDoc
-      ? 'MANDATE REPORT'
-      : 'GENERAL COMMENT';
-  const actorLabel = isJurDoc ? 'Treaty body' : isSpDoc ? 'Mandate' : 'Committee';
+    : isRecDoc
+      ? `${escape(String(para.recType || 'RECORD').toUpperCase())} · ${escape(doc?.committee || 'UHRI')}`
+      : isSpDoc
+        ? 'MANDATE REPORT'
+        : 'GENERAL COMMENT';
+  const actorLabel = isJurDoc ? 'Treaty body' : isRecDoc ? 'Mechanism' : isSpDoc ? 'Mandate' : 'Committee';
 
   // JUR-only outcome badge — sits inside the folio line so users see the
   // case disposition before the title.
@@ -8188,7 +9004,7 @@ function paintDossier() {
         ? `<a class="dossier-sig-link" href="${escape(sourceUrl)}" target="_blank" rel="noopener" title="Open official UN source">${escape(doc?.signature || '—')} <span class="dossier-sig-arrow" aria-hidden="true">↗</span></a>`
         : escape(doc?.signature || '')
     }${
-      isJurDoc && doc?.country ? ` · <span class="dossier-country">${escape(doc.country)}${doc?.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''
+      (isJurDoc || isRecDoc) && doc?.country ? ` · <span class="dossier-country">${escape(doc.country)}${doc?.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''
     }</div>
     <aside class="dossier-authority-note ${escape(para.type)}" role="note">
       <span class="folio">Legal character · ${escape(profile.label)}</span>
@@ -8198,7 +9014,7 @@ function paintDossier() {
     ${currentRelationshipHtml(doc, 'dossier-relationship')}
     ${abstractHtml}
     <div class="dossier-grid">
-      ${isJurDoc
+      ${isRecDoc ? recDossierGridHtml(doc, para) : isJurDoc
         ? `
           <div class="dossier-dp"><div class="folio">${escape(profile.dateLabel)}</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Communication</div><div class="v">${doc?.communicationYear ?? doc?.year ?? '—'}</div></div>
@@ -8658,6 +9474,7 @@ function paintDossier() {
   // Replaces the old `is-reading-mode` overlay (which just hid chrome
   // around the same paragraph the user already had on screen).
   $('#ws-read')?.addEventListener('click', () => openInDocReader(para));
+  if (isRecDoc) bindRecDossier(host, para, doc);
   // Permalink button → copy a deep-link to clipboard.
   $('#ws-permalink')?.addEventListener('click', () => copyPermalink(para));
 
@@ -8796,31 +9613,39 @@ function _citeBaseFields(doc, para) {
   const date = doc?.adoptionDate || (year ? String(year) : 'n.d.');
   const symbol = doc?.signature || doc?.symbol || doc?.docId || '';
   const organ = _unOrgan(symbol);
+  const recAuthor = type === 'rec' ? recCiteAuthor(doc) : null;
   const author = type === 'jur'
     ? _committeeLong(doc)
     : type === 'sp'
       ? organ.short
-      : (doc?.committees?.length
-          ? doc.committees.join(' / ')
-          : (doc?.committee || doc?.treaty || 'United Nations'));
+      : type === 'rec'
+        ? recAuthor.short
+        : (doc?.committees?.length
+            ? doc.committees.join(' / ')
+            : (doc?.committee || doc?.treaty || 'United Nations'));
   // Author-date and reference-manager formats spell the institution out:
   // "Human Rights Committee (2020)", not "CCPR (2020)".
   const authorLong = type === 'sp'
     ? organ.long
     : type === 'jur'
       ? author
-      : (doc?.committees?.length
-          ? doc.committees.map(c => _CITE_LONG_COMMITTEE[c] || c).join(' / ')
-          : (_CITE_LONG_COMMITTEE[doc?.committee] || author));
+      : type === 'rec'
+        ? recAuthor.long
+        : (doc?.committees?.length
+            ? doc.committees.map(c => _CITE_LONG_COMMITTEE[c] || c).join(' / ')
+            : (_CITE_LONG_COMMITTEE[doc?.committee] || author));
   // Citations take the full official title; the reader shows `nameShort`.
   const title = type === 'jur'
     ? (doc?.caseName || publicDocTitle(doc) || symbol)
     : type === 'sp'
       ? _spCiteTitle(doc, doc?.name || doc?.nameShort || symbol)
-      : (publicDocTitle(doc) || symbol);
+      : type === 'rec'
+        ? recCiteTitle(doc)
+        : (publicDocTitle(doc) || symbol);
   const mandateName = type === 'sp' ? (SP_MANDATE_NAMES[doc?.committee] || '') : '';
   const holder = type === 'sp' ? (doc?.mandate || '') : '';
-  const country = doc?.country || '';
+  // A UHRI record's title already names the State.
+  const country = type === 'rec' ? '' : (doc?.country || '');
   const communicationNumber = _communicationNumber(doc, symbol);
   const paraNum = para?.n ?? para?.idx ?? '';
   const shareUrl = (paragraphPermalink(para) || documentPermalink(doc))?.toString() || '';
@@ -8892,6 +9717,12 @@ function _citeUnFootnote(doc, para) {
     const date = f.date && f.date !== 'n.d.' ? ` (${f.date})` : '';
     return `${f.author}, “${f.title}”${_paragraphPart(f)}${symbol}${date}.`;
   }
+  if (f.type === 'rec') {
+    // "Human Rights Committee, Concluding observations: Poland, ¶ 45, U.N. Doc. CCPR/C/POL/CO/7 (23 November 2016)."
+    const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
+    const date = f.date && f.date !== 'n.d.' ? ` (${f.date})` : '';
+    return `${f.authorLong}, ${f.title}${_paragraphPart(f)}${symbol}${date}.`;
+  }
   const gc = _gcLongRef(doc);
   const para_ = f.paraNum !== '' ? `, ¶ ${f.paraNum}` : '';
   const ref = gc ? `${long}, ${gc}${para_}` : `${long}${para_}`;
@@ -8917,6 +9748,11 @@ function _citeOSCOLA(doc, para) {
     const datePart = f.date !== 'n.d.' ? ` (${f.date})` : '';
     const docPart = f.symbol ? ` UN Doc ${f.symbol}` : '';
     return `${f.author} ‘${f.title}’${datePart}${docPart}${_paragraphPart(f, 'oscola')}.`;
+  }
+  if (f.type === 'rec') {
+    const datePart = f.date !== 'n.d.' ? ` (${f.date})` : '';
+    const docPart = f.symbol ? ` UN Doc ${f.symbol}` : '';
+    return `${f.authorLong} ‘${f.title}’${datePart}${docPart}${_paragraphPart(f, 'oscola')}.`;
   }
   const c = doc?.committee || 'UN';
   const short = c === 'CCPR' ? 'UNHRC' : c;
@@ -8964,6 +9800,11 @@ function _citeBluebook(doc, para) {
     const yr = f.year ? ` (${f.year})` : '';
     return `${f.author}, ${f.title}${_paragraphPart(f)}${symbol}${yr}.`;
   }
+  if (f.type === 'rec') {
+    const symbol = f.symbol ? `, U.N. Doc. ${f.symbol}` : '';
+    const yr = f.year ? ` (${f.year})` : '';
+    return `${recCiteBluebookShort(doc)}, ${f.title}${_paragraphPart(f)}${symbol}${yr}.`;
+  }
   const ish = (c === 'CEDAW' || c === 'CERD');
   const m = /(?:GC|GR)\s*(\d+)/i.exec(doc?.nameShort || '')
         || /(?:gc|gr)-?(\d+)/i.exec(doc?.docId || '');
@@ -8991,6 +9832,11 @@ function _citeMcGill(doc, para) {
     const datePart = f.date !== 'n.d.' ? ` (${f.date})` : '';
     const docPart = f.symbol ? `, UN Doc ${f.symbol}` : '';
     return `${f.author}, ${f.title}${datePart}${docPart}${_paragraphPart(f, 'mcgill')}.`;
+  }
+  if (f.type === 'rec') {
+    const datePart = f.date !== 'n.d.' ? ` (${f.date})` : '';
+    const docPart = f.symbol ? `, UN Doc ${f.symbol}` : '';
+    return `${f.authorLong.replace('Human Rights Committee', 'UNHR Committee')}, ${f.title}${datePart}${docPart}${_paragraphPart(f, 'mcgill')}.`;
   }
   // McGill: drop the period after No (Canadian style).
   const gc = (_gcLongRef(doc) || '').replace(/^General (Comment|Recommendation) No\./, 'General $1 No');
@@ -9037,7 +9883,9 @@ function _citeBibTeX(doc, para) {
   const esc = s => String(s || '').replace(/[{}%&#_$]/g, '\\$&');
   const sourceNote = f.type === 'jur' && f.communicationNumber
     ? `Communication No. ${f.communicationNumber}`
-    : f.type === 'sp' ? 'Special Procedures report' : 'Treaty-body general comment or recommendation';
+    : f.type === 'sp' ? 'Special Procedures report'
+    : f.type === 'rec' ? 'Recommendation to a State, OHCHR Universal Human Rights Index record'
+    : 'Treaty-body general comment or recommendation';
   return `@misc{${key},
   author       = {${esc(f.authorLong)}},
   title        = {${esc(f.title)}},
@@ -9049,7 +9897,7 @@ function _citeBibTeX(doc, para) {
 }
 function _citeRIS(doc, para) {
   const f = _citeBaseFields(doc, para);
-  const risType = f.type === 'jur' ? 'CASE' : f.type === 'sp' ? 'RPRT' : 'GEN';
+  const risType = f.type === 'jur' ? 'CASE' : (f.type === 'sp' || f.type === 'rec') ? 'RPRT' : 'GEN';
   return [
     'TY  - ' + risType,
     'AU  - ' + f.authorLong,
@@ -9150,6 +9998,10 @@ function _citeCSLJSON(doc, para) {
     if (f.country) item.jurisdiction = f.country;
   }
   if (f.type === 'sp' && f.mandateName) item.genre = `Report of the ${f.mandateName}`;
+  if (f.type === 'rec') {
+    item.genre = recDocName(doc?.committee, '');
+    if (doc?.country) item.jurisdiction = doc.country;
+  }
   if (f.paraNum !== '') item.note = `Paragraph ${f.paraNum}; cite with locator "para. ${f.paraNum}".`;
   return JSON.stringify(item, null, 2);
 }
@@ -9389,6 +10241,12 @@ function closeQueryHelpPopover() {
 // `#documents/<docId>?p=<paraId>` deep-link path that R4 verifies).
 function openInDocReader(para) {
   if (!para) return;
+  if (para.type === 'rec') {
+    // UHRI records have no reader page; the dossier lists the whole document.
+    const det = document.getElementById('rec-doc-details');
+    if (det) { det.open = true; det.scrollIntoView({ block: 'nearest' }); }
+    return;
+  }
   const u = new URL(window.location);
   u.searchParams.set('p', para.id);
   // Clear search-only params that don't apply to the documents view.
@@ -9511,6 +10369,7 @@ function cmdkBuildItems() {
     ['gc',  'Scope · General Comments', 'Treaty body interpretive output'],
     ['jur', 'Scope · Jurisprudence',    `${jurTreatyLabel()} case-law · ~98% of OHCHR JURIS`],
     ['sp',  'Scope · Special Procedures', 'All 46 thematic mandates'],
+    ['rec', 'Scope · Recommendations',    'Concluding observations, UPR and country-visit recommendations · UHRI, live'],
     ['all', 'Scope · All sources',      'Combined view'],
   ]) {
     items.push({
@@ -9525,6 +10384,7 @@ function cmdkBuildItems() {
 
   // 3. Documents — every GC / SP / JUR record currently in state
   for (const doc of state.documents.values()) {
+    if (doc.type === 'rec') continue;   // UHRI pseudo-documents have no reader page
     const symbol = doc.signature || doc.symbol || doc.docId;
     const subBits = [doc.committee || doc.treaty || ''];
     if (doc.year) subBits.push(String(doc.year));
@@ -10326,6 +11186,10 @@ function hasAnyQueryOrFilter() {
     || state.filters.articles?.size
     || state.filters.countries?.size
     || state.filters.reportTypes?.size
+    || state.filters.recThemes?.size
+    || state.filters.recGroups?.size
+    || state.filters.recSdgs?.size
+    || state.filters.recOnly
     || (state.filters.yearMin != null && state.facets?.years && state.filters.yearMin > state.facets.years.min)
     || (state.filters.yearMax != null && state.facets?.years && state.filters.yearMax < state.facets.years.max);
 }
@@ -10335,6 +11199,7 @@ function hasAnyQueryOrFilter() {
 // span on each label checkbox. The histogram repaints fully (its
 // bar heights change with counts).
 function paintFacetCounts() {
+  if (state.scope === 'rec') { paintRecFacetCounts(); return; }
   const usingApi = apiActive(state.scope);
   let counts = null;
   if (usingApi) {
@@ -10414,14 +11279,18 @@ function paintYearHistogram() {
   // year filter itself, so dragging the range doesn't self-zero the
   // bars). When no query/filter is active, falls back to corpus
   // baseline so first-paint shows the natural shape of the dataset.
-  const dynCounts = !apiActive(state.scope) ? computeDynamicFacetCounts() : null;
+  // Recommendations: the bars count UHRI records for the current query (or the
+  // whole dataset), never the static corpus.
+  const recCounts = state.scope === 'rec' ? recYearCounts() : null;
+  const dynCounts = !recCounts && !apiActive(state.scope) ? computeDynamicFacetCounts() : null;
   const yearMap = dynCounts?.yearCounts;
   const hasAnyFilter = !!state.query
                       || state.filters.committees.size
                       || state.filters.labels.size;
   const useDyn = yearMap && hasAnyFilter;
 
-  const effectiveCount = (b) => useDyn ? (yearMap.get(b.year) || 0) : b.count;
+  const effectiveCount = (b) => recCounts ? (recCounts.get(b.year) || 0) : useDyn ? (yearMap.get(b.year) || 0) : b.count;
+  const noun = recCounts ? 'record' : 'paragraph';
   const maxCount = Math.max(1, ...hist.map(effectiveCount));
 
   const W = 240, H = 36;
@@ -10444,7 +11313,7 @@ function paintYearHistogram() {
       data-year="${b.year}" data-count="${c}"
       x="${x.toFixed(1)}" y="${y.toFixed(1)}"
       width="${barW.toFixed(1)}" height="${Math.max(h,0.5).toFixed(1)}">
-      <title>${b.year} · ${c.toLocaleString()} paragraph${c===1?'':'s'}${tipBaseline}</title>
+      <title>${b.year} · ${c.toLocaleString()} ${noun}${c===1?'':'s'}${tipBaseline}</title>
     </rect>`;
   }).join('');
 
@@ -10529,6 +11398,10 @@ function paintResetVisibility() {
     (f.outcomes && f.outcomes.size) ||
     (f.rightsKeywords && f.rightsKeywords.size) ||
     (f.articles && f.articles.size) ||
+    (f.recThemes && f.recThemes.size) ||
+    (f.recGroups && f.recGroups.size) ||
+    (f.recSdgs && f.recSdgs.size) ||
+    f.recOnly ||
     (yrs && f.yearMin != null && f.yearMin > yrs.min) ||
     (yrs && f.yearMax != null && f.yearMax < yrs.max)
   );

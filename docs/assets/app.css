@@ -1269,6 +1269,38 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   background: var(--jur-tone);
   color: var(--paper);
 }
+/* Recommendations (UHRI) — after .sp-chip so a Special Procedures mandate
+   inside the recommendations rail takes the ochre tone, not the SP one. */
+.chip-grid .chip.rec-chip,
+.result-meta .chip.rec-chip {
+  border-color: var(--rec-tone);
+  color: var(--rec-tone);
+  background: var(--rec-soft);
+}
+.chip-grid .chip.rec-chip.on {
+  background: var(--rec-tone);
+  color: var(--paper);
+}
+.chip-grid .chip[hidden] { display: none; }
+.rec-sp-mandates { width: 100%; margin-top: 6px; }
+.rec-sp-mandates summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--ink-3);
+  padding: 4px 0;
+}
+.rec-sp-mandates summary::-webkit-details-marker { display: none; }
+.rec-sp-mandates summary::before { content: '▸ '; }
+.rec-sp-mandates[open] summary::before { content: '▾ '; }
+.rec-sp-mandates .rec-sp-grid { margin-top: 6px; }
+.rec-rail-loading { font-size: 12px; padding: 4px 0; }
+.checkbox-list label[hidden] { display: none; }
+.checkbox-list label.rec-sdg-goal span:not(.count) { font-weight: 600; }
+.checkbox-list label span:not(.count) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .chip-grid-compact .chip {
   padding: 2px 7px;
   font-size: 10px;
@@ -1844,6 +1876,25 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
 .result.sp .result-text { color: var(--sp-tone); }
 .result.jur .result-text { color: var(--ink-2); }
 .result.jur .result-pn { color: var(--jur-tone); }
+.result.rec .result-pn { color: var(--rec-tone); }
+/* UHRI annotation type on a recommendation card / dossier folio. */
+.rec-type-pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  color: var(--ink-3);
+  background: var(--paper-2);
+}
+.rec-type-pill.rec-type-recommendation { color: var(--rec-tone); border-color: var(--rec-tone); background: var(--rec-soft); }
+.rec-doc-details summary { cursor: pointer; }
+.rec-doc-list { margin-top: 8px; max-height: 60vh; overflow: auto; }
+.rec-doc-list .dossier-context-para { cursor: pointer; }
+.rec-doc-count { margin: 0 0 6px; }
+.rec-facet-chip { cursor: pointer; font: inherit; }
+.rec-annotation-id { font-size: 10px; color: var(--ink-4); word-break: break-all; }
 .result-margin {
   padding-top: 4px;
   text-align: right;
@@ -2652,6 +2703,7 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
 .dossier-authority-note.gc { border-left-color: var(--garnet); }
 .dossier-authority-note.jur { border-left-color: var(--jur-tone); }
 .dossier-authority-note.sp { border-left-color: var(--sp-tone); }
+.dossier-authority-note.rec { border-left-color: var(--rec-tone); }
 .legal-status-warning p,
 .dossier-authority-note p {
   margin: 3px 0 0;

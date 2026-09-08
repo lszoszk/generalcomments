@@ -39,6 +39,10 @@
     "related/gc.json": {
       "sha": "3781d45b62f698f6",
       "bytes": 1267496
+    },
+    "rec/vocab.json": {
+      "sha": "9c6f4b9eb2c0c73c",
+      "bytes": 33927
     }
   },
   "note": "Incremental append (append_sp_docs.py): +30 SP docs."

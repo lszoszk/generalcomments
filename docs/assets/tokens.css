@@ -43,6 +43,8 @@
   --jur-tone:     oklch(43% 0.09 190);    /* Jurisprudence — teal, preview-but-legal */
   --mark-bookmark: #c9a227;               /* bookmark accent (warm gold) */
   --jur-soft:     oklch(94% 0.035 190);
+  --rec-tone:     oklch(46% 0.11 60);     /* Recommendations (UHRI) — ochre, State-directed practice */
+  --rec-soft:     oklch(95% 0.03 60);
   --sp-tone:      var(--ink-2);           /* Special Procedures — slightly muted, "preview" */
   /* v19.51.2 (audit H6): darkened --preview from oklch(58%) → 50%
      (= #945000) so `.badge-preview` (cream text on solid --preview
@@ -113,6 +115,8 @@
   --jur-tone:     oklch(76% 0.10 190);
   --mark-bookmark: #d8b94e;               /* bookmark accent — brighter gold for dark paper */
   --jur-soft:     oklch(27% 0.045 190);
+  --rec-tone:     oklch(80% 0.11 60);
+  --rec-soft:     oklch(28% 0.05 60);
 
   /* Dark status semantics — lighter foregrounds on deep tinted softs. */
   --status-bad:          oklch(70% 0.14 25);
@@ -255,6 +259,12 @@ mark.hl {
   color: var(--jur-tone);
   background: var(--jur-soft);
   border-color: var(--jur-tone);
+  font-weight: 600;
+}
+.badge-rec {
+  color: var(--rec-tone);
+  background: var(--rec-soft);
+  border-color: var(--rec-tone);
   font-weight: 600;
 }
 .badge-preview {
