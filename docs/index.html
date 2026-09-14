@@ -118,8 +118,8 @@
 }
 </script>
 
-<link rel="stylesheet" href="assets/tokens.css?v=20260908-613b6a4" />
-<link rel="stylesheet" href="assets/app.css?v=20260908-613b6a4" />
+<link rel="stylesheet" href="assets/tokens.css?v=20260914-cac8dcf" />
+<link rel="stylesheet" href="assets/app.css?v=20260914-cac8dcf" />
 
 <!-- Google Analytics 4 is loaded LAZILY, only after the visitor opts in
      via the consent banner — see initConsent()/loadAnalytics() in app.js.
@@ -547,6 +547,14 @@
       </label>
     </div>
 
+    <details class="filter-block filter-collapsible" id="filter-block-rec-group" hidden>
+      <summary>
+        <span class="folio">Affected persons</span>
+        <span class="folio dim" id="filter-rec-group-count">—</span>
+      </summary>
+      <div id="filter-rec-groups" class="checkbox-list checkbox-list-scroll"></div>
+    </details>
+
     <details class="filter-block filter-collapsible" id="filter-block-rec-theme" hidden open>
       <summary>
         <span class="folio">Theme <span class="dim" style="font-weight:normal">(UHRI)</span></span>
@@ -555,14 +563,6 @@
       <input type="search" id="filter-rec-themes-search" class="filter-typeahead"
              placeholder="Filter themes…" autocomplete="off" aria-label="Filter themes" />
       <div id="filter-rec-themes" class="checkbox-list checkbox-list-scroll"></div>
-    </details>
-
-    <details class="filter-block filter-collapsible" id="filter-block-rec-group" hidden>
-      <summary>
-        <span class="folio">Affected persons</span>
-        <span class="folio dim" id="filter-rec-group-count">—</span>
-      </summary>
-      <div id="filter-rec-groups" class="checkbox-list checkbox-list-scroll"></div>
     </details>
 
     <details class="filter-block filter-collapsible" id="filter-block-rec-sdg" hidden>
@@ -749,7 +749,7 @@
   <div class="ask-beta-text">
     <p>
       Surfaces <strong>verbatim</strong> sentences from UN Treaty Body
-      General Comments / Recommendations using neural retrieval and
+      General Comments using neural retrieval and
       cross-encoder reranking. An LLM interprets your question
       (rewriting it into doctrinal language before retrieval), but
       <strong>returned paragraphs are verbatim from the Committees</strong> —
@@ -1651,6 +1651,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20260908-613b6a4"></script>
+<script type="module" src="assets/app.js?v=20260914-cac8dcf"></script>
 </body>
 </html>

@@ -7110,6 +7110,21 @@ mark.ck ins { color: var(--status-good, #2f6b3a); text-decoration: none; font-st
 .ck-diff { margin-top: 4px; padding: 6px 10px; border-left: 2px solid var(--rule); color: var(--ink); font-size: 14px; line-height: 1.55; }
 .ck-diff del { color: var(--status-bad, #8b1e2b); text-decoration: line-through; }
 .ck-diff ins { color: var(--status-good, #2f6b3a); text-decoration: none; font-style: italic; }
+/* the cited paragraph, folded under the pinpoint verdict */
+.ck-para { margin: 4px 0 2px; color: var(--ink-2); }
+.ck-para-summary { cursor: pointer; font-size: 13px; color: var(--ink-2); list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+.ck-para-summary::-webkit-details-marker { display: none; }
+.ck-para-caret { display: inline-block; font-size: 11px; color: var(--ink-3, var(--ink-2)); transition: transform .15s ease; }
+.ck-para[open] > .ck-para-summary .ck-para-caret { transform: rotate(90deg); }
+.ck-para-summary:hover { color: var(--ink); }
+.ck-para-summary:hover .ck-para-label { text-decoration: underline; text-underline-offset: 3px; }   /* the label only: an underline on the rotated caret paints as a stray bar */
+.ck-para-caret { text-decoration: none; }
+.ck-para-body { margin-top: 6px; padding: 8px 12px; border-left: 2px solid var(--rule); color: var(--ink); font-size: 14px; line-height: 1.6; }
+.ck-para-p { margin: 0 0 8px; }
+.ck-para-p:last-of-type { margin-bottom: 0; }
+.ck-para-n { color: var(--ink-3, var(--ink-2)); margin-right: 4px; font-size: 12px; }
+.ck-para-more, .ck-para-open { margin: 6px 0 0; font-size: 13px; }
+
 .check-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; }
 .check-note { font-size: 13px; }
 @media (max-width: 720px) {

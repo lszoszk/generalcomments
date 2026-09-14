@@ -50,6 +50,15 @@ test('C2. sampleStatuses · the sample text exercises every verdict', async ({ p
   await expect(gc36.locator('.ck-note-ok').first()).toContainText('Paragraph 3 exists');
   await expect(gc36.locator('.ck-note-ok').nth(1)).toContainText('verbatim');
   await expect(gc36.locator('.ck-resolved')).toContainText('CCPR/C/GC/36');
+  // The cited paragraph is one click away: collapsed by default, its text and a reader link inside.
+  const para36 = gc36.locator('details.ck-para');
+  await expect(para36).toHaveCount(1);
+  await expect(para36.locator('.ck-para-summary')).toContainText('Show paragraph 3');
+  await expect(para36.locator('.ck-para-body')).toBeHidden();
+  await para36.locator('.ck-para-summary').click();
+  await expect(para36.locator('.ck-para-body')).toBeVisible();
+  await expect(para36.locator('.ck-para-p').first()).toContainText('interpreted narrowly');
+  await expect(para36.locator('.ck-para-open a')).toHaveAttribute('href', /p=ccpr-c-gc-36-\d+/);
   // Superseded.
   const gc6 = rowFor('General Comment No. 6');
   await expect(gc6).toHaveClass(/ck-warn/);
@@ -58,6 +67,7 @@ test('C2. sampleStatuses · the sample text exercises every verdict', async ({ p
   const gc32 = rowFor('General Comment No. 32');
   await expect(gc32).toHaveClass(/ck-bad/);
   await expect(gc32.locator('.ck-note-bad').first()).toContainText('Paragraph 99 does not exist');
+  await expect(gc32.locator('details.ck-para')).toHaveCount(0);
   // Case name and communication number both resolve to Toussaint v. Canada.
   await expect(rowFor('Toussaint v. Canada')).toHaveClass(/ck-ok/);
   await expect(rowFor('Toussaint v. Canada').locator('.ck-resolved')).toContainText('CCPR/C/123/D/2348/2014');

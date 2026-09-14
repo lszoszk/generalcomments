@@ -4512,7 +4512,7 @@ async function checkVerify(items, text, { quotes = true } = {}) {
       } else {
         const i0 = paras.indexOf(from), i1 = paras.indexOf(to);
         target = paras.slice(Math.min(i0, i1), Math.max(i0, i1) + 1);
-        it.pinResult = { ok: true, text: `Paragraph${target.length > 1 ? 's' : ''} ${it.pin.from}${it.pin.to ? `–${it.pin.to}` : ''} exist${target.length > 1 ? '' : 's'}.`, para: from };
+        it.pinResult = { ok: true, text: `Paragraph${target.length > 1 ? 's' : ''} ${it.pin.from}${it.pin.to ? `–${it.pin.to}` : ''} exist${target.length > 1 ? '' : 's'}.`, para: from, paras: target };
       }
     }
     for (const q of it.quotes) {
@@ -4581,6 +4581,31 @@ function checkRenderAnnotated(text, items, quoteList) {
   out += escape(text.slice(pos));
   return out;
 }
+/* The cited paragraph itself, folded under the pinpoint note. Collapsed by default: the
+   verdict is what the reader scans for; the text is one click away when they want to see
+   what the citation actually rests on. Long ranges are capped — the reader link opens
+   the rest. */
+const CHECK_PARA_CAP = 6;
+function checkParaBlock(it) {
+  const paras = it.pinResult?.ok ? (it.pinResult.paras || (it.pinResult.para ? [it.pinResult.para] : [])) : [];
+  if (!paras.length || !it.doc) return '';
+  const label = paras.length > 1 ? `paragraphs ${escape(it.pin.from)}–${escape(it.pin.to)}` : `paragraph ${escape(it.pin.from)}`;
+  const shown = paras.slice(0, CHECK_PARA_CAP);
+  const url = checkOpenUrl(it);
+  return `<details class="ck-para">
+      <summary class="ck-para-summary"><span class="ck-para-caret" aria-hidden="true">▸</span><span class="ck-para-label">Show ${label}</span> <span class="dim">of ${escape(it.doc.signature || formatDocHeadline(it.doc))}</span></summary>
+      <div class="ck-para-body serif">
+        ${shown.map(p => {
+          const n = String(checkParaNumber(p.n) || p.n || '');
+          const text = stripFnMarkers(p.text || '').trim();
+          const numbered = n && new RegExp('^' + n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*[.)]').test(text);   // corpus text usually opens "3. The right…"
+          return `<p class="ck-para-p">${!numbered && n ? `<span class="mono ck-para-n">${escape(n)}.</span> ` : ''}${escape(text)}</p>`;
+        }).join('')}
+        ${paras.length > shown.length ? `<p class="ck-para-more dim">… and ${paras.length - shown.length} more paragraph${paras.length - shown.length === 1 ? '' : 's'} in this range.</p>` : ''}
+        ${url ? `<p class="ck-para-open"><a class="about-link" href="${escape(url)}">Open in the reader ↗</a></p>` : ''}
+      </div>
+    </details>`;
+}
 function checkRenderRows(items) {
   return items.map((it, i) => {
     const doc = it.doc;
@@ -4591,7 +4616,7 @@ function checkRenderRows(items) {
         ? `<div class="ck-resolved"><span class="dim">Candidates:</span> ${it.candidates.slice(0, 6).map(id => { const d = state.documents.get(id); return d ? `<a class="about-link" href="${escape(documentPermalink(d)?.toString() || '#')}">${escape(d.signature || id)}</a>` : escape(id); }).join(' · ')}${it.candidates.length > 6 ? ` · +${it.candidates.length - 6}` : ''}</div>`
         : (it.mention.kind === 'symbol' ? `<div class="ck-resolved"><a class="about-link" href="${escape(unDocsUrl(it.mention.raw) || '#')}" target="_blank" rel="noopener">Look up ${escape(it.mention.norm)} on UN Documents ↗</a></div>` : '');
     const notes = [
-      ...(it.pinResult ? [`<li class="ck-note ck-note-${it.pinResult.ok ? 'ok' : 'bad'}">${escape(it.pinResult.text)}</li>`] : (it.pin && doc ? ['<li class="ck-note dim">Pinpoint not checked.</li>'] : [])),
+      ...(it.pinResult ? [`<li class="ck-note ck-note-${it.pinResult.ok ? 'ok' : 'bad'}">${escape(it.pinResult.text)}${checkParaBlock(it)}</li>`] : (it.pin && doc ? ['<li class="ck-note dim">Pinpoint not checked.</li>'] : [])),
       ...it.notes.map(n => `<li class="ck-note">${escape(n)}</li>`),
       ...it.quotes.map(q => q.result
         ? `<li class="ck-note ck-note-${q.result.status}">Quotation ${q.result.where ? `(${escape(q.result.where)}) ` : ''}${escape(q.result.text)}.<div class="ck-diff serif">${q.result.html}</div></li>`
@@ -5222,7 +5247,7 @@ function paintRecScopeBanner() {
     : 'loading the vocabulary…';
   banner.innerHTML = `
     <button class="banner-dismiss" id="banner-dismiss" aria-label="Dismiss">×</button>
-    <span class="folio">RECOMMENDATIONS</span>What the UN said to <em>one State</em>: concluding observations of the treaty bodies, Universal Periodic Review recommendations and Special Procedures country-visit recommendations — <strong>${total} records</strong> · ${facts}. Each record carries OHCHR’s Universal Human Rights Index annotations (themes, affected persons, SDGs) and is served live from the project server, newest first; it is not part of the offline corpus.
+    <span class="folio">RECOMMENDATIONS</span>What the UN mechanism said to <em>one State</em>: concluding observations of the treaty bodies, Universal Periodic Review recommendations and Special Procedures recommendations — <strong>${total} records</strong> · ${facts}. Each record carries OHCHR’s Universal Human Rights Index annotations (themes, affected persons, SDGs) and is served live from the project server. It is not part of the offline corpus.
   `;
   $('#banner-dismiss')?.addEventListener('click', () => { banner.hidden = true; });
 }
