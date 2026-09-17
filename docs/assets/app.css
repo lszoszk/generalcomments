@@ -216,6 +216,22 @@ section[data-view][hidden] { display: none; }
 }
 .scope-count:empty,
 .scope-count:not([id]):empty { display: none; }
+/* Recommendations are a different animal — a live service with its own index, not part
+   of "All sources" — so the rail says so: a captioned group of its own, in the REC tone. */
+.scope-group-caption {
+  padding: 7px 12px 3px;
+  background: var(--paper-2);
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.scope-opt-rec .scope-opt-name { color: var(--rec-tone); }
+.scope-opt-rec:hover .scope-opt-name { color: var(--rec-tone); }
+.scope-opt-rec.is-active { box-shadow: inset 3px 0 0 var(--rec-tone); }
+.scope-opt-rec.is-active .scope-opt-name { color: var(--rec-tone); }
 .scope-opt .badge {
   grid-column: 2 / 3;
   grid-row: 1 / 3;
