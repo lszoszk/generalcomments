@@ -157,7 +157,11 @@ test('F8. dossierPopover · marker click in dossier opens the popover', async ({
   await expect(pop.locator('.fn-popover-body')).toContainText(/Blanco Domínguez/);
 });
 
-test('F9. fnToggle · default OFF, click flips to ON, persists across reload', async ({ page }) => {
+// v19.64: the "Search in" row is hidden on the published build (TEXT_SCOPE_UI
+// in app.js) because the preamble chip is inert on the API path. This test
+// drives the chip, so it has nothing to assert until the row comes back.
+// Flip TEXT_SCOPE_UI to true and delete this skip together.
+test.skip('F9. fnToggle · default OFF, click flips to ON, persists across reload', async ({ page }) => {
   // v19.61: footnote search now defaults OFF (body-only). The toggle
   // starts unpressed; clicking turns it ON and emits ?fn=1.
   await bootApp(page, '/index.html');
@@ -195,12 +199,13 @@ test('F10. fnToggleHidesPill · OFF state suppresses match-in-citation hits', as
   await typeQuery(page, 'Cuscumigratoria');
   const seeded = page.locator(`.result[data-para-id="${SEED_PARA_ID}"]`);
   await expect(seeded).toHaveCount(1, { timeout: 6_000 });
-  // v19.59: #fn-toggle lives in the FILTERS pane now — expand it on
-  // mobile (collapsed by default); no-op on desktop.
-  const filtersToggle = page.locator('.mobile-filters-toggle');
-  if (await filtersToggle.isVisible().catch(() => false)) await filtersToggle.click();
-  // Flip footnote search OFF — same query should now return nothing.
-  await page.locator('#fn-toggle').click();
+  // v19.64: the chip is hidden on the published build, so drive the same state
+  // change through the URL key the chip writes. This keeps the behavioural
+  // assertion — the index must not query footnote text when the flag is off —
+  // which is the part of F10 that matters.
+  await bootApp(page, '/index.html?fn=0');
+  await page.waitForTimeout(800);
+  await typeQuery(page, 'Cuscumigratoria');
   await page.waitForTimeout(400);
   await expect(seeded).toHaveCount(0);
   // And no match-in-citation pill anywhere.

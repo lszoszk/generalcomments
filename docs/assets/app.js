@@ -1672,6 +1672,19 @@ function applyUrlState(parsed) {
 // Keep the operators-row chip's visual state synchronized with
 // state.searchInFootnotes. Called whenever the value changes (URL apply,
 // click handler, programmatic toggle).
+/* v19.64 — the "Search in" chips are hidden on the published build.
+   The preamble toggle is inert whenever the API serves the search: the server
+   has no preamble parameter (preambles=0 and preambles=1 return the same rows)
+   and API hits are never filtered client-side, so the chip flips and nothing
+   happens. Rather than ship a control that lies, both chips are hidden until
+   the server learns the parameter — the footnote one goes with it because the
+   two are one row and the pair should return together.
+
+   Nothing else changes: state, ?fn= / ?pre= URL keys, localStorage and the
+   local-search filtering all still work, so the behaviour under the hood is
+   exactly what it was. Flip this back to true to restore the row. */
+const TEXT_SCOPE_UI = false;
+
 function syncFnToggleControl() {
   const btn = document.getElementById('fn-toggle');
   if (!btn) return;
@@ -5108,7 +5121,7 @@ function syncRecFiltersVisibility() {
   // Footnote/preamble toggles and the General Comments group labels have no
   // meaning for UHRI records.
   const textScope = $('#filter-block-textscope');
-  if (textScope) textScope.hidden = rec;
+  if (textScope) textScope.hidden = rec || !TEXT_SCOPE_UI;
   const groups = $('#filter-block-groups');
   if (groups) groups.hidden = rec;
   if (!rec) {
@@ -8524,7 +8537,7 @@ function _buildEmptyState() {
   // citation), and the scope may be narrower than the full corpus.
   const broadenActions = q ? `
       ${state.searchInFootnotes === false
-        ? '<button class="btn btn-ghost" data-empty-action="enable-fn">Search footnotes too</button>' : ''}
+        ? (TEXT_SCOPE_UI ? '<button class="btn btn-ghost" data-empty-action="enable-fn">Search footnotes too</button>' : '') : ''}
       ${state.scope !== 'all'
         ? '<button class="btn btn-ghost" data-empty-action="scope-all">Search all sources</button>' : ''}` : '';
 
