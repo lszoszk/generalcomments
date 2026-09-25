@@ -21,20 +21,20 @@
       "bytes": 7975435
     },
     "documents.json": {
-      "sha": "3aeff7343a83950a",
-      "bytes": 1376454
+      "sha": "9f1d641ce4805100",
+      "bytes": 1437564
     },
     "facets.json": {
       "sha": "8a7dd81c5ae46705",
       "bytes": 14178
     },
     "citations/graph.json": {
-      "sha": "3f5e1fddcf5caf3b",
-      "bytes": 3747988
+      "sha": "be7025f6b36222c5",
+      "bytes": 3703910
     },
     "citations/index.json": {
-      "sha": "ae38287bdbfea23b",
-      "bytes": 3490822
+      "sha": "81e4e23056ca1f4e",
+      "bytes": 3492387
     },
     "related/gc.json": {
       "sha": "3781d45b62f698f6",

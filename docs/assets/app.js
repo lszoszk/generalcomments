@@ -3447,20 +3447,28 @@ function paintDocDrawer(doc) {
   // section path, and emit one row per group with the leaf heading
   // displayed prominently and the full ancestor chain as a tooltip.
   const outlineGroups = [];
-  let prevKey = null;
+  let prevPath = null;
   for (const p of paragraphs) {
     if (!p.section) continue;
     const path = Array.isArray(p.section) ? p.section : [String(p.section)];
-    const key = path.join(' › ');     // ›
-    if (key !== prevKey) {
-      outlineGroups.push({
-        firstId: p.id,
-        firstN:  p.n ?? null,
-        lastN:   p.n ?? null,
-        path,
-        depth: path.length - 1,
-      });
-      prevKey = key;
+    const same = prevPath && prevPath.length === path.length && prevPath.every((t, i) => t === path[i]);
+    if (!same) {
+      // One row per heading level the paragraph opens, so a heading with no
+      // paragraph directly under it (IV, opening straight into IV.A) still
+      // gets its own row, as it gets its own heading in the stream.
+      let common = 0;
+      while (prevPath && common < prevPath.length && common < path.length - 1
+             && prevPath[common] === path[common]) common++;
+      for (let d = common; d < path.length; d++) {
+        outlineGroups.push({
+          firstId: p.id,
+          firstN:  p.n ?? null,
+          lastN:   p.n ?? null,
+          path: path.slice(0, d + 1),
+          depth: d,
+        });
+      }
+      prevPath = path;
     } else {
       const cur = outlineGroups[outlineGroups.length - 1];
       cur.lastN = p.n ?? cur.lastN;

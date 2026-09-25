@@ -276,26 +276,27 @@ test('R18. documentCite · organ follows the symbol (A/… → UNGA)', async ({ 
 });
 
 test('R19. trailingSubhead · SP section headings break out of the paragraph', async ({ page }) => {
-  // The SP PDF extraction glues a section heading onto the tail of the
-  // paragraph before it, so A/80/283 ¶42 ends "…use of neurotechnologies
-  // E. Precautionary principle in the use…". The reader promotes that tail
-  // to its own line rather than running it into the prose.
-  await bootApp(page, '/index.html#documents/a-80-283');
+  // Reports not yet rebuilt from their DOCX (sp_rebuild_from_docx.py) keep
+  // the PDF extraction, which glues a section heading onto the tail of the
+  // paragraph before it: A/HRC/25/54 ¶35 ends "…secure the tenure rights of
+  // all parties. D. Prioritizing in situ solutions". The reader promotes that
+  // tail to its own line rather than running it into the prose.
+  await bootApp(page, '/index.html#documents/a-hrc-25-54');
   await page.waitForTimeout(900);
 
   const heads = page.locator('.docs-reader-para .docs-reader-subhead');
   expect(await heads.count()).toBeGreaterThan(5);
-  await expect(heads.filter({ hasText: 'Precautionary principle' })).toHaveCount(1);
+  await expect(heads.filter({ hasText: 'Prioritizing in situ solutions' })).toHaveCount(1);
 
-  // The heading must not still sit inside the running text of ¶42.
-  const para42 = page.locator('.docs-reader-para', { hasText: 'In that connection, from the time neurodata' }).first();
-  const ownText = await para42.locator('.docs-reader-para-text').evaluate((el: Element) => {
+  // The heading must not still sit inside the running text of ¶35.
+  const para = page.locator('#reader-para-a-hrc-25-54-0046 .docs-reader-para-text');
+  const ownText = await para.evaluate((el: Element) => {
     const clone = el.cloneNode(true) as HTMLElement;
     clone.querySelectorAll('.docs-reader-subhead').forEach((n) => n.remove());
     return clone.textContent || '';
   });
-  expect(ownText).not.toContain('Precautionary principle');
-  expect(ownText).toContain('improper use of neurotechnologies');
+  expect(ownText).not.toContain('Prioritizing in situ solutions');
+  expect(ownText).toContain('secure the tenure rights of all parties');
 });
 
 test('R20. trailingSubhead · the lettered rule stays off outside the SP corpus', async ({ page }) => {
@@ -310,9 +311,9 @@ test('R20. trailingSubhead · the lettered rule stays off outside the SP corpus'
 
 test('R21. derivedOutline · a report with no extracted sections still gets a table of contents', async ({ page, viewport }) => {
   test.skip((viewport?.width || 0) < 1100, 'Drawer hidden below 1100 px viewport');
-  // A/80/283's section structure was never extracted, so the drawer used to
-  // say "No headings detected". The headings the prose announces now drive it.
-  await bootApp(page, '/index.html#documents/a-80-283');
+  // A/HRC/25/54 has no section structure (its DOCX did not align well enough
+  // to rebuild it), so the headings the prose announces drive the drawer.
+  await bootApp(page, '/index.html#documents/a-hrc-25-54');
   await page.waitForTimeout(1000);
 
   await expect(page.locator('#docs-drawer')).not.toContainText('No headings detected');
@@ -321,8 +322,10 @@ test('R21. derivedOutline · a report with no extracted sections still gets a ta
 
   // Roman markers are sections, letters nest beneath them. "I." here is the
   // letter after "H.", not roman one — the depth proves the disambiguation.
-  await expect(rows.filter({ hasText: 'IV. Advances in neurotechnologies' })).toHaveClass(/depth-0/);
-  await expect(rows.filter({ hasText: 'I. Equality, non-discrimination' })).toHaveClass(/depth-1/);
+  // (match the row's own heading, not the ancestor trail printed under it)
+  const row = (label: RegExp) => rows.filter({ has: page.locator('.docs-outline-leaf', { hasText: label }) });
+  await expect(row(/^II\. Guiding principles/)).toHaveClass(/depth-0/);
+  await expect(row(/^I\. Strengthening security of tenure/)).toHaveClass(/depth-1/);
 
   // The heading must not ALSO appear as a section rollup — it is already
   // rendered at the tail of the paragraph that carries it.
@@ -330,9 +333,40 @@ test('R21. derivedOutline · a report with no extracted sections still gets a ta
   expect(await page.locator('.docs-reader-subhead').count()).toBeGreaterThan(5);
 
   // Outline rows navigate.
-  await page.locator('.docs-outline-link', { hasText: 'Precautionary principle' }).click();
+  await page.locator('.docs-outline-link', { hasText: 'Promoting women' }).click();
   await page.waitForTimeout(600);
-  await expect(page.locator('.docs-reader-para.is-active')).toHaveAttribute('data-para-id', 'a-80-283-0044');
+  await expect(page.locator('.docs-reader-para.is-active')).toHaveAttribute('data-para-id', 'a-hrc-25-54-0072');
+});
+
+test('R28. spDocxRebuild · a report rebuilt from its DOCX keeps quotes, headings and notes', async ({ page, viewport }) => {
+  // A/HRC/58/58 as the PDF extraction left it: ¶1 stopped at "notes that:"
+  // with the quote gone, headings were cut at their first line, section IV
+  // was missing and "Advisory Committee4" carried its note number as text.
+  await bootApp(page, '/index.html#documents/a-hrc-58-58');
+  await page.waitForTimeout(900);
+
+  const p1 = page.locator('#reader-para-a-hrc-58-58-0001 .docs-reader-para-text');
+  await expect(p1).toContainText('notes that:');
+  await expect(p1).toContainText('the brain is not just any organ of the body');
+  await expect(p1.locator('button.fn-marker')).toHaveCount(2);
+
+  await expect(page.locator('.docs-reader-section', { hasText: 'resolution 51/3 on neurotechnology and human rights' })).toHaveCount(1);
+  await expect(page.locator('.docs-reader-section', { hasText: 'Human dignity' })).toHaveCount(1);
+
+  const p8 = page.locator('#reader-para-a-hrc-58-58-0008 .docs-reader-para-text');
+  await expect(p8.locator('button.fn-marker[data-fn-n="4"]')).toHaveCount(1);
+  // the note number lives in the marker only, not in the prose as well
+  const prose8 = await p8.evaluate((el: Element) => {
+    const clone = el.cloneNode(true) as HTMLElement;
+    clone.querySelectorAll('.fn-marker').forEach((n) => n.remove());
+    return clone.textContent || '';
+  });
+  expect(prose8).toContain('Advisory Committee concluded');
+
+  if ((viewport?.width || 0) >= 1100) {
+    const iv = page.locator('.docs-outline-item', { has: page.locator('.docs-outline-leaf', { hasText: /^IV\. Foundations and principles/ }) });
+    await expect(iv).toHaveClass(/depth-0/);
+  }
 });
 
 test('R22. mergedDuplicate · the retired Narymbaev stub id still opens the case', async ({ page }) => {
