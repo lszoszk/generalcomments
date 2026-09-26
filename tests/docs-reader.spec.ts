@@ -276,27 +276,27 @@ test('R18. documentCite · organ follows the symbol (A/… → UNGA)', async ({ 
 });
 
 test('R19. trailingSubhead · SP section headings break out of the paragraph', async ({ page }) => {
-  // Reports not yet rebuilt from their DOCX (sp_rebuild_from_docx.py) keep
-  // the PDF extraction, which glues a section heading onto the tail of the
-  // paragraph before it: A/HRC/25/54 ¶35 ends "…secure the tenure rights of
-  // all parties. D. Prioritizing in situ solutions". The reader promotes that
-  // tail to its own line rather than running it into the prose.
-  await bootApp(page, '/index.html#documents/a-hrc-25-54');
+  // Reports not yet rebuilt from their DOCX or PDF layout keep the old PDF
+  // extraction, which glues a section heading onto the tail of the paragraph
+  // before it: E/CN.4/2000/82 ¶66 ends "…in their places of origin.
+  // C. Situation of migrant children". The reader promotes that tail to its
+  // own line rather than running it into the prose.
+  await bootApp(page, '/index.html#documents/e-cn-4-2000-82');
   await page.waitForTimeout(900);
 
   const heads = page.locator('.docs-reader-para .docs-reader-subhead');
   expect(await heads.count()).toBeGreaterThan(5);
-  await expect(heads.filter({ hasText: 'Prioritizing in situ solutions' })).toHaveCount(1);
+  await expect(heads.filter({ hasText: 'Situation of migrant children' })).toHaveCount(1);
 
-  // The heading must not still sit inside the running text of ¶35.
-  const para = page.locator('#reader-para-a-hrc-25-54-0046 .docs-reader-para-text');
+  // The heading must not still sit inside the running text of ¶66.
+  const para = page.locator('#reader-para-e-cn-4-2000-82-0066 .docs-reader-para-text');
   const ownText = await para.evaluate((el: Element) => {
     const clone = el.cloneNode(true) as HTMLElement;
     clone.querySelectorAll('.docs-reader-subhead').forEach((n) => n.remove());
     return clone.textContent || '';
   });
-  expect(ownText).not.toContain('Prioritizing in situ solutions');
-  expect(ownText).toContain('secure the tenure rights of all parties');
+  expect(ownText).not.toContain('Situation of migrant children');
+  expect(ownText).toContain('in their places of origin');
 });
 
 test('R20. trailingSubhead · the lettered rule stays off outside the SP corpus', async ({ page }) => {
@@ -311,21 +311,20 @@ test('R20. trailingSubhead · the lettered rule stays off outside the SP corpus'
 
 test('R21. derivedOutline · a report with no extracted sections still gets a table of contents', async ({ page, viewport }) => {
   test.skip((viewport?.width || 0) < 1100, 'Drawer hidden below 1100 px viewport');
-  // A/HRC/25/54 has no section structure (its DOCX did not align well enough
-  // to rebuild it), so the headings the prose announces drive the drawer.
-  await bootApp(page, '/index.html#documents/a-hrc-25-54');
+  // E/CN.4/2000/82 has no section structure (no DOCX, and its PDF re-cut did
+  // not pass QA), so the headings the prose announces drive the drawer.
+  await bootApp(page, '/index.html#documents/e-cn-4-2000-82');
   await page.waitForTimeout(1000);
 
   await expect(page.locator('#docs-drawer')).not.toContainText('No headings detected');
   const rows = page.locator('.docs-outline-item');
-  expect(await rows.count()).toBeGreaterThan(8);
+  expect(await rows.count()).toBeGreaterThan(6);
 
-  // Roman markers are sections, letters nest beneath them. "I." here is the
-  // letter after "H.", not roman one — the depth proves the disambiguation.
+  // Roman markers are sections, letters nest beneath them.
   // (match the row's own heading, not the ancestor trail printed under it)
   const row = (label: RegExp) => rows.filter({ has: page.locator('.docs-outline-leaf', { hasText: label }) });
-  await expect(row(/^II\. Guiding principles/)).toHaveClass(/depth-0/);
-  await expect(row(/^I\. Strengthening security of tenure/)).toHaveClass(/depth-1/);
+  await expect(row(/^IV\. PLAN OF ACTION/)).toHaveClass(/depth-0/);
+  await expect(row(/^C\. Situation of migrant children/)).toHaveClass(/depth-1/);
 
   // The heading must not ALSO appear as a section rollup — it is already
   // rendered at the tail of the paragraph that carries it.
@@ -333,9 +332,9 @@ test('R21. derivedOutline · a report with no extracted sections still gets a ta
   expect(await page.locator('.docs-reader-subhead').count()).toBeGreaterThan(5);
 
   // Outline rows navigate.
-  await page.locator('.docs-outline-link', { hasText: 'Promoting women' }).click();
+  await page.locator('.docs-outline-link', { hasText: 'Situation of migrant children' }).click();
   await page.waitForTimeout(600);
-  await expect(page.locator('.docs-reader-para.is-active')).toHaveAttribute('data-para-id', 'a-hrc-25-54-0072');
+  await expect(page.locator('.docs-reader-para.is-active')).toHaveAttribute('data-para-id', 'e-cn-4-2000-82-0067');
 });
 
 test('R28. spDocxRebuild · a report rebuilt from its DOCX keeps quotes, headings and notes', async ({ page, viewport }) => {

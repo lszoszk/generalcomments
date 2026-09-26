@@ -3,7 +3,7 @@
   "builtAt": "2026-09-03T12:45:13.131104+00:00",
   "counts": {
     "documents": 1591,
-    "paragraphs": 162672,
+    "paragraphs": 163118,
     "shards": 46,
     "committees": 46
   },
@@ -15,10 +15,10 @@
       "paragraphs": 1958
     },
     "shards/sp_IE_Foreign_Debt.json": {
-      "sha": "347ae59a0ffe8c6e",
-      "bytes": 4469693,
+      "sha": "c9a1ea650f183a67",
+      "bytes": 4473455,
       "documents": 51,
-      "paragraphs": 3549
+      "paragraphs": 3527
     },
     "shards/sp_IE_International_Order.json": {
       "sha": "b9b5e0ec9ef641dc",
@@ -45,10 +45,10 @@
       "paragraphs": 1566
     },
     "shards/sp_SR_Adequate_Housing.json": {
-      "sha": "9b016be0b39aab87",
-      "bytes": 4251353,
+      "sha": "8876707fb01efbbb",
+      "bytes": 4744018,
       "documents": 45,
-      "paragraphs": 3540
+      "paragraphs": 3956
     },
     "shards/sp_SR_Climate_Change.json": {
       "sha": "56948ff0dcda8293",
@@ -57,16 +57,16 @@
       "paragraphs": 781
     },
     "shards/sp_SR_Contemporary_Slavery.json": {
-      "sha": "38b7ffc6f6077193",
-      "bytes": 2596109,
+      "sha": "e7a84e47a52b1b95",
+      "bytes": 2596167,
       "documents": 26,
-      "paragraphs": 1858
+      "paragraphs": 1841
     },
     "shards/sp_SR_Counter_Terrorism.json": {
-      "sha": "c4a9f9a6ea13bd33",
-      "bytes": 4217456,
+      "sha": "52811cfc95ac3e5b",
+      "bytes": 4168652,
       "documents": 42,
-      "paragraphs": 2740
+      "paragraphs": 2728
     },
     "shards/sp_SR_Cultural_Rights.json": {
       "sha": "dd9c692354af9e11",
@@ -75,10 +75,10 @@
       "paragraphs": 2891
     },
     "shards/sp_SR_Development.json": {
-      "sha": "c57184f13c7edf0f",
-      "bytes": 1932894,
+      "sha": "5c2a468c98fa8271",
+      "bytes": 1949592,
       "documents": 18,
-      "paragraphs": 1659
+      "paragraphs": 1693
     },
     "shards/sp_SR_Disability.json": {
       "sha": "0deb9f9f0ffabb0c",
@@ -87,82 +87,82 @@
       "paragraphs": 2001
     },
     "shards/sp_SR_Education.json": {
-      "sha": "b00ff5ae665b197c",
-      "bytes": 4724505,
+      "sha": "ff89b81b75fe0b00",
+      "bytes": 4729819,
       "documents": 44,
-      "paragraphs": 4705
+      "paragraphs": 4703
     },
     "shards/sp_SR_Environment.json": {
-      "sha": "79de9c4fd6d48322",
-      "bytes": 2542164,
+      "sha": "b096a8a6fc701ec0",
+      "bytes": 2537219,
       "documents": 23,
-      "paragraphs": 2076
+      "paragraphs": 2060
     },
     "shards/sp_SR_Executions.json": {
-      "sha": "e556bf5650d995e9",
-      "bytes": 4547067,
+      "sha": "7050f9b2297e3f20",
+      "bytes": 4539950,
       "documents": 38,
-      "paragraphs": 4236
+      "paragraphs": 4224
     },
     "shards/sp_SR_Extreme_Poverty.json": {
-      "sha": "bcbeb67b0c350e0a",
-      "bytes": 2461038,
+      "sha": "8aa125d04ffad81f",
+      "bytes": 2436337,
       "documents": 24,
-      "paragraphs": 1795
+      "paragraphs": 1713
     },
     "shards/sp_SR_Food.json": {
-      "sha": "6d2411caeac7d184",
-      "bytes": 5315719,
+      "sha": "198511cdd71cb50a",
+      "bytes": 5311400,
       "documents": 51,
       "paragraphs": 4173
     },
     "shards/sp_SR_Freedom_of_Assembly_and_Association.json": {
-      "sha": "add767a06e7cf696",
-      "bytes": 3476644,
+      "sha": "649df531171be78d",
+      "bytes": 3475426,
       "documents": 30,
-      "paragraphs": 2866
+      "paragraphs": 2859
     },
     "shards/sp_SR_Freedom_of_Expression.json": {
-      "sha": "8d06b4975bc52eda",
-      "bytes": 5232300,
+      "sha": "0c937216b0b25d24",
+      "bytes": 5290846,
       "documents": 47,
-      "paragraphs": 4781
+      "paragraphs": 4798
     },
     "shards/sp_SR_Freedom_of_Religion_or_Belief.json": {
-      "sha": "d8f050be0a7909e0",
-      "bytes": 14039898,
+      "sha": "b66cfb91d454e7cd",
+      "bytes": 14338697,
       "documents": 93,
-      "paragraphs": 11326
+      "paragraphs": 11800
     },
     "shards/sp_SR_Health.json": {
-      "sha": "d6c9c7a37343d478",
-      "bytes": 5161079,
+      "sha": "cdec11ae797f3331",
+      "bytes": 5170552,
       "documents": 51,
-      "paragraphs": 4925
+      "paragraphs": 4874
     },
     "shards/sp_SR_Human_Rights_Defenders.json": {
-      "sha": "66f49a7e26ac5f88",
-      "bytes": 4677465,
+      "sha": "5945f4690d68d7cf",
+      "bytes": 4685025,
       "documents": 44,
-      "paragraphs": 4819
+      "paragraphs": 4798
     },
     "shards/sp_SR_Independence_of_Judges_and_Lawyers.json": {
-      "sha": "0676ae078e6fd58b",
-      "bytes": 4191239,
+      "sha": "0feb423e69053acf",
+      "bytes": 4187738,
       "documents": 38,
-      "paragraphs": 4097
+      "paragraphs": 4126
     },
     "shards/sp_SR_Indigenous_Peoples.json": {
-      "sha": "af9da7173edcf564",
-      "bytes": 4695461,
+      "sha": "57df2a65bb26e1b0",
+      "bytes": 4700049,
       "documents": 45,
-      "paragraphs": 4221
+      "paragraphs": 4219
     },
     "shards/sp_SR_Internally_Displaced_Persons.json": {
-      "sha": "9f02c753b1061bf1",
-      "bytes": 4308923,
+      "sha": "3a2ba5f83a15625c",
+      "bytes": 4323826,
       "documents": 39,
-      "paragraphs": 3395
+      "paragraphs": 3362
     },
     "shards/sp_SR_Leprosy.json": {
       "sha": "a040ca62a7ed1cfe",
@@ -171,10 +171,10 @@
       "paragraphs": 1093
     },
     "shards/sp_SR_Migrants.json": {
-      "sha": "8604b85cece1c7b7",
-      "bytes": 5061924,
+      "sha": "81fb068632af3f7e",
+      "bytes": 5106984,
       "documents": 49,
-      "paragraphs": 4688
+      "paragraphs": 4622
     },
     "shards/sp_SR_Minority_Issues.json": {
       "sha": "94cbb35c81ed79cd",
@@ -183,46 +183,46 @@
       "paragraphs": 3442
     },
     "shards/sp_SR_Privacy.json": {
-      "sha": "aaf29b578caddc1e",
-      "bytes": 1783301,
+      "sha": "619d961594369d2c",
+      "bytes": 1785036,
       "documents": 21,
       "paragraphs": 1786
     },
     "shards/sp_SR_Racism.json": {
-      "sha": "26ef849f1b78f81a",
-      "bytes": 3239395,
+      "sha": "50b77ab72a949f7f",
+      "bytes": 3242045,
       "documents": 32,
-      "paragraphs": 2383
+      "paragraphs": 2379
     },
     "shards/sp_SR_Sale_of_Children.json": {
-      "sha": "c56bc2012325fca8",
-      "bytes": 4659905,
+      "sha": "daa126516d788209",
+      "bytes": 4658570,
       "documents": 41,
-      "paragraphs": 4367
+      "paragraphs": 4297
     },
     "shards/sp_SR_Torture.json": {
-      "sha": "9bbcd687a65f309f",
-      "bytes": 12013727,
+      "sha": "fe8af68f10193a3b",
+      "bytes": 12268106,
       "documents": 69,
-      "paragraphs": 11104
+      "paragraphs": 11084
     },
     "shards/sp_SR_Toxics_and_Human_Rights.json": {
-      "sha": "33fee57c82b2220b",
-      "bytes": 3275035,
+      "sha": "a7c77c458789c44e",
+      "bytes": 3257279,
       "documents": 28,
-      "paragraphs": 2733
+      "paragraphs": 2700
     },
     "shards/sp_SR_Trafficking.json": {
-      "sha": "f4ec13e4afcfca72",
-      "bytes": 3861443,
+      "sha": "4157a9b202319d48",
+      "bytes": 3870754,
       "documents": 38,
-      "paragraphs": 3091
+      "paragraphs": 3088
     },
     "shards/sp_SR_Truth_Justice_and_Reparation.json": {
-      "sha": "62decddcc8074cbb",
-      "bytes": 3230254,
+      "sha": "a8d5244e62bf2dab",
+      "bytes": 3265124,
       "documents": 30,
-      "paragraphs": 2783
+      "paragraphs": 2873
     },
     "shards/sp_SR_Unilateral_Coercive_Measures.json": {
       "sha": "91e62de327e9306a",
@@ -231,52 +231,52 @@
       "paragraphs": 1616
     },
     "shards/sp_SR_Violence_against_Women.json": {
-      "sha": "a5c79984c18296ad",
-      "bytes": 6003204,
+      "sha": "be2b138738457a9e",
+      "bytes": 6061589,
       "documents": 46,
-      "paragraphs": 5128
+      "paragraphs": 5115
     },
     "shards/sp_SR_Water_and_Sanitation.json": {
-      "sha": "1081b3170c9b98a3",
-      "bytes": 3861293,
+      "sha": "41d627c7bb15d4ee",
+      "bytes": 3862050,
       "documents": 36,
-      "paragraphs": 3325
+      "paragraphs": 3297
     },
     "shards/sp_WG_African_Descent.json": {
-      "sha": "61dfc4f489d938aa",
-      "bytes": 2874690,
+      "sha": "08787e09cf150c52",
+      "bytes": 2935648,
       "documents": 29,
-      "paragraphs": 3047
+      "paragraphs": 3010
     },
     "shards/sp_WG_Arbitrary_Detention.json": {
-      "sha": "8e2053d4e1a76870",
-      "bytes": 4388643,
+      "sha": "7ebf364a0be40890",
+      "bytes": 4548195,
       "documents": 37,
-      "paragraphs": 4335
+      "paragraphs": 4288
     },
     "shards/sp_WG_Business_and_Human_Rights.json": {
-      "sha": "de41c947ba3a0d1b",
-      "bytes": 3622244,
+      "sha": "8942f6a8b4fdc819",
+      "bytes": 3600081,
       "documents": 31,
-      "paragraphs": 2850
+      "paragraphs": 2818
     },
     "shards/sp_WG_Discrimination_against_Women_and_Girls.json": {
-      "sha": "275cc90894adce8a",
-      "bytes": 1630573,
+      "sha": "e8fbf48481b581d3",
+      "bytes": 1623399,
       "documents": 14,
-      "paragraphs": 1299
+      "paragraphs": 1281
     },
     "shards/sp_WG_Enforced_Disappearances.json": {
-      "sha": "14df8f007097d6e8",
-      "bytes": 11886295,
+      "sha": "3d1e14f5e4589779",
+      "bytes": 12999753,
       "documents": 46,
-      "paragraphs": 13852
+      "paragraphs": 13900
     },
     "shards/sp_WG_Mercenaries.json": {
-      "sha": "e63a300e07acb476",
-      "bytes": 3981529,
+      "sha": "90f693a0f73b74ee",
+      "bytes": 3973275,
       "documents": 41,
-      "paragraphs": 3484
+      "paragraphs": 3470
     },
     "shards/sp_WG_Peasants.json": {
       "sha": "00595da067e72ade",
