@@ -1214,6 +1214,24 @@ function documentStatusDetails(doc) {
   };
 }
 
+// Special Procedures reports whose text does not come from the Word file on
+// UN Documents: 60 re-cut from the PDF layout, 21 still as first extracted.
+// The shares are from the automated integrity check (September 2026).
+function spTextBannerHtml(doc, sourceUrl) {
+  if (doc?.type !== 'sp' || doc.textSource === 'documents.un.org docx') return '';
+  const recut = doc.textSource === 'documents.un.org pdf (layout)';
+  const pdf = sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF';
+  return `<aside class="docs-reader-ocr-banner ocr-banner-${recut ? 'cleaned' : 'raw'} sp-text-banner" role="note">
+      <span class="ocr-banner-tag">${recut ? 'FROM PDF' : 'PDF · UNREVIEWED'}</span>
+      <div class="ocr-banner-body">${recut
+        ? `<strong>No Word file exists for this report, so its text was re-cut from the PDF layout.</strong>
+           In such reports about one paragraph in nine may still show a slip — often OCR in older scans.`
+        : `<strong>This report still carries its original PDF extraction.</strong>
+           About one paragraph in six may be cut short or have a heading or footnote run into it.`}
+        We are working on it; check quotations against the ${pdf}.</div>
+    </aside>`;
+}
+
 function legalStatusWarningHtml(doc, className = '') {
   const status = documentStatusDetails(doc);
   if (!status) return '';
@@ -3042,6 +3060,7 @@ function paintDocReaderBody(doc, paraId) {
       ${langStripHtml}
       ${fullCaseHtml}
       ${ocrBanner}
+      ${spTextBannerHtml(doc, sourceUrl)}
     </header>`;
 
   // Emit only the section LEVELS that changed since the previous

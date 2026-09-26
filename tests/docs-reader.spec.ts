@@ -362,10 +362,28 @@ test('R28. spDocxRebuild · a report rebuilt from its DOCX keeps quotes, heading
   });
   expect(prose8).toContain('Advisory Committee concluded');
 
+  // built from the Word file: no text-quality banner
+  await expect(page.locator('.sp-text-banner')).toHaveCount(0);
+
   if ((viewport?.width || 0) >= 1100) {
     const iv = page.locator('.docs-outline-item', { has: page.locator('.docs-outline-leaf', { hasText: /^IV\. Foundations and principles/ }) });
     await expect(iv).toHaveClass(/depth-0/);
   }
+});
+
+test('R29. spTextBanner · a report without a Word file says where its text comes from', async ({ page }) => {
+  // E/CN.4/1997/4 has no DOCX on UN Documents: re-cut from the PDF layout.
+  await bootApp(page, '/index.html#documents/e-cn-4-1997-4');
+  await page.waitForTimeout(900);
+  const banner = page.locator('.sp-text-banner');
+  await expect(banner).toHaveCount(1);
+  await expect(banner).toContainText('re-cut from the PDF layout');
+  await expect(banner.locator('a')).toHaveAttribute('href', /E\/CN\.4\/1997\/4/);
+
+  // One still on its original extraction gets the stronger note.
+  await bootApp(page, '/index.html#documents/a-54-386');
+  await page.waitForTimeout(900);
+  await expect(page.locator('.sp-text-banner')).toContainText('original PDF extraction');
 });
 
 test('R22. mergedDuplicate · the retired Narymbaev stub id still opens the case', async ({ page }) => {
