@@ -9431,7 +9431,7 @@ function refreshResultMarks(paraId) {
 // Per-URL <title> so deep-linked pages get distinct titles in search results
 // and browser history. Without this, Googlebot indexes every ?p=… URL with
 // the same homepage title.
-const BASE_TITLE = 'UN Human Rights Database';
+const BASE_TITLE = 'UN Human Rights Database (UNHRDB) · paragraph-level search of UN human rights law';
 function updateDocumentTitle() {
   // v19.6 (B1): when the docs reader is active, the open document's
   // title takes precedence over the search-side activeId. The docs

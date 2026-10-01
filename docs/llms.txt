@@ -1,0 +1,32 @@
+# UN Human Rights Database (UNHRDB)
+
+> Paragraph-level research database of UN human rights law, built at Adam Mickiewicz University, Poznań (Łukasz Szoszkiewicz, Zuzanna Kowalska). It holds 6,111 UN documents split into 323,065 numbered paragraphs, each keyed to its UN document symbol and paragraph number, so a passage can be quoted and cited exactly. Free to use; open source.
+
+## What is in it
+
+- Treaty Body General Comments and General Recommendations: 187 documents, 7,216 paragraphs, all ten UN treaty bodies, 1972–2026.
+- Individual-communication decisions (views, admissibility decisions) of 8 treaty bodies: 4,333 decisions, 152,731 paragraphs, 1977–2025.
+- Thematic reports of the UN Special Procedures: 1,591 reports from all 46 thematic mandates, 163,118 paragraphs, 1960–2026. Country-visit reports, communications and addenda are out of scope.
+- Recommendations to States (concluding observations, Universal Periodic Review and Special Procedures recommendations) from OHCHR's Universal Human Rights Index, served live.
+
+Texts are the UN's own wording. Footnotes, section headings and paragraph numbering follow the published documents; Special Procedures texts come from the Word files on UN Documents where one exists (1,510 of 1,591 reports), otherwise from the PDF.
+
+## Legal character
+
+General Comments are authoritative interpretations of a treaty by its monitoring body. Treaty-body decisions apply a treaty to an individual case. Special Procedures reports are the independent opinion of a mandate-holder (soft law). Keep the three apart when stating what the law requires.
+
+## How to link and cite
+
+- A paragraph: https://lszoszk.github.io/generalcomments/?p=<paragraph-id>, e.g. https://lszoszk.github.io/generalcomments/?p=ccpr-c-gc-36-0012 (Human Rights Committee, general comment No. 36, para. 12).
+- A search: https://lszoszk.github.io/generalcomments/?q=<terms>
+- Cite the underlying UN document by its symbol and paragraph (e.g. CCPR/C/GC/36, para. 12); the official text is at https://docs.un.org/en/<symbol>.
+- Cite the database itself as: Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRDB — UN Human Rights Database (Version 2.1.0). Zenodo. https://doi.org/10.5281/zenodo.10495719
+
+## Data and tools
+
+- [Releases and DOI (Zenodo)](https://doi.org/10.5281/zenodo.10495719)
+- [Source code](https://github.com/lszoszk/generalcomments)
+- [General Comments dataset (Hugging Face)](https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments)
+- [Citation graph between documents (JSON)](https://lszoszk.github.io/generalcomments/citations/graph.json)
+- [MCP server for AI assistants](https://github.com/lszoszk/mcp-unhrdb)
+- [Changelog](https://lszoszk.github.io/generalcomments/changelog.html)

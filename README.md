@@ -93,7 +93,7 @@ as part of that dataset package.
 For the evolving software, use the concept DOI:
 
 > Szoszkiewicz, Ł., & Kowalska, Z. (2026). *UNHRDB — UN Human Rights
-> Database* (Version 2.0.1) [Computer software]. Zenodo.
+> Database* (Version 2.1.0) [Computer software]. Zenodo.
 > https://doi.org/10.5281/zenodo.10495719
 
 GitHub also exposes machine-readable citation metadata from
