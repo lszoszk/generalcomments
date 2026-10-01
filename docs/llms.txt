@@ -19,6 +19,7 @@ General Comments are authoritative interpretations of a treaty by its monitoring
 
 - A paragraph: https://lszoszk.github.io/generalcomments/?p=<paragraph-id>, e.g. https://lszoszk.github.io/generalcomments/?p=ccpr-c-gc-36-0012 (Human Rights Committee, general comment No. 36, para. 12).
 - A search: https://lszoszk.github.io/generalcomments/?q=<terms>
+- Every document as a plain HTML page without JavaScript, full text with paragraph anchors: https://lszoszk.github.io/generalcomments/d/<document-id>/#p<paragraph>, e.g. https://lszoszk.github.io/generalcomments/d/ccpr-c-gc-36/#p12. Index of all documents: https://lszoszk.github.io/generalcomments/d/
 - Cite the underlying UN document by its symbol and paragraph (e.g. CCPR/C/GC/36, para. 12); the official text is at https://docs.un.org/en/<symbol>.
 - Cite the database itself as: Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRDB — UN Human Rights Database (Version 2.1.0). Zenodo. https://doi.org/10.5281/zenodo.10495719
 

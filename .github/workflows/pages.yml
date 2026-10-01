@@ -1,0 +1,60 @@
+name: pages
+
+# Publishes the site: everything in docs/ as before, plus one static HTML page
+# per document (d/<docId>/) and its sitemap, built by build_static_pages.py.
+# The generated pages are not committed — they are rebuilt from the data in
+# docs/ on every deploy, which keeps ~340 MB of HTML out of the git history.
+# Requires Settings → Pages → Source: GitHub Actions.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'build_static_pages.py'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Assemble the site
+        run: |
+          mkdir -p _site
+          cp -a docs/. _site/
+          python3 build_static_pages.py --out _site
+          echo "pages: $(find _site/d -name index.html | wc -l)"
+          du -sh _site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

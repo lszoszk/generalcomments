@@ -222,3 +222,7 @@ docs/corpus.json.bak.*
 
 # DOCX copies fetched from documents.un.org by sp_footnotes_from_docx.py (re-downloadable)
 sp_docx_cache/
+
+# static pages are built at deploy time (build_static_pages.py, pages.yml)
+docs/d/
+_site/
