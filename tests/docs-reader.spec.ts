@@ -390,11 +390,13 @@ test('R22. mergedDuplicate · the retired Narymbaev stub id still opens the case
   // ccpr-c-133-d-2904-2016-2907-2016 was a bare duplicate of the Narymbaev
   // record, merged away 2026-08-18. Its docId lives on via alternativeIds, and
   // a paragraph pinpoint carries over because the paragraphs are positional.
+  // v19.80: JUR ids are label-based now; the survivor's old positional id
+  // (-0005, ¶2.3) resolves through the shard legacyIds to "<docId>:2.3".
   await bootApp(page, '/index.html?p=ccpr-c-133-d-2904-2016-2907-2016-0005#documents/ccpr-c-133-d-2904-2016-2907-2016');
   await page.waitForTimeout(1200);
   await expect(page.locator('.docs-reader-title')).toContainText(/Narymbaev/i);
   await expect(page.locator('.docs-reader-para.is-active'))
-    .toHaveAttribute('data-para-id', 'ccpr-c-133-d-2904-2907-2016-0005', { timeout: 10_000 });
+    .toHaveAttribute('data-para-id', /^ccpr-c-133-d-2904-2907-2016(-0005|:2\.3)$/, { timeout: 10_000 });
 });
 
 test('R23. zoteroMetadata · an open document exposes Highwire citation tags; the shell does not', async ({ page }) => {
