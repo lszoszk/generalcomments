@@ -92,3 +92,13 @@ def test_merge_chains_and_revives():
 
 def test_reviewed_decisions_override():
     assert pids.apply_decisions({'a': 'b', 'c': None}, {'c': 'd', 'x': 'y'}) == {'a': 'b', 'c': 'd'}
+
+
+def test_merged_record_keeps_its_alternative_ids():
+    # A rebuild dropped them (whitelisted fields), breaking links to the
+    # retired Narymbaev stub ccpr-c-133-d-2904-2016-2907-2016.
+    import build_jurisprudence_shards as shards
+    doc = {'docId': 'ccpr-c-133-d-2904-2907-2016', 'type': 'jur', 'title': 'Narymbaev v. Kazakhstan',
+           'alternativeIds': ['ccpr-c-133-d-2904-2016-2907-2016']}
+    assert shards.compact_document(doc)['alternativeIds'] == ['ccpr-c-133-d-2904-2016-2907-2016']
+    assert shards.lite_document(doc)['alternativeIds'] == ['ccpr-c-133-d-2904-2016-2907-2016']

@@ -123,6 +123,8 @@ def compact_document(doc: dict) -> dict:
         'jurisDownloads', 'jurisLastCheckedAt',
         'firstAddedAt', 'lastVerifiedAt',
         'outcomeFlags', 'outcomeOperativeIds',
+        # docIds of records merged into this one; old links resolve through them.
+        'alternativeIds',
     ]
     out = {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
     out.update(iso_dates(doc))
@@ -193,7 +195,7 @@ def lite_document(doc: dict) -> dict:
         'jurisCountry', 'jurisSubmissionDate', 'jurisDecisionDate',
         'jurisSubstantiveIssues', 'jurisProceduralIssues',
         'jurisSubstantiveArticles', 'jurisProceduralArticles',
-        'firstAddedAt', 'lastVerifiedAt',
+        'firstAddedAt', 'lastVerifiedAt', 'alternativeIds',
     ]
     out = {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
     out.update(iso_dates(doc))
