@@ -44,14 +44,16 @@ website's case browser:
 
 Only English documents are ingested in v1 (per the user's decision).
 
-Outcome taxonomy (per the user's decision: split violation):
-  views                      Substantive merits decision (no specific outcome label)
+Outcome taxonomy (per the user's decision: split violation), read from the
+operative paragraph(s) — see classify_outcome:
   violation_found            Committee found a violation
   merits_no_violation        Committee found no violation on the merits
   inadmissible               Communication declared inadmissible
   discontinued               Procedure discontinued (settled, withdrawn, …)
-  decision                   Decision (other) — admissibility/procedural ruling
-  other                      Anything else (incl. records with no recognisable title)
+  admissible                 Separate admissibility decision
+  unresolved                 No operative finding recognised; check by hand
+Earlier builds also wrote views / decision / other; those records predate
+the operative-paragraph classifier.
 
 Usage:
     python3 ingest_jurisprudence.py --treaty CRPD            # pilot — all CRPD
@@ -206,115 +208,169 @@ def symbol_matches_treaty(symbol: str, treaty: str) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Outcome classifier — title first, body fallback
+# Outcome classifier — operative paragraphs of the majority text
 # ---------------------------------------------------------------------------
-def classify_outcome(title: str, body_text: str) -> str:
-    t = (title or '').lower()
-    b = (body_text or '').lower()
-    decision_body = b
-    for marker in re.finditer(
-        r'\b(?:individual opinion|separate opinion|dissenting opinion)\b',
-        b,
-    ):
-        # Some files mention separate opinions in the header metadata. Only
-        # strip them when the marker appears where a trailing opinion section
-        # would normally begin.
-        if marker.start() > len(b) * 0.6:
-            decision_body = b[:marker.start()]
-            break
-    tail = decision_body[-22000:]
+MAIN_NAMESPACES = {None, '', 'ocr', 'docx_fallback'}
 
-    # Title-based fast path (covers ~70 % of cases)
-    if 'inadmissible' in t or 'inadmissibility' in t:
+# Paragraphs that carry the Committee's operative finding.
+OPERATIVE_STRONG = re.compile(
+    r'acting under article\s+\d+'
+    r'|\b(?:therefore|accordingly|hereby|thus)\s+decides\b'
+    r'|\bdecides?\s*:'
+    r'|\bdecides?\s+to\s+discontinue'
+    r'|\bdecided\s+to\s+discontinue',
+    re.I,
+)
+OPERATIVE_WEAK = re.compile(r'\bis of the (?:view|opinion) that\b', re.I)
+
+# Negative findings — removed from the text before the positive test, so
+# "does not disclose a violation" can never count as a violation.
+NEG = re.compile(
+    r'(?:do|does|did|would|will|could|can)\s+not\s+(?:\w+\s+){0,3}?'
+    r'(?:disclose|reveal|establish|constitute|amount|violate|show|support|give rise)\w*'
+    r'[^.;]{0,80}?(?:violation|breach|article)'
+    r'|\bno\s+violations?\b'
+    r'|\b(?:has|have|had)\s+not\s+(?:been\s+)?(?:violated|breached)'
+    r'|not\s+in\s+a\s+position\s+to\s+(?:find|conclude|establish)[^.;]{0,100}?(?:violation|breach)'
+    r'|cannot\s+(?:find|conclude)[^.;]{0,80}?(?:violation|breach)',
+    re.I,
+)
+POS = re.compile(
+    r'\b(?:disclose|discloses|disclosed|reveal|reveals|revealed|constitute|constitutes|constituted'
+    r'|amount|amounts|amounted|establish|establishes|show|shows)\s+(?:to\s+)?'
+    r'(?:a\s+|an\s+|the\s+following\s+|several\s+|multiple\s+)?(?:\w+\s+){0,2}?(?:violations?|breach(?:es)?)\b'
+    r'|\b(?:has|have|had)\s+(?:thereby\s+|also\s+)?(?:violated|breached|infringed)\b'
+    r'|\bviolated\s+(?:the\s+)?(?:author|complainant|petitioner|victim|his|her|their|its)'
+    r'|\bin\s+violation\s+of\s+(?:article|articles|his|her|their|the\s+author)'
+    r'|\b(?:failed|failing)\s+to\s+(?:fulfil|fulfill|comply\s+with|discharge|meet)\s+its\s+obligations'
+    r'|\bobligation\s+to\s+refrain\s+from\s+(?:forcibly\s+)?(?:returning|expelling|extraditing|deporting|removing)'
+    r'|\bwould,?\s+(?:if\s+implemented,?\s+)?(?:violate|constitute\s+a\s+(?:violation|breach)|amount\s+to\s+a\s+(?:violation|breach))'
+    r'|\bthere\s+(?:has|have)\s+been\s+(?:a\s+)?violations?',
+    re.I,
+)
+INADMISSIBLE_OP = re.compile(
+    r'decides?\s*:?\s*\(?a\)?\s*that\s+the\s+(?:communication|complaint|petition)\s+(?:is|be\s+declared)\s+inadmissible'
+    r'|(?:declares|declared)\s+the\s+(?:communication|complaint|petition)\s+inadmissible'
+    r'|(?:that\s+)?the\s+(?:communication|complaint|petition)\s+is\s+(?:therefore\s+)?inadmissible'
+    r'|decides?\s+that\s+the\s+(?:communication|complaint)\s+is\s+inadmissible',
+    re.I,
+)
+ADMISSIBLE_OP = re.compile(
+    r'decides?\s*:?\s*\(?a\)?\s*that\s+the\s+(?:communication|complaint)\s+is\s+admissible', re.I)
+DISCONTINUED_OP = re.compile(r'discontinu', re.I)
+# Committee-voice finding that part of the case is inadmissible (not a State
+# party argument): "the Committee considers/declares ... inadmissible".
+PARTIAL_INADMISSIBLE = re.compile(
+    r'\b(?:committee|it)\s+(?:therefore\s+|accordingly\s+)?(?:considers|finds|concludes|declares)\b'
+    r'[^.]{0,200}?\binadmissible'
+    r'|\b(?:this|that|these|those|the\s+remaining)\s+(?:part|parts|claims?|allegations?)\s+of\s+the\s+'
+    r'(?:communication|complaint)\s+(?:is|are)\s+(?:therefore\s+)?inadmissible',
+    re.I,
+)
+
+
+TRAILER = re.compile(r'\bAPPENDIX\b|\bNotes\s+(?:[a-z1-9]\s*/|!)')
+
+
+def is_main_body(p: dict) -> bool:
+    if p.get('Namespace') not in MAIN_NAMESPACES:
+        return False
+    pid = str(p.get('ID') or '')
+    if re.match(r'^(?:OP|A)\d+-', pid):
+        return False
+    section = (p.get('Section') or '')
+    if isinstance(section, list):
+        section = ' '.join(map(str, section))
+    # Old CAT/CCPR texts put the whole decision under an "ANNEX" heading,
+    # so only opinions and appendices are excluded here.
+    if re.search(r'\bopinion\b|\bappendix\b', section, re.I):
+        return False
+    return bool((p.get('Text') or '').strip())
+
+
+def operative_paragraphs(paragraphs: list[dict], window: int = 6) -> list[dict]:
+    main = [p for p in paragraphs if is_main_body(p)]
+    tail = main[-window:]
+    strong = [p for p in tail if OPERATIVE_STRONG.search(p['Text'])]
+    if strong:
+        return strong
+    weak = [p for p in tail if OPERATIVE_WEAK.search(p['Text'])]
+    if weak:
+        return weak[-1:]
+    return main[-3:]
+
+
+def _title_fallback(title: str) -> str | None:
+    t = (title or '').lower()
+    # The OHCHR catalogue's generic "DECISION/VIEWS" label says nothing.
+    t = re.sub(r'decision\s*/\s*views?', ' ', t)
+    if 'inadmissib' in t:
         return 'inadmissible'
     if 'discontinu' in t:
         return 'discontinued'
-    if 'no violation' in t or 'merits — no violation' in t:
+    if re.search(r'\bno[nt]?[- ]violation|\bno violation', t):
         return 'merits_no_violation'
     if 'violation' in t:
-        # Title says "Views Violation" or "Violation found"
         return 'violation_found'
-    if 'views' in t:
-        # Generic "Views" — body must clarify
-        if ('no violation' in tail or 'has not violated' in tail
-            or 'did not violate' in tail
-            or 'do not disclose a violation' in tail
-            or 'does not disclose a violation' in tail
-            or 'do not reveal any violation' in tail
-            or 'does not reveal any violation' in tail):
-            return 'merits_no_violation'
-        if (
-            'has failed to fulfil its obligations' in tail
-            or 'failed to fulfil its obligations' in tail
-            or 'constituted a violation' in tail
-            or 'constitute a violation' in tail
-            or 'would amount to a breach' in tail
-            or 'amounted to a breach' in tail
-            or 'failed to discharge its obligations' in tail
-            or 'failing to discharge its obligations' in tail
-            or re.search(r'(?:considers|finds|concludes)[^.]{0,120}(?:that .{0,60})?violation of (?:article|articles)', tail)
-        ):
-            return 'violation_found'
-        return 'views'
-    if 'decision' in t:
-        if 'decided to discontinue' in tail or 'decides to discontinue' in tail:
-            return 'discontinued'
-        if re.search(r'therefore decides:\s*\(?a\)?\s+that the communication is inadmissible', tail):
-            return 'inadmissible'
-        return 'decision'
+    return None
 
-    # No useful title — read the decision/conclusion end of the body first.
-    if (
-        re.search(r'therefore decides:\s*\(?a\)?\s+that the communication is inadmissible', tail)
-        or 'declares the communication inadmissible' in tail
-        or 'communication is inadmissible under article' in tail
-        or 'communication is inadmissible pursuant to article' in tail
-    ):
-        return 'inadmissible'
-    if (
-        'decides to discontinue' in tail
-        or 'decided to discontinue' in tail
-        or 'decision of discontinuance' in tail
-        or 'discontinuance decision' in tail
-        or 'discontinue the consideration of communication' in tail
-    ):
-        return 'discontinued'
-    if (
-        'has not violated' in tail
-        or 'did not violate' in tail
-        or 'do not disclose a violation' in tail
-        or 'does not disclose a violation' in tail
-        or 'do not disclose any violation' in tail
-        or 'does not disclose any violation' in tail
-        or 'do not reveal a violation' in tail
-        or 'does not reveal a violation' in tail
-        or 'do not reveal any violation' in tail
-        or 'does not reveal any violation' in tail
-    ):
-        return 'merits_no_violation'
-    if (
-        'has failed to fulfil its obligations' in tail
-        or 'failed to fulfil its obligations' in tail
-        or 'constituted a violation' in tail
-        or 'constitute a violation' in tail
-        or 'would amount to a breach' in tail
-        or 'amounted to a breach' in tail
-        or 'failed to discharge its obligations' in tail
-        or 'failing to discharge its obligations' in tail
-        or 'has violated the rights' in tail
-        or 'has violated her rights' in tail
-        or 'has violated his rights' in tail
-        or 'has violated their rights' in tail
-        or 'infringed the rights' in tail
-        or 'would, if implemented, violate' in tail
-        or re.search(r'(?:considers|finds|concludes)[^.]{0,120}(?:that .{0,60})?violation of (?:article|articles)', tail)
-        or re.search(r'amount(?:s|ed) to a violation of (?:article|articles)', tail)
-        or re.search(r'in violation of (?:the author|his|her|their)[^.]{0,120}rights under (?:article|articles)', tail)
-        or re.search(r'violated (?:the author|his|her|their|its)[^.]{0,120}rights under article', tail)
-        or re.search(r'violated the author[^.]{0,180}rights under (?:article|articles)', tail)
-    ):
-        return 'violation_found'
-    return 'other'
+
+def classify_outcome(paragraphs: list[dict], title: str = '') -> dict:
+    """Classify a decision from its operative paragraph(s).
+
+    The old classifier read the catalogue title first ("DECISION/VIEWS"
+    matched "views") and then grepped a 22,000-character tail of the whole
+    text, so admissibility reasoning or a State party's "no violations
+    occurred" decided the outcome (CCPR/C/130/D/2674/2015,
+    CCPR/C/137/D/3662/2019, CCPR/C/82/D/903/1999). This reads only the
+    majority text's operative paragraphs, never opinions or appendices, and
+    returns "unresolved" rather than guessing.
+
+    Returns {outcome, flags, operative_ids}; outcome is one of
+    violation_found | merits_no_violation | inadmissible | discontinued |
+    admissible | unresolved. flags may hold partial_inadmissibility,
+    partial_no_violation, from_title_fallback.
+    """
+    ops = operative_paragraphs(paragraphs)
+    # Old PDFs inline the notes and appended opinions into the last paragraph.
+    op_text = ' '.join(TRAILER.split(p['Text'], 1)[0] for p in ops)
+    neg_hit = bool(NEG.search(op_text))
+    pos_hit = bool(POS.search(NEG.sub(' ', op_text)))
+    inad_hit = bool(INADMISSIBLE_OP.search(op_text))
+    flags: set[str] = set()
+
+    if inad_hit and not OPERATIVE_WEAK.search(op_text):
+        # "The Committee therefore decides: (a) that the communication is
+        # inadmissible" - a pure admissibility decision, whatever the
+        # reasoning paragraphs quote from the author's claims.
+        outcome = 'inadmissible'
+    elif pos_hit:
+        outcome = 'violation_found'
+        if neg_hit:
+            flags.add('partial_no_violation')
+    elif neg_hit:
+        outcome = 'merits_no_violation'
+    elif inad_hit:
+        outcome = 'inadmissible'
+    elif DISCONTINUED_OP.search(op_text):
+        outcome = 'discontinued'
+    elif ADMISSIBLE_OP.search(op_text):
+        outcome = 'admissible'
+    else:
+        outcome = _title_fallback(title) or 'unresolved'
+        if outcome != 'unresolved':
+            flags.add('from_title_fallback')
+
+    if outcome in ('violation_found', 'merits_no_violation'):
+        main = [p for p in paragraphs if is_main_body(p)]
+        if inad_hit or any(PARTIAL_INADMISSIBLE.search(p['Text']) for p in main):
+            flags.add('partial_inadmissibility')
+
+    return {
+        'outcome': outcome,
+        'flags': sorted(flags),
+        'operative_ids': [p.get('ID') for p in ops],
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -426,7 +482,9 @@ def label_paragraph(text: str) -> list[str]:
 # ---------------------------------------------------------------------------
 # DOCX extractor
 # ---------------------------------------------------------------------------
-PARA_NUM = re.compile(r'^((?:\d+\.\d+(?:\.\d+)*|\d+\.))\s+(.*)', re.DOTALL)
+# Decimal IDs may carry a closing period ("2.6.\tThe complainant ..." in CAT
+# files); without it such paragraphs were glued to the one before.
+PARA_NUM = re.compile(r'^((?:\d+\.\d+(?:\.\d+)*\.?|\d+\.))\s+(.*)', re.DOTALL)
 HEADER_KEYWORDS = (
     'committee on the', 'human rights committee', 'committee against torture',
     'views adopted', 'decision adopted', 'communication submitted by:',
@@ -471,13 +529,12 @@ def _docx_text_from_el(el: ET.Element) -> str:
 
 
 def _extract_docx_footnote_map(path: Path) -> dict[int, str]:
-    """Return DOCX footnotes as {visible_number: text}.
+    """Return DOCX footnotes as {w:id: text}.
 
     Word stores true footnotes in ``word/footnotes.xml`` and references them
     from body paragraphs by ``w:footnoteReference/@w:id``. Separator records
-    have negative ids and are ignored. For UN jurisprudence files the id is
-    the visible footnote number, which matches the website's existing
-    ``[[fn:N]]`` marker contract.
+    have negative ids and are ignored. The id is a storage key, not the
+    printed number: see _docx_footnote_labels.
     """
     try:
         with ZipFile(path) as z:
@@ -507,8 +564,102 @@ def _extract_docx_footnote_map(path: Path) -> dict[int, str]:
     return footnotes
 
 
+def _docx_footnote_number_format(n: int, fmt: str) -> str:
+    if fmt in ('lowerLetter', 'upperLetter'):
+        s = chr(ord('a') + (n - 1) % 26) * ((n - 1) // 26 + 1)
+        return s.upper() if fmt == 'upperLetter' else s
+    if fmt in ('lowerRoman', 'upperRoman'):
+        out, k = '', n
+        for v, r in ((1000, 'm'), (900, 'cm'), (500, 'd'), (400, 'cd'), (100, 'c'), (90, 'xc'),
+                     (50, 'l'), (40, 'xl'), (10, 'x'), (9, 'ix'), (5, 'v'), (4, 'iv'), (1, 'i')):
+            while k >= v:
+                out, k = out + r, k - v
+        return out.upper() if fmt == 'upperRoman' else out
+    if fmt == 'chicago':  # *, †, ‡, §, then doubled
+        return '*†‡§'[(n - 1) % 4] * ((n - 1) // 4 + 1)
+    return str(n)
+
+
+def _docx_footnote_pr(el) -> dict:
+    out = {}
+    if el is None:
+        return out
+    for key in ('numFmt', 'numStart', 'numRestart'):
+        c = el.find(f'{W}{key}')
+        if c is not None and c.get(f'{W}val') is not None:
+            out[key] = c.get(f'{W}val')
+    return out
+
+
+def _docx_footnote_labels(path: Path) -> dict[int, str | None]:
+    """Return {footnote w:id: printed label}; None for custom-mark notes.
+
+    The w:id is not the printed number. UN templates spend ids on title-page
+    notes set with custom marks (``*``, ``**``, ``***``, i.e.
+    ``w:customMarkFollows``) and some files on a ``continuationNotice``
+    record, so the first body note can be id 4 or 5 (CCPR/C/139/D/2929/2017
+    printed 8-12 as 11-15). Word numbers the other notes in reference order,
+    from ``numStart``, restarting per section when ``numRestart`` is
+    ``eachSect``, formatted by ``numFmt``. Per-page restarts depend on
+    pagination and are numbered as continuous.
+    """
+    try:
+        with ZipFile(path) as z:
+            names = set(z.namelist())
+            doc = ET.fromstring(z.read('word/document.xml'))
+            settings = ET.fromstring(z.read('word/settings.xml')) if 'word/settings.xml' in names else None
+    except Exception:
+        return {}
+    defaults = {'numFmt': 'decimal', 'numStart': '1', 'numRestart': 'continuous'}
+    if settings is not None:
+        defaults.update(_docx_footnote_pr(settings.find(f'{W}footnotePr')))
+    body = doc.find(f'{W}body')
+    if body is None:
+        return {}
+    # A w:sectPr in a paragraph's w:pPr closes the section ending there; the
+    # trailing w:body/w:sectPr closes the last one.
+    sections: list[tuple[list, dict]] = []
+    current: list = []
+    for child in body:
+        if child.tag == f'{W}sectPr':
+            sections.append((current, _docx_footnote_pr(child.find(f'{W}footnotePr'))))
+            current = []
+            continue
+        current.append(child)
+        sp = child.find(f'{W}pPr/{W}sectPr') if child.tag == f'{W}p' else None
+        if sp is not None:
+            sections.append((current, _docx_footnote_pr(sp.find(f'{W}footnotePr'))))
+            current = []
+    if current:
+        sections.append((current, {}))
+
+    labels: dict[int, str | None] = {}
+    counter = None
+    for elements, sect_pr in sections:
+        pr = {**defaults, **sect_pr}
+        if counter is None or pr['numRestart'] == 'eachSect':
+            counter = int(pr['numStart']) - 1
+        for el in elements:
+            for ref in el.iter(f'{W}footnoteReference'):
+                try:
+                    fid = int(ref.get(f'{W}id'))
+                except (TypeError, ValueError):
+                    continue
+                if ref.get(f'{W}customMarkFollows') in ('1', 'true', 'on'):
+                    labels[fid] = None
+                    continue
+                counter += 1
+                labels[fid] = _docx_footnote_number_format(counter, pr['numFmt'])
+    return labels
+
+
 def _iter_docx_body_paragraphs_with_footnote_markers(path: Path) -> list[tuple[str, list[int]]]:
-    """Return body paragraph text with ``[[fn:N]]`` tokens in reference order."""
+    """Return body paragraph text with ``[[fn:N]]`` tokens in reference order.
+
+    N is the printed footnote number; the returned refs are w:ids, for the
+    text lookup. Custom-mark notes (title-page ``*``) get no marker.
+    """
+    labels = _docx_footnote_labels(path)
     try:
         with ZipFile(path) as z:
             root = ET.fromstring(z.read('word/document.xml'))
@@ -537,15 +688,20 @@ def _iter_docx_body_paragraphs_with_footnote_markers(path: Path) -> list[tuple[s
                     n = int(raw_id)
                 except (TypeError, ValueError):
                     continue
-                if n >= 1:
-                    parts.append(f'[[fn:{n}]]')
+                if n >= 1 and labels.get(n, str(n)) is not None:
+                    parts.append(f'[[fn:{labels.get(n, n)}]]')
                     refs.append(n)
         out.append((''.join(parts), refs))
     return out
 
 
-def _footnotes_for_refs(refs: list[int], footnote_map: dict[int, str]) -> list[dict]:
-    """Build stable paragraph-local footnote objects from referenced ids."""
+def _footnotes_for_refs(refs: list[int], footnote_map: dict[int, str],
+                        labels: dict[int, str | None] | None = None) -> list[dict]:
+    """Build stable paragraph-local footnote objects from referenced ids.
+
+    ``n`` is the printed number (see _docx_footnote_labels), not the w:id.
+    """
+    labels = labels or {}
     seen: set[int] = set()
     items = []
     for n in refs:
@@ -555,7 +711,8 @@ def _footnotes_for_refs(refs: list[int], footnote_map: dict[int, str]) -> list[d
         if not text:
             continue
         seen.add(n)
-        items.append({'n': n, 'text': text})
+        label = labels.get(n) or str(n)
+        items.append({'n': int(label) if label.isdigit() else label, 'text': text})
     return items
 
 
@@ -569,6 +726,7 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
     """
     doc = DocxDocument(path)
     footnote_map = _extract_docx_footnote_map(path)
+    footnote_labels = _docx_footnote_labels(path)
     body_paragraphs = _iter_docx_body_paragraphs_with_footnote_markers(path)
     state = 'PRE_BODY'
     current_section = None
@@ -590,7 +748,7 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
                     'Labels': [],
                     'Text': text,
                 }
-                footnotes = _footnotes_for_refs(pending_refs, footnote_map)
+                footnotes = _footnotes_for_refs(pending_refs, footnote_map, footnote_labels)
                 if footnotes:
                     row['Footnotes'] = footnotes
                 paragraphs.append(row)
@@ -1027,17 +1185,23 @@ PDF_HEADING_RE = re.compile(
     r'(?:the\s+)?facts(?:\s+as\s+(?:submitted|presented)\s+by\s+the\s+authors?)?|'
     r'factual\s+background|'
     r'complaints?|'
-    r'(?:the\s+)?state\s+party[’\']?s\s+(?:observations|submissions?)|'
-    r'(?:the\s+)?author[’\']?s\s+(?:comments|observations)|'
+    r'(?:the\s+)?state\s+party[’\']?s\s+(?:observations|submissions?)(?:\s+(?:on|and)\s+.{1,80})?|'
+    r'(?:the\s+)?authors?[’\']?s?[’\']?\s+(?:comments|observations)(?:\s+(?:on|thereon)\b.{0,80})?|'
+    r'examination\s+of\s+the\s+merits|'
     r'issues?\s+and\s+proceedings\s+before\s+the\s+committee|'
     r'consideration\s+of\s+(?:admissibility|the\s+merits)|'
     r'(?:the\s+)?committee[’\']?s\s+consideration|'
     r'admissibility|merits|conclusions?|'
     r'decision\s+on\s+admissibility|'
-    r'individual\s+opinion(?:\s+.*)?|separate\s+opinion(?:\s+.*)?|dissenting\s+opinion(?:\s+.*)?|concurring\s+opinion(?:\s+.*)?|annex'
+    r'individual\s+opinion(?:\s+.*)?|separate\s+opinion(?:\s+.*)?|dissenting\s+opinion(?:\s+.*)?|concurring\s+opinion(?:\s+.*)?|joint\s+opinion(?:\s+.*)?|annex|appendix'
     r')$',
     re.IGNORECASE,
 )
+PDF_NUMBERED_OPINION_HEADING = re.compile(
+    r'^\d{1,2}\.\s+(?:individual|separate|dissenting|concurring|joint)\s+(?:\w+\s+)?opinion\b',
+    re.IGNORECASE,
+)
+PDF_ENDNOTES_START = re.compile(r'^(?:Notes|Note\s+\d{1,2}\b.*|-\s?\*\s?-)$')
 TESSERACT_TSV_LEAK = re.compile(
     r'(?<!\d)[1-5][\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+-?\d+(?:\.\d+)?[\t ]+'
 )
@@ -1070,14 +1234,60 @@ def _strip_tesseract_tsv_leaks(text: str) -> str:
     ``the5<TSV metadata>only5<TSV metadata>thing``. Replacing the TSV metadata
     with a space preserves the surrounding words: ``the only thing``.
     """
+    text = _repair_tesseract_tsv_leaks(text)
     text = TESSERACT_TSV_LEAK.sub(' ', text)
     text = TESSERACT_TSV_LINE_START.sub('', text)
     return text
 
 
-def _pdf_marker_action(raw_id: str, rest: str, current_id: str | None) -> str:
+# One leaked TSV row header: level page block par line word left top width
+# height conf. The level digit is glued to the previous word, so there is no
+# lookbehind: "2.35\t1\t1\t1\t29..." is paragraph marker "2.3" followed by a
+# level-5 row. Tabs survive in OCR page text; stored paragraphs have spaces.
+TESSERACT_TSV_ROW = re.compile(
+    r'([1-5])[\t ]+(\d+)[\t ]+(\d+)[\t ]+(\d+)[\t ]+(\d+)[\t ]+(\d+)'
+    r'[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+-?\d+(?:\.\d+)?(?:[\t ]|$)'
+)
+
+
+def _repair_tesseract_tsv_leaks(text: str) -> str:
+    """Turn leaked Tesseract TSV rows back into words, restoring line breaks.
+
+    The leak (see ocr_jurisprudence.tesseract_tsv) packs the rows that follow
+    a word starting with '"' into that one word, line breaks and all.
+    Stripping only the row headers keeps the words but runs the lines
+    together, so a paragraph that starts on a swallowed line ("2.3 The
+    authors ...") merges into the one before. Each row carries its block,
+    paragraph and line number: start a new line whenever they change.
+    """
+    if not TESSERACT_TSV_ROW.search(text):
+        return text
+    out: list[str] = []
+    pos = 0
+    last_line = None
+    for m in TESSERACT_TSV_ROW.finditer(text):
+        out.append(text[pos:m.start()])
+        pos = m.end()
+        if m.group(6) == '0':
+            # Block/paragraph/line rows (word_num 0) carry no text.
+            continue
+        line = (m.group(3), m.group(4), m.group(5))
+        out.append('\n' if last_line is not None and line != last_line else ' ')
+        last_line = line
+    out.append(text[pos:])
+    repaired = ''.join(out)
+    repaired = re.sub(r'[ \t]+\n', '\n', repaired)
+    return re.sub(r'[ \t]{2,}', ' ', repaired)
+
+
+def _pdf_marker_action(raw_id: str, rest: str, current_id: str | None, previous_text: str = '') -> str:
     """Return `new`, `append_line`, or `append_rest` for a candidate marker."""
+    prev = (previous_text or '').rstrip()
+    ends_mid_sentence = bool(prev) and not prev.endswith(('.', ':', ';', '!', '?', ')', ']', '"', '”', '’'))
     if not current_id:
+        candidate = para_id_tuple(raw_id)
+        if candidate and len(candidate) == 1 and ends_mid_sentence:
+            return 'append_line'
         return 'new'
     rest = (rest or '').strip()
     current = para_id_tuple(current_id)
@@ -1097,6 +1307,12 @@ def _pdf_marker_action(raw_id: str, rest: str, current_id: str | None) -> str:
     # Cited case numbers such as "10.145, 10.305..." or TSV residue can look
     # like impossible paragraph IDs. Keep them in the text, do not split.
     if len(candidate) > 1 and candidate[-1] >= 40:
+        return 'append_line'
+    # "... in contravention of article\n17. The question arises ..." — an
+    # article number wrapped to the start of a line (CCPR/C/52/D/453/1991,
+    # para. 10.2). A real top-level paragraph follows a finished sentence or
+    # is the next number in sequence.
+    if len(candidate) == 1 and candidate[0] not in (1, current[0] + 1) and ends_mid_sentence:
         return 'append_line'
     return 'new'
 
@@ -1195,7 +1411,7 @@ def apply_paragraph_namespaces(paragraphs: list[dict]) -> list[dict]:
         low = section.lower()
         section_changed = section != last_section
         if section_changed:
-            is_opinion = bool(re.search(r'\b(?:individual|separate|dissenting|concurring)\s+opinion\b', low))
+            is_opinion = bool(re.search(r'\b(?:individual|separate|dissenting|concurring|joint)\s+opinion\b', low))
             is_annex = bool(re.search(r'\b(?:appendix|annex\s+(?:\d+|[ivx]+|[a-z]))\b', low, re.IGNORECASE))
             if is_opinion or (opinion_zone and re.match(r'^[A-Z]\.\s+', section)):
                 opinion_count += 1
@@ -1219,7 +1435,7 @@ def apply_paragraph_namespaces(paragraphs: list[dict]) -> list[dict]:
 
 def _is_opinion_section(section: str) -> bool:
     low = (section or '').strip().lower()
-    return bool(re.search(r'\b(?:individual|separate|dissenting|concurring)\s+opinion\b', low))
+    return bool(re.search(r'\b(?:individual|separate|dissenting|concurring|joint)\s+opinion\b', low))
 
 
 def _is_namespaced_continuation_section(section: str, opinion_zone: bool) -> bool:
@@ -1233,6 +1449,8 @@ def _is_pdf_noise_line(line: str) -> bool:
     if re.match(r'^[A-Z]{2,6}/C/\d+/D/\d+/\d+(?:/Rev\.\d+)?$', t):
         return True
     if re.match(r'^page\s+\d+$', t, re.IGNORECASE):
+        return True
+    if re.match(r'^-\s?\d{1,4}\s?-$', t):
         return True
     if re.match(r'^GE\.\d{2}-\d{4,6}', t):
         return True
@@ -1264,13 +1482,15 @@ def _is_pdf_heading(line: str, previous_text: str = '') -> bool:
         return True
     if re.match(r'^(?:A|B|C|D|E|F)\.\s+.*\bindividual\s+opinion\b', t, re.IGNORECASE):
         return True
-    if t.endswith((',', ';', ':')):
+    if t.endswith((',', ';')):
         return False
     if t[0].islower():
         return False
     if previous_text and previous_text.rstrip()[-1:] not in '.!?)”’]':
         return False
-    low = re.sub(r'\s+', ' ', t.lower()).strip(' .')
+    low = re.sub(r'\s+', ' ', t.lower()).strip(' .:')
+    if t.endswith(':') and not PDF_HEADING_RE.match(low):
+        return False
     if PDF_HEADING_RE.match(low):
         return True
     lettered = re.match(r'^(?:A|B|C|D|E|F)\.\s+(.+)', t)
@@ -1299,6 +1519,11 @@ def _section_needs_continuation(section: str) -> bool:
 
 def _clean_extracted_text(text: str) -> str:
     text = _strip_tesseract_tsv_leaks(text)
+    # Undo the forms of ocr_jurisprudence's old "authors" -> "author's"
+    # rewrite that cannot be genuine ("the author's' request", "The
+    # author's of the communication"); re-OCR restores the rest.
+    text = re.sub(r"\b([Aa]uthor)'s(['’])", r'\1s\2', text)
+    text = re.sub(r"\b([Aa]uthor)'s of\b", r'\1s of', text)
     text = re.sub(r'-\s*\n\s*', '', text)
     text = re.sub(r'(?<=[.!?”\)])\s*\d{1,3}(?=\s+[A-Z])', '', text)
     text = re.sub(r'[ \t]+', ' ', text)
@@ -1315,6 +1540,7 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
     unnumbered_counter = 0
     opinion_zone = False
     skip_non_english = False
+    skip_endnotes = False
 
     def flush() -> None:
         nonlocal current_id, buf
@@ -1387,7 +1613,35 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
                 opinion_zone = False
                 continue
 
+            line = re.sub(r'^(\d{1,3})~(\d{1,2})(?=\s|$)', r'\1.\2', line)
+            if PDF_NUMBERED_OPINION_HEADING.match(line):
+                # "1. Individual opinion by Mr. Nisuke Ando (dissenting)"
+                flush_unnumbered()
+                flush()
+                current_section = re.sub(r'^\d{1,2}\.\s+', '', line).rstrip('.')
+                pending_heading = current_section
+                opinion_zone = True
+                unnumbered_counter = 0
+                continue
+            if PDF_ENDNOTES_START.match(line) and paragraphs:
+                # Endnotes of old compilations ("Notes", "Note 1 The Covenant
+                # ...", or numbered notes after the "-*-" end mark) follow the
+                # operative paragraph or an opinion; skip to the next opinion
+                # or appendix heading.
+                flush_unnumbered()
+                flush()
+                skip_endnotes = True
+                continue
+            if skip_endnotes:
+                if _is_pdf_heading(line) and re.search(r'opinion|appendix|annex', line, re.IGNORECASE):
+                    skip_endnotes = False
+                else:
+                    continue
+
             marker = PDF_PARA_MARKER.match(line)
+            if marker and marker.group(1).endswith(',') and re.match(r'\d', (marker.group(2) or '').strip()):
+                # "2, 10, 11, 12, 13 and 14" — a list of articles, not "2."
+                marker = None
             if not marker and not opinion_zone:
                 top_marker = PDF_TOPLEVEL_MARKER.match(line)
                 if top_marker:
@@ -1411,7 +1665,12 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
                     continue
                 if _is_front_matter_date_marker(raw_id, rest, bool(paragraphs), current_section):
                     continue
-                action = _pdf_marker_action(raw_id, rest, current_id)
+                action = _pdf_marker_action(raw_id, rest, current_id, ' '.join(buf or unnumbered_buf))
+                if action == 'append_line' and not current_id and unnumbered_buf:
+                    # "... and thus violates article\n26, notwithstanding ..."
+                    # inside an unnumbered opinion paragraph.
+                    unnumbered_buf.append(line)
+                    continue
                 if action == 'append_line' and current_id:
                     buf.append(line)
                     continue
@@ -1519,7 +1778,7 @@ def extract_pdf_paragraphs(path: Path, doc_id: str | None = None) -> list[dict]:
     try:
         pages = []
         for page in doc:
-            cleaned = _clean_page_text(page)
+            cleaned = _clean_page_text(page, keep_body_in_margins=True)
             pages.append(cleaned if cleaned.strip() else page.get_text())
     finally:
         doc.close()
@@ -1776,9 +2035,9 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
             n_lbl_paragraphs += 1
             case_label_set.update(labels)
 
-    # Outcome classification — title fallbacks to body text (first 12k chars)
-    body_blob = ' '.join(p['Text'] for p in paragraphs)
-    outcome = classify_outcome(catalog_record.get('title', ''), body_blob)
+    # Outcome from the operative paragraph(s); the title is a last resort.
+    outcome_result = classify_outcome(paragraphs, catalog_record.get('title', ''))
+    outcome = outcome_result['outcome']
 
     ocr_meta = _load_ocr_meta(doc_id) if fmt == 'pdf' else None
     source_format = fmt
@@ -1798,6 +2057,8 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
     # Year
     year = parse_year_from_symbol(sym)
     raw_date = catalog_record.get('submitted_date', '').strip()
+    # Year of the catalogue date: usually the adoption year, kept as the
+    # fallback year where no decision date is known.
     adoption_year = parse_year_from_date(raw_date)
 
     # Tier-1 record
@@ -1818,8 +2079,13 @@ def ingest_one(catalog_record: dict, manifest_entries: list[dict]) -> dict | Non
         'adoptionYear': adoption_year,
         'title': catalog_record.get('title', '').strip(),
         'outcome': outcome,
+        'outcomeFlags': outcome_result['flags'],
+        'outcomeOperativeIds': outcome_result['operative_ids'],
+        # The catalogue only has the submission date. It used to be copied
+        # into adoptionDate too (CCPR/C/18/D/74/1980: 23 Mar 1983, adopted
+        # 29 Mar 1983); apply_jurisprudence_metadata.py fills the adoption
+        # date from the decision's front matter.
         'submittedDate': raw_date,
-        'adoptionDate': raw_date,
         'languages': ['en'],
         'link': catalog_record.get('download_page_url', '').strip(),
         'sourceFile': f'json_jurisprudence/{doc_id}.json',

@@ -27,7 +27,7 @@ import hashlib
 import json
 import re
 from collections import Counter, defaultdict
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 
@@ -71,6 +71,26 @@ def paragraph_number(raw: str):
     return s
 
 
+MONTH_NUMBERS = {m: i for i, m in enumerate(
+    ('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'), 1)}
+
+
+def iso_date(raw: str | None) -> str | None:
+    """'6 Apr 2018' / '17 March 2025' / '2018-04-06' -> '2018-04-06'; else None."""
+    s = re.sub(r'\s+', ' ', (raw or '').strip())
+    m = re.fullmatch(r'(\d{4})-(\d{2})-(\d{2})', s)
+    if m:
+        return s
+    m = re.fullmatch(r'(\d{1,2})\.? ([A-Za-z]{3,9})\.?,? (\d{4})', s)
+    if not m or m.group(2)[:3].lower() not in MONTH_NUMBERS:
+        return None
+    day, month, year = int(m.group(1)), MONTH_NUMBERS[m.group(2)[:3].lower()], int(m.group(3))
+    try:
+        return date(year, month, day).isoformat()
+    except ValueError:
+        return None
+
+
 def compact_document(doc: dict) -> dict:
     """Keep Tier-1 fields useful to the browser; drop body-only bookkeeping."""
     keys = [
@@ -100,8 +120,27 @@ def compact_document(doc: dict) -> dict:
         'jurisSubstantiveArticles', 'jurisProceduralArticles',
         'jurisDownloads', 'jurisLastCheckedAt',
         'firstAddedAt', 'lastVerifiedAt',
+        'outcomeFlags', 'outcomeOperativeIds',
     ]
-    return {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+    out = {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+    out.update(iso_dates(doc))
+    return out
+
+
+def iso_dates(doc: dict) -> dict:
+    """ISO 8601 twins of the free-text dates ("06 Apr 2018", "17 March 2025").
+
+    Derived here, on every build, so they cannot be lost the way the earlier
+    one-off normalisation of documents.json was.
+    """
+    out = {}
+    adopted = iso_date(doc.get('jurisDecisionDate')) or iso_date(doc.get('adoptionDate'))
+    if adopted:
+        out['adoptionDateIso'] = adopted
+    submitted = iso_date(doc.get('submittedDate'))
+    if submitted:
+        out['submittedDateIso'] = submitted
+    return out
 
 
 def is_placeholder_title(value: str | None) -> bool:
@@ -155,6 +194,7 @@ def lite_document(doc: dict) -> dict:
         'firstAddedAt', 'lastVerifiedAt',
     ]
     out = {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+    out.update(iso_dates(doc))
     title = public_title(doc)
     out['name'] = title
     out['nameShort'] = title

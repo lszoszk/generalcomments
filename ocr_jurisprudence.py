@@ -83,7 +83,6 @@ SAFE_OCR_CORRECTIONS: list[tuple[re.Pattern, str]] = [
     (re.compile(r'\bouthor\b', re.IGNORECASE), 'author'),
     (re.compile(r'\bresponnible\b', re.IGNORECASE), 'responsible'),
     (re.compile(r'\binetance\b', re.IGNORECASE), 'instance'),
-    (re.compile(r"\bauthor'?s\b", re.IGNORECASE), "author's"),
     (re.compile(r'\bites rules\b', re.IGNORECASE), 'its rules'),
     (re.compile(r'\bthy Optional Protocol\b', re.IGNORECASE), 'the Optional Protocol'),
     (re.compile(r'\bite decision\b', re.IGNORECASE), 'its decision'),
@@ -338,7 +337,10 @@ def tesseract_tsv(image: Path, *, psm: int, profile: str, preprocess: str) -> Oc
     lines: dict[tuple[int, int, int], list[tuple[int, str]]] = {}
     confs = []
     words = 0
-    reader = csv.DictReader(proc.stdout.splitlines(), delimiter='\t')
+    # QUOTE_NONE: Tesseract does not quote its TSV. With the default dialect a
+    # word that starts with '"' opens a quoted field that swallows the
+    # following rows, line breaks and all, into one "word" (CCPR/C/52/D/453/1991).
+    reader = csv.DictReader(proc.stdout.splitlines(), delimiter='\t', quoting=csv.QUOTE_NONE)
     for row in reader:
         txt = (row.get('text') or '').strip()
         if not txt:

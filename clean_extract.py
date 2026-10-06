@@ -46,9 +46,25 @@ def _is_separator_block(text: str) -> bool:
 # "10  Ibid., para. 11."). The "N  text" pattern with two spaces is the
 # fingerprint we use when no underscore separator is present.
 _FOOTNOTE_LEAD = re.compile(r'^\s*\d{1,3}\s+[A-Z]')
+_DECIMAL_PARA_LEAD = re.compile(r'^\s*\d{1,3}[.~]\d{1,2}\b')
 
 
-def _clean_page_text(page: fitz.Page) -> str:
+def _is_body_block_in_margin(y0: float, y1: float, text: str) -> bool:
+    """A margin-band block that is body text, not a running header or footer.
+
+    PyMuPDF blocks are whole paragraphs, so a paragraph that starts near the
+    top of a page (y0 < TOP_MARGIN_Y) or a short one at the very bottom
+    (y0 > BOTTOM_MARGIN_Y) would otherwise be dropped whole. Older and
+    re-typeset jurisprudence PDFs put body text there (CCPR/C/50/D/488/1992
+    paras. 5.1 and 8.2, CCPR/C/18/D/74/1980 paras. 1.3 and 9.2).
+    """
+    if _DECIMAL_PARA_LEAD.match(text):
+        return True
+    lines = [l for l in text.splitlines() if l.strip()]
+    return y0 < TOP_MARGIN_Y and y1 > TOP_MARGIN_Y + 15 and len(lines) >= 2
+
+
+def _clean_page_text(page: fitz.Page, keep_body_in_margins: bool = False) -> str:
     """Return the page's body text with headers, footers and footnotes stripped.
 
     Detection strategy (combined — first applicable rule wins):
@@ -61,6 +77,10 @@ def _clean_page_text(page: fitz.Page) -> str:
          x-indent for this page; any block whose x0 differs and whose first
          line matches the "N <text>" footnote-marker pattern → treat as
          footnote AND drop every following block.
+
+    With keep_body_in_margins, rule A spares margin-band blocks that look like
+    body text (see _is_body_block_in_margin). Jurisprudence ingestion uses it;
+    the GC/SP callers keep the original behaviour.
     """
     blocks = page.get_text("blocks")
 
@@ -69,7 +89,8 @@ def _clean_page_text(page: fitz.Page) -> str:
     for b in blocks:
         x0, y0, x1, y1, text, *_ = b
         if y0 < TOP_MARGIN_Y or y0 > BOTTOM_MARGIN_Y:
-            continue
+            if not (keep_body_in_margins and text and _is_body_block_in_margin(y0, y1, text)):
+                continue
         if not (text and text.strip()):
             continue
         in_band.append((y0, x0, text))

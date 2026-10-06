@@ -1,0 +1,53 @@
+CCPR/C/52/D/453/1991
+Annex
+English
+Page 10
+individual qualities of human existence and a person's identity. Identity
+obviously includes one’s name.°
+What is, therefore, protected by article 17, is an individual’s name and
+not necessarily the individual's desire to change his/her name at whim. The
+Committee recognizes this, albeit indirectly, in its own decision. The example
+it refers to in order to illustrate a possible case of State interference with
+individuals’ rights under article 17 in contravention of that article is
+5	1	3	1	6	2	506	1049	76	9	0.000000	>.5	1	3	1	6	3	630	1019	60	39	76.437668	af5	1	3	1	6	4	727	1030	31	28	95.999992	a5	1	3	1	6	5	793	1022	161	35	95.673691	State5	1	3	1	6	6	989	1027	130	27	95.831009	were5	1	3	1	6	7	1158	1021	61	33	96.690216	to5	1	3	1	6	8	1255	1014	193	48	95.998390	compel5	1	3	1	6	9	1487	1013	93	38	95.771896	all5	1	3	1	6	10	1620	1011	324	47	96.324402	foreigners5	1	3	1	6	11	1983	1014	62	33	96.069183	to5	1	3	1	6	12	2080	1009	193	46	96.321655	change5	1	3	1	6	13	2312	1006	161	39	93.178345	their5	1	3	1	6	14	2509	1013	386	30	90.783524	surnames....4	1	3	1	7	0	475	1057	2495	66	-1	5	1	3	1	7	1	475	1075	117	43	95.163528	(see5	1	3	1	7	2	619	1086	158	37	95.438736	para.5	1	3	1	7	3	821	1077	122	34	95.844521	10.25	1	3	1	7	4	977	1073	61	37	95.844521	of5	1	3	1	7	5	1071	1073	95	37	96.903168	the5	1	3	1	7	6	1195	1069	223	42	95.779724	Views).5	1	3	1	7	7	1458	1069	128	37	95.586861	This5	1	3	1	7	8	1616	1067	133	38	95.718544	view5	1	3	1	7	9	1780	1066	57	37	95.718544	is5	1	3	1	7	10	1869	1069	250	38	96.437401	correct,5	1	3	1	7	11	2160	1065	96	36	96.800346	but5	1	3	1	7	12	2288	1061	297	46	96.229042	obviously5	1	3	1	7	13	2614	1062	195	35	96.086021	cannot5	1	3	1	7	14	2841	1057	129	37	96.582153	have4	1	3	1	8	0	462	1110	2511	68	-1	5	1	3	1	8	1	462	1141	30	26	95.808746	a5	1	3	1	8	2	528	1130	234	48	95.808746	bearing5	1	3	1	8	3	801	1141	62	26	95.578438	on5	1	3	1	8	4	902	1139	28	27	95.279083	a5	1	3	1	8	5	970	1138	128	28	96.279755	case5	1	3	1	8	6	1135	1127	163	36	96.719261	where5	1	3	1	8	7	1338	1135	29	27	95.829109	a5	1	3	1	8	8	1408	1129	159	33	91.630676	State5	1	3	1	8	9	1611	1142	19	5	91.630676	-5	1	3	1	8	10	1677	1123	92	36	96.479980	for5	1	3	1	8	11	1808	1130	225	29	95.465752	reasons5	1	3	1	8	12	2073	1119	60	38	95.465752	of5	1	3	1	8	13	2173	1117	299	49	95.904839	generally5	1	3	1	8	14	2506	1114	231	48	96.314392	applied5	1	3	1	8	15	2773	1110	200	49	96.813316	public4	1	3	1	9	0	460	1167	2513	66	-1	5	1	3	1	9	1	460	1183	202	50	96.469093	policy5	1	3	1	9	2	697	1185	98	37	96.783257	and5	1	3	1	9	3	830	1183	63	39	96.681602	in5	1	3	1	9	4	927	1182	164	39	96.506439	order5	1	3	1	9	5	1127	1186	63	33	96.764366	to5	1	3	1	9	6	1223	1183	231	46	95.899353	protect5	1	3	1	9	7	1491	1178	95	39	96.926781	the5	1	3	1	9	8	1622	1175	263	48	96.318008	existing5	1	3	1	9	9	1917	1183	130	30	96.062241	name5	1	3	1	9	10	2084	1173	60	38	96.062241	of5	1	3	1	9	11	2182	1170	359	40	93.272240	individuals5	1	3	1	9	12	2582	1189	19	5	92.793205	-5	1	3	1	9	13	2645	1167	226	39	96.355553	refuses5	1	3	1	9	14	2910	1169	63	33	95.815636	to4	1	3	1	10	0	462	1230	1658	56	-1	5	1	3	1	10	1	462	1241	167	37	96.409973	allow5	1	3	1	10	2	665	1251	29	27	32.444603	a5	1	3	1	10	3	734	1241	193	45	32.444603	change5	1	3	1	10	4	967	1238	60	37	96.222862	of5	1	3	1	10	5	1066	1247	129	27	96.746727	name5	1	3	1	10	6	1236	1234	298	49	96.217369	requested5	1	3	1	10	7	1568	1234	66	47	95.868683	by5	1	3	1	10	8	1669	1243	63	27	96.123314	an5	1	3	1	10	9	1772	1230	348	39	96.395676	individual.2	1	4	0	0	0	461	1336	2518	672	-1	3	1	4	1	0	0	461	1336	2518	672	-1	4	1	4	1	1	0	662	1336	2311	57	-1	5	1	4	1	1	1	662	1350	423	43	96.396881	Nevertheless,5	1	4	1	1	2	1138	1347	57	39	96.625954	it5	1	4	1	1	3	1238	1358	96	27	96.198265	can5	1	4	1	1	4	1370	1347	64	36	96.069145	be5	1	4	1	1	5	1472	1345	198	48	96.069145	argued5	1	4	1	1	6	1708	1345	125	36	96.752205	that5	1	4	1	1	7	1876	1342	57	37	96.314774	it5	1	4	1	1	8	1973	1341	166	37	96.088554	would5	1	4	1	1	9	2172	1341	64	36	96.414719	be5	1	4	1	1	10	2274	1336	363	50	95.826378	appropriate5	1	4	1	1	11	2677	1339	61	34	96.691513	to5	1	4	1	1	12	2777	1342	196	29	96.843117	assume4	1	4	1	2	0	463	1386	2510	65	-1	5	1	4	1	2	1	463	1407	128	38	96.759254	that5	1	4	1	2	2	629	1407	93	38	96.367561	the5	1	4	1	2	3	758	1410	131	33	96.243279	term5	1	4	1	2	4	926	1403	284	48	96.080307	privacy"
+inasmuch as it covers, for the purpose of appropriate
+protection, an individual's name as part of his/her identity, also covers the
+right to change that name. In that regard one must have a closer look at the
+Guidelines5	1	4	1	5	2	861	1572	93	37	96.313698	for5	1	4	1	5	3	983	1571	95	38	96.562737	the5	1	4	1	5	4	1108	1570	195	47	96.788887	change5	1	4	1	5	5	1334	1568	60	38	96.341934	of5	1	4	1	5	6	1426	1568	254	37	95.506424	surname published in the Netherlands Government
+Gazette in 1990 and applied in the Netherlands as common policy. The Dutch
+policy is, as a matter of principle, based on the premise that a person should
+keep the name which he/she acquires at birth in order to Maintain legal and
+social stability (see para. 9.1, last sentence, of the Views). As such, this
+policy can hardly be seen as violating article 17. On the contrary, it is
+protective of acquired rights, such as the right toa certain name, and would
+seem to be very much in line with the precepts of article 17.
+A change of name, according to the Guidelines, will be granted when the
+current name is a) indecent, b) ridiculous, c) so common that it has lost its
+distinctive character and d) not Dutch sounding. None of these grounds was
+invoked by the author's when they asked for authorization to change their
+surnames.
+In accordance with the Guidelines a change of name can also be granted
+in5	1	6	1	2	2	598	2461	363	47	95.629112	exceptional5	1	6	1	2	3	998	2463	216	40	95.629112	cases, for instance in5	1	6	1	2	7	1813	2463	160	28	96.537186	cases5	1	6	1	2	8	2005	2452	163	36	96.597542	where5	1	6	1	2	9	2202	2451	94	37	96.778618	the5	1	6	1	2	10	2329	2448	193	39	95.823059	denial5	1	6	1	2	11	2558	2447	59	37	96.552879	of5	1	6	1	2	12	2655	2447	94	36	96.726509	the5	1	6	1	2	13	2785	2445	194	46	96.607719	change4	1	6	1	3	0	470	2499	2512	60	-1	5	1	6	1	3	1	470	2516	60	39	95.729912	of5	1	6	1	3	2	574	2525	227	28	96.340538	surname5	1	6	1	3	3	838	2515	167	37	96.075890	would5	1	6	1	3	4	1043	2515	264	37	96.075890	threaten5	1	6	1	3	5	1346	2512	93	37	93.218536	the5	1	6	1	3	6	1480	2509	360	50	91.094978	applicant’s5	1	6	1	3	7	1877	2506	195	39	96.532677	mental5	1	6	1	3	8	2113	2515	64	28	96.681076	or5	1	6	1	3	9	2212	2503	261	49	96.512787	physical5	1	6	1	3	10	2513	2499	360	48	95.761604	well-being
+or
+in5	1	6	1	4	2	613	2581	160	28	96.013626	cases5	1	6	1	4	3	818	2572	164	36	96.428429	where5	1	6	1	4	4	1030	2571	93	37	96.671913	the5	1	6	1	4	5	1170	2568	193	39	96.333801	denial5	1	6	1	4	6	1410	2567	165	37	95.791779	would5	1	6	1	4	7	1616	2567	63	36	96.576149	be5	1	6	1	4	8	1723	2563	418	42	96.166451	unreasonable,5	1	6	1	4	9	2197	2560	196	47	96.246422	taking5	1	6	1	4	10	2440	2557	126	39	96.128708	into5	1	6	1	4	11	2610	2560	229	35	96.128708	account5	1	6	1	4	12	2886	2555	95	37	96.926010	the4	1	6	1	5	0	473	2609	2498	63	-1	5	1	6	1	5	1	473	2627	293	38	96.454460	interests5	1	6	1	5	2	805	2627	60	38	96.454460	of5	1	6	1	5	3	902	2627	132	37	95.382309	both5	1	6	1	5	4	1072	2625	92	39	96.481270	the5	1	6	1	5	5	1178	2623	318	49	96.358704	applicant5	1	6	1	5	6	1534	2621	97	39	95.926498	and5	1	6	1	5	7	1665	2621	94	38	96.269226	the5	1	6	1	5	8	1797	2623	188	34	95.835876	State
+(see para. 9.2 of the Views).
+As the author's apparently could not show such exceptional5	1	6	1	6	10	2421	2669	456	39	96.001595	circumstances in
+the course of the proceedings before the national authorities, their request
+was denied. Their assertion that they needed the name-change to become Hindu
+priests was apparently not substantiated (see the reasoning given by the
+Council of State in its decision of 17 October 1990, para. 2.3, last sentence,
+of the Views; see also the inadmissibility decision of the European Commission
+of Human Rights of 2 July 1992, where the European Commission held that the
+author's had not established that their religious studies would be impeded by
+the refusal to modify their surnames; para. 2.4, last sentence, of the Views) .
+Nor can requirements imposed by Indian Hindu leaders be attributed to the
+Dutch authorities, as confirmed by the Committee in the present case in the
+framework of its decision on admissibility. There it examined the present
+communication under the angle of article 18 of the Covenant and came to the
+conclusion that a5	1	6	1	19	4	1099	3402	162	35	96.481369	State5	1	6	1	19	5	1292	3401	168	45	96.393929	party5	1	6	1	19	6	1491	3401	63	33	96.680962	to5	1	6	1	19	7	1587	3397	95	37	96.531548	the5	1	6	1	19	8	1715	3397	260	36	96.475891	Covenant5	1	6	1	19	9	2009	3396	194	34	96.485863	cannot5	1	6	1	19	10	2234	3392	63	37	96.680984	be5	1	6	1	19	11	2332	3389	132	39	96.367470	held5	1	6	1	19	12	2494	3388	364	38	96.367470	accountable5	1	6	1	19	13	2894	3386	95	38	96.873146	for4	1	6	1	20	0	477	3442	2512	63	-1	5	1	6	1	20	1	477	3456	396	40	95.970322	restrictions5	1	6	1	20	2	926	3456	203	49	96.301689	placed5	1	6	1	20	3	1178	3465	132	38	96.620888	upon5	1	6	1	20	4	1364	3454	94	38	96.360413	the5	1	6	1	20	5	1514	3450	261	40	96.360413	exercise5	1	6	1	20	6	1827	3450	61	38	96.299438	of5	1	6	1	20	7	1945	3448	292	48	96.389427	religious5	1	6	1	20	8	2293	3445	228	39	96.864395	offices5	1	6	1	20	9	2575	3444	66	48	96.677742	by5	1	6	1	20	10	2693	3442	296	48	95.399490	religious4	1	6	1	21	0	478	3501	1891	57	-1	5	1	6	1	21	1	478	3513	228	39	96.173599	leaders5	1	6	1	21	2	747	3512	63	38	96.910858	in5	1	6	1	21	3	846	3513	232	37	96.414803	another5	1	6	1	21	4	1115	3513	257	45	96.198601	country
+(see para. 6.1 of the Views).
+The request for a change of name was, therefore, legitimately turned
+down as the author's could not show the Dutch authorities exceptional4	1	7	1	3	0	478	3720	2515	60	-1	5	1	7	1	3	1	478	3733	460	39	96.441864	circumstances
+as required by law. The refusal cannot be seen as a violation
+of article 17. To hold otherwise would be tantamount to recognizing that an
+5 Nowak, loc. cit., p. 294, section 17.
