@@ -70,6 +70,14 @@ def _tokens(text: str) -> list[str]:
     return re.sub(r'[^0-9a-z]+', ' ', text.lower()).split()
 
 
+def _excerpt(text: str, budget: int = 2400) -> str:
+    """Head and tail of a long paragraph: a passage merged into another
+    usually sits at its end, so a head-only excerpt would hide it."""
+    if len(text) <= budget:
+        return text
+    return text[:budget // 2] + ' […] ' + text[-budget // 2:]
+
+
 def _overlap(a: list[str], b: list[str]) -> tuple[int, bool]:
     """Words of a found in b in order, and whether b holds a's opening words."""
     sm = SequenceMatcher(None, a, b, autojunk=False)
@@ -134,6 +142,7 @@ def align(old: list[dict], new: list[dict]) -> tuple[dict[str, str | None], list
             matched, starts = _overlap(ot, new_tok[k])
             cands.append({
                 'id': new[k]['id'],
+                'text': _excerpt(new[k]['text']),
                 'containsOld': round(matched / len(ot), 3),   # the old passage is inside it
                 'insideOld': round(matched / len(new_tok[k]), 3),  # it is a piece of the old passage
                 'startsOld': starts,
