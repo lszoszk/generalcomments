@@ -1,0 +1,43 @@
+2.2 Under the law in force until the end of 1986, a written application as well as
+the genuineness of an applicant's religious or ethical convictions were examined by
+a particular examination board. At the end of 1986 this procedure was abolished by
+Act No. 647/85, the Act on the Temporary Amendment to the Act on Unarmed and
+Civilian Service and applicants are now assigned to civilian service solely on the
+basis of their own declarations. The duration of civilian service was set at
+16 months. The ratio legis for the amendment reads as follows:
+As5	1	2	1	1	2	473	698	100	44	95.564026	the5	1	2	1	1	3	611	694	380	48	96.594696	convictions5	1	2	1	1	4	1035	698	63	43	96.687859	of5	1	2	1	1	5	1139	696	345	58	93.592552	conscripts5	1	2	1	1	6	1524	698	277	58	95.969902	applying5	1	2	1	1	7	1840	702	100	43	96.193565	for5	1	2	1	1	8	1978	700	279	48	96.164162	civilian5	1	2	1	1	9	2295	701	242	48	96.432564	service5	1	2	1	1	10	2570	702	140	46	96.352448	will5	1	2	1	1	11	2751	716	67	33	96.352448	no5	1	2	1	1	12	2859	706	200	55	96.651726	longer4	1	2	1	2	0	330	765	2594	55	-1	5	1	2	1	2	1	330	769	70	44	95.983650	be5	1	2	1	2	2	437	765	301	51	95.912231	examined,5	1	2	1	2	3	791	768	99	45	96.816772	the5	1	2	1	2	4	928	765	312	48	92.327171	existence5	1	2	1	2	5	1279	769	65	44	95.484726	of5	1	2	1	2	6	1385	770	168	44	96.470589	these5	1	2	1	2	7	1593	769	379	48	95.553398	convictions5	1	2	1	2	8	2016	773	206	44	96.572083	should5	1	2	1	2	9	2258	773	67	45	95.969635	be5	1	2	1	2	10	2367	773	383	47	96.066498	ascertained5	1	2	1	2	11	2790	773	64	47	96.702911	in5	1	2	1	2	12	2892	785	32	35	96.686836	a4	1	2	1	3	0	330	834	2625	67	-1	5	1	2	1	3	1	330	834	313	50	92.039200	different5	1	2	1	3	2	678	848	209	34	96.628044	manner5	1	2	1	3	3	930	848	64	34	96.673546	so5	1	2	1	3	4	1036	848	60	36	95.797356	as5	1	2	1	3	5	1136	841	103	41	95.797356	not5	1	2	1	3	6	1280	842	64	42	96.521690	to5	1	2	1	3	7	1385	840	100	44	96.401703	let5	1	2	1	3	8	1524	840	99	45	96.438408	the5	1	2	1	3	9	1663	850	102	36	96.349342	new5	1	2	1	3	10	1801	842	312	54	96.738976	procedure5	1	2	1	3	11	2151	854	312	44	95.873611	encourage5	1	2	1	3	12	2506	842	344	59	96.378746	conscripts5	1	2	1	3	13	2892	848	63	42	71.065544	to4	1	2	1	4	0	333	905	2726	63	-1	5	1	2	1	4	1	333	908	133	45	91.131004	seek5	1	2	1	4	2	507	918	67	34	96.002731	an5	1	2	1	4	3	609	905	318	57	96.386795	exemption5	1	2	1	4	4	966	909	133	43	95.972870	from5	1	2	1	4	5	1139	909	172	44	96.471664	armed5	1	2	1	4	6	1349	908	239	45	96.349922	service5	1	2	1	4	7	1626	910	209	55	96.006447	purely5	1	2	1	4	8	1874	912	98	44	95.885399	for5	1	2	1	4	9	2016	922	238	35	96.513283	reasons5	1	2	1	4	10	2293	916	66	42	96.878494	of5	1	2	1	4	11	2399	916	275	52	96.450554	personal5	1	2	1	4	12	2714	913	242	47	95.971336	benefit5	1	2	1	4	13	2995	926	64	34	96.474594	or4	1	2	1	5	0	330	974	2488	60	-1	5	1	2	1	5	1	330	974	407	48	94.868423	convenience.5	1	2	1	5	2	819	974	409	58	95.227737	Accordingly,5	1	2	1	5	3	1279	988	65	33	96.245758	an5	1	2	1	5	4	1383	978	274	54	96.358017	adequate5	1	2	1	5	5	1693	978	423	56	96.146240	prolongation5	1	2	1	5	6	2152	982	66	44	95.982864	of5	1	2	1	5	7	2259	982	101	44	96.304726	the5	1	2	1	5	8	2401	986	134	40	96.374825	term5	1	2	1	5	9	2573	984	69	42	95.682747	of5	1	2	1	5	10	2680	985	138	43	95.679253	such4	1	2	1	6	0	332	1045	2482	63	-1	5	1	2	1	6	1	332	1045	239	45	94.789444	service5	1	2	1	6	2	607	1046	103	44	95.784851	has5	1	2	1	6	3	750	1046	140	44	96.692574	been5	1	2	1	6	4	927	1047	208	43	95.893211	deemed5	1	2	1	6	5	1174	1046	100	44	96.063232	the5	1	2	1	6	6	1308	1051	142	41	96.408203	most5	1	2	1	6	7	1489	1048	378	56	96.705612	appropriate5	1	2	1	6	8	1912	1048	306	48	96.191162	indicator5	1	2	1	6	9	2257	1053	65	41	96.966278	of5	1	2	1	6	10	2366	1062	32	34	91.674622	a5	1	2	1	6	11	2434	1052	380	56	91.674622	conscript's4	1	2	1	7	0	330	1113	444	48	-1	5	1	2	1	7	1	330	1113	444	48	94.942627	convictions.
+2.3 On 9 June 1986, the author, who had been called upon to report for military
+service, submitted a written statement to the competent authorities stating that
+his ethical convictions did not permit him to parform armed or unarmed service in
+the Finnish Defence Forces. The headquarters of the military district of Tampere
+transmitted the author's statement to the Investigation Board on 8 December 1986.
+The Board failed to take a decision before the expiration of its mandate on
+31 December 1986, and the documents were returned to the headquarters, from where
+the matter was referred to the Commander of the military district for consideration
+under the implementation order of Act No. 647/85.
+2.4 In January 1987, che author submitted a new application for exemption from
+military service; this was accepted in February 1987. On 9 June 1987, the author
+started alternative civilian service. Under the new provisions referred to above,
+the term of civilian service is determined in accordance with the provisions in
+force at the time of the service order. Accordingly, Mr. Jaérvinen's term of
+service was 16 months, because he did not receive the order assigning him to
+alternative civilian service until the amendment became effective. In reply to a
+complaint of discrimination filed by the author, the Parliamentary Ombudsman of
+Finland, on 17 February 1988, concluded that there had been no evidence of any
+intention on the part of the authorities deliberately to prolong the procedure in
+Mr. Jaérvinen's case; had his case been considered in the course of 1986, his
+ethical convictions would have had to have been considered, with the possibility of
+failing to persuade the authorities of their genuineness.
+2.5 Certain categories of individuals are exempt from military or alternative
+service in Finland. An Act on the Exemption of Jehovah's Witnesses from Military
+Service has been in force since the beginning of 1987. Under this Act, the se.vice
+of a conscript who adheres to the religious community of Jehovah': Witnesses may be
+deferred until his twenty-eighth birthday; after that he may be exempted from
+military service in times of peace. This means that, in practice, vchovah’'s
+Witnesses do not have to perform any type of military or alternative service.
+The author's allegations
+3.1 The author considers that he has been the victim of discrimination, since
+individuals who choose alternative service are required to serve for 16 months,
+whereas the term of military service is only eight months. While he concedes that
+the previous term of 12 months for alternative service was not necessarily
+

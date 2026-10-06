@@ -64,7 +64,7 @@ def _is_body_block_in_margin(y0: float, y1: float, text: str) -> bool:
     return y0 < TOP_MARGIN_Y and y1 > TOP_MARGIN_Y + 15 and len(lines) >= 2
 
 
-def _clean_page_text(page: fitz.Page, keep_body_in_margins: bool = False) -> str:
+def _clean_page_text(page: fitz.Page, keep_body_in_margins: bool = False, blocks: list | None = None) -> str:
     """Return the page's body text with headers, footers and footnotes stripped.
 
     Detection strategy (combined — first applicable rule wins):
@@ -79,10 +79,12 @@ def _clean_page_text(page: fitz.Page, keep_body_in_margins: bool = False) -> str
          footnote AND drop every following block.
 
     With keep_body_in_margins, rule A spares margin-band blocks that look like
-    body text (see _is_body_block_in_margin). Jurisprudence ingestion uses it;
-    the GC/SP callers keep the original behaviour.
+    body text (see _is_body_block_in_margin). Jurisprudence ingestion uses it,
+    and passes its own `blocks` (page.get_text("blocks") tuples whose text
+    carries footnote markers); the GC/SP callers keep the original behaviour.
     """
-    blocks = page.get_text("blocks")
+    if blocks is None:
+        blocks = page.get_text("blocks")
 
     # First pass: filter by y-band, keep raw block tuples.
     in_band = []

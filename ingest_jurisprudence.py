@@ -70,6 +70,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from collections import Counter
 from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
@@ -494,6 +495,35 @@ HEADER_KEYWORDS = (
 )
 
 
+_ENGLISH_WORDS = re.compile(r'\b(?:the|of|and|to|that|in|is|which|by|for)\b', re.IGNORECASE)
+_ROMANCE_WORDS = re.compile(r'\b(?:de|la|que|el|los|las|del|les|des|et|le|du|en|una|une)\b', re.IGNORECASE)
+_ORIGINAL_LANGUAGE = re.compile(r'\bOriginal\s*:\s*(?:French|Spanish|Arabic|Chinese|Russian)\b', re.IGNORECASE)
+
+
+def _is_translation_note(text: str, following: list[str]) -> bool:
+    """An "[Original: Spanish]" note above an English translation.
+
+    English documents mark annexed opinions written in another language this
+    way; only a block that really is in that language should be skipped
+    (CCPR/C/144/D/2982/2017 lost both opinions).
+    """
+    if not _ORIGINAL_LANGUAGE.search(text):
+        return False
+    sample = ' '.join(following)
+    english = len(_ENGLISH_WORDS.findall(sample))
+    return english >= 10 and english > 2 * len(_ROMANCE_WORDS.findall(sample))
+
+
+def _drop_translation_notes(pages: list[str]) -> list[str]:
+    """Blank "[Original: Spanish]" lines that head English translations."""
+    lines = [(i, j, l) for i, page in enumerate(pages) for j, l in enumerate(page.splitlines())]
+    split = [page.splitlines() for page in pages]
+    for k, (i, j, line) in enumerate(lines):
+        if _is_translation_note(line, [l for _, _, l in lines[k + 1:k + 25]]):
+            split[i][j] = ''
+    return ['\n'.join(page) for page in split]
+
+
 def _is_non_english_annex_marker(text: str) -> bool:
     """Detect non-English annex blocks that slipped into an English source."""
     t = re.sub(r'\s+', ' ', text.strip())
@@ -755,9 +785,11 @@ def extract_docx_paragraphs(path: Path) -> list[dict]:
         pending_refs = []
 
     para_source = body_paragraphs if body_paragraphs else [(p.text, []) for p in doc.paragraphs]
-    for raw_text, refs in para_source:
+    for k, (raw_text, refs) in enumerate(para_source):
         t = raw_text.strip()
         if not t:
+            continue
+        if _is_translation_note(t, [x for x, _ in para_source[k + 1:k + 15]]):
             continue
         if _is_non_english_annex_marker(t):
             if state == 'PRE_BODY':
@@ -1193,7 +1225,7 @@ PDF_HEADING_RE = re.compile(
     r'(?:the\s+)?committee[’\']?s\s+consideration|'
     r'admissibility|merits|conclusions?|'
     r'decision\s+on\s+admissibility|'
-    r'individual\s+opinion(?:\s+.*)?|separate\s+opinion(?:\s+.*)?|dissenting\s+opinion(?:\s+.*)?|concurring\s+opinion(?:\s+.*)?|joint\s+opinion(?:\s+.*)?|annex|appendix'
+    r'individual\s+opinion(?:\s+.*)?|separate\s+opinion(?:\s+.*)?|dissenting\s+opinion(?:\s+.*)?|concurring\s+opinion(?:\s+.*)?|joint\s+opinion(?:\s+.*)?|(?:annex|appendix)(?:\s+(?:[ivx]+|\d+))?'
     r')$',
     re.IGNORECASE,
 )
@@ -1590,7 +1622,7 @@ def _section_needs_continuation(section: str) -> bool:
     )
 
 
-def _clean_extracted_text(text: str) -> str:
+def _clean_extracted_text(text: str, keep_refs: bool = False) -> str:
     text = _strip_tesseract_tsv_leaks(text)
     # Undo the forms of ocr_jurisprudence's old "authors" -> "author's"
     # rewrite that cannot be genuine ("the author's' request", "The
@@ -1598,12 +1630,15 @@ def _clean_extracted_text(text: str) -> str:
     text = re.sub(r"\b([Aa]uthor)'s(['’])", r'\1s\2', text)
     text = re.sub(r"\b([Aa]uthor)'s of\b", r'\1s of', text)
     text = re.sub(r'-\s*\n\s*', '', text)
-    text = re.sub(r'(?<=[.!?”\)])\s*\d{1,3}(?=\s+[A-Z])', '', text)
+    # A number after a sentence ("... Sweden.1 The State") is a note
+    # reference whose superscript the PDF lost. Paragraphs keep it as
+    # [[ref:N]] for _attach_notes, which links or drops it.
+    text = re.sub(r'(?<=[.!?”\)])\s*(\d{1,3})(?=\s+[A-Z])', r'[[ref:\1]]' if keep_refs else '', text)
     text = re.sub(r'[ \t]+', ' ', text)
     return text.strip()
 
 
-def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
+def _parse_pdf_text_pages(pages: list[str], page_notes: list[dict] | None = None) -> list[dict]:
     paragraphs: list[dict] = []
     current_id: str | None = None
     current_section = ''
@@ -1623,7 +1658,7 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
             current_id = None
             buf = []
             return
-        text = _clean_extracted_text(' '.join(x.strip() for x in buf if x.strip()))
+        text = _clean_extracted_text(' '.join(x.strip() for x in buf if x.strip()), keep_refs=True)
         if len(text) >= 20:
             paragraphs.append({
                 'ID': current_id,
@@ -1638,7 +1673,7 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
         nonlocal unnumbered_buf, unnumbered_counter
         if not unnumbered_buf:
             return
-        text = _clean_extracted_text(' '.join(x.strip() for x in unnumbered_buf if x.strip()))
+        text = _clean_extracted_text(' '.join(x.strip() for x in unnumbered_buf if x.strip()), keep_refs=True)
         unnumbered_buf = []
         if len(text) < 40:
             return
@@ -1664,8 +1699,14 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
             return True
         return False
 
+    endnote_lines: list[str] = []
+    foot_notes: list[dict] = []
+    pages = _drop_translation_notes(pages)
     for page_text in pages:
         page_text = _strip_running_header(_strip_tesseract_tsv_leaks(page_text))
+        page_text, foot = _split_trailing_notes(page_text)
+        foot_notes.extend(_parse_note_lines(foot, 'page'))
+        page_first = True
         for raw_line in page_text.splitlines():
             line = raw_line.strip()
             if not line:
@@ -1714,12 +1755,32 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
                 flush_unnumbered()
                 flush()
                 skip_endnotes = True
+                endnote_lines.append(line)
                 continue
             if skip_endnotes:
-                if _is_pdf_heading(line) and re.search(r'opinion|appendix|annex', line, re.IGNORECASE):
+                heading = (_is_pdf_heading(line) and re.search(r'opinion|appendix|annex', line, re.IGNORECASE)) \
+                    or (len(line) <= 40 and re.match(r'(?:appendix|annex)\b', line, re.IGNORECASE))
+                # Notes end at a page that opens with prose: an opinion
+                # appended without a heading ("We share the view ...").
+                # Whether the last note finished its sentence; a block with no
+                # note text (its notes were cut off the page foot) has ended.
+                note_text = [l.strip() for l in endnote_lines
+                             if l.strip() and not re.fullmatch(r'Notes?|-\s?\*\s?-', l.strip()) and not _is_pdf_noise_line(l)]
+                note_done = not note_text or note_text[-1].endswith(('.', '"', '”', ')'))
+                prose = page_first and len(line) > 40 and not NOTE_START_LETTER.match(line) \
+                    and not line[0].islower() and note_done \
+                    and not NOTE_START_NUMBERED.match(line) \
+                    and not _page_continues_notes(page_text.splitlines(), endnote_lines)
+                if heading or prose:
                     skip_endnotes = False
+                    if prose and not heading:
+                        current_section = 'Appendix'
+                        pending_heading = current_section
                 else:
+                    page_first = False
+                    endnote_lines.append(line)
                     continue
+            page_first = False
 
             marker = PDF_PARA_MARKER.match(line)
             if marker and marker.group(1).endswith(',') and re.match(r'\d', (marker.group(2) or '').strip()):
@@ -1819,7 +1880,9 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
     flush()
     paragraphs = _label_orphans(paragraphs, orphan_hints)
     paragraphs = repair_paragraph_id_sequence(paragraphs)
-    return apply_paragraph_namespaces(paragraphs)
+    paragraphs = apply_paragraph_namespaces(paragraphs)
+    notes = (page_notes or []) + foot_notes + _parse_note_lines(endnote_lines, 'end')
+    return _attach_notes(paragraphs, notes)
 
 
 def _load_ocr_pages(doc_id: str | None) -> list[str]:
@@ -1857,6 +1920,305 @@ def _load_ocr_meta(doc_id: str | None) -> dict | None:
     return None
 
 
+# ---------------------------------------------------------------------------
+# PDF footnotes and endnotes
+# ---------------------------------------------------------------------------
+# Modern PDFs: references are superscript digits; the notes sit below a short
+# rule at the foot of the page. Old compilations and scans: references are
+# "a/", "b/" (or "(1)") in the text, and the notes either close each page or
+# follow the decision under "Notes" / after "-*-". The DOCX route keeps
+# footnotes as [{n, text}] with [[fn:n]] markers; PDFs now do the same, with
+# `mark` holding the printed mark when it is not the number ("a/").
+
+FN_REF_LETTER = re.compile(r'\s?(?<![\w/])([a-z]{1,2}|\*{1,3})\s?/(?=[\s.,;:)\]]|$)')
+FN_REF_PAREN = re.compile(r'(?<=[a-z.,;:”"’)\]])(\s?)\((\d{1,2})\)(?=[\s.,;:]|$)')
+# "paragraph (2)", "article 14 (1)": provisions, not note references.
+FN_REF_PAREN_NOT_AFTER = re.compile(
+    r'\b(?:paragraphs?|subparagraphs?|para|paras|articles?|art|section|sections|rule|rules|regulation|item|point)\.?$',
+    re.IGNORECASE)
+NOTE_START_LETTER = re.compile(r'^([a-zA-Z]{1,2}|\*{1,3})\s?/\s*(.*)$')
+NOTE_START_NUMBERED = re.compile(r'^(?:Note\s+)?(\d{1,2})(?:[./]\s*|\s+)(\S.*)$')
+MONTHS = r'(?:January|February|March|April|May|June|July|August|September|October|November|December)'
+PDF_FOOTER_LINE = re.compile(
+    r'^(?:GE\.\d{2}-\d{4,6}.*|\*\d{5,}\*|[A-Z]{2,6}/C/\d+/D/\S+|\d{1,3}|\d{1,3}/\d{1,3}|Please recycle.*)$'
+)
+
+
+def _letter_mark(raw: str) -> str:
+    raw = raw.lower()
+    # OCR doubles a letter now and then ("bh/" for "b/"); "aa/" is a real mark.
+    return raw if len(raw) == 2 and raw[0] == raw[1] else raw[0]
+
+
+def _pdf_page_blocks_and_notes(page) -> tuple[list[tuple], list[dict], str]:
+    """Body blocks with [[fn:N]] markers, the page's footnotes, and any text
+    that continues the previous page's last footnote.
+
+    Blocks come back as page.get_text("blocks") tuples for _clean_page_text.
+    The footnote area starts at a short horizontal rule drawn in the lower
+    part of the page, an underscore line, or failing both the first small-type
+    block that opens with a number.
+    """
+    d = page.get_text('dict')
+    text_blocks = [b for b in d['blocks'] if b.get('type') == 0]
+    sizes: Counter = Counter()
+    for b in text_blocks:
+        for l in b['lines']:
+            for s in l['spans']:
+                sizes[round(s['size'], 1)] += len(s['text'].strip())
+    body_size = sizes.most_common(1)[0][0] if sizes else 10.0
+    small = body_size - 0.5
+
+    height = page.rect.height
+
+    def only_small_below(y: float) -> bool:
+        """Everything under y is footnote type (the footer aside): a short
+        rule above body-size text is an underline, not the footnote rule."""
+        seen = False
+        for b in text_blocks:
+            if b['bbox'][1] < y - 1:
+                continue
+            for l in b['lines']:
+                line = ''.join(s['text'] for s in l['spans']).strip()
+                if not line or PDF_FOOTER_LINE.match(line):
+                    continue
+                if any(s['size'] >= small and len(s['text'].strip()) > 2 for s in l['spans']):
+                    return False
+                seen = True
+        return seen
+
+    def note_led(line) -> bool:
+        """A footnote's first line: a small number that is not a superscript
+        reference, then the note's text."""
+        spans = [s for s in line['spans'] if s['text'].strip()]
+        if not spans or spans[0]['size'] >= small or spans[0]['flags'] & 1:
+            return False
+        if len(spans) >= 2 and re.fullmatch(r'\s*\d{1,3}\s*', spans[0]['text']):
+            return True
+        # Number and text in one span: only in clearly smaller type, and not
+        # a date ("31 March 1994" on a title page).
+        return (spans[0]['size'] <= body_size * 0.85
+                and bool(re.match(r'\s*\d{1,3}\s+\S', spans[0]['text']))
+                and not re.match(rf'\s*\d{{1,2}}\s+{MONTHS}', spans[0]['text'], re.IGNORECASE))
+
+    lines_all = sorted(((l['bbox'][1], l) for b in text_blocks for l in b['lines']), key=lambda x: x[0])
+
+    def notes_below(y: float) -> bool:
+        """Old Word exports set footnotes in body type with a small number:
+        from y down the page every numbered line is a note, none a paragraph."""
+        below = [l for ly, l in lines_all if ly >= y - 1]
+        if not below or not note_led(below[0]):
+            return False
+        for l in below:
+            text = ''.join(s['text'] for s in l['spans']).strip()
+            size = max((s['size'] for s in l['spans'] if s['text'].strip()), default=0)
+            if size >= small and PDF_PARA_MARKER.match(text) and not note_led(l):
+                return False
+        return True
+
+    candidates = [
+        r.y0 for r in (dr.get('rect') for dr in page.get_drawings())
+        if r is not None and r.height <= 2.5 and 30 <= r.width <= 220 and r.y0 > height * 0.35
+    ]
+    for b in text_blocks:
+        text = ''.join(s['text'] for l in b['lines'] for s in l['spans'])
+        if b['bbox'][1] > height * 0.35 and re.fullmatch(r'\s*_{5,}\s*', text):
+            candidates.append(b['bbox'][1])
+    candidates += [ly for ly, l in lines_all if ly > height * 0.3 and note_led(l)]
+    sep_y = next((y for y in sorted(candidates) if only_small_below(y) or notes_below(y)), None)
+
+    blocks, note_lines = [], []
+    for b in text_blocks:
+        x0, y0, x1, y1 = b['bbox']
+        body_lines = []
+        for l in b['lines']:
+            in_notes = sep_y is not None and l['bbox'][1] >= sep_y - 1
+            parts = []
+            for s in l['spans']:
+                t = s['text']
+                if (not in_notes and s['flags'] & 1 and s['size'] < small
+                        and re.fullmatch(r'\s*\d{1,3}\s*', t)):
+                    parts.append(f'[[fn:{t.strip()}]]')
+                else:
+                    parts.append(t)
+            if in_notes:
+                note_lines.append((''.join(parts), l['spans']))
+            else:
+                body_lines.append(''.join(parts))
+        if body_lines:
+            blocks.append((x0, y0, x1, y1, '\n'.join(body_lines) + '\n', 0, 0))
+
+    notes: list[dict] = []
+    carry: list[str] = []
+    for text, spans in note_lines:
+        t = text.strip()
+        if not t or re.fullmatch(r'_{3,}', t) or PDF_FOOTER_LINE.match(t):
+            continue
+        first = next((s for s in spans if s['text'].strip()), None)
+        m = re.match(r'\s*(\d{1,3})(?:\s+|$)(.*)', first['text']) if first else None
+        if m and (first['size'] < small or first['flags'] & 1):
+            rest = (m.group(2) + ''.join(s['text'] for s in spans[spans.index(first) + 1:])).strip()
+            notes.append({'mark': m.group(1), 'text': rest, 'style': 'number'})
+        elif notes:
+            notes[-1]['text'] += ' ' + t
+        else:
+            carry.append(t)
+    return blocks, notes, ' '.join(carry)
+
+
+def _parse_note_lines(lines: list[str], kind: str) -> list[dict]:
+    """Endnote or page-foot lines -> [{mark, text, style}] in order."""
+    notes: list[dict] = []
+    style = None
+    pending_raw = None
+    for raw in lines:
+        t = raw.strip()
+        if not t or _is_pdf_noise_line(t) or re.fullmatch(r'Notes?|-\s?\*\s?-', t):
+            continue
+        if len(t) <= 3 and ' ' not in t and not t.isdigit() and style in (None, 'letter'):
+            # A mark on its own line, often garbled by OCR ("!I", "BI", "£/"
+            # for a/, b/, c/): the note is the next line, the mark is its
+            # place in the sequence.
+            pending_raw = t
+            continue
+        if pending_raw is not None:
+            style = 'letter'
+            mark = chr(ord('a') + sum(n['style'] == 'letter' for n in notes))
+            notes.append({'mark': mark, 'raw': pending_raw, 'text': t, 'style': 'letter', 'kind': kind})
+            pending_raw = None
+            continue
+        letter = NOTE_START_LETTER.match(t)
+        numbered = NOTE_START_NUMBERED.match(t)
+        if letter and style in (None, 'letter') and (letter.group(2) or len(letter.group(1)) <= 2):
+            style = 'letter'
+            notes.append({'mark': _letter_mark(letter.group(1)) if letter.group(1)[0] != '*' else letter.group(1),
+                          'text': letter.group(2), 'style': 'letter', 'kind': kind})
+        elif numbered and style in (None, 'number') and (not notes or int(numbered.group(1)) == int(notes[-1]['mark']) + 1
+                                                         or not notes):
+            style = 'number'
+            notes.append({'mark': numbered.group(1), 'text': numbered.group(2), 'style': 'number', 'kind': kind})
+        elif notes:
+            notes[-1]['text'] += ' ' + t
+    for note in notes:
+        note['text'] = _clean_extracted_text(note['text'])
+    return [n for n in notes if n['text']]
+
+
+def _page_continues_notes(page_lines: list[str], endnote_lines: list[str]) -> bool:
+    """Whether a page that opens with prose still belongs to the notes: the
+    next note of the sequence ("4." after 3, "c/" after b/) starts on it."""
+    notes = _parse_note_lines(endnote_lines, 'end')
+    if not notes:
+        return False
+    last = notes[-1]
+    if last['style'] == 'number':
+        want = re.compile(rf'^(?:Note\s+)?{int(last["mark"]) + 1}(?:[./]\s*|\s+)\S')
+    else:
+        want = re.compile(rf'^{re.escape(chr(ord(last["mark"][0]) + 1))}\s?/', re.IGNORECASE)
+    return any(want.match(l.strip()) for l in page_lines)
+
+
+def _split_trailing_notes(page_text: str) -> tuple[str, list[str]]:
+    """Cut "a/ ..." notes off the foot of an old page: from the first note
+    line in the lower part of the page after which no paragraph starts."""
+    lines = page_text.splitlines()
+    n = len(lines)
+    start = None
+    for i in range(n - 1, int(n * 0.4) - 1, -1):
+        t = lines[i].strip()
+        if PDF_PARA_MARKER.match(t) or PDF_NUMBERED_OPINION_HEADING.match(t):
+            break
+        m = NOTE_START_LETTER.match(t)
+        if m and '/' in t[:5] and m.group(2):
+            start = i
+    if start is None:
+        return page_text, []
+    return '\n'.join(lines[:start]), lines[start:]
+
+
+def _attach_notes(paragraphs: list[dict], notes: list[dict]) -> list[dict]:
+    """Link notes to the paragraphs that cite them; [[fn:n]] markers in text.
+
+    The k-th reference to a mark takes the k-th note with that mark, so marks
+    that restart on every page ("a/") pair up in order. Numbered notes keep
+    their printed number as n; lettered notes are numbered 1, 2, ... through
+    the document and keep the printed mark. A note nothing refers to is
+    attached to the decision's last paragraph, unanchored, so it is not lost.
+    """
+    # Title-page notes ("*/ Made public by decision of ...") belong to no
+    # paragraph; the DOCX route skips them too.
+    notes = [n for n in notes if not n['mark'].startswith('*')]
+    if not notes:
+        # Superscript references whose notes were not found: no dangling markers.
+        for para in paragraphs:
+            para['Text'] = re.sub(r'\[\[(?:fn|ref):\d{1,3}\]\]', '', para['Text'])
+        return paragraphs
+    ordinal = 0
+    for note in notes:
+        if note['style'] == 'number':
+            note['n'] = int(note['mark'])
+        else:
+            ordinal += 1
+            note['n'] = ordinal
+        note['used'] = False
+    queues: dict[tuple[str, str], list[dict]] = {}
+    for note in notes:
+        queues.setdefault((note['style'], note['mark']), []).append(note)
+    has_letter = any(n['style'] == 'letter' for n in notes)
+    has_endnumbers = any(n['style'] == 'number' and n.get('kind') == 'end' for n in notes)
+
+    def take(style: str, mark: str):
+        for note in queues.get((style, mark), []):
+            if not note['used']:
+                note['used'] = True
+                return note
+        return None
+
+    for para in paragraphs:
+        cited: list[dict] = []
+
+        def link(note, original: str) -> str:
+            if note is None:
+                return original
+            cited.append(note)
+            return f'[[fn:{note["n"]}]]'
+
+        text = para['Text']
+        text = re.sub(r'\[\[fn:(\d{1,3})\]\]', lambda m: link(take('number', m.group(1)), ''), text)
+        for note in notes:
+            if note.get('raw') and not note['used']:
+                # The garbled mark is repeated in the text as OCR read it.
+                text = re.sub(r'(?<=\S)\s' + re.escape(note['raw']) + r'(?=\s|$|[.,;:])',
+                              lambda m, note=note: link(take('letter', note['mark']), m.group(0)), text, count=1)
+        if has_letter:
+            text = FN_REF_LETTER.sub(lambda m: link(take('letter', _letter_mark(m.group(1)) if m.group(1)[0] != '*'
+                                                         else m.group(1)), m.group(0)), text)
+        if has_endnumbers:
+            text = FN_REF_PAREN.sub(
+                lambda m: m.group(0) if (m.group(1) and FN_REF_PAREN_NOT_AFTER.search(text[:m.start()]))
+                else link(take('number', m.group(2)), m.group(0)), text)
+        text = re.sub(r'\[\[ref:(\d{1,3})\]\]', lambda m: link(take('number', m.group(1)), ''), text)
+        para['Text'] = re.sub(r'\s{2,}', ' ', text).strip()
+        if cited:
+            items = para.setdefault('Footnotes', [])
+            for note in cited:
+                item = {'n': note['n'], 'text': note['text']}
+                if note['style'] != 'number':
+                    item['mark'] = note['mark'] + '/'
+                if item not in items:
+                    items.append(item)
+    unused = [n for n in notes if not n['used']]
+    if unused and paragraphs:
+        # On the decision's last paragraph, not on an appended opinion.
+        last = next((p for p in reversed(paragraphs) if not p.get('Namespace')), paragraphs[-1])
+        for note in unused:
+            item = {'n': note['n'], 'text': note['text'], 'anchored': False}
+            if note['style'] != 'number':
+                item['mark'] = note['mark'] + '/'
+            last.setdefault('Footnotes', []).append(item)
+    return paragraphs
+
+
 def extract_pdf_paragraphs(path: Path, doc_id: str | None = None) -> list[dict]:
     """Extract numbered jurisprudence paragraphs from a PDF.
 
@@ -1871,13 +2233,26 @@ def extract_pdf_paragraphs(path: Path, doc_id: str | None = None) -> list[dict]:
     doc = fitz.open(path)
     try:
         pages = []
+        notes: list[dict] = []
         for page in doc:
-            cleaned = _clean_page_text(page, keep_body_in_margins=True)
+            blocks, page_notes, carried = _pdf_page_blocks_and_notes(page)
+            cleaned = _clean_page_text(page, keep_body_in_margins=True, blocks=blocks)
             pages.append(cleaned if cleaned.strip() else page.get_text())
+            if carried and notes:
+                notes[-1]['text'] += ' ' + carried
+            for note in page_notes:
+                # Numbers run on (or restart at 1 in an annexed opinion); a
+                # line that only looks numbered continues the previous note.
+                if notes and note['mark'] not in ('1', str(int(notes[-1]['mark']) + 1)):
+                    notes[-1]['text'] += f" {note['mark']} {note['text']}"
+                else:
+                    notes.append(note)
     finally:
         doc.close()
+    for note in notes:
+        note['text'] = _clean_extracted_text(note['text'])
 
-    paragraphs = _parse_pdf_text_pages(pages)
+    paragraphs = _parse_pdf_text_pages(pages, notes)
     if paragraphs:
         return paragraphs
     unnumbered = extract_pdf_unnumbered_decision(pages)
