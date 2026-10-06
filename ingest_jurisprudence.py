@@ -1201,6 +1201,8 @@ PDF_NUMBERED_OPINION_HEADING = re.compile(
     r'^\d{1,2}\.\s+(?:individual|separate|dissenting|concurring|joint)\s+(?:\w+\s+)?opinion\b',
     re.IGNORECASE,
 )
+# A paragraph number OCR mangled: "10.%", ">.", "4.]", "§.".
+PDF_GARBLED_MARKER = re.compile(r'^(\d{1,2}(?:\.\d{1,2})?)?\.?[%\]\)}>|§*]{1,2}\.?\s+(?=[A-Z“"(])')
 PDF_ENDNOTES_START = re.compile(r'^(?:Notes|Note\s+\d{1,2}\b.*|-\s?\*\s?-)$')
 TESSERACT_TSV_LEAK = re.compile(
     r'(?<!\d)[1-5][\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+\d+[\t ]+-?\d+(?:\.\d+)?[\t ]+'
@@ -1339,6 +1341,41 @@ def _is_front_matter_date_marker(raw_id: str, rest: str, has_paragraphs: bool, c
     )
 
 
+def _successors(label: tuple[int, ...]) -> set[tuple[int, ...]]:
+    if len(label) == 2:
+        a, b = label
+        return {(a, b + 1), (a + 1,), (a + 1, 1)}
+    (a,) = label
+    return {(a + 1,), (a + 1, 1), (a, 1)}
+
+
+def _label_orphans(paragraphs: list[dict], hints: dict[str, str | None]) -> list[dict]:
+    """Name generated paragraphs (G1, G2 ...) from the labels around them.
+
+    The label must follow the previous paragraph's and be followed by the
+    next one's; any digits OCR kept ("10" of "10.%") must agree. Otherwise
+    the paragraph keeps its generated id.
+    """
+    for i, para in enumerate(paragraphs):
+        pid = para.get('ID') or ''
+        if pid not in hints:
+            continue
+        para['GeneratedID'] = True
+        para['GeneratedIDReason'] = 'pdf_garbled_marker'
+        prev = next((para_id_tuple(p['ID']) for p in reversed(paragraphs[:i]) if para_id_tuple(p['ID'])), None)
+        nxt = next((para_id_tuple(p['ID']) for p in paragraphs[i + 1:] if para_id_tuple(p['ID'])), None)
+        if not prev or len(prev) > 2:
+            continue
+        options = [o for o in _successors(prev) if nxt is None or nxt in _successors(o)]
+        hint = para_id_tuple(hints.get(pid) or '')
+        if hint:
+            exact = [o for o in options if o == hint]
+            options = exact or [o for o in options if o[0] == hint[0]]
+        if len(options) == 1:
+            _set_corrected_para_id(para, '.'.join(map(str, options[0])) + '.', 'sequence_garbled_marker')
+    return paragraphs
+
+
 def _set_corrected_para_id(para: dict, corrected_id: str, reason: str) -> None:
     if para.get('ID') == corrected_id:
         return
@@ -1438,6 +1475,18 @@ def _is_opinion_section(section: str) -> bool:
     return bool(re.search(r'\b(?:individual|separate|dissenting|concurring|joint)\s+opinion\b', low))
 
 
+def _collects_unnumbered(section: str, opinion_zone: bool) -> bool:
+    """Sections whose unnumbered paragraphs are kept (as U1, U2, ...).
+
+    Besides opinions, an "APPENDIX" heading: old compilations append an
+    individual opinion under it with no heading of its own
+    (CCPR/C/38/D/275/1988).
+    """
+    return (_is_opinion_section(section)
+            or _is_namespaced_continuation_section(section, opinion_zone)
+            or bool(re.match(r'appendix\b', (section or '').strip(), re.IGNORECASE)))
+
+
 def _is_namespaced_continuation_section(section: str, opinion_zone: bool) -> bool:
     return bool(opinion_zone and re.match(r'^[A-Z]\.\s+', (section or '').strip()))
 
@@ -1461,6 +1510,29 @@ def _is_pdf_noise_line(line: str) -> bool:
     if re.match(r'^Committee[’\']?s Annual Report to the General Assembly\.?\]?$', t, re.IGNORECASE):
         return True
     return False
+
+
+RUNNING_HEADER_LINE = re.compile(
+    r'^(?:[A-Z]{2,6}/C/\d+/D/\d+/\d+(?:/Rev\.\d+)?|Annex|English|French|Spanish|Page\s+\d+|-\s?\d{1,4}\s?-)$',
+    re.IGNORECASE,
+)
+
+
+def _strip_running_header(page_text: str) -> str:
+    """Drop the running header at the top of an OCR'd page.
+
+    Old decisions repeat "CCPR/C/50/D/428/1990 / Annex / English / Page 4"
+    on every page. Read as a heading, "Annex" closed the open paragraph and
+    the rest of it was lost (CCPR/C/50/D/428/1990, para. 5.2). Only a run
+    that starts with the symbol or the page number counts as a header.
+    """
+    lines = page_text.splitlines()
+    k = 0
+    while k < min(len(lines), 6) and RUNNING_HEADER_LINE.match(lines[k].strip()):
+        k += 1
+    if k and re.match(r'^(?:[A-Z]{2,6}/C/|Page\s+\d)', lines[0].strip(), re.IGNORECASE):
+        return '\n'.join(lines[k:])
+    return page_text
 
 
 def _is_pdf_heading(line: str, previous_text: str = '') -> bool:
@@ -1541,6 +1613,8 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
     opinion_zone = False
     skip_non_english = False
     skip_endnotes = False
+    orphan_count = 0
+    orphan_hints: dict[str, str | None] = {}
 
     def flush() -> None:
         nonlocal current_id, buf
@@ -1567,6 +1641,8 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
         unnumbered_buf = []
         if len(text) < 40:
             return
+        if len(text) < 130 and not re.search(r'[a-z]', text):
+            return  # an all-caps title ("INDIVIDUAL OPINIONS CONCERNING ...")
         unnumbered_counter += 1
         paragraphs.append({
             'ID': f'U{unnumbered_counter}.',
@@ -1588,7 +1664,7 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
         return False
 
     for page_text in pages:
-        page_text = _strip_tesseract_tsv_leaks(page_text)
+        page_text = _strip_running_header(_strip_tesseract_tsv_leaks(page_text))
         for raw_line in page_text.splitlines():
             line = raw_line.strip()
             if not line:
@@ -1614,6 +1690,12 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
                 continue
 
             line = re.sub(r'^(\d{1,3})~(\d{1,2})(?=\s|$)', r'\1.\2', line)
+            ocr_section_sign = re.match(r'^§\.?(\d{1,2})(?=\s)', line)
+            current_tuple = para_id_tuple(current_id)
+            if ocr_section_sign and current_tuple and len(current_tuple) == 2 \
+                    and int(ocr_section_sign.group(1)) == current_tuple[1] + 1:
+                # OCR reads "5" or "8" as "§"; the sequence says which.
+                line = f'{current_tuple[0]}.' + line[ocr_section_sign.start(1):]
             if PDF_NUMBERED_OPINION_HEADING.match(line):
                 # "1. Individual opinion by Mr. Nisuke Ando (dissenting)"
                 flush_unnumbered()
@@ -1701,13 +1783,13 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
                 current_section = line.rstrip('.')
                 pending_heading = current_section
                 opinion_zone = opinion_zone or _is_opinion_section(current_section)
-                if _is_opinion_section(current_section) or _is_namespaced_continuation_section(current_section, opinion_zone):
+                if _collects_unnumbered(current_section, opinion_zone):
                     unnumbered_counter = 0
                 continue
 
             if current_id:
                 buf.append(line)
-            elif _is_opinion_section(current_section) or _is_namespaced_continuation_section(current_section, opinion_zone):
+            elif _collects_unnumbered(current_section, opinion_zone):
                 if not unnumbered_buf and _section_needs_continuation(current_section):
                     current_section = f'{current_section} {line}'.strip()
                     pending_heading = current_section
@@ -1721,9 +1803,20 @@ def _parse_pdf_text_pages(pages: list[str]) -> list[dict]:
                     flush_unnumbered()
                     current_section = line.rstrip('.')
                     opinion_zone = opinion_zone or _is_opinion_section(current_section)
+                elif paragraphs and not opinion_zone and (len(line) >= 40 or PDF_GARBLED_MARKER.match(line)):
+                    # Body text after a heading whose paragraph number OCR
+                    # garbled ("10.% The Human Rights Committee ..."): keep it
+                    # as a generated paragraph; _label_orphans names it from
+                    # its neighbours when they leave one choice.
+                    orphan_count += 1
+                    current_id = f'G{orphan_count}.'
+                    garbled = PDF_GARBLED_MARKER.match(line)
+                    orphan_hints[current_id] = garbled.group(1) if garbled else None
+                    buf = [line[garbled.end():] if garbled else line]
 
     flush_unnumbered()
     flush()
+    paragraphs = _label_orphans(paragraphs, orphan_hints)
     paragraphs = repair_paragraph_id_sequence(paragraphs)
     return apply_paragraph_namespaces(paragraphs)
 

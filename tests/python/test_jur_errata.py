@@ -329,3 +329,32 @@ def test_gc_sp_page_cleaning_is_unchanged():
         page = doc[4]
         assert '5.1 During its forty-sixth session' not in clean_extract._clean_page_text(page)
         assert '5.1 During its forty-sixth session' in clean_extract._clean_page_text(page, keep_body_in_margins=True)
+
+
+# --- Found while testing the redirect map on the local sources -------------------
+
+def ocr_pages(doc_id):
+    return [p.read_text() for p in sorted((FIX / f'ocr_{doc_id}').glob('page-*.txt'))]
+
+
+def test_running_header_does_not_close_a_paragraph():
+    # "CCPR/C/50/D/428/1990 / Annex / English / Page 4" at the top of a page.
+    ps = ij._parse_pdf_text_pages(ocr_pages('ccpr-c-50-d-428-1990'))
+    assert_continuous(main_ids(ps))
+    assert text(ps, '5.2.').startswith('The Committee decides to base its Views on the following facts')
+
+
+def test_appendix_opinion_is_kept():
+    ps = ij._parse_pdf_text_pages(ocr_pages('ccpr-c-38-d-275-1988'))
+    assert text(ps, '6.').endswith('to the author through her counsel.')
+    appendix = [p for p in ps if p.get('Namespace')]
+    assert appendix and appendix[0]['Text'].startswith("I concur in the views expressed in the Committee's decision")
+
+
+def test_garbled_marker_after_heading_is_kept_and_named():
+    # "10.% The Human Rights Committee has considered ..."
+    ps = ij._parse_pdf_text_pages(ocr_pages('ccpr-c-55-d-519-1992'))
+    assert_continuous(main_ids(ps))
+    p10 = [p for p in ps if p['ID'] == '10.'][0]
+    assert p10['Text'].startswith('The Human Rights Committee has considered the present communication')
+    assert p10['IdCorrection'] == 'sequence_garbled_marker'
