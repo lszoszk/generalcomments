@@ -358,3 +358,10 @@ def test_garbled_marker_after_heading_is_kept_and_named():
     p10 = [p for p in ps if p['ID'] == '10.'][0]
     assert p10['Text'].startswith('The Human Rights Committee has considered the present communication')
     assert p10['IdCorrection'] == 'sequence_garbled_marker'
+
+
+def test_ocr_page_number_does_not_hide_the_next_paragraph():
+    # Page 8 ends "... legal aid system." then "~92-"; para. 14 opens page 9.
+    ps = ij._parse_pdf_text_pages(ocr_pages('ccpr-c-39-d-250-1987'))
+    assert text(ps, '14.').startswith('The Committee wouid wish to receive information')
+    assert '~92-' not in text(ps, '12.2.')

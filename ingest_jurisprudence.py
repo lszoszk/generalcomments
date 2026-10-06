@@ -1284,7 +1284,8 @@ def _repair_tesseract_tsv_leaks(text: str) -> str:
 
 def _pdf_marker_action(raw_id: str, rest: str, current_id: str | None, previous_text: str = '') -> str:
     """Return `new`, `append_line`, or `append_rest` for a candidate marker."""
-    prev = (previous_text or '').rstrip()
+    # A page number stuck to the end ("... system. ~92-") is not text.
+    prev = re.sub(r'\s[-~]?\d{1,4}[-~]$', '', (previous_text or '').rstrip())
     ends_mid_sentence = bool(prev) and not prev.endswith(('.', ':', ';', '!', '?', ')', ']', '"', '”', '’'))
     if not current_id:
         candidate = para_id_tuple(raw_id)
@@ -1499,7 +1500,7 @@ def _is_pdf_noise_line(line: str) -> bool:
         return True
     if re.match(r'^page\s+\d+$', t, re.IGNORECASE):
         return True
-    if re.match(r'^-\s?\d{1,4}\s?-$', t):
+    if re.match(r'^[-~]\s?\d{1,4}\s?[-~]$', t):  # "-158-", OCR'd as "~92-"
         return True
     if re.match(r'^GE\.\d{2}-\d{4,6}', t):
         return True
