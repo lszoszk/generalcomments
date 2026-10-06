@@ -2787,7 +2787,7 @@ function buildPrintFootnotes() {
   for (const el of document.querySelectorAll('#docs-reader-body .docs-reader-para')) {
     const para = state.paragraphById.get(el.dataset.paraId);
     for (const fn of (para?.footnotes || [])) {
-      if (fn && typeof fn === 'object' && fn.text) items.push(`<li><span class="mono">${escape(String(fn.n ?? ''))}</span> ${escape(fn.text)}</li>`);
+      if (fn && typeof fn === 'object' && fn.text) items.push(`<li><span class="mono">${escape(String(fn.mark ?? fn.n ?? ''))}</span> ${escape(fn.text)}</li>`);
     }
   }
   if (!items.length) return;
@@ -3221,6 +3221,7 @@ function paintDocReaderBody(doc, paraId) {
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">✎</span>' : ''}
         </div>
         <p class="docs-reader-para-text serif">${annotateTreatyText(emphasiseTrailingSubhead(renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms }), doc?.type), doc?.committee, p?.citedArticles)}</p>
+        ${renderUnanchoredNotes(p.footnotes)}
       </div>`;
   }).join('');
 
@@ -9910,13 +9911,13 @@ function paintDossier() {
       if (isMobileViewport()) {
         const rendered = renderParagraphHtml(para.text, para.footnotes);
         const annotated = annotateTreatyText(rendered, doc?.committee, para?.citedArticles);
-        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p></blockquote>`;
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p>${renderUnanchoredNotes(para.footnotes)}</blockquote>`;
       }
       const ctx = getDossierContext(para, { expanded: state.dossierExpanded });
       if (!ctx) {
         const rendered = renderParagraphHtml(para.text, para.footnotes);
         const annotated = annotateTreatyText(rendered, doc?.committee, para?.citedArticles);
-        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p></blockquote>`;
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p>${renderUnanchoredNotes(para.footnotes)}</blockquote>`;
       }
 
       // Section heading row — only when this paragraph belongs to a
@@ -9954,6 +9955,7 @@ function paintDossier() {
           <blockquote>
             <span class="pn">¶ ${para.n ?? para.idx}</span>
             <p>${highlightTagAware(_activeAnnotated, terms)}</p>
+            ${renderUnanchoredNotes(para.footnotes)}
           </blockquote>
         </div>`;
 
@@ -13267,27 +13269,48 @@ function renderParagraphHtml(text, footnotes, opts = {}) {
     const before = t.slice(last, m.index);
     html += terms ? highlight(before, terms) : escape(before);
     const n = Number(m[1]);
-    const fn = byN.get(n);
-    const fnText = (fn && fn.text) || '';
-    const resolved = (fn && fn.resolvedText) || '';
-    const flags = [];
-    if (fn?.isIbid)     flags.push('ibid');
-    if (fn?.isCrossRef) flags.push(`xref:${fn.referencesNote ?? ''}`);
-    if (fn?.isSelfRef)  flags.push(`selfref:${fn.referencesPara ?? ''}`);
-    html += '<button type="button" class="fn-marker" '
-          + `data-fn-n="${n}" `
-          + `data-fn-text="${escape(fnText)}" `
-          + (resolved ? `data-fn-resolved="${escape(resolved)}" ` : '')
-          + (flags.length ? `data-fn-flags="${escape(flags.join(' '))}" ` : '')
-          + `aria-label="Footnote ${n}: ${escape(fnText.slice(0, 80))}${fnText.length > 80 ? '…' : ''}" `
-          + `aria-expanded="false">`
-          + `<sup>${n}</sup>`
-          + '</button>';
+    html += _fnButtonHtml(n, byN.get(n));
     last = m.index + m[0].length;
   }
   const tail = t.slice(last);
   html += terms ? highlight(tail, terms) : escape(tail);
   return html;
+}
+
+// One footnote marker button. Lettered notes of old UN compilations show
+// their printed mark ("a/"); `n` stays the key the [[fn:N]] marker uses.
+function _fnButtonHtml(n, fn) {
+  const fnText = (fn && fn.text) || '';
+  const resolved = (fn && fn.resolvedText) || '';
+  const label = (fn && fn.mark) || String(n);
+  const flags = [];
+  if (fn?.isIbid)     flags.push('ibid');
+  if (fn?.isCrossRef) flags.push(`xref:${fn.referencesNote ?? ''}`);
+  if (fn?.isSelfRef)  flags.push(`selfref:${fn.referencesPara ?? ''}`);
+  if (fn?.anchored === false) flags.push('unanchored');
+  return '<button type="button" class="fn-marker" '
+       + `data-fn-n="${n}" `
+       + `data-fn-label="${escape(label)}" `
+       + `data-fn-text="${escape(fnText)}" `
+       + (resolved ? `data-fn-resolved="${escape(resolved)}" ` : '')
+       + (flags.length ? `data-fn-flags="${escape(flags.join(' '))}" ` : '')
+       + `aria-label="Footnote ${escape(label)}: ${escape(fnText.slice(0, 80))}${fnText.length > 80 ? '…' : ''}" `
+       + `aria-expanded="false">`
+       + `<sup>${escape(label)}</sup>`
+       + '</button>';
+}
+
+// v19.81: a PDF note whose reference the text does not show legibly (OCR
+// garbled the mark) travels on the decision's last paragraph with
+// `anchored: false`. List those under the paragraph, each opening the
+// usual popover, so they are not reachable through search alone.
+function renderUnanchoredNotes(footnotes) {
+  const loose = (Array.isArray(footnotes) ? footnotes : []).filter(f => f && f.anchored === false && f.text);
+  if (!loose.length) return '';
+  return '<div class="fn-unanchored">'
+       + '<span class="fn-unanchored-label folio">Notes not marked in the text</span> '
+       + loose.map(f => _fnButtonHtml(f.n, f)).join(' ')
+       + '</div>';
 }
 
 // Returns true if any of `terms` (case-insensitive substring) appears in any
@@ -13337,12 +13360,13 @@ function openFnPopover(triggerBtn) {
   if (!triggerBtn) return;
   if (_fnPopoverTrigger === triggerBtn) { closeFnPopover(); return; }
   closeFnPopover();
-  const n = triggerBtn.dataset.fnN || '';
+  const n = triggerBtn.dataset.fnLabel || triggerBtn.dataset.fnN || '';
   const text = triggerBtn.dataset.fnText || '';
   const resolved = triggerBtn.dataset.fnResolved || '';
   const flags = (triggerBtn.dataset.fnFlags || '').trim();
   const pop = _ensureFnPopover();
-  pop.querySelector('.fn-popover-n').textContent = n;
+  pop.querySelector('.fn-popover-n').textContent =
+    flags.split(' ').includes('unanchored') ? `${n} · not marked in the text` : n;
   // When a footnote carries resolvedText (Ibid., See note N, bare
   // Para. N.), show BOTH the literal text and the full citation it
   // resolves to so readers don't have to chase the reference.
