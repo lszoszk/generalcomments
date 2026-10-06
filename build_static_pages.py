@@ -224,6 +224,8 @@ def render(d, ps, cites, docs) -> tuple[str, str]:
 <meta property="og:type" content="article"><meta property="og:title" content="{esc(symbol)} — {esc(name)}">
 <meta property="og:url" content="{url}"><meta property="og:site_name" content="UN Human Rights Database (UNHRDB)">
 <link rel="stylesheet" href="../static.css">
+<script>/* cookie-free page counter (GoatCounter); not for Do-Not-Track or automation */
+if(navigator.doNotTrack!=="1"&&window.doNotTrack!=="1"&&!navigator.webdriver&&location.hostname.indexOf("github.io")>-1){{var g=document.createElement("script");g.async=true;g.src="https://gc.zgo.at/count.js";g.dataset.goatcounter="https://lszoszk.goatcounter.com/count";document.head.appendChild(g)}}</script>
 <script type="application/ld+json">{json_ld(d, url, len(ps))}</script>
 </head><body>
 <header class="top"><a class="brand" href="{SITE}">UNHRDB</a> <span class="crumbs">› <a href="../#{kind}">{esc(coll)}</a> › {esc(body)}</span></header>
@@ -241,7 +243,7 @@ def render(d, ps, cites, docs) -> tuple[str, str]:
 {f'<section class="links"><h2>Cited in UNHRDB by</h2><ul>{cited_by}</ul></section>' if cited_by else ''}
 {f'<section class="links"><h2>Cites</h2><ul>{cites_out}</ul></section>' if cites_out else ''}
 </main>
-<footer>Text: United Nations, reproduced from {esc(symbol)} as published; check the official text before relying on it. Database: Szoszkiewicz &amp; Kowalska, <a href="{DOI}">UNHRDB — UN Human Rights Database</a> (Zenodo), CC BY-NC-SA 4.0.</footer>
+<footer>Text: United Nations, reproduced from {esc(symbol)} as published; check the official text before relying on it. Database: Szoszkiewicz &amp; Kowalska, <a href="{DOI}">UNHRDB — UN Human Rights Database</a> (Zenodo), CC BY-NC-SA 4.0. Page views are counted with cookie-free <a href="https://www.goatcounter.com/">GoatCounter</a>.</footer>
 </body></html>
 """
     return page, "\n".join(md) + "\n"

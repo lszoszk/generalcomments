@@ -1823,10 +1823,11 @@ function setView(view) {
 //   • #workspace, #about       → /workspace, /about
 // No-op if gtag isn't loaded (e.g., user blocks it / extension off).
 function trackPageView(extraPath = null, extraTitle = null) {
-  if (typeof window.gtag !== 'function') return;
   const hash = window.location.hash || '#search';
   const path = extraPath || ('/' + hash.replace(/^#/, ''));
   const title = extraTitle || document.title || 'UN Human Rights Database';
+  countView(path, title);
+  if (typeof window.gtag !== 'function') return;
   try {
     window.gtag('event', 'page_view', {
       page_location: window.location.href,
@@ -1834,6 +1835,41 @@ function trackPageView(extraPath = null, extraTitle = null) {
       page_title: title,
     });
   } catch (e) { /* analytics failure is never fatal */ }
+}
+
+// ─── Cookie-free page counter (GoatCounter) ───────────────────
+// Records which view or document was opened — the route only (#documents/<id>,
+// #about …), never the search text, filters or anything typed — and the usual
+// referrer / screen width / browser. It sets no cookies and stores nothing in
+// the browser, so it runs without the consent banner that GA4 needs. Skipped
+// for automation, localhost, ?notrack=1 and Do-Not-Track (see
+// _analyticsSuppressed). The same GoatCounter site counts the static document
+// pages (d/<docId>/) and hrc-voting. A view repeated back to back counts once;
+// later hits drop the referrer so one visit does not re-count where it came from.
+const GC_URL = 'https://lszoszk.goatcounter.com/count';
+let _gcQueue = [], _gcReady = false, _gcTag = false, _gcFirst = true, _gcLast = '';
+function countView(path, title) {
+  if (_analyticsSuppressed()) return;
+  const p = '/generalcomments' + (path.startsWith('/') ? path : '/' + path);
+  if (p === _gcLast) return;
+  _gcLast = p;
+  const hit = { path: p, title };
+  if (!_gcFirst) hit.referrer = '';
+  _gcFirst = false;
+  if (_gcReady && window.goatcounter?.count) { try { window.goatcounter.count(hit); } catch {} return; }
+  _gcQueue.push(hit);
+  if (_gcTag) return;
+  _gcTag = true;
+  const sc = document.createElement('script');
+  sc.async = true;
+  sc.src = 'https://gc.zgo.at/count.js';
+  sc.dataset.goatcounter = GC_URL;
+  sc.dataset.goatcounterSettings = '{"no_onload":true}';
+  sc.onload = () => {
+    _gcReady = true;
+    _gcQueue.splice(0).forEach(h => { try { window.goatcounter.count(h); } catch {} });
+  };
+  document.head.appendChild(sc);
 }
 
 // ─── Analytics consent (opt-in) ───────────────────────────────

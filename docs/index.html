@@ -22,7 +22,7 @@
      Styles allow 'unsafe-inline' because the app keeps ~20 small
      style="…" attributes for layout tweaks; tighten to a hash list if
      those migrate to classes. connect-src covers the unhrdb-api VM,
-     GA4, and GitHub.
+     GA4, GoatCounter and GitHub.
      frame-ancestors is omitted (it's ignored in <meta> CSP, only
      works as an HTTP header — set on the deploy if clickjacking is a
      concern). -->
@@ -32,10 +32,11 @@
     https://cdn.sheetjs.com
     https://cdn.jsdelivr.net
     https://www.googletagmanager.com
+    https://gc.zgo.at
     'sha256-oEt6+K3ebdUcKakq19sHrCp7ZQBJnobiuqfhiDcpct4=';
   style-src 'self' 'unsafe-inline';
   font-src 'self';
-  img-src 'self' data:;
+  img-src 'self' data: https://lszoszk.goatcounter.com;
   connect-src 'self'
     https://150.254.115.204
     http://localhost:8767
@@ -43,6 +44,7 @@
     https://www.google-analytics.com
     https://*.google-analytics.com
     https://*.googletagmanager.com
+    https://lszoszk.goatcounter.com
     https://github.com
     https://api.github.com;
   object-src 'none';
@@ -153,8 +155,8 @@
 }
 </script>
 
-<link rel="stylesheet" href="assets/tokens.css?v=20261001-8aa0949" />
-<link rel="stylesheet" href="assets/app.css?v=20261001-8aa0949" />
+<link rel="stylesheet" href="assets/tokens.css?v=20261006-d0c348f" />
+<link rel="stylesheet" href="assets/app.css?v=20261006-d0c348f" />
 
 <!-- Google Analytics 4 is loaded LAZILY, only after the visitor opts in
      via the consent banner — see initConsent()/loadAnalytics() in app.js.
@@ -1578,6 +1580,22 @@ ds = load_dataset(
         </div>
 
         <div class="about-block">
+          <h3 class="folio">Usage statistics</h3>
+          <p class="serif">
+            The site counts page views with
+            <a class="about-link" href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a>,
+            an open-source counter that sets no cookies and keeps nothing in your
+            browser. Each view sends only the view or document opened (for example
+            <code class="mono">/documents/ccpr-c-gc-36</code>), the page that referred
+            you, your screen width and the browser and system named in your
+            User-Agent. Your searches, filters and notes are never sent, and nothing
+            is sent when your browser signals Do-Not-Track. Google Analytics stays
+            off unless you accept it in the banner.
+            See GoatCounter's <a class="about-link" href="https://www.goatcounter.com/privacy" target="_blank" rel="noopener">privacy policy</a>.
+          </p>
+        </div>
+
+        <div class="about-block">
           <h3 class="folio">Licence &amp; tech</h3>
           <p class="serif">
             Software is released under the
@@ -1694,6 +1712,6 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20261001-8aa0949"></script>
+<script type="module" src="assets/app.js?v=20261006-d0c348f"></script>
 </body>
 </html>
