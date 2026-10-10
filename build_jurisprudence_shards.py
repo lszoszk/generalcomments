@@ -27,8 +27,10 @@ import hashlib
 import json
 import re
 from collections import Counter, defaultdict
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
+
+import jur_paragraph_ids as pids
 
 
 ROOT = Path(__file__).resolve().parent
@@ -71,6 +73,26 @@ def paragraph_number(raw: str):
     return s
 
 
+MONTH_NUMBERS = {m: i for i, m in enumerate(
+    ('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'), 1)}
+
+
+def iso_date(raw: str | None) -> str | None:
+    """'6 Apr 2018' / '17 March 2025' / '2018-04-06' -> '2018-04-06'; else None."""
+    s = re.sub(r'\s+', ' ', (raw or '').strip())
+    m = re.fullmatch(r'(\d{4})-(\d{2})-(\d{2})', s)
+    if m:
+        return s
+    m = re.fullmatch(r'(\d{1,2})\.? ([A-Za-z]{3,9})\.?,? (\d{4})', s)
+    if not m or m.group(2)[:3].lower() not in MONTH_NUMBERS:
+        return None
+    day, month, year = int(m.group(1)), MONTH_NUMBERS[m.group(2)[:3].lower()], int(m.group(3))
+    try:
+        return date(year, month, day).isoformat()
+    except ValueError:
+        return None
+
+
 def compact_document(doc: dict) -> dict:
     """Keep Tier-1 fields useful to the browser; drop body-only bookkeeping."""
     keys = [
@@ -100,8 +122,29 @@ def compact_document(doc: dict) -> dict:
         'jurisSubstantiveArticles', 'jurisProceduralArticles',
         'jurisDownloads', 'jurisLastCheckedAt',
         'firstAddedAt', 'lastVerifiedAt',
+        'outcomeFlags', 'outcomeOperativeIds',
+        # docIds of records merged into this one; old links resolve through them.
+        'alternativeIds',
     ]
-    return {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+    out = {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+    out.update(iso_dates(doc))
+    return out
+
+
+def iso_dates(doc: dict) -> dict:
+    """ISO 8601 twins of the free-text dates ("06 Apr 2018", "17 March 2025").
+
+    Derived here, on every build, so they cannot be lost the way the earlier
+    one-off normalisation of documents.json was.
+    """
+    out = {}
+    adopted = iso_date(doc.get('jurisDecisionDate')) or iso_date(doc.get('adoptionDate'))
+    if adopted:
+        out['adoptionDateIso'] = adopted
+    submitted = iso_date(doc.get('submittedDate'))
+    if submitted:
+        out['submittedDateIso'] = submitted
+    return out
 
 
 def is_placeholder_title(value: str | None) -> bool:
@@ -152,9 +195,10 @@ def lite_document(doc: dict) -> dict:
         'jurisCountry', 'jurisSubmissionDate', 'jurisDecisionDate',
         'jurisSubstantiveIssues', 'jurisProceduralIssues',
         'jurisSubstantiveArticles', 'jurisProceduralArticles',
-        'firstAddedAt', 'lastVerifiedAt',
+        'firstAddedAt', 'lastVerifiedAt', 'alternativeIds',
     ]
     out = {k: doc[k] for k in keys if k in doc and doc[k] not in (None, '', [])}
+    out.update(iso_dates(doc))
     title = public_title(doc)
     out['name'] = title
     out['nameShort'] = title
@@ -268,7 +312,7 @@ def load_paragraphs(doc: dict) -> list[dict]:
         original_id = item.get('ID')
         original_source_id = item.get('OriginalID')
         rows.append({
-            'id': f'{doc["docId"]}-{idx:04d}',
+            'id': None,  # label-based, set below
             'docId': doc['docId'],
             'idx': idx,
             'n': paragraph_number(original_id),
@@ -293,7 +337,45 @@ def load_paragraphs(doc: dict) -> list[dict]:
             'year': doc.get('year'),
             'outcome': doc.get('outcome'),
         })
+    for row, para_id in zip(rows, pids.label_ids(doc['docId'], [r['n'] for r in rows])):
+        row['id'] = para_id
     return rows
+
+
+def read_previous(shard_dir: Path, doc_ids: set[str]) -> dict[str, list[dict]]:
+    """The previous build's paragraphs ({id, text}) of the documents being rebuilt."""
+    previous: dict[str, list[dict]] = defaultdict(list)
+    for path in sorted(shard_dir.glob('*.json')) if shard_dir.exists() else []:
+        for p in read_json(path).get('paragraphs', []):
+            if p.get('docId') in doc_ids:
+                previous[p['docId']].append({'id': p['id'], 'text': p.get('text') or '', 'idx': p.get('idx') or 0})
+    for paras in previous.values():
+        paras.sort(key=lambda p: p['idx'])
+    return previous
+
+
+def build_redirects(docs: list[dict], by_doc: dict[str, list[dict]], previous: dict[str, list[dict]],
+                    redirects_path: Path, decisions: dict) -> tuple[dict, list[dict], list[str]]:
+    """Align the previous build to this one and update the cumulative map."""
+    update: dict = {}
+    review: list[dict] = []
+    for doc in docs:
+        old = previous.get(doc['docId'])
+        if not old:
+            continue
+        new = [{'id': p['id'], 'text': p['text']} for p in by_doc.get(doc['docId'], [])]
+        doc_redirects, doc_review = pids.align(old, new)
+        update.update(doc_redirects)
+        for item in doc_review:
+            item['docId'] = doc['docId']
+        review.extend(doc_review)
+    update = pids.apply_decisions(update, decisions)
+    reviewed = set(decisions)
+    review = [item for item in review if item['oldId'] not in reviewed]
+    existing = read_json(redirects_path).get('redirects', {}) if redirects_path.exists() else {}
+    live_ids = {p['id'] for paras in by_doc.values() for p in paras}
+    redirects, dangling = pids.merge_redirects(existing, update, live_ids, set(by_doc))
+    return redirects, review, dangling
 
 
 def main() -> int:
@@ -303,6 +385,12 @@ def main() -> int:
     ap.add_argument('--treaty', help='Restrict to one treaty body, e.g. CRPD')
     ap.add_argument('--all', action='store_true', help='Build every treaty present in jurisprudence_info.json')
     ap.add_argument('--pretty', action='store_true', help='Pretty-print shard JSON for inspection')
+    ap.add_argument('--previous', type=Path,
+                    help='Shards of the previous build to redirect from (default: OUT/shards, read before overwriting)')
+    ap.add_argument('--decisions', type=Path,
+                    help='Reviewed redirects, {oldId: newId or null}, overriding provisional matches')
+    ap.add_argument('--review-out', type=Path, default=ROOT / 'jur_paragraph_redirect_review.json',
+                    help='Where to write redirects the text alignment could not settle')
     args = ap.parse_args()
 
     if not args.all and not args.treaty:
@@ -317,6 +405,7 @@ def main() -> int:
     shard_paragraphs: dict[str, list[dict]] = defaultdict(list)
     shard_docs: dict[str, list[str]] = defaultdict(list)
     all_paragraphs = []
+    by_doc: dict[str, list[dict]] = {}
     diagnostics = []
 
     for doc in docs:
@@ -331,12 +420,23 @@ def main() -> int:
         doc['wordCount'] = sum(len(p['text'].split()) for p in paragraphs)
         doc['labelCount'] = sum(len(p['labels']) for p in paragraphs)
         doc['articlesCited'] = extract_articles_cited(paragraphs)
+        by_doc[doc['docId']] = paragraphs
         shard_docs[shard_id].append(doc['docId'])
         shard_paragraphs[shard_id].extend(paragraphs)
         all_paragraphs.extend(paragraphs)
 
     out = args.out
     shard_out = out / 'shards'
+    previous = read_previous(args.previous or shard_out, set(by_doc))
+    decisions = read_json(args.decisions) if args.decisions else {}
+    redirects_path = out / 'paragraph-redirects.json'
+    redirects, review, dangling = build_redirects(docs, by_doc, previous, redirects_path, decisions)
+    legacy = pids.legacy_index(redirects)
+    for p in all_paragraphs:
+        if p['id'] in legacy:
+            p['legacyIds'] = legacy[p['id']]
+    if dangling:
+        diagnostics.append(f'{len(dangling)} redirects point at ids that no longer exist, e.g. {dangling[:3]}')
     if shard_out.exists():
         for old_shard in shard_out.glob('*.json'):
             old_shard.unlink()
@@ -345,6 +445,13 @@ def main() -> int:
     write_json(out / 'documents-lite.json', docs_lite, pretty=args.pretty)
     facets = build_facets(docs, all_paragraphs)
     write_json(out / 'facets.json', facets, pretty=True)
+    write_json(redirects_path, {
+        'scheme': '{docId}:{label}; a repeated label gets ~2, ~3; unlabelled records u1, u2',
+        'note': 'Every jurisprudence paragraph id ever published -> its current id; null: the old record was not a paragraph of the decision.',
+        'count': len(redirects),
+        'redirects': redirects,
+    })
+    write_json(args.review_out, review, pretty=True)
 
     built_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     shard_files = {}
@@ -393,11 +500,16 @@ def main() -> int:
                 'sha': sha256_file(out / 'facets.json'),
                 'bytes': (out / 'facets.json').stat().st_size,
             },
+            'paragraph-redirects.json': {
+                'sha': sha256_file(redirects_path),
+                'bytes': redirects_path.stat().st_size,
+                'redirects': len(redirects),
+            },
             **shard_files,
         },
         'schema': {
             'document': ['docId', 'type', 'treaty', 'symbol', 'country', 'year', 'communicationYear?', 'adoptionYear?', 'title', 'outcome', 'adoptionDate?', 'languages', 'link', 'sourceFile', 'sourceFormat', 'shardId', 'paragraphCount', 'wordCount', 'labelCount', 'caseLabels'],
-            'paragraph': ['id', 'docId', 'idx', 'n', 'paragraphId', 'originalParagraphId?', 'rawParagraphId?', 'idCorrection?', 'generatedParagraphId?', 'generatedIdReason?', 'namespace?', 'section', 'text', 'footnotes?', 'labels', 'sourceFormat?', 'ocrStatus?', 'ocrMeanConf?', 'ocrLowConfRatio?', 'type', 'treaty', 'country', 'year', 'outcome'],
+            'paragraph': ['id', 'legacyIds?', 'docId', 'idx', 'n', 'paragraphId', 'originalParagraphId?', 'rawParagraphId?', 'idCorrection?', 'generatedParagraphId?', 'generatedIdReason?', 'namespace?', 'section', 'text', 'footnotes?', 'labels', 'sourceFormat?', 'ocrStatus?', 'ocrMeanConf?', 'ocrLowConfRatio?', 'type', 'treaty', 'country', 'year', 'outcome'],
         },
         'diagnostics': diagnostics,
     }
@@ -407,6 +519,7 @@ def main() -> int:
     print(f'  documents:  {len(docs)}')
     print(f'  paragraphs: {len(all_paragraphs)}')
     print(f'  shards:     {len(shard_files)}')
+    print(f'  redirects:  {len(redirects)} ({len(review)} to review -> {args.review_out})')
     print(f'  out:        {out}')
     if diagnostics:
         print(f'  diagnostics: {len(diagnostics)}')

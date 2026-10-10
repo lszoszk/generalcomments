@@ -12,6 +12,9 @@ const state = {
   manifest: null,
   paragraphs: [],
   paragraphById: new Map(),     // id → paragraph, for O(1) FlexSearch hydration
+  paraIdAlias: new Map(),       // v19.80: superseded JUR paragraph id → canonical id
+                                // (null = record removed), from shard legacyIds and
+                                // /api/paragraph redirects — see resolveParagraphId
   documents: new Map(),
   facets: null,
   baseFacets: null,
@@ -244,6 +247,7 @@ async function _apiGet(base, path, params, timeoutMs) {
       const error = new Error(message);
       error.status = res.status;
       error.detail = detail;
+      error.payload = payload;   // v19.80: /api/paragraph 404s carry {doc_id, removed}
       throw error;
     }
     return await res.json();
@@ -474,6 +478,7 @@ async function fetchSearchPage(params) {
 // shape has to satisfy paintDossier + renderResult + workspace marks
 // without further conditional logic in those code paths.
 function adaptApiHit(h) {
+  _registerLegacyParaIds({ id: h.para_id, legacyIds: h.legacy_ids });   // v19.80, when the server sends them
   const year = documentResearchYear({
     type: h.type,
     year: h.year,
@@ -584,7 +589,11 @@ const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1',
 function documentIdForParagraphId(paraId) {
   if (!paraId) return null;
   const id = String(paraId);
-  const positional = id.replace(/-\d{4}$/, '');
+  // v19.80: JUR paragraph ids are label-based, "<docId>:<label>". A colon
+  // never occurs in a docId or a label, so the docId is everything before
+  // the first one. GC / SP (and legacy JUR) ids stay positional "<docId>-NNNN".
+  const colon = id.indexOf(':');
+  const positional = colon > 0 ? id.slice(0, colon) : id.replace(/-\d{4}$/, '');
   if (state.documents.has(positional)) return positional;
 
   // A merged duplicate keeps its old id alive through alternativeIds
@@ -593,6 +602,7 @@ function documentIdForParagraphId(paraId) {
   for (const d of state.documents.values()) {
     if (Array.isArray(d.alternativeIds) && d.alternativeIds.includes(positional)) return d.docId;
   }
+  if (colon > 0) return null;
 
   // Defensive fallback for legacy/non-positional paragraph IDs: choose the
   // longest document-id prefix so similarly named documents cannot collide.
@@ -601,6 +611,69 @@ function documentIdForParagraphId(paraId) {
     if (id.startsWith(`${docId}-`) && (!best || docId.length > best.length)) best = docId;
   }
   return best;
+}
+
+// True when paraId names a paragraph of docId, in either id scheme:
+// positional "<docId>-NNNN" (GC, SP, legacy JUR) or "<docId>:<label>" (JUR).
+function _paraIdInDoc(paraId, docId) {
+  if (!paraId || !docId) return false;
+  const id = String(paraId);
+  return id.startsWith(docId + '-') || id.startsWith(docId + ':');
+}
+
+// v19.80: index a JUR paragraph's superseded ids (shard `legacyIds`: its old
+// positional id plus any earlier label ids) so links and saved items made
+// under them still land on it. Called wherever a JUR paragraph enters
+// state.paragraphById. Returns how many ids were indexed.
+function _registerLegacyParaIds(p) {
+  const ids = p?.legacyIds || p?.legacy_ids;
+  if (!p?.id || !Array.isArray(ids)) return 0;
+  let n = 0;
+  for (const old of ids) {
+    if (old && old !== p.id) { state.paraIdAlias.set(old, p.id); n++; }
+  }
+  return n;
+}
+
+// v19.80: the one resolver for paragraph ids that come from outside this
+// session — ?p= links, workspace bookmarks / notes / pins, citation, related
+// and ask-source rows. JUR ids changed from positional to label-based in the
+// 2026-10 re-ingest; GC and SP ids never change. Resolves to
+//   - the id itself when it is a loaded paragraph or not a JUR id,
+//   - the canonical id when the shard legacyIds or /api/paragraph know it,
+//   - null when the old record was removed (not a paragraph of the
+//     decision) — callers fall back to the document,
+//   - the id unchanged when nothing is known (API offline, shard not yet
+//     loaded); that outcome is not cached, so a later call can still win.
+// The 9 MB paragraph-redirects.json is deliberately not loaded here.
+const _paraIdResolving = new Map();   // id → in-flight Promise
+async function resolveParagraphId(paraId) {
+  if (!paraId) return paraId;
+  const id = String(paraId);
+  if (state.paragraphById.has(id)) return id;
+  if (state.paraIdAlias.has(id)) return state.paraIdAlias.get(id);
+  const doc = state.documents.get(documentIdForParagraphId(id) || '');
+  if (doc?.type !== 'jur') return id;
+  if (!apiEnabled() || state.apiOnline === false) return id;
+  if (_paraIdResolving.has(id)) return _paraIdResolving.get(id);
+  const run = (async () => {
+    let canon;
+    try {
+      const body = await apiFetch(`/api/paragraph/${encodeURIComponent(id)}`);
+      canon = body?.para_id || id;
+      // Keep the body so a workspace row can show it before the shard loads.
+      if (!state.paragraphById.has(canon)) state.paragraphById.set(canon, adaptApiHit(body));
+    } catch (e) {
+      if (e.status !== 404) return id;            // network / server error: retry later
+      // `removed` may sit at the top level or inside FastAPI's `detail`.
+      canon = (e.payload?.removed || e.detail?.removed) ? null : id;   // else remember the miss
+    }
+    state.paraIdAlias.set(id, canon);
+    if (canon && canon !== id) _wsMigrateParaIds();
+    return canon;
+  })().finally(() => _paraIdResolving.delete(id));
+  _paraIdResolving.set(id, run);
+  return run;
 }
 
 function paragraphPermalink(para, { preserveSearch = false } = {}) {
@@ -655,6 +728,9 @@ function upgradeLegacyParagraphLink() {
   if (positional && positional !== docId) {
     url.searchParams.set(URL_KEYS.p, docId + paraId.slice(positional.length));
   }
+  // A superseded JUR id ("<docId>-NNNN" or an earlier label) keeps its
+  // docId, so routing it to the document is enough here; openDocReader
+  // swaps in the canonical id once the shard (and its legacyIds) is in.
   url.hash = `documents/${encodeURIComponent(docId)}`;
   history.replaceState(null, '', url.toString());
 }
@@ -697,7 +773,7 @@ function encodeUrlState() {
   const docMatch = hashNow.match(/^#documents\/(.+)$/);
   const docHashId = docMatch ? decodeURIComponent(docMatch[1]) : null;
   const incomingP = new URLSearchParams(window.location.search).get('p');
-  if (docHashId && incomingP && incomingP.startsWith(docHashId + '-')) {
+  if (docHashId && incomingP && _paraIdInDoc(incomingP, docHashId)) {
     u.set(URL_KEYS.p, incomingP);
   }
   if (state.filters.reportTypes.size) u.set(URL_KEYS.rt, [...state.filters.reportTypes].join('|'));
@@ -1683,7 +1759,7 @@ function applyUrlState(parsed) {
   const docMatch = hash.match(/^documents\/(.+)$/);
   const docHashId = docMatch ? decodeURIComponent(docMatch[1]) : null;
   const paraIdBelongsToDoc = parsed.activeId && docHashId
-    && parsed.activeId.startsWith(docHashId + '-');
+    && _paraIdInDoc(parsed.activeId, docHashId);
   state.activeId = paraIdBelongsToDoc ? parsed.activeId : null;
 }
 
@@ -2416,7 +2492,7 @@ function parseDocsHash() {
   const paraId = fromQuery || state.activeId || null;
   // Only honour the paraId when it actually belongs to the docId we're
   // opening, otherwise ignore (it's probably a search-view share URL).
-  const paraOk = docId && paraId && paraId.startsWith(docId + '-');
+  const paraOk = docId && paraId && _paraIdInDoc(paraId, docId);
   return { docId, paraId: paraOk ? paraId : null };
 }
 
@@ -2604,7 +2680,7 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
         // Paragraph ids are positional, and a merged duplicate's paragraphs
         // are position-identical to the survivor's — carry the pinpoint over
         // before the URL is rewritten below.
-        if (paraId && paraId.startsWith(`${docId}-`)) {
+        if (paraId && _paraIdInDoc(paraId, docId)) {
           paraId = d.docId + paraId.slice(docId.length);
         }
         // Rewrite the URL silently to the new canonical id so subsequent
@@ -2689,6 +2765,19 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
     if (runId !== state.docsOpenRun) return;
   }
 
+  // v19.80: a JUR pinpoint that is not one of this case's paragraphs is a
+  // superseded id (old positional "<docId>-NNNN" or an earlier label) from
+  // a shared link, a citation row or a saved item. The shard is in by now,
+  // so its legacyIds usually answer locally; otherwise the API does. A
+  // removed record (null) opens the case at the top. The canonical id
+  // replaces the old one in the URL, so the next share uses it.
+  let paraIdResolved = false;
+  if (paraId && doc.type === 'jur' && state.paragraphById.get(paraId)?.docId !== docId) {
+    const canon = await resolveParagraphId(paraId);
+    if (runId !== state.docsOpenRun) return;
+    if (canon !== paraId) { paraId = canon; paraIdResolved = true; }
+  }
+
   state.docsActiveDocId = docId;
   state.docsActiveParaId = paraId;
 
@@ -2703,7 +2792,7 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
   }
 
   // URL: keep the user's deep link alive on reload / share.
-  if (!fromUrl) {
+  if (!fromUrl || paraIdResolved) {
     const url = new URL(window.location);
     url.hash = `documents/${encodeURIComponent(docId)}`;
     if (paraId) url.searchParams.set('p', paraId); else url.searchParams.delete('p');
@@ -2728,13 +2817,13 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
 // popovers cannot print.
 function buildPrintFootnotes() {
   document.getElementById('print-footnotes')?.remove();
-  const docId = state.docsReaderDocId || document.querySelector('#docs-reader-body .docs-reader-para')?.dataset.paraId?.replace(/-\d{4}$/, '');
+  const docId = state.docsReaderDocId || documentIdForParagraphId(document.querySelector('#docs-reader-body .docs-reader-para')?.dataset.paraId);
   if (!docId) return;
   const items = [];
   for (const el of document.querySelectorAll('#docs-reader-body .docs-reader-para')) {
     const para = state.paragraphById.get(el.dataset.paraId);
     for (const fn of (para?.footnotes || [])) {
-      if (fn && typeof fn === 'object' && fn.text) items.push(`<li><span class="mono">${escape(String(fn.n ?? ''))}</span> ${escape(fn.text)}</li>`);
+      if (fn && typeof fn === 'object' && fn.text) items.push(`<li><span class="mono">${escape(String(fn.mark ?? fn.n ?? ''))}</span> ${escape(fn.text)}</li>`);
     }
   }
   if (!items.length) return;
@@ -3168,6 +3257,7 @@ function paintDocReaderBody(doc, paraId) {
           ${hasNote ? '<span class="docs-para-note-flag" title="You have a note on this paragraph">✎</span>' : ''}
         </div>
         <p class="docs-reader-para-text serif">${annotateTreatyText(emphasiseTrailingSubhead(renderParagraphHtml(p.text, p.footnotes, { terms: readerTerms }), doc?.type), doc?.committee, p?.citedArticles)}</p>
+        ${renderUnanchoredNotes(p.footnotes)}
       </div>`;
   }).join('');
 
@@ -3370,7 +3460,7 @@ function _relatedRowsHtml(paraId) {
   const rows = state.related?.[paraId] || [];
   return rows.map(([otherId, score]) => {
     const p = state.paragraphById.get(otherId);
-    const doc = state.documents.get(p?.docId || otherId.replace(/-\d{4}$/, ''));
+    const doc = state.documents.get(p?.docId || documentIdForParagraphId(otherId) || '');
     if (!doc) return '';
     const snippet = String(p?.text || '').replace(/\[\[fn:\d+\]\]/g, '').replace(/\s+/g, ' ').trim().slice(0, 150);
     return `<li><a class="related-row" href="#" data-doc="${escape(doc.docId)}" data-para="${escape(otherId)}" title="similarity ${score}">
@@ -4457,6 +4547,8 @@ async function checkDocParagraphs(doc) {
       try {
         const body = await apiFetch(`/api/document/${encodeURIComponent(doc.docId)}`, {}, 12_000);
         paras = (body.paragraphs || []).map(p => ({ id: p.para_id, docId: doc.docId, idx: p.idx, n: p.n, section: p.section, text: p.text, type: doc.type }));
+        // v19.80: index superseded JUR ids if the server lists them.
+        for (const p of body.paragraphs || []) _registerLegacyParaIds({ id: p.para_id, legacyIds: p.legacy_ids || p.legacyIds });
       } catch (e) {
         console.warn('[check] /api/document failed, trying the shard:', e.message);
       }
@@ -7759,7 +7851,10 @@ function paintLowMemoryFallback() {
 // shard is a no-op because state.jur.loadedShards is checked upstream.
 function _ingestJurShardData(shard) {
   const additions = [];
+  let legacy = 0;
   for (const p of shard.paragraphs || []) {
+    // v19.80: index superseded ids first — also for paragraphs skipped below.
+    legacy += _registerLegacyParaIds(p);
     // Skip only when this paragraph is already resident in state.paragraphs
     // (a prior shard ingest). An `_apiOnly` entry lives in paragraphById
     // but NOT in the array, so it must NOT block the shard's full record
@@ -7795,6 +7890,9 @@ function _ingestJurShardData(shard) {
       });
     }
   }
+  // Saved workspace items under an id this shard supersedes move onto the
+  // canonical id now, so the ★ / note marks show on the right paragraph.
+  if (legacy && _wsMigrateParaIds() && state.view === 'workspace') renderWorkspace();
   return additions.length;
 }
 
@@ -9849,13 +9947,13 @@ function paintDossier() {
       if (isMobileViewport()) {
         const rendered = renderParagraphHtml(para.text, para.footnotes);
         const annotated = annotateTreatyText(rendered, doc?.committee, para?.citedArticles);
-        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p></blockquote>`;
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p>${renderUnanchoredNotes(para.footnotes)}</blockquote>`;
       }
       const ctx = getDossierContext(para, { expanded: state.dossierExpanded });
       if (!ctx) {
         const rendered = renderParagraphHtml(para.text, para.footnotes);
         const annotated = annotateTreatyText(rendered, doc?.committee, para?.citedArticles);
-        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p></blockquote>`;
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p>${renderUnanchoredNotes(para.footnotes)}</blockquote>`;
       }
 
       // Section heading row — only when this paragraph belongs to a
@@ -9893,6 +9991,7 @@ function paintDossier() {
           <blockquote>
             <span class="pn">¶ ${para.n ?? para.idx}</span>
             <p>${highlightTagAware(_activeAnnotated, terms)}</p>
+            ${renderUnanchoredNotes(para.footnotes)}
           </blockquote>
         </div>`;
 
@@ -11390,10 +11489,20 @@ function _lsSet(key, value) {
   catch { return false; }
 }
 
+// v19.80: the canonical id for a superseded JUR id when it is already known
+// (sync; see resolveParagraphId). A workspace row painted before its entry
+// was migrated still carries the old id, and its ×, ★ and note editor must
+// act on the migrated entry rather than recreate the old one.
+function _canonParaId(paraId) {
+  const c = state.paraIdAlias.get(paraId);
+  return typeof c === 'string' ? c : paraId;
+}
+
 // ─────────── B1 Bookmarks ───────────
 function bmList() { return _lsGet(_LS.bm, []); }
 function bmHas(paraId) { return bmList().some(b => b.paraId === paraId); }
 function bmToggle(paraId) {
+  paraId = _canonParaId(paraId);
   const list = bmList();
   const idx = list.findIndex(b => b.paraId === paraId);
   if (idx >= 0) list.splice(idx, 1);
@@ -11421,6 +11530,7 @@ function bmToggle(paraId) {
 // ─────────── B2 Notes ───────────
 function noteGet(paraId) { return _lsGet(_LS.notes, {})[paraId] || ''; }
 function noteSet(paraId, text) {
+  paraId = _canonParaId(paraId);
   const all = _lsGet(_LS.notes, {});
   if (!text || !text.trim()) delete all[paraId];
   else all[paraId] = text;
@@ -11433,6 +11543,7 @@ function noteHas(paraId) { return !!noteGet(paraId); }
 function pinList() { return _lsGet(_LS.pins, []); }
 function pinHas(paraId) { return pinList().some(p => p.paraId === paraId); }
 function pinToggle(paraId) {
+  paraId = _canonParaId(paraId);
   const list = pinList();
   const idx = list.findIndex(p => p.paraId === paraId);
   if (idx >= 0) list.splice(idx, 1);
@@ -11446,6 +11557,83 @@ function pinToggle(paraId) {
   paintDiffTray();
   paintWorkspaceBadge();
   return pinHas(paraId);
+}
+
+// ─────────── v19.80: superseded JUR ids in the workspace ───────────
+// Bookmarks, notes and pins saved before the JUR id change carry old
+// positional ids. Once an old id's canonical id is known (state.paraIdAlias,
+// filled from shard legacyIds and resolveParagraphId), rewrite the stored
+// entry onto it — notes move with their paragraph. Ids that cannot be
+// resolved, including removed records, are left exactly as they were.
+function _wsMigrateParaIds() {
+  const canon = (id) => {
+    const c = state.paraIdAlias.get(id);
+    return typeof c === 'string' && c !== id ? c : null;
+  };
+  let changed = false;
+  for (const key of [_LS.bm, _LS.pins]) {
+    const list = _lsGet(key, []);
+    if (!Array.isArray(list)) continue;
+    const seen = new Set();
+    const out = [];
+    let dirty = false;
+    for (const item of list) {
+      const c = canon(item?.paraId);
+      if (c) { item.paraId = c; dirty = true; }
+      // Saved under both the old and the new id → keep the earlier one.
+      if (item?.paraId && seen.has(item.paraId)) { dirty = true; continue; }
+      if (item?.paraId) seen.add(item.paraId);
+      out.push(item);
+    }
+    if (dirty) { _lsSet(key, out); changed = true; }
+  }
+  const notes = _lsGet(_LS.notes, {});
+  let notesDirty = false;
+  for (const id of Object.keys(notes || {})) {
+    const c = canon(id);
+    if (!c) continue;
+    // A note under each id → keep both texts rather than lose one.
+    notes[c] = notes[c] && notes[c] !== notes[id] ? `${notes[c]}\n\n${notes[id]}` : notes[id];
+    delete notes[id];
+    notesDirty = true;
+  }
+  if (notesDirty) { _lsSet(_LS.notes, notes); changed = true; }
+  if (changed) paintWorkspaceBadge();
+  return changed;
+}
+
+// Move entries whose canonical id is already known (e.g. just imported from
+// a backup), then ask the resolver about every stored JUR id that is still
+// positional and unloaded (API only — this never pulls shards), and repaint
+// once if any entry moved. Each id is asked at most once per session:
+// resolveParagraphId caches hits, misses and removals.
+let _wsResolving = false;
+async function _wsResolveLegacyIds() {
+  if (_wsResolving) return;
+  let moved = _wsMigrateParaIds();
+  const ids = new Set([
+    ...bmList().map(b => b?.paraId),
+    ...Object.keys(_lsGet(_LS.notes, {}) || {}),
+    ...pinList().map(p => p?.paraId),
+  ]);
+  const pending = [...ids].filter(id => typeof id === 'string' && !id.includes(':')
+    && !state.paragraphById.has(id) && !state.paraIdAlias.has(id)
+    && state.documents.get(documentIdForParagraphId(id) || '')?.type === 'jur');
+  _wsResolving = true;
+  try {
+    for (const id of pending) {
+      const c = await resolveParagraphId(id);
+      // A new id, a removal, or the body arriving from the API all repaint.
+      if (c !== id || state.paragraphById.has(id)) moved = true;
+    }
+  } finally {
+    _wsResolving = false;
+  }
+  if (pending.length) _wsMigrateParaIds();
+  // Not while the user is typing in a row's note — a repaint steals focus;
+  // the setters above map a stale old id onto the canonical one anyway.
+  if (moved && state.view === 'workspace'
+      && !document.activeElement?.closest?.('#workspace-body')) renderWorkspace();
 }
 
 // ─────────── B5 Saved searches ───────────
@@ -12314,14 +12502,21 @@ function renderWorkspace() {
       navigateToSearchUrl(a.getAttribute('href') || '');
     });
   });
+  // v19.80: move saved items with superseded JUR ids onto canonical ids.
+  _wsResolveLegacyIds();
 }
 
 // Extract a docId from a paragraph id of the form "<docId>-NNNN".  Used when
 // the paragraph isn't yet in state.paragraphById (e.g. a workspace bookmark
 // for a JUR case opened on a fresh page load before the JUR shard fetched).
+// v19.80: JUR ids are "<docId>:<label>" — the docId is everything before the
+// first colon (never part of a docId or a label); legacy ids stay positional.
 function _docIdFromParaId(paraId) {
   if (!paraId) return null;
-  const m = String(paraId).match(/^(.+)-\d{4,}$/);
+  const s = String(paraId);
+  const colon = s.indexOf(':');
+  if (colon > 0) return s.slice(0, colon);
+  const m = s.match(/^(.+)-\d{4,}$/);
   return m ? m[1] : null;
 }
 
@@ -12352,6 +12547,25 @@ async function jumpToParagraph(paraId) {
   if (targetScope === 'jur' && !state.jur.loaded) {
     try { await loadJurCorpus(); } catch (e) { console.warn('[jur load failed]', e); }
     if (runId !== state.jumpRun) return;
+  }
+
+  // v19.80: a saved or synthesised JUR id may be superseded (positional
+  // "<docId>-NNNN", or an earlier label). Resolve it now that the shards
+  // and their legacyIds are in. A removed or unresolvable id — or a cmdk
+  // "-0001" for a case that never had positional ids — opens the case's
+  // first paragraph instead; the saved item itself is left as it is.
+  if (targetScope === 'jur') {
+    const canon = await resolveParagraphId(paraId);
+    if (runId !== state.jumpRun) return;
+    if (canon && canon !== paraId) {
+      paraId = canon;
+    } else if (!state.paragraphById.has(paraId) && doc) {
+      let first = null;
+      for (const p of state.paragraphs) {
+        if (p.docId === doc.docId && (!first || (p.idx ?? 0) < (first.idx ?? 0))) first = p;
+      }
+      if (first) paraId = first.id;
+    }
   }
 
   // Switch scope tab if we're not already on a compatible one.  "All sources"
@@ -13091,27 +13305,48 @@ function renderParagraphHtml(text, footnotes, opts = {}) {
     const before = t.slice(last, m.index);
     html += terms ? highlight(before, terms) : escape(before);
     const n = Number(m[1]);
-    const fn = byN.get(n);
-    const fnText = (fn && fn.text) || '';
-    const resolved = (fn && fn.resolvedText) || '';
-    const flags = [];
-    if (fn?.isIbid)     flags.push('ibid');
-    if (fn?.isCrossRef) flags.push(`xref:${fn.referencesNote ?? ''}`);
-    if (fn?.isSelfRef)  flags.push(`selfref:${fn.referencesPara ?? ''}`);
-    html += '<button type="button" class="fn-marker" '
-          + `data-fn-n="${n}" `
-          + `data-fn-text="${escape(fnText)}" `
-          + (resolved ? `data-fn-resolved="${escape(resolved)}" ` : '')
-          + (flags.length ? `data-fn-flags="${escape(flags.join(' '))}" ` : '')
-          + `aria-label="Footnote ${n}: ${escape(fnText.slice(0, 80))}${fnText.length > 80 ? '…' : ''}" `
-          + `aria-expanded="false">`
-          + `<sup>${n}</sup>`
-          + '</button>';
+    html += _fnButtonHtml(n, byN.get(n));
     last = m.index + m[0].length;
   }
   const tail = t.slice(last);
   html += terms ? highlight(tail, terms) : escape(tail);
   return html;
+}
+
+// One footnote marker button. Lettered notes of old UN compilations show
+// their printed mark ("a/"); `n` stays the key the [[fn:N]] marker uses.
+function _fnButtonHtml(n, fn) {
+  const fnText = (fn && fn.text) || '';
+  const resolved = (fn && fn.resolvedText) || '';
+  const label = (fn && fn.mark) || String(n);
+  const flags = [];
+  if (fn?.isIbid)     flags.push('ibid');
+  if (fn?.isCrossRef) flags.push(`xref:${fn.referencesNote ?? ''}`);
+  if (fn?.isSelfRef)  flags.push(`selfref:${fn.referencesPara ?? ''}`);
+  if (fn?.anchored === false) flags.push('unanchored');
+  return '<button type="button" class="fn-marker" '
+       + `data-fn-n="${n}" `
+       + `data-fn-label="${escape(label)}" `
+       + `data-fn-text="${escape(fnText)}" `
+       + (resolved ? `data-fn-resolved="${escape(resolved)}" ` : '')
+       + (flags.length ? `data-fn-flags="${escape(flags.join(' '))}" ` : '')
+       + `aria-label="Footnote ${escape(label)}: ${escape(fnText.slice(0, 80))}${fnText.length > 80 ? '…' : ''}" `
+       + `aria-expanded="false">`
+       + `<sup>${escape(label)}</sup>`
+       + '</button>';
+}
+
+// v19.81: a PDF note whose reference the text does not show legibly (OCR
+// garbled the mark) travels on the decision's last paragraph with
+// `anchored: false`. List those under the paragraph, each opening the
+// usual popover, so they are not reachable through search alone.
+function renderUnanchoredNotes(footnotes) {
+  const loose = (Array.isArray(footnotes) ? footnotes : []).filter(f => f && f.anchored === false && f.text);
+  if (!loose.length) return '';
+  return '<div class="fn-unanchored">'
+       + '<span class="fn-unanchored-label folio">Notes not marked in the text</span> '
+       + loose.map(f => _fnButtonHtml(f.n, f)).join(' ')
+       + '</div>';
 }
 
 // Returns true if any of `terms` (case-insensitive substring) appears in any
@@ -13161,12 +13396,13 @@ function openFnPopover(triggerBtn) {
   if (!triggerBtn) return;
   if (_fnPopoverTrigger === triggerBtn) { closeFnPopover(); return; }
   closeFnPopover();
-  const n = triggerBtn.dataset.fnN || '';
+  const n = triggerBtn.dataset.fnLabel || triggerBtn.dataset.fnN || '';
   const text = triggerBtn.dataset.fnText || '';
   const resolved = triggerBtn.dataset.fnResolved || '';
   const flags = (triggerBtn.dataset.fnFlags || '').trim();
   const pop = _ensureFnPopover();
-  pop.querySelector('.fn-popover-n').textContent = n;
+  pop.querySelector('.fn-popover-n').textContent =
+    flags.split(' ').includes('unanchored') ? `${n} · not marked in the text` : n;
   // When a footnote carries resolvedText (Ibid., See note N, bare
   // Para. N.), show BOTH the literal text and the full citation it
   // resolves to so readers don't have to chase the reference.

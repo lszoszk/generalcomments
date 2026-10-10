@@ -5658,6 +5658,24 @@ body.is-corpus-loading #q { cursor: progress; }
   outline: 0;
 }
 
+/* v19.81: notes whose reference OCR garbled, listed under the paragraph. */
+.fn-unanchored {
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px dashed var(--rule-soft);
+  font-size: 0.85em;
+  color: var(--ink-3);
+}
+/* In the reader the paragraph is a two-column grid (gutter | text): keep
+   the list under the text, not in the gutter. */
+.docs-reader-para > .fn-unanchored { grid-column: 2; margin-top: -10px; }
+.fn-unanchored-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  margin-right: 4px;
+}
+
 .fn-popover {
   position: absolute;
   z-index: 9000;
