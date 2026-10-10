@@ -26,7 +26,7 @@ General Comments are authoritative interpretations of a treaty by its monitoring
 ## Using it from an AI assistant
 
 - Connector (MCP, Streamable HTTP, no key): https://150.254.115.204/unhrdb-mcp-rpc/mcp — tools search_paragraphs, lookup_by_citation, search_recommendations, lookup_recommendation, list_uhri_facets.
-- Claude plugin with the connector and four skills (un-human-rights-research, un-citation-check, treaty-body-case-law, uhri-recommendations): https://github.com/lszoszk/mcp-unhrdb#skills-for-claude. In Claude Code: `/plugin marketplace add lszoszk/mcp-unhrdb`, then `/plugin install unhrdb@mcp-unhrdb`.
+- Claude plugin with the connector and three skills (un-human-rights-research, un-citation-check, treaty-body-case-law): https://github.com/lszoszk/mcp-unhrdb#skills-for-claude. Skills for the recommendations to States (uhri-plus, uhri-plus-country-brief, uhri-plus-legal-grounding, uhri-plus-dashboard-link): https://lszoszk.github.io/UnitedNations_recommendations/skills/README.md. In Claude Code: `/plugin marketplace add lszoszk/mcp-unhrdb`, then `/plugin install unhrdb@mcp-unhrdb`.
 - Quote the returned text verbatim and cite the UN symbol and paragraph. Searches require all bare words (use OR, "phrases" and prefix*); check that a looked-up paragraph carries the label you asked for.
 
 ## Data and tools

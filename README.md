@@ -13,8 +13,9 @@ original document symbol and context.
 - **Live application:** https://lszoszk.github.io/generalcomments/
 - **General Comments dataset:** https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments
 - **MCP integration:** https://github.com/lszoszk/mcp-unhrdb
-- **Claude skills:** a plugin with the connector and four research skills —
-  [install](https://github.com/lszoszk/mcp-unhrdb#skills-for-claude)
+- **Claude skills:** a plugin with the connector and three research skills —
+  [install](https://github.com/lszoszk/mcp-unhrdb#skills-for-claude); skills for
+  the recommendations to States come with [UHRI+](https://lszoszk.github.io/UnitedNations_recommendations/skills/README.md)
 - **Methodology:** [METHODOLOGY.md](METHODOLOGY.md)
 - **Document status audit:** [STATUS_AUDIT.md](STATUS_AUDIT.md)
 
@@ -65,8 +66,8 @@ the data.
   the companion `mcp-unhrdb` server.
 - Ships [Claude skills](https://github.com/lszoszk/mcp-unhrdb#skills-for-claude)
   for researching UN human rights law with verbatim, paragraph-cited sources,
-  checking UN citations in a text, analysing treaty-body case law, and searching
-  recommendations to States. Install in Claude Code with
+  checking UN citations in a text and analysing treaty-body case law (skills for
+  recommendations to States are published with [UHRI+](https://lszoszk.github.io/UnitedNations_recommendations/skills/README.md)). Install in Claude Code with
   `/plugin marketplace add lszoszk/mcp-unhrdb` and
   `/plugin install unhrdb@mcp-unhrdb`.
 
