@@ -23,6 +23,12 @@ General Comments are authoritative interpretations of a treaty by its monitoring
 - Cite the underlying UN document by its symbol and paragraph (e.g. CCPR/C/GC/36, para. 12); the official text is at https://docs.un.org/en/<symbol>.
 - Cite the database itself as: Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRDB — UN Human Rights Database (Version 2.1.0). Zenodo. https://doi.org/10.5281/zenodo.10495719
 
+## Using it from an AI assistant
+
+- Connector (MCP, Streamable HTTP, no key): https://150.254.115.204/unhrdb-mcp-rpc/mcp — tools search_paragraphs, lookup_by_citation, search_recommendations, lookup_recommendation, list_uhri_facets.
+- Claude plugin with the connector and four skills (un-human-rights-research, un-citation-check, treaty-body-case-law, uhri-recommendations): https://github.com/lszoszk/mcp-unhrdb#skills-for-claude. In Claude Code: `/plugin marketplace add lszoszk/mcp-unhrdb`, then `/plugin install unhrdb@mcp-unhrdb`.
+- Quote the returned text verbatim and cite the UN symbol and paragraph. Searches require all bare words (use OR, "phrases" and prefix*); check that a looked-up paragraph carries the label you asked for.
+
 ## Data and tools
 
 - [Releases and DOI (Zenodo)](https://doi.org/10.5281/zenodo.10495719)
@@ -30,4 +36,5 @@ General Comments are authoritative interpretations of a treaty by its monitoring
 - [General Comments dataset (Hugging Face)](https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments)
 - [Citation graph between documents (JSON)](https://lszoszk.github.io/generalcomments/citations/graph.json)
 - [MCP server for AI assistants](https://github.com/lszoszk/mcp-unhrdb)
+- [Claude plugin and skills](https://github.com/lszoszk/mcp-unhrdb#skills-for-claude)
 - [Changelog](https://lszoszk.github.io/generalcomments/changelog.html)
