@@ -1,0 +1,31 @@
+# Files this public repository may track: what GitHub Pages needs to build and
+# serve the site, its tests, and the documents that describe it. The data
+# pipeline lives in a private repository (see README). A path ending in "/"
+# allows everything under it; "*" matches within one path segment.
+# .github/workflows/public-files.yml fails on anything else.
+.githooks/
+.github/workflows/pages.yml
+.github/workflows/public-files.yml
+.github/workflows/test.yml
+.gitignore
+.zenodo.json
+CITATION.cff
+LICENSE
+LICENSE-DATA
+METHODOLOGY.md
+NOTICE
+PUBLIC_FILES
+README.md
+STATUS_AUDIT.md
+build_static_pages.py
+codemeta.json
+docs/
+package-lock.json
+package.json
+playwright.config.ts
+playwright.contracts.config.ts
+scripts/stamp-cache-buster.sh
+tests/*.md
+tests/*.mjs
+tests/*.ts
+tests/contracts/*.ts

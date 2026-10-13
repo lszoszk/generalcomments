@@ -88,7 +88,9 @@ The General Comments and Recommendations corpus is distributed as Parquet on
 [Hugging Face](https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments).
 This repository holds the published site. The preparation, ingestion,
 validation, and audit code that produces the build is kept in a separate,
-private repository; researchers who need it can contact the authors. See
+private repository; researchers who need it can contact the authors.
+[`PUBLIC_FILES`](PUBLIC_FILES) lists what this repository may contain, and a
+check on every push enforces it. See
 [METHODOLOGY.md](METHODOLOGY.md) and the public coverage information in the
 application for limitations and provenance.
 
