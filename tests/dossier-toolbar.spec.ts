@@ -187,18 +187,36 @@ test('D9. plainUrlCitation · citation URL is a working document deep link', asy
   expect(url.hash).toBe(`#documents/${docId}`);
 });
 
-test('D10. legalCharacter · General Comment authority is explicit', async ({ page }) => {
+test('D10. the source kind is named once, in the result list', async ({ page }) => {
   await openDossier(page);
 
   const result = page.locator('.result.is-active').first();
   await expect(result.locator('.source-kind-label')).toHaveText('General Comment');
   await expect(result.locator('.result-date-label')).toContainText(/^Adopted /);
+  // The dossier no longer repeats a legal-character note above the paragraph
+  // (relationship notes such as "Official addendum" share the box style and stay).
+  await expect(page.locator('#dossier')).not.toContainText('Legal character');
+});
 
-  const note = page.locator('#dossier .dossier-authority-note');
-  await expect(note).toContainText('Legal character · General Comment');
-  await expect(note).toContainText('Authoritative treaty-body interpretation');
-  await expect(note).toContainText('not a judgment');
-  await expect(note).toContainText('not formally binding as such');
+test('D10b. the dossier keeps secondary choices out of the way', async ({ page }) => {
+  await openDossier(page);
+  const dossier = page.locator('#dossier');
+  // Header: kind and close only; text size lives in the More menu.
+  await expect(dossier.locator('.dossier-header .dossier-font-controls')).toHaveCount(0);
+  await expect(dossier.locator('#dossier-more .dossier-more-display .dossier-font-controls button')).toHaveCount(3);
+  // No "Year" cell repeating the adoption date.
+  await expect(dossier.locator('.dossier-grid .folio', { hasText: /^Year$/ })).toHaveCount(0);
+  // Related paragraphs, when there are any, come after the paragraph and start collapsed.
+  const related = dossier.locator('#dossier-related details.dossier-related-more');
+  if (await related.count()) {
+    await expect(related).not.toHaveAttribute('open', '');
+    const order = await dossier.evaluate(el => {
+      const ctx = el.querySelector('.dossier-context, blockquote');
+      const rel = el.querySelector('#dossier-related');
+      return ctx && rel ? Boolean(ctx.compareDocumentPosition(rel) & Node.DOCUMENT_POSITION_FOLLOWING) : true;
+    });
+    expect(order).toBe(true);
+  }
 });
 
 test('D11. copyWithCiteAndLink · one click copies text, citation and a resolving link', async ({ page, context, browserName }) => {

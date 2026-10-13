@@ -327,9 +327,6 @@ test('A5c. jurCitation · legal citation identifies the case and communication',
     'href',
     'https://docs.un.org/en/CRPD/C/31/D/94/2021',
   );
-  await expect(page.locator('#dossier .dossier-authority-note')).toContainText(
-    'Outcome of an individual communication examined by a UN treaty body',
-  );
   const citation = await copyDossierCitation(page, 'unfn');
 
   expect(citation).toContain('Committee on the Rights of Persons with Disabilities');
@@ -375,9 +372,6 @@ test('A5d. spCitation · report citation identifies author, title, symbol, and p
   await expect(page.locator('#dossier .dossier-sig-link')).toHaveAttribute(
     'href',
     'https://docs.un.org/en/A/73/348',
-  );
-  await expect(page.locator('#dossier .dossier-authority-note')).toContainText(
-    'not a court judgment or a treaty-body decision',
   );
   const citation = await copyDossierCitation(page, 'oscola');
 

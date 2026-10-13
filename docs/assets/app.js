@@ -3476,7 +3476,7 @@ function _bindRelatedRows(host) {
     if (state.view !== 'documents') setView('documents');
   }));
 }
-async function paintRelatedForParagraph(host, para) {
+async function paintRelatedForParagraph(host, para, { collapsed = false } = {}) {
   if (!host || !para || para.type !== 'gc') { if (host) host.hidden = true; return; }
   await loadRelatedIndex();
   if (host.dataset.para && host.dataset.para !== para.id) return;
@@ -3484,9 +3484,11 @@ async function paintRelatedForParagraph(host, para) {
   const html = _relatedRowsHtml(para.id);
   if (!html) { host.hidden = true; return; }
   host.hidden = false;
-  host.innerHTML = `<h3 class="folio">Related paragraphs <span class="dim">General Comments</span></h3>
-    <ol class="related-list">${html}</ol>
+  const list = `<ol class="related-list">${html}</ol>
     <p class="serif dim docs-cite-note">Nearest neighbours by BGE-large embedding, other documents only; General Comments have vectors today, decisions and reports do not.</p>`;
+  host.innerHTML = collapsed
+    ? `<details class="dossier-related-more"><summary class="folio">Related paragraphs (${(html.match(/<li>/g) || []).length})</summary>${list}</details>`
+    : `<h3 class="folio">Related paragraphs <span class="dim">General Comments</span></h3>${list}`;
   _bindRelatedRows(host);
 }
 
@@ -9727,7 +9729,7 @@ function paintDossier() {
   const doc = state.documents.get(para.docId);
   if (state.view === 'search') updateScholarlyMeta(doc);
   queueMicrotask(() => fillDossierCitations(doc));
-  queueMicrotask(() => paintRelatedForParagraph($('#dossier-related'), para));
+  queueMicrotask(() => paintRelatedForParagraph($('#dossier-related'), para, { collapsed: true }));
   const sourceUrl = officialSourceUrl(doc);
   const isSpDoc = para.type === 'sp';
   const isJurDoc = para.type === 'jur';
@@ -9902,7 +9904,6 @@ function paintDossier() {
         ${outcomeBadge}
         ${confidencePill}
       </div>
-      ${fontControls}
       <button type="button" id="dossier-close" class="dossier-close"
               title="Close dossier (Esc)" aria-label="Close dossier">×</button>
     </header>
@@ -9915,10 +9916,6 @@ function paintDossier() {
     }${
       (isJurDoc || isRecDoc) && doc?.country ? ` · <span class="dossier-country">${escape(doc.country)}${doc?.countryCode ? ` <span class="country-code mono">${escape(doc.countryCode)}</span>` : ''}</span>` : ''
     }</div>
-    <aside class="dossier-authority-note ${escape(para.type)}" role="note">
-      <span class="folio">Legal character · ${escape(profile.label)}</span>
-      <p>${escape(profile.legalCharacter)}</p>
-    </aside>
     ${statusWarningHtml}
     ${currentRelationshipHtml(doc, 'dossier-relationship')}
     ${abstractHtml}
@@ -9930,17 +9927,14 @@ function paintDossier() {
           <div class="dossier-dp"><div class="folio">Treaty body</div><div class="v">${escape(doc?.committees?.join(' · ') || doc?.treaty || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">Citations</div><div class="v" id="dossier-cites" data-para="${escape(state.activeId || '')}">…</div></div>
-          <div class="dossier-dp dossier-dp-wide dossier-related" id="dossier-related" hidden></div>
           ${'' /* v19.15: section moved to a breadcrumb above the quote — see dossier-breadcrumb. */}
           ${articlesInvokedHtml}
         `
         : `
           <div class="dossier-dp"><div class="folio">${escape(profile.dateLabel)}</div><div class="v">${escape(doc?.adoptionDate || '—')}</div></div>
-          <div class="dossier-dp"><div class="folio">Year</div><div class="v">${doc?.year ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">${actorLabel}</div><div class="v">${escape(doc?.committees?.join(' · ') || '—')}</div></div>
           <div class="dossier-dp"><div class="folio">Paragraphs</div><div class="v">${doc?.paragraphCount ?? '—'}</div></div>
           <div class="dossier-dp"><div class="folio">Citations</div><div class="v" id="dossier-cites" data-para="${escape(state.activeId || '')}">…</div></div>
-          <div class="dossier-dp dossier-dp-wide dossier-related" id="dossier-related" hidden></div>
           ${articlesHtml}
           ${statusHtml}
           ${isSpDoc && doc?.mandate ? `<div class="dossier-dp"><div class="folio">Mandate holder</div><div class="v accent">${escape(doc.mandate)}</div></div>` : ''}
@@ -10052,6 +10046,7 @@ function paintDossier() {
           ${expandLink}
         </div>`;
     })()}
+    <div class="dossier-related" id="dossier-related" hidden></div>
     <div class="dossier-note-wrap" id="ws-note-wrap" ${noteHas(para.id) ? '' : 'hidden'}>
       <textarea class="dossier-note serif" id="ws-note"
                 placeholder="Private note — autosaved to this browser only."></textarea>
@@ -10108,6 +10103,7 @@ function paintDossier() {
             <span>Cite in another format…</span>
           </button>
           <hr class="dossier-more-rule" />
+          <div class="dossier-more-display"><span class="folio">Text size</span>${fontControls}</div>
           <button type="button" id="ws-flag" class="dossier-more-opt dossier-more-opt-quiet" role="menuitem">
             <span class="dossier-more-icon" aria-hidden="true">⚐</span>
             <span>Report a problem</span>
