@@ -1,9 +1,9 @@
 {
   "version": "20261013",
-  "builtAt": "2026-10-13T20:07:19.098293+00:00",
+  "builtAt": "2026-10-13T21:24:16.784264+00:00",
   "counts": {
-    "documents": 1595,
-    "paragraphs": 163455,
+    "documents": 1598,
+    "paragraphs": 163796,
     "shards": 46,
     "committees": 46
   },
@@ -123,10 +123,10 @@
       "paragraphs": 2859
     },
     "shards/sp_SR_Freedom_of_Expression.json": {
-      "sha": "0c937216b0b25d24",
-      "bytes": 5290846,
-      "documents": 47,
-      "paragraphs": 4798
+      "sha": "8c7c992c16e9c21a",
+      "bytes": 5399748,
+      "documents": 48,
+      "paragraphs": 4911
     },
     "shards/sp_SR_Freedom_of_Religion_or_Belief.json": {
       "sha": "b66cfb91d454e7cd",
@@ -165,10 +165,10 @@
       "paragraphs": 3362
     },
     "shards/sp_SR_Leprosy.json": {
-      "sha": "a040ca62a7ed1cfe",
-      "bytes": 1297672,
-      "documents": 13,
-      "paragraphs": 1093
+      "sha": "27bac4510f067116",
+      "bytes": 1414430,
+      "documents": 14,
+      "paragraphs": 1247
     },
     "shards/sp_SR_Migrants.json": {
       "sha": "81fb068632af3f7e",
@@ -261,10 +261,10 @@
       "paragraphs": 2818
     },
     "shards/sp_WG_Discrimination_against_Women_and_Girls.json": {
-      "sha": "e8fbf48481b581d3",
-      "bytes": 1623399,
-      "documents": 14,
-      "paragraphs": 1281
+      "sha": "c5caea2252eaf98b",
+      "bytes": 1753605,
+      "documents": 15,
+      "paragraphs": 1355
     },
     "shards/sp_WG_Enforced_Disappearances.json": {
       "sha": "3d1e14f5e4589779",

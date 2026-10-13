@@ -1,13 +1,13 @@
 {
   "version": "20261013",
-  "builtAt": "2026-10-13T20:12:13+00:00",
+  "builtAt": "2026-10-13T21:24:16+00:00",
   "counts": {
-    "documents": 1783,
-    "paragraphs": 170759,
+    "documents": 1786,
+    "paragraphs": 171100,
     "gcDocuments": 188,
     "gcParagraphs": 7304,
-    "spDocuments": 1595,
-    "spParagraphs": 163455,
+    "spDocuments": 1598,
+    "spParagraphs": 163796,
     "labels": 20,
     "committees": 56,
     "yearRange": [
@@ -21,25 +21,21 @@
       "bytes": 8068990
     },
     "documents.json": {
-      "sha": "7ed84cc0305e71c3",
-      "bytes": 1451510
+      "sha": "70c41ab04cbe048b",
+      "bytes": 1453945
     },
     "facets.json": {
-      "sha": "a7e106ab737faf33",
-      "bytes": 14219
+      "sha": "e678bd8ad8776329",
+      "bytes": 14220
     },
     "citations/graph.json": {
-      "sha": "0754e407df1ebde6",
-      "bytes": 3699698
+      "sha": "dd9b10438e87526d",
+      "bytes": 3702737
     },
     "citations/index.json": {
-      "sha": "f4afdc527d4f3ccc",
-      "bytes": 3493740
-    },
-    "related/gc.json": {
-      "sha": "151838d727d2e982",
-      "bytes": 1290779
+      "sha": "ae59eb5250b16340",
+      "bytes": 3495970
     }
   },
-  "note": "Incremental append (append_gc_from_docx.py): +CERD/C/GC/40."
+  "note": "Incremental append (append_sp_docs.py): +3 SP docs."
 }
