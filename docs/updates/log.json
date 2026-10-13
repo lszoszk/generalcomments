@@ -1,0 +1,89 @@
+{
+ "since": "2026-10-13",
+ "builtAt": "2026-10-13T21:48:29+00:00",
+ "added": 8,
+ "entries": [
+  {
+   "date": "2026-10-13",
+   "status": "added",
+   "type": "gc",
+   "docId": "cerd-c-gc-40",
+   "symbol": "CERD/C/GC/40",
+   "title": "General Recommendation No. 40 (2026) on reparatory justice for the harms and continuing consequences of colonialism, the trafficking in enslaved Africans across the Atlantic and other routes, and racialized chattel slavery",
+   "body": "Committee on the Elimination of Racial Discrimination"
+  },
+  {
+   "date": "2026-10-13",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-hrc-62-48",
+   "symbol": "A/HRC/62/48",
+   "title": "Women's and girls' rights and artificial intelligence and related digital technologies",
+   "body": "WG Discrimination against Women and Girls"
+  },
+  {
+   "date": "2026-10-13",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-133",
+   "symbol": "A/81/133",
+   "title": "Violence against older women",
+   "body": "SR Violence against Women"
+  },
+  {
+   "date": "2026-10-13",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-132",
+   "symbol": "A/81/132",
+   "title": "Strategic vision, thematic priorities and methods of work of the Special Rapporteur",
+   "body": "SR Sale of Children"
+  },
+  {
+   "date": "2026-10-13",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-130",
+   "symbol": "A/81/130",
+   "title": "Emerging technologies and transitional justice",
+   "body": "SR Truth Justice and Reparation"
+  },
+  {
+   "date": "2026-10-13",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-128",
+   "symbol": "A/81/128",
+   "title": "The psychosocial impact of colour-based discrimination on the enjoyment of human rights by persons with albinism",
+   "body": "IE Albinism"
+  },
+  {
+   "date": "2026-10-13",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-80-341",
+   "symbol": "A/80/341",
+   "title": "Threats to freedom of expression online in turbulent times",
+   "body": "SR Freedom of Expression"
+  },
+  {
+   "date": "2026-10-13",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-80-139",
+   "symbol": "A/80/139",
+   "title": "Access delayed, rights denied: bottlenecks in the leprosy drug supply chain and their daily impact on affected persons",
+   "body": "SR Leprosy"
+  },
+  {
+   "date": "2026-10-13",
+   "status": "not-added",
+   "type": "sp",
+   "docId": null,
+   "symbol": "A/80/115",
+   "title": "Reports of the Working Group on discrimination against women and girls — note by the Secretariat",
+   "body": "WG Discrimination against Women and Girls",
+   "note": "A note of the Secretariat that points to the Working Group's reports to the Human Rights Council; the reports themselves are in the database."
+  }
+ ]
+}
