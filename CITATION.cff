@@ -15,11 +15,13 @@ authors:
     given-names: "Zuzanna"
     affiliation: "Adam Mickiewicz University, Poznań"
 abstract: >-
-  UNHRDB is an open-source, paragraph-level research environment for UN human
-  rights law. It combines Treaty Body General Comments and Recommendations,
+  UNHRDB is a paragraph-level research environment for UN human rights law.
+  It combines Treaty Body General Comments and Recommendations,
   individual-communication jurisprudence, and thematic Special Procedures
   reports in a source-first interface with faceted search, document reading,
   citation export, workspaces, and an experimental extractive Ask workflow.
+  The repository holds the published site and its front-end code; the
+  data-processing pipeline is kept in a separate, private repository.
 keywords:
   - "UN human rights"
   - "UN Treaty Bodies"

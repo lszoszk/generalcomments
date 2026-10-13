@@ -1,5 +1,0 @@
-Flask
-pandas
-beautifulsoup4
-nltk
-openpyxl

@@ -1591,9 +1591,7 @@ function paintFreshnessCard(m) {
       <div class="freshness-meta">
         ${totalParas.toLocaleString()} paragraphs across ${totalDocs.toLocaleString()} documents${linksLabel}.
         ${jurBuilt ? `Jurisprudence shard built ${escape(jurBuilt)}.` : ''}
-        Weekly link revalidation runs via
-        <a href="https://github.com/lszoszk/generalcomments/blob/main/.github/workflows/link-check.yml"
-           target="_blank" rel="noopener">GitHub Actions</a>.
+        Links are revalidated weekly.
       </div>
       <div class="freshness-meta freshness-new">${newLine}</div>
     </div>`;

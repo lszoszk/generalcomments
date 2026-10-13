@@ -5,7 +5,7 @@
 [![Dataset: CC BY-NC-SA 4.0](https://img.shields.io/badge/data-CC%20BY--NC--SA%204.0-green.svg)](LICENSE-DATA)
 [![Hugging Face](https://img.shields.io/badge/dataset-Hugging%20Face-yellow.svg)](https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments)
 
-UNHRDB is an open-source research environment for finding and citing what UN
+UNHRDB is a research environment for finding and citing what UN
 human rights mechanisms actually wrote. It treats UN documents as structured,
 paragraph-level research material while keeping every result connected to its
 original document symbol and context.
@@ -35,8 +35,7 @@ The Recommendations scope is not part of the static corpus: concluding
 observations, Universal Periodic Review and country-visit recommendations are
 queried live from the UHRI dataset service this project runs on its server (a
 mirror of the OHCHR Universal Human Rights Index export); only the filter
-vocabularies ship with the site (`docs/rec/vocab.json`, rebuilt by
-`build_rec_vocab.py`).
+vocabularies ship with the site (`docs/rec/vocab.json`).
 
 Coverage changes as the source collections are synchronised. The application
 publishes build dates, collection-level provenance, and known gaps alongside
@@ -81,16 +80,16 @@ cd generalcomments
 python3 -m http.server 8000 --directory docs
 ```
 
-Then open http://127.0.0.1:8000. Corpus preparation and audit scripts use
-Python; their dependencies are listed in `requirements.txt`.
+Then open http://127.0.0.1:8000.
 
 ## Data and reproducibility
 
 The General Comments and Recommendations corpus is distributed as Parquet on
 [Hugging Face](https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments).
-The repository contains the preparation, ingestion, validation, and audit code
-used to produce the public build. See [METHODOLOGY.md](METHODOLOGY.md),
-[OCR_PIPELINE.md](OCR_PIPELINE.md), and the public coverage information in the
+This repository holds the published site. The preparation, ingestion,
+validation, and audit code that produces the build is kept in a separate,
+private repository; researchers who need it can contact the authors. See
+[METHODOLOGY.md](METHODOLOGY.md) and the public coverage information in the
 application for limitations and provenance.
 
 The Hugging Face package covers General Comments and Recommendations. The
@@ -116,12 +115,12 @@ source.
 
 ## Citation graph
 
-`build_citation_graph.py` extracts every reference one document makes to
+`docs/citations/graph.json` lists every reference one document makes to
 another (UN symbols, "general comment No. N", "communication No. N/YYYY",
-in bodies and footnotes) and writes `docs/citations/graph.json` (edges with
-citing-paragraph ids), `docs/citations/graph.csv` and `docs/citations/index.json`
-(per-document adjacency the reader uses for "Cited by" / "Cites"). Re-run it
-after any corpus change; it registers the files' hashes in `docs/manifest.json`.
+in bodies and footnotes), with the citing paragraph ids; `graph.csv` holds the
+same edges as CSV, and `index.json` the per-document adjacency the reader uses
+for "Cited by" / "Cites". The files are rebuilt with every corpus change and
+registered in `docs/manifest.json`.
 
 ## Licensing
 
