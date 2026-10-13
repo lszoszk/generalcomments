@@ -8108,14 +8108,23 @@ function paintQuerySyntaxIssue(issue) {
   }
 }
 
+// What GA4 may learn about a search or question: how it is built, never what it says.
+function gaQueryShape(q) {
+  const words = q.split(/\s+/).filter(w => w && !/^(AND|OR|NOT)$/.test(w)).length;
+  return {
+    query_words: words <= 1 ? '1' : words <= 3 ? '2-3' : words <= 8 ? '4-8' : '9+',
+    query_kind: q.includes('"') ? 'phrase' : /\b(AND|OR|NOT)\b|(^|\s)-\S/.test(q) ? 'boolean' : (q.includes('*') ? 'wildcard' : 'plain'),
+  };
+}
+
 async function runSearch() {
   const runId = ++state.searchRun;
   scheduleUrlUpdate();
   // v19.56.11: GA4 search event. Skip for empty queries (those are
   // "clear" actions, not user-initiated searches) and dedupe on
   // (scope + query) so a result-list re-render doesn't double-count.
-  // The query text is sent — that's standard GA4 `search` event
-  // vocabulary; reports tab in GA shows top search terms.
+  // v19.71: the query text is NOT sent, only its shape (gaQueryShape):
+  // the About page promises that searches never leave the browser.
   const q = (state.query || '').trim();
   const syntaxIssue = querySyntaxIssue(q);
   if (syntaxIssue) {
@@ -8124,7 +8133,7 @@ async function runSearch() {
   }
   if (q.length >= 2) {
     trackEvent('search', {
-      search_term: q.slice(0, 200),    // GA caps at ~100; trim defensively
+      ...gaQueryShape(q),
       scope: state.scope,
       committees: [...state.filters.committees].slice(0, 8).join(',') || undefined,
     }, { dedupeKey: `search:${state.scope}:${q}`, dedupeMs: 1500 });
@@ -15149,11 +15158,8 @@ async function runAsk() {
   if (_askInFlight) _askInFlight.abort();
   const ctrl = new AbortController();
   _askInFlight = ctrl;
-  // v19.56.11: GA4 ask event. Records what users actually ask the
-  // RAG layer so we can compare topic distribution against /search.
-  trackEvent('ask', {
-    search_term: q.slice(0, 200),
-  }, { dedupeKey: `ask:${q}`, dedupeMs: 1500 });
+  // v19.56.11: GA4 ask event. v19.71: the shape of the question only, never its text.
+  trackEvent('ask', gaQueryShape(q), { dedupeKey: `ask:${q}`, dedupeMs: 1500 });
 
   // v19.57: animated, staged progress indicator — replaces the static
   // "Searching…" line that made a 20–40s /api/ask call look frozen.
