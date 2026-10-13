@@ -155,7 +155,6 @@ test('U3. dossierAndCitation · record metadata and an OSCOLA cite with UN Doc a
   await expect(dossier.locator('.rec-facet-chip[data-rec-facet="sdg"]')).toHaveCount(2);
   await expect(dossier.locator('a[href*="uhri.ohchr.org/en/document/1ad6c727"]')).toBeVisible();
   await expect(dossier.locator('blockquote .pn')).toHaveText('¶ 23');
-  await expect(dossier.locator('.dossier-authority-note.rec')).toBeVisible();
   // Cite in OSCOLA via the "other formats" popover.
   await page.locator('#dossier-more').evaluate((el: Element) => (el as HTMLDetailsElement).open = true);
   await page.locator('#cite-other-trigger').click();

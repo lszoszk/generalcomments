@@ -7090,6 +7090,9 @@ body[data-active-view="ask"] section[data-view="ask"] {
 .related-doc { font-weight: 600; }
 .related-snip { display: block; color: var(--ink-3); font-size: 12px; }
 .dossier-related .related-row { font-size: 13px; }
+.dossier-related { margin-top: 18px; }
+.dossier-related-more > summary { cursor: pointer; padding: 6px 0; }
+.dossier-related-more[open] > summary { margin-bottom: 6px; }
 
 
 /* ─────────────  CITATION CHECK ("check my text")  ───────────── */
