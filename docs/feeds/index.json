@@ -1,10 +1,10 @@
 {
-  "builtAt": "2026-10-13T20:12:31+00:00",
+  "builtAt": "2026-10-13T21:25:20+00:00",
   "feeds": [
     {
       "id": "all",
       "title": "UN Human Rights Database — new documents",
-      "documents": 6116,
+      "documents": 6119,
       "latest": "2026-10-13"
     },
     {
@@ -22,7 +22,7 @@
     {
       "id": "sp",
       "title": "UNHRDB — new Special Procedures reports",
-      "documents": 1595,
+      "documents": 1598,
       "latest": "2026-10-13"
     },
     {
@@ -202,8 +202,8 @@
     {
       "id": "body-sr-freedom-of-expression",
       "title": "UNHRDB — SR Freedom of Expression",
-      "documents": 47,
-      "latest": "2026-06-18"
+      "documents": 48,
+      "latest": "2026-10-13"
     },
     {
       "id": "body-sr-freedom-of-religion-or-belief",
@@ -244,8 +244,8 @@
     {
       "id": "body-sr-leprosy",
       "title": "UNHRDB — SR Leprosy",
-      "documents": 13,
-      "latest": "2026-09-03"
+      "documents": 14,
+      "latest": "2026-10-13"
     },
     {
       "id": "body-sr-migrants",
@@ -340,8 +340,8 @@
     {
       "id": "body-wg-discrimination-against-women-and-girls",
       "title": "UNHRDB — WG Discrimination against Women and Girls",
-      "documents": 14,
-      "latest": "2026-06-18"
+      "documents": 15,
+      "latest": "2026-10-13"
     },
     {
       "id": "body-wg-enforced-disappearances",
