@@ -59,6 +59,8 @@ test('R3. deepLink · cold load #documents/<docId> opens the doc', async ({ page
   await page.waitForTimeout(800);
   await expect(page.locator('.docs-reader-title')).toBeVisible();
   expect(await page.locator('.docs-reader-para').count()).toBeGreaterThan(20);
+  // The reader opens on the document itself, without a legal-character note.
+  await expect(page.locator('.docs-reader-head')).not.toContainText('Legal character');
 });
 
 test('R4. activeParaScroll · ?p=<id> scrolls + highlights', async ({ page }) => {
