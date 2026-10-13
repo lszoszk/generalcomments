@@ -101,6 +101,9 @@ export async function typeQuery(page: Page, q: string): Promise<void> {
   await input.waitFor({ state: 'visible' });
   await input.fill('');
   await input.fill(q);
+  // Server-backed scopes search on Enter (v19.70); the local fall-back already
+  // searched while typing, and a second run on Enter is harmless there.
+  await input.press('Enter');
   // Debounce + render budget. 800 ms is generous for 25 k local paragraphs.
   await page.waitForTimeout(800);
 }
