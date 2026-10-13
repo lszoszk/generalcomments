@@ -1,13 +1,13 @@
 {
-  "version": "20260903",
-  "builtAt": "2026-09-03T12:45:13+00:00",
+  "version": "20261013",
+  "builtAt": "2026-10-13T20:12:13+00:00",
   "counts": {
-    "documents": 1778,
-    "paragraphs": 170334,
-    "gcDocuments": 187,
-    "gcParagraphs": 7216,
-    "spDocuments": 1591,
-    "spParagraphs": 163118,
+    "documents": 1783,
+    "paragraphs": 170759,
+    "gcDocuments": 188,
+    "gcParagraphs": 7304,
+    "spDocuments": 1595,
+    "spParagraphs": 163455,
     "labels": 20,
     "committees": 56,
     "yearRange": [
@@ -17,33 +17,25 @@
   },
   "files": {
     "corpus.json": {
-      "sha": "adf6faeb7af4d6ad",
-      "bytes": 7975435
+      "sha": "367cd88a7852a3b2",
+      "bytes": 8068990
     },
     "documents.json": {
-      "sha": "c6bbff02c211dd79",
-      "bytes": 1446966
+      "sha": "7ed84cc0305e71c3",
+      "bytes": 1451510
     },
     "facets.json": {
-      "sha": "6ed6b9c2f91b5712",
-      "bytes": 14180
+      "sha": "a7e106ab737faf33",
+      "bytes": 14219
     },
     "citations/graph.json": {
-      "sha": "d6ff5f62c0a1a738",
-      "bytes": 3695068
+      "sha": "0754e407df1ebde6",
+      "bytes": 3699698
     },
     "citations/index.json": {
-      "sha": "648643351c0bde73",
-      "bytes": 3490363
-    },
-    "related/gc.json": {
-      "sha": "3781d45b62f698f6",
-      "bytes": 1267496
-    },
-    "rec/vocab.json": {
-      "sha": "9c6f4b9eb2c0c73c",
-      "bytes": 33927
+      "sha": "f4afdc527d4f3ccc",
+      "bytes": 3493740
     }
   },
-  "note": "Incremental append (append_sp_docs.py): +30 SP docs."
+  "note": "Incremental append (append_gc_from_docx.py): +CERD/C/GC/40."
 }

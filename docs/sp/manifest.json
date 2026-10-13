@@ -1,18 +1,18 @@
 {
-  "version": "20260903",
-  "builtAt": "2026-09-03T12:45:13.131104+00:00",
+  "version": "20261013",
+  "builtAt": "2026-10-13T20:07:19.098293+00:00",
   "counts": {
-    "documents": 1591,
-    "paragraphs": 163118,
+    "documents": 1595,
+    "paragraphs": 163455,
     "shards": 46,
     "committees": 46
   },
   "files": {
     "shards/sp_IE_Albinism.json": {
-      "sha": "422c278080d9aad8",
-      "bytes": 2236513,
-      "documents": 21,
-      "paragraphs": 1958
+      "sha": "2c0c88efa8ff4e6b",
+      "bytes": 2337081,
+      "documents": 22,
+      "paragraphs": 2052
     },
     "shards/sp_IE_Foreign_Debt.json": {
       "sha": "c9a1ea650f183a67",
@@ -195,10 +195,10 @@
       "paragraphs": 2379
     },
     "shards/sp_SR_Sale_of_Children.json": {
-      "sha": "daa126516d788209",
-      "bytes": 4658570,
-      "documents": 41,
-      "paragraphs": 4297
+      "sha": "e2e73b3c2e9e8a32",
+      "bytes": 4756055,
+      "documents": 42,
+      "paragraphs": 4368
     },
     "shards/sp_SR_Torture.json": {
       "sha": "fe8af68f10193a3b",
@@ -219,10 +219,10 @@
       "paragraphs": 3088
     },
     "shards/sp_SR_Truth_Justice_and_Reparation.json": {
-      "sha": "a8d5244e62bf2dab",
-      "bytes": 3265124,
-      "documents": 30,
-      "paragraphs": 2873
+      "sha": "0dca6fe02b149e9b",
+      "bytes": 3368729,
+      "documents": 31,
+      "paragraphs": 2943
     },
     "shards/sp_SR_Unilateral_Coercive_Measures.json": {
       "sha": "91e62de327e9306a",
@@ -231,10 +231,10 @@
       "paragraphs": 1616
     },
     "shards/sp_SR_Violence_against_Women.json": {
-      "sha": "be2b138738457a9e",
-      "bytes": 6061589,
-      "documents": 46,
-      "paragraphs": 5115
+      "sha": "214147ca9a88dd7e",
+      "bytes": 6192052,
+      "documents": 47,
+      "paragraphs": 5217
     },
     "shards/sp_SR_Water_and_Sanitation.json": {
       "sha": "41d627c7bb15d4ee",
