@@ -2773,7 +2773,6 @@ body.is-resizing-dossier .dossier { pointer-events: none; }
   letter-spacing: .06em;
   text-transform: uppercase;
 }
-.docs-reader-authority { margin-top: 10px; max-width: 780px; }
 .docs-reader-status-warning { max-width: 780px; }
 .docs-reader-relationship { max-width: 780px; }
 

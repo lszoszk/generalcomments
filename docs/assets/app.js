@@ -3174,10 +3174,6 @@ function paintDocReaderBody(doc, paraId) {
           </div>
         </details>
       </div>
-      <aside class="dossier-authority-note docs-reader-authority ${escape(doc.type || 'gc')}" role="note">
-        <span class="folio">Legal character · ${escape(profile.label)}</span>
-        <p>${escape(profile.legalCharacter)}</p>
-      </aside>
       ${legalStatusWarningHtml(doc, 'docs-reader-status-warning')}
       ${currentRelationshipHtml(doc, 'docs-reader-relationship')}
       ${langStripHtml}
