@@ -512,6 +512,23 @@ section[data-view][hidden] { display: none; }
   border-color: var(--garnet);
 }
 
+/* v19.70: explicit Search button — server-backed scopes search on submit */
+.q-go-btn {
+  flex-shrink: 0;
+  height: 30px;
+  padding: 0 12px;
+  margin: 0 6px 0 0;
+  border: 1px solid var(--garnet);
+  border-radius: 15px;
+  background: var(--garnet);
+  color: var(--paper);
+  font-family: var(--display);
+  font-size: 14px;
+  cursor: pointer;
+}
+.q-go-btn:hover { filter: brightness(1.1); }
+.q-go-btn:focus-visible { outline: 2px solid var(--garnet); outline-offset: 2px; }
+
 /* v19.17 (recommendation D): always-accessible search-syntax help.
    Sits right after the clear chip; same circle-button vocabulary so
    the two affordances read as a pair. Stays visible whether or not

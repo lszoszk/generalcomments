@@ -6026,7 +6026,14 @@ function bindUI() {
       paintDossier();
       refreshResultMarks();
     }
-    if (v.length === 0 || v.length >= MIN_QUERY) {
+    if (v.length >= MIN_QUERY && serverSearchScope()) {
+      // v19.70: server-backed scopes search on Enter / the Search button, not
+      // on every keystroke. Typing used to send ~12 API searches per query
+      // ('enc', 'encr', 'encry'…), each a cache miss on the VM; the result
+      // list now stays as it is until the reader submits.
+      state.query = v;                        // keep state in sync for URL
+      paintPressEnterHint(v);
+    } else if (v.length === 0 || v.length >= MIN_QUERY) {
       t = setTimeout(() => {
         state.query = v;
         runSearch();
@@ -6043,8 +6050,17 @@ function bindUI() {
       paintShortQueryHint(v);
     }
   });
+  const submitQuery = () => {
+    clearTimeout(t);
+    const v = qInput.value.trim();
+    if (v.length && v.length < MIN_QUERY) { paintShortQueryHint(v); return; }
+    state.query = v;
+    runSearch();
+  };
+  $('#q-go')?.addEventListener('click', () => { submitQuery(); _flushRecentQuery(); });
   qInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
+      submitQuery();
       // v19.53.1: explicit submit — flush the pending recent-query
       // record immediately rather than waiting for the 2 s stability
       // window. Lets the user "lock in" a query the moment they press
@@ -8026,6 +8042,19 @@ function paragraphInScope(p, scope) {
 // ─────────── Search ───────────
 // v18.1: hint shown while the user is still typing the first 1–3 chars.
 // We don't yet have a result set; tell them how many more chars to add.
+// Scopes whose search runs on the server (FTS5 API, or the UHRI service for
+// recommendations); the local FlexSearch fall-back keeps searching as you type.
+function serverSearchScope() {
+  return state.scope === 'rec' || (apiActive(state.scope) && state.apiOnline !== false);
+}
+
+function paintPressEnterHint(v) {
+  const count = $('#result-count');
+  const sub   = $('#results-sub');
+  if (count) count.textContent = '↵ Enter';
+  if (sub)   sub.textContent = `Press Enter (or Search) to search for “${v.length > 60 ? v.slice(0, 60) + '…' : v}”.`;
+}
+
 function paintShortQueryHint(v) {
   const count = $('#result-count');
   const title = $('#results-title');
