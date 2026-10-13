@@ -274,6 +274,7 @@ async function pingApi() {
       state.apiOnline = true;
       state.apiStats = r;
       paintApiBadge(true, ms);
+      paintDataAsOf();
       return;
     } catch (e) {
       console.warn(`[unhrdb-api] unreachable (${timeoutMs} ms budget):`, e.message);
@@ -1494,6 +1495,46 @@ function mergeJurFacets(base) {
   };
 }
 
+// ─────────── "Data as of" chip under the Source list ───────────
+// When the corpus behind the selected source last changed. UNHRDB: the live API's build date (the static
+// manifest when the API is offline). Recommendations: the newest UHRI recommendation and the last check of
+// OHCHR for new ones, from the UHRI mirror's refresh status.
+const _asofDay = d => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+let _uhriFresh = null;
+async function loadUhriFreshness() {
+  if (_uhriFresh) return _uhriFresh;
+  try {
+    const [st, h] = await Promise.all([
+      fetch(UHRI_API_BASE + '/refresh_status.json', { cache: 'no-store' }).then(r => (r.ok ? r.json() : {})),
+      uhriFetch('/api/data/health'),
+    ]);
+    _uhriFresh = { latest: st.latest_publication || null, changed: h.modified_at || null,
+                   checked: st.last_checked_at || st.finished_at || null };
+  } catch (e) { _uhriFresh = null; }
+  return _uhriFresh;
+}
+async function paintDataAsOf() {
+  const el = $('#data-asof');
+  if (!el) return;
+  if (state.scope === 'rec') {
+    el.hidden = true;
+    const f = await loadUhriFreshness();
+    if (!f || state.scope !== 'rec') return;
+    const main = f.latest ? `Recommendations to ${_asofDay(f.latest)}` : f.changed ? `Updated ${_asofDay(f.changed)}` : '';
+    if (!main) return;
+    el.textContent = main + (f.checked ? ` · checked ${_asofDay(f.checked)}` : '');
+    el.title = 'UHRI recommendations reach the index some weeks after the documents are published. '
+      + (f.checked ? `OHCHR was last checked for new ones on ${_asofDay(f.checked)}` : '')
+      + (f.changed ? `; the data last changed on ${_asofDay(f.changed)}.` : '.');
+  } else {
+    const built = state.apiStats?.manifest?.builtAt || state.manifest?.builtAt;
+    if (!built) { el.hidden = true; return; }
+    el.textContent = `Data updated ${_asofDay(built)}`;
+    el.title = `General Comments, jurisprudence and Special Procedures reports, as built on ${_asofDay(built)}. New documents are added after review, not automatically.`;
+  }
+  el.hidden = false;
+}
+
 // ─────────── Masthead folio ───────────
 function paintMastFolio(m) {
   const today = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
@@ -1519,6 +1560,7 @@ function paintMastFolio(m) {
   const q = $('#q');
   if (q) q.placeholder = `Search ${totParas} paragraphs across ${totDocs} UN documents…`;
   paintFreshnessCard(m);
+  paintDataAsOf();
 }
 
 // Freshness card — green/amber/red traffic light on the About tab.
@@ -6246,6 +6288,7 @@ function bindUI() {
     syncRecFiltersVisibility();
     paintCountryFilter();
     if (state.scope === 'rec') { loadRecVocab(); paintRecFilters(); }
+    paintDataAsOf();
 
     // Jurisprudence has 3,100+ documents and 111k paragraphs, so
     // the default "Paragraphs" view dumps a wall of weakly-related rows on

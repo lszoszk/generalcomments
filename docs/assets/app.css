@@ -7184,3 +7184,10 @@ mark.ck ins { color: var(--status-good, #2f6b3a); text-decoration: none; font-st
   .check-shell { padding: 18px 14px 48px; }
   .check-toggle { margin-left: 0; }
 }
+
+/* "Data as of" chip under the Source list (paintDataAsOf) */
+.data-asof {
+  display: inline-flex; align-items: center; gap: 6px; margin: 10px 0 0; padding: 3px 9px;
+  border: 1px solid var(--rule, #ddd); border-radius: 999px; font-size: 11.5px; color: var(--ink-3); cursor: help;
+}
+.data-asof::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .55; }
