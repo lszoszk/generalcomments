@@ -35,6 +35,10 @@
     "citations/index.json": {
       "sha": "f4afdc527d4f3ccc",
       "bytes": 3493740
+    },
+    "related/gc.json": {
+      "sha": "151838d727d2e982",
+      "bytes": 1290779
     }
   },
   "note": "Incremental append (append_gc_from_docx.py): +CERD/C/GC/40."
