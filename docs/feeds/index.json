@@ -1,17 +1,17 @@
 {
-  "builtAt": "2026-09-06T15:15:37+00:00",
+  "builtAt": "2026-10-13T20:12:31+00:00",
   "feeds": [
     {
       "id": "all",
       "title": "UN Human Rights Database — new documents",
-      "documents": 6111,
-      "latest": "2026-09-03"
+      "documents": 6116,
+      "latest": "2026-10-13"
     },
     {
       "id": "gc",
       "title": "UNHRDB — new General Comments and Recommendations",
-      "documents": 187,
-      "latest": "2026-04-30"
+      "documents": 188,
+      "latest": "2026-10-13"
     },
     {
       "id": "jur",
@@ -22,8 +22,8 @@
     {
       "id": "sp",
       "title": "UNHRDB — new Special Procedures reports",
-      "documents": 1591,
-      "latest": "2026-09-03"
+      "documents": 1595,
+      "latest": "2026-10-13"
     },
     {
       "id": "body-cat",
@@ -58,8 +58,8 @@
     {
       "id": "body-cerd",
       "title": "UNHRDB — Committee on the Elimination of Racial Discrimination",
-      "documents": 95,
-      "latest": "2026-05-12"
+      "documents": 96,
+      "latest": "2026-10-13"
     },
     {
       "id": "body-cescr",
@@ -88,8 +88,8 @@
     {
       "id": "body-ie-albinism",
       "title": "UNHRDB — IE Albinism",
-      "documents": 21,
-      "latest": "2026-06-17"
+      "documents": 22,
+      "latest": "2026-10-13"
     },
     {
       "id": "body-ie-foreign-debt",
@@ -274,8 +274,8 @@
     {
       "id": "body-sr-sale-of-children",
       "title": "UNHRDB — SR Sale of Children",
-      "documents": 41,
-      "latest": "2026-06-17"
+      "documents": 42,
+      "latest": "2026-10-13"
     },
     {
       "id": "body-sr-torture",
@@ -298,8 +298,8 @@
     {
       "id": "body-sr-truth-justice-and-reparation",
       "title": "UNHRDB — SR Truth Justice and Reparation",
-      "documents": 30,
-      "latest": "2026-09-03"
+      "documents": 31,
+      "latest": "2026-10-13"
     },
     {
       "id": "body-sr-unilateral-coercive-measures",
@@ -310,8 +310,8 @@
     {
       "id": "body-sr-violence-against-women",
       "title": "UNHRDB — SR Violence against Women",
-      "documents": 46,
-      "latest": "2026-09-03"
+      "documents": 47,
+      "latest": "2026-10-13"
     },
     {
       "id": "body-sr-water-and-sanitation",
