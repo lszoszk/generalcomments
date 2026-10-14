@@ -1,13 +1,13 @@
 {
-  "version": "20261013",
-  "builtAt": "2026-10-13T21:24:16+00:00",
+  "version": "20261014",
+  "builtAt": "2026-10-14T14:45:01+00:00",
   "counts": {
-    "documents": 1786,
-    "paragraphs": 171100,
+    "documents": 1819,
+    "paragraphs": 173726,
     "gcDocuments": 188,
     "gcParagraphs": 7304,
-    "spDocuments": 1598,
-    "spParagraphs": 163796,
+    "spDocuments": 1631,
+    "spParagraphs": 166422,
     "labels": 20,
     "committees": 56,
     "yearRange": [
@@ -21,21 +21,21 @@
       "bytes": 8068990
     },
     "documents.json": {
-      "sha": "70c41ab04cbe048b",
-      "bytes": 1453945
+      "sha": "41028f7db3ce9b42",
+      "bytes": 1479158
     },
     "facets.json": {
-      "sha": "e678bd8ad8776329",
-      "bytes": 14220
+      "sha": "71add9b33d93b190",
+      "bytes": 14389
     },
     "citations/graph.json": {
-      "sha": "dd9b10438e87526d",
-      "bytes": 3702737
+      "sha": "09b5689e7924718d",
+      "bytes": 3732973
     },
     "citations/index.json": {
-      "sha": "ae59eb5250b16340",
-      "bytes": 3495970
+      "sha": "d7ecdc5b5b6e29f0",
+      "bytes": 3519885
     }
   },
-  "note": "Incremental append (append_sp_docs.py): +3 SP docs."
+  "note": "Incremental append (append_sp_docs.py): +33 SP docs."
 }
