@@ -3,7 +3,7 @@
   "builtAt": "2026-10-14T14:45:01.046449+00:00",
   "counts": {
     "documents": 1631,
-    "paragraphs": 166422,
+    "paragraphs": 166413,
     "shards": 46,
     "committees": 46
   },
@@ -69,8 +69,8 @@
       "paragraphs": 2794
     },
     "shards/sp_SR_Cultural_Rights.json": {
-      "sha": "444cf93f12c74300",
-      "bytes": 3483333,
+      "sha": "d1c9394df3f3628b",
+      "bytes": 3490377,
       "documents": 32,
       "paragraphs": 2962
     },
@@ -81,8 +81,8 @@
       "paragraphs": 1798
     },
     "shards/sp_SR_Disability.json": {
-      "sha": "d6e1b2286812e171",
-      "bytes": 2509317,
+      "sha": "2f84d9e2fcce99cd",
+      "bytes": 2519078,
       "documents": 24,
       "paragraphs": 2071
     },
@@ -105,8 +105,8 @@
       "paragraphs": 4297
     },
     "shards/sp_SR_Extreme_Poverty.json": {
-      "sha": "96f10218037b4f0d",
-      "bytes": 2525042,
+      "sha": "9456535915711641",
+      "bytes": 2534850,
       "documents": 25,
       "paragraphs": 1797
     },
@@ -159,8 +159,8 @@
       "paragraphs": 4330
     },
     "shards/sp_SR_Internally_Displaced_Persons.json": {
-      "sha": "c54434ab22f21592",
-      "bytes": 4422147,
+      "sha": "7eb7952cb9697a05",
+      "bytes": 4432283,
       "documents": 40,
       "paragraphs": 3442
     },
@@ -171,8 +171,8 @@
       "paragraphs": 1391
     },
     "shards/sp_SR_Migrants.json": {
-      "sha": "191e9ab221b4532b",
-      "bytes": 5194239,
+      "sha": "5bc2b8859932ed61",
+      "bytes": 5204113,
       "documents": 50,
       "paragraphs": 4696
     },
@@ -189,8 +189,8 @@
       "paragraphs": 1827
     },
     "shards/sp_SR_Racism.json": {
-      "sha": "8f01b2ba0c0b6b31",
-      "bytes": 3293768,
+      "sha": "094d7c760018f65d",
+      "bytes": 3298976,
       "documents": 33,
       "paragraphs": 2422
     },
@@ -225,10 +225,10 @@
       "paragraphs": 2943
     },
     "shards/sp_SR_Unilateral_Coercive_Measures.json": {
-      "sha": "090273a27694d6e5",
-      "bytes": 2194133,
+      "sha": "f3e8c41090140d85",
+      "bytes": 2200624,
       "documents": 20,
-      "paragraphs": 1716
+      "paragraphs": 1707
     },
     "shards/sp_SR_Violence_against_Women.json": {
       "sha": "214147ca9a88dd7e",
@@ -273,8 +273,8 @@
       "paragraphs": 13900
     },
     "shards/sp_WG_Mercenaries.json": {
-      "sha": "b7a958eef3a3a30d",
-      "bytes": 4048430,
+      "sha": "d12cb6bb90d4521e",
+      "bytes": 4057666,
       "documents": 42,
       "paragraphs": 3542
     },
