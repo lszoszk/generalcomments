@@ -125,6 +125,10 @@ def provenance(d) -> str:
     text does not come from the Word file on UN Documents."""
     if d.get("type") != "sp" or d.get("textSource") == "documents.un.org docx":
         return ""
+    if d.get("textSource") == "documents.un.org pdf (docx pending)":
+        return ('<aside class="note warn">A recent report: UN Documents has not yet published its Word file, so the text '
+                'comes from the PDF. Footnotes and headings may be incomplete until it is rebuilt from the Word file; '
+                'check quotations against the official text.</aside>')
     if d.get("textSource") == "documents.un.org pdf (layout)":
         msg = ("From PDF: no Word file exists for this report, so its text was re-cut from the PDF layout. "
                "In such reports about one paragraph in nine may still show a slip, often OCR in older scans.")

@@ -1293,12 +1293,20 @@ function documentStatusDetails(doc) {
 }
 
 // Special Procedures reports whose text does not come from the Word file on
-// UN Documents: 60 re-cut from the PDF layout, 21 still as first extracted.
+// UN Documents: re-cut from the PDF layout, still as first extracted, or recent
+// reports whose Word file is not out yet (rebuilt once it is).
 // The shares are from the automated integrity check (September 2026).
 function spTextBannerHtml(doc, sourceUrl) {
   if (doc?.type !== 'sp' || doc.textSource === 'documents.un.org docx') return '';
-  const recut = doc.textSource === 'documents.un.org pdf (layout)';
   const pdf = sourceUrl ? `<a href="${escape(sourceUrl)}" target="_blank" rel="noopener">original PDF</a>` : 'original PDF';
+  if (doc.textSource === 'documents.un.org pdf (docx pending)') {
+    return `<aside class="docs-reader-ocr-banner ocr-banner-cleaned sp-text-banner" role="note">
+      <span class="ocr-banner-tag">FROM PDF</span>
+      <div class="ocr-banner-body"><strong>A recent report: UN Documents has not yet published its Word file, so the text comes from the PDF.</strong>
+        Footnotes and headings may be incomplete until it is rebuilt from the Word file; check quotations against the ${pdf}.</div>
+    </aside>`;
+  }
+  const recut = doc.textSource === 'documents.un.org pdf (layout)';
   return `<aside class="docs-reader-ocr-banner ocr-banner-${recut ? 'cleaned' : 'raw'} sp-text-banner" role="note">
       <span class="ocr-banner-tag">${recut ? 'FROM PDF' : 'PDF · UNREVIEWED'}</span>
       <div class="ocr-banner-body">${recut
