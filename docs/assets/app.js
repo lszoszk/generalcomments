@@ -275,6 +275,7 @@ async function pingApi() {
       state.apiStats = r;
       paintApiBadge(true, ms);
       paintDataAsOf();
+      paintUpdateLog();
       return;
     } catch (e) {
       console.warn(`[unhrdb-api] unreachable (${timeoutMs} ms budget):`, e.message);
@@ -1495,6 +1496,55 @@ function mergeJurFacets(base) {
   };
 }
 
+// ─────────── Update log (About › Methodology) and the footer chip ───────────
+// docs/updates/log.json is written by the pipeline (build_feeds.py): every document added since the log
+// started, and the ones reviewed and left out, with the reason. The footer chip says when the data last
+// changed and how many documents arrived in the last 30 days; it opens the log.
+const _logDay = d => new Date(d + (d.length === 10 ? 'T00:00:00Z' : '')).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+let _updateLog = null;
+async function paintUpdateLog() {
+  try {
+    if (!_updateLog) {
+      const r = await fetch('updates/log.json', { cache: 'no-cache' });
+      if (!r.ok) return;
+      _updateLog = await r.json();
+    }
+  } catch (e) { return; }
+  const log = _updateLog, entries = log.entries || [];
+  const since = $('#update-log-since');
+  if (since && log.since) since.textContent = _logDay(log.since);
+  const list = $('#update-log-list');
+  if (list) {
+    list.innerHTML = entries.length ? entries.map(e => {
+      const added = e.status === 'added';
+      const sym = added && e.docId
+        ? `<a class="about-link" href="#documents/${encodeURIComponent(e.docId)}">${escape(e.symbol || e.docId)}</a>`
+        : `<span>${escape(e.symbol)}</span>`;
+      return `<li class="update-log-row${added ? '' : ' is-not-added'}"><time datetime="${escape(e.date)}">${escape(_logDay(e.date))}</time>`
+        + `<span class="update-log-status">${added ? 'Added' : 'Not added'}</span>`
+        + `<span class="update-log-doc">${sym} · ${escape(e.title)}${e.body ? ` <span class="dim">— ${escape(e.body)}</span>` : ''}`
+        + `${e.note ? `<span class="update-log-note">${escape(e.note)}</span>` : ''}</span></li>`;
+    }).join('') : '<li class="dim">No changes since the log started.</li>';
+  }
+  const chip = $('#foot-updated');
+  if (chip) {
+    const built = state.apiStats?.manifest?.builtAt || state.manifest?.builtAt || '';
+    const latest = [built.slice(0, 10), entries[0]?.date || ''].sort().pop();
+    const cutoff = new Date(Date.now() - 30 * 864e5).toISOString().slice(0, 10);
+    const recent = entries.filter(e => e.status === 'added' && e.date >= cutoff).length;
+    if (latest) {
+      chip.textContent = `Data updated ${_logDay(latest)}` + (recent ? ` · +${recent} new` : '');
+      chip.title = (recent ? `${recent} ${recent === 1 ? 'document' : 'documents'} added in the last 30 days. ` : '') + 'Open the update log.';
+      chip.hidden = false;
+    }
+  }
+}
+function openUpdateLog(ev) {
+  ev.preventDefault();
+  window.location.hash = 'about';
+  setTimeout(() => $('#update-log')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 60);
+}
+
 // ─────────── "Data as of" chip under the Source list ───────────
 // When the corpus behind the selected source last changed. UNHRDB: the live API's build date (the static
 // manifest when the API is offline). Recommendations: the newest UHRI recommendation and the last check of
@@ -1561,6 +1611,8 @@ function paintMastFolio(m) {
   if (q) q.placeholder = `Search ${totParas} paragraphs across ${totDocs} UN documents…`;
   paintFreshnessCard(m);
   paintDataAsOf();
+  paintUpdateLog();
+  $('#foot-updated')?.addEventListener('click', openUpdateLog);
 }
 
 // Freshness card — green/amber/red traffic light on the About tab.

@@ -156,7 +156,7 @@
 </script>
 
 <link rel="stylesheet" href="assets/tokens.css?v=20261013-f5d20f0" />
-<link rel="stylesheet" href="assets/app.css?v=20261013-asof" />
+<link rel="stylesheet" href="assets/app.css?v=20261013-log" />
 
 <!-- Google Analytics 4 is loaded LAZILY, only after the visitor opts in
      via the consent banner — see initConsent()/loadAnalytics() in app.js.
@@ -1543,6 +1543,14 @@
             additions by day; returning visitors see a “new” chip on documents added
             since their last visit.
           </p>
+          <div class="update-log-block" id="update-log">
+            <p class="serif">
+              <strong>Update log.</strong> Every document added since <span id="update-log-since">13 October 2026</span>,
+              and every document that was checked and left out, with the reason. New UN documents are found by a
+              daily check of the UN Documents system; each is reviewed (paragraphs, notes, headings) before it is added.
+            </p>
+            <ol class="update-log" id="update-log-list" aria-label="Update log, newest first"><li class="dim">Loading…</li></ol>
+          </div>
           <p class="serif">
             <strong>Related paragraphs.</strong> For every General Comment paragraph the
             reader and the dossier list the five most similar paragraphs of other General
@@ -1676,6 +1684,8 @@ ds = load_dataset(
 <footer class="foot">
   <div class="foot-inner">
     <span class="folio" id="foot-version">Build —</span>
+    <!-- When the data last changed and how many documents arrived lately; opens the update log (paintUpdateLog). -->
+    <a class="foot-updated" id="foot-updated" href="#about" hidden></a>
     <span class="dim">·</span>
     <span class="serif" style="font-style: italic;">App by <a href="https://lszoszk.github.io" class="foot-link" target="_blank" rel="noopener">Łukasz Szoszkiewicz</a> &amp; Zuzanna Kowalska.</span>
     <span class="dim">·</span>
@@ -1753,7 +1763,7 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20261013-asof"></script>
+<script type="module" src="assets/app.js?v=20261013-log"></script>
 <script src="assets/who.js?v=20261013" data-tool="unhrdb" data-endpoint="https://lszoszk.goatcounter.com/count" defer></script>
 </body>
 </html>

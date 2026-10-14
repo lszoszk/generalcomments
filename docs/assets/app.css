@@ -7191,3 +7191,24 @@ mark.ck ins { color: var(--status-good, #2f6b3a); text-decoration: none; font-st
   border: 1px solid var(--rule, #ddd); border-radius: 999px; font-size: 11.5px; color: var(--ink-3); cursor: help;
 }
 .data-asof::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .55; }
+
+/* Update log (About › Methodology) and its footer chip (paintUpdateLog) */
+.foot-updated {
+  display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border: 1px solid var(--rule);
+  border-radius: 999px; color: var(--ink-2); text-decoration: none; font-size: 11px; white-space: nowrap;
+}
+.foot-updated::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--garnet); opacity: .7; }
+.foot-updated:hover, .foot-updated:focus-visible { border-color: var(--garnet); color: var(--ink); }
+.update-log {
+  list-style: none; margin: 8px 0 16px; padding: 0; max-height: 320px; overflow-y: auto;
+  border: 1px solid var(--rule); border-radius: 4px; font-size: 13px;
+}
+.update-log-row { display: grid; grid-template-columns: 92px 78px 1fr; gap: 10px; padding: 7px 10px; border-bottom: 1px solid var(--rule); }
+.update-log-row:last-child { border-bottom: 0; }
+.update-log-row time { color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.update-log-status { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--garnet); }
+.update-log-row.is-not-added .update-log-status { color: var(--ink-3); }
+.update-log-note { display: block; color: var(--ink-3); font-size: 12px; margin-top: 2px; }
+@media (max-width: 640px) {
+  .update-log-row { grid-template-columns: 1fr; gap: 2px; }
+}
