@@ -3,11 +3,11 @@
   "builtAt": "2026-10-14T14:45:01+00:00",
   "counts": {
     "documents": 1819,
-    "paragraphs": 173726,
+    "paragraphs": 173717,
     "gcDocuments": 188,
     "gcParagraphs": 7304,
     "spDocuments": 1631,
-    "spParagraphs": 166422,
+    "spParagraphs": 166413,
     "labels": 20,
     "committees": 56,
     "yearRange": [
@@ -21,19 +21,19 @@
       "bytes": 8068990
     },
     "documents.json": {
-      "sha": "41028f7db3ce9b42",
-      "bytes": 1479158
+      "sha": "dd65951d87d53bd7",
+      "bytes": 1479787
     },
     "facets.json": {
-      "sha": "71add9b33d93b190",
+      "sha": "993884236e77e44d",
       "bytes": 14389
     },
     "citations/graph.json": {
-      "sha": "09b5689e7924718d",
-      "bytes": 3732973
+      "sha": "5089c568b4fe5edc",
+      "bytes": 3733085
     },
     "citations/index.json": {
-      "sha": "d7ecdc5b5b6e29f0",
+      "sha": "ce648d6435d2ad93",
       "bytes": 3519885
     }
   },

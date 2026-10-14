@@ -1,15 +1,15 @@
 # UN Human Rights Database (UNHRDB)
 
-> Paragraph-level research database of UN human rights law, built at Adam Mickiewicz University, Poznań (Łukasz Szoszkiewicz, Zuzanna Kowalska). It holds 6,152 UN documents split into 326,457 numbered paragraphs, each keyed to its UN document symbol and paragraph number, so a passage can be quoted and cited exactly. Free to use; open source.
+> Paragraph-level research database of UN human rights law, built at Adam Mickiewicz University, Poznań (Łukasz Szoszkiewicz, Zuzanna Kowalska). It holds 6,152 UN documents split into 326,448 numbered paragraphs, each keyed to its UN document symbol and paragraph number, so a passage can be quoted and cited exactly. Free to use; open source.
 
 ## What is in it
 
 - Treaty Body General Comments and General Recommendations: 188 documents, 7,304 paragraphs, all ten UN treaty bodies, 1972–2026.
 - Individual-communication decisions (views, admissibility decisions) of 8 treaty bodies: 4,333 decisions, 152,731 paragraphs, 1977–2025.
-- Thematic reports of the UN Special Procedures: 1,631 reports from all 46 thematic mandates, 166,422 paragraphs, 1960–2026. Country-visit reports, communications and addenda are out of scope.
+- Thematic reports of the UN Special Procedures: 1,631 reports from all 46 thematic mandates, 166,413 paragraphs, 1960–2026. Country-visit reports, communications and addenda are out of scope.
 - Recommendations to States (concluding observations, Universal Periodic Review and Special Procedures recommendations) from OHCHR's Universal Human Rights Index, served live.
 
-Texts are the UN's own wording. Footnotes, section headings and paragraph numbering follow the published documents; Special Procedures texts come from the Word files on UN Documents where one exists (1,542 of 1,631 reports), otherwise from the PDF.
+Texts are the UN's own wording. Footnotes, section headings and paragraph numbering follow the published documents; Special Procedures texts come from the Word files on UN Documents where one exists (1,550 of 1,631 reports), otherwise from the PDF.
 
 ## Legal character
 

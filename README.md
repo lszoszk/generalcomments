@@ -21,7 +21,7 @@ original document symbol and context.
 
 ## Coverage
 
-The October 2026 public build contains 326,457 searchable paragraphs across 6,152
+The October 2026 public build contains 326,448 searchable paragraphs across 6,152
 documents:
 
 | Collection | Coverage |
