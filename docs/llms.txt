@@ -18,15 +18,39 @@ General Comments are authoritative interpretations of a treaty by its monitoring
 ## How to link and cite
 
 - A paragraph: https://lszoszk.github.io/generalcomments/?p=<paragraph-id>, e.g. https://lszoszk.github.io/generalcomments/?p=ccpr-c-gc-36-0012 (Human Rights Committee, general comment No. 36, para. 12).
-- A search: https://lszoszk.github.io/generalcomments/?q=<terms>
+- A search: https://lszoszk.github.io/generalcomments/?q=<terms> (operators and filters below).
 - Every document as a plain HTML page without JavaScript, full text with paragraph anchors: https://lszoszk.github.io/generalcomments/d/<document-id>/#p<paragraph>, e.g. https://lszoszk.github.io/generalcomments/d/ccpr-c-gc-36/#p12. Index of all documents: https://lszoszk.github.io/generalcomments/d/
 - Cite the underlying UN document by its symbol and paragraph (e.g. CCPR/C/GC/36, para. 12); the official text is at https://docs.un.org/en/<symbol>.
-- Cite the database itself as: Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRDB — UN Human Rights Database (Version 2.1.0). Zenodo. https://doi.org/10.5281/zenodo.10495719
+- Cite the database itself as: Szoszkiewicz, Ł., & Kowalska, Z. (2026). UNHRDB — UN Human Rights Database (Version 2.2.0). Zenodo. https://doi.org/10.5281/zenodo.10495719
+
+## Search syntax and filter URLs
+
+Query operators (parameter q):
+- "exact phrase" — the words verbatim and in order; no stemming.
+- A B — whitespace is AND: both terms must appear.
+- A AND B, A OR B — AND binds tighter than OR; group with ( … ).
+- A NOT B, or A -B — exclude B; an exclusion needs a positive term beside it.
+- prefix* — trailing asterisk matches any continuation (discriminat* finds discrimination, discriminatory).
+- Bare words match the word form as typed; there is no proximity (NEAR) operator.
+
+Filters, each a URL parameter; several values are joined with | :
+- scope — gc (General Comments, the default), jur (treaty-body decisions), sp (Special Procedures reports), all (the three together), rec (recommendations to States).
+- tb — treaty body or mandate, as shown in the filter panel: CCPR, CESCR, CRC, CEDAW, CERD, CAT, CRPD, CMW, CED; Special Procedures as "SR Privacy", "SR Torture", "WG Arbitrary Detention" and so on.
+- y1, y2 — first and last year.
+- g — groups concerned, e.g. Children, Women/girls, Persons with disabilities, Indigenous peoples, Migrants.
+- jur only: cy (State party, e.g. Algeria), oc (outcome: violation_found, merits_no_violation, inadmissible, discontinued).
+- fn=1 also searches footnotes (off by default).
+
+Examples:
+- https://lszoszk.github.io/generalcomments/?q=%22best+interests%22+-adoption&tb=CRC|CESCR&g=Children
+- https://lszoszk.github.io/generalcomments/?q=%22enforced+disappearance%22&scope=jur&tb=CCPR&cy=Algeria&oc=violation_found&y1=2015
+- https://lszoszk.github.io/generalcomments/?q=biometric*+AND+(surveillance+OR+facial)&scope=sp&y1=2018
 
 ## Using it from an AI assistant
 
 - Connector (MCP, Streamable HTTP, no key): https://150.254.115.204/unhrdb-mcp-rpc/mcp — tools search_paragraphs, lookup_by_citation, search_recommendations, lookup_recommendation, list_uhri_facets.
 - Claude plugin with the connector and three skills (un-human-rights-research, un-citation-check, treaty-body-case-law): https://github.com/lszoszk/mcp-unhrdb#skills-for-claude. Skills for the recommendations to States (uhri-plus, uhri-plus-country-brief, uhri-plus-legal-grounding, uhri-plus-dashboard-link): https://lszoszk.github.io/UnitedNations_recommendations/skills/README.md. In Claude Code: `/plugin marketplace add lszoszk/mcp-unhrdb`, then `/plugin install unhrdb@mcp-unhrdb`.
+- Step-by-step guide to connecting Claude, ChatGPT and other assistants: https://lszoszk.github.io/UnitedNations_recommendations/ai.html
 - Quote the returned text verbatim and cite the UN symbol and paragraph. Searches require all bare words (use OR, "phrases" and prefix*); check that a looked-up paragraph carries the label you asked for.
 
 ## Data and tools
