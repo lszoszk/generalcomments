@@ -21,13 +21,13 @@ original document symbol and context.
 
 ## Coverage
 
-The October 2026 public build contains 326,448 searchable paragraphs across 6,152
+The October 2026 public build contains 323,405 searchable paragraphs across 6,079
 documents:
 
 | Collection | Coverage |
 |---|---:|
 | Treaty Body General Comments and Recommendations | 188 documents |
-| Individual-communication jurisprudence | 4,333 cases from 8 mechanisms |
+| Individual-communication jurisprudence | 4,260 cases from 8 mechanisms |
 | Thematic Special Procedures reports | 1,631 reports from 46 mandates |
 | Recommendations to States (UHRI, live) | 267,942 records from 70 mechanisms to 199 States, 2006–2026 |
 

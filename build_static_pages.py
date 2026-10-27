@@ -321,6 +321,19 @@ def main():
         sizes["html"] += len(page.encode())
         sizes["md"] += len(md.encode())
         sizes["html_gz"] += len(gzip.compress(page.encode(), 6))
+    # A merged duplicate's old page forwards to the record that absorbed it.
+    for doc_id in targets:
+        for alt in docs[doc_id].get("alternativeIds") or []:
+            if alt in docs:
+                continue
+            url = f"{SITE}d/{doc_id}/"
+            (out / alt).mkdir(exist_ok=True)
+            (out / alt / "index.html").write_text(
+                f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Moved</title>'
+                f'<link rel="canonical" href="{url}"><meta name="robots" content="noindex">'
+                f'<meta http-equiv="refresh" content="0; url={url}"></head>'
+                f'<body><p>This record was merged into <a href="{url}">{esc(doc_id)}</a>.</p></body></html>\n',
+                encoding="utf-8")
     (out / "static.css").write_text(CSS, encoding="utf-8")
     (out / "index.html").write_text(index_page(docs, targets), encoding="utf-8")
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
