@@ -52,7 +52,7 @@
   form-action 'self'
 " />
 <title>UN Human Rights Database (UNHRDB) · paragraph-level search of UN human rights law</title>
-<meta name="description" content="Search 326,448 paragraphs of UN human rights law: Treaty Body General Comments, individual-communication decisions of 8 treaty bodies and 1,631 Special Procedures reports (all 46 mandates), each with its UN symbol and paragraph number for citation. Free and open source." />
+<meta name="description" content="Search 323,405 paragraphs of UN human rights law: Treaty Body General Comments, individual-communication decisions of 8 treaty bodies and 1,631 Special Procedures reports (all 46 mandates), each with its UN symbol and paragraph number for citation. Free and open source." />
 <link rel="canonical" href="https://lszoszk.github.io/generalcomments/" />
 <link rel="alternate" type="text/plain" title="Description for language models" href="llms.txt" />
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -110,7 +110,7 @@
       "@id": "https://lszoszk.github.io/generalcomments/#dataset",
       "name": "UN Human Rights Database (UNHRDB)",
       "alternateName": "UNHRDB",
-      "description": "Paragraph-level corpus of UN human rights law: 188 Treaty Body General Comments and Recommendations, 4,333 individual-communication decisions of 8 treaty bodies and 1,631 thematic Special Procedures reports from all 46 mandates — 6,152 documents and 326,448 paragraphs, each keyed to its UN document symbol and paragraph number, with footnotes, section headings and concerned-group labels.",
+      "description": "Paragraph-level corpus of UN human rights law: 188 Treaty Body General Comments and Recommendations, 4,260 individual-communication decisions of 8 treaty bodies and 1,631 thematic Special Procedures reports from all 46 mandates — 6,079 documents and 323,405 paragraphs, each keyed to its UN document symbol and paragraph number, with footnotes, section headings and concerned-group labels.",
       "url": "https://lszoszk.github.io/generalcomments/",
       "identifier": "https://doi.org/10.5281/zenodo.10495719",
       "sameAs": [
@@ -965,7 +965,7 @@
         <ol class="check-list" id="check-list"></ol>
         <div class="check-actions">
           <button id="check-copy-report" class="btn btn-ghost" type="button" title="Copy the table of citations and findings as Markdown">⎘ Copy report</button>
-          <span class="serif dim check-note">Resolution runs against the catalogue of 6,152 documents; paragraph texts are loaded per cited document. Concluding observations and UPR recommendations are in the <a href="#search" data-check-scope="rec">Recommendations</a> scope, not here.</span>
+          <span class="serif dim check-note">Resolution runs against the catalogue of 6,079 documents; paragraph texts are loaded per cited document. Concluding observations and UPR recommendations are in the <a href="#search" data-check-scope="rec">Recommendations</a> scope, not here.</span>
         </div>
       </div>
     </div>
@@ -1004,8 +1004,8 @@
             Periodic Review and country-visit recommendations — served live from the
             OHCHR Universal Human Rights Index (see below); it is not part of the
             paragraph counts here.
-            Across the current published build, <strong>326,448 paragraphs</strong> across
-            <strong>6,152 documents</strong> are searchable, filterable and citable down to
+            Across the current published build, <strong>323,405 paragraphs</strong> across
+            <strong>6,079 documents</strong> are searchable, filterable and citable down to
             their number.
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule); font-style: italic; color: var(--ink-3);">
@@ -1018,10 +1018,10 @@
             <strong class="folio">Dataset snapshot:</strong> last synchronised with
             <a class="about-link" href="https://tbinternet.ohchr.org/_layouts/15/treatybodyexternal/TBSearch.aspx?Lang=en" target="_blank" rel="noopener">OHCHR Treaty Body Database</a>
             on <strong>3 September 2026</strong>.
-            <strong>6,152 documents · 326,448 paragraphs</strong> total —
+            <strong>6,079 documents · 323,405 paragraphs</strong> total —
             <strong>188 General Comments</strong> (all 10 treaty bodies),
             <strong>1,631 Special Procedures reports</strong> (all 46 thematic mandates),
-            <strong>4,333 jurisprudence cases</strong> (8 bodies: CCPR, CAT, CEDAW, CESCR, CRC, CRPD, CERD, CED).
+            <strong>4,260 jurisprudence cases</strong> (8 bodies: CCPR, CAT, CEDAW, CESCR, CRC, CRPD, CERD, CED).
             The most recent General Comment is
             <em>CEDAW/C/GC/30/Add.1</em> (Women, Peace and Security addendum, 18 February 2026);
             the most recent Special Procedures report is
@@ -1049,10 +1049,10 @@
         <div class="about-block">
           <h3 class="folio">Jurisprudence</h3>
           <p class="serif">
-            <strong>4,333 individual-communication cases</strong> ·
-            <strong>152,731 paragraphs</strong> from all 8 OP / individual-complaint
-            mechanisms — CCPR (2,861), CAT (835), CEDAW (172), CESCR (155),
-            CRC (150), CRPD (95), CERD (58), CED (7). Published as separate
+            <strong>4,260 individual-communication cases</strong> ·
+            <strong>149,688 paragraphs</strong> from all 8 OP / individual-complaint
+            mechanisms — CCPR (2,793), CAT (834), CEDAW (169), CESCR (155),
+            CRC (150), CRPD (94), CERD (58), CED (7). Published as separate
             shards under <code class="mono">docs/jur/</code> so the main General
             Comments interface stays lightweight; the shard for a case is
             fetched lazily when the user opens it. CCPR and CAT include

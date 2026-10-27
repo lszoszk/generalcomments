@@ -1,8 +1,305 @@
 {
  "since": "2026-10-13",
- "builtAt": "2026-10-13T21:48:29+00:00",
- "added": 8,
+ "builtAt": "2026-10-27T22:20:27+00:00",
+ "added": 41,
  "entries": [
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-376",
+   "symbol": "A/81/376",
+   "title": "Freedom of religion or belief and funeral rights in exceptional circumstances",
+   "body": "SR Freedom of Religion or Belief"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-373",
+   "symbol": "A/81/373",
+   "title": "Assessing the implementation of cultural rights",
+   "body": "SR Cultural Rights"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-343",
+   "symbol": "A/81/343",
+   "title": "Combating glorification of Nazism, neo-Nazism and other practices that contribute to fuelling contemporary forms of racism, racial discrimination, xenophobia and related intolerance",
+   "body": "SR Racism"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-340",
+   "symbol": "A/81/340",
+   "title": "Use of mercenaries, mercenary-related actors and private military and security companies in organized criminal activities and illicit networks",
+   "body": "WG Mercenaries"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-339",
+   "symbol": "A/81/339",
+   "title": "Reconstruction after armed conflict, generalized violence and disasters, and durable solutions for internally displaced persons",
+   "body": "SR Internally Displaced Persons"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-286",
+   "symbol": "A/81/286",
+   "title": "Vision and thematic priorities",
+   "body": "SR Unilateral Coercive Measures"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-270",
+   "symbol": "A/81/270",
+   "title": "Inclusive humanitarian assistance and safeguards for the rights of persons with disabilities in the context of current humanitarian reform processes",
+   "body": "SR Disability"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-261",
+   "symbol": "A/81/261",
+   "title": "Cities and poverty",
+   "body": "SR Extreme Poverty"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-255",
+   "symbol": "A/81/255",
+   "title": "Children’s right to family life and family unity in the context of migration and asylum policies",
+   "body": "SR Migrants"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-227",
+   "symbol": "A/81/227",
+   "title": "Distinguishing organized crime from terrorism to protect human rights",
+   "body": "SR Counter-Terrorism"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-226",
+   "symbol": "A/81/226",
+   "title": "Planning to care for the planet and its people: enabling thriving societies and protecting the right to a healthy environment",
+   "body": "SR Environment"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-225",
+   "symbol": "A/81/225",
+   "title": "A century of international efforts to eradicate slavery and trafficking in persons",
+   "body": "SR Contemporary Slavery"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-217",
+   "symbol": "A/81/217",
+   "title": "Rethinking carbon credits according to international climate and human rights obligations",
+   "body": "SR Climate Change"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-216",
+   "symbol": "A/81/216",
+   "title": "Obstacles to realizing the right to education under the international financial architecture",
+   "body": "SR Education"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-215",
+   "symbol": "A/81/215",
+   "title": "Documenting, investigating and preventing the arbitrary deprivation of life of older persons",
+   "body": "SR Executions"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-214",
+   "symbol": "A/81/214",
+   "title": "Minority issues in contemporary international relations",
+   "body": "SR Minority Issues"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-211",
+   "symbol": "A/81/211",
+   "title": "Land and sea territorialities under the United Nations Declaration on the Rights of Peasants and Other People Working in Rural Areas",
+   "body": "WG Peasants"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-201",
+   "symbol": "A/81/201",
+   "title": "Reasserting human dignity in times of global war economies: an inception report",
+   "body": "SR Food"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-189",
+   "symbol": "A/81/189",
+   "title": "Finance and the high seas",
+   "body": "IE Foreign Debt"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-187",
+   "symbol": "A/81/187",
+   "title": "Peace for development: road map for a peace economy",
+   "body": "SR Development"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-186",
+   "symbol": "A/81/186",
+   "title": "Youth activism: from systemic exclusion to real participation",
+   "body": "SR Freedom of Assembly and Association"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-185",
+   "symbol": "A/81/185",
+   "title": "Protection against violence and discrimination based on sexual orientation and gender identity in humanitarian contexts",
+   "body": "IE Sexual Orientation and Gender Identity"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-181",
+   "symbol": "A/81/181",
+   "title": "Demarcation, registration and titling of Indigenous Peoples’ lands, territories and resources",
+   "body": "SR Indigenous Peoples"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-180",
+   "symbol": "A/81/180",
+   "title": "Corporate governance, business and human rights",
+   "body": "WG Business and Human Rights"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-179",
+   "symbol": "A/81/179",
+   "title": "Women and international solidarity",
+   "body": "IE International Solidarity"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-178",
+   "symbol": "A/81/178",
+   "title": "Legal tools for the international transfer of personal data",
+   "body": "SR Privacy"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-177",
+   "symbol": "A/81/177",
+   "title": "Autonomy, dignity and human rights in situations of dependency in older age",
+   "body": "IE Older Persons"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-170",
+   "symbol": "A/81/170",
+   "title": "Thirty years of the mandate on toxics and human rights",
+   "body": "SR Toxics and Human Rights"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-169",
+   "symbol": "A/81/169",
+   "title": "The justiciability of the right to health for justice and accountability",
+   "body": "SR Health"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-168",
+   "symbol": "A/81/168",
+   "title": "International fiscal justice and the reform of the international taxation regime",
+   "body": "IE International Order"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-167",
+   "symbol": "A/81/167",
+   "title": "Working methods and priorities of the mandate",
+   "body": "SR Human Rights Defenders"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-166",
+   "symbol": "A/81/166",
+   "title": "An urgent and existential threat: the role of justice systems in addressing the climate crisis",
+   "body": "SR Independence of Judges and Lawyers"
+  },
+  {
+   "date": "2026-10-14",
+   "status": "added",
+   "type": "sp",
+   "docId": "a-81-164",
+   "symbol": "A/81/164",
+   "title": "From invisibility to dignity: the human rights legacy of the mandate on the elimination of discrimination against persons affected by leprosy",
+   "body": "SR Leprosy"
+  },
   {
    "date": "2026-10-13",
    "status": "added",

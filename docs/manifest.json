@@ -29,12 +29,12 @@
       "bytes": 14389
     },
     "citations/graph.json": {
-      "sha": "5089c568b4fe5edc",
-      "bytes": 3733085
+      "sha": "86177bd560c8cf1f",
+      "bytes": 3677410
     },
     "citations/index.json": {
-      "sha": "ce648d6435d2ad93",
-      "bytes": 3519885
+      "sha": "500223c38521a38c",
+      "bytes": 3463152
     }
   },
   "note": "Incremental append (append_sp_docs.py): +33 SP docs."
