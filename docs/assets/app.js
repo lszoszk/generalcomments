@@ -2171,6 +2171,9 @@ const TOUR_STEPS = [
   {
     selector: '#fn-toggle, #pre-toggle',
     view: 'search',
+    // The chips are hidden while TEXT_SCOPE_UI is false; the step would
+    // spotlight nothing and park the popover in the corner.
+    when: () => TEXT_SCOPE_UI,
     title: 'Search options',
     body: 'Toggle whether the search includes footnote text (default OFF — body only) and preamble paragraphs (default ON). Turn footnotes ON to also match citations and cross-references held in footnotes.',
   },
@@ -2192,13 +2195,15 @@ const TOUR_STEPS = [
     },
   },
   {
-    selector: 'a[href="#documents"]',
+    selector: '.mast-nav a[href="#documents"]',
     view: 'search',
     title: 'Read full documents',
     body: 'The Documents tab opens any General Comment in a 3-pane reader: paragraph rail on the left, full text in the middle, section outline on the right. Click any paragraph to bookmark, cite, or copy it.',
   },
   {
-    selector: 'a[href="#about"]',
+    // Scoped to the masthead: a bare a[href="#about"] also matched a link
+    // in the Ask view and the union spotlight spanned half the page.
+    selector: '.mast-nav a[href="#workspace"], .mast-nav a[href="#about"]',
     view: 'search',
     title: 'Methodology + workspace',
     body: 'About explains the corpus pipeline (PDF→JSON, label taxonomy, OCR provenance). Workspace holds your bookmarks, notes, and saved searches across sessions.',
@@ -2229,8 +2234,9 @@ const DOCUMENTS_TOUR_STEPS = [
     body: 'Documents grouped by treaty body, ordered newest-first within each. Click any row to load it in the reader; only that case’s shard is fetched (not the whole corpus), so navigation feels instant.',
     beforeShow: () => {
       // Pre-open the first doc in the active scope so subsequent steps
-      // have content to point at.
-      if (state.docsActiveDocId) return;
+      // have content to point at. Check the DOM, not docsActiveDocId:
+      // the id outlives the reader when the user goes back to #documents.
+      if (document.querySelector('.docs-reader-head')) return;
       const firstRow = document.querySelector('.docs-rail-row');
       if (firstRow?.dataset?.docId) openDocReader(firstRow.dataset.docId);
     },
@@ -2247,6 +2253,8 @@ const DOCUMENTS_TOUR_STEPS = [
   {
     selector: '.docs-reader-para',
     view: 'documents',
+    // Every paragraph matches; spotlight the first one, not the union.
+    single: true,
     title: 'Paragraph-level actions',
     body: 'Click any ¶ to bookmark it (★), copy its text, or generate a citation in your preferred style. The right-pane outline jumps to sections; the rail row stays in sync as you scroll.',
   },
@@ -2277,8 +2285,9 @@ function startTour(fromStep = 0, opts = {}) {
   // v19.49: tour can be either the search-view walkthrough (default) or
   // the documents-view walkthrough; pick from `opts.steps` or auto-detect
   // by the user's currently-active view.
-  const steps = opts.steps || (state.view === 'documents' ? DOCUMENTS_TOUR_STEPS : TOUR_STEPS);
-  _tourState = { idx: fromStep, active: true, steps };
+  const steps = (opts.steps || (state.view === 'documents' ? DOCUMENTS_TOUR_STEPS : TOUR_STEPS))
+    .filter(s => !s.when || s.when());
+  _tourState = { idx: fromStep, shown: fromStep, active: true, steps };
   paintTourStep();
 }
 
@@ -2379,9 +2388,15 @@ function paintTourStep() {
   // A step's selector may match MULTIPLE elements (e.g. both
   // search-option toggles). Compute the union bounding box so the
   // spotlight covers them all as one rectangle.
-  const targets = Array.from(document.querySelectorAll(step.selector));
+  let targets = Array.from(document.querySelectorAll(step.selector))
+    .filter(el => { const rr = el.getBoundingClientRect(); return rr.width || rr.height; });
+  if (step.single) targets = targets.slice(0, 1);
   if (!targets.length) {
-    _tourState.idx++;
+    // Target missing or hidden at this width (e.g. #docs-drawer below
+    // ~1100 px): drop the step from this run rather than spotlight a 0×0
+    // rect and park the popover in the corner. Keep the travel direction.
+    steps.splice(_tourState.idx, 1);
+    if (_tourState.idx < _tourState.shown) _tourState.idx--;
     paintTourStep();
     return;
   }
@@ -2394,33 +2409,14 @@ function paintTourStep() {
   const pop     = document.getElementById('tour-popover');
   if (!overlay || !spot || !pop) return;
 
-  // Union the rects of all VISIBLE targets. Filter out elements with
-  // zero dimensions (hidden / display:none) so they don't poison the
-  // union with their (0,0,0,0) rect or with stale offscreen positions.
+  // Union the rects of the targets (hidden ones were filtered out above).
   let top = Infinity, left = Infinity, right = -Infinity, bottom = -Infinity;
-  let visibleCount = 0;
   for (const el of targets) {
     const rr = el.getBoundingClientRect();
-    if (rr.width === 0 && rr.height === 0) continue;   // hidden element
-    if (!isFinite(rr.top) || !isFinite(rr.left)) continue;
-    visibleCount++;
     top    = Math.min(top, rr.top);
     left   = Math.min(left, rr.left);
     right  = Math.max(right, rr.right);
     bottom = Math.max(bottom, rr.bottom);
-  }
-  // v19.43-fix: defensive fallback. If union came up empty (all elements
-  // hidden, or selector matched something not in the layout), fall back
-  // to the first matched element directly. This prevents the spotlight
-  // from rendering a phantom rectangle (Infinity → NaN width) somewhere
-  // unexpected — the bug that caused step 4 to highlight the search
-  // input instead of the option toggles.
-  if (!visibleCount || !isFinite(top) || !isFinite(left)) {
-    const fb = targets[0].getBoundingClientRect();
-    top    = fb.top;
-    left   = fb.left;
-    right  = fb.right;
-    bottom = fb.bottom;
   }
   const r = { top, left, right, bottom, width: right - left, height: bottom - top };
   const PAD = 8;
@@ -2438,7 +2434,8 @@ function paintTourStep() {
   const nextBtn = document.getElementById('tour-next');
   nextBtn.textContent = _tourState.idx === steps.length - 1 ? 'Done' : 'Next →';
 
-  // Position popover: prefer below the target; if no room, above; else right.
+  // Position popover: prefer below the target; if no room, above; if the
+  // target is too tall for either, beside it (left, else right).
   pop.style.visibility = 'hidden';
   overlay.hidden = false;
   overlay.setAttribute('aria-hidden', 'false');
@@ -2452,6 +2449,18 @@ function paintTourStep() {
   let popTop = r.bottom + 12, popLeft = Math.max(12, r.left);
   if (popTop + popR.height > vh - 12) {
     popTop = Math.max(12, r.top - popR.height - 12);
+    if (popTop + popR.height > r.top - PAD) {
+      popTop = Math.min(Math.max(12, r.top), vh - popR.height - 12);
+      if (r.left - PAD - popR.width - 12 >= 12) {
+        popLeft = r.left - PAD - popR.width - 12;
+      } else if (r.right + PAD + 12 + popR.width <= vw - 12) {
+        popLeft = r.right + PAD + 12;
+      } else {
+        // No room anywhere: pin to the bottom edge so the top of the
+        // target, where its content starts, stays readable.
+        popTop = vh - popR.height - 12;
+      }
+    }
   }
   if (popLeft + popR.width > vw - 12) {
     popLeft = Math.max(12, vw - popR.width - 12);
@@ -2459,6 +2468,7 @@ function paintTourStep() {
   pop.style.top  = popTop + 'px';
   pop.style.left = popLeft + 'px';
   pop.style.visibility = 'visible';
+  _tourState.shown = _tourState.idx;
 }
 
 function bindTour() {
