@@ -151,6 +151,7 @@ test('UX3. complexSearchFlows · GC SP and ALL searches stay useful', async ({ p
 });
 
 test('UX4. localJurFallbackShowsProgress · api=0 remains explicit and bounded', async ({ page }) => {
+  test.setTimeout(90_000);   // boot + up to 50 s of offline JUR loading must fit
   const shardRequests: string[] = [];
   page.on('request', req => {
     const url = req.url();
