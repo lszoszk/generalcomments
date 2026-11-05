@@ -3,8 +3,8 @@
   "builtAt": "2026-05-13T08:45:23+00:00",
   "scope": "all",
   "counts": {
-    "documents": 4260,
-    "paragraphs": 149688,
+    "documents": 4259,
+    "paragraphs": 149652,
     "shards": 40,
     "treaties": 8,
     "countries": 170,
@@ -16,15 +16,15 @@
   },
   "files": {
     "documents.json": {
-      "sha": "e1c6fb2c00fab41b",
-      "bytes": 21023905
+      "sha": "e68a8089ea31e0c8",
+      "bytes": 21020858
     },
     "documents-lite.json": {
-      "sha": "1b911b8d60615574",
-      "bytes": 10328223
+      "sha": "5597529d699b85c4",
+      "bytes": 10325699
     },
     "facets.json": {
-      "sha": "9221d3f99d3a9e6b",
+      "sha": "39570c2c4d435fab",
       "bytes": 17125
     },
     "shards/jur_CAT_1990-1994.json": {
@@ -190,16 +190,16 @@
       "paragraphs": 7437
     },
     "shards/jur_CCPR_2014-2015.json": {
-      "sha": "2e6128f446535655",
-      "bytes": 16951539,
+      "sha": "4e56d5ad07b6db32",
+      "bytes": 16951395,
       "documents": 362,
       "paragraphs": 13306
     },
     "shards/jur_CCPR_2016-2017.json": {
-      "sha": "439edcc688b0a3de",
-      "bytes": 17895030,
-      "documents": 343,
-      "paragraphs": 13808
+      "sha": "3758db76f1b9d86e",
+      "bytes": 17850215,
+      "documents": 342,
+      "paragraphs": 13772
     },
     "shards/jur_CCPR_2018-2019.json": {
       "sha": "f77ec5fc93808399",
