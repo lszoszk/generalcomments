@@ -1174,6 +1174,7 @@ body.dossier-collapsed .dossier {
 /* EN | ES — language of the General Comment texts. */
 .lang-switch {
   display: inline-flex;
+  flex-shrink: 0;             /* the nav row squeezed it to 2 px on phones */
   border: 1px solid var(--rule);
   border-radius: 3px;
   overflow: hidden;
@@ -1212,9 +1213,11 @@ body.dossier-collapsed .dossier {
 .lang-banner strong { color: var(--ink); }
 .lang-banner .lang-banner-en { color: var(--ink-3); font-style: italic; }
 @media (max-width: 900px) {
-  .lang-banner { padding: 6px 20px; }
-  /* Phones: the nav is one row of links; a compact switch keeps it on one line. */
-  .lang-switch .lang-opt { font-size: 10px; padding: 2px 5px; }
+  /* Phones: the banner keeps its first sentence; the switch sits in the title row, left of ◐. */
+  .lang-banner { padding: 5px 20px; font-size: 12px; }
+  .lang-banner .lang-banner-more, .lang-banner .lang-banner-en { display: none; }
+  .lang-switch { position: absolute; top: 9px; right: 52px; z-index: 2; }
+  .lang-switch .lang-opt { font-size: 10px; padding: 2px 6px; }
 }
 /* A GC paragraph shown in English because UNHRDB has no Spanish text of it. */
 .lang-en-badge {

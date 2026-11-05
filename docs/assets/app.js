@@ -633,12 +633,14 @@ function esApplies() {
   if (state.view === 'search') return state.scope === 'gc' || state.scope === 'all';
   return true;
 }
+// .lang-banner-more and .lang-banner-en are hidden on phones (first sentence only).
 const LANG_BANNER = {
-  gc: '<strong>Español:</strong> solo las observaciones y recomendaciones generales (188 documentos). La jurisprudencia, '
-    + 'los procedimientos especiales y las recomendaciones a los Estados están en inglés. '
-    + '<span class="lang-banner-en">Spanish texts cover the General Comments only.</span>',
-  enOnly: '<strong>Español:</strong> esta colección solo está disponible en inglés; los textos en español abarcan las '
-    + 'observaciones y recomendaciones generales. <span class="lang-banner-en">This collection is English only.</span>',
+  gc: '<strong>Español:</strong> solo las observaciones y recomendaciones generales<span class="lang-banner-more"> '
+    + '(188 documentos). La jurisprudencia, los procedimientos especiales y las recomendaciones a los Estados están '
+    + 'en inglés</span>. <span class="lang-banner-en">Spanish texts cover the General Comments only.</span>',
+  enOnly: '<strong>Español:</strong> esta colección solo está disponible en inglés<span class="lang-banner-more">; '
+    + 'los textos en español abarcan las observaciones y recomendaciones generales</span>. '
+    + '<span class="lang-banner-en">This collection is English only.</span>',
 };
 function syncLangControl() {
   const ok = esApplies();
