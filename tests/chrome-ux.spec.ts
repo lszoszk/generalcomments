@@ -151,6 +151,7 @@ test('UX3. complexSearchFlows · GC SP and ALL searches stay useful', async ({ p
 });
 
 test('UX4. localJurFallbackShowsProgress · api=0 remains explicit and bounded', async ({ page }) => {
+  test.setTimeout(90_000);   // boot + up to 50 s of offline JUR loading must fit
   const shardRequests: string[] = [];
   page.on('request', req => {
     const url = req.url();
@@ -158,7 +159,9 @@ test('UX4. localJurFallbackShowsProgress · api=0 remains explicit and bounded',
   });
   const t0 = Date.now();
   await bootApp(page, '/index.html?api=0&scope=jur&q=non-refoulement');
-  await expect(page.locator('.result').first()).toBeVisible({ timeout: 40_000 });
+  // Wait as long as the ceiling below allows: at 40 s the locator gave up before the
+  // 50 s budget was reached, and CI failed on runs that were within it (main, 2026-11-04).
+  await expect(page.locator('.result').first()).toBeVisible({ timeout: 50_000 });
   const elapsed = Date.now() - t0;
   // Bumped 20s → 35s → 50s as the JUR corpus grew: 3,176 docs/116k ¶ when
   // the 35s ceiling was set, 4,334 docs/152k ¶ now (+31% paragraphs). The
