@@ -954,6 +954,17 @@ body:not(.has-results) .result-breakdown:has(#api-badge) {
 .consent-banner[hidden] { display: none; }
 .consent-banner .consent-text { margin: 0; flex: 1 1 280px; }
 .consent-banner .consent-actions { display: flex; gap: 8px; flex: 0 0 auto; }
+/* Phones: the centred box shrank to its content, squeezed the text into a narrow column and
+   pushed "Decline" out of the frame. A full-width strip at the bottom, two equal buttons. */
+@media (max-width: 600px) {
+  .consent-banner {
+    left: 10px; right: 10px; bottom: 10px; transform: none; max-width: none;
+    padding: 10px 12px; gap: 8px; font-size: 12.5px;
+  }
+  .consent-banner .consent-text { flex-basis: 100%; }
+  .consent-banner .consent-actions { flex: 1 1 100%; }
+  .consent-banner .consent-actions .btn { flex: 1 1 0; justify-content: center; }
+}
 
 .layout {
   display: grid;

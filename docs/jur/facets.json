@@ -2,7 +2,7 @@
   "treaties": [
     {
       "value": "CCPR",
-      "count": 2793
+      "count": 2792
     },
     {
       "value": "CAT",
@@ -52,7 +52,7 @@
     },
     {
       "value": "merits_no_violation",
-      "count": 380
+      "count": 379
     },
     {
       "value": "views",
@@ -82,7 +82,7 @@
     },
     {
       "value": "Belarus",
-      "count": 267
+      "count": 266
     },
     {
       "value": "Australia",
@@ -748,11 +748,11 @@
   "labels": [
     {
       "value": "Children",
-      "count": 9160
+      "count": 9159
     },
     {
       "value": "Persons deprived of their liberty",
-      "count": 9024
+      "count": 9023
     },
     {
       "value": "Women/girls",
@@ -826,7 +826,7 @@
   "formats": [
     {
       "value": "docx",
-      "count": 3497
+      "count": 3496
     },
     {
       "value": "pdf",
@@ -1007,7 +1007,7 @@
       },
       {
         "year": 2016,
-        "count": 296
+        "count": 295
       },
       {
         "year": 2017,
