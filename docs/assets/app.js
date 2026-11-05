@@ -6898,7 +6898,7 @@ function setExportProgress(button, completed, total) {
   if (hint) hint.textContent = `Preparing ${completed.toLocaleString()} / ${total.toLocaleString()}`;
 }
 
-async function collectCompleteExportResults(button) {
+async function collectCompleteExportResults(button, restarted = false) {
   // Local search computes its entire match set before rendering. API search is
   // paged, so its authoritative total is the completeness contract.
   if (!state.apiSearchParams || !Number.isFinite(state.apiTotal)) {
@@ -6936,6 +6936,9 @@ async function collectCompleteExportResults(button) {
 
     for (const body of responses) {
       if (body.total !== expectedTotal) {
+        // The rows on screen came from an older build of the database (a tab left open across a
+        // data update): start over from page 1 against the current data, once.
+        if (!restarted) return collectCompleteExportFresh(button);
         throw new Error('The result set changed on the server while exporting. Run the search again.');
       }
       for (const result of body.rows) {
@@ -6955,6 +6958,24 @@ async function collectCompleteExportResults(button) {
     );
   }
   return { results, expectedTotal, source: 'api' };
+}
+
+// collectCompleteExportResults() found the server's total differs from the one on screen: collect
+// every page again, page 1 included, under the server's current total.
+async function collectCompleteExportFresh(button) {
+  const runId = state.searchRun;
+  const pageSize = state.apiPageSize || state.apiSearchParams.page_size || 200;
+  const first = await fetchSearchPage({ ...state.apiSearchParams, page: 1, _: Date.now() });
+  if (runId !== state.searchRun) throw new Error('The search changed while the export was being prepared. Try again.');
+  const saved = { results: state.results, apiTotal: state.apiTotal, apiPage: state.apiPage };
+  state.results = first.rows;
+  state.apiTotal = first.total;
+  state.apiPage = 1;
+  try {
+    return await collectCompleteExportResults(button, true);
+  } finally {
+    Object.assign(state, saved);
+  }
 }
 
 function buildExportProvenance(exportedCount, expectedTotal, resultSource) {

@@ -533,6 +533,37 @@ test('A7b. exportAllApiPages · JSON export is complete and reproducible', async
   expect(payload.results[0].legal_character).toContain('individual communication');
 });
 
+test('A7d. exportAfterDataUpdate · a stale result set restarts the export once, from page 1', async ({ page }) => {
+  // The search on screen ran before a data update (a tab left open across a DB swap): the
+  // server now reports another total. The export collects again under the current total.
+  let calls = 0;
+  await page.route('**/unhrdb-api/api/stats', (route) =>
+    route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
+  );
+  await page.route('**/unhrdb-api/api/search**', (route) => {
+    const url = new URL(route.request().url());
+    const pageNumber = Number(url.searchParams.get('page') || '1');
+    const total = calls++ === 0 ? 450 : 452;
+    return route.fulfill({
+      status: 200,
+      body: JSON.stringify(mockSearchPage({ total, page: pageNumber, pageSize: 200 })),
+    });
+  });
+
+  await bootApp(page, '/index.html?api=1&scope=jur&q=disability');
+  await expect(page.locator('.result').first()).toBeVisible({ timeout: 10_000 });
+  await page.locator('#export-menu').evaluate((el: Element) =>
+    (el as HTMLDetailsElement).open = true
+  );
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.locator('#export-menu [data-format="json"]').click(),
+  ]);
+  const payload = JSON.parse(await readFile((await download.path())!, 'utf8'));
+  expect(payload.results).toHaveLength(452);
+  expect(payload.provenance).toMatchObject({ completeness: 'complete', totalMatchingResults: 452 });
+});
+
 test('A7c. exportPageFailure · failed API page never creates a partial export', async ({ page }) => {
   await page.route('**/unhrdb-api/api/stats', (route) =>
     route.fulfill({ status: 200, body: JSON.stringify(MOCK_STATS) })
