@@ -14,6 +14,10 @@ plus <out>/d/index.html (the collection index that links them all) and
 <out>/sitemap-docs.xml. Pages are plain HTML with one shared stylesheet and
 no JavaScript; each links to the paragraph in the app.
 
+A General Comment with an official Spanish text (docs/corpus.es.json) also gets
+<out>/es/d/<docId>/index.html: the same page in Spanish, paragraphs without a
+Spanish text left in English (lang="en"), and hreflang links both ways.
+
     python3 build_static_pages.py --out /tmp/unhrdb-static            # all
     python3 build_static_pages.py --out /tmp/x --doc a-hrc-58-58 --doc ccpr-c-gc-36
 """
@@ -138,7 +142,7 @@ def provenance(d) -> str:
     return f'<aside class="note warn">{esc(msg)} We are working on it; check quotations against the official text.</aside>'
 
 
-def json_ld(d, url, n_paras):
+def json_ld(d, url, n_paras, lang="en"):
     kind, symbol, name, date, body = doc_meta(d)
     t = "Report" if kind == "sp" else "CreativeWork"
     genre = {"gc": "General Comment / General Recommendation", "jur": "Treaty-body decision on an individual communication", "sp": "Special Procedures thematic report"}[kind]
@@ -150,7 +154,7 @@ def json_ld(d, url, n_paras):
         "name": name,
         "identifier": symbol,
         "genre": genre,
-        "inLanguage": "en",
+        "inLanguage": lang,
         "author": {"@type": "Organization", "name": body} if body else None,
         "datePublished": str(d.get("year") or ""),
         "sameAs": d.get("link"),
@@ -160,13 +164,32 @@ def json_ld(d, url, n_paras):
     return json.dumps({k: v for k, v in ld.items() if v}, ensure_ascii=False)
 
 
-def render(d, ps, cites, docs) -> tuple[str, str]:
+def has_es(d) -> bool:
+    return d.get("esAlignment") in ("full", "partial")
+
+
+def spanish_view(d, ps, es):
+    """The document and its paragraphs as the Spanish page shows them: Spanish title,
+    text, notes and headings where corpus.es.json has them, English (`_en`) elsewhere."""
+    dv = {**d, "name": d.get("nameEs") or d.get("name"), "nameShort": d.get("nameShortEs") or d.get("nameShort")}
+    out = []
+    for p in ps:
+        e = es.get(p["id"])
+        out.append({**p, "text": e["text"], "footnotes": e.get("footnotes") or [], "section": e.get("section") or p.get("section")}
+                   if e else {**p, "_en": True})
+    return dv, out
+
+
+def render(d, ps, cites, docs, lang="en") -> tuple[str, str]:
     kind, symbol, name, date, body = doc_meta(d)
-    url = f"{SITE}d/{d['docId']}/"
+    prefix = "es/" if lang == "es" else ""
+    url = f"{SITE}{prefix}d/{d['docId']}/"
     coll, character = COLLECTION.get(kind, COLLECTION["gc"])
     first = next((MARKER.sub("", p["text"]) for p in ps if len(p.get("text", "")) > 80), "")
     desc = f"{symbol} · {body} · {date}. " + re.sub(r"\s+", " ", first)[:220]
-    app = f"{SITE}?p={ps[0]['id']}" if ps else SITE
+    app = (f"{SITE}?p={ps[0]['id']}" if ps else SITE) + ("&lang=es" if lang == "es" and ps else "")
+    alternates = (f'<link rel="alternate" hreflang="en" href="{SITE}d/{d["docId"]}/">'
+                  f'<link rel="alternate" hreflang="es" href="{SITE}es/d/{d["docId"]}/">') if has_es(d) else ""
     sub = []
     if kind == "sp" and d.get("mandate"):
         sub.append(f"Mandate-holder: {esc(d['mandate'])}")
@@ -196,8 +219,9 @@ def render(d, ps, cites, docs) -> tuple[str, str]:
         label = para_label(p)
         txt, used = text_html(p)
         notes = "".join(f'<li id="{a}-fn{n}" value="{n}">{esc(t)} <a href="#{a}-r{n}" aria-label="back">↩</a></li>' for n, t in used)
+        lang_attr = ' lang="en"' if p.get("_en") else ""      # an English paragraph on a Spanish page
         rows.append(
-            f'<section class="para" id="{esc(a)}"><a class="pn" href="#{esc(a)}" title="Link to this paragraph">¶{esc(label)}</a>'
+            f'<section class="para" id="{esc(a)}"{lang_attr}><a class="pn" href="#{esc(a)}" title="Link to this paragraph">¶{esc(label)}</a>'
             f'<div class="pt"><p>{txt}</p>{f"<ol class=notes>{notes}</ol>" if notes else ""}</div></section>')
         plain = MARKER.sub(lambda m: f"[^{m.group(1)}]", p.get("text") or "")
         md.append(f"**¶{label}** {plain}")
@@ -213,31 +237,32 @@ def render(d, ps, cites, docs) -> tuple[str, str]:
             o = docs.get(other)
             if not o:
                 continue
-            lis.append(f'<li><a href="../{esc(other)}/">{esc(o.get("signature") or o.get("symbol") or other)}</a> {esc(o.get("nameShort") or o.get("name") or "")}</li>')
+            href = f"{SITE}d/{other}/" if lang == "es" else f"../{other}/"     # Spanish pages exist for GCs only
+            lis.append(f'<li><a href="{esc(href)}">{esc(o.get("signature") or o.get("symbol") or other)}</a> {esc(o.get("nameShort") or o.get("name") or "")}</li>')
         return "".join(lis)
 
     cited_by, cites_out = cite_list(c.get("citedBy") or []), cite_list(c.get("cites") or [])
     toc_html = "".join(f'<li class="d{dep}"><a href="#{esc(h)}">{esc(t)}</a></li>' for dep, t, h in toc)
     citation = esc(oscola(d, kind, symbol, name, date, body))
     page = f"""<!doctype html>
-<html lang="en"><head>
+<html lang="{lang}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(symbol)} — {esc(d.get('nameShort') or name)} · UNHRDB</title>
 <meta name="description" content="{esc(desc)}">
-<link rel="canonical" href="{url}">
+<link rel="canonical" href="{url}">{alternates}
 <meta property="og:type" content="article"><meta property="og:title" content="{esc(symbol)} — {esc(name)}">
 <meta property="og:url" content="{url}"><meta property="og:site_name" content="UN Human Rights Database (UNHRDB)">
 <link rel="stylesheet" href="../static.css">
 <script>/* cookie-free page counter (GoatCounter); not for Do-Not-Track or automation */
 if(navigator.doNotTrack!=="1"&&window.doNotTrack!=="1"&&!navigator.webdriver&&location.hostname.indexOf("github.io")>-1){{var g=document.createElement("script");g.async=true;g.src="https://gc.zgo.at/count.js";g.dataset.goatcounter="https://lszoszk.goatcounter.com/count";document.head.appendChild(g)}}</script>
-<script type="application/ld+json">{json_ld(d, url, len(ps))}</script>
+<script type="application/ld+json">{json_ld(d, url, len(ps), lang)}</script>
 </head><body>
-<header class="top"><a class="brand" href="{SITE}">UNHRDB</a> <span class="crumbs">› <a href="../#{kind}">{esc(coll)}</a> › {esc(body)}</span></header>
+<header class="top"><a class="brand" href="{SITE}">UNHRDB</a> <span class="crumbs">› <a href="{SITE}d/#{kind}">{esc(coll)}</a> › {esc(body)}</span></header>
 <main>
 <p class="sym">{esc(symbol)}</p>
 <h1>{esc(name)}</h1>
 <p class="meta">{esc(body)} · {esc(date)}{' · ' + ' · '.join(sub) if sub else ''} · {len(ps)} paragraphs</p>
-<p class="actions"><a href="{esc(app)}">Search and read in the UNHRDB app</a> · <a href="{esc(d.get('link') or '')}">Official text (UN Documents)</a></p>
+<p class="actions"><a href="{esc(app)}">Search and read in the UNHRDB app</a> · <a href="{esc(d.get('link') or '')}">Official text (UN Documents)</a>{f' · <a href="{SITE}es/d/{esc(d["docId"])}/" hreflang="es">Texto en español</a>' if lang == "en" and has_es(d) else ''}{f' · <a href="{SITE}d/{esc(d["docId"])}/" hreflang="en">English text</a>' if lang == "es" else ''}</p>
 <aside class="note">{esc(character)} Cite as: {citation}, para [n].</aside>
 {provenance(d)}
 {f'<nav class="toc"><h2>Contents</h2><ol>{toc_html}</ol></nav>' if toc else ''}
@@ -336,12 +361,24 @@ def main():
                 encoding="utf-8")
     (out / "static.css").write_text(CSS, encoding="utf-8")
     (out / "index.html").write_text(index_page(docs, targets), encoding="utf-8")
+    es_path = DOCS / "corpus.es.json"
+    es = {p["id"]: p for p in json.load(open(es_path))} if es_path.exists() else {}
+    es_targets = [i for i in targets if es and has_es(docs[i])]
+    es_out = Path(args.out) / "es" / "d"
+    for doc_id in es_targets:
+        dv, pv = spanish_view(docs[doc_id], paras[doc_id], es)
+        page, _ = render(dv, pv, cites, docs, lang="es")
+        (es_out / doc_id).mkdir(parents=True, exist_ok=True)
+        (es_out / doc_id / "index.html").write_text(page, encoding="utf-8")
+    if es_targets:
+        (es_out / "static.css").write_text(CSS, encoding="utf-8")
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f"  <url><loc>{SITE}d/{i}/</loc></url>" for i in targets]
+    sm += [f"  <url><loc>{SITE}es/d/{i}/</loc></url>" for i in es_targets]
     sm.append("</urlset>")
     (Path(args.out) / "sitemap-docs.xml").write_text("\n".join(sm) + "\n", encoding="utf-8")
     mb = lambda b: f"{b / 1e6:.1f} MB"
-    print(f"{len(targets)} documents · HTML {mb(sizes['html'])} (gzip {mb(sizes['html_gz'])})"
+    print(f"{len(targets)} documents ({len(es_targets)} also in Spanish) · HTML {mb(sizes['html'])} (gzip {mb(sizes['html_gz'])})"
           + (f" · Markdown {mb(sizes['md'])}" if args.markdown else ""))
     if not args.doc and len(targets) != sum(1 for d in docs if paras.get(d)):
         raise SystemExit("not every document with paragraphs got a page")

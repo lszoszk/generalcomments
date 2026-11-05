@@ -12,6 +12,9 @@ const state = {
   manifest: null,
   paragraphs: [],
   paragraphById: new Map(),     // id → paragraph, for O(1) FlexSearch hydration
+  lang: 'en',                   // 'en' | 'es' — language of the GC texts (Spanish: corpus.es.json)
+  esById: new Map(),            // paragraph id → {id, text, section?, footnotes?} in Spanish
+  searchIndexEs: null,          // FlexSearch over the Spanish texts (local fallback search)
   paraIdAlias: new Map(),       // v19.80: superseded JUR paragraph id → canonical id
                                 // (null = record removed), from shard legacyIds and
                                 // /api/paragraph redirects — see resolveParagraphId
@@ -351,6 +354,7 @@ async function runSearchViaApi(runId) {
   // server column-filters the FTS match to body columns unless ON. Sent
   // explicitly both ways so a mid-session toggle always round-trips.
   params.footnotes = state.searchInFootnotes ? 1 : 0;
+  if (state.lang === 'es') params.lang = 'es';
 
   // UI-side loading hint (kept short so the badge keeps reflecting reality).
   paintApiBadge(true, '…');
@@ -387,7 +391,7 @@ async function runSearchViaApi(runId) {
   // working.  Only writes on cache miss.
   const matched = body.hits.map(h => {
     const p = adaptApiHit(h);
-    if (!state.paragraphById.has(p.id)) state.paragraphById.set(p.id, p);
+    _cacheApiPara(p);
     if (!state.documents.has(p.docId)) {
       state.documents.set(p.docId, adaptApiDoc(h));
     }
@@ -481,6 +485,9 @@ async function fetchSearchPage(params) {
 // without further conditional logic in those code paths.
 function adaptApiHit(h) {
   _registerLegacyParaIds({ id: h.para_id, legacyIds: h.legacy_ids });   // v19.80, when the server sends them
+  if (h.lang === 'es' && !state.esById.has(h.para_id)) {
+    state.esById.set(h.para_id, { id: h.para_id, text: h.text, section: h.section });
+  }
   const year = documentResearchYear({
     type: h.type,
     year: h.year,
@@ -507,6 +514,7 @@ function adaptApiHit(h) {
     // shows "DOCUMENT BODY UNAVAILABLE" because the shard's paragraphs got
     // deduped away against the API-only Map entries sharing the same id).
     _apiOnly: true,
+    _textLang: h.lang === 'es' ? 'es' : undefined,
   };
 }
 function adaptApiDoc(h) {
@@ -544,6 +552,107 @@ function adaptApiDoc(h) {
     adoptionYear: h.adoption_year ?? yearFromDate(h.adoption_date),
     adoptionDate: h.adoption_date,
   };
+}
+
+// ─────────── Spanish texts (lang=es) ───────────
+// The official Spanish text of the General Comments: docs/corpus.es.json,
+// {id, text, section?, footnotes?} keyed by the English paragraph ids. The
+// interface stays English; only paragraph text, notes and headings and the
+// GC titles switch. The English record stays the anchor: ids, numbering,
+// labels and citedArticles never come from the Spanish, and
+// state.paragraphById always holds English — renderers call viewPara() for a
+// display copy. Paragraphs without a Spanish text show English with an "EN"
+// badge (GC) or plainly (jurisprudence and Special Procedures, English only).
+let _esLoading = null;
+async function ensureSpanishReady() {
+  if (state.esById.size) return true;
+  if (!_esLoading) {
+    _esLoading = fetchJson(`${DATA_BASE}corpus.es.json`)
+      .then((arr) => {
+        for (const p of arr) state.esById.set(p.id, p);
+        return true;
+      })
+      .catch((e) => {
+        console.warn('[es] corpus.es.json failed:', e.message);
+        _esLoading = null;
+        return false;
+      });
+  }
+  return _esLoading;
+}
+function viewPara(p) {
+  if (!p || state.lang !== 'es') return p;
+  const es = state.esById.get(p.id);
+  if (!es) return p;
+  return { ...p, text: es.text, footnotes: es.footnotes || [], section: es.section || p.section, _lang: 'es' };
+}
+function enOnlyBadge(p) {
+  return state.lang === 'es' && p?.type === 'gc' && !state.esById.has(p.id)
+    ? '<span class="lang-en-badge" title="UNHRDB has no official Spanish text of this paragraph; shown in English">EN</span>'
+    : '';
+}
+// Display title: the Spanish short title of a GC in ES mode. Citations keep
+// publicDocTitle() — they stay English.
+function displayDocTitle(doc) {
+  if (state.lang === 'es' && doc?.nameShortEs) return doc.nameShortEs;
+  return publicDocTitle(doc);
+}
+// An API hit made in ES mode carries the Spanish text; it must not stand in
+// for the English record once the session is back in English.
+function _cacheApiPara(p) {
+  const cur = state.paragraphById.get(p.id);
+  if (!cur || (cur._textLang === 'es' && p._textLang !== 'es')) state.paragraphById.set(p.id, p);
+}
+async function buildEsSearchIndex() {
+  if (state.searchIndexEs || state.liteMode || !state.esById.size) return;
+  const FlexSearch = await loadFlexSearch();
+  const idx = new FlexSearch.Document({
+    document: { id: 'id', index: ['text', 'fnText'] },
+    tokenize: 'forward',
+    charset: 'latin:simple',
+    cache: 100,
+  });
+  for (const p of state.esById.values()) {
+    idx.add({
+      id: p.id,
+      text: foldDiacritics(stripFnMarkers(p.text)),
+      fnText: foldDiacritics((p.footnotes || []).map(f => f.text || '').join(' ')),
+    });
+  }
+  state.searchIndexEs = idx;
+}
+function syncLangControl() {
+  for (const btn of document.querySelectorAll('#lang-switch .lang-opt')) {
+    btn.setAttribute('aria-pressed', String(btn.dataset.lang === state.lang));
+  }
+}
+async function setLang(lang) {
+  lang = lang === 'es' ? 'es' : 'en';
+  if (lang === 'es' && !(await ensureSpanishReady())) {
+    showFeedbackToast({ ok: false, _msg: 'The Spanish texts could not be loaded', _mark: '⚠' });
+    lang = 'en';
+  }
+  state.lang = lang;
+  try { localStorage.setItem(_LS.lang, lang); } catch {}
+  syncLangControl();
+  encodeUrlState();
+  if (lang === 'es' && state.searchIndex) await buildEsSearchIndex();
+  if (state.view === 'search') {
+    runSearch();
+  } else if (state.view === 'documents') {
+    paintDocsRail();
+    const doc = state.documents.get(state.docsActiveDocId);
+    if (doc) {
+      paintDocReaderBody(doc, state.docsActiveParaId);
+      paintDocDrawer(doc);
+    }
+  }
+}
+function bindLangSwitch() {
+  syncLangControl();
+  for (const btn of document.querySelectorAll('#lang-switch .lang-opt')) {
+    btn.addEventListener('click', () => { if (btn.dataset.lang !== state.lang) setLang(btn.dataset.lang); });
+  }
 }
 
 // v19.59: ?debug=1 keeps the API badge visible in its happy state
@@ -586,7 +695,7 @@ const RESULT_HARD_CAP  = 5000;     // safety net so a 26k-paragraph wildcard mat
 
 // ─────────── URL state ───────────
 // Short keys keep shareable URLs human-readable.
-const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', rk: 'rk', ar: 'ar', dt: 'dt', si: 'si', pi: 'pi', fn: 'fn', pre: 'pre', th: 'th', ap: 'ap', sdg: 'sdg', ro: 'ro' };
+const URL_KEYS = { q: 'q', scope: 'scope', tb: 'tb', g: 'g', gm: 'gm', y1: 'y1', y2: 'y2', p: 'p', sort: 'sort', group: 'group', rt: 'rt', sup: 'sup', cy: 'cy', oc: 'oc', rk: 'rk', ar: 'ar', dt: 'dt', si: 'si', pi: 'pi', fn: 'fn', pre: 'pre', th: 'th', ap: 'ap', sdg: 'sdg', ro: 'ro', lang: 'lang' };
 
 function documentIdForParagraphId(paraId) {
   if (!paraId) return null;
@@ -810,6 +919,7 @@ function encodeUrlState() {
     if (state.searchInFootnotes === true) u.set(URL_KEYS.fn, '1');
     if (state.searchInPreamble === false) u.set(URL_KEYS.pre, '0');
   }
+  if (state.lang === 'es') u.set(URL_KEYS.lang, 'es');
   const qs = u.toString();
   // v17: preserve the hash — the docs reader relies on "#documents/<docId>"
   // to remember which document is open. Earlier versions silently stripped
@@ -861,6 +971,7 @@ function decodeUrlState() {
     // Same semantics for preambles.
     searchInPreamble: u.get(URL_KEYS.pre) !== '0',
     searchInPreambleUrl: u.has(URL_KEYS.pre),
+    lang: u.get(URL_KEYS.lang),
   };
 }
 
@@ -940,6 +1051,7 @@ async function boot() {
     // state is decoded so the canonicaliser preserves the paragraph anchor.
     upgradeLegacyParagraphLink();
     applyUrlState(decodeUrlState());     // restore from ?q=…&scope=…&tb=… etc.
+    if (state.lang === 'es' && !(await ensureSpanishReady())) state.lang = 'en';
     // Rewrite the address bar with the canonical URL so
     // legacy params (?p=…&sort=…&group=…) drop off after they've been
     // applied (or ignored). Keeps the URL neutral on a fresh load and
@@ -968,6 +1080,7 @@ async function boot() {
     loadRecVocab();                      // small static file; fills the scope count and the rail
     bindRouter();
     bindTour();                          // v19.43: first-visit tour controller
+    bindLangSwitch();                    // EN | ES — language of the General Comment texts
     initDossierResizer();                // v15: drag handle + persisted width
     initDossierFontPref();               // v15: restore S/M/L preference
     state.apiPingPromise = pingApi();    // v19.11: stashed so the first JUR runSearch can await it briefly
@@ -1079,7 +1192,7 @@ async function loadJurMetadata() {
 //   else:  fall back to nameShort / name / docId.
 function formatDocHeadline(doc, { compact = false } = {}) {
   if (!doc) return '';
-  const baseTitle = publicDocTitle(doc);
+  const baseTitle = displayDocTitle(doc);
   if (doc.type === 'gc') {
     const body = doc.committee || (doc.committees?.[0]) || '';
     return body ? `${body} · ${baseTitle}` : baseTitle;
@@ -1843,6 +1956,15 @@ function applyUrlState(parsed) {
     state.searchInPreamble = ls !== '0';
   }
   syncPreambleToggleControl();
+
+  // Language of the GC texts. URL > localStorage > English.
+  if (parsed.lang === 'es' || parsed.lang === 'en') {
+    state.lang = parsed.lang;
+  } else {
+    let ls = null;
+    try { ls = localStorage.getItem(_LS.lang); } catch {}
+    state.lang = ls === 'es' ? 'es' : 'en';
+  }
 
   // Active paragraph
   // Per-session interaction — never auto-restored from
@@ -2751,7 +2873,7 @@ function renderRailCommittee(committee, list, type) {
          data-doc-id="${escape(d.docId)}"
          ${fullCaseName ? `title="${escape(fullCaseName)}"` : ''}>
         <span class="docs-rail-row-sig mono">${escape(d.signature || d.symbol || '—')}</span>
-        <span class="docs-rail-row-title">${escape(publicDocTitle(d) || d.docId)}${statusBadge}</span>
+        <span class="docs-rail-row-title">${escape(displayDocTitle(d) || d.docId)}${statusBadge}</span>
         <span class="docs-rail-row-meta mono">${d.year ?? '—'} · ${d.paragraphCount ?? 0}¶</span>
       </a>`;
   }).join('');
@@ -2897,7 +3019,7 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
   document.body.classList.add('doc-reading');
   const mastCtx = $('#mast-doc-context');
   if (mastCtx) {
-    mastCtx.textContent = [doc.signature || doc.symbol, doc.nameShort || doc.name]
+    mastCtx.textContent = [doc.signature || doc.symbol, (state.lang === 'es' && doc.nameShortEs) || doc.nameShort || doc.name]
       .filter(Boolean).join(' · ');
   }
 
@@ -3167,7 +3289,7 @@ function paintDocReaderBody(doc, paraId) {
   // resplit_gc_paragraphs.py removes these from corpus.json / jur
   // shards, but a future ingest could reintroduce them — this runtime
   // guard keeps the reader clean unconditionally.
-  const docParagraphs = state.paragraphs.filter(p => p.docId === doc.docId);
+  const docParagraphs = state.paragraphs.filter(p => p.docId === doc.docId).map(viewPara);
   const preambleText = (
     docParagraphs.find(p => p.isPreamble === true)?.text || ''
   ).trim();
@@ -3262,7 +3384,7 @@ function paintDocReaderBody(doc, paraId) {
   const head = `
     <header class="docs-reader-head">
       <div class="folio garnet">${escape(formatDocHeadline(doc, { compact: true }))}</div>
-      <h1 class="docs-reader-title"${isShortened ? ` title="${escape(doc.caseName)}"` : ''}>${escape(publicDocTitle(doc) || doc.docId)}</h1>
+      <h1 class="docs-reader-title"${isShortened ? ` title="${escape(doc.caseName)}"` : ''}>${escape(displayDocTitle(doc) || doc.docId)}</h1>
       <div class="docs-reader-meta mono">
         ${doc.signature ? `<span>${escape(doc.signature)}</span>` : ''}
         ${documentDateText(doc, profile) ? `<span>${escape(documentDateText(doc, profile))}</span>` : ''}
@@ -3309,7 +3431,7 @@ function paintDocReaderBody(doc, paraId) {
     const isPre = p.isPreamble === true || p.n === 0;
     const marker = isPre
       ? '<span class="docs-preamble-badge">PREAMBLE</span>'
-      : (p.n != null ? `¶${escape(String(p.n))}` : `¶${p.idx}`);
+      : (p.n != null ? `¶${escape(String(p.n))}` : `¶${p.idx}`) + enOnlyBadge(p);
     const isActive = p.id === paraId;
     const isBm = bmHas(p.id);
     const isPin = pinHas(p.id);
@@ -3691,7 +3813,7 @@ function paintDocDrawer(doc) {
 
   const paraId = state.docsActiveParaId;
   const para = paraId ? state.paragraphById.get(paraId) : null;
-  const paragraphs = state.paragraphs.filter(p => p.docId === doc.docId);
+  const paragraphs = state.paragraphs.filter(p => p.docId === doc.docId).map(viewPara);
 
   // Outline shows each unique section ONCE, with the paragraph
   // range that belongs to it. Previously every paragraph carrying the
@@ -6716,7 +6838,7 @@ const EXPORT_FETCH_CONCURRENCY = 4;
 
 function adaptApiExportHit(h) {
   const p = adaptApiHit(h);
-  if (!state.paragraphById.has(p.id)) state.paragraphById.set(p.id, p);
+  _cacheApiPara(p);
   if (!state.documents.has(p.docId)) state.documents.set(p.docId, adaptApiDoc(h));
   return { p, score: h.score ?? 0, snippetHtml: h.snippet };
 }
@@ -7483,6 +7605,12 @@ function flexSearchIds(query) {
   const hits = state.searchIndex.search(query, opts);
   const ids = new Set();
   for (const field of hits) for (const id of field.result) ids.add(id);
+  // ES mode: Spanish paragraphs answer from the Spanish index; the English
+  // hits stay as candidates and runSearch checks every one against the text
+  // it will show (viewPara), so an English word cannot match a Spanish text.
+  if (state.lang === 'es' && state.searchIndexEs) {
+    for (const field of state.searchIndexEs.search(query, opts)) for (const id of field.result) ids.add(id);
+  }
   return ids;
 }
 
@@ -7813,6 +7941,7 @@ async function ensureCorpusReady() {
         paintCorpusLoadingState('index');
         await ensureSearchIndex();
       }
+      if (state.lang === 'es') await buildEsSearchIndex();
       paintCorpusLoadingState('ready');
       // v19.50.1 (audit Step 3.C / W3): re-paint the workspace if the
       // user landed directly on #workspace before the lazy corpus load
@@ -8452,7 +8581,8 @@ async function runSearch() {
       }
     }
 
-    const text = p.text.toLowerCase();
+    const pv = viewPara(p);
+    const text = pv.text.toLowerCase();
     // Build the AST-verification haystack from BOTH body text and
     // footnote bodies so a query that hits a footnote-only term (e.g. a
     // case citation) survives the substring re-check below. BM25 scoring
@@ -8463,8 +8593,8 @@ async function runSearch() {
     // already-folded query.value tokens find matches regardless of
     // accent presence. The original `text` keeps its accents for display.
     const haystack = foldDiacritics(
-      (p.footnotes && p.footnotes.length)
-        ? text + ' ' + p.footnotes.map(f => (f.text || '').toLowerCase()).join(' ')
+      (pv.footnotes && pv.footnotes.length)
+        ? text + ' ' + pv.footnotes.map(f => (f.text || '').toLowerCase()).join(' ')
         : text
     );
 
@@ -9296,6 +9426,7 @@ function scopeNotice() {
 }
 
 function renderResult(p, rank, terms, opts = {}) {
+  p = viewPara(p);
   const doc = state.documents.get(p.docId);
   const sourceUrl = officialSourceUrl(doc);
   const profile = sourceProfile(p.type);
@@ -9341,6 +9472,7 @@ function renderResult(p, rank, terms, opts = {}) {
         ${decisionLine}
         ${recLine}
         ${ocrPill}
+        ${enOnlyBadge(p)}
         <span class="folio">MATCHED PARAGRAPH</span>
         <span class="result-spacer"></span>
         ${dateLabel}
@@ -9352,6 +9484,7 @@ function renderResult(p, rank, terms, opts = {}) {
         ${decisionLine}
         ${recLine}
         ${ocrPill}
+        ${enOnlyBadge(p)}
         <span class="result-doc">${escape(formatDocHeadline(doc) || p.docId)}</span>
         <span class="result-spacer"></span>
         ${dateLabel}
@@ -9833,6 +9966,7 @@ function paintDossier() {
   const para = state.paragraphById.get(state.activeId)
             || state.paragraphs.find(p => p.id === state.activeId);
   if (!para) return;
+  const vpara = viewPara(para);      // display copy: Spanish text in ES mode
   const doc = state.documents.get(para.docId);
   if (state.view === 'search') updateScholarlyMeta(doc);
   queueMicrotask(() => fillDossierCitations(doc));
@@ -10015,7 +10149,7 @@ function paintDossier() {
               title="Close dossier (Esc)" aria-label="Close dossier">×</button>
     </header>
     <div class="dossier-body">
-    <h3 class="dossier-title">${escape(publicDocTitle(doc) || para.docId)}</h3>
+    <h3 class="dossier-title">${escape(displayDocTitle(doc) || para.docId)}</h3>
     <div class="dossier-sig">${
       sourceUrl
         ? `<a class="dossier-sig-link" href="${escape(sourceUrl)}" target="_blank" rel="noopener" title="Open official UN source">${escape(doc?.signature || '—')} <span class="dossier-sig-arrow" aria-hidden="true">↗</span></a>`
@@ -10084,21 +10218,24 @@ function paintDossier() {
       // Result: every article-ref + every search-term highlight, no
       // conflict between them.
       if (isMobileViewport()) {
-        const rendered = renderParagraphHtml(para.text, para.footnotes);
+        const rendered = renderParagraphHtml(vpara.text, vpara.footnotes);
         const annotated = annotateTreatyText(rendered, doc?.committee, para?.citedArticles);
-        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p>${renderUnanchoredNotes(para.footnotes)}</blockquote>`;
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p>${renderUnanchoredNotes(vpara.footnotes)}</blockquote>`;
       }
+      // Context grouping runs on the English records (their sections are the
+      // shared key); only the rendering below uses the display copies.
       const ctx = getDossierContext(para, { expanded: state.dossierExpanded });
       if (!ctx) {
-        const rendered = renderParagraphHtml(para.text, para.footnotes);
+        const rendered = renderParagraphHtml(vpara.text, vpara.footnotes);
         const annotated = annotateTreatyText(rendered, doc?.committee, para?.citedArticles);
-        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p>${renderUnanchoredNotes(para.footnotes)}</blockquote>`;
+        return `<blockquote><span class="pn">¶ ${para.n ?? para.idx}</span><p>${highlightTagAware(annotated, terms)}</p>${renderUnanchoredNotes(vpara.footnotes)}</blockquote>`;
       }
 
       // Section heading row — only when this paragraph belongs to a
       // named section. Replaces the breadcrumb we removed earlier but
       // scoped to the context block, not the metadata grid.
-      const sectionPath = Array.isArray(ctx.section) ? ctx.section : (ctx.section ? [ctx.section] : []);
+      const shownSection = ctx.section ? vpara.section : null;
+      const sectionPath = Array.isArray(shownSection) ? shownSection : (shownSection ? [shownSection] : []);
       const sectionHeader = sectionPath.length
         ? `<div class="dossier-context-section folio" aria-label="Section">${
             sectionPath.map((seg, i, arr) =>
@@ -10112,25 +10249,25 @@ function paintDossier() {
       // Context paragraphs render as plain prose — fn markers stripped
       // so the surrounding text is quiet, no clickable [[fn:N]] noise
       // competing with the active paragraph.
-      const renderContextPara = (p) => `
+      const renderContextPara = (p) => (p = viewPara(p), `
         <div class="dossier-context-para" data-context-id="${escape(p.id)}">
           <span class="dossier-context-num mono">¶ ${escape(String(p.n ?? p.idx ?? '—'))}</span>
           <p class="dossier-context-prose">${annotateTreatyText(escape(stripFnMarkers(p.text || '')), doc?.committee, p?.citedArticles)}</p>
-        </div>`;
+        </div>`);
 
       // Active paragraph keeps the full <blockquote> treatment with
       // rendered footnote markers and search-term highlighting.
       // v19.56.8: annotate FIRST (clean text → all article refs caught),
       // highlight SECOND (tag-aware → marks layer on top without
       // breaking the now-existing button boundaries).
-      const _activeRendered = renderParagraphHtml(para.text, para.footnotes);
+      const _activeRendered = renderParagraphHtml(vpara.text, vpara.footnotes);
       const _activeAnnotated = annotateTreatyText(_activeRendered, doc?.committee, para?.citedArticles);
       const activeBlock = `
         <div class="dossier-context-para dossier-context-active" data-context-id="${escape(para.id)}" id="dossier-active-anchor">
           <blockquote>
             <span class="pn">¶ ${para.n ?? para.idx}</span>
             <p>${highlightTagAware(_activeAnnotated, terms)}</p>
-            ${renderUnanchoredNotes(para.footnotes)}
+            ${renderUnanchoredNotes(vpara.footnotes)}
           </blockquote>
         </div>`;
 
@@ -11064,6 +11201,7 @@ function setPrefCiteFmt(key) {
 // still left the user with a misleading "Copied!" toast. Now we
 // await the promise and surface a real error toast on rejection.
 async function copyParagraphText(anchorEl, para) {
+  para = viewPara(para);
   let text = (para.text || '').trim();
   text = text.replace(/\[\[fn:\d+\]\]/g, '');         // inline marker tokens
   text = text.replace(/\s{2,}/g, ' ').trim();
@@ -11093,6 +11231,7 @@ function paragraphTextFragmentUrl(para) {
 // Copy Mode, CanLII-style: the paragraph, its citation in the preferred
 // style and a link that resolves the paragraph — one clipboard write.
 async function copyParagraphWithCite(anchorEl, para) {
+  para = viewPara(para);
   const doc = state.documents.get(para.docId);
   const fmt = CITE_FORMATS.find(f => f.key === getPrefCiteFmt()) || CITE_FORMATS[0];
   let text = (para.text || '').replace(/\[\[fn:\d+\]\]/g, '').replace(/\s{2,}/g, ' ').trim();
@@ -11620,6 +11759,7 @@ const _LS = {
   resultGroup:  'unhrdb_result_group_v1',   // v19.43-fix3: 'paragraphs' | 'documents' | 'bodies'
   recentQ:      'unhrdb_recent_queries_v1', // v19.51.7: array of {q, ts}, capped at 12
   bmWarned:     'unhrdb_bm_warned_v1',      // v19.63: '1' once the first-save durability notice fired
+  lang:         'unhrdb_lang_v1',           // 'en' | 'es' — language of the GC texts
 };
 function _lsGet(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }

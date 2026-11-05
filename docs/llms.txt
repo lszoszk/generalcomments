@@ -8,6 +8,7 @@
 - Individual-communication decisions (views, admissibility decisions) of 8 treaty bodies: 4,260 decisions, 149,688 paragraphs, 1977–2025.
 - Thematic reports of the UN Special Procedures: 1,631 reports from all 46 thematic mandates, 166,413 paragraphs, 1960–2026. Country-visit reports, communications and addenda are out of scope.
 - Recommendations to States (concluding observations, Universal Periodic Review and Special Procedures recommendations) from OHCHR's Universal Human Rights Index, served live.
+- The official Spanish text of 85 General Comments (5,954 paragraphs), from the Word files on UN Documents, matched to the English paragraphs one by one. Add lang=es to a link to read and search them; a paragraph without a Spanish text stays English. Jurisprudence and Special Procedures reports are English only.
 
 Texts are the UN's own wording. Footnotes, section headings and paragraph numbering follow the published documents; Special Procedures texts come from the Word files on UN Documents where one exists (1,550 of 1,631 reports), otherwise from the PDF.
 
@@ -40,6 +41,7 @@ Filters, each a URL parameter; several values are joined with | :
 - g — groups concerned, e.g. Children, Women/girls, Persons with disabilities, Indigenous peoples, Migrants.
 - jur only: cy (State party, e.g. Algeria), oc (outcome: violation_found, merits_no_violation, inadmissible, discontinued).
 - fn=1 also searches footnotes (off by default).
+- lang=es — General Comment texts in Spanish; the query then matches the Spanish text (e.g. ?lang=es&q=%22desaparici%C3%B3n+forzada%22). Paragraph ids, numbers and filters are the same in both languages.
 
 Examples:
 - https://lszoszk.github.io/generalcomments/?q=%22best+interests%22+-adoption&tb=CRC|CESCR&g=Children
@@ -59,6 +61,7 @@ Examples:
 - [Source code](https://github.com/lszoszk/generalcomments)
 - [General Comments dataset (Hugging Face)](https://huggingface.co/datasets/lszoszk/treaty-bodies-general-comments)
 - [Citation graph between documents (JSON)](https://lszoszk.github.io/generalcomments/citations/graph.json)
+- [Spanish texts of the General Comments (JSON, keyed by paragraph id)](https://lszoszk.github.io/generalcomments/corpus.es.json)
 - [MCP server for AI assistants](https://github.com/lszoszk/mcp-unhrdb)
 - [Claude plugin and skills](https://github.com/lszoszk/mcp-unhrdb#skills-for-claude)
 - [Changelog](https://lszoszk.github.io/generalcomments/changelog.html)
