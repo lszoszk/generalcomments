@@ -3184,6 +3184,11 @@ body[data-active-view] .mast-nav {
   flex-wrap: nowrap;
   flex-shrink: 0;
 }
+/* With a document open below 1100 px the nav (EN | ES switch included) would leave the document
+   name no room at all; the Tour button goes first — the welcome card still starts the tour. */
+@media (max-width: 1100px) {
+  body.doc-reading .mast-tour-btn { display: none; }
+}
 /* <900px the base rules stack the mast-row as a column and stretch the
    nav to full width (space-between). align-items:center above would
    collapse the nav row to content width with 2px gaps — restore stretch. */

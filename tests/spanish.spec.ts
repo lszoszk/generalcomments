@@ -65,6 +65,6 @@ test('ES4. enBadge · a paragraph without Spanish shows English, badged', async 
 test('ES5. englishUntouched · default stays English', async ({ page }) => {
   await bootApp(page, '/index.html#documents/crc-c-gc-11');
   await expect(readerText(page, 0)).toContainText('preamble', { timeout: 15_000 });
-  await expect(page.locator('.lang-en-badge')).toHaveCount(0);
+  await expect(page.locator('.docs-reader-para .lang-en-badge')).toHaveCount(0);   // About shows a sample badge
   await expect(page.locator('#lang-switch [data-lang="en"]')).toHaveAttribute('aria-pressed', 'true');
 });
