@@ -13,16 +13,18 @@
     "yearRange": [
       1960,
       2026
-    ]
+    ],
+    "gcParagraphsEs": 5954,
+    "gcDocumentsEs": 85
   },
   "files": {
     "corpus.json": {
-      "sha": "89b145c8817dae12",
-      "bytes": 8074571
+      "sha": "8a5707f5dccab405",
+      "bytes": 8379749
     },
     "documents.json": {
-      "sha": "dd65951d87d53bd7",
-      "bytes": 1479787
+      "sha": "0535809499c6b7ae",
+      "bytes": 1512183
     },
     "facets.json": {
       "sha": "993884236e77e44d",
@@ -35,6 +37,10 @@
     "citations/index.json": {
       "sha": "500223c38521a38c",
       "bytes": 3463152
+    },
+    "corpus.es.json": {
+      "sha": "f4caffce27753d29",
+      "bytes": 6499911
     }
   },
   "note": "Incremental append (append_sp_docs.py): +33 SP docs."
