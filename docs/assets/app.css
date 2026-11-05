@@ -1194,6 +1194,28 @@ body.dossier-collapsed .dossier {
   background: var(--garnet);
   color: var(--paper, #fff);
 }
+.lang-switch.is-disabled { opacity: 0.45; }
+.lang-switch .lang-opt:disabled { cursor: not-allowed; }
+.lang-switch.is-disabled .lang-opt[aria-pressed="true"] { background: transparent; color: var(--ink-2); }
+/* One line under the masthead while ES is on. */
+.lang-banner {
+  flex: 0 0 auto;
+  padding: 6px var(--shell-pad);
+  background: var(--preview-soft);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--body);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.lang-banner[hidden] { display: none; }
+.lang-banner strong { color: var(--ink); }
+.lang-banner .lang-banner-en { color: var(--ink-3); font-style: italic; }
+@media (max-width: 900px) {
+  .lang-banner { padding: 6px 20px; }
+  /* Phones: the nav is one row of links; a compact switch keeps it on one line. */
+  .lang-switch .lang-opt { font-size: 10px; padding: 2px 5px; }
+}
 /* A GC paragraph shown in English because UNHRDB has no Spanish text of it. */
 .lang-en-badge {
   display: inline-block;

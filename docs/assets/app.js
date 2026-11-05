@@ -354,7 +354,7 @@ async function runSearchViaApi(runId) {
   // server column-filters the FTS match to body columns unless ON. Sent
   // explicitly both ways so a mid-session toggle always round-trips.
   params.footnotes = state.searchInFootnotes ? 1 : 0;
-  if (state.lang === 'es') params.lang = 'es';
+  if (state.lang === 'es' && (scope === 'gc' || scope === 'all')) params.lang = 'es';
 
   // UI-side loading hint (kept short so the badge keeps reflecting reality).
   paintApiBadge(true, '…');
@@ -621,9 +621,42 @@ async function buildEsSearchIndex() {
   }
   state.searchIndexEs = idx;
 }
+// Spanish exists for the General Comments only. The switch is off (and the
+// API asked in English) wherever the texts on screen are jurisprudence,
+// Special Procedures or recommendations to States; state.lang itself is kept,
+// so going back to the General Comments shows Spanish again.
+function esApplies() {
+  if (state.view === 'documents') {
+    const doc = document.body.classList.contains('doc-reading') && state.documents.get(state.docsActiveDocId);
+    return doc ? doc.type === 'gc' : state.docsScope === 'gc';
+  }
+  if (state.view === 'search') return state.scope === 'gc' || state.scope === 'all';
+  return true;
+}
+const LANG_BANNER = {
+  gc: '<strong>Español:</strong> solo las observaciones y recomendaciones generales (188 documentos). La jurisprudencia, '
+    + 'los procedimientos especiales y las recomendaciones a los Estados están en inglés. '
+    + '<span class="lang-banner-en">Spanish texts cover the General Comments only.</span>',
+  enOnly: '<strong>Español:</strong> esta colección solo está disponible en inglés; los textos en español abarcan las '
+    + 'observaciones y recomendaciones generales. <span class="lang-banner-en">This collection is English only.</span>',
+};
 function syncLangControl() {
+  const ok = esApplies();
+  const sw = document.getElementById('lang-switch');
   for (const btn of document.querySelectorAll('#lang-switch .lang-opt')) {
-    btn.setAttribute('aria-pressed', String(btn.dataset.lang === state.lang));
+    btn.setAttribute('aria-pressed', String(btn.dataset.lang === (ok ? state.lang : 'en')));
+    btn.disabled = !ok;
+  }
+  if (sw) {
+    sw.classList.toggle('is-disabled', !ok);
+    sw.title = ok
+      ? 'Language of the General Comment texts: the official Spanish text where UNHRDB has it (the interface stays English)'
+      : 'Spanish texts exist for the General Comments only; this collection is English only';
+  }
+  const banner = document.getElementById('lang-banner');
+  if (banner) {
+    banner.hidden = state.lang !== 'es';
+    banner.innerHTML = ok ? LANG_BANNER.gc : LANG_BANNER.enOnly;
   }
 }
 async function setLang(lang) {
@@ -2066,6 +2099,7 @@ function setView(view) {
   if (!VIEWS.includes(view)) view = 'search';
   state.view = view;
   document.body.dataset.activeView = view;
+  syncLangControl();
   // Outside the reader and an open dossier there is no document to save.
   if (view !== 'documents' && !(view === 'search' && state.activeId)) clearScholarlyMeta();
 
@@ -3034,6 +3068,7 @@ async function openDocReader(docId, { paraId = null, fromUrl = false } = {}) {
 
   paintDocReaderBody(doc, paraId);
   paintDocDrawer(doc);
+  syncLangControl();
   // Keep rail row in sync (highlight new active row).
   paintDocsRail();
   // v19.6 (B1): tab <title> reflects the open doc.
@@ -6473,6 +6508,7 @@ function bindUI() {
     paintCommitteeFilter(state.scope);
     syncReportTypeFilterVisibility();
     syncCountryFilterVisibility();
+    syncLangControl();
     syncOutcomeFilterVisibility();
     syncJurDocFiltersVisibility();
     syncRightsFilterVisibility();
@@ -6675,6 +6711,7 @@ function bindUI() {
     b.tabIndex = 0;
     state.docsScope = b.dataset.docsScope;
     paintDocsRail();
+    syncLangControl();
   }));
   let docsFilterTimer;
   $('#docs-filter')?.addEventListener('input', e => {
