@@ -636,6 +636,7 @@ async function setLang(lang) {
   try { localStorage.setItem(_LS.lang, lang); } catch {}
   syncLangControl();
   encodeUrlState();
+  updateDocumentTitle();
   if (lang === 'es' && state.searchIndex) await buildEsSearchIndex();
   if (state.view === 'search') {
     runSearch();
@@ -9854,14 +9855,14 @@ function updateDocumentTitle() {
   // shows whatever was last open in the search dossier.
   if (state.view === 'documents' && state.docsActiveDocId) {
     const doc = state.documents.get(state.docsActiveDocId);
-    const docTitle = doc?.nameShort || doc?.name || state.docsActiveDocId;
+    const docTitle = (state.lang === 'es' && doc?.nameShortEs) || doc?.nameShort || doc?.name || state.docsActiveDocId;
     document.title = `${docTitle} · UN Human Rights Database`;
     return;
   }
   const para = state.activeId ? state.paragraphById.get(state.activeId) : null;
   if (para) {
     const doc = state.documents.get(para.docId);
-    const docTitle = doc?.nameShort || doc?.name || para.docId;
+    const docTitle = (state.lang === 'es' && doc?.nameShortEs) || doc?.nameShort || doc?.name || para.docId;
     document.title = `${docTitle} · UN Human Rights Database`;
     return;
   }
