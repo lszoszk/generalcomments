@@ -155,8 +155,8 @@
 }
 </script>
 
-<link rel="stylesheet" href="assets/tokens.css?v=20261105-63b88c5" />
-<link rel="stylesheet" href="assets/app.css?v=20261105-63b88c5" />
+<link rel="stylesheet" href="assets/tokens.css?v=20261105-4d099f3" />
+<link rel="stylesheet" href="assets/app.css?v=20261105-4d099f3" />
 
 <!-- Google Analytics 4 is loaded LAZILY, only after the visitor opts in
      via the consent banner — see initConsent()/loadAnalytics() in app.js.
@@ -286,6 +286,8 @@
     </nav>
   </div>
 </header>
+<!-- Shown while ES is on: what exists in Spanish (painted by syncLangControl). -->
+<div id="lang-banner" class="lang-banner" role="status" hidden></div>
 
 <!-- ═══════════════════════════ SEARCH VIEW ═══════════════════════════ -->
 <section data-view="search">
@@ -1021,13 +1023,13 @@
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule);">
             <strong class="folio">Spanish texts:</strong> the <strong>EN | ES</strong> switch at the top
-            shows the official Spanish text of the General Comments — all 188 documents, 7,280 of
-            7,304 paragraphs — taken from UN Documents (the Word files, the 2008 compilation
+            shows the official Spanish text of the General Comments — all 188 documents, all 7,304
+            paragraphs — taken from UN Documents (the Word files, the 2008 compilation
             HRI/GEN/1/Rev.9 for the older ones, PDF for two) and matched to the English text
             paragraph by paragraph. Search then looks in the Spanish text; paragraph
-            numbers, links, filters and citations are those of the English record. A paragraph
-            without a Spanish text is shown in English and marked <span class="lang-en-badge">EN</span>.
-            The interface, the jurisprudence, the Special Procedures reports and Ask stay in English.
+            numbers, links, filters and citations are those of the English record. The interface,
+            the jurisprudence, the Special Procedures reports, the recommendations to States and Ask
+            stay in English; there the switch is off.
           </p>
           <p class="serif" style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--rule);">
             <strong class="folio">Dataset snapshot:</strong> last synchronised with
@@ -1778,7 +1780,7 @@ ds = load_dataset(
 <div class="diff-tray" id="diff-tray" hidden></div>
 <div class="diff-modal" id="diff-modal" hidden></div>
 
-<script type="module" src="assets/app.js?v=20261105-63b88c5"></script>
+<script type="module" src="assets/app.js?v=20261105-4d099f3"></script>
 <script src="assets/who.js?v=20261013" data-tool="unhrdb" data-endpoint="https://lszoszk.goatcounter.com/count" defer></script>
   <script src="assets/service-notice.js?v=20261022" charset="utf-8" data-app="UNHRDB"
           data-effect="Until access is restored, the parts of this site that depend on the server, such as search, are unavailable."

@@ -9,7 +9,7 @@ import { bootApp, collectConsoleErrors, resetWorkspace } from './_helpers';
  *  ES1. readerDeepLink   — ?lang=es#documents/<GC> renders the Spanish text + title
  *  ES2. switchRoundTrip  — the switch sets ?lang=es and survives a reload; EN restores English
  *  ES3. spanishSearch    — a Spanish query finds Spanish paragraphs; the dossier shows them
- *  ES4. enBadge          — a paragraph without Spanish text shows English with the EN badge
+ *  ES4. scopeAware       — switch off + English-only banner outside the GCs; on again for the GCs
  *  ES5. englishUntouched — default (no lang) reader and search stay English, no badge
  */
 
@@ -53,13 +53,17 @@ test('ES3. spanishSearch · Spanish query, Spanish results and dossier', async (
   await expect(page.locator('#dossier-active-anchor blockquote p')).toContainText(/desaparici/i);
 });
 
-test('ES4. enBadge · a paragraph without Spanish shows English, badged', async ({ page }) => {
-  // CRC GC11 is "partial": ¶19 and ¶20 did not pair cleanly and stay English.
-  await bootApp(page, '/index.html?lang=es#documents/crc-c-gc-11');
-  await expect(readerText(page, 0)).toContainText('En el preámbulo', { timeout: 15_000 });
-  const p19 = page.locator('.docs-reader-para').filter({ hasText: 'The presence of indigenous peoples' });
-  await expect(p19.locator('.lang-en-badge')).toHaveCount(1);
-  await expect(page.locator('.docs-reader-para').first().locator('.lang-en-badge')).toHaveCount(0);
+test('ES4. scopeAware · the switch is off outside the General Comments, the banner says so', async ({ page }) => {
+  await bootApp(page, '/index.html?lang=es&scope=jur');
+  await expect(page.locator('#lang-switch [data-lang="es"]')).toBeDisabled({ timeout: 15_000 });
+  await expect(page.locator('#lang-banner')).toContainText('solo está disponible en inglés');
+  await page.locator('.scope-opt[data-scope="gc"]').click();
+  await expect(page.locator('#lang-switch [data-lang="es"]')).toBeEnabled();
+  await expect(page.locator('#lang-switch [data-lang="es"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#lang-banner')).toContainText('solo las observaciones y recomendaciones generales');
+  // CRC GC11 ¶19, a hand-aligned paragraph, reads in Spanish.
+  await page.goto('/index.html?lang=es#documents/crc-c-gc-11');
+  await expect(page.locator('.docs-reader-para').filter({ hasText: 'La presencia de pueblos indígenas' })).toHaveCount(1, { timeout: 15_000 });
 });
 
 test('ES5. englishUntouched · default stays English', async ({ page }) => {

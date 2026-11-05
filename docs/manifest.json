@@ -14,17 +14,17 @@
       1960,
       2026
     ],
-    "gcParagraphsEs": 7280,
+    "gcParagraphsEs": 7304,
     "gcDocumentsEs": 188
   },
   "files": {
     "corpus.json": {
-      "sha": "e4e36b64cfb65d0f",
-      "bytes": 8412548
+      "sha": "383afd26f2570402",
+      "bytes": 8415891
     },
     "documents.json": {
-      "sha": "311bf33db3210658",
-      "bytes": 1540690
+      "sha": "9f6c401c257454b7",
+      "bytes": 1540859
     },
     "facets.json": {
       "sha": "993884236e77e44d",
@@ -39,8 +39,8 @@
       "bytes": 3463152
     },
     "corpus.es.json": {
-      "sha": "39eb1d44537df6f8",
-      "bytes": 7696463
+      "sha": "dac2491f40cf26d9",
+      "bytes": 7740961
     }
   },
   "note": "Incremental append (append_sp_docs.py): +33 SP docs."
