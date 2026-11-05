@@ -1,14 +1,14 @@
 # UN Human Rights Database (UNHRDB)
 
-> Paragraph-level research database of UN human rights law, built at Adam Mickiewicz University, Poznań (Łukasz Szoszkiewicz, Zuzanna Kowalska). It holds 6,079 UN documents split into 323,405 numbered paragraphs, each keyed to its UN document symbol and paragraph number, so a passage can be quoted and cited exactly. Free to use; open source.
+> Paragraph-level research database of UN human rights law, built at Adam Mickiewicz University, Poznań (Łukasz Szoszkiewicz, Zuzanna Kowalska). It holds 6,080 UN documents split into 323,523 numbered paragraphs, each keyed to its UN document symbol and paragraph number, so a passage can be quoted and cited exactly. Free to use; open source.
 
 ## What is in it
 
-- Treaty Body General Comments and General Recommendations: 188 documents, 7,304 paragraphs, all ten UN treaty bodies, 1972–2026.
+- Treaty Body General Comments and General Recommendations: 189 documents, 7,422 paragraphs, all ten UN treaty bodies, 1972–2026.
 - Individual-communication decisions (views, admissibility decisions) of 8 treaty bodies: 4,260 decisions, 149,688 paragraphs, 1977–2025.
 - Thematic reports of the UN Special Procedures: 1,631 reports from all 46 thematic mandates, 166,413 paragraphs, 1960–2026. Country-visit reports, communications and addenda are out of scope.
 - Recommendations to States (concluding observations, Universal Periodic Review and Special Procedures recommendations) from OHCHR's Universal Human Rights Index, served live.
-- The official Spanish text of all 188 General Comments (all 7,304 paragraphs), from UN Documents (Word files, the 2008 compilation HRI/GEN/1/Rev.9 for the older ones), matched to the English paragraphs one by one. Add lang=es to a link to read and search them. Jurisprudence, Special Procedures reports and recommendations to States are English only.
+- The official Spanish text of all 189 General Comments (all 7,422 paragraphs), from UN Documents (Word files, the 2008 compilation HRI/GEN/1/Rev.9 for the older ones), matched to the English paragraphs one by one. Add lang=es to a link to read and search them. Jurisprudence, Special Procedures reports and recommendations to States are English only.
 
 Texts are the UN's own wording. Footnotes, section headings and paragraph numbering follow the published documents; Special Procedures texts come from the Word files on UN Documents where one exists (1,550 of 1,631 reports), otherwise from the PDF.
 

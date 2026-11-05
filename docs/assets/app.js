@@ -636,7 +636,7 @@ function esApplies() {
 // .lang-banner-more and .lang-banner-en are hidden on phones (first sentence only).
 const LANG_BANNER = {
   gc: '<strong>Español:</strong> solo las observaciones y recomendaciones generales<span class="lang-banner-more"> '
-    + '(188 documentos). La jurisprudencia, los procedimientos especiales y las recomendaciones a los Estados están '
+    + '(189 documentos). La jurisprudencia, los procedimientos especiales y las recomendaciones a los Estados están '
     + 'en inglés</span>. <span class="lang-banner-en">Spanish texts cover the General Comments only.</span>',
   enOnly: '<strong>Español:</strong> esta colección solo está disponible en inglés<span class="lang-banner-more">; '
     + 'los textos en español abarcan las observaciones y recomendaciones generales</span>. '
@@ -1391,6 +1391,16 @@ function documentDateText(doc, profile, fallbackYear, { full = true } = {}) {
 
 function documentStatusDetails(doc) {
   if (!doc) return null;
+  // A GC the committee has published only in Spanish so far (CED/C/GC/2): the stored text is the
+  // Spanish original in both language modes until the English translation replaces it.
+  if (doc.textLanguage === 'es') {
+    return {
+      label: 'Spanish original only',
+      tone: 'revised',
+      note: 'The Committee has so far published this general comment only in Spanish (advance unedited version). UNHRDB shows the Spanish text in both language modes; the English translation will replace it here once published.',
+      source: doc.link || '',
+    };
+  }
   if (doc.status === 'superseded') {
     const replacement = doc.supersededBy ? ` by ${doc.supersededBy}` : '';
     return {
