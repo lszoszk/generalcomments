@@ -1,11 +1,11 @@
 {
-  "version": "20261014",
-  "builtAt": "2026-10-14T14:45:01+00:00",
+  "version": "20261105",
+  "builtAt": "2026-11-05T22:21:52+00:00",
   "counts": {
-    "documents": 1819,
-    "paragraphs": 173717,
-    "gcDocuments": 188,
-    "gcParagraphs": 7304,
+    "documents": 1820,
+    "paragraphs": 173835,
+    "gcDocuments": 189,
+    "gcParagraphs": 7422,
     "spDocuments": 1631,
     "spParagraphs": 166413,
     "labels": 20,
@@ -14,21 +14,21 @@
       1960,
       2026
     ],
-    "gcParagraphsEs": 7304,
-    "gcDocumentsEs": 188
+    "gcParagraphsEs": 7422,
+    "gcDocumentsEs": 189
   },
   "files": {
     "corpus.json": {
-      "sha": "383afd26f2570402",
-      "bytes": 8415891
+      "sha": "9ee67c2c0c052afe",
+      "bytes": 8534470
     },
     "documents.json": {
-      "sha": "9f6c401c257454b7",
-      "bytes": 1540859
+      "sha": "fb6ebb0eb1126f7a",
+      "bytes": 1542148
     },
     "facets.json": {
-      "sha": "993884236e77e44d",
-      "bytes": 14389
+      "sha": "c81f96c9c85b386c",
+      "bytes": 14390
     },
     "citations/graph.json": {
       "sha": "86177bd560c8cf1f",
@@ -39,9 +39,9 @@
       "bytes": 3463152
     },
     "corpus.es.json": {
-      "sha": "dac2491f40cf26d9",
-      "bytes": 7740961
+      "sha": "98c0e9ed400baaab",
+      "bytes": 7846304
     }
   },
-  "note": "Incremental append (append_sp_docs.py): +33 SP docs."
+  "note": "Incremental append (append_gc_from_docx.py): +CED/C/GC/2."
 }
