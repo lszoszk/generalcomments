@@ -97,12 +97,13 @@ test('ES6. spanishInterface · navigation and controls in Spanish, document text
 test('ES7. askSpanish · Ask shows the official Spanish text of the returned paragraphs', async ({ page }) => {
   const fixture = JSON.stringify(ASK_FIXTURE);
   const cors = { 'access-control-allow-origin': '*', 'content-type': 'application/json' };
-  // On localhost the app asks http://127.0.0.1:8767 (the local-dev backend, allowed by the CSP).
+  // Mock backend on the local-dev origin the CSP allows.
   await page.route('http://127.0.0.1:8767/**', (route) => {
     const path = new URL(route.request().url()).pathname;
     return route.fulfill({ status: 200, headers: cors, body: path.endsWith('/api/ask') ? fixture : '{"ok":true}' });
   });
-  await bootApp(page, '/index.html?lang=es#ask');
+  // ?ask= outranks the meta tag (the live backend, which refuses localhost).
+  await bootApp(page, '/index.html?lang=es&ask=' + encodeURIComponent('http://127.0.0.1:8767') + '#ask');
   await page.locator('#ask-q').fill('¿Es absoluta la prohibición de la tortura?');
   await page.locator('#ask-go').click();
   await expect(page.locator('.ask-answer-body')).toContainText('El Comité recuerda', { timeout: 20_000 });
