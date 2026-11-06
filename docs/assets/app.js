@@ -645,15 +645,17 @@ const LANG_BANNER = {
 function syncLangControl() {
   const ok = esApplies();
   const sw = document.getElementById('lang-switch');
+  // The switch also sets the interface language, so it stays usable in the
+  // English-only collections; there it is only dimmed and the banner says why.
   for (const btn of document.querySelectorAll('#lang-switch .lang-opt')) {
-    btn.setAttribute('aria-pressed', String(btn.dataset.lang === (ok ? state.lang : 'en')));
-    btn.disabled = !ok;
+    btn.setAttribute('aria-pressed', String(btn.dataset.lang === state.lang));
   }
   if (sw) {
-    sw.classList.toggle('is-disabled', !ok);
-    sw.title = ok
-      ? 'Language of the General Comment texts: the official Spanish text where UNHRDB has it (the interface stays English)'
-      : 'Spanish texts exist for the General Comments only; this collection is English only';
+    sw.classList.toggle('is-disabled', !ok && state.lang === 'es');
+    sw.title = state.lang === 'es'
+      ? (ok ? 'Idioma: textos oficiales en español de las observaciones generales e interfaz en español'
+        : 'Solo las observaciones generales están en español; esta colección solo está disponible en inglés')
+      : 'Language: official Spanish texts of the General Comments and a Spanish interface';
   }
   const banner = document.getElementById('lang-banner');
   if (banner) {
@@ -670,9 +672,11 @@ async function setLang(lang) {
   state.lang = lang;
   try { localStorage.setItem(_LS.lang, lang); } catch {}
   syncLangControl();
+  applyUiLanguage();
   encodeUrlState();
   updateDocumentTitle();
   if (lang === 'es' && state.searchIndex) await buildEsSearchIndex();
+  rerenderAskResult();
   if (state.view === 'search') {
     runSearch();
   } else if (state.view === 'documents') {
@@ -689,6 +693,125 @@ function bindLangSwitch() {
   for (const btn of document.querySelectorAll('#lang-switch .lang-opt')) {
     btn.addEventListener('click', () => { if (btn.dataset.lang !== state.lang) setLang(btn.dataset.lang); });
   }
+  applyUiLanguage();
+}
+
+// ── Spanish interface ─────────────────────────────────────────────────
+// The app renders English; in ES mode a dictionary (assets/i18n-es.js,
+// loaded on demand) rewrites interface text nodes and title / placeholder /
+// aria-label attributes in place, and a MutationObserver does the same for
+// whatever the app renders later. Document content (UI_I18N_SKIP) is never
+// touched: GC texts come from corpus.es.json, everything else stays English.
+// Each rewritten node remembers {en, es}; if the app later writes a new
+// English value the record is replaced, and switching back to EN restores
+// the English values. Strings missing from the dictionary stay English.
+const UI_I18N_SKIP = [
+  '.result-body p', '.result-text', '.snippet', 'mark', '.docs-reader-para-text', '.docs-reader-body .docs-reader-para',
+  '.dossier-context-prose', 'blockquote', '.result-doc', '.result-doc-summary-title', '.docs-reader-title',
+  '.docs-rail-row-title', '.dossier-title', '.ask-answer-body', '.ask-source-text', '.ask-source-title',
+  '.ask-source-header', '.ask-answer-source-title', '.ask-hyde-term', '.ask-hyde-expansion', '.fn-note', '.notes',
+  '.docs-reader-section', '.dossier-context-section', '#mast-doc-context', '.treaty-popover-para',
+  '.lang-banner', '#lang-switch', '.ws-note-text', '.saved-search-q',
+  '[data-no-i18n]', 'script', 'style', 'code', 'pre',
+].join(',');
+const UI_I18N_ATTRS = ['title', 'placeholder', 'aria-label'];
+const _uiText = new WeakMap();    // Text node → {en, es}
+const _uiAttr = new WeakMap();    // Element → {attr: {en, es}}
+let _uiDict = null;
+let _uiDictLoading = null;
+let _uiObserver = null;
+function loadUiDict() {
+  if (_uiDict) return Promise.resolve(_uiDict);
+  if (!_uiDictLoading) {
+    // Same ?v= cache-buster as app.js itself.
+    const url = new URL('./i18n-es.js', import.meta.url);
+    url.search = new URL(import.meta.url).search;
+    _uiDictLoading = import(url.href)
+      .then((m) => (_uiDict = m.default))
+      .catch((e) => { console.warn('[es] i18n-es.js failed:', e.message); _uiDictLoading = null; return null; });
+  }
+  return _uiDictLoading;
+}
+function uiTranslate(s) {
+  const key = s.replace(/\s+/g, ' ').trim();
+  if (!key || !/[A-Za-z]/.test(key)) return null;
+  const hit = _uiDict.exact[key];
+  if (hit != null) return hit;
+  for (const [re, rep] of _uiDict.patterns) if (re.test(key)) return key.replace(re, rep);
+  return null;
+}
+function _uiTextNode(n) {
+  const rec = _uiText.get(n);
+  const cur = n.nodeValue;
+  if (rec && cur === rec.es) return;
+  const tr = uiTranslate(cur);
+  if (tr == null) { if (rec) _uiText.delete(n); return; }
+  const es = cur.match(/^\s*/)[0] + tr + cur.match(/\s*$/)[0];
+  _uiText.set(n, { en: cur, es });
+  if (es !== cur) n.nodeValue = es;
+}
+function _uiElementAttrs(el) {
+  for (const a of UI_I18N_ATTRS) {
+    const cur = el.getAttribute(a);
+    if (!cur) continue;
+    const recs = _uiAttr.get(el) || {};
+    if (recs[a] && cur === recs[a].es) continue;
+    const tr = uiTranslate(cur);
+    if (tr == null) continue;
+    recs[a] = { en: cur, es: tr };
+    _uiAttr.set(el, recs);
+    if (tr !== cur) el.setAttribute(a, tr);
+  }
+}
+function _uiWalk(root, fn) {
+  if (!root) return;
+  if (root.nodeType === Node.TEXT_NODE) {
+    if (!root.parentElement?.closest(UI_I18N_SKIP)) fn.text(root);
+    return;
+  }
+  if (root.nodeType !== Node.ELEMENT_NODE || root.closest(UI_I18N_SKIP)) return;
+  fn.el(root);
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, {
+    acceptNode: (n) => (n.nodeType === Node.ELEMENT_NODE && n.matches(UI_I18N_SKIP)
+      ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+  });
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+    if (n.nodeType === Node.TEXT_NODE) fn.text(n); else fn.el(n);
+  }
+}
+const _uiToEs = { text: _uiTextNode, el: _uiElementAttrs };
+const _uiToEn = {
+  text: (n) => { const r = _uiText.get(n); if (r) { if (n.nodeValue === r.es) n.nodeValue = r.en; _uiText.delete(n); } },
+  el: (el) => {
+    const recs = _uiAttr.get(el);
+    if (!recs) return;
+    for (const [a, r] of Object.entries(recs)) if (el.getAttribute(a) === r.es) el.setAttribute(a, r.en);
+    _uiAttr.delete(el);
+  },
+};
+async function applyUiLanguage() {
+  const es = state.lang === 'es' && await loadUiDict();
+  if (es && state.lang !== 'es') return;          // switched back while the dictionary loaded
+  document.documentElement.lang = es ? 'es' : 'en';
+  if (!es) {
+    _uiObserver?.disconnect();
+    _uiObserver = null;
+    _uiWalk(document.body, _uiToEn);
+    return;
+  }
+  _uiWalk(document.body, _uiToEs);
+  if (_uiObserver) return;
+  _uiObserver = new MutationObserver((muts) => {
+    for (const m of muts) {
+      if (m.type === 'childList') for (const n of m.addedNodes) _uiWalk(n, _uiToEs);
+      else if (m.type === 'characterData') { if (!m.target.parentElement?.closest(UI_I18N_SKIP)) _uiTextNode(m.target); }
+      else if (m.type === 'attributes' && !m.target.closest(UI_I18N_SKIP)) _uiElementAttrs(m.target);
+    }
+    _uiObserver?.takeRecords();                   // our own rewrites
+  });
+  _uiObserver.observe(document.body, {
+    subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: UI_I18N_ATTRS,
+  });
 }
 
 // v19.59: ?debug=1 keeps the API badge visible in its happy state
@@ -15133,7 +15256,8 @@ function _askRenderSourceCards(data, userQuery, opts = {}) {
         ? `<div class="ask-source-header">↳ ${askEscape(s.headerText)}</div>` : '';
       const arts = s.articles?.length
         ? `<div class="ask-source-articles">Articles: ${s.articles.map(askEscape).join(', ')}</div>` : '';
-      const localPara = state.paragraphById?.get(s.paraId);
+      const esPara = _askEsPara(s);
+      const localPara = esPara || state.paragraphById?.get(s.paraId);
       const rawText = localPara && typeof renderParagraphHtml === 'function'
         ? renderParagraphHtml(localPara.text, localPara.footnotes)
         : askEscape(s.text || '');
@@ -15163,6 +15287,15 @@ function _askRenderSourceCards(data, userQuery, opts = {}) {
 // format), Bookmark to Workspace, UN source link. Inline so a
 // researcher doesn't need to round-trip through the dossier drawer
 // for the routine actions.
+// ES mode: Ask retrieves English paragraphs (the index is English; Spanish
+// questions work through the multilingual embeddings) and shows the official
+// Spanish text of each one where UNHRDB has it.
+function _askEsPara(s) {
+  if (state.lang !== 'es' || !s?.paraId) return null;
+  const es = state.esById.get(s.paraId);
+  return es ? { text: es.text, footnotes: es.footnotes || [] } : null;
+}
+
 function _askRenderSourceActions(s) {
   const paraId = s.paraId || '';
   const docId = s.docId || '';
@@ -15369,12 +15502,14 @@ function renderAskResult(primaryData, counterData) {
               ${hint ? `<div class="ask-answer-source-hint">${hint}</div>` : ''}
             </div>`;
   };
+  const topEs = _askEsPara(topSource);
+  const answerText = topEs ? stripFnMarkers(topEs.text) : data.answer;
   const answer = data.answer
     ? `<div class="ask-answer">
          <div class="ask-answer-title">Top match · verbatim</div>
          <div class="ask-answer-hint">First-ranked paragraph below. Read all sources for context — General Comments rarely give a single answer.</div>
          ${buildSourceContext(topSource)}
-         <div class="ask-answer-body">${annotateTreatyText(askEscape(data.answer), topSource?.committee, topSource?.citedArticles)}</div>
+         <div class="ask-answer-body">${annotateTreatyText(askEscape(answerText), topSource?.committee, topSource?.citedArticles)}</div>
        </div>`
     : '';
 
@@ -15421,6 +15556,14 @@ function renderAskResult(primaryData, counterData) {
 // NOT a stream, so stage timings are estimates — the final stage simply
 // holds until the real response lands; we never claim "done" early.
 // Returns a controller with stop() — call it in runAsk's finally block.
+let _askLastResult = null;
+// Language switched while an Ask result is on screen: render it again.
+function rerenderAskResult() {
+  const out = document.getElementById('ask-output');
+  if (!_askLastResult || !out || !out.querySelector('.ask-answer, .ask-source')) return;
+  out.innerHTML = renderAskResult(..._askLastResult);
+}
+
 function startAskProgress(out, opts = {}) {
   const counter = !!opts.counterEvidence;
   out.innerHTML = `
@@ -15476,11 +15619,8 @@ async function runAsk() {
   // → cascading unhandled rejections → Safari's "too many errors" dialog.
   if (_askBackendOnline === false) {
     out.innerHTML = `<div class="ask-error">
-      <strong>Ask backend not reachable from this device.</strong>
-      We're transitioning the backend to a proper SSL certificate via an
-      AMU subdomain (should be live within a few days). Until then, iOS
-      Safari and some hardened browsers block our test cert.
-      Please try this tab on a desktop browser, or use
+      <strong>Ask is not reachable right now.</strong>
+      Try again in a minute, or use
       <a href="#search" class="about-link">Search</a> in the meantime.
     </div>`;
     return;
@@ -15611,6 +15751,8 @@ async function runAsk() {
     // re-ranking. The score band is a coarse secondary indicator,
     // surfaced in the per-source "Why this matched" detail.
 
+    if (state.lang === 'es') await ensureSpanishReady();
+    _askLastResult = [primaryData, counterData];
     out.innerHTML = renderAskResult(primaryData, counterData);
     _askBackendOnline = true;
   } catch (err) {

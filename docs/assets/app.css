@@ -1206,9 +1206,21 @@ body.dossier-collapsed .dossier {
   background: var(--garnet);
   color: var(--paper, #fff);
 }
-.lang-switch.is-disabled { opacity: 0.45; }
-.lang-switch .lang-opt:disabled { cursor: not-allowed; }
-.lang-switch.is-disabled .lang-opt[aria-pressed="true"] { background: transparent; color: var(--ink-2); }
+/* ES on in an English-only collection: still clickable (it sets the interface language). */
+.lang-switch.is-disabled { opacity: 0.6; }
+/* Spanish interface: the collections that exist in English only are dimmed, still clickable. */
+html[lang="es"] .scope-opt:is([data-scope="jur"], [data-scope="sp"], [data-scope="rec"]) .scope-opt-name,
+html[lang="es"] .docs-scope-opt:is([data-docs-scope="jur"], [data-docs-scope="sp"]) { opacity: 0.55; }
+html[lang="es"] .scope-opt:is([data-scope="jur"], [data-scope="sp"], [data-scope="rec"]) .scope-opt-name::after {
+  content: "solo en inglés";
+  margin-left: 6px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3, var(--ink-2));
+  white-space: nowrap;
+}
 /* One line under the masthead while ES is on. */
 .lang-banner {
   flex: 0 0 auto;
