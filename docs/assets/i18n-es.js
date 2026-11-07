@@ -311,6 +311,10 @@ export default {
     'Surfaces': 'Muestra',
     'returned paragraphs are verbatim from the Committees': 'los párrafos devueltos reproducen textualmente a los Comités',
     '— no paraphrase, no AI-generated answer text, no hallucination.': ': sin paráfrasis, sin respuestas generadas por IA, sin alucinaciones.',
+    'sentences from UN Treaty Body General Comments using neural retrieval and cross-encoder reranking. No language model writes or rewrites anything:':
+      'frases de las observaciones generales de los órganos de tratados de la ONU, halladas mediante búsqueda neuronal y reordenación (cross-encoder). Ningún modelo de lenguaje escribe ni reescribe nada:',
+    '— no paraphrase, no AI-generated answer text, no hallucination. Your question is sent to Voyage AI to be embedded and re-ranked.':
+      ': sin paráfrasis, sin respuestas generadas por IA, sin alucinaciones. Su pregunta se envía a Voyage AI para su vectorización y reordenación.',
 
     // ── Tour ──
     '· TOUR': '· VISITA',
@@ -450,13 +454,12 @@ export default {
     'Open the full dossier — adjacent paragraphs, footnotes, treaty articles, notes & more': 'Abrir la ficha completa: párrafos contiguos, notas, artículos del tratado y más',
     'Searching the corpus…': 'Buscando en la base…',
     'Re-ranking the strongest passages…': 'Reordenando los pasajes más pertinentes…',
-    'Weighing relevance with the LLM judge…': 'Evaluando la relevancia con el modelo de lenguaje…',
-    'Composing the verbatim answer…': 'Preparando la respuesta textual…',
+    'Ordering the verbatim paragraphs…': 'Ordenando los párrafos textuales…',
+    'Still working…': 'Seguimos trabajando…',
     'Search interpretation': 'Interpretación de la búsqueda',
     'Matched on:': 'Coincidencias en:',
     'Try a different angle:': 'Pruebe otro enfoque:',
     'Show AI-generated query probe': 'Mostrar la consulta generada por IA',
-    'Question interpretation temporarily unavailable': 'Interpretación de la pregunta no disponible temporalmente',
     'Counter-evidence — paragraphs that may qualify the answer': 'Argumentos en contra: párrafos que pueden matizar la respuesta',
     'No additional counter-evidence surfaced beyond what was already in the primary set.': 'No hay argumentos en contra adicionales a los ya mostrados.',
     'Ask is not reachable right now.': 'La función Preguntar no está disponible en este momento.',
