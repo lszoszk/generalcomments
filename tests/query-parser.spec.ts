@@ -22,8 +22,8 @@ import { bootApp, resetWorkspace, typeQuery } from './_helpers';
  *   P4. prefixInsideBoolean   — child* AND traffic*  compiles + runs
  *                                (parser tokenisation handles the * as
  *                                a flag on the leaf, not as a literal)
- *   P5. lowercaseOperators    — `and` / `or` / `not` (lowercase) get
- *                                the same AST as their uppercase forms
+ *   P5. lowercaseOperators    — lowercase `and` is AND; lowercase `or` /
+ *                                `not` are words, operators only in capitals
  *   P6. minusAlias            — `A -B` is identical to `A NOT B`
  *   P7. negativeOnlyGuard     — pure NOT is explained, never sent/scanned
  *   P8. exactWordForms        — bare terms do not silently match inflections
@@ -113,19 +113,26 @@ test('P4. prefixInsideBoolean · child* AND traffic* compiles', async ({ page })
   expect(firstSnippet).toMatch(/traffic(ked|king|ker)?/);
 });
 
-test('P5. lowercaseOperators · `and`/`or`/`not` parse the same as uppercase', async ({ page }) => {
-  // The tokeniser lowercases each bare word and matches against
-  // {'and','or','not','&','|'}. A casing regression here would silently
-  // turn `women and violence` into a 3-token implicit-AND chain
-  // including a literal token "and" that misses every paragraph.
+test('P5. lowercaseOperators · `and` is AND in any case; `or`/`not` are operators only in capitals', async ({ page }) => {
+  // A lowercase "not" in a sentence ("she was not told") must not exclude
+  // the next word; "and" in any case means AND, as a space does.
   await bootApp(page, '/index.html');
-  await typeQuery(page, 'women AND violence NOT discrimination');
-  const upper = await getResultCount(page);
-  await typeQuery(page, 'women and violence not discrimination');
-  const lower = await getResultCount(page);
-  expect(upper).toBeGreaterThan(0);
-  // Same AST → identical candidate set → identical paginated count.
-  expect(lower).toBe(upper);
+  await typeQuery(page, 'women AND violence');
+  const andUpper = await getResultCount(page);
+  await typeQuery(page, 'women and violence');
+  const andLower = await getResultCount(page);
+  expect(andUpper).toBeGreaterThan(0);
+  expect(andLower).toBe(andUpper);
+
+  await typeQuery(page, 'women violence NOT discrimination');
+  const notUpper = await getResultCount(page);
+  await typeQuery(page, 'women violence not discrimination');
+  const notLower = await getResultCount(page);
+  // Lowercase: "not" and "discrimination" are both required words, so the
+  // set is not the exclusion set of the capital form.
+  expect(notUpper).toBeGreaterThan(0);
+  expect(notLower).toBeGreaterThan(0);
+  expect(notLower).not.toBe(notUpper);
 });
 
 test('P6. minusAlias · `A -B` returns the same set as `A NOT B`', async ({ page }) => {
