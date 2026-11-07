@@ -7538,11 +7538,14 @@ function _tokenizeQuery(raw) {
     while (j < s.length && !/[\s()]/.test(s[j])) j++;
     const word = s.slice(i, j);
     const lower = word.toLowerCase();
+    // OR and NOT are operators only in capitals: in a sentence ("she was
+    // not told") a lowercase "not" is a word and must not exclude the next
+    // one. "and" in any case stays AND, which is what a space means anyway.
     if (lower === 'and' || lower === '&') {
       out.push({ t: 'AND' });
-    } else if (lower === 'or' || lower === '|') {
+    } else if (word === 'OR' || lower === '|') {
       out.push({ t: 'OR' });
-    } else if (lower === 'not') {
+    } else if (word === 'NOT') {
       out.push({ t: 'NOT' });
     } else if (lower) {
       const prefix = lower.endsWith('*') && lower.length > 1;
@@ -11471,7 +11474,7 @@ const _QUERY_HELP_OPS = [
   { op: '"exact phrase"',     desc: 'Match the words verbatim and in order. Stays literal — no stemming.' },
   { op: 'A B',                desc: 'Implicit AND on whitespace — both terms must appear.' },
   { op: 'A AND B',            desc: 'Both terms must appear (explicit form).' },
-  { op: 'A OR B',             desc: 'Either term qualifies.' },
+  { op: 'A OR B',             desc: 'Either term qualifies. Write OR and NOT in capitals: in lowercase they are searched as words.' },
   { op: 'A NOT B · A -B',     desc: 'Exclude B from a positive search for A. NOT cannot be used alone.' },
   { op: '( … )',              desc: 'Group with parentheses to override default precedence (AND binds tighter than OR).' },
   { op: 'prefix*',            desc: 'Trailing asterisk matches any continuation: discriminat* hits discrimination, discriminate, discriminatory.' },

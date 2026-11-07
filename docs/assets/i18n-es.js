@@ -55,7 +55,7 @@ export default {
     'Match the words verbatim and in order. Stays literal — no stemming.': 'Busca las palabras exactas y en ese orden, sin variantes.',
     'Implicit AND on whitespace — both terms must appear.': 'Un espacio equivale a AND: deben aparecer ambos términos.',
     'Both terms must appear (explicit form).': 'Deben aparecer ambos términos (forma explícita).',
-    'Either term qualifies.': 'Basta con uno de los dos términos.',
+    'Either term qualifies. Write OR and NOT in capitals: in lowercase they are searched as words.': 'Basta con uno de los dos términos. Escriba OR y NOT en mayúsculas: en minúsculas se buscan como palabras.',
     'Exclude B from a positive search for A. NOT cannot be used alone.': 'Excluye B de una búsqueda de A. NOT no puede usarse solo.',
     'Group with parentheses to override default precedence (AND binds tighter than OR).': 'Agrupe con paréntesis para cambiar la precedencia (AND prevalece sobre OR).',
     'Trailing asterisk matches any continuation: discriminat* hits discrimination, discriminate, discriminatory.':
