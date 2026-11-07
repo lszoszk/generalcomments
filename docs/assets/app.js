@@ -15446,23 +15446,7 @@ function renderAskResult(primaryData, counterData) {
            </details>
          </div>
        </details>`
-    : `<details class="ask-hyde ask-hyde-unavailable">
-         <summary>Question interpretation temporarily unavailable</summary>
-         <div class="ask-hyde-body">
-           <p class="ask-hyde-hint">
-             Normally an LLM rewrites your question into the language of treaty
-             body doctrine before retrieval (improves matches for doctrinal
-             questions like <em>"is X absolute?"</em> or <em>"can the State
-             limit Y?"</em>). Right now that step is unavailable — most likely
-             rate-limit on the LLM provider, less commonly a backend issue.
-             <strong>Retrieval fell back to using your original question</strong>
-             — results are still returned but may be less precisely tuned to
-             legal-doctrine wording. Try again in a minute, or refine your query
-             with explicit doctrinal terms (e.g. <em>"non-derogable"</em>,
-             <em>"permissible limitations"</em>).
-           </p>
-         </div>
-       </details>`;
+    : '';  // the question-rewriting step is switched off (Nov 2026)
 
   const userQuery = data.query || data.q || (document.getElementById('ask-q')?.value || '');
 
@@ -15548,8 +15532,8 @@ function renderAskResult(primaryData, counterData) {
 }
 
 // v19.57: animated, staged progress indicator for the Ask tab.
-// A /api/ask call runs retrieval + cross-encoder rerank + LLM-judge +
-// answer synthesis server-side and routinely takes 20–40s. The old
+// A /api/ask call runs retrieval + cross-encoder rerank server-side
+// (the Gemini judge was switched off in Nov 2026). The old
 // static "Searching…" line gave no sign of life, so the page looked
 // frozen. This renders a moving indeterminate bar, a live elapsed-time
 // counter, and steps through the real pipeline stages. The backend is
@@ -15576,16 +15560,16 @@ function startAskProgress(out, opts = {}) {
         <span class="ask-progress-elapsed" aria-hidden="true">0s</span>
       </div>
       <div class="ask-progress-hint">Neural retrieval, cross-encoder
-        re-ranking${counter ? ', a counter-evidence pass' : ''} and answer
-        synthesis — this usually takes 20–40&nbsp;seconds. The page is
+        re-ranking${counter ? ' and a counter-evidence pass' : ''} —
+        this usually takes a few seconds. The page is
         working, not stuck.</div>
     </div>`;
   const stageEl = out.querySelector('.ask-progress-stage');
   const elapsedEl = out.querySelector('.ask-progress-elapsed');
   const stages = [
     'Re-ranking the strongest passages…',
-    'Weighing relevance with the LLM judge…',
-    'Composing the verbatim answer…',
+    'Ordering the verbatim paragraphs…',
+    'Still working…',
   ];
   const stageAt = [3500, 10000, 18000];   // ms offsets — estimates, not real progress
   const timers = stageAt.map((ms, i) =>
