@@ -15307,12 +15307,7 @@ function _askRenderSourceCards(data, userQuery, opts = {}) {
         ? `<div class="ask-source-header">↳ ${askEscape(s.headerText)}</div>` : '';
       const arts = s.articles?.length
         ? `<div class="ask-source-articles">Articles: ${s.articles.map(askEscape).join(', ')}</div>` : '';
-      const esPara = _askEsPara(s);
-      const localPara = esPara || state.paragraphById?.get(s.paraId);
-      const rawText = localPara && typeof renderParagraphHtml === 'function'
-        ? renderParagraphHtml(localPara.text, localPara.footnotes)
-        : askEscape(s.text || '');
-      const text = annotateTreatyText(rawText, s.committee, s.citedArticles);
+      const text = annotateTreatyText(_askParaHtml(s), s.committee, s.citedArticles);
       const why = _askRenderWhyMatched(userQuery, s, ret.articleBoost);
       const actions = _askRenderSourceActions(s);
       return `
@@ -15345,6 +15340,19 @@ function _askEsPara(s) {
   if (state.lang !== 'es' || !s?.paraId) return null;
   const es = state.esById.get(s.paraId);
   return es ? { text: es.text, footnotes: es.footnotes || [] } : null;
+}
+// The paragraph Ask returned, as shown: the corpus record when it is loaded
+// (Spanish in ES mode), so footnote markers become the usual footnote buttons;
+// otherwise the backend text with its [[fn:N]] markers removed — the backend
+// sends no footnote texts.
+function _askDisplayPara(s) {
+  if (!s) return null;
+  return _askEsPara(s) || state.paragraphById?.get(s.paraId) || null;
+}
+function _askParaHtml(s, fallbackText) {
+  const p = _askDisplayPara(s);
+  if (p) return renderParagraphHtml(p.text, p.footnotes);
+  return askEscape(stripFnMarkers(fallbackText ?? s?.text ?? ''));
 }
 
 function _askRenderSourceActions(s) {
@@ -15537,14 +15545,16 @@ function renderAskResult(primaryData, counterData) {
               ${hint ? `<div class="ask-answer-source-hint">${hint}</div>` : ''}
             </div>`;
   };
-  const topEs = _askEsPara(topSource);
-  const answerText = topEs ? stripFnMarkers(topEs.text) : data.answer;
+  // The answer is the top source's text (verbatim); render it like the source cards.
+  const answerHtml = topSource && (!data.answer || stripFnMarkers(data.answer).trim() === stripFnMarkers(topSource.text || '').trim())
+    ? _askParaHtml(topSource, data.answer)
+    : askEscape(stripFnMarkers(data.answer || ''));
   const answer = data.answer
     ? `<div class="ask-answer">
          <div class="ask-answer-title">Top match · verbatim</div>
          <div class="ask-answer-hint">First-ranked paragraph below. Read all sources for context — General Comments rarely give a single answer.</div>
          ${buildSourceContext(topSource)}
-         <div class="ask-answer-body">${annotateTreatyText(askEscape(answerText), topSource?.committee, topSource?.citedArticles)}</div>
+         <div class="ask-answer-body">${annotateTreatyText(answerHtml, topSource?.committee, topSource?.citedArticles)}</div>
        </div>`
     : '';
 
@@ -16148,7 +16158,9 @@ function wireAskTab() {
         const card = actBtn.closest('.ask-source');
         if (act === 'copy') {
           // Paragraph text + short tag for easy paste-into-notes.
-          const txt = card?.querySelector('.ask-source-text')?.innerText?.trim() || '';
+          const shown = _askDisplayPara({ paraId });
+          const txt = shown ? stripFnMarkers(shown.text).trim()
+            : stripFnMarkers(card?.querySelector('.ask-source-text')?.innerText || '').trim();
           const tag = card?.querySelector('.ask-citation')?.innerText?.trim() || '';
           const meta = card?.querySelector('.ask-source-meta')?.innerText?.trim() || '';
           const payload = [txt, tag ? `\n— ${tag} (${meta})` : ''].join('').trim();
