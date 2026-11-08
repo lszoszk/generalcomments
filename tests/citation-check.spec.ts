@@ -50,10 +50,16 @@ test('C2. sampleStatuses · the sample text exercises every verdict', async ({ p
   await expect(gc36.locator('.ck-note-ok').first()).toContainText('Paragraph 3 exists');
   await expect(gc36.locator('.ck-note-ok').nth(1)).toContainText('verbatim');
   await expect(gc36.locator('.ck-resolved')).toContainText('CCPR/C/GC/36');
+  // Three fixed actions: the UNHRDB reader, the official UN document, cite.
+  await expect(gc36.locator('.ck-act', { hasText: 'Reader' })).toHaveAttribute('href', /p=ccpr-c-gc-36-\d+/);
+  const src36 = gc36.locator('.ck-act', { hasText: 'UN source' });
+  await expect(src36).toHaveAttribute('href', /un\.org/);
+  await expect(src36).toHaveAttribute('target', '_blank');
+  await expect(gc36.locator('.ck-copy-cite')).toBeVisible();
   // The cited paragraph is one click away: collapsed by default, its text and a reader link inside.
   const para36 = gc36.locator('details.ck-para');
   await expect(para36).toHaveCount(1);
-  await expect(para36.locator('.ck-para-summary')).toContainText('Show paragraph 3');
+  await expect(para36.locator('.ck-para-summary')).toContainText('Paragraph 3 exists · show text');
   await expect(para36.locator('.ck-para-body')).toBeHidden();
   await para36.locator('.ck-para-summary').click();
   await expect(para36.locator('.ck-para-body')).toBeVisible();
@@ -84,6 +90,12 @@ test('C2. sampleStatuses · the sample text exercises every verdict', async ({ p
   await expect(page.locator('#check-annotated mark.ck-bad', { hasText: 'CRC/C/GC/99' })).toBeVisible();
   await expect(page.locator('#check-annotated mark.ck-cite.ck-ok', { hasText: 'CCPR/C/GC/36' })).toBeVisible();
   await expect(page.locator('#check-summary')).toContainText('not found');
+  // The status counts filter the list; a second click shows everything again.
+  const total = await page.locator('.ck-row').count();
+  await page.locator('[data-ck-filter="bad"]').click();
+  await expect(page.locator('.ck-row:visible')).toHaveCount(await page.locator('.ck-row.ck-bad').count());
+  await page.locator('[data-ck-filter="bad"]').click();
+  await expect(page.locator('.ck-row:visible')).toHaveCount(total);
 });
 
 test('C3. misquoteRedline · a changed word is struck through and the source word shown', async ({ page }) => {
