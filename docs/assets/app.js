@@ -5162,7 +5162,7 @@ function checkParaBlock(it) {
   const shown = paras.slice(0, CHECK_PARA_CAP);
   const url = checkOpenUrl(it);
   return `<details class="ck-para">
-      <summary class="ck-para-summary"><span class="ck-para-caret" aria-hidden="true">▸</span><span class="ck-para-label">Show ${label}</span> <span class="dim">of ${escape(it.doc.signature || formatDocHeadline(it.doc))}</span></summary>
+      <summary class="ck-para-summary" title="Show the text of ${label}"><span class="ck-para-caret" aria-hidden="true">▸</span>${escape(String(it.pinResult.text).replace(/\.$/, ''))} <span class="ck-para-label">· show text</span></summary>
       <div class="ck-para-body serif">
         ${shown.map(p => {
           const n = String(checkParaNumber(p.n) || p.n || '');
@@ -5175,53 +5175,91 @@ function checkParaBlock(it) {
       </div>
     </details>`;
 }
+// One row per citation, Hick's-law layout: the verdict and three fixed actions
+// (UNHRDB reader, official UN source, cite) on the first line; the resolved
+// document on the second; then only what explains the verdict. Notes on how a
+// citation was resolved fold away; a quotation identical to the source shows no diff.
+function checkActions(it, i) {
+  const doc = it.doc;
+  if (!doc) return '';
+  const url = checkOpenUrl(it);
+  const src = officialSourceUrl(doc);
+  return `<span class="ck-actions">${
+    url ? `<a class="ck-act" href="${escape(url)}" title="Open ${it.pinResult?.ok ? 'the cited paragraph' : 'the document'} in the UNHRDB reader">Reader</a>` : ''}${
+    src ? `<a class="ck-act" href="${escape(src)}" target="_blank" rel="noopener" title="Open the official UN document (${escape(doc.signature || 'UN Documents')})">UN source ↗</a>` : ''}${
+    doc.type !== 'rec' ? `<button type="button" class="ck-act ck-copy-cite" data-ck-cite="${i}" title="Copy the citation in your default format">” Cite</button>` : ''}</span>`;
+}
+function checkCandidateLinks(ids) {
+  return ids.slice(0, 6).map(id => {
+    const d = state.documents.get(id);
+    if (!d) return escape(id);
+    const src = officialSourceUrl(d);
+    return `<span class="ck-cand"><a class="about-link" href="${escape(documentPermalink(d)?.toString() || '#')}" title="${escape(formatDocHeadline(d))} — open in the reader">${escape(d.signature || id)}</a>${
+      src ? `<a class="ck-cand-src" href="${escape(src)}" target="_blank" rel="noopener" title="Official UN document">↗</a>` : ''}</span>`;
+  }).join(' · ') + (ids.length > 6 ? ` · +${ids.length - 6}` : '');
+}
 function checkRenderRows(items) {
   return items.map((it, i) => {
     const doc = it.doc;
-    const url = checkOpenUrl(it);
     const resolved = doc
-      ? `<div class="ck-resolved">${sourceBadge(doc.type)} <span class="ck-doc">${escape(formatDocHeadline(doc))}</span> · <span class="mono">${escape(doc.signature || '')}</span>${url ? ` · <a class="about-link" href="${escape(url)}">Open ↗</a>` : ''}${doc.type !== 'rec' ? ` · <button type="button" class="ck-copy-cite" data-ck-cite="${i}" title="Copy the citation in your default format">” Cite</button>` : ''}</div>`
+      ? `<div class="ck-resolved">${sourceBadge(doc.type)} <span class="ck-doc">${escape(formatDocHeadline(doc))}</span> · <span class="mono">${escape(doc.signature || '')}</span></div>`
       : it.candidates.length
-        ? `<div class="ck-resolved"><span class="dim">Candidates:</span> ${it.candidates.slice(0, 6).map(id => { const d = state.documents.get(id); return d ? `<a class="about-link" href="${escape(documentPermalink(d)?.toString() || '#')}">${escape(d.signature || id)}</a>` : escape(id); }).join(' · ')}${it.candidates.length > 6 ? ` · +${it.candidates.length - 6}` : ''}</div>`
+        ? `<div class="ck-resolved"><span class="dim">Candidates:</span> ${checkCandidateLinks(it.candidates)}</div>`
         : (it.mention.kind === 'symbol' ? `<div class="ck-resolved"><a class="about-link" href="${escape(unDocsUrl(it.mention.raw) || '#')}" target="_blank" rel="noopener">Look up ${escape(it.mention.norm)} on UN Documents ↗</a></div>` : '');
-    const notes = [
-      ...(it.pinResult ? [`<li class="ck-note ck-note-${it.pinResult.ok ? 'ok' : 'bad'}">${escape(it.pinResult.text)}${checkParaBlock(it)}</li>`] : (it.pin && doc ? ['<li class="ck-note dim">Pinpoint not checked.</li>'] : [])),
-      ...it.notes.map(n => `<li class="ck-note">${escape(n)}</li>`),
+    const main = [
+      ...(it.pinResult ? [`<li class="ck-note ck-note-${it.pinResult.ok ? 'ok' : 'bad'}">${checkParaBlock(it) || escape(it.pinResult.text)}</li>`] : (it.pin && doc ? ['<li class="ck-note dim">Pinpoint not checked.</li>'] : [])),
       ...it.quotes.map(q => q.result
-        ? `<li class="ck-note ck-note-${q.result.status}">Quotation ${q.result.where ? `(${escape(q.result.where)}) ` : ''}${escape(q.result.text)}.<div class="ck-diff serif">${q.result.html}</div></li>`
+        ? `<li class="ck-note ck-note-${q.result.status}">Quotation ${q.result.where ? `(${escape(q.result.where)}) ` : ''}${escape(q.result.text)}.${/<(del|ins)\b/.test(q.result.html || '') ? `<div class="ck-diff serif">${q.result.html}</div>` : ''}</li>`
         : '<li class="ck-note dim">Quotation not checked.</li>'),
     ];
-    return `<li class="ck-row ck-${it.status}" id="ck-row-${i}" data-ck-row="${i}">
+    // How a citation was resolved ("Resolved as …") is background; a problem note is not,
+    // so on a row that is not ok the problem stays in view and only the background folds.
+    const isHow = (n) => it.status === 'ok' || /^Resolved as /.test(n);
+    main.push(...it.notes.filter(n => !isHow(n)).map(n => `<li class="ck-note">${escape(n)}</li>`));
+    const extra = it.notes.filter(isHow).map(n => `<li class="ck-note">${escape(n)}</li>`);
+    const more = extra.length
+      ? `<details class="ck-more"><summary>How it was resolved</summary><ul class="ck-notes-more">${extra.join('')}</ul></details>` : '';
+    return `<li class="ck-row ck-${it.status}" id="ck-row-${i}" data-ck-row="${i}" data-ck-status="${it.status}">
       <div class="ck-row-head">
         <span class="mono ck-num">№ ${String(i + 1).padStart(2, '0')}</span>
         <span class="ck-pill ck-${it.status}" title="${escape(CHECK_STATUS_TITLE[it.status])}">${CHECK_STATUS_LABEL[it.status]}</span>
         <span class="ck-raw serif">${escape(it.mention.raw)}${it.pin ? ` <span class="dim">para. ${escape(it.pin.from)}${it.pin.to ? `–${escape(it.pin.to)}` : ''}</span>` : ''}</span>
+        ${checkActions(it, i)}
       </div>
       ${resolved}
-      ${notes.length ? `<ul class="ck-notes">${notes.join('')}</ul>` : ''}
+      ${main.length ? `<ul class="ck-notes">${main.join('')}</ul>` : ''}
+      ${more}
     </li>`;
   }).join('');
 }
+// Problems first; zero counts are left out, so the chips are also the legend.
+const CHECK_FILTER_ORDER = ['bad', 'warn', 'ambiguous', 'outside', 'ok'];
 function checkSummary(items, quoteList) {
-  const c = { ok: 0, warn: 0, bad: 0, ambiguous: 0, outside: 0 };
+  const c = {};
   for (const it of items) c[it.status] = (c[it.status] || 0) + 1;
-  const parts = [`<strong>${items.length}</strong> citation${items.length === 1 ? '' : 's'}`];
-  const bits = [];
-  if (c.ok) bits.push(`${c.ok} found`);
-  if (c.warn) bits.push(`${c.warn} to check`);
-  if (c.bad) bits.push(`<strong>${c.bad} not found</strong>`);
-  if (c.ambiguous) bits.push(`${c.ambiguous} ambiguous`);
-  if (c.outside) bits.push(`${c.outside} outside this database`);
-  if (bits.length) parts.push(bits.join(' · '));
+  const words = { ok: 'found', warn: 'to check', bad: 'not found', ambiguous: 'ambiguous', outside: 'outside this database' };
+  const filter = state.check.filter || '';
+  const chips = [`<button type="button" class="ck-filter${filter ? '' : ' is-on'}" data-ck-filter="" aria-pressed="${!filter}"><strong>${items.length}</strong> citation${items.length === 1 ? '' : 's'}</button>`];
+  for (const st of CHECK_FILTER_ORDER) {
+    if (!c[st]) continue;
+    chips.push(`<button type="button" class="ck-filter ck-pill ck-${st}${filter === st ? ' is-on' : ''}" data-ck-filter="${st}" aria-pressed="${filter === st}" title="${escape(CHECK_STATUS_TITLE[st])} Click to show only these.">${CHECK_STATUS_LABEL[st].split(' ')[0]} ${c[st]} ${words[st]}</button>`);
+  }
+  const lines = [`<div class="ck-filters" role="group" aria-label="Show citations by status">${chips.join('')}</div>`];
   const qs = quoteList.filter(q => q.owner);
-  if (qs.length) {
+  const orphan = quoteList.filter(q => !q.owner).length;
+  if (qs.length || orphan) {
     const q = { ok: 0, warn: 0, bad: 0 };
     for (const x of qs) if (x.result) q[x.result.status]++;
-    parts.push(`<strong>${qs.length}</strong> quotation${qs.length === 1 ? '' : 's'}: ${q.ok} verbatim or near-verbatim · ${q.warn} differ · ${q.bad} not found`);
+    const qbits = [];
+    if (qs.length) qbits.push(`<strong>${qs.length}</strong> quotation${qs.length === 1 ? '' : 's'}: ${[q.ok && `${q.ok} verbatim or near-verbatim`, q.warn && `${q.warn} differ`, q.bad && `${q.bad} not found`].filter(Boolean).join(' · ') || 'not checked'}`);
+    if (orphan) qbits.push(`${orphan} without a nearby resolvable citation`);
+    lines.push(`<p class="ck-quotes-line">${qbits.join(' — ')}</p>`);
   }
-  const orphan = quoteList.filter(q => !q.owner).length;
-  if (orphan) parts.push(`${orphan} quotation${orphan === 1 ? '' : 's'} without a nearby resolvable citation`);
-  return parts.join(' — ');
+  return lines.join('');
+}
+function applyCheckFilter() {
+  const f = state.check.filter || '';
+  for (const row of document.querySelectorAll('#check-list .ck-row')) row.hidden = !!f && row.dataset.ckStatus !== f;
 }
 function checkReportMarkdown(items, quoteList) {
   const lines = ['| # | As written | Status | Resolved to | Notes |', '|---|---|---|---|---|'];
@@ -5273,6 +5311,15 @@ function paintCheckView() {
       catch { showFeedbackToast({ ok: false, _msg: 'Clipboard write failed', _mark: '⚠' }); }
       return;
     }
+    const chip = e.target.closest('[data-ck-filter]');
+    if (chip) {
+      const f = chip.dataset.ckFilter;
+      state.check.filter = state.check.filter === f ? '' : f;
+      const last = state.check.last;
+      if (last) $('#check-summary').innerHTML = checkSummary(last.items, last.quotes);
+      applyCheckFilter();
+      return;
+    }
     const scopeLink = e.target.closest('a[data-check-scope]');
     if (scopeLink) {
       e.preventDefault();
@@ -5287,6 +5334,7 @@ async function runCitationCheck() {
   const out = $('#check-output'), status = $('#check-status'), summary = $('#check-summary'), ann = $('#check-annotated'), list = $('#check-list');
   if (!out || !summary || !ann || !list) return;
   const run = ++state.check.run;
+  state.check.filter = '';
   if (!text.trim()) { if (status) status.textContent = 'Paste some text first.'; return; }
   if (status) status.textContent = 'Resolving citations…';
   const found = checkDetect(text);

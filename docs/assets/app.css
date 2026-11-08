@@ -7202,8 +7202,7 @@ body[data-active-view="ask"] section[data-view="ask"] {
 .check-run:hover { filter: brightness(1.08); }
 .check-toggle { margin-left: auto; }
 .check-output { border-top: 1px solid var(--rule); padding-top: 16px; }
-.check-summary { font-size: 16px; margin: 0 0 10px; }
-.check-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.check-summary { font-size: 16px; margin: 0 0 14px; }
 .ck-pill {
   display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em;
   padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); background: var(--paper-2); color: var(--ink-2);
@@ -7243,8 +7242,28 @@ mark.ck ins { color: var(--status-good, #2f6b3a); text-decoration: none; font-st
 .ck-raw .dim { font-size: 12px; }
 .ck-resolved { margin-top: 6px; font-size: 13px; color: var(--ink-2); display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .ck-resolved .badge { margin-right: 2px; }
-.ck-copy-cite { font: inherit; font-size: 12px; background: none; border: 1px solid var(--rule); border-radius: 2px; padding: 1px 8px; color: var(--garnet); cursor: pointer; }
-.ck-copy-cite:hover { background: var(--garnet); color: var(--paper); border-color: var(--garnet); }
+/* Row actions: the same three, in the same place, on every resolved row. */
+.ck-actions { margin-left: auto; display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.ck-act {
+  font: inherit; font-size: 12px; line-height: 1.5; background: none; border: 1px solid var(--rule); border-radius: 2px;
+  padding: 1px 8px; color: var(--garnet); cursor: pointer; text-decoration: none; white-space: nowrap;
+}
+.ck-act:hover, .ck-act:focus-visible { background: var(--garnet); color: var(--paper); border-color: var(--garnet); }
+.ck-cand { white-space: nowrap; }
+.ck-cand-src { margin-left: 3px; font-size: 11px; color: var(--ink-3, var(--ink-2)); text-decoration: none; }
+.ck-cand-src:hover { color: var(--garnet); }
+/* Status counts = legend + filter. */
+.ck-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ck-filter { font: inherit; font-size: 13px; cursor: pointer; background: none; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; color: var(--ink-2); }
+.ck-filter.ck-pill { font-size: 12px; }
+.ck-filter.is-on { box-shadow: 0 0 0 2px var(--ink-2) inset; }
+.ck-filter:hover { border-color: var(--ink-2); }
+.ck-quotes-line { margin: 8px 0 0; font-size: 14px; color: var(--ink-2); }
+.ck-more { margin: 6px 0 0; font-size: 12px; color: var(--ink-3, var(--ink-2)); }
+.ck-more > summary { cursor: pointer; }
+.ck-note-ok .ck-para-summary { color: inherit; }
+.ck-notes-more { margin: 4px 0 0; padding-left: 18px; }
+@media (max-width: 600px) { .ck-actions { margin-left: 0; width: 100%; } }
 .ck-notes { margin: 8px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); }
 .ck-note { margin: 3px 0; }
 .ck-note-bad { color: var(--status-bad, #8b1e2b); }

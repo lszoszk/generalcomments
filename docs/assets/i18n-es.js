@@ -466,10 +466,28 @@ export default {
     'Try again in a minute, or use': 'Inténtelo de nuevo dentro de un minuto o use',
     'in the meantime.': 'mientras tanto.',
     'Ask is not configured for this deploy.': 'La función Preguntar no está configurada en esta instalación.',
+
+    // ── Check: actions and status filter ──
+    'Reader': 'Lector',
+    'UN source ↗': 'Fuente ONU ↗',
+    'How it was resolved': 'Cómo se resolvió',
+    '· show text': '· ver texto',
+    'citations': 'citas',
+    'citation': 'cita',
+    'Show citations by status': 'Mostrar las citas por estado',
+    'Official UN document': 'Documento oficial de la ONU',
+    'Open the cited paragraph in the UNHRDB reader': 'Abrir el párrafo citado en el lector de UNHRDB',
+    'Open the document in the UNHRDB reader': 'Abrir el documento en el lector de UNHRDB',
+    'Copy the citation in your default format': 'Copiar la cita en su formato predeterminado',
   },
 
   // Strings with numbers or a query: [RegExp, replacement]. Tried when the exact table misses.
   patterns: [
+    [/^(✓|⚠|✖|\?|○) (\d+) (found|to check|not found|ambiguous|outside this database)$/, (m, mark, n, w) =>
+      `${mark} ${n} ${({ found: 'encontradas', 'to check': 'por comprobar', 'not found': 'no encontradas', ambiguous: 'ambiguas', 'outside this database': 'fuera de esta base' })[w]}`],
+    [/^Paragraph (\S+) exists$/, 'El párrafo $1 existe'],
+    [/^Paragraphs (\S+) exist$/, 'Los párrafos $1 existen'],
+    [/^Open the official UN document \((.+)\)$/, 'Abrir el documento oficial de la ONU ($1)'],
     [/^Adopted (\d{1,2}) (\w+) (\d{4})$/, (m, d, mo, y) => `Aprobada el ${d} de ${ES_MONTH[mo] || mo} de ${y}`],
     [/^Decision adopted (\d{1,2}) (\w+) (\d{4})$/, (m, d, mo, y) => `Decisión adoptada el ${d} de ${ES_MONTH[mo] || mo} de ${y}`],
     [/^Issued (\d{1,2}) (\w+) (\d{4})$/, (m, d, mo, y) => `Publicado el ${d} de ${ES_MONTH[mo] || mo} de ${y}`],
