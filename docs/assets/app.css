@@ -253,12 +253,15 @@ section[data-view][hidden] { display: none; }
   font-size: 12px;
   line-height: 1.5;
   color: var(--ink-2);
+  overflow-wrap: anywhere;
 }
+/* The label sits on its own line: inline, it ran into the first word with no break point
+   ("JURISPRUDENCEIndividual-…") and pushed it past the border in the narrow filter pane. */
 .scope-banner .folio {
   color: var(--preview);
   font-weight: 600;
-  display: inline;
-  margin-right: 10px;
+  display: block;
+  margin: 0 0 2px;
 }
 .scope-banner strong {
   font-weight: 600;
